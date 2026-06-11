@@ -92,4 +92,17 @@ async def list_restorations(authorization: str = Header(None)):
     user = await get_user(authorization)
     res = await db("GET", "restorations",
                    params={"user_id": f"eq.{user['id']}", "select": "*", "order": "created_at.desc"})
-    return res or []
+    rows = res or []
+    # добавляем временные ссылки для превью (исходник + результат)
+    client = s3()
+    for r in rows:
+        try:
+            if r.get("original_key"):
+                r["original_url"] = client.generate_presigned_url("get_object",
+                    Params={"Bucket": SPACES_BUCKET, "Key": r["original_key"]}, ExpiresIn=3600)
+            if r.get("result_key"):
+                r["result_url"] = client.generate_presigned_url("get_object",
+                    Params={"Bucket": SPACES_BUCKET, "Key": r["result_key"]}, ExpiresIn=3600)
+        except Exception:
+            pass
+    return rows
