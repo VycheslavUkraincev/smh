@@ -53,7 +53,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .cmp{position:relative;width:100%;aspect-ratio:3/2;border-radius:16px;overflow:hidden;background:#0c0905;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22)}
 .cmp>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .cmp .aw{position:absolute;top:0;left:0;height:100%;overflow:hidden;width:50%}
-.cmp .aw img{position:absolute;top:0;left:0;height:100%;object-fit:cover;pointer-events:none}
+.cmp .aw img{position:absolute;top:0;left:0;height:100%;max-width:none!important;object-fit:cover;pointer-events:none}
 .cmp .lab{position:absolute;top:14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.4);padding:4px 11px;border-radius:20px;pointer-events:none}
 .cmp .lb{left:14px}.cmp .la{right:14px}
 .cmp .hd{position:absolute;top:0;bottom:0;width:2px;background:#fff;left:50%;transform:translateX(-50%);pointer-events:none}
@@ -241,6 +241,7 @@ function initCmp(){
   // ширина after-картинки = ширине cmp (для совпадения)
   const sync=()=>{const w=cmp.clientWidth;cmp.querySelectorAll('.aw img').forEach(i=>i.style.width=w+'px');};
   sync();window.addEventListener('resize',sync);
+  cmp.querySelectorAll('img').forEach(i=>{if(!i.complete)i.addEventListener('load',sync);});
   let drag=false;const move=x=>{const r=cmp.getBoundingClientRect();set((x-r.left)/r.width*100);};
   cmp.addEventListener('pointerdown',e=>{drag=true;cmp.setPointerCapture(e.pointerId);move(e.clientX);});
   cmp.addEventListener('pointermove',e=>{if(drag)move(e.clientX);});
