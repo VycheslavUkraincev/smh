@@ -94,6 +94,17 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     res = await db("POST", "restorations", payload=row)
     return res[0] if isinstance(res, list) else res
 
+@app.post("/api/restorations/{rid}/retry")
+async def retry_restoration(rid: str, authorization: str = Header(None)):
+    """Повторить упавшую реставрацию: failed -> queued (только своё)."""
+    user = await get_user(authorization)
+    res = await db("PATCH", "restorations",
+                   params={"id": f"eq.{rid}", "user_id": f"eq.{user['id']}"},
+                   payload={"status": "queued", "error": None})
+    if not res:
+        raise HTTPException(404, "not found")
+    return res[0] if isinstance(res, list) else res
+
 @app.get("/api/restorations")
 async def list_restorations(authorization: str = Header(None)):
     user = await get_user(authorization)
