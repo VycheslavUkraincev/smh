@@ -60,6 +60,13 @@ async def db(method, path, payload=None, params=None):
 async def health():
     return {"ok": True, "ts": int(time.time())}
 
+@app.get("/api/me")
+async def me(authorization: str = Header(None)):
+    """Подтверждает пользователя по access_token (серверным ключом). Обходит проблему publishable-ключа на клиенте."""
+    user = await get_user(authorization)
+    return {"id": user.get("id"), "email": user.get("email"),
+            "name": (user.get("user_metadata") or {}).get("full_name")}
+
 @app.post("/api/upload-url")
 async def upload_url(request: Request, authorization: str = Header(None)):
     user = await get_user(authorization)
