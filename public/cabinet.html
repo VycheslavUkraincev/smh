@@ -52,6 +52,15 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .tile{background:var(--paper);border:1px solid rgba(90,64,49,.12);border-radius:16px;overflow:hidden;transition:.3s var(--ease)}
 .tile:hover{transform:translateY(-3px);box-shadow:0 24px 50px -28px rgba(0,0,0,.35)}
 .tile .ph{aspect-ratio:4/3;background:#e9e0d2 center/cover no-repeat;position:relative}
+.tile .seal{position:absolute;left:10px;bottom:10px;background:rgba(46,125,50,.92);color:#fff;font-size:11px;font-weight:700;padding:4px 11px;border-radius:30px;letter-spacing:.04em}
+#ov{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(15,12,8,.86);backdrop-filter:blur(6px);padding:24px}
+#ov .box{max-width:920px;width:100%;background:var(--paper);border-radius:18px;overflow:hidden}
+#ov .imgs{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#000}
+#ov .imgs figure{margin:0;background:#111}
+#ov .imgs img{width:100%;display:block;aspect-ratio:4/3;object-fit:contain;background:#0c0905}
+#ov figcaption{color:#cdbfae;font-size:12px;text-align:center;padding:8px;letter-spacing:.1em;text-transform:uppercase}
+#ov .bar{display:flex;justify-content:flex-end;padding:12px 16px;gap:10px}
+@media(max-width:620px){#ov .imgs{grid-template-columns:1fr}}
 .tile .meta{padding:13px 15px;display:flex;align-items:center;justify-content:space-between}
 .tile .mode-l{font-size:13px;color:var(--ink-soft)}
 .badge{font-size:11px;font-weight:700;padding:4px 11px;border-radius:30px;letter-spacing:.04em}
@@ -124,12 +133,13 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 </div>
 
 <input type="file" id="file" accept="image/*" class="hidden">
+<div id="ov"><div class="box"><div class="imgs"><figure><img id="ov-a"><figcaption data-i18n="before">Было</figcaption></figure><figure><img id="ov-b"><figcaption data-i18n="after">Стало</figcaption></figure></div><div class="bar"><button class="btn btn-ghost" id="ov-close" data-i18n="close">Закрыть</button></div></div></div>
 
 <script type="module">
 const I18N={
-ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты реставрации.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — мы бережно вернём ей жизнь. Все ваши работы хранятся здесь.",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Бережно",m_restore_d:"Честная реставрация",b_base:"базовый",m_revive:"Оживить",m_revive_d:"Как на современную камеру",b_prem:"премиум",send:"Отправить на реставрацию",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"ошибка",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат"},
-uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати реставрації.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — ми дбайливо повернемо їй життя. Усі ваші роботи зберігаються тут.",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Дбайливо",m_restore_d:"Чесна реставрація",b_base:"базовий",m_revive:"Оживити",m_revive_d:"Як на сучасну камеру",b_prem:"преміум",send:"Надіслати на реставрацію",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"помилка",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат"},
-en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and restoration results are kept.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we'll gently bring it back to life. All your work is kept here.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Gentle",m_restore_d:"Honest restoration",b_base:"basic",m_revive:"Revive",m_revive_d:"Like shot on a modern camera",b_prem:"premium",send:"Send for restoration",gal_h:"My photos",empty:"Your photos will appear here",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"failed",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result"}
+ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты реставрации.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — мы бережно вернём ей жизнь. Все ваши работы хранятся здесь.",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Бережно",m_restore_d:"Честная реставрация",b_base:"базовый",m_revive:"Оживить",m_revive_d:"Как на современную камеру",b_prem:"премиум",send:"Отправить на реставрацию",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"ошибка",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат",before:"Было",after:"Стало",close:"Закрыть"},
+uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати реставрації.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — ми дбайливо повернемо їй життя. Усі ваші роботи зберігаються тут.",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Дбайливо",m_restore_d:"Чесна реставрація",b_base:"базовий",m_revive:"Оживити",m_revive_d:"Як на сучасну камеру",b_prem:"преміум",send:"Надіслати на реставрацію",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"помилка",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат",before:"Було",after:"Стало",close:"Закрити"},
+en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and restoration results are kept.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we'll gently bring it back to life. All your work is kept here.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Gentle",m_restore_d:"Honest restoration",b_base:"basic",m_revive:"Revive",m_revive_d:"Like shot on a modern camera",b_prem:"premium",send:"Send for restoration",gal_h:"My photos",empty:"Your photos will appear here",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"failed",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result",before:"Before",after:"After",close:"Close"}
 };
 let lang='ru';
 function t(k){return (I18N[lang]||I18N.ru)[k]||k;}
@@ -173,6 +183,7 @@ async function doSend(){
 function resetDrop(){$('#drop').innerHTML='<svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/><circle cx="12" cy="12.5" r="3.4"/></svg><h3 data-i18n="drop_h">'+t('drop_h')+'</h3><div class="fmt" data-i18n="drop_fmt">'+t('drop_fmt')+'</div>';}
 
 async function loadGal(s){try{const r=await(await fetch('/api/restorations',{headers:{Authorization:'Bearer '+s.access_token}})).json();window._rows=r||[];renderGal(window._rows);}catch(e){}}
+function openOverlay(after,before){$('#ov-a').src=before||after;$('#ov-b').src=after;$('#ov').style.display='flex';}
 function renderGal(rows){
   const g=$('#gal');
   if(!rows||!rows.length){g.innerHTML='<div class="empty">'+t('empty')+'</div>';return;}
@@ -181,8 +192,12 @@ function renderGal(rows){
     const st=x.status||'queued';
     const lbl={queued:'st_queued',processing:'st_processing',done:'st_done',uploaded:'st_queued',failed:'st_failed'}[st]||'st_queued';
     const modeL=x.mode==='revive'?t('m_revive'):t('m_restore');
-    return '<div class="tile"><div class="ph"></div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+(st==='uploaded'?'queued':st)+'">'+t(lbl)+'</span></div></div>';
+    const img=x.result_url||x.original_url||'';
+    const bg=img?('background-image:url(\''+img+'\')'):'';
+    const done=(st==='done'&&x.result_url);
+    return '<div class="tile"'+(done?' style="cursor:pointer" data-ov="'+x.result_url+'|'+(x.original_url||'')+'"':'')+'><div class="ph" style="'+bg+'">'+(done?'<span class="seal">'+t('result')+'</span>':'')+'</div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+(st==='uploaded'?'queued':st)+'">'+t(lbl)+'</span></div></div>';
   }).join('');
+  g.querySelectorAll('.tile[data-ov]').forEach(el=>el.onclick=()=>{const[a,b]=el.getAttribute('data-ov').split('|');openOverlay(a,b);});
 }
 
 // drag & drop + click
@@ -195,6 +210,8 @@ function bind(){
   drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f){chosen=f;showPrev(f);setMsg('','');}});
   $('#send').onclick=doSend;
   $('#login').onclick=loginGoogle;
+  $('#ov-close').onclick=()=>{$('#ov').style.display='none';};
+  $('#ov').onclick=e=>{if(e.target.id==='ov')$('#ov').style.display='none';};
   $('#out').onclick=async()=>{await load();await sb.auth.signOut();refresh();};
   document.querySelectorAll('.mode').forEach(m=>m.onclick=()=>{document.querySelectorAll('.mode').forEach(x=>x.classList.remove('sel'));m.classList.add('sel');mode=m.dataset.mode;});
   document.querySelectorAll('#lang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
