@@ -74,7 +74,10 @@ section{padding:90px 0}
 /* STEPS */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:960px;margin:0 auto}
 .step{text-align:center;padding:0 10px}
-.step .n{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--gold-d);color:var(--gold-d);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:24px;margin:0 auto 18px}
+.step .n{width:72px;height:72px;border-radius:50%;border:1.5px solid var(--gold-d);color:var(--gold-d);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 18px;background:rgba(166,124,50,.06);position:relative}
+.step .n .num{position:absolute;bottom:-6px;right:-2px;width:24px;height:24px;border-radius:50%;background:var(--gold-d);color:#fff;font-family:'Cormorant Garamond';font-size:14px;display:flex;align-items:center;justify-content:center}
+.step-line{display:none}
+@media(min-width:721px){.steps{position:relative}.step-line{display:block;position:absolute;top:36px;left:18%;right:18%;height:1.5px;background:repeating-linear-gradient(90deg,var(--gold-d) 0 6px,transparent 6px 12px);opacity:.4;z-index:0}.step{position:relative;z-index:1}}
 .step h3{font-size:23px;margin-bottom:8px}
 .step p{color:var(--muted);font-size:15px}
 /* CTA band */
@@ -151,10 +154,10 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
 <section id="how" style="background:var(--paper2)">
  <div class="wrap">
   <div class="sec-head reveal"><div class="kicker" data-i18n="how_k">Просто</div><h2 data-i18n="how_h">Три шага до живого воспоминания</h2></div>
-  <div class="steps">
-   <div class="step reveal"><div class="n">1</div><h3 data-i18n="s1h">Загрузите фото</h3><p data-i18n="s1p">Старое, выцветшее, с трещинами — любое. Прямо из кабинета.</p></div>
-   <div class="step reveal"><div class="n">2</div><h3 data-i18n="s2h">Мы бережно реставрируем</h3><p data-i18n="s2p">Убираем повреждения, возвращаем цвет — сохраняя лица такими, какими они были.</p></div>
-   <div class="step reveal"><div class="n">3</div><h3 data-i18n="s3h">Храните и делитесь</h3><p data-i18n="s3p">Скачивайте результат и собирайте семейный архив, который останется с вами.</p></div>
+  <div class="steps"><div class="step-line"></div>
+   <div class="step reveal"><div class="n">📷<span class="num">1</span></div><h3 data-i18n="s1h">Загрузите фото</h3><p data-i18n="s1p">Старое, выцветшее, с трещинами — любое. Прямо из кабинета.</p></div>
+   <div class="step reveal"><div class="n">🤲<span class="num">2</span></div><h3 data-i18n="s2h">Мы бережно реставрируем</h3><p data-i18n="s2p">Убираем повреждения, возвращаем цвет — сохраняя лица такими, какими они были.</p></div>
+   <div class="step reveal"><div class="n">🌳<span class="num">3</span></div><h3 data-i18n="s3h">Храните и делитесь</h3><p data-i18n="s3p">Скачивайте результат и собирайте семейный архив, который останется с вами.</p></div>
   </div>
  </div>
 </section>
