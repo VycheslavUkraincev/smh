@@ -27,7 +27,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .menu{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:500}
 .menu a{text-decoration:none;color:var(--muted);transition:color .25s}
 .menu a:hover{color:var(--ink)}
-.hbtn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:30px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .25s;font-family:'Manrope'}
+.hbtn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:30px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .25s;font-family:'Manrope';white-space:nowrap}
 .hbtn:hover{background:var(--ink);color:var(--paper)}
 .hbtn.gold{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}
 .hbtn.gold:hover{background:var(--walnut);border-color:var(--walnut)}
@@ -109,6 +109,13 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  .menu{display:none}.burger{display:block}.cases{grid-template-columns:1fr}.steps{grid-template-columns:1fr;gap:36px}
  .fgrid{grid-template-columns:1fr;gap:30px}.sec-head h2{font-size:32px}section{padding:60px 0}
  .menu.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--paper);padding:20px 24px;border-bottom:1px solid var(--line);gap:18px}
+}
+@media(max-width:430px){
+ header .wrap{padding-left:16px;padding-right:16px}
+ .hbtn{padding:7px 14px;font-size:12px}
+ .brand{font-size:17px}
+ .hlang button{padding:3px 6px;font-size:10px}
+ header .wrap{gap:6px}
 }
 </style></head>
 <body>
