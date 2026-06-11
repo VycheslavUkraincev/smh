@@ -275,7 +275,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   async function list(s){ try{ const r=await (await fetch('/api/restorations',{headers:{Authorization:'Bearer '+s.access_token}})).json();
     $('#smh-list').innerHTML=(r||[]).slice(0,5).map(x=>'<div style="display:flex;justify-content:space-between;font-size:13px;color:#5A5048;padding:6px 0;border-top:1px solid rgba(90,64,49,.12)"><span>'+(x.mode==='revive'?'Оживить':'Бережно')+'</span><span style="color:#A67C32">'+x.status+'</span></div>').join(''); }catch(e){} }
   document.addEventListener('click',e=>{
-    const a=e.target.closest('[data-action]'); if(a){e.preventDefault(); if(a.dataset.action==='auth')auth(); if(a.dataset.action==='upload')up();}
+    const a=e.target.closest('[data-action]'); if(a){e.preventDefault(); location.href='/cabinet.html';}
     const md=e.target.closest('.smh-mode'); if(md){document.querySelectorAll('.smh-mode').forEach(x=>{x.classList.remove('sel');x.style.borderColor='rgba(90,64,49,.18)';});md.classList.add('sel');md.style.borderColor='#A67C32';mode=md.dataset.mode;}
   });
   document.addEventListener('DOMContentLoaded',()=>{
