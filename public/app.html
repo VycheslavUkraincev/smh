@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SaveMyHistory — кабинет</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F6F1E8;--ink:#1C1714;--soft:#5A5048;--gold:#C49A4A;--gold-d:#A67C32}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+.serif{font-family:'Cormorant Garamond',serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,4vw,48px);border-bottom:1px solid rgba(90,64,49,.12)}
+.brand{font-family:'Cormorant Garamond';font-size:22px;font-weight:600}.brand i{color:var(--gold-d);font-style:normal}
+.wrap{max-width:760px;margin:0 auto;padding:48px clamp(20px,4vw,32px)}
+h1{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.05;margin-bottom:10px}
+.sub{color:var(--soft);margin-bottom:34px;font-size:16px}
+.btn{border:none;cursor:pointer;font-family:'Manrope';font-weight:600;border-radius:44px;padding:14px 28px;font-size:15px;transition:.3s}
+.btn-p{background:var(--gold-d);color:#fff}.btn-p:hover{transform:translateY(-2px)}
+.gbtn{display:inline-flex;align-items:center;gap:11px;background:#fff;color:#3c4043;border:1px solid rgba(90,64,49,.18);padding:14px 26px;border-radius:44px;font-size:15px;font-weight:600;cursor:pointer}
+.gbtn .g{font-weight:800;background:conic-gradient(from -45deg,#ea4335 0 25%,#fbbc05 0 50%,#34a853 0 75%,#4285f4 0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hidden{display:none}
+.drop{border:1.5px dashed rgba(90,64,49,.35);border-radius:18px;padding:48px 28px;text-align:center;background:#fff;transition:.3s;cursor:pointer}
+.drop:hover{border-color:var(--gold);background:#fffdf8}
+.drop h3{font-family:'Cormorant Garamond';font-size:26px;margin-bottom:6px}.drop p{color:var(--soft);font-size:14px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0}
+.mode{border:1.5px solid rgba(90,64,49,.18);border-radius:16px;padding:22px;cursor:pointer;background:#fff;transition:.25s}
+.mode.sel{border-color:var(--gold-d);box-shadow:0 0 0 3px rgba(196,154,74,.18)}
+.mode .t{font-family:'Cormorant Garamond';font-size:24px;margin-bottom:6px}.mode .d{color:var(--soft);font-size:13px;line-height:1.5}
+.mode .price{margin-top:10px;font-size:12px;letter-spacing:.08em;color:var(--gold-d);text-transform:uppercase}
+.list{margin-top:38px}.item{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:10px;border:1px solid rgba(90,64,49,.1)}
+.item .k{font-size:13px;color:var(--soft);word-break:break-all}.badge{font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:30px;background:rgba(196,154,74,.16);color:var(--gold-d);white-space:nowrap}
+.note{margin-top:20px;font-size:13px;color:var(--soft)}
+#msg{margin-top:16px;font-size:14px;color:var(--gold-d)}
+</style></head>
+<body>
+<header><div class="brand serif">Save<i>My</i>History</div><div id="who"></div></header>
+<div class="wrap">
+  <!-- Не залогинен -->
+  <section id="auth">
+    <h1 class="serif">Войдите, чтобы вернуть фото к жизни</h1>
+    <p class="sub">Через Google — за пару секунд. Ваши снимки хранятся приватно.</p>
+    <button class="gbtn" id="login"><span class="g">G</span> Войти через Google</button>
+  </section>
+
+  <!-- Залогинен -->
+  <section id="app" class="hidden">
+    <h1 class="serif">Загрузите фотографию</h1>
+    <p class="sub">Выберите режим — и через минуту увидите результат.</p>
+
+    <div class="modes">
+      <div class="mode sel" data-mode="restore" id="m-restore">
+        <div class="t serif">Бережно</div>
+        <div class="d">Честная реставрация: чистим царапины, шум, возвращаем чёткость и цвет. Лица остаются точно собой.</div>
+        <div class="price">базовый</div>
+      </div>
+      <div class="mode" data-mode="revive" id="m-revive">
+        <div class="t serif">Оживить</div>
+        <div class="d">Снимок словно сделан на современную камеру: объём, живая кожа, дневной свет.</div>
+        <div class="price">премиум</div>
+      </div>
+    </div>
+
+    <div class="drop" id="drop">
+      <h3 class="serif">Перетащите фото сюда</h3>
+      <p>или нажмите, чтобы выбрать · JPG · PNG · TIFF</p>
+      <input type="file" id="file" accept="image/*" class="hidden">
+    </div>
+    <div id="msg"></div>
+
+    <div class="list" id="list"></div>
+    <p class="note">Это рабочий каркас сервиса: вход, загрузка в хранилище, выбор режима и очередь заказов уже подключены к базе.</p>
+  </section>
+</div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+// CONFIG — подставляется при деплое
+const SUPABASE_URL = window.SMH_SUPABASE_URL || 'https://dvjpfabqkhtcjlqlvuhr.supabase.co'
+const SUPABASE_KEY = window.SMH_SUPABASE_KEY || 'PUBLISHABLE_KEY_HERE'
+const API = window.SMH_API || ''   // тот же домен по умолчанию
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY)
+
+let mode = 'restore'
+const $ = s => document.querySelector(s)
+
+document.querySelectorAll('.mode').forEach(el=>el.onclick=()=>{
+  document.querySelectorAll('.mode').forEach(m=>m.classList.remove('sel'))
+  el.classList.add('sel'); mode = el.dataset.mode
+})
+
+$('#login').onclick = () => sb.auth.signInWithOAuth({provider:'google', options:{redirectTo: location.href}})
+
+async function refresh(){
+  const { data:{ session } } = await sb.auth.getSession()
+  if(!session){ $('#auth').classList.remove('hidden'); $('#app').classList.add('hidden'); $('#who').innerHTML=''; return }
+  $('#auth').classList.add('hidden'); $('#app').classList.remove('hidden')
+  $('#who').innerHTML = `<span style="font-size:14px;color:#5A5048">${session.user.email} · <a href="#" id="out" style="color:#A67C32">выйти</a></span>`
+  $('#out').onclick = async e=>{e.preventDefault(); await sb.auth.signOut(); refresh()}
+  loadList(session)
+}
+
+async function loadList(session){
+  try{
+    const r = await fetch(`${API}/api/restorations`, {headers:{Authorization:`Bearer ${session.access_token}`}})
+    const rows = await r.json()
+    $('#list').innerHTML = (rows||[]).map(x=>`<div class="item"><span class="k">${x.mode==='revive'?'Оживить':'Бережно'} · ${x.original_key.split('/').pop()}</span><span class="badge">${x.status}</span></div>`).join('')
+  }catch(e){}
+}
+
+$('#drop').onclick = ()=>$('#file').click()
+$('#file').onchange = e=>upload(e.target.files[0])
+;['dragover','dragleave','drop'].forEach(ev=>$('#drop').addEventListener(ev,e=>{e.preventDefault()}))
+$('#drop').addEventListener('drop', e=>{ if(e.dataTransfer.files[0]) upload(e.dataTransfer.files[0]) })
+
+async function upload(file){
+  if(!file) return
+  const { data:{ session } } = await sb.auth.getSession()
+  if(!session) return
+  $('#msg').textContent = 'Загружаю…'
+  const ext = (file.name.split('.').pop()||'jpg').toLowerCase()
+  // 1) presigned url
+  const u = await (await fetch(`${API}/api/upload-url`, {method:'POST',
+    headers:{Authorization:`Bearer ${session.access_token}`,'Content-Type':'application/json'},
+    body: JSON.stringify({ext, content_type:file.type||'image/jpeg'})})).json()
+  // 2) put to spaces
+  await fetch(u.upload_url, {method:'PUT', headers:{'Content-Type':file.type||'image/jpeg'}, body:file})
+  // 3) create order
+  await fetch(`${API}/api/restorations`, {method:'POST',
+    headers:{Authorization:`Bearer ${session.access_token}`,'Content-Type':'application/json'},
+    body: JSON.stringify({original_key:u.key, mode})})
+  $('#msg').textContent = 'Готово — фото в очереди на обработку ✓'
+  loadList(session)
+}
+
+sb.auth.onAuthStateChange(()=>refresh())
+refresh()
+</script>
+</body></html>
