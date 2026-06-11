@@ -180,7 +180,7 @@ footer .serif{color:var(--gold);font-size:20px;display:block;margin-bottom:8px;l
   <div class="bg"></div><div class="vignette"></div>
   <div class="overlay-ui">
     <nav class="reveal in">
-      <a href="/" class="brand" style="text-decoration:none;color:inherit">SAVEMYHISTORY</a>
+      <a href="/" class="brand" style="text-decoration:none;color:inherit">SAVE<b style="color:var(--gold-d)">MY</b>HISTORY</a>
       <div class="nav-center">
         <a href="#tree" data-i18n="nav_mission">Миссия</a>
         <span class="lotus serif">❦</span>
@@ -254,11 +254,12 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 (function(){
   const URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
   const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
-  let sb=null, mode='restore';
+  let mode='restore', _token=null;
   const $=s=>document.querySelector(s);
-  async function load(){ if(!sb){const m=await import('https://esm.sh/@supabase/supabase-js@2'); sb=m.createClient(URL,KEY,{auth:{detectSessionInUrl:true,flowType:'implicit',persistSession:true,autoRefreshToken:true}});} return sb; }
-  async function ses(){ await load(); const {data:{session}}=await sb.auth.getSession(); return session; }
-  async function refresh(){ const s=await ses(); if(s){$('#smh-bar').style.display='flex';$('#smh-who').textContent=s.user.email;} else {$('#smh-bar').style.display='none';} }
+  function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
+  function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
+  async function ses(){ const t=getToken(); if(!t)return null; try{ const r=await fetch('/api/me',{headers:{Authorization:'Bearer '+t}}); if(r.ok){const u=await r.json(); return {user:u, access_token:t};} setToken(null); return null; }catch(e){ return null; } }
+  async function refresh(){ const s=await ses(); const bar=$('#smh-bar'); const login=document.querySelector('.btn-login'); if(s){ if(bar){bar.style.display='flex'; const w=$('#smh-who'); if(w)w.textContent=s.user.email||'';} if(login){login.textContent='Кабинет';} } else { if(bar)bar.style.display='none'; } }
   async function auth(){ await load(); const s=await ses(); if(s){openM();return;} await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}}); }
   async function up(){ await load(); const s=await ses(); if(!s){await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});return;} openM(); }
   function openM(){$('#smh-modal').style.display='flex';}
@@ -279,21 +280,15 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     const md=e.target.closest('.smh-mode'); if(md){document.querySelectorAll('.smh-mode').forEach(x=>{x.classList.remove('sel');x.style.borderColor='rgba(90,64,49,.18)';});md.classList.add('sel');md.style.borderColor='#A67C32';mode=md.dataset.mode;}
   });
   document.addEventListener('DOMContentLoaded',()=>{
-    const c=$('#smh-close'); if(c)c.onclick=closeM;
-    const p=$('#smh-pick'); if(p)p.onclick=()=>$('#smh-file').click();
-    const f=$('#smh-file'); if(f)f.onchange=ev=>send(ev.target.files[0]);
-    const o=$('#smh-out'); if(o)o.onclick=async()=>{await load();await sb.auth.signOut();refresh();};
+    const o=$('#smh-out'); if(o)o.onclick=()=>{ setToken(null); refresh(); };
   });
-  async function handleReturn(){
-    await load();
-    // если вернулись с токеном в адресе — дать клиенту его проглотить и почистить URL
-    try{
-      const qs=new URLSearchParams(location.search);
-      if(qs.get('code')){ await sb.auth.exchangeCodeForSession(location.href); history.replaceState(null,'',location.origin+location.pathname); }
-      else if(location.hash && location.hash.indexOf('access_token')>-1){ await sb.auth.getSession(); history.replaceState(null,'',location.origin+location.pathname); }
-    }catch(e){}
-    sb.auth.onAuthStateChange(()=>refresh());
-    await refresh();
+  function handleReturn(){
+    if(location.hash && location.hash.indexOf('access_token')>-1){
+      const h=new URLSearchParams(location.hash.slice(1));
+      const at=h.get('access_token'); if(at) setToken(at);
+      history.replaceState(null,'',location.origin+location.pathname);
+    }
+    refresh();
   }
   handleReturn();
 })();
