@@ -1,0 +1,48 @@
+# DigitalOcean App Platform spec — SaveMyHistory
+name: savemyhistory
+region: fra
+services:
+  - name: api
+    source_dir: /api
+    github:
+      repo: VycheslavUkraincev/smh
+      branch: main
+      deploy_on_push: true
+    run_command: uvicorn main:app --host 0.0.0.0 --port 8080
+    environment_slug: python
+    http_port: 8080
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    routes:
+      - path: /api
+    envs:
+      - key: SUPABASE_URL
+        scope: RUN_TIME
+        value: ${SUPABASE_URL}
+      - key: SUPABASE_SECRET
+        scope: RUN_TIME
+        type: SECRET
+        value: ${SUPABASE_SECRET}
+      - key: SPACES_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: ${SPACES_KEY}
+      - key: SPACES_SECRET
+        scope: RUN_TIME
+        type: SECRET
+        value: ${SPACES_SECRET}
+      - key: SPACES_REGION
+        scope: RUN_TIME
+        value: fra1
+      - key: SPACES_BUCKET
+        scope: RUN_TIME
+        value: smh-photos
+static_sites:
+  - name: web
+    source_dir: /public
+    github:
+      repo: VycheslavUkraincev/smh
+      branch: main
+    routes:
+      - path: /
+    index_document: index.html
