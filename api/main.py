@@ -27,6 +27,8 @@ SPACES_BUCKET = os.environ.get("SPACES_BUCKET", "smh-photos")
 SPACES_ENDPOINT = os.environ.get("SPACES_ENDPOINT", f"https://{SPACES_REGION}.digitaloceanspaces.com")
 
 VALID_MODES = {"restore", "revive"}
+IMAGE_TYPES = {"image/jpeg", "image/png", "image/tiff", "image/webp", "image/heic", "image/heif"}
+FREE_LIMIT = int(os.environ.get("FREE_LIMIT", "5"))   # бесплатных реставраций на юзера
 
 def s3():
     return boto3.client("s3", region_name=SPACES_REGION, endpoint_url=SPACES_ENDPOINT,
@@ -74,9 +76,12 @@ async def upload_url(request: Request, authorization: str = Header(None)):
     ext = (body.get("ext") or "jpg").lower().lstrip(".")
     if ext not in {"jpg", "jpeg", "png", "tiff", "webp", "heic"}:
         raise HTTPException(400, "bad ext")
+    ctype = body.get("content_type", "image/jpeg")
+    if ctype not in IMAGE_TYPES:
+        ctype = "image/jpeg"
     key = f"uploads/{user['id']}/{uuid.uuid4().hex}.{ext}"
     url = s3().generate_presigned_url("put_object",
-        Params={"Bucket": SPACES_BUCKET, "Key": key, "ContentType": body.get("content_type", "image/jpeg")},
+        Params={"Bucket": SPACES_BUCKET, "Key": key, "ContentType": ctype},
         ExpiresIn=600)
     return {"upload_url": url, "key": key}
 
@@ -90,6 +95,12 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     original_key = body.get("original_key")
     if not original_key:
         raise HTTPException(400, "no original_key")
+    # лимит бесплатных реставраций: считаем все заказы юзера (кроме failed)
+    existing = await db("GET", "restorations",
+                        params={"user_id": f"eq.{user['id']}", "status": "neq.failed", "select": "id"})
+    used = len(existing or [])
+    if used >= FREE_LIMIT:
+        raise HTTPException(402, f"free_limit_reached:{FREE_LIMIT}")
     row = {"user_id": user["id"], "original_key": original_key, "mode": mode, "status": "queued"}
     res = await db("POST", "restorations", payload=row)
     return res[0] if isinstance(res, list) else res
