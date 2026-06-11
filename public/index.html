@@ -256,7 +256,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const KEY='sb_publishable_ow_hPre6rVJPtX1JwRNEg_lMq0nMUO';
   let sb=null, mode='restore';
   const $=s=>document.querySelector(s);
-  async function load(){ if(!sb){const m=await import('https://esm.sh/@supabase/supabase-js@2'); sb=m.createClient(URL,KEY);} return sb; }
+  async function load(){ if(!sb){const m=await import('https://esm.sh/@supabase/supabase-js@2'); sb=m.createClient(URL,KEY,{auth:{detectSessionInUrl:true,flowType:'implicit',persistSession:true,autoRefreshToken:true}});} return sb; }
   async function ses(){ await load(); const {data:{session}}=await sb.auth.getSession(); return session; }
   async function refresh(){ const s=await ses(); if(s){$('#smh-bar').style.display='flex';$('#smh-who').textContent=s.user.email;} else {$('#smh-bar').style.display='none';} }
   async function auth(){ await load(); const s=await ses(); if(s){openM();return;} await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}}); }
@@ -284,7 +284,17 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     const f=$('#smh-file'); if(f)f.onchange=ev=>send(ev.target.files[0]);
     const o=$('#smh-out'); if(o)o.onclick=async()=>{await load();await sb.auth.signOut();refresh();};
   });
-  load().then(()=>{sb.auth.onAuthStateChange(()=>refresh());refresh();});
+  async function handleReturn(){
+    await load();
+    // если вернулись с токеном в адресе — дать клиенту его проглотить и почистить URL
+    if(location.hash && location.hash.indexOf('access_token')>-1){
+      try{ await sb.auth.getSession(); }catch(e){}
+      history.replaceState(null,'',location.origin+location.pathname);
+    }
+    sb.auth.onAuthStateChange(()=>refresh());
+    await refresh();
+  }
+  handleReturn();
 })();
 </script>
 
