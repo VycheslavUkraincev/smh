@@ -34,6 +34,11 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .who{display:none;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
 .who .av{width:30px;height:30px;border-radius:50%;background:var(--gold-d);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
 .burger{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink)}
+.hlang{display:flex;gap:4px}
+.hlang button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:7px;padding:4px 9px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Manrope'}
+.hlang button:hover{color:var(--ink)}
+.hlang button.on{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}
+@media(max-width:520px){.hlang{display:none}}
 /* HERO */
 .hero{padding:72px 0 60px}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
@@ -112,6 +117,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
    <a href="#cases" data-i18n="m_cases">Примеры</a>
   </nav>
   <div style="display:flex;align-items:center;gap:12px">
+   <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button></div>
    <div class="who" id="who"><span class="av" id="who-av"></span><span id="who-mail"></span><a href="/cabinet.html" class="hbtn" data-i18n="cabinet">Кабинет</a></div>
    <a href="/cabinet.html" class="hbtn gold" id="login-btn" data-i18n="login">Войти</a>
    <button class="burger" id="burger">☰</button>
@@ -224,7 +230,7 @@ const I18N={
 let LANG='ru';
 function applyLang(l){ if(!I18N[l])l='en'; LANG=l; document.documentElement.lang=l;
  document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(I18N[l][k]!=null)e.innerHTML=I18N[l][k];});
- document.querySelectorAll('.flang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+ document.querySelectorAll('.flang button,.hlang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
  try{localStorage.setItem('smh_lang',l);}catch(e){}
 }
 // COMPARE sliders
@@ -249,7 +255,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 document.getElementById('burger').onclick=()=>document.getElementById('menu').classList.toggle('open');
 document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
 // lang buttons
-document.querySelectorAll('.flang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
+document.querySelectorAll('.flang button,.hlang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
 // init lang: сохранённый -> язык браузера (ru/uk -> своё, иначе en)
 (function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='ru'?'ru':'en');}}catch(e){}applyLang(l);})();
 initCmp();
