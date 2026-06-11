@@ -156,7 +156,7 @@ let sb=null, mode='restore', chosen=null;
 const $=s=>document.querySelector(s);
 // единый клиент, создаётся один раз; detectSessionInUrl сам обменяет code→сессия
 let _sbPromise=null;
-async function load(){ if(!_sbPromise){ _sbPromise=import('https://esm.sh/@supabase/supabase-js@2').then(m=>{ sb=m.createClient(URL,KEY,{auth:{detectSessionInUrl:true,flowType:'pkce',persistSession:true,autoRefreshToken:true,storage:window.localStorage,storageKey:'sb-smh-auth'}}); return sb; }); } return _sbPromise; }
+async function load(){ if(!_sbPromise){ _sbPromise=import('https://esm.sh/@supabase/supabase-js@2').then(m=>{ sb=m.createClient(URL,KEY,{auth:{detectSessionInUrl:true,flowType:'implicit',persistSession:true,autoRefreshToken:true}}); return sb; }); } return _sbPromise; }
 async function ses(){await load();const{data:{session}}=await sb.auth.getSession();return session;}
 
 async function refresh(){
@@ -165,7 +165,7 @@ async function refresh(){
     $('#who').textContent=s.user.email; loadGal(s);}
   else{$('#gate').classList.remove('hidden');$('#cab').classList.add('hidden');$('#out').classList.add('hidden');$('#who').textContent='';}
 }
-async function loginGoogle(){await load();await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/cabinet.html'}});}
+async function loginGoogle(){await load();await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/cabinet.html',skipBrowserRedirect:false}});}
 
 function setMsg(text,cls){const m=$('#msg');m.textContent=text;m.className='msg '+(cls||'');}
 function showPrev(file){const r=new FileReader();r.onload=e=>{$('#drop').innerHTML='<img class="prev" src="'+e.target.result+'">';};r.readAsDataURL(file);}
