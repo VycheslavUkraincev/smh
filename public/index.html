@@ -45,10 +45,10 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .trust{margin-top:18px;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .trust b{color:var(--ink)}
 /* COMPARE slider (shared) */
-.cmp{position:relative;width:100%;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:#0c0905;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22)}
-.cmp>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.cmp .aw{position:absolute;inset:0;overflow:hidden;width:50%}
-.cmp .aw img{height:100%;object-fit:cover;pointer-events:none}
+.cmp{position:relative;width:100%;aspect-ratio:3/2;border-radius:16px;overflow:hidden;background:#0c0905;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22)}
+.cmp>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cmp .aw{position:absolute;top:0;left:0;height:100%;overflow:hidden;width:50%}
+.cmp .aw img{position:absolute;top:0;left:0;height:100%;object-fit:cover;pointer-events:none}
 .cmp .lab{position:absolute;top:14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.4);padding:4px 11px;border-radius:20px;pointer-events:none}
 .cmp .lb{left:14px}.cmp .la{right:14px}
 .cmp .hd{position:absolute;top:0;bottom:0;width:2px;background:#fff;left:50%;transform:translateX(-50%);pointer-events:none}
@@ -65,7 +65,7 @@ section{padding:90px 0}
 /* CASES */
 .cases{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:920px;margin:0 auto}
 .case figcaption{margin-top:12px;font-size:14px;color:var(--muted);text-align:center}
-.case .cmp{aspect-ratio:4/3}
+.case .cmp{aspect-ratio:3/2}
 /* STEPS */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:960px;margin:0 auto}
 .step{text-align:center;padding:0 10px}
@@ -110,7 +110,6 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
   <nav class="menu" id="menu">
    <a href="#how" data-i18n="m_how">Как это работает</a>
    <a href="#cases" data-i18n="m_cases">Примеры</a>
-   <a href="#tree" data-i18n="m_tree">Древо памяти</a>
   </nav>
   <div style="display:flex;align-items:center;gap:12px">
    <div class="who" id="who"><span class="av" id="who-av"></span><span id="who-mail"></span><a href="/cabinet.html" class="hbtn" data-i18n="cabinet">Кабинет</a></div>
@@ -166,13 +165,6 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  </div>
 </section>
 
-<section id="tree" class="tree-sec">
- <div class="wrap">
-  <div class="sec-head reveal"><div class="kicker" data-i18n="tr_k">Древо памяти</div><h2 data-i18n="tr_h">Семья — это лица, которые остаются</h2><p data-i18n="tr_p">Каждое восстановленное фото — ещё одно лицо, вернувшееся в историю вашего рода.</p></div>
-  <div class="tree-img reveal"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/tree.jpg" alt="Древо памяти" loading="lazy"></div>
- </div>
-</section>
-
 <section style="padding-bottom:100px">
  <div class="wrap"><div class="band reveal">
   <h2 data-i18n="band_h">Верните жизнь дорогим лицам</h2>
@@ -193,7 +185,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
      <a href="https://facebook.com" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1 .3-1.7 1.8-1.7H17V2.2c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5v2.5H7.5v4H10V22h4v-8.5z"/></svg></a>
     </div>
    </div>
-   <div class="fcol"><h4 data-i18n="f_nav">Навигация</h4><a href="#how" data-i18n="m_how">Как это работает</a><a href="#cases" data-i18n="m_cases">Примеры</a><a href="#tree" data-i18n="m_tree">Древо памяти</a><a href="/cabinet.html" data-i18n="cabinet">Кабинет</a></div>
+   <div class="fcol"><h4 data-i18n="f_nav">Навигация</h4><a href="#how" data-i18n="m_how">Как это работает</a><a href="#cases" data-i18n="m_cases">Примеры</a><a href="/cabinet.html" data-i18n="cabinet">Кабинет</a></div>
    <div class="fcol"><h4 data-i18n="f_legal">Документы</h4><a href="https://portal.ai/privacy" target="_blank" data-i18n="f_priv">Конфиденциальность</a><a href="https://portal.ai/terms" target="_blank" data-i18n="f_terms">Условия</a><a href="mailto:hello@savemyhistory.tech" data-i18n="f_contact">Связаться</a></div>
   </div>
   <div class="fbot">
