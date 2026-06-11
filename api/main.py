@@ -116,6 +116,18 @@ async def retry_restoration(rid: str, authorization: str = Header(None)):
         raise HTTPException(404, "not found")
     return res[0] if isinstance(res, list) else res
 
+@app.post("/api/restorations/{rid}/report")
+async def report_restoration(rid: str, authorization: str = Header(None)):
+    """Пользователь сообщает о проблеме (напр. исказилось лицо). Помечаем flagged."""
+    user = await get_user(authorization)
+    # без миграции: пишем пометку в существующее поле error
+    res = await db("PATCH", "restorations",
+                   params={"id": f"eq.{rid}", "user_id": f"eq.{user['id']}"},
+                   payload={"error": "user_reported"})
+    if not res:
+        raise HTTPException(404, "not found")
+    return {"ok": True}
+
 @app.get("/api/restorations")
 async def list_restorations(authorization: str = Header(None)):
     user = await get_user(authorization)
