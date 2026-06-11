@@ -154,7 +154,7 @@ const URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
 const KEY='sb_publishable_ow_hPre6rVJPtX1JwRNEg_lMq0nMUO';
 let sb=null, mode='restore', chosen=null;
 const $=s=>document.querySelector(s);
-async function load(){if(!sb){const m=await import('https://esm.sh/@supabase/supabase-js@2');sb=m.createClient(URL,KEY,{auth:{detectSessionInUrl:true,flowType:'implicit',persistSession:true,autoRefreshToken:true}});}return sb;}
+async function load(){if(!sb){const m=await import('https://esm.sh/@supabase/supabase-js@2');sb=m.createClient(URL,KEY,{auth:{detectSessionInUrl:true,flowType:'pkce',persistSession:true,autoRefreshToken:true}});}return sb;}
 async function ses(){await load();const{data:{session}}=await sb.auth.getSession();return session;}
 
 async function refresh(){
@@ -222,7 +222,12 @@ async function start(){
   let l='ru';try{l=localStorage.getItem('smh_lang')||(navigator.language||'').slice(0,2);}catch(e){}
   if(!I18N[l])l='en'; applyLang(l);
   await load();
-  if(location.hash && location.hash.indexOf('access_token')>-1){try{await sb.auth.getSession();}catch(e){}history.replaceState(null,'',location.origin+'/cabinet.html');}
+  // обработка возврата от Google: code (PKCE) или hash (implicit)
+  try{
+    const qs=new URLSearchParams(location.search);
+    if(qs.get('code')){ await sb.auth.exchangeCodeForSession(location.href); history.replaceState(null,'',location.origin+'/cabinet.html'); }
+    else if(location.hash && location.hash.indexOf('access_token')>-1){ await sb.auth.getSession(); history.replaceState(null,'',location.origin+'/cabinet.html'); }
+  }catch(e){ console.log('auth return:',e&&e.message); }
   sb.auth.onAuthStateChange(()=>refresh());
   refresh();
 }
