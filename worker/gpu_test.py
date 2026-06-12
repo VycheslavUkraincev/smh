@@ -13,7 +13,7 @@
 import os, sys, json, time, base64, urllib.request
 
 ENDPOINT = os.environ.get("RUNPOD_ENDPOINT", "")
-KEY = ***"RUNPOD_KEY", "")
+KEY = os.environ.get("RUNPOD_KEY", "")
 
 def main():
     if not ENDPOINT or not KEY:
