@@ -281,3 +281,21 @@ async def admin_retry(rid: str, authorization: str = Header(None)):
     if not res:
         raise HTTPException(404, "not found")
     return {"ok": True}
+
+@app.delete("/api/admin/restorations/{rid}")
+async def admin_delete(rid: str, authorization: str = Header(None)):
+    """Удалить любой заказ (админ) + файлы из Spaces."""
+    await require_admin(authorization)
+    rows = await db("GET", "restorations",
+                    params={"id": f"eq.{rid}", "select": "original_key,result_key"})
+    if not rows:
+        raise HTTPException(404, "not found")
+    client = s3()
+    for k in (rows[0].get("original_key"), rows[0].get("result_key")):
+        if k:
+            try:
+                client.delete_object(Bucket=SPACES_BUCKET, Key=k)
+            except Exception:
+                pass
+    await db("DELETE", "restorations", params={"id": f"eq.{rid}"})
+    return {"ok": True, "deleted": rid}
