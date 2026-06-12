@@ -54,14 +54,25 @@ def main(batch=4):
                 orig_url = presigned_get(r["original_key"], ttl=1800)
                 src = download(orig_url, f"{tmp}/src.jpg")
                 prompt = r.get("prompt") or "Restore this old family photo, preserve exact identity, no beautify."
-                # (А) генератив фон/цвет по готовому промпту
-                gen = fal_run("nano-banana-2-edit", image=src, prompt=prompt,
-                              out_path=f"{tmp}/gen.jpg")
-                # (Б) CodeFormer для честных лиц (на старте — поверх gen с высоким fidelity)
-                # codeformer вне контракта CLI — даём image_url явно (CLI сам зальёт локальный файл на CDN)
-                final = fal_run("fal-ai/codeformer",
-                                extra={"image_url": gen, "fidelity": 0.85, "upscale_factor": 1},
-                                out_path=f"{tmp}/final.jpg")
+                # (А) ГЛАВНАЯ ГЕНЕРАЦИЯ — чистый nano-banana по бережному промпту.
+                # Эксперимент (2026-06-12) доказал: чистый nano-banana стабильно проходит verify
+                # (лица честные), а CodeFormer ПОВЕРХ нестабильно ИДЕАЛИЗИРУЕТ лица.
+                final = fal_run("nano-banana-2-edit", image=src, prompt=prompt,
+                                out_path=f"{tmp}/gen.jpg")
+                # (Б) CodeFormer ТОЛЬКО для очень размытых лиц (very_blurry) и НИЗКИМ fidelity=0.3,
+                # где восстановление черт реально нужно. Иначе — не трогаем лица.
+                analysis = r.get("analysis") or {}
+                if isinstance(analysis, str):
+                    try: analysis = json.loads(analysis)
+                    except Exception: analysis = {}
+                if analysis.get("face_clarity") == "very_blurry":
+                    try:
+                        final = fal_run("fal-ai/codeformer",
+                                        extra={"image_url": final, "fidelity": 0.3, "upscale_factor": 1},
+                                        out_path=f"{tmp}/final.jpg")
+                        log("generate", f"{rid[:8]} CodeFormer применён (very_blurry, fid=0.3)")
+                    except Exception as ce:
+                        log("generate", f"{rid[:8]} CodeFormer skip ({str(ce)[:60]}) — идём с чистым nano-banana")
                 key = upload_result(final, uid, rid)
                 update_row(rid, {"result_key": key, "status": "generated", "generated_at": "now()", "error": None})
                 ok += 1
