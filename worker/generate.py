@@ -11,7 +11,7 @@ API-режим (fal). GPU-режим заменит этот шаг локаль
 Запуск: python worker_generate.py [batch]
 """
 import sys, os, json, tempfile, subprocess, urllib.request
-from worker_common import log, claim, update_row, presigned_get, s3, BUCKET
+from common import log, claim, update_row, presigned_get, s3, BUCKET
 
 FAL = os.environ.get("FAL_KEY", "")
 
