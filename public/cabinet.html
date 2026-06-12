@@ -86,6 +86,26 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .lang button{background:none;border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:5px 9px;border-radius:20px;cursor:pointer;opacity:.6}
 .lang button.on{background:var(--gold-d);color:#fff;opacity:1}
 .hidden{display:none!important}
+/* user menu */
+.umenu{position:relative;margin-left:4px}
+.uavatar{width:38px;height:38px;border-radius:50%;background:var(--gold-d);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(255,255,255,.7);box-shadow:0 4px 14px -4px rgba(166,124,50,.6);transition:.25s var(--ease);overflow:hidden}
+.uavatar:hover{transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(166,124,50,.7)}
+.uavatar img{width:100%;height:100%;object-fit:cover}
+.udrop{position:absolute;right:0;top:48px;width:240px;background:var(--paper);border:1px solid rgba(90,64,49,.14);border-radius:16px;box-shadow:0 24px 60px -20px rgba(28,23,20,.4);padding:8px;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:.22s var(--ease);z-index:80}
+.umenu.open .udrop{opacity:1;transform:none;pointer-events:auto}
+.udrop .uhead{padding:12px 12px 10px;border-bottom:1px solid rgba(90,64,49,.1);margin-bottom:6px}
+.udrop .uname{font-weight:700;font-size:14px;color:var(--ink);word-break:break-word}
+.udrop .urole{font-size:11px;color:var(--ink-soft);letter-spacing:.04em;margin-top:2px}
+.udrop a,.udrop button.uitem{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:'Manrope';font-size:14px;color:var(--ink);padding:11px 12px;border-radius:10px;text-decoration:none;transition:.18s}
+.udrop a:hover,.udrop button.uitem:hover{background:rgba(196,154,74,.1)}
+.udrop .uitem svg{width:17px;height:17px;color:var(--gold-d);flex:none}
+.udrop .usep{height:1px;background:rgba(90,64,49,.1);margin:6px 4px}
+.udrop .ulang{display:flex;gap:4px;padding:6px 10px 4px}
+.udrop .ulang button{flex:1;background:rgba(90,64,49,.06);border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:7px 0;border-radius:8px;cursor:pointer;transition:.18s}
+.udrop .ulang button.on{background:var(--gold-d);color:#fff}
+.udrop .uitem.danger{color:#c0392b}
+.udrop .uitem.danger svg{color:#c0392b}
+.umenu .who-mail{display:none}
 </style>
 </head>
 <body>
@@ -96,7 +116,21 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
     <button data-lang="uk">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button>
   </div>
   <span class="who" id="who"></span>
-  <button class="btn btn-ghost" id="out" data-i18n="logout">Выйти</button>
+  <button class="btn btn-ghost hidden" id="out" data-i18n="logout">Выйти</button>
+  <div class="umenu hidden" id="umenu">
+    <div class="uavatar" id="uavatar">?</div>
+    <div class="udrop" id="udrop">
+      <div class="uhead"><div class="uname" id="uname"></div><div class="urole" data-i18n="u_role">Бесплатный аккаунт</div></div>
+      <a href="/cabinet.html" class="uitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg><span data-i18n="u_cab">Кабинет</span></a>
+      <a href="#gal" class="uitem" id="u-gal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.6"/><path d="m4 18 5-5 4 3 3-2 4 4"/></svg><span data-i18n="u_photos">Мои фотографии</span></a>
+      <a href="/#start" class="uitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg><span data-i18n="u_home">На главную</span></a>
+      <div class="ulang" id="ulang">
+        <button data-lang="uk">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button>
+      </div>
+      <div class="usep"></div>
+      <button class="uitem danger" id="u-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg><span data-i18n="logout">Выйти</span></button>
+    </div>
+  </div>
 </header>
 
 <!-- GATE: не залогинен -->
@@ -145,16 +179,16 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 
 <script type="module">
 const I18N={
-ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты. Первое фото — бесплатно.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — мы бережно вернём ей жизнь. Все ваши работы хранятся здесь.",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Бережно",m_restore_d:"Честная реставрация",b_base:"базовый",m_revive:"Оживить",m_revive_d:"Как на современную камеру",b_prem:"премиум",send:"Отправить на реставрацию",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии — загрузите первую выше ↑",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"не получилось",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат",before:"Было",after:"Стало",close:"Закрыть",download:"Скачать",retry:"Повторить",too_big:"Фото больше 50 МБ — выберите меньше",limit:"Достигнут лимит бесплатных реставраций. Скоро появится оплата для большего — спасибо за терпение",drag_hint:"Тяните, чтобы сравнить",report:"Что-то не так?",report_sent:"✓ Спасибо, мы проверим"},
-uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати. Перше фото — безкоштовно.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — ми дбайливо повернемо їй життя. Усі ваші роботи зберігаються тут.",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Дбайливо",m_restore_d:"Чесна реставрація",b_base:"базовий",m_revive:"Оживити",m_revive_d:"Як на сучасну камеру",b_prem:"преміум",send:"Надіслати на реставрацію",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії — завантажте першу вище ↑",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"не вийшло",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат",before:"Було",after:"Стало",close:"Закрити",download:"Завантажити",retry:"Повторити",too_big:"Фото більше 50 МБ — оберіть менше",limit:"Досягнуто ліміт безкоштовних реставрацій. Скоро зʼявиться оплата — дякуємо за терпіння",drag_hint:"Тягніть, щоб порівняти",report:"Щось не так?",report_sent:"✓ Дякуємо, ми перевіримо"},
-en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and results are kept. First photo is free.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we'll gently bring it back to life. All your work is kept here.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Gentle",m_restore_d:"Honest restoration",b_base:"basic",m_revive:"Revive",m_revive_d:"Like shot on a modern camera",b_prem:"premium",send:"Send for restoration",gal_h:"My photos",empty:"Your photos will appear here — upload your first one above ↑",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"didn't work",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result",before:"Before",after:"After",close:"Close",download:"Download",retry:"Retry",too_big:"Photo over 50 MB — please choose a smaller one",limit:"Free restoration limit reached. Paid plans coming soon — thank you for your patience",drag_hint:"Drag to compare",report:"Something off?",report_sent:"✓ Thanks, we'll check it"}
+ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты. Первое фото — бесплатно.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — мы бережно вернём ей жизнь. Все ваши работы хранятся здесь.",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Бережно",m_restore_d:"Честная реставрация",b_base:"базовый",m_revive:"Оживить",m_revive_d:"Как на современную камеру",b_prem:"премиум",send:"Отправить на реставрацию",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии — загрузите первую выше ↑",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"не получилось",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат",before:"Было",after:"Стало",close:"Закрыть",download:"Скачать",retry:"Повторить",too_big:"Фото больше 50 МБ — выберите меньше",limit:"Достигнут лимит бесплатных реставраций. Скоро появится оплата для большего — спасибо за терпение",drag_hint:"Тяните, чтобы сравнить",report:"Что-то не так?",report_sent:"✓ Спасибо, мы проверим",u_role:"Бесплатный аккаунт",u_cab:"Кабинет",u_photos:"Мои фотографии",u_home:"На главную"},
+uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати. Перше фото — безкоштовно.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — ми дбайливо повернемо їй життя. Усі ваші роботи зберігаються тут.",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Дбайливо",m_restore_d:"Чесна реставрація",b_base:"базовий",m_revive:"Оживити",m_revive_d:"Як на сучасну камеру",b_prem:"преміум",send:"Надіслати на реставрацію",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії — завантажте першу вище ↑",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"не вийшло",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат",before:"Було",after:"Стало",close:"Закрити",download:"Завантажити",retry:"Повторити",too_big:"Фото більше 50 МБ — оберіть менше",limit:"Досягнуто ліміт безкоштовних реставрацій. Скоро зʼявиться оплата — дякуємо за терпіння",drag_hint:"Тягніть, щоб порівняти",report:"Щось не так?",report_sent:"✓ Дякуємо, ми перевіримо",u_role:"Безкоштовний акаунт",u_cab:"Кабінет",u_photos:"Мої фотографії",u_home:"На головну"},
+en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and results are kept. First photo is free.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we'll gently bring it back to life. All your work is kept here.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Gentle",m_restore_d:"Honest restoration",b_base:"basic",m_revive:"Revive",m_revive_d:"Like shot on a modern camera",b_prem:"premium",send:"Send for restoration",gal_h:"My photos",empty:"Your photos will appear here — upload your first one above ↑",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"didn't work",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result",before:"Before",after:"After",close:"Close",download:"Download",retry:"Retry",too_big:"Photo over 50 MB — please choose a smaller one",limit:"Free restoration limit reached. Paid plans coming soon — thank you for your patience",drag_hint:"Drag to compare",report:"Something off?",report_sent:"✓ Thanks, we'll check it",u_role:"Free account",u_cab:"Cabinet",u_photos:"My photos",u_home:"Home"}
 };
 let lang='ru';
 function t(k){return (I18N[lang]||I18N.ru)[k]||k;}
 function applyLang(l){lang=l;try{localStorage.setItem('smh_lang',l)}catch(e){}
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t(k))el.textContent=t(k);});
   document.documentElement.lang=l;
-  document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+  document.querySelectorAll('#lang button,#ulang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
   if(window._rows)renderGal(window._rows);
 }
 
@@ -172,11 +206,28 @@ async function ses(){ const t=getToken(); if(!t)return null;
   try{ const r=await fetch('/api/me',{headers:{Authorization:'Bearer '+t}}); if(r.ok){_user=await r.json(); return {user:_user, access_token:t};} setToken(null); return null; }
   catch(e){ return null; } }
 
+function setUserMenu(user){
+  const um=$('#umenu');
+  if(user){
+    const email=user.email||'';
+    const initial=(email||'?').trim()[0].toUpperCase();
+    const av=$('#uavatar');
+    if(user.avatar_url){av.innerHTML='<img src="'+user.avatar_url+'" alt="">';}
+    else{av.textContent=initial;}
+    $('#uname').textContent=email;
+    um.classList.remove('hidden');
+    $('#lang').classList.add('hidden');   // язык переезжает в меню
+  } else {
+    um.classList.remove('open');
+    um.classList.add('hidden');
+    $('#lang').classList.remove('hidden');
+  }
+}
 async function refresh(){
   const s=await ses();
-  if(s){$('#gate').classList.add('hidden');$('#cab').classList.remove('hidden');$('#out').classList.remove('hidden');
-    $('#who').textContent=s.user.email||''; loadGal(s);}
-  else{$('#gate').classList.remove('hidden');$('#cab').classList.add('hidden');$('#out').classList.add('hidden');$('#who').textContent='';}
+  if(s){$('#gate').classList.add('hidden');$('#cab').classList.remove('hidden');
+    $('#who').textContent=''; setUserMenu(s.user); loadGal(s);}
+  else{$('#gate').classList.remove('hidden');$('#cab').classList.add('hidden');$('#out').classList.add('hidden');$('#who').textContent='';setUserMenu(null);}
 }
 async function loginGoogle(){ // строим OAuth-ссылку и уходим на Google
   const redirect=encodeURIComponent(location.origin+'/cabinet.html');
@@ -251,9 +302,9 @@ function renderGal(rows){
     const bg=img?('background-image:url(\''+img+'\')'):'';
     const done=(st==='done'&&x.result_url);
     const retry=(st==='failed')?'<button class="retry-btn" data-retry="'+x.id+'" style="margin-top:6px;font-size:11px;padding:4px 10px;border:1px solid #c0392b;color:#c0392b;background:#fff;border-radius:6px;cursor:pointer">'+t('retry')+'</button>':'';
-    return '<div class="tile"'+(done?' style="cursor:pointer" data-id="'+x.id+'" data-ov="'+x.result_url+'|'+(x.original_url||'')+'"':'')+'><div class="ph" style="'+bg+'">'+(done?'<span class="seal">'+t('result')+'</span>':'')+'</div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+(st==='uploaded'?'queued':st)+'">'+t(lbl)+'</span></div>'+retry+'</div>';
+    return '<div class="tile"'+(done?' style="cursor:pointer" data-id="'+x.id+'" data-after="'+encodeURIComponent(x.result_url)+'" data-before="'+encodeURIComponent(x.original_url||'')+'"':'')+'><div class="ph" style="'+bg+'">'+(done?'<span class="seal">'+t('result')+'</span>':'')+'</div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+(st==='uploaded'?'queued':st)+'">'+t(lbl)+'</span></div>'+retry+'</div>';
   }).join('');
-  g.querySelectorAll('.tile[data-ov]').forEach(el=>el.onclick=()=>{const[a,b]=el.getAttribute('data-ov').split('|');openOverlay(a,b,el.getAttribute('data-id'));});
+  g.querySelectorAll('.tile[data-after]').forEach(el=>el.onclick=()=>{const a=decodeURIComponent(el.getAttribute('data-after')||'');const b=decodeURIComponent(el.getAttribute('data-before')||'');openOverlay(a,b,el.getAttribute('data-id'));});
   g.querySelectorAll('.retry-btn').forEach(b=>b.onclick=async(e)=>{e.stopPropagation();const id=b.getAttribute('data-retry');b.textContent='...';try{await fetch('/api/restorations/'+id+'/retry',{method:'POST',headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});loadGal(_sess);}catch(err){}});
 }
 
@@ -275,6 +326,13 @@ function bind(){
   $('#out').onclick=()=>{ setToken(null); _user=null; refresh(); };
   document.querySelectorAll('.mode').forEach(m=>m.onclick=()=>{document.querySelectorAll('.mode').forEach(x=>x.classList.remove('sel'));m.classList.add('sel');mode=m.dataset.mode;});
   document.querySelectorAll('#lang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
+  // user menu
+  const um=$('#umenu'),av=$('#uavatar');
+  if(av)av.onclick=(e)=>{e.stopPropagation();um.classList.toggle('open');};
+  document.addEventListener('click',e=>{if(um&&!um.contains(e.target))um.classList.remove('open');});
+  document.querySelectorAll('#ulang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
+  const ug=$('#u-gal');if(ug)ug.onclick=()=>um.classList.remove('open');
+  const uo=$('#u-out');if(uo)uo.onclick=()=>{ setToken(null); _user=null; um.classList.remove('open'); refresh(); };
 }
 
 async function start(){
