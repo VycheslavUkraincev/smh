@@ -89,7 +89,7 @@ section{padding:90px 0}
 .wall-count{font-family:'Cormorant Garamond',serif;font-size:clamp(54px,9vw,104px);line-height:1;color:var(--gold-d);font-weight:600;letter-spacing:-.01em}
 .wall-count-sub{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 .wall-grid{columns:4 200px;column-gap:14px;max-width:1180px;margin:34px auto 0;padding:0 6px}
-.wtile{break-inside:avoid;margin:0 0 14px;border-radius:13px;overflow:hidden;position:relative;box-shadow:0 14px 34px rgba(50,30,15,.16);opacity:0;transform:translateY(24px) scale(.97);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.wtile{break-inside:avoid;margin:0 0 14px;border-radius:13px;overflow:hidden;position:relative;cursor:pointer;box-shadow:0 14px 34px rgba(50,30,15,.16);opacity:0;transform:translateY(24px) scale(.97);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
 .wtile.in{opacity:1;transform:none}
 .wtile img{display:block;width:100%;height:auto;object-fit:cover}
 .wtile .wa{position:absolute;inset:0;opacity:0;transition:opacity .55s ease}
@@ -98,6 +98,16 @@ section{padding:90px 0}
 .wtile .wtag{position:absolute;left:10px;bottom:10px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.42);padding:3px 9px;border-radius:14px;opacity:0;transition:opacity .4s ease;z-index:2}
 .wtile:hover .wtag{opacity:1}
 @media(max-width:680px){.wall-grid{columns:2 140px;column-gap:10px}.wtile{margin-bottom:10px}}
+/* lightbox */
+.lbx{position:fixed;inset:0;background:rgba(20,12,4,.92);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;backdrop-filter:blur(4px)}
+.lbx.on{display:flex}
+.lbx .lbox{max-width:880px;width:100%}
+.lbx .lcmp{position:relative;width:100%;aspect-ratio:3/2;border-radius:16px;overflow:hidden;background:#0c0905;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lbx .lcmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lbx .lafter{clip-path:inset(0 0 0 50%);transition:clip-path .1s linear}
+.lbx .lcap{text-align:center;color:#f0e6d6;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-top:16px;opacity:.85}
+.lbx .lclose{position:absolute;top:18px;right:22px;color:#fff;font-size:30px;cursor:pointer;line-height:1;opacity:.8}
+.lbx .lhint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);color:#fff;font-size:11px;background:rgba(0,0,0,.4);padding:4px 12px;border-radius:14px;pointer-events:none}
 /* STEPS */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:960px;margin:0 auto}
 .step{text-align:center;padding:0 10px}
@@ -283,7 +293,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
 </footer>
 <script>
 const I18N={
- ru:{wall_kicker:"Стена памяти",wall_sub:"фотографий возвращено к жизни",wall_lead:"Каждая карточка — чья-то семья. Наведите, чтобы увидеть, какой она была.",wall_saved:"спасено",m_how:"Как это работает",m_cases:"Примеры",m_tree:"Древо памяти",cabinet:"Кабинет",login:"Войти",cap1:"Семейный портрет · 1958",cap2:"Свадьба · 1964",cap3:"Встреча родных · 1971",cap4:"Портрет на память · 1955",sb1:"фото возвращено семьям",sb2:"среднее время реставрации",sb2num:"2 мин",sb3:"лица остаются собой",
+ ru:{wall_kicker:"Стена памяти",wall_sub:"фотографий возвращено к жизни",wall_lead:"Каждая карточка — чья-то семья. Наведите, чтобы увидеть, какой она была.",wall_saved:"спасено",wall_drag:"ведите, чтобы сравнить",wall_one:"одна из спасённых историй",m_how:"Как это работает",m_cases:"Примеры",m_tree:"Древо памяти",cabinet:"Кабинет",login:"Войти",cap1:"Семейный портрет · 1958",cap2:"Свадьба · 1964",cap3:"Встреча родных · 1971",cap4:"Портрет на память · 1955",sb1:"фото возвращено семьям",sb2:"среднее время реставрации",sb2num:"2 мин",sb3:"лица остаются собой",
   hero_kicker:"Реставрация семейной памяти",hero_h1:"В каждой семье есть лица, которые мы <em>хотим помнить</em>",hero_lead:"Загрузите старую, выцветшую фотографию — и мы бережно вернём ей жизнь. Без потери того, кем были эти люди.",hero_cta:"Восстановить фото",hero_cta2:"Посмотреть примеры",t1:"Бесплатно для начала",t2:"без карты",t3:"результат за пару минут",
   before:"Было",after:"Стало",
   how_k:"Просто",how_h:"Три шага до живого воспоминания",s1h:"Загрузите фото",s1p:"Старое, выцветшее, с трещинами — любое. Прямо из кабинета.",s2h:"Мы бережно реставрируем",s2p:"Убираем повреждения, возвращаем цвет — сохраняя лица такими, какими они были.",s3h:"Храните и делитесь",s3p:"Скачивайте результат и собирайте семейный архив, который останется с вами.",
@@ -291,7 +301,7 @@ const I18N={
   tr_k:"Древо памяти",tr_h:"Семья — это лица, которые остаются",tr_p:"Каждое восстановленное фото — ещё одно лицо, вернувшееся в историю вашего рода.",
   band_h:"Верните жизнь дорогим лицам",band_p:"Начните с одной фотографии. Бесплатно.",band_cta:"Загрузить фотографию",
   f_about:"Бережная реставрация старых семейных фотографий. Сделано с любовью к памяти.",f_nav:"Навигация",f_legal:"Документы",f_priv:"Конфиденциальность",f_terms:"Условия",f_contact:"Связаться",f_slogan:"Сохрани историю своей семьи"},
- ua:{wall_kicker:"Стіна памʼяті",wall_sub:"світлин повернуто до життя",wall_lead:"Кожна картка — чиясь родина. Наведіть, щоб побачити, якою вона була.",wall_saved:"врятовано",m_how:"Як це працює",m_cases:"Приклади",m_tree:"Дерево памʼяті",cabinet:"Кабінет",login:"Увійти",cap1:"Сімейний портрет · 1958",cap2:"Весілля · 1964",cap3:"Зустріч рідних · 1971",cap4:"Портрет на памʼять · 1955",sb1:"фото повернуто родинам",sb2:"середній час реставрації",sb2num:"2 хв",sb3:"обличчя лишаються собою",
+ ua:{wall_kicker:"Стіна памʼяті",wall_sub:"світлин повернуто до життя",wall_lead:"Кожна картка — чиясь родина. Наведіть, щоб побачити, якою вона була.",wall_saved:"врятовано",wall_drag:"ведіть, щоб порівняти",wall_one:"одна зі врятованих історій",m_how:"Як це працює",m_cases:"Приклади",m_tree:"Дерево памʼяті",cabinet:"Кабінет",login:"Увійти",cap1:"Сімейний портрет · 1958",cap2:"Весілля · 1964",cap3:"Зустріч рідних · 1971",cap4:"Портрет на памʼять · 1955",sb1:"фото повернуто родинам",sb2:"середній час реставрації",sb2num:"2 хв",sb3:"обличчя лишаються собою",
   hero_kicker:"Реставрація сімейної памʼяті",hero_h1:"У кожній родині є обличчя, які ми <em>хочемо памʼятати</em>",hero_lead:"Завантажте стару, вицвілу світлину — і ми дбайливо повернемо їй життя. Без втрати того, ким були ці люди.",hero_cta:"Відновити фото",hero_cta2:"Переглянути приклади",t1:"Безкоштовно для початку",t2:"без картки",t3:"результат за кілька хвилин",
   before:"Було",after:"Стало",
   how_k:"Просто",how_h:"Три кроки до живого спогаду",s1h:"Завантажте фото",s1p:"Старе, вицвіле, з тріщинами — будь-яке. Прямо з кабінету.",s2h:"Ми дбайливо реставруємо",s2p:"Прибираємо пошкодження, повертаємо колір — зберігаючи обличчя такими, якими вони були.",s3h:"Зберігайте та діліться",s3p:"Завантажуйте результат і збирайте сімейний архів, що залишиться з вами.",
@@ -299,7 +309,7 @@ const I18N={
   tr_k:"Дерево памʼяті",tr_h:"Родина — це обличчя, які залишаються",tr_p:"Кожне відновлене фото — ще одне обличчя, що повернулось в історію вашого роду.",
   band_h:"Поверніть життя дорогим обличчям",band_p:"Почніть з однієї світлини. Безкоштовно.",band_cta:"Завантажити світлину",
   f_about:"Дбайлива реставрація старих сімейних світлин. Зроблено з любовʼю до памʼяті.",f_nav:"Навігація",f_legal:"Документи",f_priv:"Конфіденційність",f_terms:"Умови",f_contact:"Звʼязатися",f_slogan:"Збережи історію своєї родини"},
- en:{wall_kicker:"Wall of memory",wall_sub:"photographs brought back to life",wall_lead:"Every tile is someone's family. Hover to see how it looked before.",wall_saved:"saved",m_how:"How it works",m_cases:"Examples",m_tree:"Memory tree",cabinet:"Cabinet",login:"Sign in",cap1:"Family portrait · 1958",cap2:"Wedding · 1964",cap3:"Family reunion · 1971",cap4:"Keepsake portrait · 1955",sb1:"photos returned to families",sb2:"average restoration time",sb2num:"2 min",sb3:"faces stay themselves",
+ en:{wall_kicker:"Wall of memory",wall_sub:"photographs brought back to life",wall_lead:"Every tile is someone's family. Hover to see how it looked before.",wall_saved:"saved",wall_drag:"drag to compare",wall_one:"one of the rescued stories",m_how:"How it works",m_cases:"Examples",m_tree:"Memory tree",cabinet:"Cabinet",login:"Sign in",cap1:"Family portrait · 1958",cap2:"Wedding · 1964",cap3:"Family reunion · 1971",cap4:"Keepsake portrait · 1955",sb1:"photos returned to families",sb2:"average restoration time",sb2num:"2 min",sb3:"faces stay themselves",
   hero_kicker:"Restoring family memory",hero_h1:"Every family has faces we <em>want to remember</em>",hero_lead:"Upload an old, faded photograph — and we'll gently bring it back to life. Without losing who these people were.",hero_cta:"Restore a photo",hero_cta2:"See examples",t1:"Free to start",t2:"no card",t3:"results in minutes",
   before:"Before",after:"After",
   how_k:"Simple",how_h:"Three steps to a living memory",s1h:"Upload a photo",s1p:"Old, faded, cracked — any. Right from your cabinet.",s2h:"We restore it gently",s2p:"We remove damage and bring back color — keeping faces exactly as they were.",s3h:"Keep and share",s3p:"Download the result and build a family archive that stays with you.",
@@ -355,5 +365,17 @@ function st(t){_t=t;try{t?localStorage.setItem('smh_at',t):localStorage.removeIt
 if(location.hash.indexOf('access_token')>-1){const h=new URLSearchParams(location.hash.slice(1));const at=h.get('access_token');if(at)st(at);history.replaceState(null,'',location.origin+'/');}
 async function me(){const t=gt();if(!t)return null;try{const r=await fetch('/api/me',{headers:{Authorization:'Bearer '+t}});if(r.ok)return await r.json();st(null);}catch(e){}return null;}
 (async()=>{const u=await me();if(u){const who=document.getElementById('who'),lb=document.getElementById('login-btn');if(who){who.style.display='flex';document.getElementById('who-mail').textContent=u.email||'';document.getElementById('who-av').textContent=(u.email||'?')[0].toUpperCase();}if(lb)lb.style.display='none';}})();
+</script>
+<div class="lbx" id="lbx"><div class="lbox"><div class="lcmp"><img class="lbefore" src="" alt=""><img class="lafter" src="" alt=""><span class="lhint" data-i18n="wall_drag">ведите, чтобы сравнить</span></div><div class="lcap" data-i18n="wall_one">одна из спасённых историй</div></div><span class="lclose" id="lbxClose">×</span></div>
+<script>
+(function(){var lb=document.getElementById('lbx');if(!lb)return;var be=lb.querySelector('.lbefore'),af=lb.querySelector('.lafter'),cmp=lb.querySelector('.lcmp');
+document.querySelectorAll('[data-wt]').forEach(function(t){t.addEventListener('click',function(){var b=t.querySelector('.wb'),a=t.querySelector('.wa img');if(!b||!a)return;be.src=b.src;af.src=a.src;af.style.clipPath='inset(0 0 0 50%)';lb.classList.add('on');});});
+function mv(x){var r=cmp.getBoundingClientRect();var p=Math.max(0,Math.min(100,(x-r.left)/r.width*100));af.style.clipPath='inset(0 0 0 '+p+'%)';}
+cmp&&cmp.addEventListener('pointermove',function(e){mv(e.clientX);});
+cmp&&cmp.addEventListener('touchmove',function(e){if(e.touches[0])mv(e.touches[0].clientX);});
+document.getElementById('lbxClose').addEventListener('click',function(){lb.classList.remove('on');});
+lb.addEventListener('click',function(e){if(e.target===lb)lb.classList.remove('on');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on');});
+})();
 </script>
 </body></html>
