@@ -86,43 +86,6 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .lang button{background:none;border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:5px 9px;border-radius:20px;cursor:pointer;opacity:.6}
 .lang button.on{background:var(--gold-d);color:#fff;opacity:1}
 .hidden{display:none!important}
-/* invite block */
-.invite{margin-bottom:32px}
-.invite-card{background:linear-gradient(135deg,rgba(196,154,74,.08),rgba(196,154,74,.02));border:1.5px solid rgba(196,154,74,.3);border-radius:18px;padding:24px 26px}
-.invite-card h3{font-family:'Cormorant Garamond';font-size:25px;margin-bottom:6px}
-.invite-card p{color:var(--ink-soft);font-size:14px;margin-bottom:16px;max-width:560px}
-.invite-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-.invite-row input{flex:1;min-width:160px;border:1.5px solid rgba(90,64,49,.25);border-radius:12px;padding:13px 16px;font-family:'Manrope';font-size:15px;letter-spacing:.04em;text-transform:uppercase;background:#fff}
-.invite-row input:focus{outline:none;border-color:var(--gold-d)}
-.invite-consent{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-soft);cursor:pointer;line-height:1.5}
-.invite-consent input{margin-top:2px;width:16px;height:16px;accent-color:var(--gold-d);flex:none;cursor:pointer}
-/* feedback in overlay */
-.fb-form{flex-basis:100%;display:flex;flex-direction:column;gap:8px;margin-top:8px;padding-top:12px;border-top:1px solid rgba(90,64,49,.12)}
-.fb-rate{display:flex;gap:10px;justify-content:center}
-.fb-rate button{background:#fff;border:1.5px solid rgba(90,64,49,.2);border-radius:30px;padding:7px 18px;font-size:18px;cursor:pointer;transition:.2s}
-.fb-rate button.sel{border-color:var(--gold-d);background:rgba(196,154,74,.12)}
-.fb-form textarea{border:1.5px solid rgba(90,64,49,.2);border-radius:10px;padding:10px;font-family:'Manrope';font-size:13px;resize:vertical;min-height:54px}
-.fb-form .fb-send{align-self:center}
-/* user menu */
-.umenu{position:relative;margin-left:4px}
-.uavatar{width:38px;height:38px;border-radius:50%;background:var(--gold-d);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(255,255,255,.7);box-shadow:0 4px 14px -4px rgba(166,124,50,.6);transition:.25s var(--ease);overflow:hidden}
-.uavatar:hover{transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(166,124,50,.7)}
-.uavatar img{width:100%;height:100%;object-fit:cover}
-.udrop{position:absolute;right:0;top:48px;width:240px;background:var(--paper);border:1px solid rgba(90,64,49,.14);border-radius:16px;box-shadow:0 24px 60px -20px rgba(28,23,20,.4);padding:8px;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:.22s var(--ease);z-index:80}
-.umenu.open .udrop{opacity:1;transform:none;pointer-events:auto}
-.udrop .uhead{padding:12px 12px 10px;border-bottom:1px solid rgba(90,64,49,.1);margin-bottom:6px}
-.udrop .uname{font-weight:700;font-size:14px;color:var(--ink);word-break:break-word}
-.udrop .urole{font-size:11px;color:var(--ink-soft);letter-spacing:.04em;margin-top:2px}
-.udrop a,.udrop button.uitem{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:'Manrope';font-size:14px;color:var(--ink);padding:11px 12px;border-radius:10px;text-decoration:none;transition:.18s}
-.udrop a:hover,.udrop button.uitem:hover{background:rgba(196,154,74,.1)}
-.udrop .uitem svg{width:17px;height:17px;color:var(--gold-d);flex:none}
-.udrop .usep{height:1px;background:rgba(90,64,49,.1);margin:6px 4px}
-.udrop .ulang{display:flex;gap:4px;padding:6px 10px 4px}
-.udrop .ulang button{flex:1;background:rgba(90,64,49,.06);border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:7px 0;border-radius:8px;cursor:pointer;transition:.18s}
-.udrop .ulang button.on{background:var(--gold-d);color:#fff}
-.udrop .uitem.danger{color:#c0392b}
-.udrop .uitem.danger svg{color:#c0392b}
-.umenu .who-mail{display:none}
 </style>
 </head>
 <body>
@@ -133,21 +96,7 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
     <button data-lang="uk">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button>
   </div>
   <span class="who" id="who"></span>
-  <button class="btn btn-ghost hidden" id="out" data-i18n="logout">Выйти</button>
-  <div class="umenu hidden" id="umenu">
-    <div class="uavatar" id="uavatar">?</div>
-    <div class="udrop" id="udrop">
-      <div class="uhead"><div class="uname" id="uname"></div><div class="urole" data-i18n="u_role">Бесплатный аккаунт</div></div>
-      <a href="/cabinet.html" class="uitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg><span data-i18n="u_cab">Кабинет</span></a>
-      <a href="#gal" class="uitem" id="u-gal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.6"/><path d="m4 18 5-5 4 3 3-2 4 4"/></svg><span data-i18n="u_photos">Мои фотографии</span></a>
-      <a href="/#start" class="uitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg><span data-i18n="u_home">На главную</span></a>
-      <div class="ulang" id="ulang">
-        <button data-lang="uk">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button>
-      </div>
-      <div class="usep"></div>
-      <button class="uitem danger" id="u-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg><span data-i18n="logout">Выйти</span></button>
-    </div>
-  </div>
+  <button class="btn btn-ghost" id="out" data-i18n="logout">Выйти</button>
 </header>
 
 <!-- GATE: не залогинен -->
@@ -161,20 +110,6 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 <div class="wrap hidden" id="cab">
   <h1 class="title serif" data-i18n="cab_h">Ваш семейный архив</h1>
   <p class="sub" data-i18n="cab_sub">Загрузите старую фотографию — мы бережно вернём ей жизнь. Все ваши работы хранятся здесь.</p>
-
-  <!-- ИНВАЙТ-КОД + СОГЛАСИЕ (показывается, пока нет квоты) -->
-  <div class="invite hidden" id="invite">
-    <div class="invite-card">
-      <h3 class="serif" data-i18n="inv_h">У вас есть инвайт-код?</h3>
-      <p data-i18n="inv_p">Введите код — и получите бесплатные реставрации. Взамен просим оставить отзыв — это поможет нам стать лучше.</p>
-      <div class="invite-row">
-        <input type="text" id="inv-code" placeholder="SMH-XXXX" autocomplete="off" spellcheck="false">
-        <button class="btn btn-gold" id="inv-go" data-i18n="inv_go">Активировать</button>
-      </div>
-      <label class="invite-consent"><input type="checkbox" id="inv-consent"><span data-i18n="inv_consent">Я участвую в программе улучшения сервиса: оставлю отзыв и разрешаю анонимно использовать результат как пример</span></label>
-      <div class="msg" id="inv-msg"></div>
-    </div>
-  </div>
 
   <div class="up">
     <div class="drop" id="drop">
@@ -206,22 +141,20 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 </div>
 
 <input type="file" id="file" accept="image/*" class="hidden">
-<div id="ov"><div class="box"><div class="cmp" id="cmp"><img id="ov-a" alt=""><div class="after-wrap" id="ov-aw"><img id="ov-b" alt=""></div><span class="lab lab-b" data-i18n="before">Было</span><span class="lab lab-a" data-i18n="after">Стало</span><div class="handle" id="ov-h"><div class="knob">↔</div></div></div><div class="bar"><span class="hint" data-i18n="drag_hint">Тяните, чтобы сравнить</span><button class="btn-report" id="ov-report" data-i18n="report">Что-то не так?</button><button class="btn btn-ghost" id="ov-share" data-i18n="share">Поделиться</button><div class="fb-form" id="fb-form"><div style="text-align:center;font-size:13px;color:#8a7a66" data-i18n="fb_q">Понравился результат?</div><div class="fb-rate" id="fb-rate"><button data-r="1">👍</button><button data-r="-1">👎</button></div><textarea id="fb-text" data-i18n-ph="fb_ph" placeholder="Пара слов (необязательно)"></textarea><button class="btn btn-gold fb-send" id="fb-send" data-i18n="fb_send">Отправить отзыв</button></div><a id="ov-dl" class="btn" download="savemyhistory.jpg" style="background:var(--gold-d,#A67C32);color:#fff;text-decoration:none" data-i18n="download">Скачать</a><button class="btn btn-ghost" id="ov-close" data-i18n="close">Закрыть</button></div></div></div>
+<div id="ov"><div class="box"><div class="cmp" id="cmp"><img id="ov-a" alt=""><div class="after-wrap" id="ov-aw"><img id="ov-b" alt=""></div><span class="lab lab-b" data-i18n="before">Было</span><span class="lab lab-a" data-i18n="after">Стало</span><div class="handle" id="ov-h"><div class="knob">↔</div></div></div><div class="bar"><span class="hint" data-i18n="drag_hint">Тяните, чтобы сравнить</span><button class="btn-report" id="ov-report" data-i18n="report">Что-то не так?</button><a id="ov-dl" class="btn" download="savemyhistory.jpg" style="background:var(--gold-d,#A67C32);color:#fff;text-decoration:none" data-i18n="download">Скачать</a><button class="btn btn-ghost" id="ov-share" data-i18n="share">Поделиться</button><button class="btn btn-ghost" id="ov-close" data-i18n="close">Закрыть</button></div></div></div>
 
 <script type="module">
 const I18N={
-ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты. Первое фото — бесплатно.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — мы бережно вернём ей жизнь. Все ваши работы хранятся здесь.",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Бережно",m_restore_d:"Честная реставрация",b_base:"базовый",m_revive:"Оживить",m_revive_d:"Как на современную камеру",b_prem:"премиум",send:"Отправить на реставрацию",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии — загрузите первую выше ↑",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"не получилось",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат",before:"Было",after:"Стало",close:"Закрыть",download:"Скачать",share:"Поделиться",share_text:"Я восстановил(а) семейное фото в SaveMyHistory",share_copied:"Ссылка скопирована",share_unavail:"Поделиться не получилось",retry:"Повторить",too_big:"Фото больше 50 МБ — выберите меньше",limit:"Достигнут лимит бесплатных реставраций. Скоро появится оплата для большего — спасибо за терпение",drag_hint:"Тяните, чтобы сравнить",report:"Что-то не так?",report_sent:"✓ Спасибо, мы проверим",u_role:"Бесплатный аккаунт",u_cab:"Кабинет",u_photos:"Мои фотографии",u_home:"На главную",del:"Удалить",del_confirm:"Удалить это фото и результат? Это нельзя отменить.",page_title:"SaveMyHistory — Кабинет",inv_h:"У вас есть инвайт-код?",inv_p:"Введите код — и получите бесплатные реставрации. Взамен просим оставить отзыв.",inv_go:"Активировать",inv_consent:"Я участвую в программе улучшения сервиса: оставлю отзыв и разрешаю анонимно использовать результат как пример",inv_ok:"Готово! Начислено бесплатных: ",inv_bad:"Код неверный или уже использован",inv_need_consent:"Отметьте галочку согласия, чтобы продолжить",inv_used:"Вы уже активировали код раньше",fb_q:"Понравился результат?",fb_ph:"Пара слов (необязательно)",fb_send:"Отправить отзыв",fb_thanks:"✓ Спасибо за отзыв!"},
-uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати. Перше фото — безкоштовно.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — ми дбайливо повернемо їй життя. Усі ваші роботи зберігаються тут.",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Дбайливо",m_restore_d:"Чесна реставрація",b_base:"базовий",m_revive:"Оживити",m_revive_d:"Як на сучасну камеру",b_prem:"преміум",send:"Надіслати на реставрацію",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії — завантажте першу вище ↑",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"не вийшло",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат",before:"Було",after:"Стало",close:"Закрити",download:"Завантажити",retry:"Повторити",too_big:"Фото більше 50 МБ — оберіть менше",limit:"Досягнуто ліміт безкоштовних реставрацій. Скоро зʼявиться оплата — дякуємо за терпіння",drag_hint:"Тягніть, щоб порівняти",report:"Щось не так?",report_sent:"✓ Дякуємо, ми перевіримо",u_role:"Безкоштовний акаунт",u_cab:"Кабінет",u_photos:"Мої фотографії",u_home:"На головну",del:"Видалити",del_confirm:"Видалити це фото і результат? Це неможливо скасувати.",page_title:"SaveMyHistory — Кабінет",inv_h:"У вас є інвайт-код?",inv_p:"Введіть код — і отримайте безкоштовні реставрації. Взамін просимо залишити відгук.",inv_go:"Активувати",inv_consent:"Я беру участь у програмі покращення сервісу: залишаю відгук і дозволяю анонімно використати результат як приклад",inv_ok:"Готово! Нараховано безкоштовних: ",inv_bad:"Код невірний або вже використаний",inv_need_consent:"Позначте галочку згоди, щоб продовжити",inv_used:"Ви вже активували код раніше",fb_q:"Сподобався результат?",fb_ph:"Кілька слів (необов'язково)",fb_send:"Надіслати відгук",fb_thanks:"✓ Дякуємо за відгук!"},
-en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and results are kept. First photo is free.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we'll gently bring it back to life. All your work is kept here.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Gentle",m_restore_d:"Honest restoration",b_base:"basic",m_revive:"Revive",m_revive_d:"Like shot on a modern camera",b_prem:"premium",send:"Send for restoration",gal_h:"My photos",empty:"Your photos will appear here — upload your first one above ↑",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"didn't work",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result",before:"Before",after:"After",close:"Close",download:"Download",share:"Share",share_text:"I restored a family photo in SaveMyHistory",share_copied:"Link copied",share_unavail:"Couldn't share",retry:"Retry",too_big:"Photo over 50 MB — please choose a smaller one",limit:"Free restoration limit reached. Paid plans coming soon — thank you for your patience",drag_hint:"Drag to compare",report:"Something off?",report_sent:"✓ Thanks, we'll check it",u_role:"Free account",u_cab:"Cabinet",u_photos:"My photos",u_home:"Home",del:"Delete",del_confirm:"Delete this photo and result? This cannot be undone.",page_title:"SaveMyHistory — Cabinet",inv_h:"Have an invite code?",inv_p:"Enter your code to get free restorations. In return, please leave us feedback.",inv_go:"Activate",inv_consent:"I join the improvement program: I'll leave feedback and allow anonymous use of the result as an example",inv_ok:"Done! Free restorations granted: ",inv_bad:"Invalid or already used code",inv_need_consent:"Please tick the consent box to continue",inv_used:"You've already redeemed a code",fb_q:"Like the result?",fb_ph:"A few words (optional)",fb_send:"Send feedback",fb_thanks:"✓ Thanks for your feedback!"}
+ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты. Первое фото — бесплатно.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — мы бережно вернём ей жизнь. Все ваши работы хранятся здесь.",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Бережно",m_restore_d:"Честная реставрация",b_base:"базовый",m_revive:"Оживить",m_revive_d:"Как на современную камеру",b_prem:"премиум",send:"Отправить на реставрацию",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии — загрузите первую выше ↑",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"не получилось",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат",before:"Было",after:"Стало",close:"Закрыть",download:"Скачать",share:"Поделиться",share_text:"Я восстановил(а) семейное фото в SaveMyHistory",share_copied:"Ссылка скопирована",share_unavail:"Поделиться не получилось",retry:"Повторить",too_big:"Фото больше 50 МБ — выберите меньше",limit:"Достигнут лимит бесплатных реставраций. Скоро появится оплата для большего — спасибо за терпение",drag_hint:"Тяните, чтобы сравнить",report:"Что-то не так?",report_sent:"✓ Спасибо, мы проверим"},
+uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати. Перше фото — безкоштовно.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — ми дбайливо повернемо їй життя. Усі ваші роботи зберігаються тут.",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Дбайливо",m_restore_d:"Чесна реставрація",b_base:"базовий",m_revive:"Оживити",m_revive_d:"Як на сучасну камеру",b_prem:"преміум",send:"Надіслати на реставрацію",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії — завантажте першу вище ↑",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"не вийшло",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат",before:"Було",after:"Стало",close:"Закрити",download:"Завантажити",share:"Поділитися",share_text:"Я відновив(ла) сімейне фото в SaveMyHistory",share_copied:"Посилання скопійовано",share_unavail:"Поділитися не вдалося",retry:"Повторити",too_big:"Фото більше 50 МБ — оберіть менше",limit:"Досягнуто ліміт безкоштовних реставрацій. Скоро зʼявиться оплата — дякуємо за терпіння",drag_hint:"Тягніть, щоб порівняти",report:"Щось не так?",report_sent:"✓ Дякуємо, ми перевіримо"},
+en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and results are kept. First photo is free.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we'll gently bring it back to life. All your work is kept here.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Gentle",m_restore_d:"Honest restoration",b_base:"basic",m_revive:"Revive",m_revive_d:"Like shot on a modern camera",b_prem:"premium",send:"Send for restoration",gal_h:"My photos",empty:"Your photos will appear here — upload your first one above ↑",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"didn't work",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result",before:"Before",after:"After",close:"Close",download:"Download",share:"Share",share_text:"I restored a family photo in SaveMyHistory",share_copied:"Link copied",share_unavail:"Couldn't share",retry:"Retry",too_big:"Photo over 50 MB — please choose a smaller one",limit:"Free restoration limit reached. Paid plans coming soon — thank you for your patience",drag_hint:"Drag to compare",report:"Something off?",report_sent:"✓ Thanks, we'll check it"}
 };
 let lang='ru';
 function t(k){return (I18N[lang]||I18N.ru)[k]||k;}
 function applyLang(l){lang=l;try{localStorage.setItem('smh_lang',l)}catch(e){}
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t(k))el.textContent=t(k);});
-  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(t(k))el.placeholder=t(k);});
-  if(t('page_title'))document.title=t('page_title');
   document.documentElement.lang=l;
-  document.querySelectorAll('#lang button,#ulang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+  document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
   if(window._rows)renderGal(window._rows);
 }
 
@@ -239,39 +172,11 @@ async function ses(){ const t=getToken(); if(!t)return null;
   try{ const r=await fetch('/api/me',{headers:{Authorization:'Bearer '+t}}); if(r.ok){_user=await r.json(); return {user:_user, access_token:t};} setToken(null); return null; }
   catch(e){ return null; } }
 
-function setUserMenu(user){
-  const um=$('#umenu');
-  if(user){
-    const email=user.email||'';
-    const initial=(email||'?').trim()[0].toUpperCase();
-    const av=$('#uavatar');
-    if(user.avatar_url){av.innerHTML='<img src="'+user.avatar_url+'" alt="">';}
-    else{av.textContent=initial;}
-    $('#uname').textContent=email;
-    um.classList.remove('hidden');
-    $('#lang').classList.add('hidden');   // язык переезжает в меню
-  } else {
-    um.classList.remove('open');
-    um.classList.add('hidden');
-    $('#lang').classList.remove('hidden');
-  }
-}
 async function refresh(){
   const s=await ses();
-  if(s){$('#gate').classList.add('hidden');$('#cab').classList.remove('hidden');
-    $('#who').textContent=''; setUserMenu(s.user); loadGal(s); checkQuota(s);}
-  else{$('#gate').classList.remove('hidden');$('#cab').classList.add('hidden');$('#out').classList.add('hidden');$('#who').textContent='';setUserMenu(null);}
-}
-// показываем блок инвайта, если квоты нет (проверяем через /api/me расширенный? — проще по профилю)
-async function checkQuota(s){
-  try{
-    const r=await fetch('/api/me',{headers:{Authorization:'Bearer '+s.access_token}});
-    const u=await r.json();
-    // если бэкенд отдаёт free_quota — используем; иначе показываем блок всегда для новичков без квоты
-    const q=(u&&typeof u.free_quota==='number')?u.free_quota:0;
-    const inv=$('#invite');
-    if(q>0){ inv.classList.add('hidden'); } else { inv.classList.remove('hidden'); }
-  }catch(e){ /* тихо */ }
+  if(s){$('#gate').classList.add('hidden');$('#cab').classList.remove('hidden');$('#out').classList.remove('hidden');
+    $('#who').textContent=s.user.email||''; loadGal(s);}
+  else{$('#gate').classList.remove('hidden');$('#cab').classList.add('hidden');$('#out').classList.add('hidden');$('#who').textContent='';}
 }
 async function loginGoogle(){ // строим OAuth-ссылку и уходим на Google
   const redirect=encodeURIComponent(location.origin+'/cabinet.html');
@@ -340,18 +245,15 @@ function renderGal(rows){
   g.className='grid';
   g.innerHTML=rows.map(x=>{
     const st=x.status||'queued';
-    const lbl={queued:'st_queued',uploaded:'st_queued',analyzed:'st_processing',generated:'st_processing',processing:'st_processing',processing_analyze:'st_processing',processing_generate:'st_processing',processing_verify:'st_processing',done:'st_done',failed:'st_failed',error:'st_failed'}[st]||'st_processing';
-    const stCls={st_queued:'queued',st_processing:'processing',st_done:'done',st_failed:'failed'}[lbl]||'processing';
+    const lbl={queued:'st_queued',processing:'st_processing',done:'st_done',uploaded:'st_queued',failed:'st_failed'}[st]||'st_queued';
     const modeL=x.mode==='revive'?t('m_revive'):t('m_restore');
     const img=x.result_url||x.original_url||'';
     const bg=img?('background-image:url(\''+img+'\')'):'';
     const done=(st==='done'&&x.result_url);
     const retry=(st==='failed')?'<button class="retry-btn" data-retry="'+x.id+'" style="margin-top:6px;font-size:11px;padding:4px 10px;border:1px solid #c0392b;color:#c0392b;background:#fff;border-radius:6px;cursor:pointer">'+t('retry')+'</button>':'';
-    const del='<button class="del-btn" data-del="'+x.id+'" title="'+t('del')+'" style="position:absolute;top:6px;right:6px;width:24px;height:24px;border:none;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:14px;line-height:1;cursor:pointer;z-index:3">×</button>';
-    return '<div class="tile" style="position:relative"'+(done?' data-id="'+x.id+'" data-after="'+encodeURIComponent(x.result_url)+'" data-before="'+encodeURIComponent(x.original_url||'')+'"':'')+'>'+del+'<div class="ph" style="'+bg+(done?';cursor:pointer':'')+'">'+(done?'<span class="seal">'+t('result')+'</span>':'')+'</div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+stCls+'">'+t(lbl)+'</span></div>'+retry+'</div>';
+    return '<div class="tile"'+(done?' style="cursor:pointer" data-id="'+x.id+'" data-ov="'+x.result_url+'|'+(x.original_url||'')+'"':'')+'><div class="ph" style="'+bg+'">'+(done?'<span class="seal">'+t('result')+'</span>':'')+'</div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+(st==='uploaded'?'queued':st)+'">'+t(lbl)+'</span></div>'+retry+'</div>';
   }).join('');
-  g.querySelectorAll('.del-btn').forEach(b=>b.onclick=async(e)=>{e.stopPropagation();const id=b.getAttribute('data-del');if(!confirm(t('del_confirm')))return;b.textContent='·';try{await fetch('/api/restorations/'+id,{method:'DELETE',headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});loadGal(_sess);}catch(err){}});
-  g.querySelectorAll('.tile[data-after]').forEach(el=>el.onclick=()=>{const a=decodeURIComponent(el.getAttribute('data-after')||'');const b=decodeURIComponent(el.getAttribute('data-before')||'');openOverlay(a,b,el.getAttribute('data-id'));});
+  g.querySelectorAll('.tile[data-ov]').forEach(el=>el.onclick=()=>{const[a,b]=el.getAttribute('data-ov').split('|');openOverlay(a,b,el.getAttribute('data-id'));});
   g.querySelectorAll('.retry-btn').forEach(b=>b.onclick=async(e)=>{e.stopPropagation();const id=b.getAttribute('data-retry');b.textContent='...';try{await fetch('/api/restorations/'+id+'/retry',{method:'POST',headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});loadGal(_sess);}catch(err){}});
 }
 
@@ -365,38 +267,8 @@ function bind(){
   drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f){chosen=f;showPrev(f);setMsg('','');}});
   $('#send').onclick=doSend;
   $('#login').onclick=loginGoogle;
-  // активация инвайт-кода
-  const invGo=$('#inv-go');
-  if(invGo)invGo.onclick=async()=>{
-    const code=($('#inv-code').value||'').trim();
-    const consent=$('#inv-consent').checked;
-    const m=$('#inv-msg');
-    if(!code){m.textContent='';return;}
-    if(!consent){m.className='msg err';m.textContent=t('inv_need_consent');return;}
-    invGo.disabled=true; m.className='msg work'; m.textContent='...';
-    try{
-      const r=await fetch('/api/redeem-code',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+(_sess&&_sess.access_token)},body:JSON.stringify({code,consent})});
-      if(r.ok){const d=await r.json();m.className='msg ok';m.textContent=t('inv_ok')+(d.granted||'');setTimeout(()=>{$('#invite').classList.add('hidden');},1500);}
-      else{let rs='';try{rs=(await r.text());}catch(_){}
-        const key=rs.indexOf('consent')>=0?'inv_need_consent':(rs.indexOf('already')>=0?'inv_used':'inv_bad');
-        m.className='msg err';m.textContent=t(key);}
-    }catch(e){m.className='msg err';m.textContent=t('inv_bad');}
-    invGo.disabled=false;
-  };
   $('#ov-close').onclick=()=>{$('#ov').style.display='none';};
   $('#ov').onclick=e=>{if(e.target.id==='ov')$('#ov').style.display='none';};
-  // фидбек в overlay
-  let _fbRate=0;
-  const fbRate=$('#fb-rate');
-  if(fbRate)fbRate.querySelectorAll('button').forEach(b=>b.onclick=()=>{fbRate.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');_fbRate=parseInt(b.getAttribute('data-r'));});
-  const fbSend=$('#fb-send');
-  if(fbSend)fbSend.onclick=async()=>{
-    fbSend.disabled=true;
-    try{
-      await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'***'+(_sess&&_sess.access_token)},body:JSON.stringify({rating:_fbRate||1,text:$('#fb-text').value||'',restoration_id:_ovId,allow_public:true})});
-      $('#fb-form').innerHTML='<div style="text-align:center;color:#2e7d32;font-size:14px;padding:8px">'+t('fb_thanks')+'</div>';
-    }catch(e){fbSend.disabled=false;}
-  };
   const rep=$('#ov-report');if(rep)rep.onclick=async()=>{ if(!_ovId)return; rep.disabled=true; rep.textContent=t('report_sent');
     try{await fetch('/api/restorations/'+_ovId+'/report',{method:'POST',headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});}catch(e){} };
   const sh=$('#ov-share');if(sh)sh.onclick=async()=>{try{
@@ -405,20 +277,14 @@ function bind(){
       const url=d.share_url|| (location.origin+'/cabinet.html?rid='+encodeURIComponent(_ovId||''));
       const text=d.caption||t('share_text');
       if(navigator.share){await navigator.share({title:'SaveMyHistory',text,url});}
-      else{await navigator.clipboard.writeText(text+'\n'+url); sh.textContent=t('share_copied'); setTimeout(()=>{sh.textContent=t('share');},1400); return;}
+      else{await navigator.clipboard.writeText(text+'
+'+url); sh.textContent=t('share_copied'); setTimeout(()=>{sh.textContent=t('share');},1400); return;}
       sh.textContent=t('share');
     }catch(e){sh.textContent=t('share_unavail'); setTimeout(()=>{sh.textContent=t('share');},1600);}}
   bindCmp();
   $('#out').onclick=()=>{ setToken(null); _user=null; refresh(); };
   document.querySelectorAll('.mode').forEach(m=>m.onclick=()=>{document.querySelectorAll('.mode').forEach(x=>x.classList.remove('sel'));m.classList.add('sel');mode=m.dataset.mode;});
   document.querySelectorAll('#lang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
-  // user menu
-  const um=$('#umenu'),av=$('#uavatar');
-  if(av)av.onclick=(e)=>{e.stopPropagation();um.classList.toggle('open');};
-  document.addEventListener('click',e=>{if(um&&!um.contains(e.target))um.classList.remove('open');});
-  document.querySelectorAll('#ulang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
-  const ug=$('#u-gal');if(ug)ug.onclick=()=>um.classList.remove('open');
-  const uo=$('#u-out');if(uo)uo.onclick=()=>{ setToken(null); _user=null; um.classList.remove('open'); refresh(); };
 }
 
 async function start(){
