@@ -37,6 +37,42 @@ services:
       - key: SPACES_BUCKET
         scope: RUN_TIME
         value: smh-photos
+jobs:
+  - name: worker
+    kind: PRE_DEPLOY
+    source_dir: /worker
+    github:
+      repo: VycheslavUkraincev/smh
+      branch: main
+    run_command: python run.py
+    environment_slug: python
+    instance_size_slug: basic-xxs
+    # ПРИМЕЧАНИЕ: для постоянной обработки очереди лучше внешний планировщик
+    # (DO Functions scheduled / cron) вызывающий run.py каждые 2-5 мин,
+    # либо отдельный worker-сервис с внутренним циклом. PRE_DEPLOY — заглушка для структуры.
+    envs:
+      - key: SUPABASE_URL
+        value: ${SUPABASE_URL}
+      - key: SUPABASE_SECRET
+        type: SECRET
+        value: ${SUPABASE_SECRET}
+      - key: SPACES_KEY
+        type: SECRET
+        value: ${SPACES_KEY}
+      - key: SPACES_SECRET
+        type: SECRET
+        value: ${SPACES_SECRET}
+      - key: SPACES_REGION
+        value: fra1
+      - key: SPACES_BUCKET
+        value: smh-photos
+      - key: OPENAI_API_KEY
+        type: SECRET
+        value: ${OPENAI_API_KEY}
+      - key: FAL_KEY
+        type: SECRET
+        value: ${FAL_KEY}
+
 static_sites:
   - name: web
     source_dir: /public
