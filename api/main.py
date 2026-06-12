@@ -180,6 +180,28 @@ async def report_restoration(rid: str, authorization: str = Header(None)):
         raise HTTPException(404, "not found")
     return {"ok": True}
 
+@app.delete("/api/restorations/{rid}")
+async def delete_restoration(rid: str, authorization: str = Header(None)):
+    """Удалить заказ + файлы из хранилища (только своё). GDPR / право на забвение."""
+    user = await get_user(authorization)
+    # найти заказ (только свой) — чтобы взять ключи файлов
+    rows = await db("GET", "restorations",
+                    params={"id": f"eq.{rid}", "user_id": f"eq.{user['id']}", "select": "original_key,result_key"})
+    if not rows:
+        raise HTTPException(404, "not found")
+    row = rows[0]
+    # удалить файлы из Spaces (без падения если уже нет)
+    client = s3()
+    for k in (row.get("original_key"), row.get("result_key")):
+        if k:
+            try:
+                client.delete_object(Bucket=SPACES_BUCKET, Key=k)
+            except Exception:
+                pass
+    # удалить запись
+    await db("DELETE", "restorations", params={"id": f"eq.{rid}", "user_id": f"eq.{user['id']}"})
+    return {"ok": True, "deleted": rid}
+
 @app.get("/api/restorations")
 async def list_restorations(authorization: str = Header(None)):
     user = await get_user(authorization)
