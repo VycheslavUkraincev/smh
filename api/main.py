@@ -109,6 +109,80 @@ async def _share_payload(rid, user_id):
 def _short_sig(rid):
     return hmac.new(SHARE_SECRET.encode(), rid.encode(), hashlib.sha256).hexdigest()[:8]
 
+
+def _font(size, bold=False):
+    paths = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
+    ]
+    for p in paths:
+        try:
+            if os.path.exists(p):
+                return ImageFont.truetype(p, size)
+        except Exception:
+            pass
+    return ImageFont.load_default()
+
+
+def _fit_cover(im, tw, th):
+    w, h = im.size
+    if w == 0 or h == 0:
+        return Image.new("RGB", (tw, th), "#efe6d7")
+    s = max(tw / w, th / h)
+    im = im.resize((max(1, int(w * s)), max(1, int(h * s))), Image.LANCZOS)
+    x = max(0, (im.width - tw) // 2)
+    y = max(0, (im.height - th) // 2)
+    return im.crop((x, y, x + tw, y + th))
+
+
+async def _fetch_image(url: str):
+    async with httpx.AsyncClient(timeout=30) as c:
+        r = await c.get(url)
+    if r.status_code >= 300:
+        raise HTTPException(400, "image_fetch_failed")
+    return Image.open(io.BytesIO(r.content)).convert("RGB")
+
+
+async def _share_images(rid, user_id):
+    row = await _share_payload(rid, user_id)
+    client = s3()
+    before_key = row.get("original_key")
+    after_key = row.get("result_key") or row.get("original_key")
+    before_url = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": before_key}, ExpiresIn=3600) if before_key else ""
+    after_url = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": after_key}, ExpiresIn=3600) if after_key else before_url
+    return row, before_url, after_url
+
+
+async def _share_jpeg(rid, user_id):
+    row, before_url, after_url = await _share_images(rid, user_id)
+    before = await _fetch_image(before_url) if before_url else None
+    after = await _fetch_image(after_url) if after_url else before
+    W, H = 1200, 628
+    canvas = Image.new("RGB", (W, H), (244, 238, 228))
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle([16, 16, W - 16, H - 16], radius=28, fill=(245, 239, 230), outline=(166, 124, 50), width=2)
+    draw.text((42, 36), "SAVE MY HISTORY", font=_font(22, True), fill=(166, 124, 50))
+    draw.text((42, 72), "Restored family memory", font=_font(18), fill=(111, 92, 70))
+    panel_y = 120
+    panel_h = 400
+    panel_w = (W - 100) // 2
+    bx = 42
+    ax = bx + panel_w + 16
+    if before is None:
+        before = after
+    before = _fit_cover(before, panel_w, panel_h)
+    after = _fit_cover(after, panel_w, panel_h)
+    canvas.paste(before, (bx, panel_y))
+    canvas.paste(after, (ax, panel_y))
+    for x, label, color in [(bx + 16, "BEFORE", (0, 0, 0)), (ax + 16, "AFTER", (166, 124, 50))]:
+        draw.rounded_rectangle([x, panel_y + 16, x + 102, panel_y + 44], radius=14, fill=color)
+        draw.text((x + 51, panel_y + 30), label, font=_font(14, True), fill=(255, 255, 255), anchor="mm")
+    draw.text((42, 548), "We brought a family photo back to life.", font=_font(34, True), fill=(64, 42, 27))
+    draw.text((42, 596), f"Share your story · {_short_sig(rid)}", font=_font(18), fill=(111, 92, 70))
+    buf = io.BytesIO()
+    canvas.save(buf, format="JPEG", quality=90, optimize=True)
+    return buf.getvalue(), row
+
 @app.post("/api/redeem-code")
 async def redeem_code(request: Request, authorization: str = Header(None)):
     """Активация инвайт-кода + согласие на программу. Начисляет квоту."""
@@ -181,17 +255,26 @@ async def retry_restoration(rid: str, authorization: str = Header(None)):
         raise HTTPException(404, "not found")
     return res[0] if isinstance(res, list) else res
 
+@app.get("/api/restorations/{rid}/share-card.png")
+async def share_card_png(rid: str, authorization: str = Header(None)):
+    """PNG share-карта для соцсетей."""
+    user = await get_user(authorization)
+    png, _ = await _share_jpeg(rid, user["id"])
+    return Response(content=png, media_type="image/jpeg")
+
 @app.get("/api/restorations/{rid}/share-card")
 async def share_card(rid: str, authorization: str = Header(None)):
     """Отдаёт share preview HTML для готовой реставрации."""
     user = await get_user(authorization)
-    row = await _share_payload(rid, user["id"])
+    png, row = await _share_jpeg(rid, user["id"])
     client = s3()
     before_key = row.get("original_key")
     after_key = row.get("result_key") or row.get("original_key")
     before = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": before_key}, ExpiresIn=3600) if before_key else ""
     after = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": after_key}, ExpiresIn=3600) if after_key else before
+    image_url = f"{PUBLIC_URL}/api/restorations/{rid}/share-card.png"
     html = f"""<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+    <meta property='og:title' content='SaveMyHistory'><meta property='og:description' content='We brought a family photo back to life.'><meta property='og:image' content='{image_url}'><meta property='og:type' content='article'>
     <title>SaveMyHistory</title><style>body{{margin:0;background:#f4eee4;font-family:system-ui,sans-serif;color:#402a1b;display:grid;place-items:center;min-height:100vh}}.card{{width:min(1080px,92vw);background:#f5efe6;border:1px solid rgba(160,120,60,.25);border-radius:28px;box-shadow:0 20px 60px rgba(0,0,0,.10);overflow:hidden}}.pad{{padding:28px}}.top{{font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#a67c32;font-size:12px}}.grid{{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}}.shot{{position:relative;border-radius:22px;overflow:hidden;background:#efe6d7;min-height:240px}}.shot img{{display:block;width:100%;height:100%;object-fit:cover}}.tag{{position:absolute;top:16px;left:16px;background:#000;color:#fff;padding:8px 12px;border-radius:999px;font-size:12px}}.tag.r{{background:#a67c32}}.copy{{padding:18px 0 0;font-size:28px;line-height:1.15;font-family:Georgia,serif}}.sub{{margin-top:8px;font-size:18px;color:#6f5c46}}.ft{{margin-top:18px;padding:16px 20px;background:#a67c32;color:#fff;font-weight:700;text-align:center;border-radius:18px}}.url{{margin-top:8px;font-size:12px;color:#8a7a66;text-align:center}}@media(max-width:700px){{.grid{{grid-template-columns:1fr}}.copy{{font-size:24px}}}}</style></head><body><div class='card'><div class='pad'><div class='top'>SAVE MY HISTORY · restored family memory</div><div class='grid'><div class='shot'><img src='{before or after}' alt='before restoration'><div class='tag'>BEFORE</div></div><div class='shot'><img src='{after}' alt='after restoration'><div class='tag r'>AFTER</div></div></div><div class='copy'>We brought a family photo back to life.</div><div class='sub'>Each restored picture can travel through social media and bring another family back.</div><div class='ft'>Share your story</div><div class='url'>savemyhistory.tech · { _short_sig(rid) }</div></div></div></body></html>"""
     return HTMLResponse(html)
 
@@ -199,7 +282,7 @@ async def share_card(rid: str, authorization: str = Header(None)):
 async def share_card_json(rid: str, authorization: str = Header(None)):
     """JSON для мобильного share / clipboard fallback."""
     user = await get_user(authorization)
-    await _share_payload(rid, user["id"])
+    _png, _row = await _share_jpeg(rid, user["id"])
     return {"ok": True, "share_url": f"{PUBLIC_URL}/api/restorations/{rid}/share-card", "caption": "SaveMyHistory"}
 
 @app.post("/api/restorations/{rid}/report")
