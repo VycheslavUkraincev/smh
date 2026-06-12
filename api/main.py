@@ -575,7 +575,10 @@ async def arena_summary(request: Request):
     if decisions:
         lines.append("Договорённости: " + " | ".join(decisions[-8:]))
     summary = "\n".join(lines)
-    await db("POST", "arena_chat", payload={"author": "Система", "body": summary, "kind": "summary"})
+    nid = (rows[-1]["id"] + 1) if rows else 1
+    rows.append({"id": nid, "author": "Система", "body": summary, "kind": "summary",
+                 "created_at": __import__("datetime").datetime.utcnow().isoformat() + "Z"})
+    _arena_save(rows)
     return {"ok": True, "summary": summary}
 
 @app.get("/arena")
