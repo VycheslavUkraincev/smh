@@ -4,10 +4,10 @@
 определяет повреждения + режим, ГЕНЕРИРУЕТ промпт под конкретное фото,
 пишет analysis+prompt, ставит status='analyzed'.
 Это делается на API (дёшево) ДО аренды GPU.
-Запуск: python analyze.py [batch]   (по умолчанию 10)
+Запуск: python worker_analyze.py [batch]   (по умолчанию 10)
 """
 import sys, json, time
-from common import log, claim, update_row, presigned_get, vision
+from worker_common import log, claim, update_row, presigned_get, vision
 
 # базовое identity-правило (наш моат: не подменять лицо)
 IDENTITY = ("CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize or rejuvenate any face. "
@@ -29,6 +29,33 @@ ANALYZE_PROMPT = (
  "Choose gentle if the user clearly wants documentary bw. Choose modern only if photo is already fairly clear. "
  "Be conservative — these are real ancestors."
 )
+
+# валидные значения и нормализация опечаток от vision-модели
+VALID_DAMAGE = {"scratches","dust","stains","creases","tears","fading","blur","noise","missing_parts"}
+DAMAGE_FIX = {"creasing":"creases","crease":"creases","scratch":"scratches","stain":"stains","tear":"tears","soft":None,"dirt":"dust","spots":"stains"}
+VALID_KIND = {"bw","faded_color","color"}
+VALID_CLARITY = {"clear","soft","very_blurry"}
+VALID_SEV = {"light","medium","heavy"}
+VALID_MODE = {"gentle","natural_color","modern"}
+
+def sanitize(a):
+    """Чистим ответ vision: только валидные значения, чтобы не ломать промпт."""
+    if not isinstance(a, dict):
+        return {"kind":"faded_color","damage":[],"faces":1,"face_clarity":"soft","severity":"medium","recommended_mode":"natural_color","notes":""}
+    dmg = []
+    for d in (a.get("damage") or []):
+        d = str(d).strip().lower()
+        d = DAMAGE_FIX.get(d, d)
+        if d in VALID_DAMAGE and d not in dmg:
+            dmg.append(d)
+    a["damage"] = dmg
+    if a.get("kind") not in VALID_KIND: a["kind"] = "faded_color"
+    if a.get("face_clarity") not in VALID_CLARITY: a["face_clarity"] = "soft"
+    if a.get("severity") not in VALID_SEV: a["severity"] = "medium"
+    if a.get("recommended_mode") not in VALID_MODE: a["recommended_mode"] = "natural_color"
+    try: a["faces"] = max(0, int(a.get("faces", 1)))
+    except Exception: a["faces"] = 1
+    return a
 
 # шаблоны промптов генерации по режиму (стадия 2 возьмёт готовое)
 def build_prompt(a):
@@ -68,7 +95,7 @@ def main(batch=10):
         try:
             url = presigned_get(r["original_key"], ttl=1800)
             raw = vision(ANALYZE_PROMPT, url)
-            a = extract_json(raw)
+            a = sanitize(extract_json(raw))
             prompt = build_prompt(a)
             update_row(rid, {
                 "analysis": a, "prompt": prompt,
