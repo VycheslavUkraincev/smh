@@ -400,11 +400,13 @@ function bind(){
   const rep=$('#ov-report');if(rep)rep.onclick=async()=>{ if(!_ovId)return; rep.disabled=true; rep.textContent=t('report_sent');
     try{await fetch('/api/restorations/'+_ovId+'/report',{method:'POST',headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});}catch(e){} };
   const sh=$('#ov-share');if(sh)sh.onclick=async()=>{try{
-      const link=location.origin+'/cabinet.html?rid='+encodeURIComponent(_ovId||'');
-      await navigator.clipboard.writeText(link+'
-'+t('share_text'));
-      sh.textContent=t('share_copied');
-      setTimeout(()=>{sh.textContent=t('share');},1400);
+      const r=await fetch('/api/restorations/'+_ovId+'/share-card',{headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});
+      const d=await r.json();
+      const url=d.share_url|| (location.origin+'/cabinet.html?rid='+encodeURIComponent(_ovId||''));
+      const text=d.caption||t('share_text');
+      if(navigator.share){await navigator.share({title:'SaveMyHistory',text,url});}
+      else{await navigator.clipboard.writeText(text+'\n'+url); sh.textContent=t('share_copied'); setTimeout(()=>{sh.textContent=t('share');},1400); return;}
+      sh.textContent=t('share');
     }catch(e){sh.textContent=t('share_unavail'); setTimeout(()=>{sh.textContent=t('share');},1600);}}
   bindCmp();
   $('#out').onclick=()=>{ setToken(null); _user=null; refresh(); };
