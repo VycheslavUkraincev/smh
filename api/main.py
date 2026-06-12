@@ -176,6 +176,22 @@ async def retry_restoration(rid: str, authorization: str = Header(None)):
         raise HTTPException(404, "not found")
     return res[0] if isinstance(res, list) else res
 
+
+@app.post("/api/restorations/{rid}/share-card")
+async def share_card(rid: str, authorization: str = Header(None)):
+    """Готовит share-ссылку/карточку для восстановленного фото."""
+    user = await get_user(authorization)
+    rows = await db("GET", "restorations", params={"id": f"eq.{rid}", "user_id": f"eq.{user['id']}", "select": "*"})
+    if not rows:
+        raise HTTPException(404, "not found")
+    row = rows[0]
+    if row.get("status") != "done":
+        raise HTTPException(400, "not_ready")
+    return {
+        "ok": True,
+        "share_url": f"https://savemyhistory.tech/cabinet.html?rid={rid}",
+        "caption": "SaveMyHistory"
+    }
 @app.post("/api/restorations/{rid}/report")
 async def report_restoration(rid: str, authorization: str = Header(None)):
     """Пользователь сообщает о проблеме (напр. исказилось лицо). Помечаем flagged."""
