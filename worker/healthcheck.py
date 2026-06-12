@@ -12,7 +12,7 @@ os.environ.setdefault("SPACES_KEY", sp["access_key"]); os.environ.setdefault("SP
 os.environ.setdefault("SPACES_REGION", sp["region"]); os.environ.setdefault("SPACES_BUCKET", sp["bucket"])
 os.environ.setdefault("SPACES_ENDPOINT", sp["endpoint"])
 
-from worker_common import db, rpc, s3, BUCKET, vision
+from common import db, rpc, s3, BUCKET, vision
 
 def check(name, fn):
     try:
