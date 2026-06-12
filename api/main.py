@@ -85,6 +85,55 @@ async def upload_url(request: Request, authorization: str = Header(None)):
         ExpiresIn=600)
     return {"upload_url": url, "key": key}
 
+async def get_profile(uid):
+    """Профиль юзера (квота/согласие). Если нет колонок миграции — вернёт что есть."""
+    try:
+        res = await db("GET", "profiles", params={"id": f"eq.{uid}", "select": "*"})
+        return (res or [{}])[0]
+    except Exception:
+        return {}
+
+@app.post("/api/redeem-code")
+async def redeem_code(request: Request, authorization: str = Header(None)):
+    """Активация инвайт-кода + согласие на программу. Начисляет квоту."""
+    user = await get_user(authorization)
+    body = await request.json()
+    code = (body.get("code") or "").strip()
+    consent = bool(body.get("consent"))
+    if not code:
+        raise HTTPException(400, "no_code")
+    if not consent:
+        raise HTTPException(400, "consent_required")
+    # атомарно через RPC redeem_invite
+    url = f"{SUPABASE_URL}/rest/v1/rpc/redeem_invite"
+    headers = {"apikey": SUPABASE_SECRET, "Authorization": f"Bearer {SUPABASE_SECRET}", "Content-Type": "application/json"}
+    async with httpx.AsyncClient(timeout=20) as c:
+        r = await c.post(url, headers=headers, json={"p_user": user["id"], "p_code": code})
+    if r.status_code >= 300:
+        raise HTTPException(r.status_code, r.text)
+    out = r.json()
+    if not out.get("ok"):
+        raise HTTPException(400, out.get("reason", "redeem_failed"))
+    # фиксируем согласие
+    await db("PATCH", "profiles", params={"id": f"eq.{user['id']}"},
+             payload={"program_consent": True, "consent_at": "now()"})
+    return {"ok": True, "granted": out.get("granted")}
+
+@app.post("/api/feedback")
+async def submit_feedback(request: Request, authorization: str = Header(None)):
+    """Отзыв/фидбек по результату."""
+    user = await get_user(authorization)
+    body = await request.json()
+    row = {"user_id": user["id"], "rating": body.get("rating"),
+           "text": (body.get("text") or "")[:2000],
+           "restoration_id": body.get("restoration_id"),
+           "allow_public": bool(body.get("allow_public", True))}
+    try:
+        await db("POST", "feedback", payload=row)
+    except Exception as e:
+        raise HTTPException(400, "feedback_failed")
+    return {"ok": True}
+
 @app.post("/api/restorations")
 async def create_restoration(request: Request, authorization: str = Header(None)):
     user = await get_user(authorization)
@@ -95,12 +144,15 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     original_key = body.get("original_key")
     if not original_key:
         raise HTTPException(400, "no original_key")
-    # лимит бесплатных реставраций: считаем все заказы юзера (кроме failed)
+    # лимит: использовано вс. квота (free_quota из профиля, иначе fallback FREE_LIMIT)
     existing = await db("GET", "restorations",
                         params={"user_id": f"eq.{user['id']}", "status": "neq.failed", "select": "id"})
     used = len(existing or [])
-    if used >= FREE_LIMIT:
-        raise HTTPException(402, f"free_limit_reached:{FREE_LIMIT}")
+    prof = await get_profile(user["id"])
+    quota = prof.get("free_quota")
+    limit = quota if isinstance(quota, int) and quota > 0 else FREE_LIMIT
+    if used >= limit:
+        raise HTTPException(402, f"free_limit_reached:{limit}")
     row = {"user_id": user["id"], "original_key": original_key, "mode": mode, "status": "queued"}
     res = await db("POST", "restorations", payload=row)
     return res[0] if isinstance(res, list) else res
