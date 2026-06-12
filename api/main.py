@@ -204,7 +204,7 @@ async def _share_jpeg(rid, user_id=None, row=None):
     draw.text((42, 548), "Old photo. New life.", font=_font(34, True), fill=(64, 42, 27))
     draw.text((42, 596), f"Restore a memory · {_short_sig(rid)}", font=_font(18), fill=(111, 92, 70))
     buf = io.BytesIO()
-    canvas.save(buf, format="JPEG", quality=90, optimize=True)
+    canvas.save(buf, format="PNG", optimize=True)
     return buf.getvalue(), row
 
 @app.post("/api/redeem-code")
@@ -284,7 +284,7 @@ async def share_card_png(rid: str, authorization: str = Header(None), sig: str =
     """PNG share-карта для соцсетей."""
     row = await _share_row_for_request(rid, authorization, sig)
     png, _ = await _share_jpeg(rid, row=row)
-    return Response(content=png, media_type="image/jpeg")
+    return Response(content=png, media_type="image/png")
 
 @app.get("/api/restorations/{rid}/share-card")
 async def share_card(rid: str, authorization: str = Header(None), sig: str = None):
