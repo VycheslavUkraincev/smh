@@ -15,6 +15,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Manrope',sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:40;background:radial-gradient(ellipse 120% 80% at 50% 50%,transparent 55%,rgba(0,0,0,.45) 100%);mix-blend-mode:multiply;opacity:.9}
 .serif{font-family:'Cormorant Garamond',serif}
 h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.04;letter-spacing:-.01em}
 img{display:block;max-width:100%}
@@ -33,7 +34,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 30%,rgba(201,162,75,.10),transparent 70%);z-index:0}
 .hero .wrap{position:relative;z-index:2}
 .kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:34px;opacity:0;transform:translateY(20px);animation:rise 1.1s var(--ease) .2s forwards}
-.hero h1{font-size:clamp(40px,7.5vw,96px);max-width:15ch;margin-bottom:32px}
+.hero h1{font-size:clamp(40px,7.5vw,96px);max-width:15ch;margin-bottom:32px;text-wrap:balance}
 .hero h1 span{display:block;opacity:0;transform:translateY(40px);animation:rise 1.2s var(--ease) forwards}
 .hero h1 span:nth-child(1){animation-delay:.35s}
 .hero h1 span:nth-child(2){animation-delay:.55s}
