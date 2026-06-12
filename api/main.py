@@ -581,6 +581,19 @@ async def arena_summary(request: Request):
     _arena_save(rows)
     return {"ok": True, "summary": summary}
 
+@app.post("/api/arena/reset")
+async def arena_reset(request: Request):
+    data = await request.json()
+    if (data.get("secret") or "").strip() != ARENA_SECRET:
+        raise HTTPException(401, "bad secret")
+    seed = data.get("seed")
+    rows = []
+    if seed:
+        rows = [{"id": 1, "author": "Система", "body": str(seed), "kind": "summary",
+                 "created_at": __import__("datetime").datetime.utcnow().isoformat() + "Z"}]
+    _arena_save(rows)
+    return {"ok": True, "count": len(rows)}
+
 @app.get("/arena")
 async def arena_page():
     return HTMLResponse(ARENA_HTML)
