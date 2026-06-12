@@ -7,7 +7,7 @@
 Запуск: python worker_analyze.py [batch]   (по умолчанию 10)
 """
 import sys, json, time
-from worker_common import log, claim, update_row, presigned_get, vision
+from common import log, claim, update_row, presigned_get, vision
 
 # базовое identity-правило (наш моат: не подменять лицо)
 IDENTITY = ("CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize or rejuvenate any face. "
