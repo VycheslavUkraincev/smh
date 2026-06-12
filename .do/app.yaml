@@ -37,6 +37,9 @@ services:
       - key: SPACES_BUCKET
         scope: RUN_TIME
         value: smh-photos
+      - key: ADMIN_EMAILS
+        scope: RUN_TIME
+        value: ${ADMIN_EMAILS}
 workers:
   - name: worker
     source_dir: /worker
@@ -73,6 +76,9 @@ workers:
       - key: FAL_KEY
         type: SECRET
         value: ${FAL_KEY}
+      # режим генерации: api (старт) | gpu (RunPod). Для GPU добавить RUNPOD_ENDPOINT + RUNPOD_KEY.
+      - key: GEN_PROVIDER
+        value: api
 
 static_sites:
   - name: web
