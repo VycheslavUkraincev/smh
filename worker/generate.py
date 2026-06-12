@@ -14,6 +14,30 @@ import sys, os, json, tempfile, subprocess, urllib.request
 from common import log, claim, update_row, presigned_get, s3, BUCKET
 
 FAL = os.environ.get("FAL_KEY", "")
+# Переключатель провайдера генерации: "api" (fal, старт) | "gpu" (RunPod Serverless)
+GEN_PROVIDER = os.environ.get("GEN_PROVIDER", "api").lower()
+RUNPOD_ENDPOINT = os.environ.get("RUNPOD_ENDPOINT", "")  # https://api.runpod.ai/v2/<id>/runsync
+RUNPOD_KEY = os.environ.get("RUNPOD_KEY", "")
+
+def gpu_run(src_url, prompt, out_path):
+    """GPU-режим: один вызов RunPod Serverless делает оба слоя (генератив + честные лица)
+    на своём inference-образе. Контракт: принимает image_url+prompt, возвращает image_url или base64."""
+    if not RUNPOD_ENDPOINT or not RUNPOD_KEY:
+        raise RuntimeError("GPU режим включён, но RUNPOD_ENDPOINT/RUNPOD_KEY не заданы")
+    payload = json.dumps({"input": {"image_url": src_url, "prompt": prompt,
+                                     "face_fidelity": 0.85, "preserve_identity": True}}).encode()
+    req = urllib.request.Request(RUNPOD_ENDPOINT, data=payload,
+        headers={"Authorization": f"Bearer {RUNPOD_KEY}", "Content-Type": "application/json"}, method="POST")
+    resp = json.loads(urllib.request.urlopen(req, timeout=300).read().decode())
+    out = (resp.get("output") or {})
+    if out.get("image_url"):
+        download(out["image_url"], out_path)
+    elif out.get("image_base64"):
+        import base64
+        open(out_path, "wb").write(base64.b64decode(out["image_base64"]))
+    else:
+        raise RuntimeError(f"RunPod без результата: {json.dumps(resp)[:160]}")
+    return out_path
 
 def fal_run(model, args, out_path):
     """Вызов fal через готовый CLI скилла (тот же, что мы юзали в тестах)."""
@@ -47,13 +71,16 @@ def main(batch=4):
                 orig_url = presigned_get(r["original_key"], ttl=1800)
                 src = download(orig_url, f"{tmp}/src.jpg")
                 prompt = r.get("prompt") or "Restore this old family photo, preserve exact identity, no beautify."
-                # (А) генератив фон/цвет по готовому промпту
-                gen = fal_run("nano-banana-2-edit",
-                              {"image_url": src, "prompt": prompt}, f"{tmp}/gen.jpg")
-                # (Б) CodeFormer для честных лиц (на старте — поверх gen с высоким fidelity)
-                final = fal_run("fal-ai/codeformer",
-                                {"image_url": gen, "fidelity": 0.85, "upscale_factor": 1},
-                                f"{tmp}/final.jpg")
+                if GEN_PROVIDER == "gpu":
+                    # GPU: один вызов RunPod делает оба слоя дешёво (11× дешевле API)
+                    final = gpu_run(orig_url, prompt, f"{tmp}/final.jpg")
+                else:
+                    # API (старт): (А) генератив по промпту + (Б) CodeFormer честные лица
+                    gen = fal_run("nano-banana-2-edit",
+                                  {"image_url": src, "prompt": prompt}, f"{tmp}/gen.jpg")
+                    final = fal_run("fal-ai/codeformer",
+                                    {"image_url": gen, "fidelity": 0.85, "upscale_factor": 1},
+                                    f"{tmp}/final.jpg")
                 key = upload_result(final, uid, rid)
                 update_row(rid, {"result_key": key, "status": "generated", "generated_at": "now()", "error": None})
                 ok += 1
