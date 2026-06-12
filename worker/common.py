@@ -40,6 +40,30 @@ def rpc(name, payload):
     except urllib.error.HTTPError as e:
         log("rpc", f"ERR {e.code} {e.read().decode()[:200]}"); return None
 
+def count_status(status):
+    """Сколько реставраций в статусе. Пробуем RPC, фолбэк — REST count (не зависит от миграции)."""
+    try:
+        v = rpc("count_status", {"p_status": status})
+        if isinstance(v, int):
+            return v
+        if isinstance(v, list) and v and isinstance(v[0], int):
+            return v[0]
+    except Exception:
+        pass
+    # фолбэк: REST HEAD c Prefer:count=exact → читаем Content-Range
+    try:
+        url = f"{SUPA_URL}/rest/v1/restorations?status=eq.{status}&select=id"
+        r = urllib.request.Request(url, method="GET")
+        r.add_header("apikey", SECRET); r.add_header("Authorization", f"Bearer {SECRET}")
+        r.add_header("Prefer", "count=exact"); r.add_header("Range", "0-0")
+        resp = urllib.request.urlopen(r, timeout=30)
+        cr = resp.headers.get("Content-Range", "")  # формат "0-0/123"
+        if "/" in cr:
+            return int(cr.split("/")[-1])
+    except Exception as e:
+        log("count", f"err {str(e)[:80]}")
+    return 0
+
 def claim(from_status, to_status, limit):
     """Атомарно взять пачку фото нужного статуса (skip locked)."""
     return rpc("claim_restorations", {"p_from": from_status, "p_to": to_status, "p_limit": limit}) or []
