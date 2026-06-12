@@ -6,7 +6,7 @@
 Опц. ENV: ANALYZE_BATCH, GEN_BATCH, VERIFY_BATCH, GPU_THRESHOLD
 """
 import os
-from common import log, rpc
+from common import log, rpc, count_status
 import analyze, generate, verify
 
 def main():
@@ -21,11 +21,30 @@ def main():
     g = int(os.environ.get("GEN_BATCH", "4"))
     v = int(os.environ.get("VERIFY_BATCH", "10"))
 
-    # 1) ИИ-глаза (дёшево, всегда)
+    # РЕЖИМ НАКОПЛЕНИЯ (INTAKE_ONLY=1):
+    #   фото копятся и готовятся (ИИ-глаза), но НЕ генерируются — ждут GPU-батча.
+    intake_only = os.environ.get("INTAKE_ONLY", "0") == "1"
+    # ПОРОГ БАТЧА (GEN_MIN_BATCH): генерация стартует только когда накопилось >= N фото.
+    min_batch = int(os.environ.get("GEN_MIN_BATCH", "0"))
+
+    # 1) ИИ-глаза (дёшево, всегда) — готовит фото к генерации
     na = analyze.main(a)
-    # 3) проверка готовых (дёшево, всегда) — делаем до генерации, чтобы освобождать очередь
+    # 3) проверка готовых (дёшево, всегда)
     nv = verify.main(v)
-    # 2) генерация (дорого) — в API-режиме сразу; в GPU-режиме оркестратор решает порог
+
+    if intake_only:
+        # считаем, сколько ждёт генерации, и НЕ генерируем
+        waiting = count_status("analyzed")
+        log("run", f"INTAKE_ONLY: analyzed={na} verified={nv} | ждёт GPU-батча: {waiting}")
+        return
+
+    # 2) генерация (дорого). Если задан порог — ждём накопления.
+    if min_batch > 0:
+        waiting = count_status("analyzed")
+        if waiting < min_batch:
+            log("run", f"порог батча: {waiting}/{min_batch} — генерацию откладываем")
+            log("run", f"итог прохода: analyzed={na} generated=0 verified={nv}")
+            return
     ng = generate.main(g)
 
     log("run", f"итог прохода: analyzed={na} generated={ng} verified={nv}")
