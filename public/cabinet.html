@@ -280,7 +280,7 @@ function bind(){
       else{await navigator.clipboard.writeText(text+'\n'+url); sh.textContent=t('share_copied'); setTimeout(()=>{sh.textContent=t('share');},1400); return;}
       sh.textContent=t('share');
     }catch(e){sh.textContent=t('share_unavail'); setTimeout(()=>{sh.textContent=t('share');},1600);}}
-  const cd=$('#ov-card');if(cd)cd.onclick=async()=>{try{const r=await fetch('/api/restorations/'+_ovId+'/share-card',{headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});const d=await r.json();const u=d.image_url||((d.share_url||'').replace('/share-card','/share-card.png'));if(u)window.open(u,'_blank','noopener');}catch(e){cd.textContent=t('share_unavail');setTimeout(()=>{cd.textContent=t('card');},1600);}};
+  const cd=$('#ov-card');if(cd)cd.onclick=async()=>{try{const r=await fetch('/api/restorations/'+_ovId+'/share-card',{headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});const d=await r.json();const u=d.image_url||((d.share_url||'').replace('/share-card','/share-card.png'));if(u){const w=window.open(u,'_blank','noopener'); if(!w) location.href=u;}}catch(e){cd.textContent=t('share_unavail');setTimeout(()=>{cd.textContent=t('card');},1600);}};
   bindCmp();
   $('#out').onclick=()=>{ setToken(null); _user=null; refresh(); };
   document.querySelectorAll('.mode').forEach(m=>m.onclick=()=>{document.querySelectorAll('.mode').forEach(x=>x.classList.remove('sel'));m.classList.add('sel');mode=m.dataset.mode;});
