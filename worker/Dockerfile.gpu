@@ -1,0 +1,38 @@
+# SaveMyHistory — GPU образ для RunPod Serverless (реставрация фото)
+# Стек: Real-ESRGAN (фон) + CodeFormer (лица). CUDA 12.1, torch 2.x.
+# Сборка:  docker build -f Dockerfile.gpu -t smh-gpu .
+# Пуш:     docker tag smh-gpu <registry>/smh-gpu && docker push <registry>/smh-gpu
+# В RunPod: указать этот образ в Serverless endpoint, handler = runpod_handler.py
+
+FROM runpod/pytorch:2.1.0-py3.10-cuda12.1.1-devel-ubuntu22.04
+
+WORKDIR /app
+
+# системные либы для opencv
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 libglib2.0-0 wget && rm -rf /var/lib/apt/lists/*
+
+# python-зависимости
+RUN pip install --no-cache-dir \
+    runpod \
+    opencv-python-headless \
+    numpy \
+    realesrgan \
+    basicsr \
+    facexlib \
+    codeformer-pip \
+    torchvision
+
+# скачать веса при сборке (чтобы не тянуть на каждом холодном старте)
+ENV WEIGHTS_DIR=/weights
+RUN mkdir -p /weights && \
+    wget -q -O /weights/RealESRGAN_x2plus.pth \
+      https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth && \
+    wget -q -O /weights/codeformer.pth \
+      https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/codeformer.pth
+
+# код хендлера
+COPY runpod_handler.py /app/runpod_handler.py
+
+# RunPod запускает этот файл как serverless worker
+CMD ["python", "-u", "runpod_handler.py"]
