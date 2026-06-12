@@ -29,7 +29,7 @@ SPACES_ENDPOINT = os.environ.get("SPACES_ENDPOINT", f"https://{SPACES_REGION}.di
 VALID_MODES = {"restore", "revive"}
 IMAGE_TYPES = {"image/jpeg", "image/png", "image/tiff", "image/webp", "image/heic", "image/heif"}
 FREE_LIMIT = int(os.environ.get("FREE_LIMIT", "5"))   # бесплатных реставраций на юзера
-ADMIN_EMAILS = {e.strip().lower() for e in os.environ.get("ADMIN_EMAILS", "").split(",") if e.strip()}
+CAMPAIGN_PAUSED = os.environ.get("CAMPAIGN_PAUSED", "0") == "1"   # стоп-кран инвайт-кампании
 
 def s3():
     return boto3.client("s3", region_name=SPACES_REGION, endpoint_url=SPACES_ENDPOINT,
@@ -47,14 +47,6 @@ async def get_user(authorization: str):
     if r.status_code != 200:
         raise HTTPException(401, "invalid token")
     return r.json()
-
-async def require_admin(authorization: str):
-    """Пускает только admin-email из белого списка ADMIN_EMAILS."""
-    user = await get_user(authorization)
-    email = (user.get("email") or "").lower()
-    if not ADMIN_EMAILS or email not in ADMIN_EMAILS:
-        raise HTTPException(403, "admin only")
-    return user
 
 async def db(method, path, payload=None, params=None):
     """REST к Supabase (service key, обходит RLS на сервере)."""
@@ -75,8 +67,13 @@ async def health():
 async def me(authorization: str = Header(None)):
     """Подтверждает пользователя по access_token (серверным ключом). Обходит проблему publishable-ключа на клиенте."""
     user = await get_user(authorization)
+    prof = await get_profile(user.get("id"))
+    fq = prof.get("free_quota")
     return {"id": user.get("id"), "email": user.get("email"),
-            "name": (user.get("user_metadata") or {}).get("full_name")}
+            "name": (user.get("user_metadata") or {}).get("full_name"),
+            "free_quota": fq if isinstance(fq, int) else 0,
+            "used_quota": prof.get("used_quota") if isinstance(prof.get("used_quota"), int) else 0,
+            "program_consent": bool(prof.get("program_consent"))}
 
 @app.post("/api/upload-url")
 async def upload_url(request: Request, authorization: str = Header(None)):
@@ -105,6 +102,8 @@ async def get_profile(uid):
 @app.post("/api/redeem-code")
 async def redeem_code(request: Request, authorization: str = Header(None)):
     """Активация инвайт-кода + согласие на программу. Начисляет квоту."""
+    if CAMPAIGN_PAUSED:
+        raise HTTPException(403, "campaign_paused")
     user = await get_user(authorization)
     body = await request.json()
     code = (body.get("code") or "").strip()
@@ -189,28 +188,6 @@ async def report_restoration(rid: str, authorization: str = Header(None)):
         raise HTTPException(404, "not found")
     return {"ok": True}
 
-@app.delete("/api/restorations/{rid}")
-async def delete_restoration(rid: str, authorization: str = Header(None)):
-    """Удалить заказ + файлы из хранилища (только своё). GDPR / право на забвение."""
-    user = await get_user(authorization)
-    # найти заказ (только свой) — чтобы взять ключи файлов
-    rows = await db("GET", "restorations",
-                    params={"id": f"eq.{rid}", "user_id": f"eq.{user['id']}", "select": "original_key,result_key"})
-    if not rows:
-        raise HTTPException(404, "not found")
-    row = rows[0]
-    # удалить файлы из Spaces (без падения если уже нет)
-    client = s3()
-    for k in (row.get("original_key"), row.get("result_key")):
-        if k:
-            try:
-                client.delete_object(Bucket=SPACES_BUCKET, Key=k)
-            except Exception:
-                pass
-    # удалить запись
-    await db("DELETE", "restorations", params={"id": f"eq.{rid}", "user_id": f"eq.{user['id']}"})
-    return {"ok": True, "deleted": rid}
-
 @app.get("/api/restorations")
 async def list_restorations(authorization: str = Header(None)):
     user = await get_user(authorization)
@@ -230,72 +207,3 @@ async def list_restorations(authorization: str = Header(None)):
         except Exception:
             pass
     return rows
-
-# ============ ADMIN ============
-
-@app.get("/api/admin/check")
-async def admin_check(authorization: str = Header(None)):
-    """Проверка доступа — фронт вызывает при входе в /admin."""
-    user = await require_admin(authorization)
-    return {"ok": True, "email": user.get("email")}
-
-@app.get("/api/admin/stats")
-async def admin_stats(authorization: str = Header(None)):
-    """Сводка: очередь по статусам + всего пользователей/заказов."""
-    await require_admin(authorization)
-    out = {"queue": {}, "total_restorations": 0}
-    for st in ("queued", "uploaded", "processing", "done", "failed"):
-        rows = await db("GET", "restorations",
-                        params={"status": f"eq.{st}", "select": "id", "limit": "100000"})
-        out["queue"][st] = len(rows or [])
-    out["total_restorations"] = sum(out["queue"].values())
-    return out
-
-@app.get("/api/admin/restorations")
-async def admin_restorations(authorization: str = Header(None), limit: int = 50, status: str = None):
-    """Последние заказы (всех пользователей) + превью ссылки."""
-    await require_admin(authorization)
-    params = {"select": "*", "order": "created_at.desc", "limit": str(min(limit, 200))}
-    if status:
-        params["status"] = f"eq.{status}"
-    rows = await db("GET", "restorations", params=params) or []
-    client = s3()
-    for r in rows:
-        try:
-            if r.get("original_key"):
-                r["original_url"] = client.generate_presigned_url("get_object",
-                    Params={"Bucket": SPACES_BUCKET, "Key": r["original_key"]}, ExpiresIn=3600)
-            if r.get("result_key"):
-                r["result_url"] = client.generate_presigned_url("get_object",
-                    Params={"Bucket": SPACES_BUCKET, "Key": r["result_key"]}, ExpiresIn=3600)
-        except Exception:
-            pass
-    return rows
-
-@app.post("/api/admin/restorations/{rid}/retry")
-async def admin_retry(rid: str, authorization: str = Header(None)):
-    """Перезапустить любой заказ (сброс в queued)."""
-    await require_admin(authorization)
-    res = await db("PATCH", "restorations", params={"id": f"eq.{rid}"},
-                   payload={"status": "queued", "error": None})
-    if not res:
-        raise HTTPException(404, "not found")
-    return {"ok": True}
-
-@app.delete("/api/admin/restorations/{rid}")
-async def admin_delete(rid: str, authorization: str = Header(None)):
-    """Удалить любой заказ (админ) + файлы из Spaces."""
-    await require_admin(authorization)
-    rows = await db("GET", "restorations",
-                    params={"id": f"eq.{rid}", "select": "original_key,result_key"})
-    if not rows:
-        raise HTTPException(404, "not found")
-    client = s3()
-    for k in (rows[0].get("original_key"), rows[0].get("result_key")):
-        if k:
-            try:
-                client.delete_object(Bucket=SPACES_BUCKET, Key=k)
-            except Exception:
-                pass
-    await db("DELETE", "restorations", params={"id": f"eq.{rid}"})
-    return {"ok": True, "deleted": rid}
