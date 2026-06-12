@@ -284,7 +284,7 @@ async def share_card_png(rid: str, authorization: str = Header(None), sig: str =
     """PNG share-карта для соцсетей."""
     row = await _share_row_for_request(rid, authorization, sig)
     png, _ = await _share_jpeg(rid, row=row)
-    return Response(content=png, media_type="image/png")
+    return Response(content=png, media_type="image/png", headers={"Cache-Control": "public, max-age=3600"})
 
 @app.get("/api/restorations/{rid}/share-card")
 async def share_card(rid: str, authorization: str = Header(None), sig: str = None):
