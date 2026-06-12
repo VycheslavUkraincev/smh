@@ -178,7 +178,7 @@ async def _share_jpeg(rid, user_id):
         draw.rounded_rectangle([x, panel_y + 16, x + 102, panel_y + 44], radius=14, fill=color)
         draw.text((x + 51, panel_y + 30), label, font=_font(14, True), fill=(255, 255, 255), anchor="mm")
     draw.text((42, 548), "We brought a family photo back to life.", font=_font(34, True), fill=(64, 42, 27))
-    draw.text((42, 596), f"Restore a memory · {_short_sig(rid)}", font=_font(18), fill=(111, 92, 70))
+    draw.text((42, 596), f"See the transformation · {_short_sig(rid)}", font=_font(18), fill=(111, 92, 70))
     buf = io.BytesIO()
     canvas.save(buf, format="JPEG", quality=90, optimize=True)
     return buf.getvalue(), row
