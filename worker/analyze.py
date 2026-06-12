@@ -4,10 +4,10 @@
 определяет повреждения + режим, ГЕНЕРИРУЕТ промпт под конкретное фото,
 пишет analysis+prompt, ставит status='analyzed'.
 Это делается на API (дёшево) ДО аренды GPU.
-Запуск: python worker_analyze.py [batch]   (по умолчанию 10)
+Запуск: python analyze.py [batch]   (по умолчанию 10)
 """
 import sys, json, time
-from worker_common import log, claim, update_row, presigned_get, vision
+from common import log, claim, update_row, presigned_get, vision
 
 # базовое identity-правило (наш моат: не подменять лицо)
 IDENTITY = ("CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize or rejuvenate any face. "
