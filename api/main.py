@@ -32,6 +32,15 @@ IMAGE_TYPES = {"image/jpeg", "image/png", "image/tiff", "image/webp", "image/hei
 FREE_LIMIT = int(os.environ.get("FREE_LIMIT", "5"))   # бесплатных реставраций на юзера
 PUBLIC_URL = os.environ.get("PUBLIC_URL", "https://savemyhistory.tech")
 SHARE_SECRET = os.environ.get("SHARE_SECRET", SUPABASE_SECRET or "smh-share")
+ADMIN_EMAILS = {e.strip().lower() for e in os.environ.get("ADMIN_EMAILS", "").split(",") if e.strip()}
+
+async def require_admin(authorization: str):
+    """Пускает только email из белого списка ADMIN_EMAILS."""
+    user = await get_user(authorization)
+    email = (user.get("email") or "").strip().lower()
+    if not email or email not in ADMIN_EMAILS:
+        raise HTTPException(403, "not admin")
+    return user
 
 
 def s3():
@@ -340,3 +349,62 @@ async def list_restorations(authorization: str = Header(None)):
         except Exception:
             pass
     return rows
+
+# ============ ADMIN ============
+
+@app.get("/api/admin/check")
+async def admin_check(authorization: str = Header(None)):
+    user = await require_admin(authorization)
+    return {"ok": True, "email": user.get("email")}
+
+@app.get("/api/admin/stats")
+async def admin_stats(authorization: str = Header(None)):
+    await require_admin(authorization)
+    out = {"queue": {}, "total_restorations": 0}
+    for st in ("queued", "uploaded", "processing", "processing_analyze", "analyzed", "generated", "processing_verify", "needs_review", "done", "failed"):
+        rows = await db("GET", "restorations", params={"status": f"eq.{st}", "select": "id", "limit": "100000"})
+        out["queue"][st] = len(rows or [])
+    out["total_restorations"] = sum(out["queue"].values())
+    return out
+
+@app.get("/api/admin/restorations")
+async def admin_restorations(authorization: str = Header(None), limit: int = 50, status: str = None):
+    await require_admin(authorization)
+    params = {"select": "*", "order": "created_at.desc", "limit": str(min(limit, 200))}
+    if status:
+        params["status"] = f"eq.{status}"
+    rows = await db("GET", "restorations", params=params) or []
+    client = s3()
+    for r in rows:
+        try:
+            if r.get("original_key"):
+                r["original_url"] = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": r["original_key"]}, ExpiresIn=3600)
+            if r.get("result_key"):
+                r["result_url"] = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": r["result_key"]}, ExpiresIn=3600)
+        except Exception:
+            pass
+    return rows
+
+@app.post("/api/admin/restorations/{rid}/retry")
+async def admin_retry(rid: str, authorization: str = Header(None)):
+    await require_admin(authorization)
+    res = await db("PATCH", "restorations", params={"id": f"eq.{rid}"}, payload={"status": "queued", "error": None})
+    if not res:
+        raise HTTPException(404, "not found")
+    return {"ok": True}
+
+@app.delete("/api/admin/restorations/{rid}")
+async def admin_delete(rid: str, authorization: str = Header(None)):
+    await require_admin(authorization)
+    rows = await db("GET", "restorations", params={"id": f"eq.{rid}", "select": "original_key,result_key"})
+    if not rows:
+        raise HTTPException(404, "not found")
+    client = s3()
+    for k in (rows[0].get("original_key"), rows[0].get("result_key")):
+        if k:
+            try:
+                client.delete_object(Bucket=SPACES_BUCKET, Key=k)
+            except Exception:
+                pass
+    await db("DELETE", "restorations", params={"id": f"eq.{rid}"})
+    return {"ok": True, "deleted": rid}
