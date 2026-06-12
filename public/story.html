@@ -70,6 +70,12 @@ section{position:relative;padding:clamp(90px,14vh,170px) 0}
 .frame.in .after{clip-path:inset(0 0 0 0%)}
 .frame .seam{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--gold-l);box-shadow:0 0 24px var(--gold);transition:opacity 1.2s ease,left 1.4s var(--ease)}
 .frame.in .seam{opacity:0;left:0}
+.frame.in.live{cursor:ew-resize}
+.frame.live .after{transition:none}
+.frame.live .seam{transition:opacity .4s ease}
+.frame.live .seam.show{opacity:1;box-shadow:0 0 24px var(--gold)}
+.frame .seam .grip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:rgba(14,11,8,.7);border:1.5px solid var(--gold-l);display:flex;align-items:center;justify-content:center;color:var(--gold-l);font-size:14px;backdrop-filter:blur(4px);opacity:0;transition:opacity .4s ease}
+.frame.live .seam.show .grip{opacity:1}
 .frame .tag{position:absolute;bottom:16px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:30px;background:rgba(0,0,0,.55);color:#fff;backdrop-filter:blur(4px)}
 .frame .t-b{left:16px}.frame .t-a{right:16px;background:var(--gold-d,#a67c32)}
 /* CTA */
@@ -139,7 +145,7 @@ footer .cp{font-size:12px;color:var(--ink-soft);opacity:.6;letter-spacing:.04em}
   <div class="frame rv" id="frame">
    <img class="before" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_before.jpg" alt="">
    <img class="after" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_after.jpg" alt="">
-   <div class="seam"></div>
+   <div class="seam"><span class="grip">↔</span></div>
    <span class="tag t-b" data-i="tb">Было</span><span class="tag t-a" data-i="ta">Стало</span>
   </div>
   <div>
@@ -192,6 +198,20 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 const fr=document.getElementById('frame');
 const fio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setTimeout(()=>fr.classList.add('in'),400);}),{threshold:.4});
 if(fr)fio.observe(fr);
+// interactive before/after after the auto-reveal
+if(fr){
+ const after=fr.querySelector('.after'),seam=fr.querySelector('.seam');
+ function setP(p){p=Math.max(2,Math.min(98,p));after.style.clipPath='inset(0 0 0 '+(100-p)+'%)';seam.style.left=p+'%';}
+ function fromX(x){const r=fr.getBoundingClientRect();setP((x-r.left)/r.width*100);}
+ setTimeout(()=>{
+  fr.classList.add('live');seam.classList.add('show');after.style.clipPath='inset(0 0 0 0%)';seam.style.left='50%';setP(50);
+  let drag=false;
+  fr.addEventListener('pointerdown',e=>{drag=true;fr.setPointerCapture(e.pointerId);fromX(e.clientX);});
+  fr.addEventListener('pointermove',e=>{if(drag)fromX(e.clientX);});
+  addEventListener('pointerup',()=>drag=false);
+  fr.addEventListener('mousemove',e=>{if(!drag)fromX(e.clientX);});
+ },2200);
+}
 // i18n
 const T={
  ru:{kick:'Реставрация семейной памяти',h1a:'Плёнка выцветает.',h1b:'Бумага трескается.',h1c:'<em>Лица</em> уходят последними.',lead:'В каждой семье есть снимок, который нельзя переснять. Человека уже нет, момент не повторить, а фотография тихо умирает в коробке на антресоли.',scroll:'прокрути',e1:'Почему это важно',s1h:'Фотография — единственное доказательство, что они <em>были</em>.',s1p:'Что любили, смеялись, держали тебя на руках. Когда уходит человек, остаётся кадр. Когда выцветает кадр — стирается и память. Мы научились останавливать это.',e2:'Что мы возвращаем',s2h:'Шесть вещей, которые крадёт время.',l1h:'Цвет',l1p:'Выцветшую сепию возвращаем к живым, тёплым тонам — не крикливым, а тем, что были тогда.',l2h:'Чёткость',l2p:'Размытое и зернистое снова обретает фокус. Видно глаза, складки, улыбку.',l3h:'Целостность',l3p:'Трещины, заломы, оторванный угол — аккуратно восстанавливаем, не дорисовывая лишнего.',l4h:'Свет',l4p:'Возвращаем глубину и объём — кадр перестаёт быть плоским отпечатком.',l5h:'Лицо — собой',l5p:'Главное правило: мы НЕ переделываем лицо. Только возвращаем то, что было. Никакой идеализации.',l6h:'Время',l6p:'Результат — за минуты, а не недели в фотоателье. Пока ты пьёшь кофе.',e3:'Вживую',s3h:'Одно фото. <em>Две жизни.</em>',s3p:'Слева — как оно лежит у тебя сейчас. Справа — как оно выглядело в тот самый день. Мы уже вернули к жизни 283 семейных снимка. Твой может стать следующим.',tb:'Было',ta:'Стало',q:'«Мы не храним гигабайты.<br>Мы сохраняем любовь.»',qby:'Save My History',e4:'Пока ещё можно',ctah:'Верни лицо, пока бумага не забрала его насовсем.',ctap:'Первое фото — бесплатно. Без карты. Результат за пару минут.',b1:'Восстановить фото',b2:'Как это работает'},
