@@ -162,6 +162,21 @@ async def _share_images(rid, user_id=None, row=None):
     return row, before_url, after_url
 
 
+async def _share_row_for_request(rid, authorization=None, sig=None):
+    if authorization:
+        user = await get_user(authorization)
+        return await _share_payload(rid, user["id"])
+    if not sig or not hmac.compare_digest(sig, _short_sig(rid)):
+        raise HTTPException(403, "bad share token")
+    rows = await db("GET", "restorations", params={"id": f"eq.{rid}", "select": "*"})
+    if not rows:
+        raise HTTPException(404, "not found")
+    row = rows[0]
+    if row.get("status") != "done":
+        raise HTTPException(400, "not_ready")
+    return row
+
+
 async def _share_jpeg(rid, user_id=None, row=None):
     row, before_url, after_url = await _share_images(rid, user_id=user_id, row=row)
     before = await _fetch_image(before_url) if before_url else None
@@ -265,23 +280,23 @@ async def retry_restoration(rid: str, authorization: str = Header(None)):
     return res[0] if isinstance(res, list) else res
 
 @app.get("/api/restorations/{rid}/share-card.png")
-async def share_card_png(rid: str, authorization: str = Header(None)):
+async def share_card_png(rid: str, authorization: str = Header(None), sig: str = None):
     """PNG share-карта для соцсетей."""
-    user = await get_user(authorization)
-    png, _ = await _share_jpeg(rid, user["id"])
+    row = await _share_row_for_request(rid, authorization, sig)
+    png, _ = await _share_jpeg(rid, row=row)
     return Response(content=png, media_type="image/jpeg")
 
 @app.get("/api/restorations/{rid}/share-card")
-async def share_card(rid: str, authorization: str = Header(None)):
+async def share_card(rid: str, authorization: str = Header(None), sig: str = None):
     """Отдаёт share preview HTML для готовой реставрации."""
-    user = await get_user(authorization)
-    png, row = await _share_jpeg(rid, user_id=user["id"])
+    row = await _share_row_for_request(rid, authorization, sig)
+    _png, row = await _share_jpeg(rid, row=row)
     client = s3()
     before_key = row.get("original_key")
     after_key = row.get("result_key") or row.get("original_key")
     before = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": before_key}, ExpiresIn=3600) if before_key else ""
     after = client.generate_presigned_url("get_object", Params={"Bucket": SPACES_BUCKET, "Key": after_key}, ExpiresIn=3600) if after_key else before
-    image_url = f"{PUBLIC_URL}/api/restorations/{rid}/share-card.png"
+    image_url = f"{PUBLIC_URL}/api/restorations/{rid}/share-card.png?sig={_short_sig(rid)}"
     html = f"""<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
     <meta property='og:title' content='SaveMyHistory'><meta property='og:description' content='We brought a family photo back to life.'><meta property='og:image' content='{image_url}'><meta property='og:type' content='article'><meta property='og:image:width' content='1200'><meta property='og:image:height' content='628'>
     <title>SaveMyHistory</title><style>body{{margin:0;background:#f4eee4;font-family:system-ui,sans-serif;color:#402a1b;display:grid;place-items:center;min-height:100vh}}.card{{width:min(1080px,92vw);background:#f5efe6;border:1px solid rgba(160,120,60,.25);border-radius:28px;box-shadow:0 20px 60px rgba(0,0,0,.10);overflow:hidden}}.pad{{padding:28px}}.top{{font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#a67c32;font-size:12px}}.grid{{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}}.shot{{position:relative;border-radius:22px;overflow:hidden;background:#efe6d7;min-height:240px}}.shot img{{display:block;width:100%;height:100%;object-fit:cover}}.tag{{position:absolute;top:16px;left:16px;background:#000;color:#fff;padding:8px 12px;border-radius:999px;font-size:12px}}.tag.r{{background:#a67c32}}.copy{{padding:18px 0 0;font-size:28px;line-height:1.15;font-family:Georgia,serif}}.sub{{margin-top:8px;font-size:18px;color:#6f5c46}}.ft{{margin-top:18px;padding:16px 20px;background:#a67c32;color:#fff;font-weight:700;text-align:center;border-radius:18px}}.url{{margin-top:8px;font-size:12px;color:#8a7a66;text-align:center}}@media(max-width:700px){{.grid{{grid-template-columns:1fr}}.copy{{font-size:24px}}}}</style></head><body><div class='card'><div class='pad'><div class='top'>SAVE MY HISTORY · restored family memory</div><div class='grid'><div class='shot'><img src='{before or after}' alt='before restoration'><div class='tag'>BEFORE</div></div><div class='shot'><img src='{after}' alt='after restoration'><div class='tag r'>AFTER</div></div></div><div class='copy'>We brought a family photo back to life.</div><div class='sub'>Each restored picture can travel through social media and bring another family back.</div><div class='ft'>See the transformation</div><div class='url'>savemyhistory.tech · { _short_sig(rid) }</div></div></div></body></html>"""
@@ -292,7 +307,7 @@ async def share_card_json(rid: str, authorization: str = Header(None)):
     """JSON для мобильного share / clipboard fallback."""
     user = await get_user(authorization)
     _png, _row = await _share_jpeg(rid, user_id=user["id"])
-    return {"ok": True, "share_url": f"{PUBLIC_URL}/api/restorations/{rid}/share-card", "caption": "SaveMyHistory"}
+    return {"ok": True, "share_url": f"{PUBLIC_URL}/api/restorations/{rid}/share-card?sig={_short_sig(rid)}", "caption": "SaveMyHistory"}
 
 @app.post("/api/restorations/{rid}/report")
 async def report_restoration(rid: str, authorization: str = Header(None)):
