@@ -340,14 +340,15 @@ function renderGal(rows){
   g.className='grid';
   g.innerHTML=rows.map(x=>{
     const st=x.status||'queued';
-    const lbl={queued:'st_queued',processing:'st_processing',done:'st_done',uploaded:'st_queued',failed:'st_failed'}[st]||'st_queued';
+    const lbl={queued:'st_queued',uploaded:'st_queued',analyzed:'st_processing',generated:'st_processing',processing:'st_processing',processing_analyze:'st_processing',processing_generate:'st_processing',processing_verify:'st_processing',done:'st_done',failed:'st_failed',error:'st_failed'}[st]||'st_processing';
+    const stCls={st_queued:'queued',st_processing:'processing',st_done:'done',st_failed:'failed'}[lbl]||'processing';
     const modeL=x.mode==='revive'?t('m_revive'):t('m_restore');
     const img=x.result_url||x.original_url||'';
     const bg=img?('background-image:url(\''+img+'\')'):'';
     const done=(st==='done'&&x.result_url);
     const retry=(st==='failed')?'<button class="retry-btn" data-retry="'+x.id+'" style="margin-top:6px;font-size:11px;padding:4px 10px;border:1px solid #c0392b;color:#c0392b;background:#fff;border-radius:6px;cursor:pointer">'+t('retry')+'</button>':'';
     const del='<button class="del-btn" data-del="'+x.id+'" title="'+t('del')+'" style="position:absolute;top:6px;right:6px;width:24px;height:24px;border:none;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:14px;line-height:1;cursor:pointer;z-index:3">×</button>';
-    return '<div class="tile" style="position:relative"'+(done?' data-id="'+x.id+'" data-after="'+encodeURIComponent(x.result_url)+'" data-before="'+encodeURIComponent(x.original_url||'')+'"':'')+'>'+del+'<div class="ph" style="'+bg+(done?';cursor:pointer':'')+'">'+(done?'<span class="seal">'+t('result')+'</span>':'')+'</div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+(st==='uploaded'?'queued':st)+'">'+t(lbl)+'</span></div>'+retry+'</div>';
+    return '<div class="tile" style="position:relative"'+(done?' data-id="'+x.id+'" data-after="'+encodeURIComponent(x.result_url)+'" data-before="'+encodeURIComponent(x.original_url||'')+'"':'')+'>'+del+'<div class="ph" style="'+bg+(done?';cursor:pointer':'')+'">'+(done?'<span class="seal">'+t('result')+'</span>':'')+'</div><div class="meta"><span class="mode-l">'+modeL+'</span><span class="badge b-'+stCls+'">'+t(lbl)+'</span></div>'+retry+'</div>';
   }).join('');
   g.querySelectorAll('.del-btn').forEach(b=>b.onclick=async(e)=>{e.stopPropagation();const id=b.getAttribute('data-del');if(!confirm(t('del_confirm')))return;b.textContent='·';try{await fetch('/api/restorations/'+id,{method:'DELETE',headers:{Authorization:'Bearer '+(_sess&&_sess.access_token)}});loadGal(_sess);}catch(err){}});
   g.querySelectorAll('.tile[data-after]').forEach(el=>el.onclick=()=>{const a=decodeURIComponent(el.getAttribute('data-after')||'');const b=decodeURIComponent(el.getAttribute('data-before')||'');openOverlay(a,b,el.getAttribute('data-id'));});
