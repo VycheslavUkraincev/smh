@@ -277,8 +277,7 @@ function bind(){
       const url=d.share_url|| (location.origin+'/cabinet.html?rid='+encodeURIComponent(_ovId||''));
       const text=d.caption||t('share_text');
       if(navigator.share){await navigator.share({title:'SaveMyHistory',text,url});}
-      else{await navigator.clipboard.writeText(text+'
-'+url); sh.textContent=t('share_copied'); setTimeout(()=>{sh.textContent=t('share');},1400); return;}
+      else{await navigator.clipboard.writeText(text+'\n'+url); sh.textContent=t('share_copied'); setTimeout(()=>{sh.textContent=t('share');},1400); return;}
       sh.textContent=t('share');
     }catch(e){sh.textContent=t('share_unavail'); setTimeout(()=>{sh.textContent=t('share');},1600);}}
   bindCmp();
