@@ -163,6 +163,27 @@ git push          # DigitalOcean пересоберёт автоматическ
 
 ---
 
+## 6b. ВОРКЕР ОЧЕРЕДИ (worker/) — автономная обработка
+
+3-стадийный пайплайн «ИИ-глаза»:
+```
+queued ──analyze.py──► analyzed ──generate.py──► generated ──verify.py──► done
+  (ИИ-глаза: анализ+промпт)   (CodeFormer+генератив)    (проверка лиц)
+```
+- `worker/run.py` — раннер всех стадий. Постоянный режим: `python run.py` (цикл, `LOOP_INTERVAL` сек). Разовый: `python run.py --once`.
+- `worker/analyze.py` `generate.py` `verify.py` — стадии 1/2/3.
+- `worker/common.py` — хелперы (db/spaces/vision).
+- `worker/healthcheck.py` — проверка готовности: `python healthcheck.py` (база, Spaces, RPC, ключи).
+- `worker/migration_eyes.sql` — миграция 2 (применить в Supabase до запуска воркера).
+
+**ENV воркера:** `SUPABASE_URL`, `SUPABASE_SECRET`, `SPACES_*`, `OPENAI_API_KEY`, `FAL_KEY`, `LOOP_INTERVAL`.
+
+**Деплой:** в `.do/app.yaml` воркер описан как постоянный `workers:` сервис (деплоится с push).
+
+**Переход на GPU:** заменить тело `generate.py` на вызов RunPod (тот же контракт статусов analyzed→generated). Стадии 1 и 3 остаются на API.
+
+---
+
 ## 7. ГДЕ ЛЕЖАТ ПЛАНЫ (Obsidian / Dropbox)
 `/Obsidian/SaveMyHistory-Vault/`:
 - `03 Архитектура/Движок реставрации (API+GPU+лица).md`
