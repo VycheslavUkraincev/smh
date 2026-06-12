@@ -19,6 +19,95 @@ from PIL import Image, ImageDraw, ImageFont
 app = FastAPI(title="SaveMyHistory API")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+ARENA_HTML = r"""<!doctype html><html lang=ru><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content=noindex>
+<title>Арена · Чат конкурса</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d0b09;color:#f4ecdd;font-family:system-ui,-apple-system,sans-serif;height:100vh;display:flex;flex-direction:column}
+header{padding:14px 18px;border-bottom:1px solid rgba(201,162,75,.2);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:16px;letter-spacing:.04em}
+header .who{margin-left:auto;display:flex;gap:6px;align-items:center}
+select,input,button,textarea{font-family:inherit;font-size:14px}
+select,#secret{background:#1a1510;color:#f4ecdd;border:1px solid rgba(201,162,75,.3);border-radius:8px;padding:7px 9px}
+#feed{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:80%;padding:10px 13px;border-radius:12px;background:#16110c;border:1px solid rgba(201,162,75,.14);line-height:1.4;white-space:pre-wrap;word-wrap:break-word}
+.msg .a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#c9a24b;margin-bottom:3px;display:flex;gap:8px}
+.msg .t{font-size:10px;color:#7a6f5d}
+.me{align-self:flex-end;background:#23371f;border-color:rgba(120,180,110,.3)}
+.cmd{align-self:center;max-width:90%;background:#2a1e0c;border-color:#c9a24b;text-align:center}
+.sum{align-self:center;max-width:92%;background:#101820;border-color:#3a6ea5}
+.upd{border-left:3px solid #c9a24b}
+.rev{border-left:3px solid #6ea53a}
+footer{padding:12px;border-top:1px solid rgba(201,162,75,.2);display:flex;gap:8px;flex-wrap:wrap}
+textarea{flex:1;min-width:160px;background:#1a1510;color:#f4ecdd;border:1px solid rgba(201,162,75,.3);border-radius:10px;padding:10px;resize:none;height:46px}
+button{background:#c9a24b;color:#0d0b09;border:none;border-radius:10px;padding:0 18px;font-weight:600;cursor:pointer}
+button.ghost{background:transparent;color:#c9a24b;border:1px solid rgba(201,162,75,.4)}
+.kindsel{display:flex;gap:5px;align-items:center}
+</style></head><body>
+<header>
+  <h1>🏆 Арена · Чат конкурса</h1>
+  <div class=who>
+    <span style="font-size:12px;color:#b5a892">я:</span>
+    <select id=author><option>Флорентиец</option><option>О</option><option>М</option><option>С</option></select>
+    <input id=secret placeholder="код" style="width:90px">
+  </div>
+</header>
+<div id=feed></div>
+<footer>
+  <div class=kindsel>
+    <select id=kind><option value=msg>сообщение</option><option value=update>обновил</option><option value=review>ознакомился</option><option value=command>команда</option></select>
+  </div>
+  <textarea id=body placeholder="Напиши и нажми Enter…"></textarea>
+  <button onclick=send()>➤</button>
+  <button class=ghost onclick=summary()>Саммери</button>
+</footer>
+<script>
+const API=location.origin;let last=0;
+const feed=document.getElementById('feed');
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function render(m){
+  const me=document.getElementById('author').value;
+  const d=document.createElement('div');
+  let cls='msg';
+  if(m.kind==='command')cls+=' cmd';else if(m.kind==='summary')cls+=' sum';
+  else{if(m.author===me)cls+=' me';if(m.kind==='update')cls+=' upd';if(m.kind==='review')cls+=' rev';}
+  d.className=cls;
+  const t=new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML='<div class=a><span>'+esc(m.author)+'</span><span class=t>'+t+'</span></div>'+esc(m.body);
+  feed.appendChild(d);
+}
+async function poll(){
+  try{const r=await fetch(API+'/api/arena/messages?after='+last);const j=await r.json();
+    (j.messages||[]).forEach(m=>{render(m);last=Math.max(last,m.id);});
+    feed.scrollTop=feed.scrollHeight;}catch(e){}
+}
+async function send(){
+  const body=document.getElementById('body').value.trim();if(!body)return;
+  const author=document.getElementById('author').value;
+  const secret=document.getElementById('secret').value.trim();
+  const kind=document.getElementById('kind').value;
+  const r=await fetch(API+'/api/arena/send',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({author,body,kind,secret})});
+  if(r.status===401){alert('Неверный код доступа');return;}
+  document.getElementById('body').value='';poll();
+}
+async function summary(){
+  const secret=document.getElementById('secret').value.trim();
+  const r=await fetch(API+'/api/arena/summary',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({secret})});
+  if(r.status===401){alert('Неверный код доступа');return;}
+  poll();
+}
+document.getElementById('body').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+document.getElementById('secret').value=localStorage.getItem('arena_secret')||'';
+document.getElementById('secret').addEventListener('change',e=>localStorage.setItem('arena_secret',e.target.value));
+document.getElementById('author').value=localStorage.getItem('arena_author')||'Флорентиец';
+document.getElementById('author').addEventListener('change',e=>localStorage.setItem('arena_author',e.target.value));
+poll();setInterval(poll,3000);
+</script></body></html>"""
+
+
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_SECRET = os.environ.get("SUPABASE_SECRET", "")          # service key (server-side)
 SPACES_KEY = os.environ.get("SPACES_KEY", "")
@@ -408,3 +497,87 @@ async def admin_delete(rid: str, authorization: str = Header(None)):
                 pass
     await db("DELETE", "restorations", params={"id": f"eq.{rid}"})
     return {"ok": True, "deleted": rid}
+
+
+# ============== ARENA CHAT (общий чат конкурса на четверых) ==============
+ARENA_SECRET = os.environ.get("ARENA_SECRET", "arena2026")
+ARENA_AUTHORS = {"Флорентиец", "О", "М", "С", "Florentine", "O", "M", "C"}
+
+ARENA_KEY = "arena/chat.json"
+
+def _arena_load():
+    client = s3()
+    try:
+        obj = client.get_object(Bucket=SPACES_BUCKET, Key=ARENA_KEY)
+        return json.loads(obj["Body"].read().decode("utf-8"))
+    except Exception:
+        return []
+
+def _arena_save(rows):
+    client = s3()
+    client.put_object(Bucket=SPACES_BUCKET, Key=ARENA_KEY,
+                      Body=json.dumps(rows, ensure_ascii=False).encode("utf-8"),
+                      ContentType="application/json")
+
+@app.get("/api/arena/messages")
+async def arena_messages(after: int = 0):
+    rows = _arena_load()
+    return {"messages": [r for r in rows if r.get("id", 0) > after]}
+
+@app.post("/api/arena/send")
+async def arena_send(request: Request):
+    data = await request.json()
+    secret = (data.get("secret") or "").strip()
+    if secret != ARENA_SECRET:
+        raise HTTPException(401, "bad secret")
+    author = (data.get("author") or "").strip()
+    body = (data.get("body") or "").strip()
+    kind = (data.get("kind") or "msg").strip()
+    if not author or not body:
+        raise HTTPException(400, "author and body required")
+    if len(body) > 8000:
+        body = body[:8000]
+    rows = _arena_load()
+    nid = (rows[-1]["id"] + 1) if rows else 1
+    msg = {"id": nid, "author": author, "body": body, "kind": kind,
+           "created_at": __import__("datetime").datetime.utcnow().isoformat() + "Z"}
+    rows.append(msg)
+    _arena_save(rows)
+    return {"ok": True, "message": msg}
+
+@app.post("/api/arena/summary")
+async def arena_summary(request: Request):
+    data = await request.json()
+    if (data.get("secret") or "").strip() != ARENA_SECRET:
+        raise HTTPException(401, "bad secret")
+    rows = _arena_load()
+    # лёгкое экстрактивное саммери без внешних вызовов
+    total = len(rows)
+    by_author = {}
+    commands, updates, decisions = [], [], []
+    for r in rows:
+        a = r.get("author", "?")
+        by_author[a] = by_author.get(a, 0) + 1
+        b = (r.get("body") or "").strip()
+        k = r.get("kind")
+        if k == "command":
+            commands.append(b)
+        elif k == "update":
+            updates.append(f"{a}: {b}")
+        elif any(w in b.lower() for w in ("принято", "договор", "решено", "финал", "итог")):
+            decisions.append(f"{a}: {b[:140]}")
+    lines = [f"Всего сообщений: {total}.",
+             "По авторам: " + ", ".join(f"{a}={n}" for a, n in by_author.items()) + "."]
+    if commands:
+        lines.append("Команды Флорентийца: " + " | ".join(commands[-6:]))
+    if updates:
+        lines.append("Последние обновления: " + " | ".join(updates[-8:]))
+    if decisions:
+        lines.append("Договорённости: " + " | ".join(decisions[-8:]))
+    summary = "\n".join(lines)
+    await db("POST", "arena_chat", payload={"author": "Система", "body": summary, "kind": "summary"})
+    return {"ok": True, "summary": summary}
+
+@app.get("/arena")
+async def arena_page():
+    return HTMLResponse(ARENA_HTML)
