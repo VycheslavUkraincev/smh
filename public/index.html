@@ -4,8 +4,16 @@
 <meta name="description" content="Бережная реставрация и оживление старых семейных фотографий. Загрузите фото — мы вернём ему жизнь.">
 <meta property="og:title" content="SaveMyHistory — сохраните память своей семьи">
 <meta property="og:description" content="Бережная реставрация старых семейных фотографий.">
-<meta property="og:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_after.jpg">
+<meta property="og:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://savemyhistory.tech/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="SaveMyHistory">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SaveMyHistory — сохраните память своей семьи">
+<meta name="twitter:description" content="Бережная реставрация старых семейных фотографий.">
+<meta name="twitter:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8C%B3%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -49,6 +57,10 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .cta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .trust{margin-top:18px;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .trust b{color:var(--ink)}
+.statbar{background:var(--walnut,#3a281a);color:#f0e6d6;padding:30px 0}
+.stats{display:flex;justify-content:center;gap:clamp(28px,7vw,90px);flex-wrap:wrap;text-align:center}
+.stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,44px);color:var(--gold,#caa45e);line-height:1}
+.stat span{font-size:13px;opacity:.85;letter-spacing:.02em}
 /* COMPARE slider (shared) */
 .cmp{position:relative;width:100%;aspect-ratio:3/2;border-radius:16px;overflow:hidden;background:#0c0905;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22)}
 .cmp>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
@@ -158,6 +170,12 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  </div>
 </section>
 
+<div class="statbar"><div class="wrap stats">
+ <div class="stat"><b id="st-photos">280+</b><span data-i18n="sb1">фото возвращено семьям</span></div>
+ <div class="stat"><b>2 мин</b><span data-i18n="sb2">среднее время реставрации</span></div>
+ <div class="stat"><b>100%</b><span data-i18n="sb3">лица остаются собой</span></div>
+</div></div>
+
 <section id="how" style="background:var(--paper2)">
  <div class="wrap">
   <div class="sec-head reveal"><div class="kicker" data-i18n="how_k">Просто</div><h2 data-i18n="how_h">Три шага до живого воспоминания</h2></div>
@@ -212,7 +230,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
 </footer>
 <script>
 const I18N={
- ru:{m_how:"Как это работает",m_cases:"Примеры",m_tree:"Древо памяти",cabinet:"Кабинет",login:"Войти",cap1:"Семейный портрет · 1958",cap2:"Свадьба · 1964",cap3:"Встреча родных · 1971",cap4:"Портрет на память · 1955",
+ ru:{m_how:"Как это работает",m_cases:"Примеры",m_tree:"Древо памяти",cabinet:"Кабинет",login:"Войти",cap1:"Семейный портрет · 1958",cap2:"Свадьба · 1964",cap3:"Встреча родных · 1971",cap4:"Портрет на память · 1955",sb1:"фото возвращено семьям",sb2:"среднее время реставрации",sb3:"лица остаются собой",
   hero_kicker:"Реставрация семейной памяти",hero_h1:"В каждой семье есть лица, которые мы <em>хотим помнить</em>",hero_lead:"Загрузите старую, выцветшую фотографию — и мы бережно вернём ей жизнь. Без потери того, кем были эти люди.",hero_cta:"Восстановить фото",hero_cta2:"Посмотреть примеры",t1:"Бесплатно для начала",t2:"без карты",t3:"результат за пару минут",
   before:"Было",after:"Стало",
   how_k:"Просто",how_h:"Три шага до живого воспоминания",s1h:"Загрузите фото",s1p:"Старое, выцветшее, с трещинами — любое. Прямо из кабинета.",s2h:"Мы бережно реставрируем",s2p:"Убираем повреждения, возвращаем цвет — сохраняя лица такими, какими они были.",s3h:"Храните и делитесь",s3p:"Скачивайте результат и собирайте семейный архив, который останется с вами.",
@@ -220,7 +238,7 @@ const I18N={
   tr_k:"Древо памяти",tr_h:"Семья — это лица, которые остаются",tr_p:"Каждое восстановленное фото — ещё одно лицо, вернувшееся в историю вашего рода.",
   band_h:"Верните жизнь дорогим лицам",band_p:"Начните с одной фотографии. Бесплатно.",band_cta:"Загрузить фотографию",
   f_about:"Бережная реставрация старых семейных фотографий. Сделано с любовью к памяти.",f_nav:"Навигация",f_legal:"Документы",f_priv:"Конфиденциальность",f_terms:"Условия",f_contact:"Связаться",f_slogan:"Сохрани историю своей семьи"},
- ua:{m_how:"Як це працює",m_cases:"Приклади",m_tree:"Дерево памʼяті",cabinet:"Кабінет",login:"Увійти",cap1:"Сімейний портрет · 1958",cap2:"Весілля · 1964",cap3:"Зустріч рідних · 1971",cap4:"Портрет на памʼять · 1955",
+ ua:{m_how:"Як це працює",m_cases:"Приклади",m_tree:"Дерево памʼяті",cabinet:"Кабінет",login:"Увійти",cap1:"Сімейний портрет · 1958",cap2:"Весілля · 1964",cap3:"Зустріч рідних · 1971",cap4:"Портрет на памʼять · 1955",sb1:"фото повернуто родинам",sb2:"середній час реставрації",sb3:"обличчя лишаються собою",
   hero_kicker:"Реставрація сімейної памʼяті",hero_h1:"У кожній родині є обличчя, які ми <em>хочемо памʼятати</em>",hero_lead:"Завантажте стару, вицвілу світлину — і ми дбайливо повернемо їй життя. Без втрати того, ким були ці люди.",hero_cta:"Відновити фото",hero_cta2:"Переглянути приклади",t1:"Безкоштовно для початку",t2:"без картки",t3:"результат за кілька хвилин",
   before:"Було",after:"Стало",
   how_k:"Просто",how_h:"Три кроки до живого спогаду",s1h:"Завантажте фото",s1p:"Старе, вицвіле, з тріщинами — будь-яке. Прямо з кабінету.",s2h:"Ми дбайливо реставруємо",s2p:"Прибираємо пошкодження, повертаємо колір — зберігаючи обличчя такими, якими вони були.",s3h:"Зберігайте та діліться",s3p:"Завантажуйте результат і збирайте сімейний архів, що залишиться з вами.",
@@ -228,7 +246,7 @@ const I18N={
   tr_k:"Дерево памʼяті",tr_h:"Родина — це обличчя, які залишаються",tr_p:"Кожне відновлене фото — ще одне обличчя, що повернулось в історію вашого роду.",
   band_h:"Поверніть життя дорогим обличчям",band_p:"Почніть з однієї світлини. Безкоштовно.",band_cta:"Завантажити світлину",
   f_about:"Дбайлива реставрація старих сімейних світлин. Зроблено з любовʼю до памʼяті.",f_nav:"Навігація",f_legal:"Документи",f_priv:"Конфіденційність",f_terms:"Умови",f_contact:"Звʼязатися",f_slogan:"Збережи історію своєї родини"},
- en:{m_how:"How it works",m_cases:"Examples",m_tree:"Memory tree",cabinet:"Cabinet",login:"Sign in",cap1:"Family portrait · 1958",cap2:"Wedding · 1964",cap3:"Family reunion · 1971",cap4:"Keepsake portrait · 1955",
+ en:{m_how:"How it works",m_cases:"Examples",m_tree:"Memory tree",cabinet:"Cabinet",login:"Sign in",cap1:"Family portrait · 1958",cap2:"Wedding · 1964",cap3:"Family reunion · 1971",cap4:"Keepsake portrait · 1955",sb1:"photos returned to families",sb2:"average restoration time",sb3:"faces stay themselves",
   hero_kicker:"Restoring family memory",hero_h1:"Every family has faces we <em>want to remember</em>",hero_lead:"Upload an old, faded photograph — and we'll gently bring it back to life. Without losing who these people were.",hero_cta:"Restore a photo",hero_cta2:"See examples",t1:"Free to start",t2:"no card",t3:"results in minutes",
   before:"Before",after:"After",
   how_k:"Simple",how_h:"Three steps to a living memory",s1h:"Upload a photo",s1p:"Old, faded, cracked — any. Right from your cabinet.",s2h:"We restore it gently",s2p:"We remove damage and bring back color — keeping faces exactly as they were.",s3h:"Keep and share",s3p:"Download the result and build a family archive that stays with you.",
