@@ -16,10 +16,12 @@ for k, v in {"SPACES_KEY": sp["access_key"], "SPACES_SECRET": sp["secret_key"],
              "SPACES_REGION": sp["region"], "SPACES_BUCKET": sp["bucket"], "SPACES_ENDPOINT": sp["endpoint"]}.items():
     os.environ.setdefault(k, v)
 
-from common import db, log
-import analyze, generate, verify
+from worker_common import db, log
+import worker_analyze, worker_generate, worker_verify
 
-TEST_USER = "00000000-0000-0000-0000-0000000000ee"  # фиктивный, для теста
+# берём реальный user_id из существующей записи (FK требует реального юзера)
+_u = db("GET", "restorations", params="?select=user_id&limit=1") or []
+TEST_USER = _u[0]["user_id"] if _u else "00000000-0000-0000-0000-0000000000ee"
 
 def main(original_key):
     print("=== E2E TEST пайплайна ===")
@@ -34,25 +36,25 @@ def main(original_key):
     print(f"✅ создан тестовый заказ {rid[:8]} status=queued")
 
     print("\n--- СТАДИЯ 1: ИИ-глаза (analyze) ---")
-    analyze.main(1)
-    r = (db("GET", "restorations", params={"id": f"eq.{rid}", "select": "status,analysis,prompt"}) or [{}])[0]
+    worker_analyze.main(1)
+    r = (db("GET", "restorations", params=f"?id=eq.{rid}&select=status,analysis,prompt") or [{}])[0]
     print("статус:", r.get("status"))
     print("анализ:", json.dumps(r.get("analysis"), ensure_ascii=False)[:300])
     print("промпт:", (r.get("prompt") or "")[:120], "...")
 
     print("\n--- СТАДИЯ 2: генерация (generate) ---")
-    generate.main(1)
-    r = (db("GET", "restorations", params={"id": f"eq.{rid}", "select": "status,result_key"}) or [{}])[0]
+    worker_generate.main(1)
+    r = (db("GET", "restorations", params=f"?id=eq.{rid}&select=status,result_key") or [{}])[0]
     print("статус:", r.get("status"), "| result_key:", r.get("result_key"))
 
     print("\n--- СТАДИЯ 3: ИИ-проверка (verify) ---")
-    verify.main(1)
-    r = (db("GET", "restorations", params={"id": f"eq.{rid}", "select": "status,qc"}) or [{}])[0]
+    worker_verify.main(1)
+    r = (db("GET", "restorations", params=f"?id=eq.{rid}&select=status,qc") or [{}])[0]
     print("статус:", r.get("status"))
     print("QC:", json.dumps(r.get("qc"), ensure_ascii=False)[:300])
 
     print("\n=== очистка тестового заказа ===")
-    db("DELETE", "restorations", params={"id": f"eq.{rid}"})
+    db("DELETE", "restorations", params=f"?id=eq.{rid}")
     print("✅ тестовый заказ удалён. E2E завершён.")
 
 if __name__ == "__main__":
