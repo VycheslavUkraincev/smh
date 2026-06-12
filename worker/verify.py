@@ -10,20 +10,28 @@ import sys, json
 from common import log, claim, update_row, presigned_get, vision
 
 VERIFY_PROMPT = (
- "You are a strict restoration QC reviewer for a REAL family archive. "
+ "You are a strict restoration QC reviewer for a REAL family archive with DIVERSE source photos "
+ "(scans, phone re-shoots, faded color 80s-90s, group shots, low resolution). "
  "Compare the ORIGINAL (first image) with the RESTORED (second image). "
- "The restoration MUST preserve true identity. Return STRICT JSON only:\n"
+ "The restoration MUST preserve true identity above all. Return STRICT JSON only:\n"
  "{\n"
  '  "same_people": true|false,        // are these clearly the SAME real persons?\n'
- '  "face_changed": true|false,       // facial structure/features altered?\n'
- '  "idealized": true|false,          // beautified / younger / smoother than original?\n'
- '  "extra_added": true|false,        // invented details not in original?\n'
- '  "count_match": true|false,        // same number of people?\n'
- '  "artifacts": true|false,          // visible AI artifacts/distortions?\n'
- '  "verdict": "pass" | "fail",       // fail if identity is compromised\n'
+ '  "face_changed": true|false,       // facial STRUCTURE/features altered (not just sharper)?\n'
+ '  "idealized": true|false,          // clearly beautified / visibly younger / plastic-smooth?\n'
+ '  "extra_added": true|false,        // invented details/people/objects not in original?\n'
+ '  "count_match": true|false,        // SAME number of people (check carefully on group photos)?\n'
+ '  "artifacts": true|false,          // serious AI distortions (warped eyes, melted features)?\n'
+ '  "severity": "none"|"minor"|"major",  // how bad is the WORST problem for identity?\n'
+ '  "verdict": "pass" | "fail",       // fail ONLY if identity is compromised (major)\n'
  '  "reason": "<short>"\n'
  "}\n"
- "Be strict: idealization or face change = fail. Damage removal and color are fine."
+ "RULES:\n"
+ "- FAIL if: face structure changed, person visibly younger/beautified, a face swapped, "
+ "people added/removed, or warped/melted features. These break identity = major.\n"
+ "- PASS is fine for: damage/scratch removal, denoise, restored color, mild sharpening, "
+ "slight softness from low-res source. These do NOT break identity.\n"
+ "- Do NOT fail a photo just because it looks cleaner. Only fail when the PERSON changed.\n"
+ "- On group photos, count people in both images explicitly before deciding count_match."
 )
 
 def extract_json(text):
