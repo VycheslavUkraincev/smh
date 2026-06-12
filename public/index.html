@@ -129,6 +129,12 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  .hlang button{padding:3px 6px;font-size:10px}
  header .wrap{gap:6px}
 }
+.faq-i{border-bottom:1px solid var(--line,#E3D8C5);padding:4px 0}
+.faq-i summary{cursor:pointer;font-size:17px;font-weight:600;padding:16px 4px;list-style:none;color:var(--ink);position:relative;outline:none}
+.faq-i summary::-webkit-details-marker{display:none}
+.faq-i summary::after{content:'+';position:absolute;right:6px;top:14px;font-size:22px;color:var(--gold-d);transition:transform .2s}
+.faq-i[open] summary::after{content:'\2212'}
+.faq-i p{color:var(--muted);font-size:15px;padding:0 4px 18px;margin:0;line-height:1.65}
 </style></head>
 <body>
 <header>
@@ -137,6 +143,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
   <nav class="menu" id="menu">
    <a href="#how" data-i18n="m_how">Как это работает</a>
    <a href="#cases" data-i18n="m_cases">Примеры</a>
+   <a href="#faq" data-i18n="m_faq">Вопросы</a>
   </nav>
   <div style="display:flex;align-items:center;gap:12px">
    <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button></div>
@@ -199,6 +206,30 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  </div>
 </section>
 
+<section id="trust" style="padding:20px 0 70px">
+ <div class="wrap">
+  <div class="kicker" style="text-align:center" data-i18n="tr_k">Почему нам доверяют</div>
+  <h2 style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:38px;margin-bottom:40px" data-i18n="tr_h">Память заслуживает бережности</h2>
+  <div class="steps">
+   <div class="step reveal"><div style="font-size:30px;margin-bottom:10px">🫶</div><h3 data-i18n="tr1h">Лица остаются собой</h3><p data-i18n="tr1p">Мы не «улучшаем» и не молодим людей. Черты лица сохраняются такими, какими были — это вопрос уважения к памяти.</p></div>
+   <div class="step reveal"><div style="font-size:30px;margin-bottom:10px">🔒</div><h3 data-i18n="tr2h">Ваши фото — только ваши</h3><p data-i18n="tr2p">Снимки хранятся в приватном защищённом хранилище. Доступ только у вас. Мы не продаём и не передаём их никому.</p></div>
+   <div class="step reveal"><div style="font-size:30px;margin-bottom:10px">🎞️</div><h3 data-i18n="tr3h">Бережная реставрация</h3><p data-i18n="tr3p">Убираем трещины и выцветание, возвращаем цвет — но оставляем дух эпохи, а не превращаем фото в современное.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="faq" style="padding:10px 0 80px">
+ <div class="wrap" style="max-width:760px">
+  <div class="kicker" style="text-align:center" data-i18n="faq_k">Частые вопросы</div>
+  <h2 style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:38px;margin-bottom:32px" data-i18n="faq_h">Что важно знать</h2>
+  <details class="faq-i"><summary data-i18n="q1">Это бесплатно?</summary><p data-i18n="a1">Да, начать можно бесплатно — без карты. Первые реставрации дарим, чтобы вы увидели результат на своих фото.</p></details>
+  <details class="faq-i"><summary data-i18n="q2">Что будет с моими фотографиями?</summary><p data-i18n="a2">Они хранятся приватно и защищённо, доступны только вам. Вы можете удалить любое фото и весь аккаунт в любой момент.</p></details>
+  <details class="faq-i"><summary data-i18n="q3">Не изменит ли ИИ лица родных?</summary><p data-i18n="a3">Мы специально настроили процесс так, чтобы сохранять подлинные черты лица. Каждый результат проходит проверку: не подменилось ли лицо, не добавилось ли лишнего.</p></details>
+  <details class="faq-i"><summary data-i18n="q4">Какие фото подходят?</summary><p data-i18n="a4">Любые старые семейные снимки — выцветшие, с трещинами, чёрно-белые, повреждённые. Чем бережнее отсканируете оригинал, тем лучше результат.</p></details>
+  <details class="faq-i"><summary data-i18n="q5">Сколько ждать результат?</summary><p data-i18n="a5">Обычно пару минут. Если фото в очереди — вы увидите статус прямо в кабинете и получите готовое, как только оно будет.</p></details>
+ </div>
+</section>
+
 <section style="padding-bottom:100px">
  <div class="wrap"><div class="band reveal">
   <h2 data-i18n="band_h">Верните жизнь дорогим лицам</h2>
@@ -236,7 +267,7 @@ const I18N={
   how_k:"Просто",how_h:"Три шага до живого воспоминания",s1h:"Загрузите фото",s1p:"Старое, выцветшее, с трещинами — любое. Прямо из кабинета.",s2h:"Мы бережно реставрируем",s2p:"Убираем повреждения, возвращаем цвет — сохраняя лица такими, какими они были.",s3h:"Храните и делитесь",s3p:"Скачивайте результат и собирайте семейный архив, который останется с вами.",
   c_k:"Доказательство",c_h:"Реальные восстановленные фотографии",c_p:"Потяните ползунок — слева оригинал, справа результат.",
   tr_k:"Древо памяти",tr_h:"Семья — это лица, которые остаются",tr_p:"Каждое восстановленное фото — ещё одно лицо, вернувшееся в историю вашего рода.",
-  band_h:"Верните жизнь дорогим лицам",band_p:"Начните с одной фотографии. Бесплатно.",band_cta:"Загрузить фотографию",
+  band_h:"Верните жизнь дорогим лицам",band_p:"Начните с одной фотографии. Бесплатно.",band_cta:"Загрузить фотографию",tr_k:"Почему нам доверяют",tr_h:"Память заслуживает бережности",tr1h:"Лица остаются собой",tr1p:"Мы не «улучшаем» и не молодим людей. Черты лица сохраняются такими, какими были — это вопрос уважения к памяти.",tr2h:"Ваши фото — только ваши",tr2p:"Снимки хранятся в приватном защищённом хранилище. Доступ только у вас. Мы не продаём и не передаём их никому.",tr3h:"Бережная реставрация",tr3p:"Убираем трещины и выцветание, возвращаем цвет — но оставляем дух эпохи, а не превращаем фото в современное.",faq_k:"Частые вопросы",faq_h:"Что важно знать",q1:"Это бесплатно?",a1:"Да, начать можно бесплатно — без карты. Первые реставрации дарим, чтобы вы увидели результат на своих фото.",q2:"Что будет с моими фотографиями?",a2:"Они хранятся приватно и защищённо, доступны только вам. Вы можете удалить любое фото и весь аккаунт в любой момент.",q3:"Не изменит ли ИИ лица родных?",a3:"Мы специально настроили процесс так, чтобы сохранять подлинные черты лица. Каждый результат проходит проверку: не подменилось ли лицо, не добавилось ли лишнего.",q4:"Какие фото подходят?",a4:"Любые старые семейные снимки — выцветшие, с трещинами, чёрно-белые, повреждённые. Чем бережнее отсканируете оригинал, тем лучше результат.",q5:"Сколько ждать результат?",a5:"Обычно пару минут. Если фото в очереди — вы увидите статус прямо в кабинете и получите готовое, как только оно будет.",m_faq:"Вопросы",
   f_about:"Бережная реставрация старых семейных фотографий. Сделано с любовью к памяти.",f_nav:"Навигация",f_legal:"Документы",f_priv:"Конфиденциальность",f_terms:"Условия",f_contact:"Связаться",f_slogan:"Сохрани историю своей семьи"},
  ua:{m_how:"Як це працює",m_cases:"Приклади",m_tree:"Дерево памʼяті",cabinet:"Кабінет",login:"Увійти",cap1:"Сімейний портрет · 1958",cap2:"Весілля · 1964",cap3:"Зустріч рідних · 1971",cap4:"Портрет на памʼять · 1955",sb1:"фото повернуто родинам",sb2:"середній час реставрації",sb2num:"2 хв",page_title:"SaveMyHistory — поверніть життя старим сімейним світлинам",sb3:"обличчя лишаються собою",
   hero_kicker:"Реставрація сімейної памʼяті",hero_h1:"У кожній родині є обличчя, які ми <em>хочемо памʼятати</em>",hero_lead:"Завантажте стару, вицвілу світлину — і ми дбайливо повернемо їй життя. Без втрати того, ким були ці люди.",hero_cta:"Відновити фото",hero_cta2:"Переглянути приклади",t1:"Безкоштовно для початку",t2:"без картки",t3:"результат за кілька хвилин",
@@ -244,7 +275,7 @@ const I18N={
   how_k:"Просто",how_h:"Три кроки до живого спогаду",s1h:"Завантажте фото",s1p:"Старе, вицвіле, з тріщинами — будь-яке. Прямо з кабінету.",s2h:"Ми дбайливо реставруємо",s2p:"Прибираємо пошкодження, повертаємо колір — зберігаючи обличчя такими, якими вони були.",s3h:"Зберігайте та діліться",s3p:"Завантажуйте результат і збирайте сімейний архів, що залишиться з вами.",
   c_k:"Доказ",c_h:"Реальні відновлені світлини",c_p:"Потягніть повзунок — ліворуч оригінал, праворуч результат.",
   tr_k:"Дерево памʼяті",tr_h:"Родина — це обличчя, які залишаються",tr_p:"Кожне відновлене фото — ще одне обличчя, що повернулось в історію вашого роду.",
-  band_h:"Поверніть життя дорогим обличчям",band_p:"Почніть з однієї світлини. Безкоштовно.",band_cta:"Завантажити світлину",
+  band_h:"Поверніть життя дорогим обличчям",band_p:"Почніть з однієї світлини. Безкоштовно.",band_cta:"Завантажити світлину",tr_k:"Чому нам довіряють",tr_h:"Пам'ять заслуговує дбайливості",tr1h:"Обличчя залишаються собою",tr1p:"Ми не «покращуємо» і не молодимо людей. Риси обличчя зберігаються такими, якими були — це повага до пам'яті.",tr2h:"Ваші фото — лише ваші",tr2p:"Світлини зберігаються у приватному захищеному сховищі. Доступ лише у вас. Ми не продаємо і не передаємо їх нікому.",tr3h:"Дбайлива реставрація",tr3p:"Прибираємо тріщини та вицвітання, повертаємо колір — але залишаємо дух епохи, а не перетворюємо фото на сучасне.",m_faq:"Питання",faq_k:"Часті запитання",faq_h:"Що важливо знати",q1:"Це безкоштовно?",a1:"Так, почати можна безкоштовно — без картки. Перші реставрації даруємо, щоб ви побачили результат на своїх фото.",q2:"Що буде з моїми фотографіями?",a2:"Вони зберігаються приватно та захищено, доступні лише вам. Ви можете видалити будь-яке фото та весь акаунт будь-коли.",q3:"Чи не змінить ШІ обличчя рідних?",a3:"Ми спеціально налаштували процес, щоб зберігати справжні риси обличчя. Кожен результат проходить перевірку: чи не підмінилося обличчя, чи не додалося зайвого.",q4:"Які фото підходять?",a4:"Будь-які старі сімейні світлини — вицвілі, з тріщинами, чорно-білі, пошкоджені. Чим дбайливіше відскануєте оригінал, тим кращий результат.",q5:"Скільки чекати результат?",a5:"Зазвичай пару хвилин. Якщо фото в черзі — ви побачите статус прямо в кабінеті та отримаєте готове, щойно воно буде.",
   f_about:"Дбайлива реставрація старих сімейних світлин. Зроблено з любовʼю до памʼяті.",f_nav:"Навігація",f_legal:"Документи",f_priv:"Конфіденційність",f_terms:"Умови",f_contact:"Звʼязатися",f_slogan:"Збережи історію своєї родини"},
  en:{m_how:"How it works",m_cases:"Examples",m_tree:"Memory tree",cabinet:"Cabinet",login:"Sign in",cap1:"Family portrait · 1958",cap2:"Wedding · 1964",cap3:"Family reunion · 1971",cap4:"Keepsake portrait · 1955",sb1:"photos returned to families",sb2:"average restoration time",sb2num:"2 min",page_title:"SaveMyHistory — bring old family photos back to life",sb3:"faces stay themselves",
   hero_kicker:"Restoring family memory",hero_h1:"Every family has faces we <em>want to remember</em>",hero_lead:"Upload an old, faded photograph — and we'll gently bring it back to life. Without losing who these people were.",hero_cta:"Restore a photo",hero_cta2:"See examples",t1:"Free to start",t2:"no card",t3:"results in minutes",
@@ -252,7 +283,7 @@ const I18N={
   how_k:"Simple",how_h:"Three steps to a living memory",s1h:"Upload a photo",s1p:"Old, faded, cracked — any. Right from your cabinet.",s2h:"We restore it gently",s2p:"We remove damage and bring back color — keeping faces exactly as they were.",s3h:"Keep and share",s3p:"Download the result and build a family archive that stays with you.",
   c_k:"Proof",c_h:"Real restored photographs",c_p:"Drag the slider — original on the left, result on the right.",
   tr_k:"Memory tree",tr_h:"Family is the faces that remain",tr_p:"Every restored photo is one more face returned to your family's story.",
-  band_h:"Bring dear faces back to life",band_p:"Start with a single photo. Free.",band_cta:"Upload a photo",
+  band_h:"Bring dear faces back to life",band_p:"Start with a single photo. Free.",band_cta:"Upload a photo",tr_k:"Why families trust us",tr_h:"Memory deserves care",tr1h:"Faces stay themselves",tr1p:"We don't 'beautify' or make people younger. Facial features are kept as they were — it's a matter of respect for memory.",tr2h:"Your photos are yours",tr2p:"Photos are kept in private, secured storage. Only you have access. We never sell or share them with anyone.",tr3h:"Gentle restoration",tr3p:"We remove cracks and fading, bring back color — but keep the spirit of the era, instead of turning the photo into something modern.",faq_k:"FAQ",faq_h:"What's good to know",q1:"Is it free?",a1:"Yes, you can start for free — no card needed. The first restorations are on us, so you can see the result on your own photos.",q2:"What happens to my photos?",a2:"They're stored privately and securely, accessible only to you. You can delete any photo and your whole account at any time.",q3:"Will the AI change my loved ones' faces?",a3:"We specifically tuned the process to preserve authentic facial features. Every result is checked: whether the face was swapped, whether anything extra was added.",q4:"Which photos work?",a4:"Any old family photos — faded, cracked, black-and-white, damaged. The more carefully you scan the original, the better the result.",q5:"How long does it take?",a5:"Usually a couple of minutes. If a photo is queued, you'll see its status right in your cabinet and get the result as soon as it's ready.",m_faq:"FAQ",
   f_about:"Gentle restoration of old family photographs. Made with love for memory.",f_nav:"Navigation",f_legal:"Legal",f_priv:"Privacy",f_terms:"Terms",f_contact:"Contact",f_slogan:"Save your family's history"}
 };
 let LANG='ru';
