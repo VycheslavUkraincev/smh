@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — Админ-панель</title>
+<style>
+:root{--paper:#F7F1E7;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32;--card:#fff;--line:#E3D8C5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 18px 80px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;margin:0}
+.who{color:var(--muted);font-size:14px}
+a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card .n{font-size:28px;font-weight:700}
+.card .l{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.card.q .n{color:#A67C32}.card.proc .n{color:#2980b9}.card.done .n{color:#27ae60}.card.fail .n{color:#c0392b}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:9px 11px;text-align:left;font-size:13px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{background:#F0E7D7;color:var(--muted);font-weight:600}
+.thumb{width:46px;height:46px;border-radius:6px;object-fit:cover;background:#eee}
+.thumbs{display:flex;gap:4px}
+.badge{padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.b-queued{background:#FBEFD6;color:#A67C32}.b-uploaded{background:#FBEFD6;color:#A67C32}
+.b-processing{background:#E3F0FB;color:#2980b9}.b-done{background:#E4F6E9;color:#27ae60}.b-failed{background:#FBE4E1;color:#c0392b}
+.act{border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer;margin-right:5px}
+.act:hover{background:#f5efe2}
+.act.danger{border-color:#c0392b;color:#c0392b}
+.gate{max-width:420px;margin:80px auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px}
+.gate h2{font-family:'Cormorant Garamond',Georgia,serif;margin:0 0 10px}
+.gate p{color:var(--muted)}
+.btn{display:inline-block;margin-top:14px;background:var(--gold-d);color:#fff;border:none;border-radius:10px;padding:10px 20px;cursor:pointer;font-size:15px;text-decoration:none}
+.flt{margin-bottom:12px}
+.flt button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer;margin-right:6px}
+.flt button.on{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}
+.muted{color:var(--muted);font-size:13px}
+.code{font-family:monospace;font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Админ-панель</h2>
+    <p id="gate-msg">Войдите аккаунтом администратора.</p>
+    <a class="btn" id="login" href="#">Войти через Google</a>
+  </div>
+
+  <div id="panel" style="display:none">
+    <div class="top">
+      <h1>🛠 SaveMyHistory — Управление</h1>
+      <div><span class="who" id="who"></span> · <a class="home" href="/">На сайт</a> · <a class="home" href="#" id="refresh">⟳ Обновить</a></div>
+    </div>
+
+    <div class="cards" id="cards"></div>
+
+    <div class="flt" id="flt">
+      <button data-s="" class="on">Все</button>
+      <button data-s="queued">В очереди</button>
+      <button data-s="processing">В работе</button>
+      <button data-s="done">Готово</button>
+      <button data-s="failed">Ошибки</button>
+    </div>
+
+    <table>
+      <thead><tr><th>Фото</th><th>Режим</th><th>Статус</th><th>Создан</th><th>QC</th><th>Действия</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="6" class="muted">Загрузка…</td></tr></tbody>
+    </table>
+    <p class="muted" id="foot" style="margin-top:14px"></p>
+  </div>
+</div>
+
+<script>
+const URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
+const $=s=>document.querySelector(s);
+let _token=null, curStatus='';
+function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
+function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
+function H(){ return {Authorization:'Bearer '+getToken()}; }
+
+// поймать токен из hash (после OAuth)
+(function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
+
+async function login(){
+  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
+  const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/admin.html'}});
+  if(data&&data.url) location.href=data.url;
+}
+
+function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
+function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
+
+async function init(){
+  $('#login').onclick=e=>{e.preventDefault();login();};
+  $('#refresh').onclick=e=>{e.preventDefault();loadAll();};
+  $('#flt').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    curStatus=b.dataset.s; $('#flt').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); loadRows();
+  });
+  if(!getToken()){ showGate(); return; }
+  // проверка прав
+  let r;
+  try{ r=await fetch('/api/admin/check',{headers:H()}); }catch(e){ showGate('Ошибка сети.'); return; }
+  if(r.status===403){ showGate('Этот аккаунт не админ. Войдите аккаунтом из белого списка.'); return; }
+  if(r.status===401){ setToken(null); showGate('Сессия истекла. Войдите снова.'); return; }
+  if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
+  const me=await r.json(); $('#who').textContent=me.email||'';
+  showPanel(); loadAll();
+}
+
+async function loadAll(){ await Promise.all([loadStats(), loadRows()]); }
+
+async function loadStats(){
+  try{
+    const r=await fetch('/api/admin/stats',{headers:H()}); if(!r.ok)return;
+    const s=await r.json(); const q=s.queue||{};
+    const cells=[
+      ['q','В очереди',(q.queued||0)+(q.uploaded||0)],
+      ['proc','В работе',q.processing||0],
+      ['done','Готово',q.done||0],
+      ['fail','Ошибки',q.failed||0],
+      ['','Всего',s.total_restorations||0]
+    ];
+    $('#cards').innerHTML=cells.map(c=>'<div class="card '+c[0]+'"><div class="n">'+c[2]+'</div><div class="l">'+c[1]+'</div></div>').join('');
+  }catch(e){}
+}
+
+function fmt(ts){ if(!ts)return''; try{ return new Date(ts).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }catch(e){ return ts; } }
+function qcBadge(qc){ if(!qc)return'<span class="muted">—</span>'; try{ const o=typeof qc==='string'?JSON.parse(qc):qc; const bad=['face_changed','extra_added','artifacts'].some(k=>o[k]); return bad?'<span class="badge b-failed">⚠ замечания</span>':'<span class="badge b-done">✓ чисто</span>'; }catch(e){ return'<span class="muted">—</span>'; } }
+
+async function loadRows(){
+  const tb=$('#rows'); tb.innerHTML='<tr><td colspan="6" class="muted">Загрузка…</td></tr>';
+  let rows=[];
+  try{ const u='/api/admin/restorations?limit=60'+(curStatus?('&status='+curStatus):''); const r=await fetch(u,{headers:H()}); if(r.ok)rows=await r.json(); }catch(e){}
+  if(!rows.length){ tb.innerHTML='<tr><td colspan="6" class="muted">Нет заказов.</td></tr>'; $('#foot').textContent=''; return; }
+  tb.innerHTML=rows.map(x=>{
+    const st=x.status||'queued';
+    const bs=st==='uploaded'?'queued':st;
+    const before=x.original_url?'<img class="thumb" src="'+x.original_url+'">':'';
+    const after=x.result_url?'<img class="thumb" src="'+x.result_url+'">':'';
+    const mode=x.mode==='revive'?'Оживление':'Реставрация';
+    return '<tr>'
+      +'<td><div class="thumbs">'+before+after+'</div></td>'
+      +'<td>'+mode+'</td>'
+      +'<td><span class="badge b-'+bs+'">'+st+'</span></td>'
+      +'<td class="muted">'+fmt(x.created_at)+'</td>'
+      +'<td>'+qcBadge(x.qc)+'</td>'
+      +'<td><button class="act" data-retry="'+x.id+'">Перезапуск</button><button class="act danger" data-del="'+x.id+'">Удалить</button></td>'
+      +'</tr>';
+  }).join('');
+  $('#foot').textContent='Показано: '+rows.length;
+  tb.querySelectorAll('[data-retry]').forEach(b=>b.onclick=async()=>{ b.textContent='…'; try{ await fetch('/api/admin/restorations/'+b.dataset.retry+'/retry',{method:'POST',headers:H()}); loadAll(); }catch(e){} });
+  tb.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{ if(!confirm('Удалить этот заказ и файлы?'))return; b.textContent='…'; try{ await fetch('/api/admin/restorations/'+b.dataset.del,{method:'DELETE',headers:H()}); loadAll(); }catch(e){} });
+}
+
+init();
+</script>
+</body>
+</html>
