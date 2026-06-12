@@ -37,20 +37,21 @@ services:
       - key: SPACES_BUCKET
         scope: RUN_TIME
         value: smh-photos
-jobs:
+workers:
   - name: worker
-    kind: PRE_DEPLOY
     source_dir: /worker
     github:
       repo: VycheslavUkraincev/smh
       branch: main
+      deploy_on_push: true
     run_command: python run.py
     environment_slug: python
     instance_size_slug: basic-xxs
-    # ПРИМЕЧАНИЕ: для постоянной обработки очереди лучше внешний планировщик
-    # (DO Functions scheduled / cron) вызывающий run.py каждые 2-5 мин,
-    # либо отдельный worker-сервис с внутренним циклом. PRE_DEPLOY — заглушка для структуры.
+    instance_count: 1
+    # постоянный worker: run.py крутит цикл (LOOP_INTERVAL сек) — обрабатывает очередь без человека
     envs:
+      - key: LOOP_INTERVAL
+        value: "120"
       - key: SUPABASE_URL
         value: ${SUPABASE_URL}
       - key: SUPABASE_SECRET
