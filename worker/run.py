@@ -30,5 +30,20 @@ def main():
 
     log("run", f"итог прохода: analyzed={na} generated={ng} verified={nv}")
 
+def loop(interval=120):
+    """Постоянный режим: проход каждые interval сек. Для worker-сервиса на DO."""
+    import time
+    log("run", f"loop старт, интервал {interval}с")
+    while True:
+        try:
+            main()
+        except Exception as e:
+            log("run", f"проход упал: {str(e)[:120]}")
+        time.sleep(interval)
+
 if __name__ == "__main__":
-    main()
+    import os, sys
+    if "--once" in sys.argv:
+        main()
+    else:
+        loop(int(os.environ.get("LOOP_INTERVAL", "120")))
