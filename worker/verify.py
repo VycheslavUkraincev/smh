@@ -4,7 +4,7 @@
 vision-моделью на подмену лица / лишние детали / изменение возраста.
 PASS → status='done'. FAIL → status='analyzed' (на повтор, max 3) или 'needs_review'.
 На дешёвом API, ПОСЛЕ GPU.
-Запуск: python verify.py [batch]
+Запуск: python worker_verify.py [batch]
 """
 import sys, json
 from common import log, claim, update_row, presigned_get, vision
