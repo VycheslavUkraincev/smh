@@ -310,7 +310,7 @@ function bind(){
 
 async function start(){
   bind();
-  let l='ru';try{l=localStorage.getItem('smh_lang')||(navigator.language||'').slice(0,2);}catch(e){}
+  let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const langs=navigator.languages||[navigator.language||'en'];const m={uk:'ua',ru:'ru',lt:'lt',en:'en'};for(const lang of langs){const k=lang.slice(0,2);if(m[k]){l=m[k];break;}}}}catch(e){}
   if(!I18N[l])l='en'; applyLang(l);
   // Ловим возврат от Google: токен прилетает в #access_token=...
   if(location.hash && location.hash.indexOf('access_token')>-1){

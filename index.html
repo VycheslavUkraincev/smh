@@ -319,8 +319,8 @@ const countIO=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isInte
 if(countEl)countIO.observe(countEl);
 // lang buttons
 document.querySelectorAll('.flang button,.hlang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
-// init lang: сохранённый -> язык браузера (ru/uk -> своё, иначе en)
-(function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='lt'?'lt':(n==='ru'?'ru':'en'));}}catch(e){}applyLang(l);})();
+// init lang: сохранённый | Accept-Language (uk/ru/lt/en) | en по умолчанию
+(function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const langs=navigator.languages||[navigator.language||'en'];const m={uk:'ua',ru:'ru',lt:'lt',en:'en'};for(const lang of langs){const k=lang.slice(0,2);if(m[k]){l=m[k];break;}}}}catch(e){}applyLang(l);})();
 initCmp();
 </script>
 <script type="module">
