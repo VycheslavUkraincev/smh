@@ -86,7 +86,6 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .lang button{background:none;border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:5px 9px;border-radius:20px;cursor:pointer;opacity:.6}
 .lang button.on{background:var(--gold-d);color:#fff;opacity:1}
 .hidden{display:none!important}
-@media(prefers-reduced-motion:reduce){.tile,.drop,.btn{-webkit-animation:none!important;animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -192,34 +191,21 @@ async function doSend(){
   if(!chosen){setMsg(t('pick_first'),'err');return;}
   if(chosen.size>50*1024*1024){setMsg(t('too_big'),'err');return;}
   const s=await ses();if(!s){loginGoogle();return;}
-  // loading state
-  const drop=$('#drop'),sendBtn=$('#send');
-  drop.classList.add('loading');
-  drop.style.background='var(--paper)';
-  drop.innerHTML='<div class="progress-ring"></div><h3 data-i18n="uploading">'+t('uploading')+'</h3>';
-  sendBtn.disabled=true;
-  setMsg('','');
+  setMsg(t('uploading'),'work');
   const ext=(chosen.name.split('.').pop()||'jpg').toLowerCase();
   try{
     const ur=await fetch('/api/upload-url',{method:'POST',headers:{Authorization:'Bearer '+s.access_token,'Content-Type':'application/json'},body:JSON.stringify({ext,content_type:chosen.type||'image/jpeg'})});
-    if(!ur.ok){throw new Error('upload-url failed');}
+    if(!ur.ok){setMsg(t('err'),'err');return;}
     const u=await ur.json();
     const put=await fetch(u.upload_url,{method:'PUT',headers:{'Content-Type':chosen.type||'image/jpeg'},body:chosen});
-    if(!put.ok){throw new Error('put failed');}
+    if(!put.ok){setMsg(t('err'),'err');return;}
     const cr=await fetch('/api/restorations',{method:'POST',headers:{Authorization:'Bearer '+s.access_token,'Content-Type':'application/json'},body:JSON.stringify({original_key:u.key,mode})});
-    if(cr.status===402){setMsg(t('limit'),'err'); drop.classList.remove('loading'); sendBtn.disabled=false; resetDrop(); return;}
-    if(!cr.ok){throw new Error('order failed');}
+    if(cr.status===402){setMsg(t('limit'),'err');return;}
+    if(!cr.ok){setMsg(t('err'),'err');return;}
     setMsg(t('sent'),'ok'); chosen=null; resetDrop(); loadGal(s);
   }catch(e){setMsg(t('err'),'err');}
-  drop.classList.remove('loading');
-  sendBtn.disabled=false;
 }
-function resetDrop(){
-  const drop=$('#drop');
-  drop.classList.remove('loading');
-  drop.innerHTML='<svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/><circle cx="12" cy="12.5" r="3.4"/></svg><h3>'+t('drop_h')+'</h3><div class="fmt">'+t('drop_fmt')+'</div>';
-  $('.gbtn').style.display='';
-}
+function resetDrop(){$('#drop').innerHTML='<svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/><circle cx="12" cy="12.5" r="3.4"/></svg><h3 data-i18n="drop_h">'+t('drop_h')+'</h3><div class="fmt" data-i18n="drop_fmt">'+t('drop_fmt')+'</div>';}
 
 let _pollTimer=null, _sess=null;
 async function loadGal(s){ if(s)_sess=s; const cur=_sess; if(!cur)return;

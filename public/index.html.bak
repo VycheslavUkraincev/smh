@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#F7F1E7;--paper2:#EFE6D6;--paper3:#E8DDCA;--ink:#2A2018;--muted:#5C4F40;--gold:#C9A24B;--gold-d:#A67C32;--walnut:#5B3A24;--line:rgba(90,64,49,.14);--shadow:rgba(50,30,15,.12);--ease:cubic-bezier(.22,.61,.36,1)}
+:root{--paper:#F7F1E7;--paper2:#EFE6D6;--ink:#2A2018;--muted:#6E6152;--gold:#C9A24B;--gold-d:#A67C32;--walnut:#5B3A24;--line:rgba(90,64,49,.14)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Manrope',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden}
@@ -71,7 +71,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .cmp .hd{position:absolute;top:0;bottom:0;width:2px;background:#fff;left:50%;transform:translateX(-50%);pointer-events:none}
 .cmp .kn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:#fff;color:var(--gold-d);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 4px 14px rgba(0,0,0,.3)}
 /* SECTIONS */
-section{padding:100px 0}
+section{padding:90px 0}
 .sec-head{text-align:center;max-width:680px;margin:0 auto 56px}
 .sec-head .kicker{margin-bottom:14px}
 .sec-head h2{font-size:42px;margin-bottom:16px}
@@ -115,28 +115,19 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
 /* reveal */
 .reveal{opacity:0;transform:translateY(26px);transition:all .8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}.cmp,.cmp .aw{transition:none!important}}
-/* case hover lift */
-.case{transition:transform .4s var(--ease),box-shadow .4s var(--ease);border-radius:18px;overflow:hidden}
-.case:hover{transform:translateY(-4px);box-shadow:0 28px 64px -24px var(--shadow)}
-/* scroll to top */
-#top-btn{position:fixed;bottom:32px;right:32px;z-index:50;width:48px;height:48px;border-radius:50%;background:var(--gold-d);color:#fff;border:none;font-size:20px;cursor:pointer;opacity:0;transform:translateY(16px);transition:all .4s var(--ease);pointer-events:none;box-shadow:0 8px 24px rgba(166,124,50,.4)}
-#top-btn.show{opacity:1;transform:none;pointer-events:auto}
-#top-btn:hover{background:var(--walnut);transform:translateY(-2px)}
 /* responsive */
 @media(max-width:860px){
  .hero-grid{grid-template-columns:1fr;gap:36px}.hero h1{font-size:42px}.hero{padding:44px 0}
- .menu{display:none}.burger{display:block}.cases{grid-template-columns:1fr;max-width:520px}.steps{grid-template-columns:1fr;gap:36px}
+ .menu{display:none}.burger{display:block}.cases{grid-template-columns:1fr}.steps{grid-template-columns:1fr;gap:36px}
  .fgrid{grid-template-columns:1fr;gap:30px}.sec-head h2{font-size:32px}section{padding:60px 0}
- .menu.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--paper);padding:24px 24px;border-bottom:1px solid var(--line);gap:18px;box-shadow:0 20px 40px -20px rgba(0,0,0,.2);animation:slideDown .3s var(--ease)}
- @keyframes slideDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+ .menu.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--paper);padding:20px 24px;border-bottom:1px solid var(--line);gap:18px}
 }
 @media(max-width:430px){
- header .wrap{padding-left:16px;padding-right:16px;gap:6px}
+ header .wrap{padding-left:16px;padding-right:16px}
  .hbtn{padding:7px 14px;font-size:12px}
- .brand{font-size:18px}
+ .brand{font-size:17px}
  .hlang button{padding:3px 6px;font-size:10px}
- #top-btn{bottom:20px;right:20px;width:42px;height:42px;font-size:16px}
+ header .wrap{gap:6px}
 }
 </style></head>
 <body>
@@ -170,8 +161,8 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
   </div>
   <div class="reveal">
    <div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_after.jpg">
-    <img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_before.jpg" alt="" loading="lazy">
-    <div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_after.jpg" alt="" loading="lazy"></div>
+    <img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_before.jpg" alt="">
+    <div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/hero_after.jpg" alt=""></div>
     <span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span>
     <div class="hd"><div class="kn">↔</div></div>
    </div>
@@ -193,9 +184,6 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
    <div class="step reveal"><div class="n">🤲<span class="num">2</span></div><h3 data-i18n="s2h">Мы бережно реставрируем</h3><p data-i18n="s2p">Убираем повреждения, возвращаем цвет — сохраняя лица такими, какими они были.</p></div>
    <div class="step reveal"><div class="n">🌳<span class="num">3</span></div><h3 data-i18n="s3h">Храните и делитесь</h3><p data-i18n="s3p">Скачивайте результат и собирайте семейный архив, который останется с вами.</p></div>
   </div>
-  <div style="text-align:center;margin-top:48px" class="reveal">
-   <a href="/cabinet.html" class="hbtn gold" style="font-size:15px;padding:12px 30px" data-i18n="steps_cta">Попробовать бесплатно</a>
-  </div>
  </div>
 </section>
 
@@ -203,10 +191,10 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  <div class="wrap">
   <div class="sec-head reveal"><div class="kicker" data-i18n="c_k">Доказательство</div><h2 data-i18n="c_h">Реальные восстановленные фотографии</h2><p data-i18n="c_p">Потяните ползунок — слева оригинал, справа результат.</p></div>
   <div class="cases">
-   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_before.jpg" loading="lazy"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_after.jpg" loading="lazy"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap1">Семейный портрет · 1958</figcaption></figure>
-   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_before.jpg" loading="lazy"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_after.jpg" loading="lazy"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap2">Свадьба · 1964</figcaption></figure>
-   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_before.jpg" loading="lazy"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_after.jpg" loading="lazy"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap3">Встреча родных · 1971</figcaption></figure>
-   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_before.jpg" loading="lazy"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_after.jpg" loading="lazy"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap4">Портрет на память · 1955</figcaption></figure>
+   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_before.jpg"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g1_after.jpg"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap1">Семейный портрет · 1958</figcaption></figure>
+   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_before.jpg"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g2_after.jpg"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap2">Свадьба · 1964</figcaption></figure>
+   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_before.jpg"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g3_after.jpg"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap3">Встреча родных · 1971</figcaption></figure>
+   <figure class="case reveal"><div class="cmp" data-cmp data-before="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_before.jpg" data-after="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_after.jpg"><img class="bg" src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_before.jpg"><div class="aw"><img src="https://smh-photos.fra1.digitaloceanspaces.com/assets/g4_after.jpg"></div><span class="lab lb" data-i18n="before">Было</span><span class="lab la" data-i18n="after">Стало</span><div class="hd"><div class="kn">↔</div></div></div><figcaption data-i18n="cap4">Портрет на память · 1955</figcaption></figure>
   </div>
  </div>
 </section>
@@ -232,7 +220,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
     </div>
    </div>
    <div class="fcol"><h4 data-i18n="f_nav">Навигация</h4><a href="#how" data-i18n="m_how">Как это работает</a><a href="#cases" data-i18n="m_cases">Примеры</a><a href="/cabinet.html" data-i18n="cabinet">Кабинет</a></div>
-   <div class="fcol"><h4 data-i18n="f_legal">Документы</h4><a href="/privacy.html" data-i18n="f_priv">Конфиденциальность</a><a href="/terms.html" data-i18n="f_terms">Условия</a><a href="mailto:savemyfamilyhistory@gmail.com" data-i18n="f_contact">Связаться</a></div>
+   <div class="fcol"><h4 data-i18n="f_legal">Документы</h4><a href="https://portal.ai/privacy" target="_blank" data-i18n="f_priv">Конфиденциальность</a><a href="https://portal.ai/terms" target="_blank" data-i18n="f_terms">Условия</a><a href="mailto:savemyfamilyhistory@gmail.com" data-i18n="f_contact">Связаться</a></div>
   </div>
   <div class="fbot">
    <span>© 2026 SaveMyHistory · <span data-i18n="f_slogan">Сохрани историю своей семьи</span></span>
@@ -248,7 +236,7 @@ const I18N={
   how_k:"Просто",how_h:"Три шага до живого воспоминания",s1h:"Загрузите фото",s1p:"Старое, выцветшее, с трещинами — любое. Прямо из кабинета.",s2h:"Мы бережно реставрируем",s2p:"Убираем повреждения, возвращаем цвет — сохраняя лица такими, какими они были.",s3h:"Храните и делитесь",s3p:"Скачивайте результат и собирайте семейный архив, который останется с вами.",
   c_k:"Доказательство",c_h:"Реальные восстановленные фотографии",c_p:"Потяните ползунок — слева оригинал, справа результат.",
   tr_k:"Древо памяти",tr_h:"Семья — это лица, которые остаются",tr_p:"Каждое восстановленное фото — ещё одно лицо, вернувшееся в историю вашего рода.",
-  band_h:"Верните жизнь дорогим лицам",band_p:"Начните с одной фотографии. Бесплатно.",steps_cta:"Попробовать бесплатно",band_cta:"Загрузить фотографию",
+  band_h:"Верните жизнь дорогим лицам",band_p:"Начните с одной фотографии. Бесплатно.",band_cta:"Загрузить фотографию",
   f_about:"Бережная реставрация старых семейных фотографий. Сделано с любовью к памяти.",f_nav:"Навигация",f_legal:"Документы",f_priv:"Конфиденциальность",f_terms:"Условия",f_contact:"Связаться",f_slogan:"Сохрани историю своей семьи"},
  ua:{m_how:"Як це працює",m_cases:"Приклади",m_tree:"Дерево памʼяті",cabinet:"Кабінет",login:"Увійти",cap1:"Сімейний портрет · 1958",cap2:"Весілля · 1964",cap3:"Зустріч рідних · 1971",cap4:"Портрет на памʼять · 1955",sb1:"фото повернуто родинам",sb2:"середній час реставрації",sb3:"обличчя лишаються собою",
   hero_kicker:"Реставрація сімейної памʼяті",hero_h1:"У кожній родині є обличчя, які ми <em>хочемо памʼятати</em>",hero_lead:"Завантажте стару, вицвілу світлину — і ми дбайливо повернемо їй життя. Без втрати того, ким були ці люди.",hero_cta:"Відновити фото",hero_cta2:"Переглянути приклади",t1:"Безкоштовно для початку",t2:"без картки",t3:"результат за кілька хвилин",
@@ -256,7 +244,7 @@ const I18N={
   how_k:"Просто",how_h:"Три кроки до живого спогаду",s1h:"Завантажте фото",s1p:"Старе, вицвіле, з тріщинами — будь-яке. Прямо з кабінету.",s2h:"Ми дбайливо реставруємо",s2p:"Прибираємо пошкодження, повертаємо колір — зберігаючи обличчя такими, якими вони були.",s3h:"Зберігайте та діліться",s3p:"Завантажуйте результат і збирайте сімейний архів, що залишиться з вами.",
   c_k:"Доказ",c_h:"Реальні відновлені світлини",c_p:"Потягніть повзунок — ліворуч оригінал, праворуч результат.",
   tr_k:"Дерево памʼяті",tr_h:"Родина — це обличчя, які залишаються",tr_p:"Кожне відновлене фото — ще одне обличчя, що повернулось в історію вашого роду.",
-  band_h:"Поверніть життя дорогим обличчям",band_p:"Почніть з однієї світлини. Безкоштовно.",steps_cta:"Спробувати безкоштовно",band_cta:"Завантажити світлину",
+  band_h:"Поверніть життя дорогим обличчям",band_p:"Почніть з однієї світлини. Безкоштовно.",band_cta:"Завантажити світлину",
   f_about:"Дбайлива реставрація старих сімейних світлин. Зроблено з любовʼю до памʼяті.",f_nav:"Навігація",f_legal:"Документи",f_priv:"Конфіденційність",f_terms:"Умови",f_contact:"Звʼязатися",f_slogan:"Збережи історію своєї родини"},
  en:{m_how:"How it works",m_cases:"Examples",m_tree:"Memory tree",cabinet:"Cabinet",login:"Sign in",cap1:"Family portrait · 1958",cap2:"Wedding · 1964",cap3:"Family reunion · 1971",cap4:"Keepsake portrait · 1955",sb1:"photos returned to families",sb2:"average restoration time",sb3:"faces stay themselves",
   hero_kicker:"Restoring family memory",hero_h1:"Every family has faces we <em>want to remember</em>",hero_lead:"Upload an old, faded photograph — and we'll gently bring it back to life. Without losing who these people were.",hero_cta:"Restore a photo",hero_cta2:"See examples",t1:"Free to start",t2:"no card",t3:"results in minutes",
@@ -264,7 +252,7 @@ const I18N={
   how_k:"Simple",how_h:"Three steps to a living memory",s1h:"Upload a photo",s1p:"Old, faded, cracked — any. Right from your cabinet.",s2h:"We restore it gently",s2p:"We remove damage and bring back color — keeping faces exactly as they were.",s3h:"Keep and share",s3p:"Download the result and build a family archive that stays with you.",
   c_k:"Proof",c_h:"Real restored photographs",c_p:"Drag the slider — original on the left, result on the right.",
   tr_k:"Memory tree",tr_h:"Family is the faces that remain",tr_p:"Every restored photo is one more face returned to your family's story.",
-  band_h:"Bring dear faces back to life",band_p:"Start with a single photo. Free.",steps_cta:"Try for free",band_cta:"Upload a photo",
+  band_h:"Bring dear faces back to life",band_p:"Start with a single photo. Free.",band_cta:"Upload a photo",
   f_about:"Gentle restoration of old family photographs. Made with love for memory.",f_nav:"Navigation",f_legal:"Legal",f_priv:"Privacy",f_terms:"Terms",f_contact:"Contact",f_slogan:"Save your family's history"},
  lt:{m_how:"Kaip tai veikia",m_cases:"Pavyzdžiai",m_tree:"Atminties medis",cabinet:"Paskyra",login:"Prisijungti",cap1:"Šeimos portretas · 1958",cap2:"Vestuvės · 1964",cap3:"Giminių susitikimas · 1971",cap4:"Portretas atminimui · 1955",sb1:"nuotraukų grąžinta šeimoms",sb2:"vidutinis restauracijos laikas",sb3:"veidai išlieka savimi",
   hero_kicker:"Šeimos atminties restauracija",hero_h1:"Kiekvienoje šeimoje yra veidų, kuriuos <em>norime prisiminti</em>",hero_lead:"Įkelkite seną, išblukusią nuotrauką — ir mes švelniai grąžinsime jai gyvybę. Neprarasdami to, kas buvo šie žmonės.",hero_cta:"Atkurti nuotrauką",hero_cta2:"Peržiūrėti pavyzdžius",t1:"Nemokama pradžia",t2:"be kortelės",t3:"rezultatas per kelias minutes",
@@ -272,7 +260,7 @@ const I18N={
   how_k:"Paprasta",how_h:"Trys žingsniai iki gyvo prisiminimo",s1h:"Įkelkite nuotrauką",s1p:"Sena, išblukusi, su įtrūkimais — bet kokia. Tiesiai iš paskyros.",s2h:"Mes švelniai restauruojame",s2p:"Pašaliname pažeidimus, grąžiname spalvas — išlaikydami veidus tokius, kokie jie buvo.",s3h:"Saugokite ir dalinkitės",s3p:"Atsisiųskite rezultatą ir kurkite šeimos archyvą, kuris liks su jumis.",
   c_k:"Įrodymas",c_h:"Tikros atkurtos nuotraukos",c_p:"Tempkite slankiklį — kairėje originalas, dešinėje rezultatas.",
   tr_k:"Atminties medis",tr_h:"Šeima — tai veidai, kurie lieka",tr_p:"Kiekviena atkurta nuotrauka — dar vienas veidas, grįžęs į jūsų giminės istoriją.",
-  band_h:"Grąžinkite gyvybę brangiems veidams",band_p:"Pradėkite nuo vienos nuotraukos. Nemokamai.",steps_cta:"Išbandyti nemokamai",band_cta:"Įkelti nuotrauką",
+  band_h:"Grąžinkite gyvybę brangiems veidams",band_p:"Pradėkite nuo vienos nuotraukos. Nemokamai.",band_cta:"Įkelti nuotrauką",
   f_about:"Švelni senų šeimos nuotraukų restauracija. Su meile atminimui.",f_nav:"Navigacija",f_legal:"Dokumentai",f_priv:"Privatumas",f_terms:"Sąlygos",f_contact:"Susisiekti",f_slogan:"Išsaugokite savo šeimos istoriją"}
 };
 let LANG='ru';
@@ -303,14 +291,6 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 // burger
 document.getElementById('burger').onclick=()=>document.getElementById('menu').classList.toggle('open');
 document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
-// scroll to top
-const topBtn=document.createElement('button');topBtn.id='top-btn';topBtn.innerHTML='↑';topBtn.setAttribute('aria-label','Наверх');document.body.appendChild(topBtn);
-addEventListener('scroll',()=>{topBtn.classList.toggle('show',scrollY>600)});
-topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
-// counter animation
-const countEl=document.getElementById('st-photos');const target=283;
-const countIO=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){let cur=0;const step=Math.ceil(target/45);const t=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(t)}countEl.textContent=String(cur);},24);countIO.unobserve(countEl);}})});
-if(countEl)countIO.observe(countEl);
 // lang buttons
 document.querySelectorAll('.flang button,.hlang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
 // init lang: сохранённый -> язык браузера (ru/uk -> своё, иначе en)
