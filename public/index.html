@@ -139,7 +139,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
    <a href="#cases" data-i18n="m_cases">Примеры</a>
   </nav>
   <div style="display:flex;align-items:center;gap:12px">
-   <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button></div>
+   <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="lt">LT</button></div>
    <div class="who" id="who"><span class="av" id="who-av"></span><span id="who-mail"></span><a href="/cabinet.html" class="hbtn" data-i18n="cabinet">Кабинет</a></div>
    <a href="/cabinet.html" class="hbtn gold" id="login-btn" data-i18n="login">Войти</a>
    <button class="burger" id="burger">☰</button>
@@ -224,7 +224,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
   </div>
   <div class="fbot">
    <span>© 2026 SaveMyHistory · <span data-i18n="f_slogan">Сохрани историю своей семьи</span></span>
-   <div class="flang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button></div>
+   <div class="flang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="lt">LT</button></div>
   </div>
  </div>
 </footer>
@@ -253,7 +253,15 @@ const I18N={
   c_k:"Proof",c_h:"Real restored photographs",c_p:"Drag the slider — original on the left, result on the right.",
   tr_k:"Memory tree",tr_h:"Family is the faces that remain",tr_p:"Every restored photo is one more face returned to your family's story.",
   band_h:"Bring dear faces back to life",band_p:"Start with a single photo. Free.",band_cta:"Upload a photo",
-  f_about:"Gentle restoration of old family photographs. Made with love for memory.",f_nav:"Navigation",f_legal:"Legal",f_priv:"Privacy",f_terms:"Terms",f_contact:"Contact",f_slogan:"Save your family's history"}
+  f_about:"Gentle restoration of old family photographs. Made with love for memory.",f_nav:"Navigation",f_legal:"Legal",f_priv:"Privacy",f_terms:"Terms",f_contact:"Contact",f_slogan:"Save your family's history"},
+ lt:{m_how:"Kaip tai veikia",m_cases:"Pavyzdžiai",m_tree:"Atminties medis",cabinet:"Paskyra",login:"Prisijungti",cap1:"Šeimos portretas · 1958",cap2:"Vestuvės · 1964",cap3:"Giminių susitikimas · 1971",cap4:"Portretas atminimui · 1955",sb1:"nuotraukų grąžinta šeimoms",sb2:"vidutinis restauracijos laikas",sb3:"veidai išlieka savimi",
+  hero_kicker:"Šeimos atminties restauracija",hero_h1:"Kiekvienoje šeimoje yra veidų, kuriuos <em>norime prisiminti</em>",hero_lead:"Įkelkite seną, išblukusią nuotrauką — ir mes švelniai grąžinsime jai gyvybę. Neprarasdami to, kas buvo šie žmonės.",hero_cta:"Atkurti nuotrauką",hero_cta2:"Peržiūrėti pavyzdžius",t1:"Nemokama pradžia",t2:"be kortelės",t3:"rezultatas per kelias minutes",
+  before:"Buvo",after:"Tapo",
+  how_k:"Paprasta",how_h:"Trys žingsniai iki gyvo prisiminimo",s1h:"Įkelkite nuotrauką",s1p:"Sena, išblukusi, su įtrūkimais — bet kokia. Tiesiai iš paskyros.",s2h:"Mes švelniai restauruojame",s2p:"Pašaliname pažeidimus, grąžiname spalvas — išlaikydami veidus tokius, kokie jie buvo.",s3h:"Saugokite ir dalinkitės",s3p:"Atsisiųskite rezultatą ir kurkite šeimos archyvą, kuris liks su jumis.",
+  c_k:"Įrodymas",c_h:"Tikros atkurtos nuotraukos",c_p:"Tempkite slankiklį — kairėje originalas, dešinėje rezultatas.",
+  tr_k:"Atminties medis",tr_h:"Šeima — tai veidai, kurie lieka",tr_p:"Kiekviena atkurta nuotrauka — dar vienas veidas, grįžęs į jūsų giminės istoriją.",
+  band_h:"Grąžinkite gyvybę brangiems veidams",band_p:"Pradėkite nuo vienos nuotraukos. Nemokamai.",band_cta:"Įkelti nuotrauką",
+  f_about:"Švelni senų šeimos nuotraukų restauracija. Su meile atminimui.",f_nav:"Navigacija",f_legal:"Dokumentai",f_priv:"Privatumas",f_terms:"Sąlygos",f_contact:"Susisiekti",f_slogan:"Išsaugokite savo šeimos istoriją"}
 };
 let LANG='ru';
 function applyLang(l){ if(!I18N[l])l='en'; LANG=l; document.documentElement.lang=l;
@@ -286,7 +294,7 @@ document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElemen
 // lang buttons
 document.querySelectorAll('.flang button,.hlang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
 // init lang: сохранённый -> язык браузера (ru/uk -> своё, иначе en)
-(function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='ru'?'ru':'en');}}catch(e){}applyLang(l);})();
+(function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='lt'?'lt':(n==='ru'?'ru':'en'));}}catch(e){}applyLang(l);})();
 initCmp();
 </script>
 <script type="module">
