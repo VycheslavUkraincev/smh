@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — Кабинет</title>
+<meta http-equiv="refresh" content="0; url=/cabinet.html">
+<link rel="canonical" href="/cabinet.html">
+<script>
+// сохранить токен из hash (если пришли с OAuth на старый URL) и уйти на актуальный кабинет
+(function(){
+  try{
+    var h = location.hash || '';
+    var m = h.match(/access_token=([^&]+)/);
+    if(m){ localStorage.setItem('smh_at', decodeURIComponent(m[1])); }
+  }catch(e){}
+  location.replace('/cabinet.html');
+})();
+</script>
+</head>
+<body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#F7F1E7;color:#2A2018;text-align:center;padding:60px 20px">
+  <p>Переходим в кабинет… <a href="/cabinet.html" style="color:#A67C32">Открыть</a></p>
+</body>
+</html>

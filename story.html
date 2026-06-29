@@ -1,0 +1,119 @@
+<!doctype html><html lang=ru><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Save My History · Хранитель рода</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@200;300;400;500&display=swap" rel=stylesheet>
+<style>
+:root{--ease:cubic-bezier(.22,.61,.36,1);
+  --bg:#efe7d6;--ink:#2a2118;--soft:#7a6c58;--gold:#9a6e1f;--line:rgba(154,110,31,.45);}
+body.cine{--bg:#0a0807;--ink:#f1e9da;--soft:#9a8d78;--gold:#e0b256;--line:rgba(224,178,86,.65);}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow-x:hidden;transition:background .9s var(--ease),color .9s var(--ease)}
+body.cine::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);width:0;z-index:990}
+nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:20px 5vw;mix-blend-mode:difference}
+.logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#fff}
+.toggle{display:inline-flex;border:1px solid rgba(255,255,255,.4);border-radius:30px;overflow:hidden;font-size:11px;letter-spacing:.05em}
+.toggle button{background:none;border:none;color:#fff;padding:7px 14px;cursor:pointer;font-family:inherit}
+.toggle button.on{background:var(--gold);color:#000}
+/* through-line */
+.thread{position:fixed;top:0;left:50%;transform:translateX(-50%);width:120px;height:100vh;z-index:2;pointer-events:none}
+.thread svg{width:100%;height:100%}
+.tpath{fill:none;stroke:var(--gold);stroke-width:2;filter:drop-shadow(0 0 5px var(--gold))}
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:110px 6vw;overflow:hidden}
+.photobg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.3s var(--ease)}
+body.cine .photobg{opacity:.5}
+.videobg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s}
+body.cine .videobg{opacity:.55}
+body.cine .scrim{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent,rgba(8,6,5,.78));z-index:1}
+.content{position:relative;z-index:5;max-width:620px;margin:0 auto;text-align:center}
+.over{font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+h1,h2{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.03;letter-spacing:-.01em;text-wrap:balance}
+h1{font-size:clamp(40px,8.5vw,96px)}h2{font-size:clamp(32px,6.5vw,76px)}
+h1 em,h2 em{font-style:italic;color:var(--gold)}
+.lead{font-size:clamp(15px,2vw,20px);color:var(--soft);max-width:500px;margin:24px auto 0;font-weight:300;line-height:1.65}
+.cta{display:inline-flex;margin-top:32px;padding:17px 42px;background:var(--gold);color:var(--bg);text-decoration:none;border-radius:40px;font-weight:500;font-size:16px;transition:.35s var(--ease)}
+.cta:hover{transform:translateY(-3px)}
+.reveal{opacity:0;transform:translateY(34px);transition:all 1.05s var(--ease)}.reveal.in{opacity:1;transform:none}
+.scrollhint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);opacity:.6}
+.counter{font-family:'Cormorant Garamond',serif;font-size:clamp(50px,11vw,130px);color:var(--gold);line-height:1}
+footer{position:relative;z-index:5;text-align:center;padding:50px;font-size:12px;color:var(--soft);border-top:1px solid var(--line)}
+</style></head><body>
+<div class=progress id=prog></div>
+<div class=thread><svg id=tsvg viewBox="0 0 120 3600" preserveAspectRatio="xMidYMin meet">
+  <path id=tp class=tpath d="M60 0 C 60 240,20 380,60 560 S 100 820,60 1060 C 30 1280,90 1480,60 1700 S 20 1980,60 2220 C 95 2440,25 2700,60 2940 S 60 3300,60 3600"/>
+</svg></div>
+
+<nav>
+  <div class=logo>SAVE MY HISTORY</div>
+  <div class=toggle><button class=on id=bMin>Minimal</button><button id=bCine>Cinematic</button></div>
+</nav>
+
+<!-- 1 HERO -->
+<section>
+  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/gen_keeper_fire.jpg')"></div><div class=scrim></div>
+  <div class=content>
+    <div class=over>Хранитель рода</div>
+    <h1>В каждом роду есть тот, кто <em>хранит огонь</em></h1>
+    <p class=lead>Эта золотая нить — память твоей семьи. Она ведёт от первого лица к последнему. Стань тем, кто не даст ей оборваться.</p>
+    <a class=cta href="https://savemyhistory.tech">Начать · первое фото бесплатно</a>
+  </div>
+  <div class=scrollhint>↓ следуй за нитью</div>
+</section>
+
+<!-- 2 SPARK + VIDEO -->
+<section>
+  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/gen_spark_hands.jpg')"></div>
+  <video class=videobg autoplay muted loop playsinline poster="https://savemyhistory.tech/assets/gen_spark_hands.jpg"><source src="https://savemyhistory.tech/assets/gen_spark_video.mp4" type=video/mp4></video>
+  <div class=scrim></div>
+  <div class=content>
+    <div class="over reveal">Guard the spark · Искра</div>
+    <h2 class=reveal>Сбереги <em>искру</em>, пока она тёплая</h2>
+    <p class="lead reveal">Старое фото — это свет, который однажды зажгли. Мы возвращаем ему яркость бережно, не меняя человека. Кинцуги памяти: след времени становится золотом.</p>
+  </div>
+</section>
+
+<!-- 3 NATIONAL / ROD -->
+<section>
+  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/case_o55_after.jpg')"></div><div class=scrim></div>
+  <div class=content>
+    <div class="over reveal">Унаследовано · Рід</div>
+    <h2 class=reveal>Вышиванка, свадьба, лица — <em>твой код</em></h2>
+    <p class="lead reveal">В каждой семье есть снимок, где видно, кто мы. Верни ему ясность — чтобы внуки узнали тех, чью фамилию и вышиванку они носят.</p>
+  </div>
+</section>
+
+<!-- 4 OAK -->
+<section>
+  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/gen_oak_bukovyna.jpg')"></div><div class=scrim></div>
+  <div class=content>
+    <div class="over reveal">Rooted · Корни</div>
+    <div class="counter reveal">312</div>
+    <h2 class=reveal>Нить прорастает в <em>дерево</em></h2>
+    <p class="lead reveal">Как дуб Буковины держит триста вёсен в кольцах, так род держится корнями. Каждое ясное лицо — кольцо памяти.</p>
+  </div>
+</section>
+
+<!-- 5 FINAL -->
+<section>
+  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/case_o110_after.jpg')"></div><div class=scrim></div>
+  <div class=content>
+    <div class="over reveal">Хранитель — это ты</div>
+    <h2 class=reveal>Не дай нити <em>оборваться</em></h2>
+    <p class="lead reveal">Сбережённое сегодня через десять лет станет реликвией рода. Передай детям их настоящую историю — ясной и живой.</p>
+    <a class="cta reveal" href="https://savemyhistory.tech">Хранить мой семейный архив</a>
+  </div>
+</section>
+
+<footer>Save My History · 283 истории сбережены · финальная сборка R6 · режим: <span id=modeName>Minimal</span></footer>
+
+<script>
+const body=document.body,bMin=document.getElementById('bMin'),bCine=document.getElementById('bCine'),mn=document.getElementById('modeName');
+function setMode(c){body.classList.toggle('cine',c);bMin.classList.toggle('on',!c);bCine.classList.toggle('on',c);mn.textContent=c?'Cinematic':'Minimal';}
+bMin.onclick=()=>setMode(false);bCine.onclick=()=>setMode(true);
+const prog=document.getElementById('prog'),tp=document.getElementById('tp');
+const len=tp.getTotalLength();tp.style.strokeDasharray=len;tp.style.strokeDashoffset=len;
+function onScroll(){const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);prog.style.width=(p*100)+'%';tp.style.strokeDashoffset=len*(1-p);}
+addEventListener('scroll',onScroll);onScroll();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll&&e.target.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));}}),{threshold:.2});
+document.querySelectorAll('section,.reveal').forEach(s=>io.observe(s));
+</script></body></html>
