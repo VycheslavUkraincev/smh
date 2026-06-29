@@ -51,15 +51,15 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
 .tile{background:var(--paper);border:1px solid rgba(90,64,49,.12);border-radius:16px;overflow:hidden;transition:.3s var(--ease)}
 .tile:hover{transform:translateY(-3px);box-shadow:0 24px 50px -28px rgba(0,0,0,.35)}
-.tile .ph{aspect-ratio:4/3;background:#e9e0d2 center/cover no-repeat;position:relative}
+.tile .ph{aspect-ratio:4/3;background:#e9e0d2 top center/cover no-repeat;position:relative}
 .tile .seal{position:absolute;left:10px;bottom:10px;background:rgba(46,125,50,.92);color:#fff;font-size:11px;font-weight:700;padding:4px 11px;border-radius:30px;letter-spacing:.04em}
 #ov{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(15,12,8,.9);backdrop-filter:blur(8px);padding:24px}
 #ov .box{max-width:860px;width:100%;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .cmp{position:relative;width:100%;aspect-ratio:3/2;background:#0c0905;overflow:hidden;cursor:ew-resize;user-select:none;touch-action:none}
-.cmp>img#ov-a{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cmp>img#ov-a{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;pointer-events:none}
 .cmp .after-wrap{position:absolute;top:0;left:0;height:100%;overflow:hidden;width:50%}
-.cmp .after-wrap img{position:absolute;top:0;left:0;height:100%;max-width:none!important;object-fit:cover;pointer-events:none}
-.cmp .lab{position:absolute;top:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.45);padding:4px 10px;border-radius:20px;pointer-events:none}
+.cmp .after-wrap img{position:absolute;top:0;left:0;height:100%;max-width:none!important;object-fit:cover;object-position:top center;pointer-events:none}
+.cmp .lab{position:absolute;top:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:20px;pointer-events:none;backdrop-filter:blur(4px)}
 .cmp .lab-b{left:12px}
 .cmp .lab-a{right:12px}
 .cmp .handle{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.9);left:50%;transform:translateX(-50%);pointer-events:none;box-shadow:0 0 12px rgba(0,0,0,.4)}
@@ -86,6 +86,7 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .lang button{background:none;border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:5px 9px;border-radius:20px;cursor:pointer;opacity:.6}
 .lang button.on{background:var(--gold-d);color:#fff;opacity:1}
 .hidden{display:none!important}
+@media(prefers-reduced-motion:reduce){.tile,.drop,.btn{-webkit-animation:none!important;animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -191,21 +192,34 @@ async function doSend(){
   if(!chosen){setMsg(t('pick_first'),'err');return;}
   if(chosen.size>50*1024*1024){setMsg(t('too_big'),'err');return;}
   const s=await ses();if(!s){loginGoogle();return;}
-  setMsg(t('uploading'),'work');
+  // loading state
+  const drop=$('#drop'),sendBtn=$('#send');
+  drop.classList.add('loading');
+  drop.style.background='var(--paper)';
+  drop.innerHTML='<div class="progress-ring"></div><h3 data-i18n="uploading">'+t('uploading')+'</h3>';
+  sendBtn.disabled=true;
+  setMsg('','');
   const ext=(chosen.name.split('.').pop()||'jpg').toLowerCase();
   try{
     const ur=await fetch('/api/upload-url',{method:'POST',headers:{Authorization:'Bearer '+s.access_token,'Content-Type':'application/json'},body:JSON.stringify({ext,content_type:chosen.type||'image/jpeg'})});
-    if(!ur.ok){setMsg(t('err'),'err');return;}
+    if(!ur.ok){throw new Error('upload-url failed');}
     const u=await ur.json();
     const put=await fetch(u.upload_url,{method:'PUT',headers:{'Content-Type':chosen.type||'image/jpeg'},body:chosen});
-    if(!put.ok){setMsg(t('err'),'err');return;}
+    if(!put.ok){throw new Error('put failed');}
     const cr=await fetch('/api/restorations',{method:'POST',headers:{Authorization:'Bearer '+s.access_token,'Content-Type':'application/json'},body:JSON.stringify({original_key:u.key,mode})});
-    if(cr.status===402){setMsg(t('limit'),'err');return;}
-    if(!cr.ok){setMsg(t('err'),'err');return;}
+    if(cr.status===402){setMsg(t('limit'),'err'); drop.classList.remove('loading'); sendBtn.disabled=false; resetDrop(); return;}
+    if(!cr.ok){throw new Error('order failed');}
     setMsg(t('sent'),'ok'); chosen=null; resetDrop(); loadGal(s);
   }catch(e){setMsg(t('err'),'err');}
+  drop.classList.remove('loading');
+  sendBtn.disabled=false;
 }
-function resetDrop(){$('#drop').innerHTML='<svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/><circle cx="12" cy="12.5" r="3.4"/></svg><h3 data-i18n="drop_h">'+t('drop_h')+'</h3><div class="fmt" data-i18n="drop_fmt">'+t('drop_fmt')+'</div>';}
+function resetDrop(){
+  const drop=$('#drop');
+  drop.classList.remove('loading');
+  drop.innerHTML='<svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/><circle cx="12" cy="12.5" r="3.4"/></svg><h3>'+t('drop_h')+'</h3><div class="fmt">'+t('drop_fmt')+'</div>';
+  $('.gbtn').style.display='';
+}
 
 let _pollTimer=null, _sess=null;
 async function loadGal(s){ if(s)_sess=s; const cur=_sess; if(!cur)return;

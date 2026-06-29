@@ -4,8 +4,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@200;300;400;500&display=swap" rel=stylesheet>
 <style>
 :root{--ease:cubic-bezier(.22,.61,.36,1);
-  --bg:#efe7d6;--ink:#2a2118;--soft:#7a6c58;--gold:#9a6e1f;--line:rgba(154,110,31,.45);}
-body.cine{--bg:#0a0807;--ink:#f1e9da;--soft:#9a8d78;--gold:#e0b256;--line:rgba(224,178,86,.65);}
+  --bg:#efe7d6;--ink:#2a2118;--soft:#5D4F3A;--gold:#9a6e1f;--line:rgba(154,110,31,.45);}
+body.cine{--bg:#0a0807;--ink:#f1e9da;--soft:#B8A892;--gold:#e0b256;--line:rgba(224,178,86,.65);}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow-x:hidden;transition:background .9s var(--ease),color .9s var(--ease)}
 body.cine::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -34,9 +34,11 @@ h1 em,h2 em{font-style:italic;color:var(--gold)}
 .cta{display:inline-flex;margin-top:32px;padding:17px 42px;background:var(--gold);color:var(--bg);text-decoration:none;border-radius:40px;font-weight:500;font-size:16px;transition:.35s var(--ease)}
 .cta:hover{transform:translateY(-3px)}
 .reveal{opacity:0;transform:translateY(34px);transition:all 1.05s var(--ease)}.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}.progress,.thread{display:none}}
 .scrollhint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);opacity:.6}
 .counter{font-family:'Cormorant Garamond',serif;font-size:clamp(50px,11vw,130px);color:var(--gold);line-height:1}
-footer{position:relative;z-index:5;text-align:center;padding:50px;font-size:12px;color:var(--soft);border-top:1px solid var(--line)}
+footer{position:relative;z-index:5;text-align:center;padding:50px 20px;font-size:12px;color:var(--soft);border-top:1px solid var(--line)}
+@media(max-width:600px){section{padding:80px 5vw}.lead{font-size:16px;max-width:100%;margin-top:18px}.over{font-size:10px;letter-spacing:.22em}.toggle button{padding:5px 10px;font-size:10px}nav{padding:16px 4vw}.logo{font-size:14px}}
 </style></head><body>
 <div class=progress id=prog></div>
 <div class=thread><svg id=tsvg viewBox="0 0 120 3600" preserveAspectRatio="xMidYMin meet">
