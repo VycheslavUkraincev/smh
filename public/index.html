@@ -178,10 +178,10 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
    <a href="/waitlist.html" data-i18n="m_waitlist">Список ожидания</a>
   </nav>
   <div style="display:flex;align-items:center;gap:12px">
-   <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="ro">RO</button><button data-lang="lt">LT</button></div>
+   <div class="hlang" id="hlang" role="group" aria-label="Language"><button type="button" data-lang="ua" aria-label="Ukrainian">UA</button><button type="button" data-lang="en" aria-label="English">EN</button><button type="button" data-lang="ru" aria-label="Russian">RU</button><button type="button" data-lang="ro" aria-label="Romanian">RO</button><button type="button" data-lang="lt" aria-label="Lithuanian">LT</button></div>
    <div class="who" id="who"><span class="av" id="who-av"></span><span id="who-mail"></span><a href="/cabinet.html" class="hbtn" data-i18n="cabinet">Кабинет</a></div>
    <a href="/cabinet.html" class="hbtn gold" id="login-btn" data-i18n="login">Войти</a>
-   <button class="burger" id="burger">☰</button>
+   <button class="burger" id="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false">☰</button>
   </div>
  </div>
 </header>
@@ -347,9 +347,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.reveal').forEach(el=>{el.classList.add('is-pending');io.observe(el);});
 setTimeout(()=>document.querySelectorAll('.reveal.is-pending').forEach(el=>{el.classList.add('in');el.classList.remove('is-pending');}),1200);
 // burger
-document.getElementById('burger').onclick=()=>document.getElementById('menu').classList.toggle('open');
-document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
-// scroll to top
+document.getElementById('burger').onclick=()=>{const m=document.getElementById('menu');const b=document.getElementById('burger');const open=m.classList.toggle('open');b.setAttribute('aria-expanded',open?'true':'false');};document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>{document.getElementById('menu').classList.remove('open');document.getElementById('burger').setAttribute('aria-expanded','false');});// scroll to top
 const topBtn=document.createElement('button');topBtn.id='top-btn';topBtn.innerHTML='↑';topBtn.setAttribute('aria-label','Наверх');document.body.appendChild(topBtn);
 addEventListener('scroll',()=>{topBtn.classList.toggle('show',scrollY>600)});
 topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
