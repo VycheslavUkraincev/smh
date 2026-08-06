@@ -100,8 +100,8 @@ def _restore_legacy(img_bytes, prompt, fidelity, preserve_identity):
         raise RuntimeError("encode_failed")
     return enc.tobytes()
 
-def _restore_path_a(img_bytes, prompt, fidelity, preserve_identity):
-    """Commercial Path A via path_a_pipeline (stub until image+weights wired)."""
+def _restore_path_a(img_bytes, prompt, fidelity, preserve_identity, mode="authentic"):
+    """Commercial Path A via path_a_pipeline (real stages; stub backends if no GPU libs)."""
     from path_a_pipeline import restore_path_a
     colorize = None
     cenv = (os.environ.get("COLORIZE") or "auto").strip().lower()
@@ -109,19 +109,21 @@ def _restore_path_a(img_bytes, prompt, fidelity, preserve_identity):
         colorize = True
     elif cenv in ("0", "false", "no", "off"):
         colorize = False
+    # Bytes contract → JPEG bytes. GEN_STACK default stays legacy until smoke.
     return restore_path_a(
-        img_bytes,
+        img_bytes=img_bytes,
+        mode=mode or "authentic",
         prompt=prompt,
         fidelity=fidelity,
         preserve_identity=preserve_identity,
         colorize=colorize,
     )
 
-def _restore(img_bytes, prompt, fidelity, preserve_identity):
+def _restore(img_bytes, prompt, fidelity, preserve_identity, mode="authentic"):
     """Dispatch by GEN_STACK (default legacy)."""
     stack = (os.environ.get("GEN_STACK") or GEN_STACK or "legacy").strip().lower()
     if stack in ("path_a", "path-a", "patha", "a"):
-        return _restore_path_a(img_bytes, prompt, fidelity, preserve_identity)
+        return _restore_path_a(img_bytes, prompt, fidelity, preserve_identity, mode=mode)
     return _restore_legacy(img_bytes, prompt, fidelity, preserve_identity)
 
 def handler(event):
@@ -134,9 +136,12 @@ def handler(event):
     # дефолт fidelity 0.5 = бережно (наш вывод: высокий fidelity идеализирует)
     fidelity = float(inp.get("face_fidelity", 0.5))
     preserve = bool(inp.get("preserve_identity", True))
+    mode = (inp.get("mode") or "authentic").strip().lower()
+    if mode not in ("authentic", "modern"):
+        mode = "authentic"
     try:
         src = _download(image_url)
-        out = _restore(src, prompt, fidelity, preserve)
+        out = _restore(src, prompt, fidelity, preserve, mode=mode)
         return {"output": {"image_base64": base64.b64encode(out).decode()}}
     except Exception as e:
         return {"error": f"gpu_restore_failed: {str(e)[:200]}"}
