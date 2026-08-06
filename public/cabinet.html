@@ -95,6 +95,7 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .lang{margin-left:8px;display:flex;gap:3px}
 .lang button{background:none;border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:5px 9px;border-radius:20px;cursor:pointer;opacity:.6}
 .lang button.on{background:var(--gold-d);color:#fff;opacity:1}
+.btn:focus-visible,.gbtn:focus-visible,.lang button:focus-visible,.mode:focus-visible,.retry-btn:focus-visible,.btn-report:focus-visible,a.btn:focus-visible{outline:2px solid var(--gold-d,#A67C32);outline-offset:3px}
 
 /* invite */
 .invite{margin-bottom:28px}
@@ -189,7 +190,7 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
         </div>
       </div>
       <button class="btn btn-gold" id="send" style="width:100%" data-i18n="send">Отправить в ночную очередь</button>
-      <div class="msg" id="msg"></div>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
     </div>
   </div>
 
