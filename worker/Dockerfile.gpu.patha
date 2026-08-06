@@ -1,0 +1,80 @@
+# SaveMyHistory — Path A GPU image DRAFT (NOT production default yet)
+#
+# Canon Path A: LaMa → GFPGAN|RestoreFormer++ → Real-ESRGAN → DDColor
+# CodeFormer ≠ commercial default (D4).
+#
+# SAFE PREP ONLY — do NOT rent GPU / do NOT flip live GEN_PROVIDER from this file.
+# Build (when ready to smoke after Roman «GPU да» + $cap):
+#   docker build -f Dockerfile.gpu.patha -t smh-gpu-patha .
+#
+# Weights ~0.8–1.5 GB (GFPGAN path). Full CUDA base image still ~8–15 GB.
+# DOWNLOAD_WEIGHTS_AT=build|entrypoint (default build).
+# FACE_MODEL=gfpgan|restoreformer (default gfpgan).
+# GEN_STACK=path_a (this image should set it).
+#
+# Sibling Dockerfile.gpu remains LEGACY (ESRGAN+CodeFormer) until Path A smokes green.
+
+FROM runpod/pytorch:2.1.0-py3.10-cuda12.1.1-devel-ubuntu22.04
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 libglib2.0-0 wget curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Path A python deps (draft pins — validate on first GPU smoke)
+# simple-lama-inpainting OR lama-cleaner; gfpgan; realesrgan; ddcolor optional
+RUN pip install --no-cache-dir \
+    runpod \
+    opencv-python-headless \
+    numpy \
+    pillow \
+    realesrgan \
+    basicsr \
+    facexlib \
+    gfpgan \
+    torchvision \
+    "simple-lama-inpainting>=0.1.0" || true
+
+# Optional: install RestoreFormer++ / DDColor packages when pins known.
+# RUN pip install --no-cache-dir restoreformerplusplus ddcolor
+
+ENV WEIGHTS_DIR=/weights \
+    GEN_STACK=path_a \
+    FACE_MODEL=gfpgan \
+    COLORIZE=auto \
+    DOWNLOAD_WEIGHTS_AT=build
+
+RUN mkdir -p /weights /weights/optional
+
+# --- Weight download (build-time default). Skip heavy pulls with BUILD_SKIP_WEIGHTS=1. ---
+# URLs also documented in path_a_pipeline.py WEIGHT_URLS.
+ARG BUILD_SKIP_WEIGHTS=0
+RUN if [ "$BUILD_SKIP_WEIGHTS" = "1" ]; then \
+      echo "SKIP weight download at build (entrypoint will fetch)"; \
+    else \
+      wget -q -O /weights/big-lama.pt \
+        https://github.com/Sanster/models/releases/download/add_big_lama/big-lama.pt && \
+      wget -q -O /weights/GFPGANv1.4.pth \
+        https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/GFPGANv1.4.pth && \
+      wget -q -O /weights/RealESRGAN_x2plus.pth \
+        https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth && \
+      echo "Path A core weights OK (LaMa+GFPGAN+ESRGAN). DDColor/RF++ optional — see path_a_pipeline.py"; \
+    fi
+
+# Optional DDColor / RestoreFormer++ — left commented to keep first image lean.
+# Uncomment after smoke budget allows (~+0.5–0.9 GB):
+# RUN wget -q -O /weights/optional/ddcolor.pth \
+#       https://huggingface.co/piddnad/DDColor-models/resolve/main/ddcolor_modelscope.pth && \
+#     wget -q -O /weights/optional/RestoreFormer++.pth \
+#       https://github.com/wzhouxiff/RestoreFormerPlusPlus/releases/download/v1.0.0/RestoreFormer++.pth
+
+COPY runpod_handler.py /app/runpod_handler.py
+COPY path_a_pipeline.py /app/path_a_pipeline.py
+
+# Optional entrypoint fetch when DOWNLOAD_WEIGHTS_AT=entrypoint
+COPY docker-entrypoint-patha.sh /app/docker-entrypoint-patha.sh
+RUN chmod +x /app/docker-entrypoint-patha.sh || true
+
+# If entrypoint script missing at early draft, fall back to direct python.
+CMD ["python", "-u", "runpod_handler.py"]

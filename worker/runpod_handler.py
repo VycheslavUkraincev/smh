@@ -4,18 +4,21 @@
   вход:  {"input": {"image_url": str, "prompt": str, "face_fidelity": float, "preserve_identity": bool}}
   выход: {"output": {"image_base64": str}}
 
-LEGACY stack in this file (NOT commercial Path A default — D4):
-  (А) Real-ESRGAN  — фон / мягкий апскейл (x2)
-  (Б) CodeFormer   — лица (R&D / demo only; plastic risk; no commercial OK yet)
+GEN_STACK switch (ENV, default legacy until Path A smoke):
+  legacy  — Real-ESRGAN + CodeFormer (R&D / demo; NOT commercial default — D4)
+  path_a  — LaMa → GFPGAN|RestoreFormer++ → Real-ESRGAN → DDColor
+            (see path_a_pipeline.py; requires Dockerfile.gpu.patha image)
 
-Commercial Path A target (replace before paid overnight):
-  LaMa → GFPGAN or RestoreFormer++ → Real-ESRGAN → DDColor (если цвет).
-  Do NOT treat CodeFormer as prod default until explicit license OK.
+FACE_MODEL=gfpgan|restoreformer (Path A only; default gfpgan).
+CodeFormer ≠ commercial overnight default.
 
 NB: модели грузятся ОДИН раз при холодном старте (_load_models держится тёплым в контейнере),
     не на каждый запрос — иначе платим за загрузку весов каждый раз.
 """
 import os, io, base64, tempfile, urllib.request
+
+# Default LEGACY until Path A image + smoke. Do not flip live GEN_PROVIDER from here.
+GEN_STACK = (os.environ.get("GEN_STACK") or "legacy").strip().lower()
 
 _MODELS = {}
 
@@ -37,7 +40,7 @@ def _load_models():
     bg = RealESRGANer(scale=2, model_path=os.path.join(weights, "RealESRGAN_x2plus.pth"),
                       model=rrdb, half=(device == "cuda"), device=device)
 
-    # --- CodeFormer (лица) ---
+    # --- CodeFormer (лица) — LEGACY only ---
     cf = CodeFormer(dim_embd=512, codebook_size=1024, n_head=8, n_layers=9,
                     connect_list=["32", "64", "128", "256"]).to(device)
     ckpt = torch.load(os.path.join(weights, "codeformer.pth"), map_location=device)["params_ema"]
@@ -53,8 +56,8 @@ def _download(url):
     with urllib.request.urlopen(url, timeout=120) as r:
         return r.read()
 
-def _restore(img_bytes, prompt, fidelity, preserve_identity):
-    """Реальная двухслойная реставрация: фон (Real-ESRGAN) + лица (CodeFormer)."""
+def _restore_legacy(img_bytes, prompt, fidelity, preserve_identity):
+    """LEGACY: фон (Real-ESRGAN) + лица (CodeFormer). Not commercial Path A."""
     import cv2, numpy as np
     m = _load_models()
     torch = m["torch"]; device = m["device"]
@@ -96,6 +99,30 @@ def _restore(img_bytes, prompt, fidelity, preserve_identity):
     if not ok:
         raise RuntimeError("encode_failed")
     return enc.tobytes()
+
+def _restore_path_a(img_bytes, prompt, fidelity, preserve_identity):
+    """Commercial Path A via path_a_pipeline (stub until image+weights wired)."""
+    from path_a_pipeline import restore_path_a
+    colorize = None
+    cenv = (os.environ.get("COLORIZE") or "auto").strip().lower()
+    if cenv in ("1", "true", "yes", "on"):
+        colorize = True
+    elif cenv in ("0", "false", "no", "off"):
+        colorize = False
+    return restore_path_a(
+        img_bytes,
+        prompt=prompt,
+        fidelity=fidelity,
+        preserve_identity=preserve_identity,
+        colorize=colorize,
+    )
+
+def _restore(img_bytes, prompt, fidelity, preserve_identity):
+    """Dispatch by GEN_STACK (default legacy)."""
+    stack = (os.environ.get("GEN_STACK") or GEN_STACK or "legacy").strip().lower()
+    if stack in ("path_a", "path-a", "patha", "a"):
+        return _restore_path_a(img_bytes, prompt, fidelity, preserve_identity)
+    return _restore_legacy(img_bytes, prompt, fidelity, preserve_identity)
 
 def handler(event):
     """Точка входа RunPod Serverless."""

@@ -1,19 +1,26 @@
+# =============================================================================
+# LEGACY IMAGE — Real-ESRGAN + CodeFormer (NOT commercial Path A default)
+# =============================================================================
 # SaveMyHistory — GPU образ для RunPod Serverless (реставрация фото)
 #
-# HONEST GAP (D4 / Path A commercial canon):
-#   Product default Path A = LaMa → GFPGAN/RestoreFormer++ → Real-ESRGAN → DDColor.
-#   THIS IMAGE still hardcodes LEGACY demo stack: Real-ESRGAN + CodeFormer.
-#   CodeFormer = R&D / chat demo only — NOT commercial overnight default.
-#   Minimal Path A patch plan (no rent in this session):
-#     1) pip: lama-cleaner or simple-lama + gfpgan + realesrgan (+ optional ddcolor)
-#     2) wget weights: big-lama.pt, GFPGANv1.4.pth, RealESRGAN_x2plus.pth, DDColor*
-#     3) rewrite runpod_handler._restore to Path A order; FACE_BACKEND=gfpgan|rfpp|codeformer
-#     4) GPU smoke on Vast/RunPod ONLY after Roman «GPU да» + $cap + funded account
+# !!! LEGACY BANNER (D4) !!!
+#   THIS FILE = demo/R&D stack only: Real-ESRGAN + CodeFormer.
+#   Commercial Path A draft lives in sibling: Dockerfile.gpu.patha
+#     (LaMa → GFPGAN|RestoreFormer++ → Real-ESRGAN → DDColor).
+#   CodeFormer ≠ commercial overnight default until license OK.
+#   Do NOT treat this image as paid Path A. GEN_STACK defaults to legacy.
+#
+# Path A prep (no GPU rent in docs-only / stub sessions):
+#   - worker/path_a_pipeline.py  — stages, weight URLs, ENV
+#   - worker/Dockerfile.gpu.patha — draft install + weight fetch
+#   - runpod_handler.py GEN_STACK=path_a|legacy (default legacy until smoke)
+#   - GPU smoke ONLY after Roman «GPU да» + $cap + funded account
 #
 # CUDA 12.1, torch 2.x.
-# Сборка:  docker build -f Dockerfile.gpu -t smh-gpu .
-# Пуш:     docker tag smh-gpu <registry>/smh-gpu && docker push <registry>/smh-gpu
-# В RunPod: указать этот образ в Serverless endpoint, handler = runpod_handler.py
+# Сборка LEGACY:  docker build -f Dockerfile.gpu -t smh-gpu .
+# Сборка Path A:  docker build -f Dockerfile.gpu.patha -t smh-gpu-patha .
+# Пуш:     docker tag … <registry>/… && docker push …
+# В RunPod: указать образ в Serverless endpoint, handler = runpod_handler.py
 
 FROM runpod/pytorch:2.1.0-py3.10-cuda12.1.1-devel-ubuntu22.04
 
