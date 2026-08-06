@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — список ожидания</title>
+<meta name="description" content="Закрытый список SaveMyHistory. Бережная реставрация семейных фото — обычно к утру, без мгновенного SLA.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1714;--amber:#c4893a;--amber-deep:#a6722e;--paper:#ebe2d4;--line:rgba(26,23,20,.22)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Source Sans 3",system-ui,sans-serif;background:linear-gradient(180deg,#ebe2d4,#d4c9b8);color:var(--ink);min-height:100vh;padding:2rem 1.2rem}
+main{max-width:28rem;margin:0 auto}
+.brand{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:.6rem}
+h1{font-family:Fraunces,Georgia,serif;font-size:1.7rem;line-height:1.2;margin-bottom:.45rem}
+.lead{opacity:.78;margin-bottom:1.1rem;line-height:1.45}
+.langs{display:flex;gap:6px;margin-bottom:1.1rem}
+.langs button{background:transparent;border:1px solid var(--line);border-radius:6px;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer;color:inherit;opacity:.7}
+.langs button.on{background:var(--amber-deep);color:#fff;border-color:var(--amber-deep);opacity:1}
+label{display:block;font-size:.88rem;margin:.7rem 0 .3rem;opacity:.8}
+input{width:100%;padding:.75rem .9rem;border:1px solid var(--line);border-radius:3px;background:rgba(255,255,255,.55);font:inherit}
+input:focus{outline:2px solid var(--amber);background:#fff}
+.check{display:flex;gap:.55rem;align-items:flex-start;margin-top:1rem;font-size:.9rem;line-height:1.35}
+.check input{width:auto;margin-top:.2rem}
+.btn{margin-top:1.1rem;background:var(--amber);color:#1a140c;font-weight:600;padding:.8rem 1.2rem;border:0;border-radius:3px;cursor:pointer;font:inherit;width:100%}
+.btn:hover{background:var(--amber-deep);color:#fff}
+.btn:disabled{opacity:.55;cursor:wait}
+.hint{margin-top:.85rem;font-size:.86rem;opacity:.65;line-height:1.4}
+.ok,.err{display:none;margin-top:1rem;padding:.95rem;background:rgba(255,255,255,.55);border-left:3px solid var(--amber);line-height:1.4}
+.err{border-left-color:#a14a2e}
+.ok.show,.err.show{display:block}
+.back{display:inline-block;margin-top:1.4rem;font-size:.9rem;color:var(--amber-deep)}
+a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">SaveMyHistory</div>
+  <div class="langs" id="langs">
+    <button type="button" data-lang="ru" class="on">RU</button>
+    <button type="button" data-lang="ua">UA</button>
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ro">RO</button>
+  </div>
+  <h1 data-i="h1">Список ожидания</h1>
+  <p class="lead" data-i="lead">Собираем закрытый список на бережную реставрацию семейных фото. Без «залей → готово за 2 минуты»: когда откроем доступ — напишем. Реставрации обычно к утру, файлы храним до 48 часов.</p>
+  <form id="f">
+    <label for="email" data-i="l_email">Email</label>
+    <input id="email" name="email" type="email" required autocomplete="email" placeholder="email@example.com">
+    <label for="name" data-i="l_name">Имя (необязательно)</label>
+    <input id="name" name="name" type="text" autocomplete="name" maxlength="120" placeholder="">
+    <label class="check"><input id="consent" type="checkbox" required> <span data-i="l_consent">Можно написать на этот email, когда откроем доступ</span></label>
+    <button class="btn" type="submit" id="go" data-i="cta">Записаться</button>
+  </form>
+  <p class="hint" data-i="hint">Без спама. Только письмо о доступе. Не обещаем мгновенную реставрацию.</p>
+  <div class="ok" id="ok"></div>
+  <div class="err" id="err"></div>
+  <a class="back" href="/" data-i="back">← На главную</a>
+</main>
+<script>
+const T={
+ ru:{h1:"Список ожидания",lead:"Собираем закрытый список на бережную реставрацию семейных фото. Без «залей → готово за 2 минуты»: когда откроем доступ — напишем. Реставрации обычно к утру, файлы храним до 48 часов.",l_email:"Email",l_name:"Имя (необязательно)",l_consent:"Можно написать на этот email, когда откроем доступ",cta:"Записаться",hint:"Без спама. Только письмо о доступе. Не обещаем мгновенную реставрацию.",back:"← На главную",ok:"Спасибо. Напишем на email, когда откроем доступ.",already:"Вы уже в списке. Напишем, когда откроем доступ.",bad:"Проверьте email.",miss:"Список ещё не готов на сервере — таблица waitlist не создана. Попробуйте позже.",fail:"Не удалось записать. Попробуйте ещё раз."},
+ ua:{h1:"Список очікування",lead:"Збираємо закритий список на дбайливу реставрацію сімейних фото. Без «залий → готово за 2 хвилини»: коли відкриємо доступ — напишемо. Реставрації зазвичай до ранку, файли тримаємо до 48 годин.",l_email:"Email",l_name:"Імʼя (необовʼязково)",l_consent:"Можна написати на цей email, коли відкриємо доступ",cta:"Записатися",hint:"Без спаму. Лише лист про доступ. Не обіцяємо миттєву реставрацію.",back:"← На головну",ok:"Дякуємо. Напишемо на email, коли відкриємо доступ.",already:"Ви вже в списку. Напишемо, коли відкриємо доступ.",bad:"Перевірте email.",miss:"Список ще не готовий на сервері. Спробуйте пізніше.",fail:"Не вдалося записати. Спробуйте ще раз."},
+ en:{h1:"Waitlist",lead:"A closed list for gentle family-photo restoration. No “upload → ready in 2 minutes”: we’ll email when access opens. Restorations usually by morning; files kept up to 48 hours.",l_email:"Email",l_name:"Name (optional)",l_consent:"You may email me when access opens",cta:"Join the list",hint:"No spam. Only an access email. Not an instant restore promise.",back:"← Home",ok:"Thanks. We’ll email when access opens.",already:"You’re already on the list. We’ll email when access opens.",bad:"Check the email.",miss:"Waitlist isn’t ready on the server yet. Try later.",fail:"Couldn’t save. Please try again."},
+ ro:{h1:"Lista de așteptare",lead:"Colectăm o listă închisă pentru restaurarea blândă a fotografiilor de familie. Fără «încarcă → gata în 2 minute»: când deschidem accesul, scriem. Restaurările — de obicei până dimineață; fișierele până la 48h.",l_email:"Email",l_name:"Nume (opțional)",l_consent:"Puteți scrie pe acest email când deschideți accesul",cta:"Mă înscriu",hint:"Fără spam. Doar email despre acces. Fără promisiune instantanee.",back:"← Acasă",ok:"Mulțumim. Vă scriem când deschidem accesul.",already:"Sunteți deja pe listă. Vă scriem când deschidem accesul.",bad:"Verificați emailul.",miss:"Lista nu e gata pe server încă. Încercați mai târziu.",fail:"Nu am putut salva. Încercați din nou."}
+};
+let LANG='ru';
+function apply(l){if(!T[l])l='en';LANG=l;document.documentElement.lang=l;
+ document.querySelectorAll('[data-i]').forEach(e=>{const k=e.getAttribute('data-i');if(T[l][k]!=null)e.textContent=T[l][k];});
+ document.querySelectorAll('#langs button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+ try{localStorage.setItem('smh_lang',l)}catch(e){}
+}
+document.querySelectorAll('#langs button').forEach(b=>b.addEventListener('click',()=>apply(b.dataset.lang)));
+try{apply(localStorage.getItem('smh_lang')||'ru')}catch(e){apply('ru')}
+const ok=document.getElementById('ok'), err=document.getElementById('err'), go=document.getElementById('go');
+document.getElementById('f').addEventListener('submit', async (e)=>{
+ e.preventDefault(); ok.classList.remove('show'); err.classList.remove('show');
+ const email=document.getElementById('email').value.trim().toLowerCase();
+ const name=document.getElementById('name').value.trim();
+ if(!email){err.textContent=T[LANG].bad;err.classList.add('show');return}
+ go.disabled=true;
+ try{
+  const r=await fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,name,source:'waitlist_page',consent:true})});
+  let j={}; try{j=await r.json()}catch(_){}
+  if(r.status===503 || (j.detail||'').toString().includes('waitlist_table_missing')){
+    err.textContent=T[LANG].miss; err.classList.add('show');
+  } else if(r.status===422){
+    err.textContent=T[LANG].bad; err.classList.add('show');
+  } else if(!r.ok){
+    err.textContent=T[LANG].fail; err.classList.add('show');
+  } else {
+    ok.textContent=(j.already_subscribed||j.status==='already_subscribed')?T[LANG].already:T[LANG].ok;
+    ok.classList.add('show');
+  }
+ }catch(ex){ err.textContent=T[LANG].fail; err.classList.add('show'); }
+ finally{ go.disabled=false; }
+});
+</script>
+</body>
+</html>

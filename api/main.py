@@ -244,6 +244,12 @@ async def waitlist_status():
     return {"ok": True, "ready": True, "count": count}
 
 
+
+@app.get("/api/waitlist")
+async def waitlist_get():
+    """GET alias → status (count / table-missing). POST is the subscribe path."""
+    return await waitlist_status()
+
 @app.post("/api/waitlist")
 async def waitlist_join(request: Request):
     """Soft-waitlist: email + optional name/note/source. Upsert by email.
@@ -307,7 +313,8 @@ async def waitlist_join(request: Request):
 
     return {
         "ok": True,
-        "status": "already" if already else "joined",
+        "already_subscribed": already,
+        "status": "already_subscribed" if already else "joined",
         "message_ru": "Спасибо. Напишем на email, когда откроем доступ. Реставрации — обычно к утру / до 48 часов, без мгновенного SLA.",
         "message_ro": "Mulțumim. Vă scriem pe email când deschidem accesul. Restaurările — de obicei până dimineață / în 48h, fără SLA instant.",
         "message_en": "Thanks. We'll email when access opens. Restorations usually by morning / within 48h — not instant.",
