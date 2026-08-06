@@ -82,12 +82,13 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
 
     <div class="invbox" id="invbox">
       <h2>Инвайт-коды</h2>
+      <p class="muted mint-help" id="mint-help" style="margin:0 0 12px;font-size:13px;line-height:1.45">Создание кодов только по явному запросу Романа (например 10×3). Коды здесь не сидим и не рассылаем. После mint — копируйте/CSV и передайте вручную.</p>
       <div class="row">
         <label>Сколько <input id="inv-count" type="number" min="1" max="50" value="10" style="width:64px"></label>
         <label>Фото на код <input id="inv-credits" type="number" min="1" max="100" value="3" style="width:64px"></label>
         <label>Max uses <input id="inv-max" type="number" min="1" max="1000" value="1" style="width:64px"></label>
         <label>Note <input id="inv-note" type="text" value="friends-wave" placeholder="friends-wave" style="width:140px"></label>
-        <button class="btn" id="inv-create" type="button">Создать</button>
+        <button class="btn" id="inv-create" type="button">Создать пачку</button>
         <button class="btn secondary" id="inv-copy-all" type="button">Копировать все</button>
         <button class="btn secondary" id="inv-export" type="button">Скачать CSV</button>
       </div>
