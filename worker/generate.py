@@ -75,7 +75,9 @@ def main(batch=4):
                     # GPU: один вызов RunPod делает оба слоя дешёво (11× дешевле API)
                     final = gpu_run(orig_url, prompt, f"{tmp}/final.jpg")
                 else:
-                    # API (старт): (А) генератив по промпту + (Б) CodeFormer честные лица
+                    # API demo path (Nano/fal): NOT commercial overnight default.
+                    # Product canon face default = GFPGAN/RestoreFormer++ on GPU (Path A).
+                    # CodeFormer here = chat/R&D / interim API only (not paid default).
                     gen = fal_run("nano-banana-2-edit",
                                   {"image_url": src, "prompt": prompt}, f"{tmp}/gen.jpg")
                     final = fal_run("fal-ai/codeformer",

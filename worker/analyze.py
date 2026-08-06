@@ -5,29 +5,39 @@
 пишет analysis+prompt, ставит status='analyzed'.
 Это делается на API (дёшево) ДО аренды GPU.
 Запуск: python worker_analyze.py [batch]   (по умолчанию 10)
+
+Канон Романа 2026-08-06:
+  gentle = Подлинный (свежая печать, тот же цветовой режим)
+  modern = Готовый (цвет того же кадра, лица/одежда/фон lock)
+  natural_color = legacy мягкая колоризация
 """
 import sys, json, time
 from common import log, claim, update_row, presigned_get, vision
 
-# базовое identity-правило (наш моат: не подменять лицо)
-IDENTITY = ("CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize or rejuvenate any face. "
- "Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. "
- "Preserve the exact number of people. Face accuracy is more important than beauty.")
+# Canon: face/scene/clothing lock; no invent; authentic = fresh-print same color mode.
+IDENTITY = (
+    "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. "
+    "Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. "
+    "Preserve the exact number of people, the same clothing geometry/patterns, background and scene. "
+    "Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty."
+)
 
 ANALYZE_PROMPT = (
- "You are a photo-restoration analyst. Look at this old family photograph and return STRICT JSON only, no prose:\n"
- "{\n"
- '  "kind": "bw" | "faded_color" | "color",\n'
- '  "damage": ["scratches","dust","stains","creases","tears","fading","blur","noise","missing_parts"],  // only what you actually see\n'
- '  "faces": <int>,           // number of human faces, include blurry/background\n'
- '  "face_clarity": "clear" | "soft" | "very_blurry",\n'
- '  "severity": "light" | "medium" | "heavy",   // overall damage\n'
- '  "recommended_mode": "gentle" | "natural_color" | "modern",  // gentle=bw archival, natural_color=subtle colorize, modern=fresh look\n'
- '  "notes": "<one short sentence on what to fix>"\n'
- "}\n"
- "Rules: choose natural_color for bw/faded photos of people (brings them to life but stays true). "
- "Choose gentle if the user clearly wants documentary bw. Choose modern only if photo is already fairly clear. "
- "Be conservative — these are real ancestors."
+    "You are a photo-restoration analyst for a real family archive. Return STRICT JSON only, no prose:\n"
+    "{\n"
+    '  "kind": "bw" | "faded_color" | "color",\n'
+    '  "damage": ["scratches","dust","stains","creases","tears","fading","blur","noise","missing_parts"],  // only what you actually see\n'
+    '  "faces": <int>,           // number of human faces, include blurry/background\n'
+    '  "face_clarity": "clear" | "soft" | "very_blurry",\n'
+    '  "severity": "light" | "medium" | "heavy",   // overall damage\n'
+    '  "recommended_mode": "gentle" | "natural_color" | "modern",  // gentle=Подлинный authentic, modern=Готовый color enliven, natural_color=muted legacy\n'
+    '  "notes": "<one short sentence on what to fix>"\n'
+    "}\n"
+    "Rules (product canon):\n"
+    "- gentle (Подлинный): default for bw/documentary sources — repair damage as a fresh print of the SAME photo; KEEP black-and-white if source is bw.\n"
+    "- modern (Готовый): color-enliven the SAME frame when a lively color result fits; faces/clothes/background stay locked.\n"
+    "- natural_color: only if source is already faded color and a muted period-true color repair fits better than full modern.\n"
+    "- Prefer gentle over inventing color on pure bw ancestors. Be conservative — these are real people.\n"
 )
 
 # валидные значения и нормализация опечаток от vision-модели
@@ -41,7 +51,7 @@ VALID_MODE = {"gentle","natural_color","modern"}
 def sanitize(a):
     """Чистим ответ vision: только валидные значения, чтобы не ломать промпт."""
     if not isinstance(a, dict):
-        return {"kind":"faded_color","damage":[],"faces":1,"face_clarity":"soft","severity":"medium","recommended_mode":"natural_color","notes":""}
+        return {"kind":"faded_color","damage":[],"faces":1,"face_clarity":"soft","severity":"medium","recommended_mode":"gentle","notes":""}
     dmg = []
     for d in (a.get("damage") or []):
         d = str(d).strip().lower()
@@ -52,27 +62,54 @@ def sanitize(a):
     if a.get("kind") not in VALID_KIND: a["kind"] = "faded_color"
     if a.get("face_clarity") not in VALID_CLARITY: a["face_clarity"] = "soft"
     if a.get("severity") not in VALID_SEV: a["severity"] = "medium"
-    if a.get("recommended_mode") not in VALID_MODE: a["recommended_mode"] = "natural_color"
+    if a.get("recommended_mode") not in VALID_MODE: a["recommended_mode"] = "gentle"
     try: a["faces"] = max(0, int(a.get("faces", 1)))
     except Exception: a["faces"] = 1
     return a
 
 # шаблоны промптов генерации по режиму (стадия 2 возьмёт готовое)
+# gentle → Подлинный; modern → Готовый; natural_color → мягкая колоризация (legacy)
 def build_prompt(a):
     dmg = ", ".join(a.get("damage", [])) or "general aging"
-    base_fix = (f"Carefully remove {dmg}. Improve contrast, tonal range and clarity. "
-                "Fill frame edge to edge, no borders. Keep natural skin texture and real film grain. "
-                "Do NOT smooth or beautify faces, do NOT add modern digital over-sharpening, do NOT make it look AI-generated.")
-    mode = a.get("recommended_mode", "natural_color")
+    kind = a.get("kind", "faded_color")
+    base_fix = (
+        f"Carefully repair {dmg} using only evidence from this same frame. "
+        "Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. "
+        "Fill frame edge to edge, no borders, no table edges around the print. "
+        "Keep natural skin texture and real film grain. "
+        "Do NOT smooth, beautify, rejuvenate or plasticize faces. "
+        "Do NOT invent people, clothing patterns, props or backgrounds. "
+        "Do NOT add AI watermarks or make it look AI-generated."
+    )
+    mode = a.get("recommended_mode", "gentle")
     if mode == "gentle":
-        body = ("Restore this old black-and-white family photograph as an authentic vintage archival print. "
-                + base_fix + " Keep it black-and-white, documentary and true to the original.")
+        # Подлинный: свежая печать того же кадра, тот же цветовой режим
+        if kind == "bw":
+            color_rule = "Keep it black-and-white (same color mode as the original)."
+        elif kind == "color":
+            color_rule = "Keep the original color mode; correct casts only, do not restyle."
+        else:
+            color_rule = "Prefer archival black-and-white or very mild period tone; do not oversaturated colorize."
+        body = (
+            "Restore this old family photograph as an AUTHENTIC fresh print of the same photo "
+            "(as if just printed from the original negative/print). "
+            + base_fix + " " + color_rule +
+            " Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot."
+        )
     elif mode == "modern":
-        body = ("Restore this old family photograph to look like a clean, sharp, naturally-lit modern photo, "
-                "vivid yet realistic colors. " + base_fix)
-    else:  # natural_color
-        body = ("Restore and naturally colorize this old family photograph with realistic, slightly muted, "
-                "period-accurate colors and natural skin tones (NOT oversaturated, NOT Instagram look). " + base_fix)
+        # Готовый: оживить цветом тот же кадр; лица/одежда/фон lock
+        body = (
+            "Restore and enliven this old family photograph with natural, realistic color on the SAME frame. "
+            "Faces, clothing geometry/patterns and background must stay locked to the original — colorize, do not redesign. "
+            + base_fix +
+            " Clean and clear is fine; no beauty retouch, no new wardrobe, no new scene."
+        )
+    else:  # natural_color (legacy → muted color repair)
+        body = (
+            "Restore this old family photograph with realistic, slightly muted, period-accurate colors "
+            "and natural skin tones on the SAME frame (NOT oversaturated, NOT Instagram look). "
+            "Lock faces, clothes and background. " + base_fix
+        )
     return IDENTITY + " " + body
 
 def extract_json(text):

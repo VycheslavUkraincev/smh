@@ -7,7 +7,7 @@ SaveMyHistory backend API (FastAPI).
 Auth: проверяем Supabase JWT (Bearer) пользователя, привязываем заказ к user_id.
 Секреты — из переменных окружения (на DO App Platform задаются как env vars).
 """
-import os, time, uuid, json, io, hmac, hashlib
+import os, time, uuid, json, io, hmac, hashlib, secrets, string
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse, HTMLResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -168,8 +168,13 @@ async def health():
 async def me(authorization: str = Header(None)):
     """Подтверждает пользователя по access_token (серверным ключом). Обходит проблему publishable-ключа на клиенте."""
     user = await get_user(authorization)
+    profile = await get_profile(user["id"])
     return {"id": user.get("id"), "email": user.get("email"),
-            "name": (user.get("user_metadata") or {}).get("full_name")}
+            "name": (user.get("user_metadata") or {}).get("full_name"),
+            "free_quota": int(profile.get("free_quota") or 0),
+            "used_quota": int(profile.get("used_quota") or 0),
+            "program_consent": bool(profile.get("program_consent")),
+            "redeemed_code": profile.get("redeemed_code")}
 
 @app.post("/api/upload-url")
 async def upload_url(request: Request, authorization: str = Header(None)):
@@ -497,6 +502,66 @@ async def admin_delete(rid: str, authorization: str = Header(None)):
                 pass
     await db("DELETE", "restorations", params={"id": f"eq.{rid}"})
     return {"ok": True, "deleted": rid}
+
+
+@app.get("/api/admin/invite-codes")
+async def admin_list_invite_codes(authorization: str = Header(None), limit: int = 100):
+    """Список инвайт-кодов (безопасные поля)."""
+    await require_admin(authorization)
+    rows = await db("GET", "invite_codes", params={
+        "select": "code,free_restorations,max_uses,used_count,active,note,created_at",
+        "order": "created_at.desc",
+        "limit": str(min(max(limit, 1), 500)),
+    }) or []
+    return {"codes": rows}
+
+
+@app.post("/api/admin/invite-codes")
+async def admin_create_invite_codes(request: Request, authorization: str = Header(None)):
+    """Создать N инвайт-кодов. Body: count, max_uses, free_restorations|credits, note, prefix."""
+    await require_admin(authorization)
+    body = await request.json()
+    count = max(1, min(int(body.get("count") or 1), 50))
+    max_uses = max(1, min(int(body.get("max_uses") or 1), 1000))
+    free_restorations = max(1, min(int(body.get("free_restorations") or body.get("credits") or 3), 100))
+    note = (body.get("note") or "")[:200] or None
+    prefix = ((body.get("prefix") or "SMH").strip().upper() or "SMH")[:12]
+    alphabet = string.ascii_uppercase + string.digits
+    created = []
+    for _ in range(count):
+        row = None
+        for _attempt in range(12):
+            code = f"{prefix}-{''.join(secrets.choice(alphabet) for _ in range(6))}"
+            payload = {
+                "code": code,
+                "free_restorations": free_restorations,
+                "max_uses": max_uses,
+                "used_count": 0,
+                "active": True,
+                "note": note,
+            }
+            try:
+                res = await db("POST", "invite_codes", payload=payload)
+                row = res[0] if isinstance(res, list) else res
+                break
+            except HTTPException as e:
+                detail = str(e.detail).lower()
+                if e.status_code in (409, 23505) or "duplicate" in detail or "unique" in detail:
+                    continue
+                raise
+        if row is None:
+            raise HTTPException(500, "could_not_generate_unique_code")
+        created.append({
+            "code": row.get("code"),
+            "free_restorations": row.get("free_restorations"),
+            "max_uses": row.get("max_uses"),
+            "used_count": row.get("used_count", 0),
+            "active": row.get("active", True),
+            "note": row.get("note"),
+            "created_at": row.get("created_at"),
+        })
+    return {"ok": True, "created": created}
+
 
 
 # ============== ARENA CHAT (общий чат конкурса на четверых) ==============

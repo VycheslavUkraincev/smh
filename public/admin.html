@@ -38,6 +38,16 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
 .flt button.on{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}
 .muted{color:var(--muted);font-size:13px}
 .code{font-family:monospace;font-size:11px;color:var(--muted)}
+
+.invbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 24px}
+.invbox h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;margin:0 0 10px}
+.invbox .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.invbox input,.invbox select{border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:13px;background:#fff}
+.invbox .btn{margin-top:0;padding:8px 14px;font-size:13px;border-radius:8px}
+.invbox table{margin-top:10px}
+.invmsg{font-size:13px;min-height:18px;margin:6px 0}
+.invmsg.ok{color:#27ae60}.invmsg.err{color:#c0392b}
+
 </style>
 </head>
 <body>
@@ -55,6 +65,23 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
     </div>
 
     <div class="cards" id="cards"></div>
+
+    <div class="invbox" id="invbox">
+      <h2>Инвайт-коды</h2>
+      <div class="row">
+        <label>Сколько <input id="inv-count" type="number" min="1" max="50" value="5" style="width:64px"></label>
+        <label>Фото на код <input id="inv-credits" type="number" min="1" max="100" value="3" style="width:64px"></label>
+        <label>Max uses <input id="inv-max" type="number" min="1" max="1000" value="1" style="width:64px"></label>
+        <label>Note <input id="inv-note" type="text" placeholder="friends-wave" style="width:140px"></label>
+        <button class="btn" id="inv-create" type="button">Создать</button>
+      </div>
+      <div class="invmsg" id="inv-msg"></div>
+      <table>
+        <thead><tr><th>Код</th><th>Фото</th><th>Uses</th><th>Active</th><th>Note</th><th>Создан</th></tr></thead>
+        <tbody id="inv-rows"><tr><td colspan="6" class="muted">—</td></tr></tbody>
+      </table>
+    </div>
+
 
     <div class="flt" id="flt">
       <button data-s="" class="on">Все</button>
@@ -110,7 +137,34 @@ async function init(){
   showPanel(); loadAll();
 }
 
-async function loadAll(){ await Promise.all([loadStats(), loadRows()]); }
+
+async function loadInvites(){
+  const tb=$('#inv-rows'); if(!tb)return;
+  try{
+    const r=await fetch('/api/admin/invite-codes?limit=100',{headers:H()});
+    if(!r.ok){ tb.innerHTML='<tr><td colspan="6" class="muted">Не удалось загрузить коды ('+r.status+').</td></tr>'; return; }
+    const j=await r.json(); const rows=j.codes||j||[];
+    if(!rows.length){ tb.innerHTML='<tr><td colspan="6" class="muted">Кодов пока нет — создайте выше.</td></tr>'; return; }
+    tb.innerHTML=rows.map(x=>'<tr><td class="code">'+(x.code||'')+'</td><td>'+(x.free_restorations??'')+'</td><td>'+(x.used_count??0)+'/'+(x.max_uses??'')+'</td><td>'+(x.active?'да':'нет')+'</td><td class="muted">'+(x.note||'—')+'</td><td class="muted">'+fmt(x.created_at)+'</td></tr>').join('');
+  }catch(e){ tb.innerHTML='<tr><td colspan="6" class="muted">Ошибка сети.</td></tr>'; }
+}
+async function createInvites(){
+  const msg=$('#inv-msg'); msg.className='invmsg'; msg.textContent='Создаю…';
+  const body={
+    count: parseInt(($('#inv-count').value||'1'),10)||1,
+    free_restorations: parseInt(($('#inv-credits').value||'3'),10)||3,
+    max_uses: parseInt(($('#inv-max').value||'1'),10)||1,
+    note: ($('#inv-note').value||'').trim()
+  };
+  try{
+    const r=await fetch('/api/admin/invite-codes',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},H()),body:JSON.stringify(body)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok){ msg.className='invmsg err'; msg.textContent='Ошибка: '+(j.detail||r.status); return; }
+    const n=(j.created||[]).length; msg.className='invmsg ok'; msg.textContent='Создано: '+n; loadInvites();
+  }catch(e){ msg.className='invmsg err'; msg.textContent='Ошибка сети'; }
+}
+
+async function loadAll(){ await Promise.all([loadStats(), loadRows(), loadInvites()]); }
 
 async function loadStats(){
   try{

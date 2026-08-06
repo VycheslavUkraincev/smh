@@ -85,6 +85,15 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 .lang{margin-left:8px;display:flex;gap:3px}
 .lang button{background:none;border:none;color:var(--ink-soft);font-weight:700;font-size:11px;padding:5px 9px;border-radius:20px;cursor:pointer;opacity:.6}
 .lang button.on{background:var(--gold-d);color:#fff;opacity:1}
+
+/* invite */
+.invite{margin-bottom:28px}
+.invite .inv-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}
+.invite input[type=text]{flex:1;min-width:180px;padding:12px 14px;border:1.5px solid rgba(90,64,49,.22);border-radius:12px;background:#fff;font:inherit;font-size:15px;letter-spacing:.04em}
+.invite input[type=text]:focus{outline:none;border-color:var(--gold-d)}
+.invite label.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-soft);line-height:1.4;margin-bottom:12px;cursor:pointer}
+.invite label.consent input{margin-top:3px;accent-color:var(--gold-d)}
+.invite .inv-ok{color:#2e7d32;font-size:14px;margin:0}
 .hidden{display:none!important}
 @media(prefers-reduced-motion:reduce){.tile,.drop,.btn{-webkit-animation:none!important;animation:none!important;transition:none!important}}
 </style>
@@ -111,6 +120,21 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 <div class="wrap hidden" id="cab">
   <h1 class="title serif" data-i18n="cab_h">Ваш семейный архив</h1>
   <p class="sub" data-i18n="cab_sub">Загрузите старую фотографию — вернём подлинный и современный варианты, обычно к утру. Фото по умолчанию 48 часов, не «навсегда».</p>
+
+  <div class="panel invite" id="invite-box">
+    <h4 data-i18n="inv_h">Инвайт-код</h4>
+    <p class="inv-ok hidden" id="inv-status"></p>
+    <div id="inv-form">
+      <div class="inv-row">
+        <input type="text" id="inv-code" autocomplete="off" spellcheck="false" data-i18n-placeholder="inv_ph" placeholder="SMH-XXXXXX">
+        <button class="btn btn-gold" id="inv-submit" type="button" data-i18n="inv_submit">Активировать</button>
+      </div>
+      <label class="consent"><input type="checkbox" id="inv-consent"> <span data-i18n="inv_consent">Согласен(на) на использование фото для улучшения качества реставрации (анонимно)</span></label>
+      <div class="msg" id="inv-msg"></div>
+    </div>
+  </div>
+
+
 
   <div class="up">
     <div class="drop" id="drop">
@@ -146,15 +170,16 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 
 <script type="module">
 const I18N={
-ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты. Первое фото — бесплатно.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — вернём подлинный и современный варианты, обычно к утру. Фото по умолчанию 48 часов, не «навсегда».",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Подлинный",m_restore_d:"Эпоха и бумага. Повреждения убраны. То же лицо.",b_base:"базовый",m_revive:"Современный",m_revive_d:"Как хороший смартфон сегодня. Тот же человек, та же сцена.",b_prem:"премиум",send:"Отправить в ночную очередь",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии — загрузите первую выше ↑",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"не получилось",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат",before:"Было",after:"Стало",close:"Закрыть",download:"Скачать",card:"Карточка",share:"Поделиться",share_text:"Я восстановил(а) семейное фото в SaveMyHistory",share_copied:"Ссылка скопирована",share_unavail:"Поделиться не получилось",retry:"Повторить",too_big:"Фото больше 50 МБ — выберите меньше",limit:"Достигнут лимит бесплатных реставраций. Скоро появится оплата для большего — спасибо за терпение",drag_hint:"Тяните, чтобы сравнить",report:"Что-то не так?",report_sent:"✓ Спасибо, мы проверим"},
-uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати. Перше фото — безкоштовно.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — повернемо справжній і сучасний варіанти, зазвичай до ранку. Фото за замовчуванням 48 годин, не «назавжди».",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Справжній",m_restore_d:"Епоха й папір. Пошкодження прибрані. Те саме обличчя.",b_base:"базовий",m_revive:"Сучасний",m_revive_d:"Як хороший смартфон сьогодні. Та сама людина, та сама сцена.",b_prem:"преміум",send:"Надіслати в нічну чергу",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії — завантажте першу вище ↑",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"не вийшло",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат",before:"Було",after:"Стало",close:"Закрити",download:"Завантажити",card:"Картка",share:"Поділитися",share_text:"Я відновив(ла) сімейне фото в SaveMyHistory",share_copied:"Посилання скопійовано",share_unavail:"Поділитися не вдалося",retry:"Повторити",too_big:"Фото більше 50 МБ — оберіть менше",limit:"Досягнуто ліміт безкоштовних реставрацій. Скоро зʼявиться оплата — дякуємо за терпіння",drag_hint:"Тягніть, щоб порівняти",report:"Щось не так?",report_sent:"✓ Дякуємо, ми перевіримо"},
-en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and results are kept. First photo is free.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we return authentic and modern versions, usually by morning. Photos default to 48 hours, not forever.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Authentic",m_restore_d:"Era and paper. Damage removed. Same face.",b_base:"basic",m_revive:"Modern",m_revive_d:"Like a good phone today. Same person, same scene.",b_prem:"premium",send:"Send to overnight queue",gal_h:"My photos",empty:"Your photos will appear here — upload your first one above ↑",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"didn't work",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result",before:"Before",after:"After",close:"Close",download:"Download",card:"Card",share:"Share",share_text:"I restored a family photo in SaveMyHistory",share_copied:"Link copied",share_unavail:"Couldn't share",retry:"Retry",too_big:"Photo over 50 MB — please choose a smaller one",limit:"Free restoration limit reached. Paid plans coming soon — thank you for your patience",drag_hint:"Drag to compare",report:"Something off?",report_sent:"✓ Thanks, we'll check it"},
- lt:{logout:"Atsijungti",gate_h:"Prisijunkite, kad atidarytumėte savo archyvą",gate_p:"Asmeninė paskyra, kur saugomos jūsų nuotraukos ir rezultatai. Pirma nuotrauka — nemokamai.",login_g:"Prisijungti per Google",cab_h:"Jūsų šeimos archyvas",cab_sub:"Įkelkite seną nuotrauką — grąžinsime autentišką ir šiuolaikinį variantus, paprastai iki ryto. Nuotraukos pagal nutylėjimą 48 val., ne amžinai.",drop_h:"Tempkite nuotrauką čia",drop_fmt:"JPG · PNG · TIFF · iki 50 MB",mode_h:"Apdorojimo režimas",m_restore:"Autentiškas",m_restore_d:"Epocha ir popierius. Pažeidimai pašalinti. Tas pats veidas.",b_base:"bazinis",m_revive:"Šiuolaikinis",m_revive_d:"Kaip geras telefonas šiandien. Tas pats žmogus, ta pati scena.",b_prem:"premium",send:"Siųsti į naktinę eilę",gal_h:"Mano nuotraukos",empty:"Čia atsiras jūsų nuotraukos — įkelkite pirmąją aukščiau ↑",st_queued:"eilėje",st_processing:"apdorojama",st_done:"paruošta",st_failed:"nepavyko",uploading:"Įkeliama…",sent:"Paruošta — nuotrauka priimta ✓",pick_first:"Pirmiausia pasirinkite nuotrauką",err:"Nepavyko įkelti, bandykite dar kartą",result:"Rezultatas",before:"Buvo",after:"Tapo",close:"Uždaryti",download:"Atsisiųsti",card:"Kortelė",share:"Pasidalinti",share_text:"Aš atkūriau šeimos nuotrauką per SaveMyHistory",share_copied:"Nuoroda nukopijuota",share_unavail:"Nepavyko pasidalinti",retry:"Bandyti dar kartą",too_big:"Nuotrauka didesnė nei 50 MB — pasirinkite mažesnę",limit:"Nemokamų restauracijų limitas pasiektas. Apmokami planai jau greitai — dėkojame už kantrybę",drag_hint:"Tempkite, kad palygintumėte",report:"Kažkas ne taip?",report_sent:"✓ Ačiū, patikrinsime"}
+ru:{logout:"Выйти",gate_h:"Войдите, чтобы открыть свой архив",gate_p:"Личный кабинет, где хранятся ваши фотографии и результаты. Первое фото — бесплатно.",login_g:"Войти через Google",cab_h:"Ваш семейный архив",cab_sub:"Загрузите старую фотографию — вернём подлинный и современный варианты, обычно к утру. Фото по умолчанию 48 часов, не «навсегда».",drop_h:"Перетащите фото сюда",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обработки",m_restore:"Подлинный",m_restore_d:"Эпоха и бумага. Повреждения убраны. То же лицо.",b_base:"базовый",m_revive:"Современный",m_revive_d:"Как хороший смартфон сегодня. Тот же человек, та же сцена.",b_prem:"премиум",send:"Отправить в ночную очередь",gal_h:"Мои фотографии",empty:"Здесь появятся ваши фотографии — загрузите первую выше ↑",st_queued:"в очереди",st_processing:"обработка",st_done:"готово",st_failed:"не получилось",uploading:"Загружаю…",sent:"Готово — фото принято в работу ✓",pick_first:"Сначала выберите фотографию",err:"Не удалось загрузить, попробуйте ещё раз",result:"Результат",before:"Было",after:"Стало",close:"Закрыть",download:"Скачать",card:"Карточка",share:"Поделиться",share_text:"Я восстановил(а) семейное фото в SaveMyHistory",share_copied:"Ссылка скопирована",share_unavail:"Поделиться не получилось",retry:"Повторить",too_big:"Фото больше 50 МБ — выберите меньше",limit:"Достигнут лимит бесплатных реставраций. Скоро появится оплата для большего — спасибо за терпение",drag_hint:"Тяните, чтобы сравнить",report:"Что-то не так?",report_sent:"✓ Спасибо, мы проверим",inv_h:"Инвайт-код",inv_ph:"SMH-XXXXXX",inv_submit:"Активировать",inv_consent:"Согласен(на) на использование фото для улучшения качества реставрации (анонимно)",inv_ok:"Код активирован. Квота начислена — можно загружать фото. Обычно готово к утру.",inv_done:"Код уже активирован. Можно загружать фото — обычно к утру.",inv_need_code:"Введите инвайт-код",inv_need_consent:"Нужно согласие, чтобы активировать код",inv_working:"Активирую…",inv_err:"Не удалось активировать код",inv_invalid:"Код не найден или недействителен",inv_exhausted:"Этот код уже исчерпан",inv_already:"Вы уже активировали код"},
+uk:{logout:"Вийти",gate_h:"Увійдіть, щоб відкрити свій архів",gate_p:"Особистий кабінет, де зберігаються ваші фотографії та результати. Перше фото — безкоштовно.",login_g:"Увійти через Google",cab_h:"Ваш сімейний архів",cab_sub:"Завантажте стару фотографію — повернемо справжній і сучасний варіанти, зазвичай до ранку. Фото за замовчуванням 48 годин, не «назавжди».",drop_h:"Перетягніть фото сюди",drop_fmt:"JPG · PNG · TIFF · до 50 МБ",mode_h:"Режим обробки",m_restore:"Справжній",m_restore_d:"Епоха й папір. Пошкодження прибрані. Те саме обличчя.",b_base:"базовий",m_revive:"Сучасний",m_revive_d:"Як хороший смартфон сьогодні. Та сама людина, та сама сцена.",b_prem:"преміум",send:"Надіслати в нічну чергу",gal_h:"Мої фотографії",empty:"Тут зʼявляться ваші фотографії — завантажте першу вище ↑",st_queued:"у черзі",st_processing:"обробка",st_done:"готово",st_failed:"не вийшло",uploading:"Завантажую…",sent:"Готово — фото прийнято в роботу ✓",pick_first:"Спершу оберіть фотографію",err:"Не вдалося завантажити, спробуйте ще раз",result:"Результат",before:"Було",after:"Стало",close:"Закрити",download:"Завантажити",card:"Картка",share:"Поділитися",share_text:"Я відновив(ла) сімейне фото в SaveMyHistory",share_copied:"Посилання скопійовано",share_unavail:"Поділитися не вдалося",retry:"Повторити",too_big:"Фото більше 50 МБ — оберіть менше",limit:"Досягнуто ліміт безкоштовних реставрацій. Скоро зʼявиться оплата — дякуємо за терпіння",drag_hint:"Тягніть, щоб порівняти",report:"Щось не так?",report_sent:"✓ Дякуємо, ми перевіримо",inv_h:"Інвайт-код",inv_ph:"SMH-XXXXXX",inv_submit:"Активувати",inv_consent:"Погоджуюсь на використання фото для покращення якості реставрації (анонімно)",inv_ok:"Код активовано. Квоту нараховано — можна завантажувати фото. Зазвичай готово до ранку.",inv_done:"Код уже активовано. Можна завантажувати фото — зазвичай до ранку.",inv_need_code:"Введіть інвайт-код",inv_need_consent:"Потрібна згода, щоб активувати код",inv_working:"Активую…",inv_err:"Не вдалося активувати код",inv_invalid:"Код не знайдено або недійсний",inv_exhausted:"Цей код уже вичерпано",inv_already:"Ви вже активували код"},
+en:{logout:"Sign out",gate_h:"Sign in to open your archive",gate_p:"A personal cabinet where your photos and results are kept. First photo is free.",login_g:"Sign in with Google",cab_h:"Your family archive",cab_sub:"Upload an old photo — we return authentic and modern versions, usually by morning. Photos default to 48 hours, not forever.",drop_h:"Drag a photo here",drop_fmt:"JPG · PNG · TIFF · up to 50 MB",mode_h:"Processing mode",m_restore:"Authentic",m_restore_d:"Era and paper. Damage removed. Same face.",b_base:"basic",m_revive:"Modern",m_revive_d:"Like a good phone today. Same person, same scene.",b_prem:"premium",send:"Send to overnight queue",gal_h:"My photos",empty:"Your photos will appear here — upload your first one above ↑",st_queued:"queued",st_processing:"processing",st_done:"done",st_failed:"didn't work",uploading:"Uploading…",sent:"Done — photo accepted ✓",pick_first:"Please choose a photo first",err:"Upload failed, please try again",result:"Result",before:"Before",after:"After",close:"Close",download:"Download",card:"Card",share:"Share",share_text:"I restored a family photo in SaveMyHistory",share_copied:"Link copied",share_unavail:"Couldn't share",retry:"Retry",too_big:"Photo over 50 MB — please choose a smaller one",limit:"Free restoration limit reached. Paid plans coming soon — thank you for your patience",drag_hint:"Drag to compare",report:"Something off?",report_sent:"✓ Thanks, we'll check it",inv_h:"Invite code",inv_ph:"SMH-XXXXXX",inv_submit:"Activate",inv_consent:"I agree that photos may be used to improve restoration quality (anonymously)",inv_ok:"Code activated. Quota added — you can upload photos. Usually ready by morning.",inv_done:"Code already activated. You can upload photos — usually by morning.",inv_need_code:"Enter an invite code",inv_need_consent:"Consent is required to activate the code",inv_working:"Activating…",inv_err:"Could not activate the code",inv_invalid:"Code not found or invalid",inv_exhausted:"This code is already used up",inv_already:"You already activated a code"},
+ lt:{logout:"Atsijungti",gate_h:"Prisijunkite, kad atidarytumėte savo archyvą",gate_p:"Asmeninė paskyra, kur saugomos jūsų nuotraukos ir rezultatai. Pirma nuotrauka — nemokamai.",login_g:"Prisijungti per Google",cab_h:"Jūsų šeimos archyvas",cab_sub:"Įkelkite seną nuotrauką — grąžinsime autentišką ir šiuolaikinį variantus, paprastai iki ryto. Nuotraukos pagal nutylėjimą 48 val., ne amžinai.",drop_h:"Tempkite nuotrauką čia",drop_fmt:"JPG · PNG · TIFF · iki 50 MB",mode_h:"Apdorojimo režimas",m_restore:"Autentiškas",m_restore_d:"Epocha ir popierius. Pažeidimai pašalinti. Tas pats veidas.",b_base:"bazinis",m_revive:"Šiuolaikinis",m_revive_d:"Kaip geras telefonas šiandien. Tas pats žmogus, ta pati scena.",b_prem:"premium",send:"Siųsti į naktinę eilę",gal_h:"Mano nuotraukos",empty:"Čia atsiras jūsų nuotraukos — įkelkite pirmąją aukščiau ↑",st_queued:"eilėje",st_processing:"apdorojama",st_done:"paruošta",st_failed:"nepavyko",uploading:"Įkeliama…",sent:"Paruošta — nuotrauka priimta ✓",pick_first:"Pirmiausia pasirinkite nuotrauką",err:"Nepavyko įkelti, bandykite dar kartą",result:"Rezultatas",before:"Buvo",after:"Tapo",close:"Uždaryti",download:"Atsisiųsti",card:"Kortelė",share:"Pasidalinti",share_text:"Aš atkūriau šeimos nuotrauką per SaveMyHistory",share_copied:"Nuoroda nukopijuota",share_unavail:"Nepavyko pasidalinti",retry:"Bandyti dar kartą",too_big:"Nuotrauka didesnė nei 50 MB — pasirinkite mažesnę",limit:"Nemokamų restauracijų limitas pasiektas. Apmokami planai jau greitai — dėkojame už kantrybę",drag_hint:"Tempkite, kad palygintumėte",report:"Kažkas ne taip?",report_sent:"✓ Ačiū, patikrinsime",inv_h:"Pakvietimo kodas",inv_ph:"SMH-XXXXXX",inv_submit:"Aktyvuoti",inv_consent:"Sutinku, kad nuotraukos gali būti naudojamos restauravimo kokybei gerinti (anonimiškai)",inv_ok:"Kodas aktyvuotas. Kvota pridėta — galite įkelti nuotraukas. Paprastai iki ryto.",inv_done:"Kodas jau aktyvuotas. Galite įkelti nuotraukas — paprastai iki ryto.",inv_need_code:"Įveskite pakvietimo kodą",inv_need_consent:"Norint aktyvuoti kodą, reikia sutikimo",inv_working:"Aktyvuojama…",inv_err:"Nepavyko aktyvuoti kodo",inv_invalid:"Kodas nerastas arba neteisingas",inv_exhausted:"Šis kodas jau išnaudotas",inv_already:"Jūs jau aktyvavote kodą"}
 };
 let lang='ru';
 function t(k){return (I18N[lang]||I18N.ru)[k]||k;}
 function applyLang(l){lang=l;try{localStorage.setItem('smh_lang',l)}catch(e){}
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t(k))el.textContent=t(k);});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.getAttribute('data-i18n-placeholder');if(t(k))el.placeholder=t(k);});
   document.documentElement.lang=l;
   document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
   if(window._rows)renderGal(window._rows);
@@ -177,8 +202,43 @@ async function ses(){ const t=getToken(); if(!t)return null;
 async function refresh(){
   const s=await ses();
   if(s){$('#gate').classList.add('hidden');$('#cab').classList.remove('hidden');$('#out').classList.remove('hidden');
-    $('#who').textContent=s.user.email||''; loadGal(s);}
+    $('#who').textContent=s.user.email||''; syncInvite(s.user); loadGal(s);}
   else{$('#gate').classList.remove('hidden');$('#cab').classList.add('hidden');$('#out').classList.add('hidden');$('#who').textContent='';}
+}
+function setInvMsg(text,cls){const m=$('#inv-msg');if(!m)return;m.textContent=text||'';m.className='msg '+(cls||'');}
+function syncInvite(user){
+  const box=$('#invite-box'), form=$('#inv-form'),st=$('#inv-status');
+  if(!box)return;
+  const redeemed=user&&user.redeemed_code;
+  if(redeemed){
+    if(form)form.classList.add('hidden');
+    if(st){st.classList.remove('hidden');st.textContent=t('inv_done');}
+  }else{
+    if(form)form.classList.remove('hidden');
+    if(st){st.classList.add('hidden');st.textContent='';}
+  }
+}
+async function doRedeem(){
+  const code=(($('#inv-code')&&$('#inv-code').value)||'').trim();
+  if(!code){setInvMsg(t('inv_need_code'),'err');return;}
+  if(!$('#inv-consent')||!$('#inv-consent').checked){setInvMsg(t('inv_need_consent'),'err');return;}
+  const s=await ses();if(!s){loginGoogle();return;}
+  const btn=$('#inv-submit'); if(btn)btn.disabled=true;
+  setInvMsg(t('inv_working'),'work');
+  try{
+    const r=await fetch('/api/redeem-code',{method:'POST',headers:{Authorization:'Bearer '+s.access_token,'Content-Type':'application/json'},body:JSON.stringify({code,consent:true})});
+    let detail='';
+    try{ const j=await r.json(); detail=(j && (j.detail||j.reason)) || ''; }catch(e){}
+    if(!r.ok){
+      const map={already_redeemed:'inv_already',invalid_code:'inv_invalid',code_exhausted:'inv_exhausted',consent_required:'inv_need_consent',no_code:'inv_need_code'};
+      const key=map[detail]||null;
+      setInvMsg(key?t(key):(typeof detail==='string'&&detail&&detail.length<80?detail:t('inv_err')),'err');
+    }else{
+      setInvMsg(t('inv_ok'),'ok');
+      const s2=await ses(); if(s2) syncInvite(s2.user);
+    }
+  }catch(e){setInvMsg(t('inv_err'),'err');}
+  if(btn)btn.disabled=false;
 }
 async function loginGoogle(){ // строим OAuth-ссылку и уходим на Google
   const redirect=encodeURIComponent(location.origin+'/cabinet.html');
