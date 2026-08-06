@@ -13,6 +13,9 @@ BUCKET   = os.environ.get("SPACES_BUCKET", "smh-photos")
 REGION   = os.environ.get("SPACES_REGION", "fra1")
 ENDPOINT = os.environ.get("SPACES_ENDPOINT", f"https://{REGION}.digitaloceanspaces.com")
 
+# После первого PGRST202/404 для count_status — больше не дёргаем RPC (тише лог).
+_COUNT_STATUS_RPC_MISSING = False
+
 def log(stage, msg):
     print(f"{time.strftime('%H:%M:%S')} [{stage}] {msg}", flush=True)
 
@@ -42,15 +45,30 @@ def rpc(name, payload):
 
 def count_status(status):
     """Сколько реставраций в статусе. Пробуем RPC, фолбэк — REST count (не зависит от миграции)."""
-    try:
-        v = rpc("count_status", {"p_status": status})
-        if isinstance(v, int):
-            return v
-        if isinstance(v, list) and v and isinstance(v[0], int):
-            return v[0]
-    except Exception:
-        pass
-    # фолбэк: REST HEAD c Prefer:count=exact → читаем Content-Range
+    global _COUNT_STATUS_RPC_MISSING
+    if not _COUNT_STATUS_RPC_MISSING:
+        try:
+            url = f"{SUPA_URL}/rest/v1/rpc/count_status"
+            r = urllib.request.Request(url, data=json.dumps({"p_status": status}).encode(), method="POST")
+            r.add_header("apikey", SECRET); r.add_header("Authorization", f"Bearer {SECRET}")
+            r.add_header("Content-Type", "application/json")
+            resp = urllib.request.urlopen(r, timeout=40)
+            body = resp.read().decode()
+            v = json.loads(body) if body else None
+            if isinstance(v, int):
+                return v
+            if isinstance(v, list) and v and isinstance(v[0], int):
+                return v[0]
+        except urllib.error.HTTPError as e:
+            body = e.read().decode(errors="replace")
+            if e.code == 404 or "PGRST202" in body:
+                _COUNT_STATUS_RPC_MISSING = True
+                log("count", "rpc count_status missing (PGRST202) — quiet REST fallback; apply migration_count_status.sql in Supabase")
+            else:
+                log("count", f"rpc ERR {e.code} {body[:80]}")
+        except Exception as e:
+            log("count", f"rpc err {str(e)[:80]}")
+    # фолбэк: REST Prefer:count=exact → Content-Range
     try:
         url = f"{SUPA_URL}/rest/v1/restorations?status=eq.{status}&select=id"
         r = urllib.request.Request(url, method="GET")
@@ -61,7 +79,7 @@ def count_status(status):
         if "/" in cr:
             return int(cr.split("/")[-1])
     except Exception as e:
-        log("count", f"err {str(e)[:80]}")
+        log("count", f"rest err {str(e)[:80]}")
     return 0
 
 def claim(from_status, to_status, limit):
@@ -80,12 +98,19 @@ def s3():
         config=Config(s3={"addressing_style": "virtual"}))
 
 def presigned_get(key, ttl=3600):
-    return s3().generate_presigned_url("get_object", Params={"Bucket": BUCKET, "Key": key}, ExpiresIn=ttl)
+    try:
+        return s3().generate_presigned_url("get_object", Params={"Bucket": BUCKET, "Key": key}, ExpiresIn=ttl)
+    except Exception as e:
+        raise RuntimeError(f"spaces_presign: {str(e)[:120]}") from e
 
 # ---------- Vision (OpenAI gpt-4o) ----------
 def vision(prompt, image_url, max_tokens=900):
-    """Отправляет картинку + промпт в gpt-4o vision, возвращает текст ответа."""
-    key = os.environ["OPENAI_API_KEY"]
+    """Отправляет картинку + промпт в gpt-4o vision, возвращает текст ответа.
+    Ошибки помечены шагом openai_vision; ключ в лог не пишется.
+    """
+    key = (os.environ.get("OPENAI_API_KEY") or "").strip()  # strip junk whitespace/newlines
+    if not key:
+        raise RuntimeError("openai_vision: OPENAI_API_KEY empty after strip")
     payload = {
         "model": "gpt-4o",
         "messages": [{"role": "user", "content": [
@@ -97,6 +122,12 @@ def vision(prompt, image_url, max_tokens=900):
     r = urllib.request.Request("https://api.openai.com/v1/chat/completions",
         data=json.dumps(payload).encode(), method="POST")
     r.add_header("Authorization", f"Bearer {key}"); r.add_header("Content-Type", "application/json")
-    resp = urllib.request.urlopen(r, timeout=90)
-    out = json.loads(resp.read().decode())
-    return out["choices"][0]["message"]["content"]
+    try:
+        resp = urllib.request.urlopen(r, timeout=90)
+        out = json.loads(resp.read().decode())
+        return out["choices"][0]["message"]["content"]
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")[:80]
+        raise RuntimeError(f"openai_vision: HTTP {e.code} {body}") from e
+    except Exception as e:
+        raise RuntimeError(f"openai_vision: {str(e)[:120]}") from e

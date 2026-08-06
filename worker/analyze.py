@@ -129,9 +129,12 @@ def main(batch=10):
     ok = 0
     for r in rows:
         rid = r["id"]
+        step = "spaces_presign"
         try:
             url = presigned_get(r["original_key"], ttl=1800)
+            step = "openai_vision"
             raw = vision(ANALYZE_PROMPT, url)
+            step = "parse"
             a = sanitize(extract_json(raw))
             prompt = build_prompt(a)
             update_row(rid, {
@@ -142,8 +145,13 @@ def main(batch=10):
             ok += 1
             log("analyze", f"{rid[:8]} → {a.get('recommended_mode')} | {a.get('faces')} лиц | {a.get('severity')}")
         except Exception as e:
-            update_row(rid, {"status": "queued", "error": f"analyze_err: {str(e)[:120]}"})
-            log("analyze", f"{rid[:8]} ОШИБКА → вернул в queued: {str(e)[:80]}")
+            msg = str(e)
+            # vision()/presign already prefix openai_vision|spaces_presign; else tag current step
+            if not (msg.startswith("spaces_presign") or msg.startswith("openai_vision") or msg.startswith("parse")):
+                msg = f"{step}: {msg}"
+            err = f"analyze_err[{step}]: {msg[:120]}"
+            update_row(rid, {"status": "queued", "error": err})
+            log("analyze", f"{rid[:8]} FAIL step={step}: {msg[:80]} → queued")
     log("analyze", f"готово: {ok}/{len(rows)} проанализировано")
     return ok
 
