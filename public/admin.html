@@ -359,6 +359,11 @@ function syncOpsNote(rows){
     const err=String(x.error||'').toLowerCase();
     return err.includes('credit_backoff')||err.includes('analyze_err')||err.includes('insufficient_quota');
   });
+  if(hit){
+    el.textContent='Глаза на паузе (credit_backoff). Фото копятся в очереди — это не сбой загрузки. Друзьям в кабинете мягкий баннер «обычно к утру», без биллинга. Сброс: OpenAI «баланс ок» → воркер сам снимет backoff → queued уйдёт в analyzed. Не крутить GEN_* и не арендовать GPU «для глаз».';
+  }else{
+    el.textContent='';
+  }
   el.classList.toggle('show', !!hit);
 }
 async function loadRows(){
