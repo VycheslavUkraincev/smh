@@ -796,6 +796,20 @@ async def admin_waitlist(authorization: str = Header(None), limit: int = 500):
         if not _waitlist_table_missing(e.detail):
             raise
 
+    def _ts_key(e):
+        t = e.get("ts")
+        if t is None:
+            return 0.0
+        if isinstance(t, (int, float)):
+            return float(t)
+        try:
+            from datetime import datetime
+            s = str(t).replace("Z", "+00:00")
+            return datetime.fromisoformat(s).timestamp()
+        except Exception:
+            return 0.0
+
+    emails.sort(key=_ts_key, reverse=True)
     emails = emails[:lim]
     return {
         "ok": True,
