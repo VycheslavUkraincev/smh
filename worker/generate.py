@@ -9,7 +9,9 @@
 Product canon Path A (commercial overnight):
   LaMa → GFPGAN/RestoreFormer++ → Real-ESRGAN → DDColor.
   CodeFormer ≠ paid default (D4) until commercial license OK.
-  Текущий GPU-образ/handler ещё LEGACY (ESRGAN+CodeFormer) — см. Dockerfile.gpu gap note.
+  GPU path: GEN_PROVIDER=gpu → RunPod handler; GEN_STACK=path_a|legacy
+  (default legacy). Path A stages live in path_a_pipeline.restore_path_a.
+  Do NOT flip live GEN_PROVIDER from this file.
 
 Кладёт результат в Spaces, status='generated'.
 Запуск: python generate.py [batch]
