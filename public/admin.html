@@ -17,7 +17,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
 .card .n{font-size:28px;font-weight:700}
 .card .l{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
-.card.q .n{color:#A67C32}.card.proc .n{color:#2980b9}.card.done .n{color:#27ae60}.card.fail .n{color:#c0392b}.card.an .n{color:#8e5a2b}
+.card.q .n{color:#A67C32}.card.proc .n{color:#2980b9}.card.done .n{color:#27ae60}.card.fail .n{color:#c0392b}.card.an .n{color:#8e5a2b}.card.ver .n{color:#6B5B95}.card.night .n{color:#3D6B8E}
 table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 th,td{padding:9px 11px;text-align:left;font-size:13px;border-bottom:1px solid var(--line);vertical-align:middle}
 th{background:#F0E7D7;color:var(--muted);font-weight:600}
@@ -324,13 +324,17 @@ async function loadAll(){ await Promise.all([loadStats(), loadRows(), loadInvite
 async function loadStats(){
   try{
     const r=await fetch('/api/admin/stats',{headers:H()}); if(!r.ok)return;
-    const s=await r.json(); const q=s.queue||{};
-    const inQueue=(q.queued||0)+(q.uploaded||0);
+    const s=await r.json(); const q=s.queue||{}; const sum=s.summary||{};
+    const inQueue=sum.queued!=null?sum.queued:((q.queued||0)+(q.uploaded||0));
+    const analyzed=sum.analyzed!=null?sum.analyzed:(q.analyzed||0);
+    const verified=sum.verified!=null?sum.verified:((q.generated||0)+(q.processing_verify||0)+(q.needs_review||0));
+    const overnight=s.overnight_waiting!=null?s.overnight_waiting:(sum.overnight_waiting!=null?sum.overnight_waiting:analyzed);
     const inWork=(q.processing||0)+(q.processing_analyze||0)+(q.processing_verify||0);
-    const analyzed=(q.analyzed||0)+(q.generated||0)+(q.needs_review||0);
     const cells=[
       ['q','В очереди',inQueue],
       ['an','Проанализировано',analyzed],
+      ['night','Ждёт ночи',overnight],
+      ['ver','На проверке',verified],
       ['proc','В работе',inWork],
       ['done','Готово',q.done||0],
       ['fail','Ошибки',q.failed||0],

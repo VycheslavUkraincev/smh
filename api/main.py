@@ -226,6 +226,32 @@ async def _waitlist_count() -> int:
     return 0
 
 
+async def _restorations_count(status: str) -> int:
+    """Exact restorations count by status via REST Prefer:count=exact (no count_status RPC)."""
+    url = f"{SUPABASE_URL}/rest/v1/restorations"
+    headers = {
+        "apikey": SUPABASE_SECRET,
+        "Authorization": f"Bearer {SUPABASE_SECRET}",
+        "Prefer": "count=exact",
+        "Range-Unit": "items",
+        "Range": "0-0",
+    }
+    params = {"status": f"eq.{status}", "select": "id"}
+    try:
+        async with httpx.AsyncClient(timeout=20) as c:
+            r = await c.get(url, headers=headers, params=params)
+        if r.status_code >= 300:
+            return 0
+        cr = r.headers.get("content-range") or r.headers.get("Content-Range") or ""
+        if "/" in cr:
+            total = cr.split("/")[-1].strip()
+            if total.isdigit():
+                return int(total)
+    except Exception:
+        return 0
+    return 0
+
+
 @app.get("/api/health")
 async def health():
     return {"ok": True, "ts": int(time.time())}
@@ -722,12 +748,27 @@ async def admin_check(authorization: str = Header(None)):
 
 @app.get("/api/admin/stats")
 async def admin_stats(authorization: str = Header(None)):
+    """Queue counts for ops. Quiet REST Prefer:count=exact (no count_status RPC / migration)."""
     await require_admin(authorization)
+    statuses = (
+        "queued", "uploaded", "processing", "processing_analyze", "analyzed",
+        "generated", "processing_verify", "needs_review", "done", "failed",
+    )
     out = {"queue": {}, "total_restorations": 0}
-    for st in ("queued", "uploaded", "processing", "processing_analyze", "analyzed", "generated", "processing_verify", "needs_review", "done", "failed"):
-        rows = await db("GET", "restorations", params={"status": f"eq.{st}", "select": "id", "limit": "100000"})
-        out["queue"][st] = len(rows or [])
-    out["total_restorations"] = sum(out["queue"].values())
+    for st in statuses:
+        out["queue"][st] = await _restorations_count(st)
+    q = out["queue"]
+    out["total_restorations"] = sum(q.values())
+    # overnight waiting == analyzed (worker INTAKE_ONLY / min-batch hold)
+    out["overnight_waiting"] = q.get("analyzed", 0)
+    out["summary"] = {
+        "queued": q.get("queued", 0) + q.get("uploaded", 0),
+        "analyzed": q.get("analyzed", 0),
+        "verified": q.get("generated", 0) + q.get("processing_verify", 0) + q.get("needs_review", 0),
+        "done": q.get("done", 0),
+        "failed": q.get("failed", 0),
+        "overnight_waiting": q.get("analyzed", 0),
+    }
     return out
 
 @app.get("/api/admin/restorations")
