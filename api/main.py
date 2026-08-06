@@ -15,6 +15,7 @@ from fastapi.responses import JSONResponse, HTMLResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 import boto3
 from botocore.client import Config
+from waitlist_fallback import append_entry as _waitlist_spaces_append, count_entries as _waitlist_spaces_count
 import httpx
 from PIL import Image, ImageDraw, ImageFont
 
@@ -233,6 +234,9 @@ async def waitlist_status():
         count = await _waitlist_count()
     except HTTPException as e:
         if _waitlist_table_missing(e.detail):
+            n = _waitlist_spaces_count(s3(), SPACES_BUCKET)
+            if n is not None:
+                return {"ok": True, "ready": True, "count": n, "storage": "spaces_fallback"}
             return {
                 "ok": True,
                 "ready": False,
@@ -290,7 +294,19 @@ async def waitlist_join(request: Request):
         })
     except HTTPException as e:
         if _waitlist_table_missing(e.detail):
-            return JSONResponse(status_code=503, content=missing_payload)
+            try:
+                already_fb, _n = _waitlist_spaces_append(s3(), SPACES_BUCKET, email, name=name, note=note, source=source)
+                return {
+                    "ok": True,
+                    "already_subscribed": already_fb,
+                    "status": "already_subscribed" if already_fb else "joined",
+                    "storage": "spaces_fallback",
+                    "message_ru": "Спасибо. Напишем на email, когда откроем доступ. Реставрации — обычно к утру / до 48 часов, без мгновенного SLA.",
+                    "message_ro": "Mulțumim. Vă scriem pe email când deschidem accesul. Restaurările — de obicei până dimineață / în 48h, fără SLA instant.",
+                    "message_en": "Thanks. We'll email when access opens. Restorations usually by morning / within 48h — not instant.",
+                }
+            except Exception:
+                return JSONResponse(status_code=503, content=missing_payload)
         raise
 
     already = bool(existing)
@@ -307,7 +323,19 @@ async def waitlist_join(request: Request):
                 await db("PATCH", "waitlist", params={"email": f"eq.{email}"}, payload=patch)
             except HTTPException as e:
                 if _waitlist_table_missing(e.detail):
-                    return JSONResponse(status_code=503, content=missing_payload)
+                    try:
+                        already_fb, _n = _waitlist_spaces_append(s3(), SPACES_BUCKET, email, name=name, note=note, source=source)
+                        return {
+                            "ok": True,
+                            "already_subscribed": already_fb,
+                            "status": "already_subscribed" if already_fb else "joined",
+                            "storage": "spaces_fallback",
+                            "message_ru": "Спасибо. Напишем на email, когда откроем доступ. Реставрации — обычно к утру / до 48 часов, без мгновенного SLA.",
+                            "message_ro": "Mulțumim. Vă scriem pe email când deschidem accesul. Restaurările — de obicei până dimineață / în 48h, fără SLA instant.",
+                            "message_en": "Thanks. We'll email when access opens. Restorations usually by morning / within 48h — not instant.",
+                        }
+                    except Exception:
+                        return JSONResponse(status_code=503, content=missing_payload)
                 raise
     else:
         payload = {"email": email, "name": name, "note": note, "source": source}
@@ -315,7 +343,19 @@ async def waitlist_join(request: Request):
             await db("POST", "waitlist", payload=payload)
         except HTTPException as e:
             if _waitlist_table_missing(e.detail):
-                return JSONResponse(status_code=503, content=missing_payload)
+                try:
+                    already_fb, _n = _waitlist_spaces_append(s3(), SPACES_BUCKET, email, name=name, note=note, source=source)
+                    return {
+                        "ok": True,
+                        "already_subscribed": already_fb,
+                        "status": "already_subscribed" if already_fb else "joined",
+                        "storage": "spaces_fallback",
+                        "message_ru": "Спасибо. Напишем на email, когда откроем доступ. Реставрации — обычно к утру / до 48 часов, без мгновенного SLA.",
+                        "message_ro": "Mulțumim. Vă scriem pe email când deschidem accesul. Restaurările — de obicei până dimineață / în 48h, fără SLA instant.",
+                        "message_en": "Thanks. We'll email when access opens. Restorations usually by morning / within 48h — not instant.",
+                    }
+                except Exception:
+                    return JSONResponse(status_code=503, content=missing_payload)
             detail = str(e.detail).lower()
             if e.status_code in (409, 23505) or "duplicate" in detail or "unique" in detail:
                 already = True
