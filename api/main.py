@@ -271,6 +271,17 @@ async def waitlist_join(request: Request):
     note = (body.get("note") or "").strip()[:500] or None
     source = (body.get("source") or "api").strip()[:40] or "api"
 
+    missing_payload = {
+        "ok": False,
+        "ready": False,
+        "table": "missing",
+        "detail": "waitlist_table_missing",
+        "hint": "Apply migration_waitlist.sql in Supabase SQL Editor",
+        "message_ru": "Список ожидания ещё настраивается. Напишите нам email — сохраним вручную. Обычно доступ и реставрации — к утру / до 48 часов.",
+        "message_ro": "Lista de așteptare încă se configurează. Scrieți-ne emailul — îl salvăm manual. Accesul și restaurările — de obicei până dimineață / în 48h.",
+        "message_en": "Waitlist is still being set up. Email us and we will save it manually. Access/restorations usually by morning / within 48h.",
+    }
+
     try:
         existing = await db("GET", "waitlist", params={
             "email": f"eq.{email}",
@@ -279,7 +290,7 @@ async def waitlist_join(request: Request):
         })
     except HTTPException as e:
         if _waitlist_table_missing(e.detail):
-            raise HTTPException(503, "waitlist_table_missing: apply migration_waitlist.sql")
+            return JSONResponse(status_code=503, content=missing_payload)
         raise
 
     already = bool(existing)
@@ -296,7 +307,7 @@ async def waitlist_join(request: Request):
                 await db("PATCH", "waitlist", params={"email": f"eq.{email}"}, payload=patch)
             except HTTPException as e:
                 if _waitlist_table_missing(e.detail):
-                    raise HTTPException(503, "waitlist_table_missing: apply migration_waitlist.sql")
+                    return JSONResponse(status_code=503, content=missing_payload)
                 raise
     else:
         payload = {"email": email, "name": name, "note": note, "source": source}
@@ -304,7 +315,7 @@ async def waitlist_join(request: Request):
             await db("POST", "waitlist", payload=payload)
         except HTTPException as e:
             if _waitlist_table_missing(e.detail):
-                raise HTTPException(503, "waitlist_table_missing: apply migration_waitlist.sql")
+                return JSONResponse(status_code=503, content=missing_payload)
             detail = str(e.detail).lower()
             if e.status_code in (409, 23505) or "duplicate" in detail or "unique" in detail:
                 already = True
