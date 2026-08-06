@@ -1,0 +1,26 @@
+{
+  "total_unique_ba": 21,
+  "selected_n": 7,
+  "ratio": 0.333,
+  "selected": [
+    "case_c9g",
+    "case_w150",
+    "case_o215",
+    "case_c8",
+    "case_o95",
+    "case_c7",
+    "case_w90"
+  ],
+  "note": "Top ~33% of local case_* BA pairs; Dropbox /SaveMyHistory had no extra unique BA beyond local mirrors",
+  "filters": [
+    "all",
+    "portrait",
+    "group",
+    "wedding"
+  ],
+  "ui": [
+    "slider",
+    "load-more",
+    "contain"
+  ]
+}
