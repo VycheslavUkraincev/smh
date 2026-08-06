@@ -7,5 +7,12 @@ Disallow: /app.html
 Disallow: /arena.html
 Disallow: /story.html
 Disallow: /story/
+Disallow: /about.html
+Disallow: /contact.html
+Disallow: /demo.html
+Disallow: /faq.html
+Disallow: /login.html
+Disallow: /pricing.html
+Disallow: /signup.html
 
 Sitemap: https://savemyhistory.tech/sitemap.xml
