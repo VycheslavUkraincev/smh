@@ -56,9 +56,9 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
 #ov{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(15,12,8,.9);backdrop-filter:blur(8px);padding:24px}
 #ov .box{max-width:860px;width:100%;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .cmp{position:relative;width:100%;aspect-ratio:3/2;background:#0c0905;overflow:hidden;cursor:ew-resize;user-select:none;touch-action:none}
-.cmp>img#ov-a{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;pointer-events:none}
+.cmp>img#ov-a{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;pointer-events:none}
 .cmp .after-wrap{position:absolute;top:0;left:0;height:100%;overflow:hidden;width:50%}
-.cmp .after-wrap img{position:absolute;top:0;left:0;height:100%;max-width:none!important;object-fit:cover;object-position:top center;pointer-events:none}
+.cmp .after-wrap img{position:absolute;top:0;left:0;height:100%;max-width:none!important;object-fit:contain;object-position:center center;pointer-events:none}
 .cmp .lab{position:absolute;top:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:20px;pointer-events:none;backdrop-filter:blur(4px)}
 .cmp .lab-b{left:12px}
 .cmp .lab-a{right:12px}

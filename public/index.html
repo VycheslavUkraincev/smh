@@ -62,10 +62,10 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,44px);color:var(--gold,#caa45e);line-height:1}
 .stat span{font-size:13px;opacity:.85;letter-spacing:.02em}
 /* COMPARE slider (shared) */
-.cmp{position:relative;width:100%;aspect-ratio:3/2;border-radius:16px;overflow:hidden;background:#0c0905;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22)}
-.cmp>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;pointer-events:none}
+.cmp{position:relative;width:100%;aspect-ratio:3/2;border-radius:16px;overflow:hidden;background:#0c0905;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22);contain:layout size}
+.cmp>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;pointer-events:none}
 .cmp .aw{position:absolute;top:0;left:0;height:100%;overflow:hidden;width:50%}
-.cmp .aw img{position:absolute;top:0;left:0;height:100%;max-width:none!important;object-fit:cover;object-position:top center;pointer-events:none}
+.cmp .aw img{position:absolute;top:0;left:0;width:100%;height:100%;max-width:none!important;object-fit:contain;object-position:center center;pointer-events:none}
 .cmp .lab{position:absolute;top:10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:4px 11px;border-radius:20px;pointer-events:none;backdrop-filter:blur(4px)}
 .cmp .lb{left:14px}.cmp .la{right:14px}
 .cmp .hd{position:absolute;top:0;bottom:0;width:2px;background:#fff;left:50%;transform:translateX(-50%);pointer-events:none}
@@ -148,7 +148,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
    <a href="#cases" data-i18n="m_cases">Примеры</a>
   </nav>
   <div style="display:flex;align-items:center;gap:12px">
-   <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="lt">LT</button></div>
+   <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="ro">RO</button><button data-lang="lt">LT</button></div>
    <div class="who" id="who"><span class="av" id="who-av"></span><span id="who-mail"></span><a href="/cabinet.html" class="hbtn" data-i18n="cabinet">Кабинет</a></div>
    <a href="/cabinet.html" class="hbtn gold" id="login-btn" data-i18n="login">Войти</a>
    <button class="burger" id="burger">☰</button>
@@ -236,7 +236,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
   </div>
   <div class="fbot">
    <span>© 2026 SaveMyHistory · <span data-i18n="f_slogan">Сохрани историю своей семьи</span></span>
-   <div class="flang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="lt">LT</button></div>
+   <div class="flang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="ro">RO</button><button data-lang="lt">LT</button></div>
   </div>
  </div>
 </footer>
@@ -273,7 +273,15 @@ const I18N={
   c_k:"Įrodymas",c_h:"Tikros atkurtos nuotraukos",c_p:"Tempkite slankiklį — kairėje originalas, dešinėje rezultatas.",
   tr_k:"Atminties medis",tr_h:"Šeima — tai veidai, kurie lieka",tr_p:"Kiekviena atkurta nuotrauka — dar vienas veidas, grįžęs į jūsų giminės istoriją.",
   band_h:"Grąžinkite gyvybę brangiems veidams",band_p:"Kelios nuotraukos nemokamai starte. Paprastai paruošta iki ryto.",steps_cta:"Išbandyti nemokamai",band_cta:"Įkelti nuotrauką",
-  f_about:"Autentiškas ir šiuolaikinis šeimos nuotraukų atkūrimas. Paprastai iki ryto. Nesimokome iš jūsų nuotraukų.",f_nav:"Navigacija",f_legal:"Dokumentai",f_priv:"Privatumas",f_terms:"Sąlygos",f_contact:"Susisiekti",f_slogan:"Išsaugokite savo šeimos istoriją"}
+  f_about:"Autentiškas ir šiuolaikinis šeimos nuotraukų atkūrimas. Paprastai iki ryto. Nesimokome iš jūsų nuotraukų.",f_nav:"Navigacija",f_legal:"Dokumentai",f_priv:"Privatumas",f_terms:"Sąlygos",f_contact:"Susisiekti",f_slogan:"Išsaugokite savo šeimos istoriją"},
+ ro:{m_how:"Cum funcționează",m_cases:"Exemple",m_tree:"Arborele memoriei",cabinet:"Cabinet",login:"Autentificare",cap1:"Portret de familie · 1958",cap2:"Nuntă · 1964",cap3:"Reuniune de familie · 1971",cap4:"Portret de amintire · 1955",sb1:"fotografii returnate familiilor",sb2:"după rularea de noapte",sb3:"fețele rămân ele însele",
+  hero_kicker:"Fotografii de familie · gata până dimineața",hero_h1:"Adu la viață fotografiile de familie — <em>autentic</em> sau ca și cum ar fi făcute azi",hero_lead:"Încarcă un album seara — dimineața returnăm variante autentice și moderne. Fața contează mai mult decât efectul. Nu este un filtru instant.",hero_cta:"Restaurează o fotografie",hero_cta2:"Vezi exemple înainte/după",t1:"Gratis la început",t2:"fără card",t3:"de obicei gata până dimineața",
+  before:"Înainte",after:"După",
+  how_k:"Simplu",how_h:"Trei pași — gata până dimineața",s1h:"Încarcă un album",s1p:"Poze vechi deteriorate. Încarcă seara — rezultatul e de obicei gata până dimineața.",s2h:"Rulare de noapte",s2p:"O dată pe zi pornim GPU-ul. Eliminăm deteriorările, păstrăm epoca sau facem un cadru modern — aceeași față.",s3h:"Descarcă în 48 de ore",s3p:"Păstrăm rezultatele 48 de ore după ce sunt gata, apoi le ștergem. Mai mult — doar dacă activezi tu «seiful».",
+  c_k:"Dovadă",c_h:"Fotografii reale restaurate",c_p:"Trage glisorul — originalul în stânga, rezultatul în dreapta.",
+  tr_k:"Arborele memoriei",tr_h:"Familia sunt fețele care rămân",tr_p:"Fiecare fotografie restaurată este încă o față revenită în povestea familiei tale.",
+  band_h:"Adu la viață fețele dragi",band_p:"Câteva fotografii gratis la lansare. De obicei gata până dimineața.",steps_cta:"Încearcă gratuit",band_cta:"Încarcă o fotografie",
+  f_about:"Restaurare autentică și modernă a fotografiilor de familie. De obicei până dimineața. Nu învățăm pe pozele tale.",f_nav:"Navigare",f_legal:"Documente",f_priv:"Confidențialitate",f_terms:"Termeni",f_contact:"Contact",f_slogan:"Salvează istoria familiei tale"},
 };
 let LANG='ru';
 function applyLang(l){ if(!I18N[l])l='en'; LANG=l; document.documentElement.lang=l;
@@ -314,7 +322,7 @@ if(countEl)countIO.observe(countEl);
 // lang buttons
 document.querySelectorAll('.flang button,.hlang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
 // init lang: сохранённый -> язык браузера (ru/uk -> своё, иначе en)
-(function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='lt'?'lt':(n==='ru'?'ru':'en'));}}catch(e){}applyLang(l);})();
+(function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='ro'?'ro':(n==='lt'?'lt':(n==='ru'?'ru':'en')));}}catch(e){}applyLang(l);})();
 initCmp();
 </script>
 <script type="module">
