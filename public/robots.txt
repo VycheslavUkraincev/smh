@@ -4,4 +4,4 @@ Disallow: /admin.html
 Disallow: /cabinet.html
 Disallow: /api/
 
-Sitemap: https://savemyhistory.tech/
+Sitemap: https://savemyhistory.tech/sitemap.xml
