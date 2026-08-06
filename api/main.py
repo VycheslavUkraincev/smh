@@ -119,6 +119,8 @@ SPACES_ENDPOINT = os.environ.get("SPACES_ENDPOINT", f"https://{SPACES_REGION}.di
 VALID_MODES = {"restore", "revive"}
 IMAGE_TYPES = {"image/jpeg", "image/png", "image/tiff", "image/webp", "image/heic", "image/heif"}
 FREE_LIMIT = int(os.environ.get("FREE_LIMIT", "5"))   # бесплатных реставраций на юзера
+# lane/priority: overnight (free default) | realtime (paid later). Persisted only after DB column exists.
+VALID_LANES = {"overnight", "realtime"}
 PUBLIC_URL = os.environ.get("PUBLIC_URL", "https://savemyhistory.tech")
 SHARE_SECRET = os.environ.get("SHARE_SECRET", SUPABASE_SECRET or "smh-share")
 ADMIN_EMAILS = {e.strip().lower() for e in os.environ.get("ADMIN_EMAILS", "").split(",") if e.strip()}
@@ -367,9 +369,37 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     used = len(existing or [])
     if used >= FREE_LIMIT:
         raise HTTPException(402, f"free_limit_reached:{FREE_LIMIT}")
+    # lane/priority: default overnight (free). realtime accepted but not billed yet.
+    # DB column `lane` may be absent — try persist, soft-fallback without it (BLOCKED until migration).
+    raw_lane = (body.get("lane") or body.get("priority") or "overnight")
+    if isinstance(raw_lane, (int, float)):
+        lane = "realtime" if int(raw_lane) > 0 else "overnight"
+    else:
+        lane = str(raw_lane).strip().lower()
+        if lane in ("paid", "priority", "fast"):
+            lane = "realtime"
+        elif lane in ("free", "night", "batch", "0"):
+            lane = "overnight"
+    if lane not in VALID_LANES:
+        raise HTTPException(400, "bad lane (overnight|realtime)")
     row = {"user_id": user["id"], "original_key": original_key, "mode": mode, "status": "queued"}
-    res = await db("POST", "restorations", payload=row)
-    return res[0] if isinstance(res, list) else res
+    try:
+        res = await db("POST", "restorations", payload={**row, "lane": lane})
+        out = res[0] if isinstance(res, list) else res
+        if isinstance(out, dict):
+            out.setdefault("lane", lane)
+        return out
+    except HTTPException as e:
+        detail = (e.detail if isinstance(e.detail, str) else str(e.detail)).lower()
+        # Unknown column / schema cache → create without lane (safe for live DB).
+        if e.status_code in (400, 404, 42703) or "lane" in detail or "column" in detail or "schema" in detail:
+            res = await db("POST", "restorations", payload=row)
+            out = res[0] if isinstance(res, list) else res
+            if isinstance(out, dict):
+                out["lane"] = lane
+                out["lane_persisted"] = False
+            return out
+        raise
 
 @app.post("/api/restorations/{rid}/retry")
 async def retry_restoration(rid: str, authorization: str = Header(None)):

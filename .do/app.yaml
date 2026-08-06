@@ -79,6 +79,15 @@ workers:
       # режим генерации: api (старт) | gpu (RunPod). Для GPU добавить RUNPOD_ENDPOINT + RUNPOD_KEY.
       - key: GEN_PROVIDER
         value: api
+      # FREE OVERNIGHT — день (live default): копить analyzed, не жечь генерацию
+      - key: INTAKE_ONLY
+        value: "1"
+      # ночной батч: в DO UI сменить на INTAKE_ONLY=0 и задать порог, напр. GEN_MIN_BATCH=10
+      - key: GEN_MIN_BATCH
+        value: "0"
+      # ops/paid smoke без колонки lane: PRIORITY_BYPASS=1 игнорит INTAKE_ONLY и порог
+      - key: PRIORITY_BYPASS
+        value: "0"
 
 static_sites:
   - name: web
