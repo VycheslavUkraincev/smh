@@ -1,5 +1,16 @@
 # SaveMyHistory — GPU образ для RunPod Serverless (реставрация фото)
-# Стек: Real-ESRGAN (фон) + CodeFormer (лица). CUDA 12.1, torch 2.x.
+#
+# HONEST GAP (D4 / Path A commercial canon):
+#   Product default Path A = LaMa → GFPGAN/RestoreFormer++ → Real-ESRGAN → DDColor.
+#   THIS IMAGE still hardcodes LEGACY demo stack: Real-ESRGAN + CodeFormer.
+#   CodeFormer = R&D / chat demo only — NOT commercial overnight default.
+#   Minimal Path A patch plan (no rent in this session):
+#     1) pip: lama-cleaner or simple-lama + gfpgan + realesrgan (+ optional ddcolor)
+#     2) wget weights: big-lama.pt, GFPGANv1.4.pth, RealESRGAN_x2plus.pth, DDColor*
+#     3) rewrite runpod_handler._restore to Path A order; FACE_BACKEND=gfpgan|rfpp|codeformer
+#     4) GPU smoke on Vast/RunPod ONLY after Roman «GPU да» + $cap + funded account
+#
+# CUDA 12.1, torch 2.x.
 # Сборка:  docker build -f Dockerfile.gpu -t smh-gpu .
 # Пуш:     docker tag smh-gpu <registry>/smh-gpu && docker push <registry>/smh-gpu
 # В RunPod: указать этот образ в Serverless endpoint, handler = runpod_handler.py

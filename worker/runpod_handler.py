@@ -4,10 +4,13 @@
   вход:  {"input": {"image_url": str, "prompt": str, "face_fidelity": float, "preserve_identity": bool}}
   выход: {"output": {"image_base64": str}}
 
-Стек (open-source, ставится на CUDA, проверен на реставрации):
-  (А) Real-ESRGAN  — чистка фона: царапины, шум, пятна, мягкий апскейл (x2)
-  (Б) CodeFormer   — реставрация ЛИЦ по оригиналу. fidelity управляет «бережностью»:
-       低 fidelity (0.3-0.5) = ближе к оригиналу, меньше «приукрашивания» (наш вывод по Онуфрию).
+LEGACY stack in this file (NOT commercial Path A default — D4):
+  (А) Real-ESRGAN  — фон / мягкий апскейл (x2)
+  (Б) CodeFormer   — лица (R&D / demo only; plastic risk; no commercial OK yet)
+
+Commercial Path A target (replace before paid overnight):
+  LaMa → GFPGAN or RestoreFormer++ → Real-ESRGAN → DDColor (если цвет).
+  Do NOT treat CodeFormer as prod default until explicit license OK.
 
 NB: модели грузятся ОДИН раз при холодном старте (_load_models держится тёплым в контейнере),
     не на каждый запрос — иначе платим за загрузку весов каждый раз.

@@ -2,6 +2,10 @@
 """SaveMyHistory — deploy_gpu.py
 Готовит и развёртывает GPU-эндпоинт на RunPod при появлении баланса.
 Запускать: python3 scripts/deploy_gpu.py
+
+NB: переключает GEN_PROVIDER=gpu. Образ smh-gpu сейчас LEGACY (CodeFormer+ESRGAN).
+Commercial Path A (LaMa→GFPGAN/RF++→ESRGAN→DDColor) ещё не в образе — не обещать
+как prod default до пересборки + smoke. Аренда только после Roman «GPU да» + $cap.
 """
 import os, json, urllib.request, subprocess, sys
 

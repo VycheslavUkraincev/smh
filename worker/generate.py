@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """SaveMyHistory — СТАДИЯ 2: генерация.
-Берёт restorations.status='analyzed' (промпт уже готов от ИИ-глаз),
-делает двухслойную реставрацию:
-  (А) генератив по готовому промпту (фон/цвет/повреждения) — nano-banana через fal
-  (Б) CodeFormer по ОРИГИНАЛУ (честные лица)
-  склейка: лица из (Б) поверх (А)  [на старте — упрощённо: CodeFormer поверх результата
-           с высоким fidelity; полноценная маска-склейка — на GPU-этапе]
+Берёт restorations.status='analyzed' (промпт уже готов от ИИ-глаз).
+
+Два провайдера (GEN_PROVIDER):
+  api  — demo/R&D: fal nano-banana + CodeFormer (НЕ коммерческий overnight default).
+  gpu  — RunPod/Vast serverless; контракт тот же (image_url+prompt → image_base64).
+
+Product canon Path A (commercial overnight):
+  LaMa → GFPGAN/RestoreFormer++ → Real-ESRGAN → DDColor.
+  CodeFormer ≠ paid default (D4) until commercial license OK.
+  Текущий GPU-образ/handler ещё LEGACY (ESRGAN+CodeFormer) — см. Dockerfile.gpu gap note.
+
 Кладёт результат в Spaces, status='generated'.
-API-режим (fal). GPU-режим заменит этот шаг локальным inference (тот же контракт статусов).
 Запуск: python generate.py [batch]
 """
 import sys, os, json, tempfile, subprocess, urllib.request
