@@ -49,6 +49,7 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
 .invbox .btn{margin-top:0;padding:8px 14px;font-size:13px;border-radius:8px}
 .invmsg{font-size:13px;min-height:18px;margin:6px 0}
 .invmsg.ok{color:#27ae60}.invmsg.err{color:#c0392b}
+.invmsg.list{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45}
 .code-cell{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 @media (max-width:640px){
   h1{font-size:24px}
@@ -80,9 +81,10 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
         <label>Сколько <input id="inv-count" type="number" min="1" max="50" value="10" style="width:64px"></label>
         <label>Фото на код <input id="inv-credits" type="number" min="1" max="100" value="3" style="width:64px"></label>
         <label>Max uses <input id="inv-max" type="number" min="1" max="1000" value="1" style="width:64px"></label>
-        <label>Note <input id="inv-note" type="text" placeholder="friends-wave" style="width:140px"></label>
+        <label>Note <input id="inv-note" type="text" value="friends-wave" placeholder="friends-wave" style="width:140px"></label>
         <button class="btn" id="inv-create" type="button">Создать</button>
         <button class="btn secondary" id="inv-copy-all" type="button">Копировать все</button>
+        <button class="btn secondary" id="inv-export" type="button">Скачать CSV</button>
       </div>
       <div class="invmsg" id="inv-msg"></div>
       <div class="scroll">
@@ -128,10 +130,10 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
 </div>
 
 <script>
-const URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
+const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
 const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
 const $=s=>document.querySelector(s);
-let _token=null, curStatus='', _invites=[], _waitlist=[], _wlStorage='';
+let _token=null, curStatus='', _invites=[], _lastCreated=[], _waitlist=[], _wlStorage='';
 function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
 function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
 function H(){ return {Authorization:'Bearer '+getToken()}; }
@@ -139,7 +141,7 @@ function H(){ return {Authorization:'Bearer '+getToken()}; }
 (function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
 
 async function login(){
-  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
+  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(SB_URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
   const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/admin.html'}});
   if(data&&data.url) location.href=data.url;
 }
@@ -179,6 +181,7 @@ async function init(){
   $('#refresh').onclick=e=>{e.preventDefault();loadAll();};
   const invBtn=$('#inv-create'); if(invBtn) invBtn.onclick=e=>{e.preventDefault();createInvites();};
   const invCopy=$('#inv-copy-all'); if(invCopy) invCopy.onclick=e=>{e.preventDefault();copyAllInvites();};
+  const invExp=$('#inv-export'); if(invExp) invExp.onclick=e=>{e.preventDefault();exportInvitesCsv();};
   const wlExp=$('#wl-export'); if(wlExp) wlExp.onclick=e=>{e.preventDefault();exportWaitlistCsv();};
   const wlRef=$('#wl-refresh'); if(wlRef) wlRef.onclick=e=>{e.preventDefault();loadWaitlist();};
   $('#flt').querySelectorAll('button').forEach(b=>b.onclick=()=>{
@@ -210,13 +213,36 @@ async function loadInvites(){
   }catch(e){ _invites=[]; tb.innerHTML='<tr><td colspan="6" class="muted">Ошибка сети.</td></tr>'; }
 }
 
+function inviteCodesForExport(){
+  if(_lastCreated&&_lastCreated.length) return _lastCreated.slice();
+  return (_invites||[]).map(x=>x.code).filter(Boolean);
+}
+
 async function copyAllInvites(){
   const msg=$('#inv-msg');
-  const codes=(_invites||[]).map(x=>x.code).filter(Boolean);
+  const fromNew=_lastCreated&&_lastCreated.length;
+  const codes=inviteCodesForExport();
   if(!codes.length){ msg.className='invmsg err'; msg.textContent='Нет кодов для копирования.'; return; }
   const ok=await copyText(codes.join('\n'));
-  msg.className=ok?'invmsg ok':'invmsg err';
-  msg.textContent=ok?('Скопировано кодов: '+codes.length):'Не удалось скопировать.';
+  msg.className=ok?'invmsg ok list':'invmsg err';
+  msg.textContent=ok
+    ? ((fromNew?('Скопированы новые коды ('+codes.length+'):\n'):('Скопировано кодов: '+codes.length+'\n'))+codes.join('\n'))
+    : 'Не удалось скопировать.';
+}
+
+function exportInvitesCsv(){
+  const msg=$('#inv-msg');
+  const fromNew=_lastCreated&&_lastCreated.length;
+  const codes=inviteCodesForExport();
+  if(!codes.length){ msg.className='invmsg err'; msg.textContent='Нечего экспортировать — сначала создайте коды.'; return; }
+  const lines=['code'];
+  codes.forEach(c=>lines.push(String(c)));
+  const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=(fromNew?'invite-new-':'invite-codes-')+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  msg.className='invmsg ok list';
+  msg.textContent=(fromNew?('CSV новых кодов скачан ('+codes.length+'):\n'):('CSV скачан ('+codes.length+'):\n'))+codes.join('\n');
 }
 
 async function createInvites(){
@@ -233,8 +259,11 @@ async function createInvites(){
     if(!r.ok){ msg.className='invmsg err'; msg.textContent='Ошибка: '+(j.detail||r.status); return; }
     const created=j.created||[]; const n=created.length;
     const codes=created.map(x=>x.code).filter(Boolean);
-    if(codes.length) await copyText(codes.join('\n'));
-    msg.className='invmsg ok'; msg.textContent='Создано: '+n+(codes.length?' · коды скопированы в буфер':'');
+    _lastCreated=codes.slice();
+    let copied=false;
+    if(codes.length) copied=await copyText(codes.join('\n'));
+    msg.className='invmsg ok list';
+    msg.textContent='Создано: '+n+(copied?' · скопированы в буфер':'')+(codes.length?('\n'+codes.join('\n')):'')+(codes.length?'\n\nМожно ещё: «Копировать все» или «Скачать CSV».':'');
     loadInvites();
   }catch(e){ msg.className='invmsg err'; msg.textContent='Ошибка сети'; }
 }
