@@ -25,6 +25,8 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
 .thumbs{display:flex;gap:4px}
 .badge{padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
 .b-queued{background:#FBEFD6;color:#A67C32}.b-uploaded{background:#FBEFD6;color:#A67C32}
+.ops-note{display:none;margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#FBEFD6;border:1px solid #E6D3A8;color:#6b5320;font-size:13px;line-height:1.4}
+.ops-note.show{display:block}
 .b-processing{background:#E3F0FB;color:#2980b9}.b-done{background:#E4F6E9;color:#27ae60}.b-failed{background:#FBE4E1;color:#c0392b}
 .b-analyzed{background:#F3E8D8;color:#8e5a2b}
 .act{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;margin-right:5px;min-height:32px}
@@ -74,6 +76,7 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
     </div>
 
     <div class="cards" id="cards"></div>
+    <div class="ops-note" id="ops-note"></div>
 
     <div class="invbox" id="invbox">
       <h2>Инвайт-коды</h2>
@@ -205,7 +208,8 @@ async function loadInvites(){
     const j=await r.json(); const rows=j.codes||j||[];
     _invites=rows;
     if(!rows.length){ tb.innerHTML='<tr><td colspan="6" class="muted">Кодов пока нет — создайте выше.</td></tr>'; return; }
-    tb.innerHTML=rows.map(x=>{
+    syncOpsNote(rows);
+  tb.innerHTML=rows.map(x=>{
       const code=x.code||'';
       return '<tr><td><div class="code-cell"><span class="code">'+code+'</span><button class="act" type="button" data-copy="'+code+'">Копировать</button></div></td><td>'+(x.free_restorations??'')+'</td><td>'+(x.used_count??0)+'/'+(x.max_uses??'')+'</td><td>'+(x.active?'да':'нет')+'</td><td class="muted">'+(x.note||'—')+'</td><td class="muted">'+fmt(x.created_at)+'</td></tr>';
     }).join('');
@@ -347,11 +351,22 @@ async function loadStats(){
 function fmt(ts){ if(!ts)return''; try{ return new Date(ts).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }catch(e){ return ts; } }
 function qcBadge(qc){ if(!qc)return'<span class="muted">—</span>'; try{ const o=typeof qc==='string'?JSON.parse(qc):qc; const bad=['face_changed','extra_added','artifacts'].some(k=>o[k]); return bad?'<span class="badge b-failed">замечания</span>':'<span class="badge b-done">чисто</span>'; }catch(e){ return'<span class="muted">—</span>'; } }
 
+
+function syncOpsNote(rows){
+  const el=$('#ops-note');
+  if(!el) return;
+  const hit=(rows||[]).some(x=>{
+    const err=String(x.error||'').toLowerCase();
+    return err.includes('credit_backoff')||err.includes('analyze_err')||err.includes('insufficient_quota');
+  });
+  el.classList.toggle('show', !!hit);
+}
 async function loadRows(){
   const tb=$('#rows'); tb.innerHTML='<tr><td colspan="6" class="muted">Загрузка…</td></tr>';
   let rows=[];
   try{ const u='/api/admin/restorations?limit=60'+(curStatus?('&status='+curStatus):''); const r=await fetch(u,{headers:H()}); if(r.ok)rows=await r.json(); else { tb.innerHTML='<tr><td colspan="6" class="muted">Не удалось загрузить заказы ('+r.status+').</td></tr>'; $('#foot').textContent=''; return; } }catch(e){ tb.innerHTML='<tr><td colspan="6" class="muted">Ошибка сети.</td></tr>'; $('#foot').textContent=''; return; }
-  if(!rows.length){ tb.innerHTML='<tr><td colspan="6" class="muted">Нет заказов по этому фильтру.</td></tr>'; $('#foot').textContent=''; return; }
+  if(!rows.length){ tb.innerHTML='<tr><td colspan="6" class="muted">Нет заказов по этому фильтру.</td></tr>'; $('#foot').textContent=''; syncOpsNote([]); return; }
+  syncOpsNote(rows);
   tb.innerHTML=rows.map(x=>{
     const st=x.status||'queued';
     const bs=badgeClass(st);
