@@ -617,9 +617,51 @@ def _stage_restoreformer(
                 "face", "error", False, f"restoreformer:{e}"[:200], in_path, out_path
             )
 
+    # Fallback: GFPGAN-compatible RestoreFormer.pth (arch=RestoreFormer)
+    if w and w.endswith('RestoreFormer.pth'):
+        try:
+            from gfpgan import GFPGANer  # type: ignore
+            import cv2
+
+            restorer = GFPGANer(
+                model_path=w,
+                upscale=1,
+                arch="RestoreFormer",
+                channel_multiplier=2,
+                bg_upsampler=None,
+            )
+            img = cv2.imread(in_path, cv2.IMREAD_COLOR)
+            if img is None:
+                raise RuntimeError("decode_failed")
+            w_fid = max(0.0, min(1.0, float(fidelity)))
+            try:
+                _, _, output = restorer.enhance(
+                    img, has_aligned=False, only_center_face=False,
+                    paste_back=True, weight=w_fid,
+                )
+            except TypeError:
+                _, _, output = restorer.enhance(
+                    img, has_aligned=False, only_center_face=False, paste_back=True,
+                )
+            _write_bgr(out_path, output)
+            return StageResult(
+                "face", "real", True,
+                f"restoreformer_gfpgan_arch:w={w_fid}", in_path, out_path,
+            )
+        except ImportError:
+            pass
+        except Exception as e:
+            if path_a_strict():
+                return StageResult(
+                    "face", "error", False,
+                    f"restoreformer_gfpgan:{e}"[:200], in_path, out_path,
+                )
+
     if path_a_strict() and not w:
         return StageResult(
-            "face", "error", False, "missing_weight:RestoreFormer++.pth", in_path, out_path
+            "face", "error", False,
+            "missing_weight:RestoreFormer++.ckpt|RestoreFormer.pth",
+            in_path, out_path,
         )
     _copy_image(in_path, out_path)
     detail = "stub_identity:restoreformer"
