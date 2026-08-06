@@ -47,7 +47,7 @@ smh/
 ```
 
 **Сервисы:**
-- **Supabase** — Postgres + Auth + RLS. Таблицы: `profiles`, `restorations`, `invite_codes`, `feedback`. RPC: `redeem_invite`.
+- **Supabase** — Postgres + Auth + RLS. Таблицы: `profiles`, `restorations`, `invite_codes`, `feedback`, `waitlist` (stub: `migration_waitlist.sql`). RPC: `redeem_invite`.
 - **DO Spaces** — приватный бакет `smh-photos` (S3-совместимый). Доступ только через presigned URL с TTL.
 - **DO App Platform** — хостинг api + static.
 

@@ -3,11 +3,13 @@
 SaveMyHistory backend API (FastAPI).
 - /api/upload-url : выдаёт presigned URL для прямой загрузки фото в DO Spaces
 - /api/restorations : создать/получить заказы реставрации (mode: restore|revive)
+- /api/waitlist : soft-waitlist (email + optional name/note)
 - /api/health
 Auth: проверяем Supabase JWT (Bearer) пользователя, привязываем заказ к user_id.
 Секреты — из переменных окружения (на DO App Platform задаются как env vars).
 """
-import os, time, uuid, json, io, hmac, hashlib, secrets, string
+import os, time, uuid, json, io, hmac, hashlib, secrets, string, re
+from collections import defaultdict
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse, HTMLResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -125,6 +127,12 @@ PUBLIC_URL = os.environ.get("PUBLIC_URL", "https://savemyhistory.tech")
 SHARE_SECRET = os.environ.get("SHARE_SECRET", SUPABASE_SECRET or "smh-share")
 ADMIN_EMAILS = {e.strip().lower() for e in os.environ.get("ADMIN_EMAILS", "").split(",") if e.strip()}
 
+# Soft-waitlist (aligns with waitlist_add.py / WAITLIST.md fields)
+EMAIL_RE = re.compile(r"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$", re.I)
+WAITLIST_RATE_WINDOW = 60  # seconds
+WAITLIST_RATE_MAX = 5      # requests per IP per window
+_waitlist_hits = defaultdict(list)
+
 async def require_admin(authorization: str):
     """Пускает только email из белого списка ADMIN_EMAILS."""
     user = await get_user(authorization)
@@ -162,9 +170,148 @@ async def db(method, path, payload=None, params=None):
         raise HTTPException(r.status_code, r.text)
     return r.json() if r.content else None
 
+
+def _client_ip(request: Request) -> str:
+    xff = (request.headers.get("x-forwarded-for") or "").strip()
+    if xff:
+        return xff.split(",")[0].strip()[:64] or "unknown"
+    return (request.client.host if request.client else "unknown")[:64]
+
+
+def _waitlist_rate_ok(ip: str) -> bool:
+    now = time.time()
+    recent = [t for t in _waitlist_hits[ip] if now - t < WAITLIST_RATE_WINDOW]
+    if len(recent) >= WAITLIST_RATE_MAX:
+        _waitlist_hits[ip] = recent
+        return False
+    recent.append(now)
+    _waitlist_hits[ip] = recent
+    return True
+
+
+def _waitlist_table_missing(detail) -> bool:
+    text = str(detail).lower()
+    return (
+        "could not find the table" in text
+        or "pgrst205" in text
+        or 'relation "public.waitlist" does not exist' in text
+        or "relation 'public.waitlist' does not exist" in text
+    )
+
+
+async def _waitlist_count() -> int:
+    """Exact row count without returning PII."""
+    url = f"{SUPABASE_URL}/rest/v1/waitlist"
+    headers = {
+        "apikey": SUPABASE_SECRET,
+        "Authorization": f"Bearer {SUPABASE_SECRET}",
+        "Prefer": "count=exact",
+        "Range-Unit": "items",
+        "Range": "0-0",
+    }
+    async with httpx.AsyncClient(timeout=20) as c:
+        r = await c.get(url, headers=headers, params={"select": "id"})
+    if r.status_code >= 300:
+        raise HTTPException(r.status_code, r.text)
+    cr = r.headers.get("content-range") or r.headers.get("Content-Range") or ""
+    if "/" in cr:
+        total = cr.split("/")[-1].strip()
+        if total.isdigit():
+            return int(total)
+    return 0
+
+
 @app.get("/api/health")
 async def health():
     return {"ok": True, "ts": int(time.time())}
+
+
+@app.get("/api/waitlist/status")
+async def waitlist_status():
+    """Публичный счётчик waitlist без PII."""
+    try:
+        count = await _waitlist_count()
+    except HTTPException as e:
+        if _waitlist_table_missing(e.detail):
+            return {
+                "ok": True,
+                "ready": False,
+                "count": 0,
+                "table": "missing",
+                "hint": "Apply migration_waitlist.sql in Supabase SQL Editor",
+            }
+        raise
+    return {"ok": True, "ready": True, "count": count}
+
+
+@app.post("/api/waitlist")
+async def waitlist_join(request: Request):
+    """Soft-waitlist: email + optional name/note/source. Upsert by email.
+    Honesty: доступ откроем письмом; реставрации обычно к утру / до 48h — без мгновенного SLA.
+    Требует таблицу public.waitlist (см. migration_waitlist.sql).
+    """
+    if not _waitlist_rate_ok(_client_ip(request)):
+        raise HTTPException(429, "rate_limited")
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(422, "bad_json")
+    if not isinstance(body, dict):
+        raise HTTPException(422, "bad_json")
+    email = (body.get("email") or "").strip().lower()
+    if not email or not EMAIL_RE.match(email):
+        raise HTTPException(422, "invalid_email")
+    name = (body.get("name") or "").strip()[:120] or None
+    note = (body.get("note") or "").strip()[:500] or None
+    source = (body.get("source") or "api").strip()[:40] or "api"
+
+    try:
+        existing = await db("GET", "waitlist", params={
+            "email": f"eq.{email}",
+            "select": "id,email",
+            "limit": "1",
+        })
+    except HTTPException as e:
+        if _waitlist_table_missing(e.detail):
+            raise HTTPException(503, "waitlist_table_missing: apply migration_waitlist.sql")
+        raise
+
+    already = bool(existing)
+    if already:
+        patch = {}
+        if name is not None:
+            patch["name"] = name
+        if note is not None:
+            patch["note"] = note
+        if source:
+            patch["source"] = source
+        if patch:
+            try:
+                await db("PATCH", "waitlist", params={"email": f"eq.{email}"}, payload=patch)
+            except HTTPException as e:
+                if _waitlist_table_missing(e.detail):
+                    raise HTTPException(503, "waitlist_table_missing: apply migration_waitlist.sql")
+                raise
+    else:
+        payload = {"email": email, "name": name, "note": note, "source": source}
+        try:
+            await db("POST", "waitlist", payload=payload)
+        except HTTPException as e:
+            if _waitlist_table_missing(e.detail):
+                raise HTTPException(503, "waitlist_table_missing: apply migration_waitlist.sql")
+            detail = str(e.detail).lower()
+            if e.status_code in (409, 23505) or "duplicate" in detail or "unique" in detail:
+                already = True
+            else:
+                raise
+
+    return {
+        "ok": True,
+        "status": "already" if already else "joined",
+        "message_ru": "Спасибо. Напишем на email, когда откроем доступ. Реставрации — обычно к утру / до 48 часов, без мгновенного SLA.",
+        "message_ro": "Mulțumim. Vă scriem pe email când deschidem accesul. Restaurările — de obicei până dimineață / în 48h, fără SLA instant.",
+        "message_en": "Thanks. We'll email when access opens. Restorations usually by morning / within 48h — not instant.",
+    }
 
 @app.get("/api/me")
 async def me(authorization: str = Header(None)):
