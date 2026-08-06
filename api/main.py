@@ -390,6 +390,14 @@ async def me(authorization: str = Header(None)):
 @app.post("/api/upload-url")
 async def upload_url(request: Request, authorization: str = Header(None)):
     user = await get_user(authorization)
+    profile = await get_profile(user["id"])
+    free_quota = int(profile.get("free_quota") or 0)
+    used_quota = int(profile.get("used_quota") or 0)
+    redeemed = profile.get("redeemed_code")
+    if not (redeemed or free_quota > 0):
+        raise HTTPException(403, "invite_required")
+    if free_quota > 0 and used_quota >= free_quota:
+        raise HTTPException(402, "free_limit_reached")
     body = await request.json()
     ext = (body.get("ext") or "jpg").lower().lstrip(".")
     if ext not in {"jpg", "jpeg", "png", "tiff", "webp", "heic"}:
@@ -572,12 +580,22 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     original_key = body.get("original_key")
     if not original_key:
         raise HTTPException(400, "no original_key")
-    # лимит бесплатных реставраций: считаем все заказы юзера (кроме failed)
+    # Friend path: invite unlock + profile quota (cabinet fields free_quota/used_quota/redeemed_code).
+    # FREE_LIMIT remains a hard ceiling even if profile columns are missing/stale.
+    profile = await get_profile(user["id"])
+    free_quota = int(profile.get("free_quota") or 0)
+    used_quota = int(profile.get("used_quota") or 0)
+    redeemed = profile.get("redeemed_code")
+    if not (redeemed or free_quota > 0):
+        raise HTTPException(403, "invite_required")
+    if free_quota > 0 and used_quota >= free_quota:
+        raise HTTPException(402, "free_limit_reached")
     existing = await db("GET", "restorations",
                         params={"user_id": f"eq.{user['id']}", "status": "neq.failed", "select": "id"})
     used = len(existing or [])
-    if used >= FREE_LIMIT:
-        raise HTTPException(402, f"free_limit_reached:{FREE_LIMIT}")
+    hard_cap = free_quota if free_quota > 0 else FREE_LIMIT
+    if used >= hard_cap or used >= FREE_LIMIT:
+        raise HTTPException(402, f"free_limit_reached:{hard_cap}")
     # lane/priority: default overnight (free). realtime accepted but not billed yet.
     # DB column `lane` may be absent — try persist, soft-fallback without it (BLOCKED until migration).
     raw_lane = (body.get("lane") or body.get("priority") or "overnight")
@@ -597,6 +615,11 @@ async def create_restoration(request: Request, authorization: str = Header(None)
         out = res[0] if isinstance(res, list) else res
         if isinstance(out, dict):
             out.setdefault("lane", lane)
+        try:
+            await db("PATCH", "profiles", params={"id": f"eq.{user['id']}"},
+                     payload={"used_quota": used_quota + 1})
+        except Exception:
+            pass
         return out
     except HTTPException as e:
         detail = (e.detail if isinstance(e.detail, str) else str(e.detail)).lower()
@@ -607,6 +630,11 @@ async def create_restoration(request: Request, authorization: str = Header(None)
             if isinstance(out, dict):
                 out["lane"] = lane
                 out["lane_persisted"] = False
+            try:
+                await db("PATCH", "profiles", params={"id": f"eq.{user['id']}"},
+                         payload={"used_quota": used_quota + 1})
+            except Exception:
+                pass
             return out
         raise
 

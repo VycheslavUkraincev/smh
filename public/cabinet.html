@@ -299,14 +299,17 @@ async function doSend(){
   const ext=(chosen.name.split('.').pop()||'jpg').toLowerCase();
   try{
     const ur=await fetch('/api/upload-url',{method:'POST',headers:{Authorization:'Bearer '+s.access_token,'Content-Type':'application/json'},body:JSON.stringify({ext,content_type:chosen.type||'image/jpeg'})});
+    if(ur.status===403){setMsg(t('inv_need'),'err'); drop.classList.remove('loading'); sendBtn.disabled=false; resetDrop(); await refresh(); return;}
+    if(ur.status===402){setMsg(t('limit'),'err'); drop.classList.remove('loading'); sendBtn.disabled=false; resetDrop(); await refresh(); return;}
     if(!ur.ok){throw new Error('upload-url failed');}
     const u=await ur.json();
     const put=await fetch(u.upload_url,{method:'PUT',headers:{'Content-Type':chosen.type||'image/jpeg'},body:chosen});
     if(!put.ok){throw new Error('put failed');}
     const cr=await fetch('/api/restorations',{method:'POST',headers:{Authorization:'Bearer '+s.access_token,'Content-Type':'application/json'},body:JSON.stringify({original_key:u.key,mode})});
-    if(cr.status===402){setMsg(t('limit'),'err'); drop.classList.remove('loading'); sendBtn.disabled=false; resetDrop(); return;}
+    if(cr.status===402){setMsg(t('limit'),'err'); drop.classList.remove('loading'); sendBtn.disabled=false; resetDrop(); await refresh(); return;}
+    if(cr.status===403){setMsg(t('inv_need'),'err'); drop.classList.remove('loading'); sendBtn.disabled=false; resetDrop(); await refresh(); return;}
     if(!cr.ok){throw new Error('order failed');}
-    setMsg(t('sent'),'ok'); chosen=null; resetDrop(); loadGal(s);
+    setMsg(t('sent'),'ok'); chosen=null; resetDrop(); await refresh();
   }catch(e){setMsg(t('err'),'err');}
   drop.classList.remove('loading');
   sendBtn.disabled=false;
