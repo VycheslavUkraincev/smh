@@ -20,8 +20,11 @@ ENV
   FACE_MODEL           gfpgan | restoreformer   (default: gfpgan)
   ENABLE_DDCOLOR       0|1                      (default: 0)
   PATH_A_STRICT        0|1  if 1, missing weights/libs → hard error
+  FAIL_SOFT            0|1  default 1: stage errors → identity stub + continue
+                         (FAIL_SOFT=0 same as PATH_A_STRICT for stage failures)
   PATH_A_ALLOW_STUB    0|1  if 1, force stub backends even if libs present
-  PATH_A_DRYRUN        0|1  alias of PATH_A_ALLOW_STUB (offline I/O dry-run)
+  PATH_A_DRY_RUN       0|1  offline I/O dry-run (alias: PATH_A_DRYRUN)
+  PATH_A_DRYRUN        0|1  alias of PATH_A_DRY_RUN / PATH_A_ALLOW_STUB
   PATH_A_DOWNLOAD      0|1  if 1, download_missing_weights() may fetch
 
 Disk budget (weights only, GFPGAN path): ~0.8–1.5 GB
@@ -141,19 +144,37 @@ def weights_dir() -> str:
 
 
 def path_a_strict() -> bool:
-    return (os.environ.get("PATH_A_STRICT") or "0").strip().lower() in (
+    """Hard-fail mode: missing weights/libs or stage errors → error.
+
+    True when PATH_A_STRICT=1, or when FAIL_SOFT is explicitly 0/false/off.
+    """
+    if (os.environ.get("PATH_A_STRICT") or "0").strip().lower() in (
         "1", "true", "yes", "on",
-    )
+    ):
+        return True
+    # FAIL_SOFT=0 disables soft fallback (same effect as strict for stages)
+    fs = (os.environ.get("FAIL_SOFT") or "1").strip().lower()
+    if fs in ("0", "false", "no", "off"):
+        return True
+    return False
+
+
+def fail_soft() -> bool:
+    """FAIL_SOFT default 1: stage failure → identity stub + continue.
+
+    Disabled by FAIL_SOFT=0 or PATH_A_STRICT=1.
+    """
+    return not path_a_strict()
 
 
 def path_a_allow_stub() -> bool:
     """Offline dry-run / forced stub backends.
 
-    True when PATH_A_ALLOW_STUB=1 OR PATH_A_DRYRUN=1.
-    PATH_A_DRYRUN is the product alias: validates file I/O + stage order
-    without claiming restoration quality.
+    True when PATH_A_ALLOW_STUB=1 OR PATH_A_DRY_RUN=1 OR PATH_A_DRYRUN=1.
+    PATH_A_DRY_RUN validates file I/O + stage order without claiming
+    restoration quality or GPU smoke.
     """
-    for key in ("PATH_A_ALLOW_STUB", "PATH_A_DRYRUN"):
+    for key in ("PATH_A_ALLOW_STUB", "PATH_A_DRY_RUN", "PATH_A_DRYRUN"):
         if (os.environ.get(key) or "0").strip().lower() in ("1", "true", "yes", "on"):
             return True
     return False
@@ -296,6 +317,7 @@ def describe() -> str:
         f"  ENABLE_DDCOLOR={int(enable_ddcolor())}",
         f"  WEIGHTS_DIR={weights_dir()}",
         f"  PATH_A_STRICT={int(path_a_strict())}",
+        f"  FAIL_SOFT={int(fail_soft())}",
         f"  PATH_A_ALLOW_STUB={int(path_a_allow_stub())}",
         f"  stages: {' → '.join(STAGES)}",
         f"  expected weights disk: ~{low}–{high} MB (canon pack ~0.8–1.5 GB)",

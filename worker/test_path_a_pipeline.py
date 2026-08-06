@@ -45,7 +45,10 @@ class _EnvGuard(unittest.TestCase):
         "FACE_MODEL",
         "ENABLE_DDCOLOR",
         "PATH_A_STRICT",
+        "FAIL_SOFT",
         "PATH_A_ALLOW_STUB",
+        "PATH_A_DRY_RUN",
+        "PATH_A_DRYRUN",
         "PATH_A_DOWNLOAD",
         "WEIGHTS_DIR",
         "COLORIZE",
@@ -105,6 +108,25 @@ class TestCanonAndEnv(_EnvGuard):
         # modern + COLORIZE=auto → ddcolor listed
         os.environ["COLORIZE"] = "auto"
         self.assertIn("ddcolor", pa.plan_stages("modern"))
+
+    def test_fail_soft_default_and_strict(self):
+        self.assertTrue(pa.fail_soft())
+        self.assertFalse(pa.path_a_strict())
+        os.environ["FAIL_SOFT"] = "0"
+        self.assertFalse(pa.fail_soft())
+        self.assertTrue(pa.path_a_strict())
+        os.environ.pop("FAIL_SOFT", None)
+        os.environ["PATH_A_STRICT"] = "1"
+        self.assertFalse(pa.fail_soft())
+        self.assertTrue(pa.path_a_strict())
+
+    def test_path_a_dry_run_alias(self):
+        self.assertFalse(pa.path_a_allow_stub())
+        os.environ["PATH_A_DRY_RUN"] = "1"
+        self.assertTrue(pa.path_a_allow_stub())
+        os.environ.pop("PATH_A_DRY_RUN", None)
+        os.environ["PATH_A_DRYRUN"] = "1"
+        self.assertTrue(pa.path_a_allow_stub())
 
 
 class TestWeightsHelpers(_EnvGuard):
@@ -243,6 +265,18 @@ class TestOrchestratorMocks(_EnvGuard):
         raw = _tiny_jpeg_bytes()
         out = pa.restore_path_a(raw, prompt="x", fidelity=0.5, preserve_identity=True)
         self.assertEqual(out[:2], b"\xff\xd8")
+
+    def test_restore_path_a_dry_run_env(self):
+        """PATH_A_DRY_RUN=1 exercises I/O + stage order without GPU claim."""
+        os.environ["PATH_A_DRY_RUN"] = "1"
+        with tempfile.TemporaryDirectory() as td:
+            src = _write_tiny_jpeg(os.path.join(td, "in.jpg"))
+            dst = os.path.join(td, "out.jpg")
+            res = pa.restore_path_a(src, dst, mode="authentic")
+            self.assertTrue(res.ok)
+            self.assertEqual([s.name for s in res.stages], ["lama", "face", "realesrgan"])
+            self.assertTrue(all(s.backend == "stub" for s in res.stages))
+            self.assertTrue(os.path.isfile(dst))
 
 
 class TestHandlerDispatch(_EnvGuard):
