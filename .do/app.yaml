@@ -95,6 +95,7 @@ static_sites:
     github:
       repo: VycheslavUkraincev/smh
       branch: main
+      deploy_on_push: true
     routes:
       - path: /
     index_document: index.html
