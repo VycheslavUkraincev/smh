@@ -162,7 +162,7 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
         <button class="btn btn-gold" id="inv-submit" type="button" data-i18n="inv_submit">Активировать</button>
       </div>
       <label class="consent"><input type="checkbox" id="inv-consent"> <span data-i18n="inv_consent">Согласен(на) на использование фото для улучшения качества реставрации (анонимно)</span></label>
-      <div class="msg" id="inv-msg"></div>
+      <div class="msg" id="inv-msg" role="status" aria-live="polite"></div>
     </div>
   </div>
 
@@ -490,5 +490,5 @@ async function start(){
 }
 start();
 </script>
-</body>
+<p class="legal-foot" style="text-align:center;margin:18px 12px;font-size:.85rem"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p></body>
 </html>
