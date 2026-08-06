@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SaveMyHistory — Политика конфиденциальности</title>
-<meta name="description" content="Политика конфиденциальности SaveMyHistory. Файлы храним до 48 часов после готовности. Мы не учимся на ваших фото.">
+<meta property="og:title" content="SaveMyHistory — конфиденциальность">
+  <meta property="og:description" content="Политика конфиденциальности SaveMyHistory. Хранение фото до 48 часов.">
+  <meta name="description" content="Политика конфиденциальности SaveMyHistory. Файлы храним до 48 часов после готовности. Мы не учимся на ваших фото.">
 <link rel="canonical" href="https://savemyhistory.tech/privacy.html">
 <style>
 :root{--paper:#F7F1E7;--paper2:#EFE6D6;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32}
@@ -60,5 +62,6 @@ function apply(l){if(!I[l])l='en';const d=I[l];document.documentElement.lang=l;d
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>apply(b.dataset.lang));
 (function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='ro'?'ro':(n==='lt'?'lt':(n==='ru'?'ru':'en')));}}catch(e){}apply(l);})();
 </script>
+<p class="legal-cross" style="text-align:center;margin:28px 12px"><a href="/">На главную</a> · <a href="/terms.html">Условия</a></p>
 </body>
 </html>

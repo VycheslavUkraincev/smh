@@ -6,5 +6,6 @@ Disallow: /api/
 Disallow: /app.html
 Disallow: /arena.html
 Disallow: /story.html
+Disallow: /story/
 
 Sitemap: https://savemyhistory.tech/sitemap.xml
