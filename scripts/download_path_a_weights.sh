@@ -2,7 +2,7 @@
 # SaveMyHistory — скачать веса Path A на машине Vast/GPU.
 #
 # Канон: LaMa → GFPGAN|RestoreFormer++ → Real-ESRGAN → DDColor (опц.)
-# CodeFormer ≠ commercial default.
+# CodeFormer ≠ commercial default (не скачиваем).
 #
 # ЗАПУСКАТЬ ТОЛЬКО на GPU-машине (Vast/RunPod), НЕ в sandbox Portal
 # (лимит ~100 MB; полный пакет ~0.6–1.8 GB).
@@ -10,15 +10,17 @@
 #
 # Примеры:
 #   ./scripts/download_path_a_weights.sh --dry-run
-#   WEIGHTS_DIR=/weights ./scripts/download_path_a_weights.sh
-#   ./scripts/download_path_a_weights.sh --with-ddcolor --with-rfpp
-#   SKIP_LARGE=1 ./scripts/download_path_a_weights.sh   # без DDColor (~870 MB)
+#   WEIGHTS_DIR=/weights ./scripts/download_path_a_weights.sh          # smoke (SKIP_LARGE=1)
+#   SKIP_LARGE=0 ./scripts/download_path_a_weights.sh                  # full + DDColor
+#   ./scripts/download_path_a_weights.sh --full
+#   ./scripts/download_path_a_weights.sh --with-rfpp                   # + RestoreFormer++
 #
 set -euo pipefail
 
 WEIGHTS_DIR="${WEIGHTS_DIR:-/weights}"
 DRY_RUN="${DRY_RUN:-0}"
-SKIP_LARGE="${SKIP_LARGE:-0}"
+# Default SKIP_LARGE=1 → tiny/smoke (core без DDColor). SKIP_LARGE=0 → full.
+SKIP_LARGE="${SKIP_LARGE:-1}"
 WITH_DDCOLOR="${WITH_DDCOLOR:-0}"
 WITH_RFPP="${WITH_RFPP:-0}"
 FORCE="${FORCE:-0}"
@@ -29,16 +31,24 @@ usage() {
   cat <<'EOF'
 download_path_a_weights.sh — веса Path A для Vast GPU
 
+По умолчанию SKIP_LARGE=1 (smoke: LaMa + GFPGAN + Real-ESRGAN).
+SKIP_LARGE=0 или --full — ещё DDColor (~870 MB).
+
 Флаги:
   --dry-run          только показать план, ничего не качать
-  --skip-large       пропустить файлы > LARGE_THRESHOLD (по умолчанию DDColor)
-  --with-ddcolor     скачать DDColor (~870 MB)
+  --skip-large       SKIP_LARGE=1 (default)
+  --full             SKIP_LARGE=0 + DDColor
+  --with-ddcolor     скачать DDColor (также снимает SKIP_LARGE)
   --with-rfpp        скачать RestoreFormer++ (.ckpt) дополнительно к GFPGAN
   --force            перекачать даже если файл уже есть и размер ок
   --weights-dir DIR  каталог весов (default: /weights или $WEIGHTS_DIR)
   -h, --help         эта справка
 
-ENV: WEIGHTS_DIR DRY_RUN=1 SKIP_LARGE=1 WITH_DDCOLOR=1 WITH_RFPP=1 FORCE=1
+ENV: WEIGHTS_DIR DRY_RUN=1 SKIP_LARGE=0|1 WITH_DDCOLOR=1 WITH_RFPP=1 FORCE=1
+
+Checksum: размер-файл ±2% от verified Content-Length (2026-08-06 HEAD 200).
+Официальных sha256 sidecar у релизов нет; после скачивания можно:
+  sha256sum "$WEIGHTS_DIR"/* > "$WEIGHTS_DIR/weights.sha256.txt"
 EOF
 }
 
@@ -46,7 +56,8 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --dry-run) DRY_RUN=1; shift ;;
     --skip-large) SKIP_LARGE=1; shift ;;
-    --with-ddcolor) WITH_DDCOLOR=1; shift ;;
+    --full) SKIP_LARGE=0; WITH_DDCOLOR=1; shift ;;
+    --with-ddcolor) WITH_DDCOLOR=1; SKIP_LARGE=0; shift ;;
     --with-rfpp) WITH_RFPP=1; shift ;;
     --force) FORCE=1; shift ;;
     --weights-dir) WEIGHTS_DIR="$2"; shift 2 ;;
@@ -55,8 +66,14 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+# Если SKIP_LARGE=0 — full pack включает DDColor
+if [ "$SKIP_LARGE" != "1" ]; then
+  WITH_DDCOLOR=1
+fi
+
 # Каталог: ключ|файл|ожидаемый_размер_байт|URL|группа(core|optional|large)
 # Размеры проверены HEAD Content-Length 2026-08-06 (HTTP 200).
+# Синхрон с worker/path_a_pipeline.py WEIGHTS.
 CATALOG=$(cat <<'EOF'
 lama|big-lama.pt|205669692|https://github.com/Sanster/models/releases/download/add_big_lama/big-lama.pt|core
 gfpgan|GFPGANv1.4.pth|348632874|https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/GFPGANv1.4.pth|core
@@ -81,7 +98,6 @@ fi
 log() { printf '[patha-weights] %s\n' "$*"; }
 
 bytes_human() {
-  # простой вывод MB
   local b="$1"
   printf '%s (~%s MB)' "$b" "$((b / 1024 / 1024))"
 }
@@ -119,7 +135,6 @@ download_one() {
   fi
 
   log "Скачиваю $key → $dest ($(bytes_human "$expected"))"
-  # -L follow redirects (GitHub/HF); --fail на HTTP ошибки
   curl -fL --retry 3 --retry-delay 2 -o "$tmp" "$url"
   if ! verify_size "$tmp" "$expected"; then
     rm -f "$tmp"
@@ -130,21 +145,15 @@ download_one() {
 }
 
 should_fetch() {
-  local group="$1" expected="$2"
+  local group="$1"
   case "$group" in
     core) return 0 ;;
     large)
+      # DDColor: только full / --with-ddcolor / SKIP_LARGE=0
       if [ "$WITH_DDCOLOR" = "1" ] && [ "$SKIP_LARGE" != "1" ]; then
         return 0
       fi
-      # SKIP_LARGE или без --with-ddcolor
-      if [ "$expected" -ge "$LARGE_THRESHOLD_BYTES" ] && [ "$SKIP_LARGE" = "1" ]; then
-        return 1
-      fi
-      if [ "$WITH_DDCOLOR" != "1" ]; then
-        return 1
-      fi
-      return 0
+      return 1
       ;;
     optional)
       [ "$WITH_RFPP" = "1" ]
@@ -160,7 +169,8 @@ else
 fi
 
 log "WEIGHTS_DIR=$WEIGHTS_DIR dry_run=$DRY_RUN skip_large=$SKIP_LARGE with_ddcolor=$WITH_DDCOLOR with_rfpp=$WITH_RFPP"
-log "Канон: LaMa + GFPGAN + Real-ESRGAN; DDColor/RF++ по флагам"
+log "Канон: LaMa + GFPGAN + Real-ESRGAN; DDColor при SKIP_LARGE=0; RF++ по --with-rfpp"
+log "CodeFormer НЕ скачивается (legacy only)"
 
 FAILED=0
 PLANNED=0
@@ -168,8 +178,8 @@ SKIPPED=0
 
 while IFS='|' read -r key file expected url group; do
   [ -n "$key" ] || continue
-  if ! should_fetch "$group" "$expected"; then
-    log "SKIP $key ($file, group=$group) — включи --with-ddcolor / --with-rfpp или убери SKIP_LARGE"
+  if ! should_fetch "$group"; then
+    log "SKIP $key ($file, group=$group) — smoke default; full: SKIP_LARGE=0 или --full / --with-rfpp"
     SKIPPED=$((SKIPPED + 1))
     continue
   fi
@@ -187,6 +197,12 @@ fi
 if [ "$DRY_RUN" = "1" ]; then
   log "DRY-RUN завершён (ничего не скачано)"
   exit 0
+fi
+
+if command -v sha256sum >/dev/null 2>&1; then
+  (cd "$WEIGHTS_DIR" && sha256sum big-lama.pt GFPGANv1.4.pth RealESRGAN_x2plus.pth ddcolor_modelscope.pth "RestoreFormer++.ckpt" 2>/dev/null) \
+    > "$WEIGHTS_DIR/weights.sha256.txt" || true
+  log "checksums → $WEIGHTS_DIR/weights.sha256.txt"
 fi
 
 log "Готово. Проверка:"
