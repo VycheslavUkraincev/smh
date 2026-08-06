@@ -8,18 +8,20 @@ Usage (on a machine with disk, e.g. Vast instance):
   python3 worker/scripts/download_path_a_weights.py
   python3 worker/scripts/download_path_a_weights.py --dest /weights
   python3 worker/scripts/download_path_a_weights.py --with-ddcolor --with-rfpp
-  SKIP_LARGE=1 python3 worker/scripts/download_path_a_weights.py   # skip >100MB
   python3 worker/scripts/download_path_a_weights.py --dry-run
+  SKIP_LARGE=0 python3 worker/scripts/download_path_a_weights.py --dest /weights  # full + DDColor
 
 Vast one-liner (after SSH into rented box — rent only after Roman «GPU да»):
   mkdir -p /weights && python3 worker/scripts/download_path_a_weights.py --dest /weights
 
-Sandbox note: Portal sandbox ~100MB file limit — large weights cannot fully land
-there. Use SKIP_LARGE=1 for catalog/size checks only, or download on Vast/GPU host.
+SKIP_LARGE=1 (default) = smoke/tiny: LaMa + GFPGAN + Real-ESRGAN (no DDColor).
+SKIP_LARGE=0 / --full = full pack including DDColor.
+Do NOT run full download in Portal sandbox (~100 MB limit).
 
 Checksums: GitHub/HF release assets rarely ship sha256 sidecars. This script
 records SHA256 after download into weights.sha256.txt for later verify.
-Official sizes below are approximate; hard fail if file < min_mb or empty.
+Size floor: hard fail if file < min_mb or empty. Keep URLs in sync with
+worker/path_a_pipeline.py WEIGHTS.
 """
 from __future__ import annotations
 
@@ -101,11 +103,13 @@ CATALOG: Dict[str, Dict[str, object]] = {
     },
 }
 
-SKIP_LARGE_MB = 100  # Portal sandbox / small disks
+# DDColor is the LARGE optional; core GFPGAN path stays with SKIP_LARGE=1.
+LARGE_KEYS = frozenset({"ddcolor"})
 
 
 def skip_large() -> bool:
-    return (os.environ.get("SKIP_LARGE") or "0").strip().lower() in (
+    """Default SKIP_LARGE=1 (smoke). SKIP_LARGE=0 → full including DDColor."""
+    return (os.environ.get("SKIP_LARGE") or "1").strip().lower() in (
         "1", "true", "yes", "on",
     )
 
@@ -141,14 +145,14 @@ def download_one(
     min_mb = int(meta.get("min_mb") or 1)
     dest = os.path.join(dest_dir, fname)
 
-    if skip_large() and approx > SKIP_LARGE_MB:
+    if skip_large() and key in LARGE_KEYS:
         return {
             "key": key,
             "file": fname,
             "status": "skipped_skip_large",
             "approx_mb": approx,
             "path": dest,
-            "note": f"SKIP_LARGE=1 and ~{approx}MB > {SKIP_LARGE_MB}MB",
+            "note": "SKIP_LARGE=1 (default smoke) — set SKIP_LARGE=0 or --with-ddcolor for full",
         }
 
     if os.path.isfile(dest) and not force and os.path.getsize(dest) > 0:
@@ -273,7 +277,14 @@ def main(argv: Optional[List[str]] = None) -> int:
         default=os.environ.get("WEIGHTS_DIR") or "./weights",
         help="Destination directory (default WEIGHTS_DIR or ./weights)",
     )
-    p.add_argument("--with-ddcolor", action="store_true", help="Also fetch DDColor")
+    p.add_argument(
+        "--with-ddcolor", action="store_true",
+        help="Also fetch DDColor (implies full; same as SKIP_LARGE=0)",
+    )
+    p.add_argument(
+        "--full", action="store_true",
+        help="SKIP_LARGE=0 + DDColor",
+    )
     p.add_argument(
         "--with-rfpp", action="store_true",
         help="Also fetch RestoreFormer++.ckpt",
@@ -305,7 +316,8 @@ def main(argv: Optional[List[str]] = None) -> int:
                 print(f"       alt: {m['alt_file']} → {m['alt_url']}")
             print()
         print("Checksum note: after download, SHA256 written to weights.sha256.txt")
-        print("SKIP_LARGE=1 skips files with approx_mb > 100 (sandbox-safe).")
+        print("SKIP_LARGE=1 (default): smoke core, no DDColor. SKIP_LARGE=0 / --full: +DDColor.")
+        print("CodeFormer: NOT downloaded (legacy GEN_STACK only).")
         print()
         print("Vast one-liner (ONLY after Roman «GPU да» + $cap + second confirm):")
         print(
@@ -313,6 +325,12 @@ def main(argv: Optional[List[str]] = None) -> int:
             "python3 worker/scripts/download_path_a_weights.py --dest /weights"
         )
         return 0
+
+    if getattr(args, "full", False) or args.with_ddcolor:
+        os.environ["SKIP_LARGE"] = "0"
+        args.with_ddcolor = True
+    elif not skip_large():
+        args.with_ddcolor = True
 
     keys = select_keys(args)
     if not keys:

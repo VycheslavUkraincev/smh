@@ -32,7 +32,7 @@ python3 worker/scripts/download_path_a_weights.py --dry-run --list
 В песочнице Portal файлы >~100 MB не влезают. Там:
 
 ```bash
-SKIP_LARGE=1 python3 worker/scripts/download_path_a_weights.py --dest ./weights --dry-run
+SKIP_LARGE=1 (default smoke; SKIP_LARGE=0 full) python3 worker/scripts/download_path_a_weights.py --dest ./weights --dry-run
 ```
 
 Полные веса качать на Vast / GPU-машине.
