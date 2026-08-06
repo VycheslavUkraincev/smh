@@ -62,10 +62,10 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,44px);color:var(--gold,#caa45e);line-height:1}
 .stat span{font-size:13px;opacity:.85;letter-spacing:.02em}
 /* COMPARE slider (shared) */
-.cmp{position:relative;width:100%;aspect-ratio:var(--ar,3/2);border-radius:16px;overflow:hidden;background:#1a1410;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22)}
-.cmp>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center;pointer-events:none}
+.cmp{position:relative;width:100%;aspect-ratio:var(--ar,3/4);border-radius:16px;overflow:hidden;background:#E8DCC8;cursor:ew-resize;user-select:none;touch-action:none;box-shadow:0 24px 60px rgba(50,30,15,.22)}
+.cmp>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;pointer-events:none;display:block}
 .cmp .aw{position:absolute;top:0;left:0;height:100%;overflow:hidden;width:50%}
-.cmp .aw img{position:absolute;top:0;left:0;width:100%;height:100%;max-width:none!important;object-fit:contain;object-position:center center;pointer-events:none}
+.cmp .aw img{position:absolute;inset:0;width:100%;height:100%;max-width:none!important;object-fit:cover;object-position:center center;pointer-events:none;display:block}
 .cmp .lab{position:absolute;top:10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:4px 11px;border-radius:20px;pointer-events:none;backdrop-filter:blur(4px)}
 .cmp .lb{left:14px}.cmp .la{right:14px}
 .cmp .hd{position:absolute;top:0;bottom:0;width:2px;background:#fff;left:50%;transform:translateX(-50%);pointer-events:none}
@@ -301,10 +301,10 @@ function initCmp(){
  document.querySelectorAll('[data-cmp]').forEach(cmp=>{
   if(cmp.dataset.cmpReady)return;cmp.dataset.cmpReady='1';
   const aw=cmp.querySelector('.aw'),hd=cmp.querySelector('.hd');
-  const bg=cmp.querySelector('img.bg');const applyAr=()=>{if(!bg)return;const nw=bg.naturalWidth,nh=bg.naturalHeight;if(nw&&nh)cmp.style.setProperty('--ar',nw+'/'+nh);};if(bg){if(bg.complete&&bg.naturalWidth)applyAr();else bg.addEventListener('load',applyAr);}
+  const bg=cmp.querySelector('img.bg');const af=cmp.querySelector('.aw img');const applyAr=()=>{const img=bg&&bg.naturalWidth?bg:(af&&af.naturalWidth?af:null);if(!img)return;const nw=img.naturalWidth,nh=img.naturalHeight;if(nw&&nh)cmp.style.setProperty('--ar',nw+'/'+nh);};const bindAr=img=>{if(!img)return;if(img.complete&&img.naturalWidth)applyAr();else img.addEventListener('load',applyAr,{once:true});};bindAr(bg);bindAr(af);
   let pos=50;
   const set=p=>{pos=Math.max(0,Math.min(100,p));aw.style.width=pos+'%';hd.style.left=pos+'%';cmp.setAttribute('aria-valuenow',String(Math.round(pos)));};
-  const sync=()=>{const w=cmp.clientWidth;cmp.querySelectorAll('.aw img').forEach(i=>i.style.width=w+'px');};
+  const sync=()=>{const w=cmp.clientWidth,h=cmp.clientHeight;cmp.querySelectorAll('.aw img').forEach(i=>{i.style.width=w+'px';i.style.height=h+'px';});};
   sync();window.addEventListener('resize',sync);
   cmp.querySelectorAll('img').forEach(i=>{if(!i.complete)i.addEventListener('load',sync);});
   let drag=false;const move=x=>{const r=cmp.getBoundingClientRect();set((x-r.left)/r.width*100);};
