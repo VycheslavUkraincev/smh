@@ -581,7 +581,8 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     if not original_key:
         raise HTTPException(400, "no original_key")
     # Friend path: invite unlock + profile quota (cabinet fields free_quota/used_quota/redeemed_code).
-    # FREE_LIMIT remains a hard ceiling even if profile columns are missing/stale.
+    # Invite path (free_quota > 0): honor invite free_quota/used_quota only — do not also hard-block at FREE_LIMIT.
+    # FREE_LIMIT is fallback when redeemed but free_quota columns are missing/zero.
     profile = await get_profile(user["id"])
     free_quota = int(profile.get("free_quota") or 0)
     used_quota = int(profile.get("used_quota") or 0)
@@ -593,8 +594,9 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     existing = await db("GET", "restorations",
                         params={"user_id": f"eq.{user['id']}", "status": "neq.failed", "select": "id"})
     used = len(existing or [])
+    # Invite allowance wins over FREE_LIMIT; FREE_LIMIT only for non-invite/stale-quota fallback.
     hard_cap = free_quota if free_quota > 0 else FREE_LIMIT
-    if used >= hard_cap or used >= FREE_LIMIT:
+    if used >= hard_cap:
         raise HTTPException(402, f"free_limit_reached:{hard_cap}")
     # lane/priority: default overnight (free). realtime accepted but not billed yet.
     # DB column `lane` may be absent — try persist, soft-fallback without it (BLOCKED until migration).
