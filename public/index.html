@@ -18,6 +18,13 @@
 <meta name="twitter:description" content="Режимы Подлинный и Готовый. Обычно к утру.">
 <meta name="twitter:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
 <meta name="theme-color" content="#F7F1E7"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon.png"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" type="image/png">
+<link rel="alternate" hreflang="ru" href="https://savemyhistory.tech/">
+<link rel="alternate" hreflang="uk" href="https://savemyhistory.tech/">
+<link rel="alternate" hreflang="en" href="https://savemyhistory.tech/">
+<link rel="alternate" hreflang="ro" href="https://savemyhistory.tech/">
+<link rel="alternate" hreflang="lt" href="https://savemyhistory.tech/">
+<link rel="alternate" hreflang="x-default" href="https://savemyhistory.tech/">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"SaveMyHistory","url":"https://savemyhistory.tech/","logo":"https://savemyhistory.tech/favicon.png"},{"@type":"WebSite","name":"SaveMyHistory","url":"https://savemyhistory.tech/","description":"Бережная реставрация семейных фото. Режимы Подлинный и Готовый. Обычно к утру."}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -25,6 +32,10 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Manrope',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden}
+.skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:1000}
+.skip:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:10px 16px;background:var(--ink);color:var(--paper);border-radius:8px;outline:2px solid var(--gold)}
+#cases,#how,#main{scroll-margin-top:80px}
+.hbtn:focus-visible,.cta-row a:focus-visible,.menu a:focus-visible,.friend-cta a:focus-visible{outline:2px solid var(--gold-d);outline-offset:3px}
 .serif{font-family:'Cormorant Garamond',serif}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.1}
@@ -147,6 +158,8 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
 }
 </style></head>
 <body>
+<a class="skip" href="#main">К основному содержимому</a>
+
 <header>
  <div class="wrap nav">
   <a href="/" class="brand">SAVE<b>MY</b>HISTORY</a>
@@ -165,7 +178,7 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="main">
  <div class="wrap hero-grid">
   <div class="reveal">
    <div class="kicker" data-i18n="hero_kicker">Семейные фото · готово к утру</div>
