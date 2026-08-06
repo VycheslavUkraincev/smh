@@ -875,6 +875,37 @@ def run_stages(
             shutil.rmtree(tmp_root, ignore_errors=True)
 
 
+# ---------------------------------------------------------------------------
+# Public stage aliases (task API names)
+# ---------------------------------------------------------------------------
+def lama_inpaint(in_path: str, out_path: str) -> StageResult:
+    """Alias → stage_lama."""
+    return stage_lama(in_path, out_path)
+
+
+def face_restore(
+    in_path: str,
+    out_path: str,
+    *,
+    model: Optional[str] = None,
+    fidelity: float = 0.5,
+) -> StageResult:
+    """Alias → stage_face (GFPGAN | RestoreFormer++ via FACE_MODEL / model=)."""
+    return stage_face(in_path, out_path, model=model, fidelity=fidelity)
+
+
+def realesrgan_upscale(
+    in_path: str, out_path: str, *, outscale: float = 2.0
+) -> StageResult:
+    """Alias → stage_realesrgan."""
+    return stage_realesrgan(in_path, out_path, outscale=outscale)
+
+
+def ddcolor_colorize(in_path: str, out_path: str) -> StageResult:
+    """Alias → stage_ddcolor."""
+    return stage_ddcolor(in_path, out_path)
+
+
 def restore_path_a(
     input_path: Optional[str] = None,
     out_path: Optional[str] = None,
