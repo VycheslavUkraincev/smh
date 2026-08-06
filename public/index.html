@@ -353,7 +353,7 @@ function initCmp(){
 // reveal — IO + timeout fallback (parity with gallery; avoids stuck opacity:0)
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.classList.remove('is-pending');}}),{threshold:.01,rootMargin:'80px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>{el.classList.add('is-pending');io.observe(el);});
-setTimeout(()=>document.querySelectorAll('.reveal.is-pending').forEach(el=>{el.classList.add('in');el.classList.remove('is-pending');}),1200);
+setTimeout(()=>{document.querySelectorAll('.reveal.is-pending').forEach(el=>{el.classList.add('in');el.classList.remove('is-pending');});document.querySelectorAll('#ba-grid img').forEach(img=>{if(img.dataset.kick)return;img.dataset.kick='1';try{img.loading='eager';if(img.decode)img.decode().catch(()=>{});}catch(e){}});},1200);
 // burger
 document.getElementById('burger').onclick=()=>{const m=document.getElementById('menu');const b=document.getElementById('burger');const open=m.classList.toggle('open');b.setAttribute('aria-expanded',open?'true':'false');};document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>{document.getElementById('menu').classList.remove('open');document.getElementById('burger').setAttribute('aria-expanded','false');});// scroll to top
 const topBtn=document.createElement('button');topBtn.id='top-btn';topBtn.innerHTML='↑';topBtn.setAttribute('aria-label','Наверх');document.body.appendChild(topBtn);
