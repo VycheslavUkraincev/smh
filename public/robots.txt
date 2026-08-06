@@ -3,5 +3,8 @@ Allow: /
 Disallow: /admin.html
 Disallow: /cabinet.html
 Disallow: /api/
+Disallow: /app.html
+Disallow: /arena.html
+Disallow: /story.html
 
 Sitemap: https://savemyhistory.tech/sitemap.xml
