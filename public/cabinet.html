@@ -126,6 +126,7 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
   #ov .bar .btn,#ov .bar a.btn{font-size:12px;padding:10px 14px}
 }
 @media(prefers-reduced-motion:reduce){.tile,.drop,.btn,.progress-ring{-webkit-animation:none!important;animation:none!important;transition:none!important}}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 <meta name="theme-color" content="#F7F1E7"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon.png"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
@@ -199,7 +200,8 @@ h1.title{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(32px,5
   <div id="gal"></div>
 </div>
 
-<input type="file" id="file" accept="image/*" class="hidden">
+<label for="file" class="sr-only" id="file-label" data-i18n="drop_h">Перетащите фото сюда</label>
+<input type="file" id="file" accept="image/*" class="hidden" aria-labelledby="file-label">
 <div id="ov"><div class="box"><div class="cmp" id="cmp"><img id="ov-a" alt="Было"><div class="after-wrap" id="ov-aw"><img id="ov-b" alt="Стало"></div><span class="lab lab-b" data-i18n="before">Было</span><span class="lab lab-a" data-i18n="after">Стало</span><div class="handle" id="ov-h"><div class="knob">↔</div></div></div><div class="bar"><span class="hint" data-i18n="drag_hint">Тяните, чтобы сравнить</span><button class="btn-report" id="ov-report" data-i18n="report">Что-то не так?</button><a id="ov-dl" class="btn" download="savemyhistory.jpg" style="background:var(--gold-d,#A67C32);color:#fff;text-decoration:none" data-i18n="download">Скачать</a><button class="btn btn-ghost" id="ov-card" data-i18n="card">Карточка</button><button class="btn btn-ghost" id="ov-share" data-i18n="share">Поделиться</button><button class="btn btn-ghost" id="ov-close" data-i18n="close">Закрыть</button></div></div></div>
 
 <script type="module">

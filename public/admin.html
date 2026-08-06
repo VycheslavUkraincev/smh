@@ -25,6 +25,7 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
 .thumb{width:46px;height:46px;border-radius:6px;object-fit:cover;background:#eee}
 .thumbs{display:flex;gap:4px}
 .badge{padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.b-spaces{background:#FBEFD6;color:#8e5a2b}.b-sql{background:#E4F6E9;color:#1e7a3f}.b-mixed{background:#E3F0FB;color:#2980b9}.wl-store{margin-left:8px;vertical-align:middle}
 .b-queued{background:#FBEFD6;color:#A67C32}.b-uploaded{background:#FBEFD6;color:#A67C32}
 .ops-note{display:none;margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#FBEFD6;border:1px solid #E6D3A8;color:#6b5320;font-size:13px;line-height:1.4}
 .ops-note.show{display:block}
@@ -100,7 +101,7 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
     </div>
 
     <div class="invbox" id="wlbox">
-      <h2>Лист ожидания <span class="muted" id="wl-count"></span></h2>
+      <h2>Лист ожидания <span class="muted" id="wl-count"></span> <span class="badge wl-store" id="wl-store" hidden></span></h2>
       <div class="row">
         <button class="btn secondary" id="wl-export" type="button">Скачать CSV</button>
         <button class="btn secondary" id="wl-refresh" type="button">Обновить список</button>
@@ -292,12 +293,23 @@ async function loadWaitlist(){
     }
     const j=await r.json(); const rows=j.emails||[];
     _waitlist=rows; _wlStorage=j.storage||'';
-    const c=$('#wl-count'); if(c) c.textContent='· '+(j.count??rows.length)+(j.storage?(' · storage='+j.storage):'');
+    const c=$('#wl-count'); if(c) c.textContent='· '+(j.count??rows.length);
+    const store=$('#wl-store');
+    const st=String(j.storage||'');
+    if(store){
+      if(!st){ store.hidden=true; store.textContent=''; store.className='badge wl-store'; }
+      else if(st==='spaces_fallback'){ store.hidden=false; store.textContent='Spaces fallback'; store.className='badge wl-store b-spaces'; store.title='Waitlist в Spaces (SQL-таблица ещё не создана)'; }
+      else if(st==='supabase'||st==='sql'||st==='db'){ store.hidden=false; store.textContent='SQL'; store.className='badge wl-store b-sql'; store.title='Waitlist в SQL/DB'; }
+      else if(st.includes('spaces')&&st.includes('supabase')){ store.hidden=false; store.textContent='SQL+Spaces'; store.className='badge wl-store b-mixed'; store.title='storage='+st; }
+      else { store.hidden=false; store.textContent=st; store.className='badge wl-store b-mixed'; store.title='storage='+st; }
+    }
     if(msg){
       msg.className='invmsg';
-      msg.textContent=j.storage==='spaces_fallback'
-        ? 'Хранение: Spaces fallback (таблица waitlist в БД пока не создана).'
-        : (j.storage?('Хранение: '+j.storage):'');
+      msg.textContent=st==='spaces_fallback'
+        ? 'Хранение: Spaces fallback (не SQL). Таблица waitlist в БД пока не создана — ops: смотри badge.'
+        : (st==='supabase'||st==='sql'||st==='db'
+          ? 'Хранение: SQL/DB (не Spaces fallback).'
+          : (st?('Хранение: '+st):''));
     }
     if(!rows.length){ tb.innerHTML='<tr><td colspan="4" class="muted">Пока пусто — заявок в листе ожидания нет.</td></tr>'; return; }
     tb.innerHTML=rows.map(x=>'<tr><td class="code">'+(x.email||'')+'</td><td class="muted">'+(x.name||'—')+'</td><td class="muted">'+(x.source||x.storage||'—')+'</td><td class="muted">'+(typeof x.ts==='number'?fmt(new Date(x.ts*1000).toISOString()):fmt(x.ts))+'</td></tr>').join('');
