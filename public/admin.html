@@ -82,6 +82,15 @@ th{background:#F0E7D7;color:var(--muted);font-weight:600}
       </table>
     </div>
 
+    <div class="invbox" id="wlbox">
+      <h2>Waitlist <span class="muted" id="wl-count"></span></h2>
+      <div class="invmsg" id="wl-msg"></div>
+      <table>
+        <thead><tr><th>Email</th><th>Имя</th><th>Источник</th><th>Когда</th></tr></thead>
+        <tbody id="wl-rows"><tr><td colspan="4" class="muted">—</td></tr></tbody>
+      </table>
+    </div>
+
 
     <div class="flt" id="flt">
       <button data-s="" class="on">Все</button>
@@ -123,6 +132,7 @@ function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display
 async function init(){
   $('#login').onclick=e=>{e.preventDefault();login();};
   $('#refresh').onclick=e=>{e.preventDefault();loadAll();};
+  const invBtn=$('#inv-create'); if(invBtn) invBtn.onclick=e=>{e.preventDefault();createInvites();};
   $('#flt').querySelectorAll('button').forEach(b=>b.onclick=()=>{
     curStatus=b.dataset.s; $('#flt').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); loadRows();
   });
@@ -164,7 +174,20 @@ async function createInvites(){
   }catch(e){ msg.className='invmsg err'; msg.textContent='Ошибка сети'; }
 }
 
-async function loadAll(){ await Promise.all([loadStats(), loadRows(), loadInvites()]); }
+async function loadWaitlist(){
+  const tb=$('#wl-rows'); if(!tb)return;
+  const msg=$('#wl-msg'); if(msg){ msg.className='invmsg'; msg.textContent=''; }
+  try{
+    const r=await fetch('/api/admin/waitlist?limit=500',{headers:H()});
+    if(!r.ok){ tb.innerHTML='<tr><td colspan="4" class="muted">Не удалось загрузить ('+r.status+').</td></tr>'; return; }
+    const j=await r.json(); const rows=j.emails||[];
+    const c=$('#wl-count'); if(c) c.textContent='· '+(j.count??rows.length)+' · '+(j.storage||'');
+    if(!rows.length){ tb.innerHTML='<tr><td colspan="4" class="muted">Пока пусто.</td></tr>'; return; }
+    tb.innerHTML=rows.map(x=>'<tr><td class="code">'+(x.email||'')+'</td><td class="muted">'+(x.name||'—')+'</td><td class="muted">'+(x.source||x.storage||'—')+'</td><td class="muted">'+(typeof x.ts==='number'?fmt(new Date(x.ts*1000).toISOString()):fmt(x.ts))+'</td></tr>').join('');
+  }catch(e){ tb.innerHTML='<tr><td colspan="4" class="muted">Ошибка сети.</td></tr>'; }
+}
+
+async function loadAll(){ await Promise.all([loadStats(), loadRows(), loadInvites(), loadWaitlist()]); }
 
 async function loadStats(){
   try{

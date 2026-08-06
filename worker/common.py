@@ -103,10 +103,63 @@ def presigned_get(key, ttl=3600):
     except Exception as e:
         raise RuntimeError(f"spaces_presign: {str(e)[:120]}") from e
 
+# ---------- OpenAI credits / 429 backoff ----------
+# When OpenAI returns 429 / insufficient_quota / no credits, pause analyze claims
+# for ANALYZE_CREDIT_BACKOFF_SEC (default 900) so the worker does not hammer API.
+_ANALYZE_CREDIT_BACKOFF_UNTIL = 0.0
+
+
+def analyze_credit_backoff_sec() -> int:
+    try:
+        return max(0, int(os.environ.get("ANALYZE_CREDIT_BACKOFF_SEC", "900")))
+    except Exception:
+        return 900
+
+
+def analyze_credit_backoff_remaining() -> float:
+    """Seconds left in credit backoff; 0 if clear."""
+    left = _ANALYZE_CREDIT_BACKOFF_UNTIL - time.time()
+    return left if left > 0 else 0.0
+
+
+def analyze_credit_backoff_active() -> bool:
+    return analyze_credit_backoff_remaining() > 0
+
+
+def mark_analyze_credit_backoff(reason: str = "insufficient_quota") -> float:
+    """Arm backoff; returns until-ts. Never logs API keys."""
+    global _ANALYZE_CREDIT_BACKOFF_UNTIL
+    sec = analyze_credit_backoff_sec()
+    until = time.time() + sec
+    if until > _ANALYZE_CREDIT_BACKOFF_UNTIL:
+        _ANALYZE_CREDIT_BACKOFF_UNTIL = until
+    log("analyze", f"credit_backoff {sec}s reason={reason[:80]}")
+    return _ANALYZE_CREDIT_BACKOFF_UNTIL
+
+
+def is_openai_credit_error(msg) -> bool:
+    """Detect 429 / insufficient_quota / no-credits style OpenAI failures."""
+    text = (str(msg) or "").lower()
+    if not text:
+        return False
+    if "insufficient_quota" in text:
+        return True
+    if "you have no credits" in text or "no credits" in text:
+        return True
+    if "exceeded your current quota" in text:
+        return True
+    if "http 429" in text or "status code 429" in text:
+        return True
+    if "rate_limit" in text and ("quota" in text or "credit" in text):
+        return True
+    return False
+
+
 # ---------- Vision (OpenAI gpt-4o) ----------
 def vision(prompt, image_url, max_tokens=900):
     """Отправляет картинку + промпт в gpt-4o vision, возвращает текст ответа.
     Ошибки помечены шагом openai_vision; ключ в лог не пишется.
+    On 429/insufficient_quota arms ANALYZE_CREDIT_BACKOFF_SEC pause.
     """
     key = (os.environ.get("OPENAI_API_KEY") or "").strip()  # strip junk whitespace/newlines
     if not key:
@@ -128,6 +181,12 @@ def vision(prompt, image_url, max_tokens=900):
         return out["choices"][0]["message"]["content"]
     except urllib.error.HTTPError as e:
         body = e.read().decode(errors="replace")[:80]
-        raise RuntimeError(f"openai_vision: HTTP {e.code} {body}") from e
+        err = f"openai_vision: HTTP {e.code} {body}"
+        if e.code == 429 or is_openai_credit_error(err):
+            mark_analyze_credit_backoff("insufficient_quota" if is_openai_credit_error(err) else "http_429")
+        raise RuntimeError(err) from e
     except Exception as e:
-        raise RuntimeError(f"openai_vision: {str(e)[:120]}") from e
+        msg = str(e)[:120]
+        if is_openai_credit_error(msg):
+            mark_analyze_credit_backoff("insufficient_quota")
+        raise RuntimeError(f"openai_vision: {msg}") from e

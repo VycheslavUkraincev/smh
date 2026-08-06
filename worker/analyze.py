@@ -12,7 +12,11 @@
   natural_color = legacy мягкая колоризация
 """
 import sys, json, time
-from common import log, claim, update_row, presigned_get, vision
+from common import (
+    log, claim, update_row, presigned_get, vision,
+    analyze_credit_backoff_active, analyze_credit_backoff_remaining,
+    is_openai_credit_error, mark_analyze_credit_backoff,
+)
 
 # Canon: face/scene/clothing lock; no invent; authentic = fresh-print same color mode.
 IDENTITY = (
@@ -122,6 +126,11 @@ def extract_json(text):
     raise ValueError("no json")
 
 def main(batch=10):
+    # Do not claim queued rows while OpenAI credits/429 backoff is active.
+    if analyze_credit_backoff_active():
+        left = int(analyze_credit_backoff_remaining())
+        log("analyze", f"credit_backoff active ~{left}s — skip claim")
+        return 0
     rows = claim("queued", "processing_analyze", batch)  # временный лок-статус
     if not rows:
         log("analyze", "очередь пуста (queued нет)"); return 0
@@ -131,6 +140,12 @@ def main(batch=10):
         rid = r["id"]
         step = "spaces_presign"
         try:
+            # Mid-batch: if another row armed backoff, stop hammering OpenAI.
+            if analyze_credit_backoff_active():
+                err = "analyze_err[openai_vision]: credit_backoff — skip OpenAI until credits return"
+                update_row(rid, {"status": "queued", "error": err})
+                log("analyze", f"{rid[:8]} SKIP credit_backoff → queued")
+                continue
             url = presigned_get(r["original_key"], ttl=1800)
             step = "openai_vision"
             raw = vision(ANALYZE_PROMPT, url)
@@ -149,9 +164,16 @@ def main(batch=10):
             # vision()/presign already prefix openai_vision|spaces_presign; else tag current step
             if not (msg.startswith("spaces_presign") or msg.startswith("openai_vision") or msg.startswith("parse")):
                 msg = f"{step}: {msg}"
-            err = f"analyze_err[{step}]: {msg[:120]}"
+            if is_openai_credit_error(msg):
+                mark_analyze_credit_backoff("insufficient_quota")
+                err = f"analyze_err[{step}]: insufficient_quota / no credits — backoff"
+            else:
+                err = f"analyze_err[{step}]: {msg[:120]}"
             update_row(rid, {"status": "queued", "error": err})
             log("analyze", f"{rid[:8]} FAIL step={step}: {msg[:80]} → queued")
+            if is_openai_credit_error(msg):
+                # Stop hammering remaining claimed rows this pass.
+                break
     log("analyze", f"готово: {ok}/{len(rows)} проанализировано")
     return ok
 

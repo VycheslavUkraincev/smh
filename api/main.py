@@ -15,7 +15,11 @@ from fastapi.responses import JSONResponse, HTMLResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 import boto3
 from botocore.client import Config
-from waitlist_fallback import append_entry as _waitlist_spaces_append, count_entries as _waitlist_spaces_count
+from waitlist_fallback import (
+    append_entry as _waitlist_spaces_append,
+    count_entries as _waitlist_spaces_count,
+    load_entries as _waitlist_spaces_load,
+)
 import httpx
 from PIL import Image, ImageDraw, ImageFont
 
@@ -737,6 +741,68 @@ async def admin_delete(rid: str, authorization: str = Header(None)):
                 pass
     await db("DELETE", "restorations", params={"id": f"eq.{rid}"})
     return {"ok": True, "deleted": rid}
+
+
+@app.get("/api/admin/waitlist")
+async def admin_waitlist(authorization: str = Header(None), limit: int = 500):
+    """Admin waitlist emails from Spaces JSONL and/or Supabase. No PII in logs."""
+    await require_admin(authorization)
+    lim = min(max(int(limit or 500), 1), 2000)
+    emails = []
+    seen = set()
+    storage = []
+
+    # Spaces JSONL fallback (primary while table missing)
+    try:
+        for e in _waitlist_spaces_load(s3(), SPACES_BUCKET):
+            em = (e.get("email") or "").strip().lower()
+            if not em or em in seen:
+                continue
+            seen.add(em)
+            emails.append({
+                "email": em,
+                "name": e.get("name"),
+                "note": e.get("note"),
+                "source": e.get("source") or "spaces_fallback",
+                "ts": e.get("ts"),
+                "storage": "spaces_fallback",
+            })
+        storage.append("spaces_fallback")
+    except Exception:
+        pass
+
+    # Supabase table if present
+    try:
+        rows = await db("GET", "waitlist", params={
+            "select": "email,name,note,source,created_at",
+            "order": "created_at.desc",
+            "limit": str(lim),
+        }) or []
+        for r in rows:
+            em = (r.get("email") or "").strip().lower()
+            if not em or em in seen:
+                continue
+            seen.add(em)
+            emails.append({
+                "email": em,
+                "name": r.get("name"),
+                "note": r.get("note"),
+                "source": r.get("source") or "supabase",
+                "ts": r.get("created_at"),
+                "storage": "supabase",
+            })
+        storage.append("supabase")
+    except HTTPException as e:
+        if not _waitlist_table_missing(e.detail):
+            raise
+
+    emails = emails[:lim]
+    return {
+        "ok": True,
+        "count": len(emails),
+        "storage": "+".join(storage) if storage else "none",
+        "emails": emails,
+    }
 
 
 @app.get("/api/admin/invite-codes")

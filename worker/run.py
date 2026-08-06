@@ -10,7 +10,7 @@
   PRIORITY_BYPASS=1 — игнор INTAKE_ONLY и порога батча (ops/paid smoke без колонки lane)
 """
 import os
-from common import log, rpc, count_status
+from common import log, rpc, count_status, analyze_credit_backoff_active, analyze_credit_backoff_remaining
 import analyze, generate, verify
 
 def main():
@@ -33,7 +33,10 @@ def main():
     # PRIORITY_BYPASS: ops-рычаг без колонки lane в БД — разрешить generate даже днём.
     priority_bypass = os.environ.get("PRIORITY_BYPASS", "0") == "1"
 
-    # 1) ИИ-глаза (дёшево, всегда) — готовит фото к генерации
+    if analyze_credit_backoff_active():
+        log("run", f"ANALYZE credit_backoff ~{int(analyze_credit_backoff_remaining())}s — глаза пропустят claim")
+
+    # 1) ИИ-глаза (дёшево; skip claim if credit backoff) — готовит фото к генерации
     na = analyze.main(a)
     # 3) проверка готовых (дёшево, всегда)
     nv = verify.main(v)
