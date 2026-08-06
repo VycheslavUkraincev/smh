@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<!-- deploy-bump 71850b5-waitlist -->
+<!-- deploy-bump ro-i18n-waitlist -->
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SaveMyHistory — Список ожидания</title>
 <meta name="description" content="Список ожидания SaveMyHistory. Напишем на email, когда откроем доступ. Реставрации — обычно к утру / до 48 часов.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'%3E%3Ctext y=\'26\' font-size=\'26\'%3E%F0%9F%8C%B3%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8C%B3%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--paper:#F7F1E7;--paper2:#EFE6D6;--ink:#2A2018;--muted:#5C4F40;--gold:#C9A24B;--gold-d:#A67C32;--walnut:#5B3A24;--line:rgba(90,64,49,.14)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:\'Manrope\',sans-serif;background:linear-gradient(180deg,var(--paper) 0%,var(--paper2) 100%);color:var(--ink);line-height:1.6;min-height:100vh}
+body{font-family:'Manrope',sans-serif;background:linear-gradient(180deg,var(--paper) 0%,var(--paper2) 100%);color:var(--ink);line-height:1.6;min-height:100vh}
 .wrap{max-width:520px;margin:0 auto;padding:40px 22px 72px}
 a{color:var(--gold-d);text-decoration:none}
 a:hover{text-decoration:underline}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px;flex-wrap:wrap}
-.brand{font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:700;letter-spacing:.02em;color:var(--ink);text-decoration:none}
+.brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;letter-spacing:.02em;color:var(--ink);text-decoration:none}
 .brand b{color:var(--gold-d)}
-.links{display:flex;gap:14px;font-size:13px;font-weight:500}
+.links{display:flex;gap:14px;font-size:13px;font-weight:500;align-items:center}
 .links a{color:var(--muted);text-decoration:none}
 .links a:hover{color:var(--ink)}
+.hlang{display:flex;gap:4px}
+.hlang button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:4px 8px;font:inherit;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer}
+.hlang button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);font-weight:600;margin-bottom:12px}
-h1{font-family:\'Cormorant Garamond\',serif;font-weight:600;font-size:clamp(28px,5vw,38px);line-height:1.15;margin-bottom:12px}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,5vw,38px);line-height:1.15;margin-bottom:12px}
 .lead{color:var(--muted);font-size:16px;margin-bottom:28px}
 form{background:rgba(255,255,255,.42);border:1px solid var(--line);border-radius:14px;padding:22px 20px 20px}
 label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin:0 0 6px}
@@ -48,88 +51,109 @@ input:focus{outline:2px solid rgba(166,124,50,.35);background:#fff}
   <div class="top">
     <a class="brand" href="/">SAVE<b>MY</b>HISTORY</a>
     <div class="links">
-      <a href="/">На главную</a>
-      <a href="/gallery.html">Галерея</a>
+      <a href="/" data-i18n="nav_home">На главную</a>
+      <a href="/gallery.html" data-i18n="nav_gallery">Галерея</a>
+      <div class="hlang" id="hlang"><button data-lang="ua">UA</button><button data-lang="en">EN</button><button data-lang="ru">RU</button><button data-lang="ro">RO</button><button data-lang="lt">LT</button></div>
     </div>
   </div>
 
-  <div class="kicker">Список ожидания</div>
-  <h1>Список ожидания SaveMyHistory</h1>
-  <p class="lead">Скоро откроем бережное восстановление семейных альбомов. Оставим место для вас.</p>
+  <div class="kicker" data-i18n="kicker">Список ожидания</div>
+  <h1 data-i18n="h1">Список ожидания SaveMyHistory</h1>
+  <p class="lead" data-i18n="lead">Скоро откроем бережное восстановление семейных альбомов. Оставим место для вас.</p>
 
   <form id="f" novalidate>
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" required autocomplete="email" placeholder="email@пример.ru">
+    <label for="email" data-i18n="lab_email">Email</label>
+    <input id="email" name="email" type="email" required autocomplete="email" data-i18n-placeholder="ph_email" placeholder="email@пример.ru">
 
-    <label for="name">Имя (необязательно)</label>
-    <input id="name" name="name" type="text" autocomplete="name" placeholder="Как обращаться" maxlength="120">
+    <label for="name" data-i18n="lab_name">Имя (необязательно)</label>
+    <input id="name" name="name" type="text" autocomplete="name" data-i18n-placeholder="ph_name" placeholder="Как обращаться" maxlength="120">
 
     <label class="consent" for="consent">
       <input id="consent" type="checkbox" required>
-      <span>Можно написать, когда откроем доступ</span>
+      <span data-i18n="consent">Можно написать, когда откроем доступ</span>
     </label>
 
-    <button class="btn" id="submit" type="submit">Записаться</button>
-    <p class="under">Без спама. Только письмо, когда можно войти.</p>
+    <button class="btn" id="submit" type="submit" data-i18n="submit">Записаться</button>
+    <p class="under" data-i18n="under">Без спама. Только письмо, когда можно войти.</p>
   </form>
 
   <div class="msg" id="msg" role="status"></div>
-  <p class="honest">Когда откроем доступ — напишем на email. Реставрации обычно готовы к утру / в течение 48 часов. Без мгновенного SLA.</p>
+  <p class="honest" data-i18n="honest">Когда откроем доступ — напишем на email. Реставрации обычно готовы к утру / в течение 48 часов. Без мгновенного SLA.</p>
 
   <div class="foot">
-    <a href="/">← На главную</a>
-    <a href="/gallery.html">Галерея</a>
-    <a href="/privacy.html">Конфиденциальность</a>
+    <a href="/" data-i18n="foot_home">← На главную</a>
+    <a href="/gallery.html" data-i18n="nav_gallery">Галерея</a>
+    <a href="/privacy.html" data-i18n="foot_priv">Конфиденциальность</a>
   </div>
 </div>
 <script>
+const I18N={
+ru:{nav_home:"На главную",nav_gallery:"Галерея",kicker:"Список ожидания",h1:"Список ожидания SaveMyHistory",lead:"Скоро откроем бережное восстановление семейных альбомов. Оставим место для вас.",lab_email:"Email",lab_name:"Имя (необязательно)",ph_email:"email@пример.ru",ph_name:"Как обращаться",consent:"Можно написать, когда откроем доступ",submit:"Записаться",under:"Без спама. Только письмо, когда можно войти.",honest:"Когда откроем доступ — напишем на email. Реставрации обычно готовы к утру / в течение 48 часов. Без мгновенного SLA.",foot_home:"← На главную",foot_priv:"Конфиденциальность",err_email:"Укажите корректный email.",err_consent:"Нужно согласие на письмо, когда откроем доступ.",err_429:"Слишком много попыток. Подождите минуту и попробуйте снова.",err_503:"Список пока готовится. Попробуйте чуть позже — мы ещё настраиваем запись.",err_422:"Проверьте email и попробуйте снова.",err_generic:"Не удалось записаться. Попробуйте ещё раз.",ok_already:"Вы уже в списке. Напишем на email, когда откроем доступ.",ok_new:"Спасибо. Напишем на email, когда откроем доступ.",err_net:"Нет связи с сервером. Попробуйте ещё раз.",title:"SaveMyHistory — Список ожидания"},
+ua:{nav_home:"На головну",nav_gallery:"Галерея",kicker:"Список очікування",h1:"Список очікування SaveMyHistory",lead:"Незабаром відкриємо дбайливе відновлення сімейних альбомів. Залишимо місце для вас.",lab_email:"Email",lab_name:"Імʼя (необовʼязково)",ph_email:"email@приклад.ua",ph_name:"Як звертатися",consent:"Можна написати, коли відкриємо доступ",submit:"Записатися",under:"Без спаму. Тільки лист, коли можна увійти.",honest:"Коли відкриємо доступ — напишемо на email. Реставрації зазвичай готові до ранку / протягом 48 годин. Без миттєвого SLA.",foot_home:"← На головну",foot_priv:"Конфіденційність",err_email:"Вкажіть коректний email.",err_consent:"Потрібна згода на лист, коли відкриємо доступ.",err_429:"Забагато спроб. Зачекайте хвилину і спробуйте знову.",err_503:"Список ще готується. Спробуйте трохи пізніше.",err_422:"Перевірте email і спробуйте знову.",err_generic:"Не вдалося записатися. Спробуйте ще раз.",ok_already:"Ви вже в списку. Напишемо на email, коли відкриємо доступ.",ok_new:"Дякуємо. Напишемо на email, коли відкриємо доступ.",err_net:"Немає звʼязку з сервером. Спробуйте ще раз.",title:"SaveMyHistory — Список очікування"},
+en:{nav_home:"Home",nav_gallery:"Gallery",kicker:"Waitlist",h1:"SaveMyHistory waitlist",lead:"We will soon open gentle restoration of family albums. We will save you a spot.",lab_email:"Email",lab_name:"Name (optional)",ph_email:"email@example.com",ph_name:"How to address you",consent:"You may email me when access opens",submit:"Join the waitlist",under:"No spam. Only an email when you can get in.",honest:"When we open access — we will email you. Restorations are usually ready by morning / within 48 hours. No instant SLA.",foot_home:"← Home",foot_priv:"Privacy",err_email:"Enter a valid email.",err_consent:"Consent is required for the access email.",err_429:"Too many attempts. Wait a minute and try again.",err_503:"The list is still being prepared. Try again shortly.",err_422:"Check the email and try again.",err_generic:"Could not join. Please try again.",ok_already:"You are already on the list. We will email you when access opens.",ok_new:"Thank you. We will email you when access opens.",err_net:"No connection to the server. Please try again.",title:"SaveMyHistory — Waitlist"},
+ro:{nav_home:"Acasă",nav_gallery:"Galerie",kicker:"Lista de așteptare",h1:"Lista de așteptare SaveMyHistory",lead:"În curând deschidem restaurarea blândă a albumelor de familie. Îți rezervăm un loc.",lab_email:"Email",lab_name:"Nume (opțional)",ph_email:"email@exemplu.ro",ph_name:"Cum să te adresăm",consent:"Poți să-mi scrii când deschideți accesul",submit:"Înscrie-mă",under:"Fără spam. Doar un email când poți intra.",honest:"Când deschidem accesul — îți scriem pe email. Restaurările sunt de obicei gata până dimineața / în 48 de ore. Fără SLA instant.",foot_home:"← Acasă",foot_priv:"Confidențialitate",err_email:"Introdu un email valid.",err_consent:"Este necesar consimțământul pentru email când deschidem accesul.",err_429:"Prea multe încercări. Așteaptă un minut și încearcă din nou.",err_503:"Lista încă se pregătește. Încearcă puțin mai târziu.",err_422:"Verifică emailul și încearcă din nou.",err_generic:"Nu s-a putut înscrie. Încearcă din nou.",ok_already:"Ești deja pe listă. Îți scriem pe email când deschidem accesul.",ok_new:"Mulțumim. Îți scriem pe email când deschidem accesul.",err_net:"Nu există conexiune cu serverul. Încearcă din nou.",title:"SaveMyHistory — Lista de așteptare"},
+lt:{nav_home:"Į pradžią",nav_gallery:"Galerija",kicker:"Laukimo sąrašas",h1:"SaveMyHistory laukimo sąrašas",lead:"Netrukus atidarysime švelnų šeimos albumų atkūrimą. Pasiliksime jums vietą.",lab_email:"Email",lab_name:"Vardas (neprivaloma)",ph_email:"email@pavyzdys.lt",ph_name:"Kaip kreiptis",consent:"Galite parašyti, kai atidarysite prieigą",submit:"Užsiregistruoti",under:"Be šlamšto. Tik laiškas, kai bus galima įeiti.",honest:"Kai atidarysime prieigą — parašysime el. paštu. Atkūrimai paprastai paruošti iki ryto / per 48 val. Be momentinio SLA.",foot_home:"← Į pradžią",foot_priv:"Privatumas",err_email:"Įveskite teisingą el. paštą.",err_consent:"Reikia sutikimo laiškui, kai atidarysime prieigą.",err_429:"Per daug bandymų. Palaukite minutę ir bandykite dar kartą.",err_503:"Sąrašas dar ruošiamas. Bandykite šiek tiek vėliau.",err_422:"Patikrinkite el. paštą ir bandykite dar kartą.",err_generic:"Nepavyko užsiregistruoti. Bandykite dar kartą.",ok_already:"Jūs jau sąraše. Parašysime el. paštu, kai atidarysime prieigą.",ok_new:"Ačiū. Parašysime el. paštu, kai atidarysime prieigą.",err_net:"Nėra ryšio su serveriu. Bandykite dar kartą.",title:"SaveMyHistory — Laukimo sąrašas"}
+};
+let LANG='ru';
+function t(k){return (I18N[LANG]||I18N.ru)[k]||(I18N.ru[k]||k);}
+function applyLang(l){
+  if(!I18N[l])l='en';
+  LANG=l;
+  document.documentElement.lang=l==='ua'?'uk':l;
+  document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(t(k)!=null)e.textContent=t(k);});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(e=>{const k=e.getAttribute('data-i18n-placeholder');if(t(k))e.placeholder=t(k);});
+  document.querySelectorAll('.hlang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+  if(t('title'))document.title=t('title');
+  try{localStorage.setItem('smh_lang',l);}catch(e){}
+}
+document.querySelectorAll('.hlang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
+(function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='ro'?'ro':(n==='lt'?'lt':(n==='ru'?'ru':'en')));}}catch(e){}applyLang(l);})();
+
 (function(){
-  const form=document.getElementById(\'f\');
-  const msg=document.getElementById(\'msg\');
-  const btn=document.getElementById(\'submit\');
-  const API=\'/api/waitlist\';
+  const form=document.getElementById('f');
+  const msg=document.getElementById('msg');
+  const btn=document.getElementById('submit');
+  const API='/api/waitlist';
 
   function show(text, isErr){
     msg.textContent=text;
-    msg.className=\'msg show\'+(isErr?\' err\':\'\');
+    msg.className='msg show'+(isErr?' err':'');
   }
 
-  form.addEventListener(\'submit\', async function(e){
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
-    const email=(document.getElementById(\'email\').value||\'\').trim().toLowerCase();
-    const name=(document.getElementById(\'name\').value||\'\').trim();
-    const consent=document.getElementById(\'consent\').checked;
-    if(!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){
-      show(\'Укажите корректный email.\', true);
+    const email=(document.getElementById('email').value||'').trim().toLowerCase();
+    const name=(document.getElementById('name').value||'').trim();
+    const consent=document.getElementById('consent').checked;
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      show(t('err_email'), true);
       return;
     }
     if(!consent){
-      show(\'Нужно согласие на письмо, когда откроем доступ.\', true);
+      show(t('err_consent'), true);
       return;
     }
     btn.disabled=true;
     try{
-      const r=await fetch(API,{method:\'POST\',headers:{\'Content-Type\':\'application/json\'},
-        body:JSON.stringify({email,name:name||undefined,source:\'waitlist.html\',consent:true})});
+      const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email,name:name||undefined,source:'waitlist.html',consent:true})});
       let j=null;
       try{j=await r.json()}catch(_){}
       if(r.status===429){
-        show(\'Слишком много попыток. Подождите минуту и попробуйте снова.\', true);
-      }else if(r.status===503 || (j && String(j.detail||\'\').indexOf(\'waitlist_table_missing\')>=0)){
-        show(\'Список пока готовится. Попробуйте чуть позже — мы ещё настраиваем запись.\', true);
+        show(t('err_429'), true);
+      }else if(r.status===503 || (j && String(j.detail||'').indexOf('waitlist_table_missing')>=0)){
+        show(t('err_503'), true);
       }else if(r.status===422){
-        show(\'Проверьте email и попробуйте снова.\', true);
+        show(t('err_422'), true);
       }else if(!r.ok){
-        show(\'Не удалось записаться. Попробуйте ещё раз.\', true);
+        show(t('err_generic'), true);
       }else{
-        const already=j && (j.already_subscribed || j.status===\'already_subscribed\' || j.status===\'already\');
-        show(already
-          ? \'Вы уже в списке. Напишем на email, когда откроем доступ.\'
-          : (j && j.message_ru) || \'Спасибо. Напишем на email, когда откроем доступ.\');
-        form.style.display=\'none\';
+        const already=j && (j.already_subscribed || j.status==='already_subscribed' || j.status==='already');
+        show(already ? t('ok_already') : ((j && j.message_ru && LANG==='ru') ? j.message_ru : t('ok_new')));
+        form.style.display='none';
       }
     }catch(err){
-      show(\'Нет связи с сервером. Попробуйте ещё раз.\', true);
+      show(t('err_net'), true);
     }finally{
       btn.disabled=false;
     }
