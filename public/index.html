@@ -63,7 +63,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,241,231,.82);backdr
 .hbtn.gold:hover{background:var(--walnut);border-color:var(--walnut)}
 .who{display:none;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
 .who .av{width:30px;height:30px;border-radius:50%;background:var(--gold-d);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
-.burger{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink)}
+.burger{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink);min-width:44px;min-height:44px;flex-shrink:0}
 .hlang{display:flex;gap:4px}
 .hlang button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:7px;padding:4px 9px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Manrope'}
 .hlang button:hover{color:var(--ink)}
@@ -162,8 +162,9 @@ footer{background:var(--ink);color:#E8DECF;padding:56px 0 30px;margin-top:30px}
  header .wrap{padding-left:12px;padding-right:12px;gap:6px}
  .hbtn{padding:7px 12px;font-size:12px}
  .brand{font-size:17px}
- .hlang{flex-wrap:wrap;justify-content:flex-end;max-width:168px;gap:2px}
+ .hlang{flex-wrap:wrap;justify-content:flex-end;max-width:140px;gap:2px;flex-shrink:1}
  .hlang button{padding:3px 5px;font-size:10px;min-width:28px}
+ .burger{flex-shrink:0}
  #top-btn{bottom:20px;right:20px;width:42px;height:42px;font-size:16px}
 }
 @media(max-width:360px){

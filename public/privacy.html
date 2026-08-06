@@ -72,6 +72,6 @@ function apply(l){if(!I[l])l='en';const d=I[l];document.documentElement.lang=(l=
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>apply(b.dataset.lang));
 (function(){let l='ru';try{const s=localStorage.getItem('smh_lang');if(s)l=s;else{const n=(navigator.language||'').slice(0,2);l=n==='uk'?'ua':(n==='ro'?'ro':(n==='lt'?'lt':(n==='ru'?'ru':'en')));}}catch(e){}apply(l);})();
 </script>
-<p class="legal-cross" style="text-align:center;margin:28px 12px"><a href="/" data-i18n="crumb_home">На главную</a> · <a href="/terms.html" data-i18n="crumb_terms">Условия</a></p>
+<p class="legal-cross" style="text-align:center;margin:28px 12px"><a href="/" data-i18n="crumb_home">На главную</a> · <a href="/gallery.html" data-i18n="crumb_gallery">Галерея</a> · <a href="/waitlist.html" data-i18n="crumb_waitlist">Список ожидания</a> · <a href="/terms.html" data-i18n="crumb_terms">Условия</a></p>
 </body>
 </html>
