@@ -119,10 +119,18 @@ def _restore_path_a(img_bytes, prompt, fidelity, preserve_identity, mode="authen
         colorize=colorize,
     )
 
-def _restore(img_bytes, prompt, fidelity, preserve_identity, mode="authentic"):
-    """Dispatch by GEN_STACK (default legacy)."""
-    stack = (os.environ.get("GEN_STACK") or GEN_STACK or "legacy").strip().lower()
-    if stack in ("path_a", "path-a", "patha", "a"):
+def resolve_stack(raw=None):
+    """Normalize stack → path_a|legacy. Request gen_stack overrides ENV; default legacy."""
+    s = (raw if raw is not None else (os.environ.get("GEN_STACK") or GEN_STACK or "legacy"))
+    s = str(s or "legacy").strip().lower()
+    if s in ("path_a", "path-a", "patha", "a"):
+        return "path_a"
+    return "legacy"
+
+def _restore(img_bytes, prompt, fidelity, preserve_identity, mode="authentic", gen_stack=None):
+    """Dispatch by GEN_STACK (default legacy). Optional per-request gen_stack from generate.py."""
+    stack = resolve_stack(gen_stack)
+    if stack == "path_a":
         return _restore_path_a(img_bytes, prompt, fidelity, preserve_identity, mode=mode)
     return _restore_legacy(img_bytes, prompt, fidelity, preserve_identity)
 
@@ -139,9 +147,11 @@ def handler(event):
     mode = (inp.get("mode") or "authentic").strip().lower()
     if mode not in ("authentic", "modern"):
         mode = "authentic"
+    # Per-request override from generate.py; else ENV GEN_STACK (default legacy).
+    req_stack = inp.get("gen_stack") or inp.get("stack")
     try:
         src = _download(image_url)
-        out = _restore(src, prompt, fidelity, preserve, mode=mode)
+        out = _restore(src, prompt, fidelity, preserve, mode=mode, gen_stack=req_stack)
         return {"output": {"image_base64": base64.b64encode(out).decode()}}
     except Exception as e:
         return {"error": f"gpu_restore_failed: {str(e)[:200]}"}
