@@ -23,6 +23,10 @@ JOURNAL_KEY = os.environ.get(
 PENDING_PING_KEY = os.environ.get(
     "RESTORER_FEEDBACK_PENDING_PING_KEY", "feedback/pending_ping.json"
 )
+# Durable marks snapshot (survives DO App Platform FS wipe on redeploy)
+MARKS_SPACES_KEY = os.environ.get(
+    "RESTORER_MARKS_SPACES_KEY", "feedback/restorer_marks.json"
+)
 # legacy aliases still written for older readers (best-effort dual key optional)
 LEGACY_JSONL_KEY = os.environ.get("RESTORER_FEEDBACK_JSONL_KEY", "")
 TELEGRAM_BOT_TOKEN = (os.environ.get("TELEGRAM_BOT_TOKEN") or "").strip()
@@ -37,6 +41,10 @@ def journal_key() -> str:
 
 def pending_ping_key() -> str:
     return PENDING_PING_KEY
+
+
+def marks_spaces_key() -> str:
+    return MARKS_SPACES_KEY
 
 
 def _load_jsonl(s3_client, bucket: str, key: str) -> list:
@@ -90,6 +98,43 @@ def _put_json(s3_client, bucket: str, key: str, payload) -> None:
         ContentType="application/json",
         ACL="private",
     )
+
+
+def load_marks_spaces(s3_client, bucket: str) -> dict:
+    """Load durable marks dict from Spaces. Missing key → {}."""
+    try:
+        raw = _load_json(
+            s3_client, bucket, MARKS_SPACES_KEY,
+            {"version": "restorer_marks_v1", "marks": {}},
+        )
+    except Exception:
+        return {}
+    if isinstance(raw, dict) and isinstance(raw.get("marks"), dict):
+        return raw["marks"]
+    if isinstance(raw, dict):
+        # tolerate bare id→mark map
+        if raw.get("version") or raw.get("updated_at") is not None:
+            return {}
+        return raw
+    return {}
+
+
+def save_marks_spaces(
+    s3_client,
+    bucket: str,
+    marks: dict,
+    *,
+    email: str = "",
+) -> dict:
+    """Persist full marks snapshot to Spaces (private). Never raises to caller via wrapper."""
+    payload = {
+        "version": "restorer_marks_v1",
+        "updated_at": int(time.time()),
+        "updated_by": (email or "").strip().lower(),
+        "marks": marks if isinstance(marks, dict) else {},
+    }
+    _put_json(s3_client, bucket, MARKS_SPACES_KEY, payload)
+    return {"ok": True, "key": MARKS_SPACES_KEY, "n_marks": len(payload["marks"]), "updated_at": payload["updated_at"]}
 
 
 def review_link(photo_id: str = "") -> str:

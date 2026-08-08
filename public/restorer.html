@@ -273,6 +273,76 @@ async function login(){
 function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
 function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
 function cacheMarksLocal(){ try{ localStorage.setItem(MARK_KEY, JSON.stringify(MARKS)); }catch(e){} }
+function loadMarksLocal(){
+  try{
+    const raw=localStorage.getItem(MARK_KEY);
+    if(!raw) return {};
+    const j=JSON.parse(raw);
+    return (j && typeof j==='object' && !Array.isArray(j)) ? j : {};
+  }catch(e){ return {}; }
+}
+function markUpdatedAt(m){
+  if(!m || typeof m!=='object') return 0;
+  const n=Number(m.updated_at||0);
+  return Number.isFinite(n) ? n : 0;
+}
+function markHasContent(m){
+  if(!m || typeof m!=='object') return false;
+  return !!(String(m.verdict||'').trim() || String(m.comment||'').trim() || String(m.defect_note||'').trim());
+}
+/** Merge server marks with localStorage. Never let empty server wipe non-empty local. */
+function mergeMarksPreferLocal(serverMarks, localMarks){
+  const server=(serverMarks && typeof serverMarks==='object' && !Array.isArray(serverMarks)) ? serverMarks : {};
+  const local=(localMarks && typeof localMarks==='object' && !Array.isArray(localMarks)) ? localMarks : {};
+  const out={};
+  const ids=new Set([...Object.keys(server), ...Object.keys(local)]);
+  ids.forEach(id=>{
+    const s=server[id], l=local[id];
+    const sOk=markHasContent(s), lOk=markHasContent(l);
+    if(sOk && lOk){
+      out[id]=markUpdatedAt(l)>=markUpdatedAt(s) ? l : s;
+    } else if(lOk){
+      out[id]=l;
+    } else if(sOk){
+      out[id]=s;
+    } else if(s && typeof s==='object'){
+      out[id]=s;
+    } else if(l && typeof l==='object'){
+      out[id]=l;
+    }
+  });
+  return out;
+}
+/** Keys present (with content) in local/merged but missing or empty on server → rehydrate server. */
+function marksMissingOnServer(merged, serverMarks){
+  const server=(serverMarks && typeof serverMarks==='object') ? serverMarks : {};
+  const missing={};
+  Object.keys(merged||{}).forEach(id=>{
+    const m=merged[id];
+    if(!markHasContent(m)) return;
+    if(!markHasContent(server[id])) missing[id]=m;
+  });
+  return missing;
+}
+async function rehydrateServerMarks(missing){
+  const keys=Object.keys(missing||{});
+  if(!keys.length || !getToken()) return;
+  try{
+    const r=await fetch('/api/admin/restorer/marks',{
+      method:'PUT', headers:H(),
+      body:JSON.stringify({patch:true, marks:missing})
+    });
+    if(r.ok) return;
+  }catch(e){}
+  // fallback: per-id PUT (older API / partial failure)
+  for(const id of keys){
+    try{
+      await fetch('/api/admin/restorer/marks/'+encodeURIComponent(id),{
+        method:'PUT', headers:H(), body:JSON.stringify(missing[id])
+      });
+    }catch(e){}
+  }
+}
 async function authFetchBlob(url){
   const r=await fetch(url,{headers:{Authorization:'Bearer '+getToken()}});
   if(!r.ok) throw new Error('img '+r.status);
@@ -646,11 +716,19 @@ async function loadCorpus(){
   if(!r.ok) throw new Error('corpus '+r.status);
   const j=await r.json();
   PHOTOS=j.photos||[];
-  MARKS=j.marks||{};
+  const serverMarks=(j.marks && typeof j.marks==='object' && !Array.isArray(j.marks)) ? j.marks : {};
+  const localMarks=loadMarksLocal();
+  MARKS=mergeMarksPreferLocal(serverMarks, localMarks);
   if(j.cogs) COGS=Object.assign(COGS,j.cogs);
   cacheMarksLocal();
+  const missing=marksMissingOnServer(MARKS, serverMarks);
+  if(Object.keys(missing).length){
+    // fire-and-forget: restore wiped DO FS from browser localStorage
+    rehydrateServerMarks(missing).catch(()=>{});
+  }
   const need=(j.need_etalon||[]).length, has=(j.has_etalon||[]).length;
-  $('#photoBadge').textContent=(PHOTOS.length)+' фото · нужно эталон: '+need+' · есть: '+has+' · GPU=0';
+  const nMarks=Object.keys(MARKS).filter(id=>markHasContent(MARKS[id])).length;
+  $('#photoBadge').textContent=(PHOTOS.length)+' фото · нужно эталон: '+need+' · есть: '+has+' · отметок: '+nMarks+' · GPU=0';
   $('#nPhotos').value=String(PHOTOS.length||12);
   FILTER='need';
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('on', b.getAttribute('data-f')==='need'));

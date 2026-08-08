@@ -27,6 +27,8 @@ from restorer_feedback import (
     publish_feedback as _fb_publish,
     publish_marks_export as _fb_publish_marks_export,
     publish_region_notes_export as _fb_publish_region_notes_export,
+    load_marks_spaces as _fb_load_marks_spaces,
+    save_marks_spaces as _fb_save_marks_spaces,
 )
 import httpx
 from PIL import Image, ImageDraw, ImageFont
@@ -781,7 +783,41 @@ def _restorer_photo_ids(meta=None):
     return {(p.get("id") or "").strip() for p in (meta.get("photos") or []) if (p.get("id") or "").strip()}
 
 
-def _restorer_load_marks():
+def _restorer_marks_has_content(m) -> bool:
+    if not isinstance(m, dict):
+        return False
+    return bool(
+        str(m.get("verdict") or "").strip()
+        or str(m.get("comment") or "").strip()
+        or str(m.get("defect_note") or "").strip()
+    )
+
+
+def _restorer_merge_marks_dicts(primary: dict, secondary: dict) -> dict:
+    """Union two mark maps; prefer newer updated_at when both have content."""
+    out = {}
+    a = primary if isinstance(primary, dict) else {}
+    b = secondary if isinstance(secondary, dict) else {}
+    for pid in set(list(a.keys()) + list(b.keys())):
+        ma, mb = a.get(pid), b.get(pid)
+        a_ok = _restorer_marks_has_content(ma)
+        b_ok = _restorer_marks_has_content(mb)
+        if a_ok and b_ok:
+            ta = int((ma or {}).get("updated_at") or 0)
+            tb = int((mb or {}).get("updated_at") or 0)
+            out[pid] = mb if tb > ta else ma
+        elif a_ok:
+            out[pid] = ma
+        elif b_ok:
+            out[pid] = mb
+        elif isinstance(ma, dict):
+            out[pid] = ma
+        elif isinstance(mb, dict):
+            out[pid] = mb
+    return out
+
+
+def _restorer_load_marks_local():
     if not _RESTORER_MARKS.is_file():
         return {}
     try:
@@ -795,7 +831,32 @@ def _restorer_load_marks():
     return {}
 
 
-def _restorer_save_marks(marks: dict, email: str = ""):
+def _restorer_load_marks():
+    """Load marks from DO FS; if empty/missing, restore from Spaces dual-write."""
+    local = _restorer_load_marks_local()
+    spaces = {}
+    try:
+        if SPACES_KEY and SPACES_SECRET:
+            spaces = _fb_load_marks_spaces(s3(), SPACES_BUCKET) or {}
+    except Exception:
+        spaces = {}
+    if not isinstance(spaces, dict):
+        spaces = {}
+    local_n = sum(1 for m in local.values() if _restorer_marks_has_content(m))
+    spaces_n = sum(1 for m in spaces.values() if _restorer_marks_has_content(m))
+    if spaces_n and (not local_n or spaces_n > local_n):
+        merged = _restorer_merge_marks_dicts(local, spaces)
+        try:
+            _restorer_save_marks_local(merged)
+        except Exception:
+            pass
+        return merged
+    if local_n and spaces_n:
+        return _restorer_merge_marks_dicts(local, spaces)
+    return local if local else spaces
+
+
+def _restorer_save_marks_local(marks: dict, email: str = ""):
     payload = {
         "version": "restorer_marks_v1",
         "updated_at": int(time.time()),
@@ -806,6 +867,17 @@ def _restorer_save_marks(marks: dict, email: str = ""):
     tmp = _RESTORER_MARKS.with_suffix(".tmp")
     tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
     tmp.replace(_RESTORER_MARKS)
+    return payload
+
+
+def _restorer_save_marks(marks: dict, email: str = ""):
+    """Persist marks to DO FS + best-effort Spaces (survives redeploy)."""
+    payload = _restorer_save_marks_local(marks, email=email)
+    try:
+        if SPACES_KEY and SPACES_SECRET:
+            _fb_save_marks_spaces(s3(), SPACES_BUCKET, marks, email=email)
+    except Exception:
+        pass
     return payload
 
 
@@ -1474,6 +1546,11 @@ async def admin_restorer_send_q(request: Request, authorization: str = Header(No
                 "updated_at": int(raw.get("updated_at") or time.time()),
             }
         marks = merged
+        # persist merged snapshot so redeploy / empty FS does not lose Send Q payload
+        try:
+            _restorer_save_marks(marks, email=email)
+        except Exception:
+            pass
     fb = _fb_publish_marks_export(
         client, SPACES_BUCKET, marks=marks, email=email, tip=tip, source="restorer",
     )
