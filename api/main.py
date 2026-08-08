@@ -973,8 +973,28 @@ async def admin_restorer_marks_put(request: Request, authorization: str = Header
         merged = _restorer_load_marks()
         merged.update(cleaned)
         cleaned = merged
-    payload = _restorer_save_marks(cleaned, email=(user.get("email") or ""))
-    return {"ok": True, "version": payload["version"], "updated_at": payload["updated_at"], "marks": payload["marks"]}
+    email = (user.get("email") or "").strip().lower()
+    payload = _restorer_save_marks(cleaned, email=email)
+    # journal each mark in this write (UI usually uses mark_one; bulk still dual-writes)
+    fb_list = []
+    emit_ids = list(cleaned.keys())
+    if isinstance(body, dict) and body.get("patch"):
+        # cleaned already merged above; emit only incoming keys if present
+        incoming = body.get("marks") if "marks" in body else body
+        if isinstance(incoming, dict):
+            emit_ids = [str(k).strip() for k in incoming.keys() if str(k).strip() in cleaned]
+    for pid in emit_ids:
+        m = cleaned.get(pid) or {}
+        fb_list.append(_restorer_feedback_emit(
+            photo_id=pid,
+            verdict=m.get("verdict") or "",
+            comment=m.get("comment") or "",
+            defect_note=m.get("defect_note") or "",
+            regions=[],
+            email=email,
+            source="restorer",
+        ))
+    return {"ok": True, "version": payload["version"], "updated_at": payload["updated_at"], "marks": payload["marks"], "feedback": fb_list}
 
 
 @app.put("/api/admin/restorer/marks/{photo_id}")
@@ -1140,7 +1160,25 @@ async def admin_restorer_region_notes_put(request: Request, authorization: str =
             by_id[n["id"]] = n
         cleaned = list(by_id.values())
     payload = _restorer_save_region_notes(cleaned, email=email)
-    return {"ok": True, "version": payload["version"], "updated_at": payload["updated_at"], "notes": payload["notes"], "n": len(payload["notes"])}
+    fb_list = []
+    for note in cleaned:
+        fb_list.append(_restorer_feedback_emit(
+            photo_id=note.get("photo_id") or "",
+            verdict="",
+            comment=note.get("comment") or "",
+            defect_note="",
+            regions=[{
+                "x": (note.get("bbox") or {}).get("x"),
+                "y": (note.get("bbox") or {}).get("y"),
+                "w": (note.get("bbox") or {}).get("w"),
+                "h": (note.get("bbox") or {}).get("h"),
+                "side": note.get("image") or "before",
+                "comment": note.get("comment") or "",
+            }],
+            email=email,
+            source="review",
+        ))
+    return {"ok": True, "version": payload["version"], "updated_at": payload["updated_at"], "notes": payload["notes"], "n": len(payload["notes"]), "feedback": fb_list}
 
 
 @app.put("/api/admin/restorer/region_notes/{photo_id}")
@@ -1170,7 +1208,25 @@ async def admin_restorer_region_notes_photo_put(photo_id: str, request: Request,
     existing = [n for n in _restorer_load_region_notes() if isinstance(n, dict) and n.get("photo_id") != pid]
     payload = _restorer_save_region_notes(existing + cleaned, email=email)
     photo_notes = [n for n in payload["notes"] if n.get("photo_id") == pid]
-    return {"ok": True, "id": pid, "notes": photo_notes, "updated_at": payload["updated_at"], "n": len(photo_notes)}
+    fb_list = []
+    for note in cleaned:
+        fb_list.append(_restorer_feedback_emit(
+            photo_id=pid,
+            verdict="",
+            comment=note.get("comment") or "",
+            defect_note="",
+            regions=[{
+                "x": (note.get("bbox") or {}).get("x"),
+                "y": (note.get("bbox") or {}).get("y"),
+                "w": (note.get("bbox") or {}).get("w"),
+                "h": (note.get("bbox") or {}).get("h"),
+                "side": note.get("image") or "before",
+                "comment": note.get("comment") or "",
+            }],
+            email=email,
+            source="review",
+        ))
+    return {"ok": True, "id": pid, "notes": photo_notes, "updated_at": payload["updated_at"], "n": len(photo_notes), "feedback": fb_list}
 
 
 @app.post("/api/admin/restorer/region_notes")
@@ -1229,7 +1285,23 @@ async def admin_restorer_region_notes_delete(note_id: str, authorization: str = 
     if deleted is None:
         raise HTTPException(404, "note not found")
     payload = _restorer_save_region_notes(keep, email=email)
-    return {"ok": True, "deleted": deleted.get("id"), "updated_at": payload["updated_at"]}
+    fb = _restorer_feedback_emit(
+        photo_id=(deleted.get("photo_id") or ""),
+        verdict="",
+        comment=f"[deleted region note] {(deleted.get('comment') or '')[:500]}",
+        defect_note="",
+        regions=[{
+            "x": (deleted.get("bbox") or {}).get("x"),
+            "y": (deleted.get("bbox") or {}).get("y"),
+            "w": (deleted.get("bbox") or {}).get("w"),
+            "h": (deleted.get("bbox") or {}).get("h"),
+            "side": deleted.get("image") or "before",
+            "comment": deleted.get("comment") or "",
+        }] if isinstance(deleted.get("bbox"), dict) else [],
+        email=email,
+        source="review",
+    )
+    return {"ok": True, "deleted": deleted.get("id"), "updated_at": payload["updated_at"], "feedback": fb}
 
 
 @app.patch("/api/admin/restorer/region_notes/{note_id}")
@@ -1310,9 +1382,8 @@ async def admin_restorer_feedback_smoke(authorization: str = Header(None)):
         source="smoke",
     )
     return {"ok": True, "feedback": fb, "keys": {
-        "jsonl": "restorer_feedback/marks.jsonl",
-        "latest": "restorer_feedback/marks_latest.json",
-        "wake": "restorer_feedback/tg_wake.jsonl",
+        "journal": "feedback/restorer_journal.jsonl",
+        "pending_ping": "feedback/pending_ping.json",
     }}
 
 @app.get("/api/admin/stats")
