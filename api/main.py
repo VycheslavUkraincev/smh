@@ -754,7 +754,7 @@ _RESTORER_AFTER_DIR = _RESTORER_ROOT / "after"
 _RESTORER_META = _RESTORER_ROOT / "CORPUS.json"
 _RESTORER_MARKS = _RESTORER_ROOT / "marks.json"
 _SAFE_NAME = re.compile(r"^[A-Za-z0-9._-]{1,180}$")
-_RESTORER_VERDICTS = {"", "approve", "weak", "bad"}
+_RESTORER_VERDICTS = {"", "approve", "approve_authentic", "approve_modern", "weak", "bad"}
 
 
 def _restorer_load_meta():
@@ -820,13 +820,23 @@ async def admin_restorer_corpus(authorization: str = Header(None)):
         fname = (p.get("file") or "").strip()
         if not fname or not _SAFE_NAME.match(fname):
             continue
-        item = {k: p.get(k) for k in ("id", "file", "damage_tags", "status", "notes", "bytes", "md5", "after_file") if k in p}
+        item = {k: p.get(k) for k in ("id", "file", "damage_tags", "status", "notes", "bytes", "md5", "after_file", "after_authentic_file", "after_modern_file", "qa_status", "wave") if k in p}
         item["photo_url"] = f"/api/admin/restorer/photo/{fname}"
         after_name = (p.get("after_file") or "").strip()
+        auth_name = (p.get("after_authentic_file") or "").strip()
+        mod_name = (p.get("after_modern_file") or "").strip()
         has_after = bool(after_name and _SAFE_NAME.match(after_name) and (_RESTORER_AFTER_DIR / after_name).is_file())
-        item["has_after"] = has_after
+        has_auth = bool(auth_name and _SAFE_NAME.match(auth_name) and (_RESTORER_AFTER_DIR / auth_name).is_file())
+        has_mod = bool(mod_name and _SAFE_NAME.match(mod_name) and (_RESTORER_AFTER_DIR / mod_name).is_file())
+        item["has_after"] = has_after or has_auth or has_mod
+        item["has_after_authentic"] = has_auth
+        item["has_after_modern"] = has_mod
         if has_after:
             item["after_url"] = f"/api/admin/restorer/photo/{after_name}?kind=after"
+        if has_auth:
+            item["after_authentic_url"] = f"/api/admin/restorer/photo/{auth_name}?kind=after"
+        if has_mod:
+            item["after_modern_url"] = f"/api/admin/restorer/photo/{mod_name}?kind=after"
         mid = item.get("id") or ""
         if mid in marks:
             item["mark"] = marks[mid]
@@ -870,7 +880,12 @@ async def admin_restorer_photo(filename: str, kind: str = "before", authorizatio
         raise HTTPException(400, "bad kind")
     meta = _restorer_load_meta()
     if kind == "after":
-        allowed = {(p.get("after_file") or "").strip() for p in (meta.get("photos") or [])}
+        allowed = set()
+        for p in (meta.get("photos") or []):
+            for k in ("after_file", "after_authentic_file", "after_modern_file"):
+                n = (p.get(k) or "").strip()
+                if n:
+                    allowed.add(n)
         base = _RESTORER_AFTER_DIR
     else:
         allowed = {(p.get("file") or "").strip() for p in (meta.get("photos") or [])}

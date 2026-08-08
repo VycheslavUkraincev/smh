@@ -1,5 +1,5 @@
 {
-  "version": "restorer_board_v2",
+  "version": "restorer_board_v2_wave1",
   "n_photos": 12,
   "dropbox_status": "reachable_after_refresh",
   "excluded": [
@@ -86,10 +86,12 @@
       ],
       "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_01.jpg",
-      "notes": "photo-testset 01_scratches",
+      "notes": "photo-testset 01_scratches; WAVE1 HOLD (nudity) — not candidate",
       "bytes": 373824,
       "md5": "006e58324f501f6c330685b5fed7887d",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "HOLD",
+      "qa_note": "HOLD: nude/topless content; Nano+Grok content_policy; CF only kept locally; not panel candidate"
     },
     {
       "id": "pd_02_stains",
@@ -101,10 +103,15 @@
       ],
       "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_02.jpg",
-      "notes": "photo-testset 02_stains",
+      "notes": "photo-testset 02_stains; WAVE1 candidate CF+Nano (sub for pd_01 nude HOLD)",
       "bytes": 758751,
       "md5": "f5681b972fa6065a0307439e6608cecd",
-      "has_after": false
+      "has_after": false,
+      "after_authentic_file": "pd_02_stains_authentic.jpg",
+      "after_modern_file": "pd_02_stains_modern.jpg",
+      "after_file": "pd_02_stains_modern.jpg",
+      "qa_status": "PASS",
+      "qa_note": "wave1 substitute for pd_01 (nude HOLD); CF+Nano; authentic B&W PASS; modern color PASS; parent eyeball pending Roman"
     },
     {
       "id": "pd_03_fade",
@@ -146,10 +153,15 @@
       ],
       "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_06.jpg",
-      "notes": "photo-testset 06_cracks; group-seed permanently excluded",
+      "notes": "photo-testset 06_cracks; WAVE1 candidate CF+Nano",
       "bytes": 1753075,
       "md5": "880057a4a38af2348810ecc29d72107f",
-      "has_after": false
+      "has_after": false,
+      "after_authentic_file": "pd_06_cracks_authentic.jpg",
+      "after_modern_file": "pd_06_cracks_modern.jpg",
+      "after_file": "pd_06_cracks_modern.jpg",
+      "qa_status": "PASS",
+      "qa_note": "wave1 CF+Nano; authentic B&W PASS; modern color PASS; parent eyeball pending Roman"
     },
     {
       "id": "pd_08_inbound",

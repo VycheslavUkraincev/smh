@@ -49,7 +49,9 @@ label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px;}
 input,textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fff;}
 .outbox{background:linear-gradient(180deg,#f7fbff,#fff);border:1px dashed #b7c7d8;border-radius:14px;padding:14px;}
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-@media(max-width:560px){.ba{grid-template-columns:1fr;}}
+.ba.triple{grid-template-columns:1fr 1fr 1fr;}
+@media(max-width:900px){.ba.triple{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.ba,.ba.triple{grid-template-columns:1fr;}}
 .shot{position:relative;}
 .shot img,.img-slot{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:#ddd;display:block;}
 .shot .lbl{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:.7rem;padding:4px 8px;border-radius:999px;}
@@ -229,7 +231,7 @@ function filteredPhotos(){
 function updateQueue(){
   let approved=0, weak=0, bad=0;
   Object.values(MARKS).forEach(m=>{
-    if(m.verdict==='approve') approved++;
+    if(m.verdict==='approve' || m.verdict==='approve_authentic' || m.verdict==='approve_modern') approved++;
     else if(m.verdict==='weak') weak++;
     else if(m.verdict==='bad') bad++;
   });
@@ -278,16 +280,31 @@ async function render(){
     const el=document.createElement('article'); el.className='card photo';
     const stClass=p.status==='HAS_ETALON'?'has':'need';
     const stLabel=p.status==='HAS_ETALON'?'есть эталон AFTER':'нужен эталон';
-    const ba = p.has_after ? `<div class="ba">
-        <div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(p.photo_url||('/api/admin/restorer/photo/'+p.file))}"></div><span class="lbl">BEFORE</span></div>
+    const beforeU = p.photo_url||('/api/admin/restorer/photo/'+p.file);
+    let ba = '';
+    if (p.has_after_authentic || p.has_after_modern) {
+      ba = `<div class="ba triple">
+        <div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span></div>
+        <div class="shot"><div class="img-slot" data-k="aa:${esc(p.after_authentic_file||'')}" data-u="${esc(p.after_authentic_url||'')}"></div><span class="lbl">AFTER подлинный</span></div>
+        <div class="shot"><div class="img-slot" data-k="am:${esc(p.after_modern_file||'')}" data-u="${esc(p.after_modern_url||'')}"></div><span class="lbl">AFTER готовый</span></div>
+      </div>`;
+    } else if (p.has_after) {
+      ba = `<div class="ba">
+        <div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span></div>
         <div class="shot"><div class="img-slot" data-k="a:${esc(p.after_file||'')}" data-u="${esc(p.after_url||'')}"></div><span class="lbl">AFTER</span></div>
-      </div>` : `<div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(p.photo_url||('/api/admin/restorer/photo/'+p.file))}"></div><span class="lbl">BEFORE</span></div>`;
+      </div>`;
+    } else {
+      ba = `<div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span></div>`;
+    }
+    const qa = p.qa_status ? `<span class="tag">QA ${esc(p.qa_status)}</span>` : '';
     el.innerHTML = `${ba}
       <h3 style="margin-top:12px">${esc(p.id)}</h3>
       <div class="status ${stClass}">${stLabel}</div>
-      <div class="tags">${(p.damage_tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <div class="tags">${(p.damage_tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}${qa}</div>
       <p class="muted" style="font-size:.85rem">${esc(p.notes||'')}</p>
       <div class="actions">
+        <button type="button" data-v="approve_authentic" class="${m.verdict==='approve_authentic'?'active-ok':''}">одобрить authentic</button>
+        <button type="button" data-v="approve_modern" class="${m.verdict==='approve_modern'?'active-ok':''}">одобрить modern</button>
         <button type="button" data-v="approve" class="${m.verdict==='approve'?'active-ok':''}">утвердить эталон</button>
         <button type="button" data-v="weak" class="${m.verdict==='weak'?'active-weak':''}">слабо</button>
         <button type="button" data-v="bad" class="${m.verdict==='bad'?'active-bad':''}">брак</button>
