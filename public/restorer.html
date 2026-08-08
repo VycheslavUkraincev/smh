@@ -52,9 +52,11 @@ input,textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);bor
 .ba.triple{grid-template-columns:1fr 1fr 1fr;}
 @media(max-width:900px){.ba.triple{grid-template-columns:1fr 1fr;}}
 @media(max-width:560px){.ba,.ba.triple{grid-template-columns:1fr;}}
-.shot{position:relative;}
+.shot{position:relative;cursor:pointer;}
 .shot img,.img-slot{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:#ddd;display:block;}
-.shot .lbl{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:.7rem;padding:4px 8px;border-radius:999px;}
+.shot .lbl{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:.7rem;padding:4px 8px;border-radius:999px;z-index:2;}
+.shot .zoom-hint{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;padding:4px 8px;border-radius:999px;z-index:2;pointer-events:none;opacity:.92;}
+.shot:hover img{filter:brightness(.96);}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
 .tag{font-size:.75rem;padding:4px 8px;border-radius:999px;background:#eef3f0;color:#355246;}
 .status{font-size:.8rem;font-weight:700;}
@@ -81,6 +83,34 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
 .save-hint{font-size:.8rem;min-height:1.2em;}
 .empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:10px 0 16px;}
+
+/* Lightbox */
+body.lb-open{overflow:hidden;}
+.lb{position:fixed;inset:0;z-index:9999;display:none;align-items:stretch;justify-content:center;background:rgba(12,10,8,.88);padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);}
+.lb.open{display:flex;}
+.lb-inner{display:flex;flex-direction:column;width:100%;max-width:1100px;max-height:100%;margin:0 auto;padding:12px;box-sizing:border-box;}
+.lb-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#f5f0e6;margin-bottom:8px;}
+.lb-title{font-weight:700;font-size:.95rem;}
+.lb-close{appearance:none;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;width:42px;height:42px;font-size:1.4rem;line-height:1;cursor:pointer;}
+.lb-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.lb-tab{appearance:none;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:.82rem;cursor:pointer;}
+.lb-tab.on{background:#fff;color:#1c1915;border-color:#fff;}
+.lb-stage{position:relative;flex:1;min-height:180px;display:flex;align-items:center;justify-content:center;touch-action:none;overflow:hidden;border-radius:14px;background:rgba(0,0,0,.25);}
+.lb-stage img{max-width:100%;max-height:min(62vh,720px);width:auto;height:auto;object-fit:contain;transform-origin:center center;user-select:none;-webkit-user-drag:none;}
+.lb-nav{appearance:none;position:absolute;top:50%;transform:translateY(-50%);border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.45);color:#fff;width:44px;height:44px;border-radius:999px;font-size:1.3rem;cursor:pointer;z-index:2;}
+.lb-nav.prev{left:8px;}
+.lb-nav.next{right:8px;}
+.lb-meta{color:rgba(245,240,230,.75);font-size:.8rem;margin:8px 0 0;text-align:center;}
+.lb-panel{margin-top:10px;background:var(--card);border-radius:16px;padding:12px 14px;border:1px solid var(--line);max-height:38vh;overflow:auto;}
+.lb-panel .actions{margin-top:8px;}
+.lb-panel .save-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;}
+.lb-panel .lb-save-hint{font-size:.8rem;color:var(--muted);min-height:1.2em;}
+@media(max-width:640px){
+  .lb-inner{padding:8px;}
+  .lb-stage img{max-height:48vh;}
+  .lb-panel{max-height:42vh;}
+  .lb-nav{width:38px;height:38px;}
+}
 </style>
 </head>
 <body>
@@ -101,7 +131,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
     <div>
       <div class="badge">SaveMyHistory · панель реставратора v2 · ADMIN</div>
       <h1>Панель реставратора</h1>
-      <p>Склад, очередь, калькулятор Path A и эталонная доска. Отметки (утвердить / слабо / брак + комментарий) пишутся на сервер. Фото только через admin API.</p>
+      <p>Склад, очередь, калькулятор Path A и эталонная доска. Отметки (утвердить / слабо / брак + комментарий) пишутся на сервер. Фото только через admin API. Нажми фото, чтобы увеличить.</p>
     </div>
     <div class="badge" id="photoBadge">… фото · group-seed исключён · без GPU-аренды</div>
   </header>
@@ -159,7 +189,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
 
   <section class="sec" id="etalon">
     <h2>D. Эталонная доска</h2>
-    <p class="lead">Сначала фильтр «нужно эталон»: жми «утвердить эталон» / «слабо» / «брак» и пиши комментарий. У HAS_ETALON видно BEFORE / AFTER.</p>
+    <p class="lead">Сначала фильтр «нужно эталон»: жми «утвердить эталон» / «слабо» / «брак» и пиши комментарий. У HAS_ETALON видно BEFORE / AFTER. Клик по фото — полный размер и комментарий к BEFORE.</p>
     <div class="toolbar">
       <div class="nav" style="margin:0" id="filters">
         <button type="button" class="filter-btn on" data-f="all">все</button>
@@ -194,12 +224,41 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
   <p class="footer">Admin-only board v2. Не утверждает: sellable · conveyor ready · etalon met · Path C proven · BrushNet PASS · public open board.</p>
   </div>
 </div>
+
+<div id="lightbox" class="lb" aria-hidden="true">
+  <div class="lb-inner" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+    <div class="lb-top">
+      <div class="lb-title" id="lbTitle">фото</div>
+      <button type="button" class="lb-close" id="lbClose" aria-label="Закрыть">×</button>
+    </div>
+    <div class="lb-tabs" id="lbTabs"></div>
+    <div class="lb-stage" id="lbStage">
+      <button type="button" class="lb-nav prev" id="lbPrevPhoto" aria-label="Предыдущее фото">‹</button>
+      <img id="lbImg" alt="просмотр" />
+      <button type="button" class="lb-nav next" id="lbNextPhoto" aria-label="Следующее фото">›</button>
+    </div>
+    <div class="lb-meta" id="lbMeta"></div>
+    <div class="lb-panel" id="lbPanel">
+      <div class="actions" id="lbActions"></div>
+      <div id="lbBeforeForm">
+        <label style="margin-top:10px">комментарий к BEFORE</label>
+        <textarea id="lbComment" rows="3" placeholder="что улучшить / почему ок"></textarea>
+        <div class="save-row">
+          <button type="button" class="btn primary" id="lbSaveComment">Сохранить комментарий</button>
+          <span class="lb-save-hint" id="lbSaveHint"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
 const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
 const MARK_KEY='smh_restorer_board_v2_marks';
 const $=s=>document.querySelector(s);
 let _token=null, PHOTOS=[], MARKS={}, FILTER='all', _blobUrls={}, _saveTimer=null, COGS={path_a_mid_usd:0.002,path_a_classic_mid_usd:0.0018};
+let LB={open:false, list:[], index:0, view:0, views:[], scale:1, tx:0, ty:0};
 function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
 function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
 function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
@@ -247,31 +306,151 @@ function updateQueue(){
   }).filter(Boolean);
   $('#brainNotes').innerHTML = notes.length ? notes.join('') : '<p class="muted">Пока нет заметок для обучения. Отметь фото на доске.</p>';
 }
-async function persistMark(id){
+async function persistMark(id, hintEl){
   const body=markOf(id);
   body.updated_at=Math.floor(Date.now()/1000);
   MARKS[id]=body; cacheMarksLocal();
-  $('#saveHint').textContent='сохраняю…';
+  const hint = hintEl || $('#saveHint');
+  hint.textContent='сохраняю…';
   try{
     const r=await fetch('/api/admin/restorer/marks/'+encodeURIComponent(id),{method:'PUT',headers:H(),body:JSON.stringify(body)});
     if(!r.ok) throw new Error('save '+r.status);
-    $('#saveHint').textContent='сохранено на сервере';
+    hint.textContent='сохранено на сервере';
+    if(hintEl && hintEl!==$('#saveHint')) $('#saveHint').textContent='сохранено на сервере';
   }catch(e){
-    $('#saveHint').textContent='сервер недоступен, держу локально + экспорт';
+    hint.textContent='сервер недоступен, держу локально + экспорт';
   }
 }
 function schedulePersist(id){
   clearTimeout(_saveTimer);
   _saveTimer=setTimeout(()=>persistMark(id), 400);
 }
-async function fillImg(slot, key, url){
+function photoViews(p){
+  const beforeU = p.photo_url||('/api/admin/restorer/photo/'+p.file);
+  const views=[{kind:'before', label:'BEFORE', key:'b:'+p.file, url:beforeU}];
+  if (p.has_after_authentic || p.has_after_modern) {
+    if (p.after_authentic_url || p.after_authentic_file) views.push({kind:'after', label:'AFTER подлинный', key:'aa:'+(p.after_authentic_file||''), url:p.after_authentic_url||''});
+    if (p.after_modern_url || p.after_modern_file) views.push({kind:'after', label:'AFTER готовый', key:'am:'+(p.after_modern_file||''), url:p.after_modern_url||''});
+  } else if (p.has_after && (p.after_url || p.after_file)) {
+    views.push({kind:'after', label:'AFTER', key:'a:'+(p.after_file||''), url:p.after_url||''});
+  }
+  return views.filter(v=>v.url);
+}
+function resetLbTransform(){
+  LB.scale=1; LB.tx=0; LB.ty=0;
+  applyLbTransform();
+}
+function applyLbTransform(){
+  const img=$('#lbImg');
+  if(!img) return;
+  img.style.transform='translate('+LB.tx+'px,'+LB.ty+'px) scale('+LB.scale+')';
+}
+async function ensureBlob(key, url){
+  if(!url) throw new Error('no url');
+  if(!_blobUrls[key]) _blobUrls[key]=await authFetchBlob(url);
+  return _blobUrls[key];
+}
+async function fillImg(slot, key, url, clickInfo){
   try{
-    if(!_blobUrls[key]) _blobUrls[key]=await authFetchBlob(url);
-    const img=document.createElement('img'); img.alt=key; img.loading='lazy'; img.src=_blobUrls[key];
+    const src=await ensureBlob(key, url);
+    const img=document.createElement('img'); img.alt=key; img.loading='lazy'; img.src=src;
+    img.style.cursor='pointer';
+    if(clickInfo){
+      img.addEventListener('click', ev=>{ ev.stopPropagation(); openLightbox(clickInfo.photoId, clickInfo.viewKind); });
+    }
     slot.replaceWith(img);
   }catch(e){ slot.textContent='нет фото'; slot.style.display='grid'; slot.style.placeItems='center'; slot.style.color='#666'; slot.style.fontSize='.85rem'; }
 }
-async function render(){
+function syncLbActions(){
+  const p=LB.list[LB.index]; if(!p) return;
+  const m=markOf(p.id);
+  const box=$('#lbActions');
+  const btns=[
+    ['approve_authentic','одобрить authentic','active-ok'],
+    ['approve_modern','одобрить modern','active-ok'],
+    ['approve','утвердить','active-ok'],
+    ['weak','слабо','active-weak'],
+    ['bad','брак','active-bad']
+  ];
+  box.innerHTML=btns.map(([v,label,cls])=>`<button type="button" data-v="${v}" class="${m.verdict===v?cls:''}">${label}</button>`).join('');
+  box.querySelectorAll('button[data-v]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      MARKS[p.id]=markOf(p.id); MARKS[p.id].verdict=btn.getAttribute('data-v');
+      await persistMark(p.id, $('#lbSaveHint'));
+      syncLbActions();
+      updateQueue();
+      // keep lightbox open; refresh card list quietly
+      render(true);
+    });
+  });
+}
+async function paintLightbox(){
+  const p=LB.list[LB.index]; if(!p) return;
+  LB.views=photoViews(p);
+  if(LB.view>=LB.views.length) LB.view=0;
+  const v=LB.views[LB.view]||LB.views[0];
+  $('#lbTitle').textContent=p.id+' · '+(v?v.label:'');
+  $('#lbMeta').textContent=(LB.index+1)+' / '+LB.list.length+' · колёсико/щипок — масштаб · ←/→ фото · Esc закрыть';
+  const tabs=$('#lbTabs'); tabs.innerHTML='';
+  LB.views.forEach((vv,i)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='lb-tab'+(i===LB.view?' on':''); b.textContent=vv.label;
+    b.addEventListener('click', ()=>{ LB.view=i; paintLightbox(); });
+    tabs.appendChild(b);
+  });
+  const img=$('#lbImg');
+  img.alt=v?v.label:'';
+  img.style.opacity='.4';
+  try{
+    img.src=await ensureBlob(v.key, v.url);
+    img.style.opacity='1';
+  }catch(e){ img.removeAttribute('src'); img.alt='нет фото'; img.style.opacity='1'; }
+  resetLbTransform();
+  const isBefore=!v || v.kind==='before';
+  $('#lbBeforeForm').style.display=isBefore?'block':'none';
+  if(isBefore){
+    $('#lbComment').value=markOf(p.id).comment||'';
+    $('#lbSaveHint').textContent='';
+  }
+  syncLbActions();
+}
+function openLightbox(photoId, viewKind){
+  LB.list=filteredPhotos();
+  LB.index=Math.max(0, LB.list.findIndex(p=>p.id===photoId));
+  if(LB.index<0) LB.index=0;
+  const p=LB.list[LB.index];
+  LB.views=photoViews(p||{file:'',photo_url:''});
+  LB.view=0;
+  if(viewKind){
+    const i=LB.views.findIndex(v=>v.kind===viewKind || v.label===viewKind);
+    if(i>=0) LB.view=i;
+  }
+  LB.open=true;
+  $('#lightbox').classList.add('open');
+  $('#lightbox').setAttribute('aria-hidden','false');
+  document.body.classList.add('lb-open');
+  paintLightbox();
+}
+function closeLightbox(){
+  LB.open=false;
+  $('#lightbox').classList.remove('open');
+  $('#lightbox').setAttribute('aria-hidden','true');
+  document.body.classList.remove('lb-open');
+}
+function lbShiftPhoto(dir){
+  if(!LB.list.length) return;
+  LB.index=(LB.index+dir+LB.list.length)%LB.list.length;
+  LB.view=0;
+  paintLightbox();
+}
+function lbShiftView(dir){
+  if(LB.views.length<=1){ lbShiftPhoto(dir); return; }
+  const n=LB.view+dir;
+  if(n<0){ lbShiftPhoto(-1); LB.view=Math.max(0,(photoViews(LB.list[LB.index]).length-1)); paintLightbox(); return; }
+  if(n>=LB.views.length){ lbShiftPhoto(1); return; }
+  LB.view=n; paintLightbox();
+}
+async function render(keepLb){
   const grid=$('#etalonGrid'); grid.innerHTML='';
   const list=filteredPhotos();
   if(!list.length){ grid.innerHTML='<div class="empty">В этом фильтре пусто.</div>'; updateQueue(); return; }
@@ -284,17 +463,17 @@ async function render(){
     let ba = '';
     if (p.has_after_authentic || p.has_after_modern) {
       ba = `<div class="ba triple">
-        <div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span></div>
-        <div class="shot"><div class="img-slot" data-k="aa:${esc(p.after_authentic_file||'')}" data-u="${esc(p.after_authentic_url||'')}"></div><span class="lbl">AFTER подлинный</span></div>
-        <div class="shot"><div class="img-slot" data-k="am:${esc(p.after_modern_file||'')}" data-u="${esc(p.after_modern_url||'')}"></div><span class="lbl">AFTER готовый</span></div>
+        <div class="shot" data-open="${esc(p.id)}" data-view="before"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span><span class="zoom-hint">нажми, чтобы увеличить</span></div>
+        <div class="shot" data-open="${esc(p.id)}" data-view="AFTER подлинный"><div class="img-slot" data-k="aa:${esc(p.after_authentic_file||'')}" data-u="${esc(p.after_authentic_url||'')}"></div><span class="lbl">AFTER подлинный</span><span class="zoom-hint">нажми, чтобы увеличить</span></div>
+        <div class="shot" data-open="${esc(p.id)}" data-view="AFTER готовый"><div class="img-slot" data-k="am:${esc(p.after_modern_file||'')}" data-u="${esc(p.after_modern_url||'')}"></div><span class="lbl">AFTER готовый</span><span class="zoom-hint">нажми, чтобы увеличить</span></div>
       </div>`;
     } else if (p.has_after) {
       ba = `<div class="ba">
-        <div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span></div>
-        <div class="shot"><div class="img-slot" data-k="a:${esc(p.after_file||'')}" data-u="${esc(p.after_url||'')}"></div><span class="lbl">AFTER</span></div>
+        <div class="shot" data-open="${esc(p.id)}" data-view="before"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span><span class="zoom-hint">нажми, чтобы увеличить</span></div>
+        <div class="shot" data-open="${esc(p.id)}" data-view="after"><div class="img-slot" data-k="a:${esc(p.after_file||'')}" data-u="${esc(p.after_url||'')}"></div><span class="lbl">AFTER</span><span class="zoom-hint">нажми, чтобы увеличить</span></div>
       </div>`;
     } else {
-      ba = `<div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span></div>`;
+      ba = `<div class="shot" data-open="${esc(p.id)}" data-view="before"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(beforeU)}"></div><span class="lbl">BEFORE</span><span class="zoom-hint">нажми, чтобы увеличить</span></div>`;
     }
     const qa = p.qa_status ? `<span class="tag">QA ${esc(p.qa_status)}</span>` : '';
     el.innerHTML = `${ba}
@@ -316,22 +495,40 @@ async function render(){
     el.querySelectorAll('button[data-v]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         MARKS[p.id]=markOf(p.id); MARKS[p.id].verdict=btn.getAttribute('data-v');
-        persistMark(p.id).then(()=>render());
+        persistMark(p.id).then(()=>render(LB.open));
       });
     });
     el.querySelectorAll('textarea').forEach(ta=>{
       ta.addEventListener('change', ev=>{
         MARKS[p.id]=markOf(p.id); MARKS[p.id][ta.getAttribute('data-f')]=ev.target.value;
         schedulePersist(p.id); updateQueue();
+        if(LB.open && LB.list[LB.index] && LB.list[LB.index].id===p.id && ta.getAttribute('data-f')==='comment'){
+          $('#lbComment').value=ev.target.value;
+        }
+      });
+    });
+    el.querySelectorAll('.shot[data-open]').forEach(shot=>{
+      shot.addEventListener('click', ev=>{
+        if(ev.target.closest('textarea,button,a,input')) return;
+        openLightbox(shot.getAttribute('data-open'), shot.getAttribute('data-view')||'before');
       });
     });
     grid.appendChild(el);
     el.querySelectorAll('.img-slot').forEach(slot=>{
       const u=slot.getAttribute('data-u'); const k=slot.getAttribute('data-k');
-      if(u) fillImg(slot,k,u);
+      const shot=slot.closest('.shot');
+      const clickInfo=shot?{photoId:shot.getAttribute('data-open'), viewKind:shot.getAttribute('data-view')||'before'}:null;
+      if(u) fillImg(slot,k,u,clickInfo);
     });
   }
   updateQueue();
+  if(keepLb && LB.open){
+    LB.list=filteredPhotos();
+    if(!LB.list.length){ closeLightbox(); return; }
+    if(LB.index>=LB.list.length) LB.index=LB.list.length-1;
+    // keep same photo id if still in filter
+    paintLightbox();
+  }
 }
 function calc(){
   const n=Math.max(0, Number($('#nPhotos').value||0));
@@ -349,13 +546,85 @@ document.getElementById('filters').addEventListener('click', e=>{
   const btn=e.target.closest('.filter-btn'); if(!btn) return;
   FILTER=btn.getAttribute('data-f');
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('on', b===btn));
-  render();
+  render(false); if(LB.open) closeLightbox();
 });
 document.getElementById('exportMarks').onclick=e=>{
   e.preventDefault();
   const blob=new Blob([JSON.stringify({version:'restorer_marks_v1', marks:MARKS},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='restorer_marks.json'; a.click();
 };
+$('#lbClose').onclick=()=>closeLightbox();
+$('#lightbox').addEventListener('click', e=>{ if(e.target.id==='lightbox') closeLightbox(); });
+$('.lb-inner').addEventListener('click', e=>e.stopPropagation());
+$('#lbPrevPhoto').onclick=()=>lbShiftPhoto(-1);
+$('#lbNextPhoto').onclick=()=>lbShiftPhoto(1);
+$('#lbSaveComment').onclick=async ()=>{
+  const p=LB.list[LB.index]; if(!p) return;
+  MARKS[p.id]=markOf(p.id);
+  MARKS[p.id].comment=$('#lbComment').value||'';
+  await persistMark(p.id, $('#lbSaveHint'));
+  updateQueue();
+  render(true);
+};
+document.addEventListener('keydown', e=>{
+  if(!LB.open) return;
+  const tag=(e.target&&e.target.tagName||'').toLowerCase();
+  if(tag==='textarea' || tag==='input'){
+    if(e.key==='Escape'){ e.preventDefault(); closeLightbox(); }
+    return;
+  }
+  if(e.key==='Escape'){ e.preventDefault(); closeLightbox(); }
+  else if(e.key==='ArrowLeft'){ e.preventDefault(); lbShiftView(-1); }
+  else if(e.key==='ArrowRight'){ e.preventDefault(); lbShiftView(1); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); lbShiftPhoto(-1); }
+  else if(e.key==='ArrowDown'){ e.preventDefault(); lbShiftPhoto(1); }
+});
+// wheel zoom
+$('#lbStage').addEventListener('wheel', e=>{
+  if(!LB.open) return;
+  e.preventDefault();
+  const delta=e.deltaY>0?0.9:1.1;
+  LB.scale=Math.min(4, Math.max(1, LB.scale*delta));
+  if(LB.scale===1){ LB.tx=0; LB.ty=0; }
+  applyLbTransform();
+},{passive:false});
+// pinch + swipe
+(function(){
+  const stage=$('#lbStage');
+  let mode=null, startX=0, startY=0, startDist=0, startScale=1, startTx=0, startTy=0;
+  function dist(a,b){ const dx=a.clientX-b.clientX, dy=a.clientY-b.clientY; return Math.hypot(dx,dy); }
+  stage.addEventListener('touchstart', e=>{
+    if(!LB.open) return;
+    if(e.touches.length===2){
+      mode='pinch'; startDist=dist(e.touches[0],e.touches[1]); startScale=LB.scale;
+    } else if(e.touches.length===1){
+      mode='swipe'; startX=e.touches[0].clientX; startY=e.touches[0].clientY; startTx=LB.tx; startTy=LB.ty;
+    }
+  },{passive:true});
+  stage.addEventListener('touchmove', e=>{
+    if(!LB.open||!mode) return;
+    if(mode==='pinch' && e.touches.length===2){
+      e.preventDefault();
+      const d=dist(e.touches[0],e.touches[1]);
+      LB.scale=Math.min(4, Math.max(1, startScale*(d/startDist)));
+      applyLbTransform();
+    } else if(mode==='swipe' && e.touches.length===1 && LB.scale>1){
+      e.preventDefault();
+      LB.tx=startTx+(e.touches[0].clientX-startX);
+      LB.ty=startTy+(e.touches[0].clientY-startY);
+      applyLbTransform();
+    }
+  },{passive:false});
+  stage.addEventListener('touchend', e=>{
+    if(!LB.open) return;
+    if(mode==='swipe' && LB.scale===1 && e.changedTouches[0]){
+      const dx=e.changedTouches[0].clientX-startX;
+      const dy=e.changedTouches[0].clientY-startY;
+      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)) lbShiftView(dx<0?1:-1);
+    }
+    mode=null;
+  });
+})();
 async function loadCorpus(){
   const r=await fetch('/api/admin/restorer/corpus',{headers:{Authorization:'Bearer '+getToken()}});
   if(!r.ok) throw new Error('corpus '+r.status);
@@ -369,7 +638,7 @@ async function loadCorpus(){
   $('#nPhotos').value=String(PHOTOS.length||12);
   FILTER='need';
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('on', b.getAttribute('data-f')==='need'));
-  await render(); calc();
+  await render(false); calc();
 }
 async function init(){
   $('#login').onclick=e=>{e.preventDefault();login();};
