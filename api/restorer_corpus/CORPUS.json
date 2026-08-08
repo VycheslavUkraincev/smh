@@ -1,5 +1,5 @@
 {
-  "version": "restorer_board_v2_wave2_demote",
+  "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 12,
   "dropbox_status": "reachable_after_refresh",
   "excluded": [
@@ -106,17 +106,18 @@
       "notes": "photo-testset 02_stains; WAVE2 CF+Nano AFTER (parent PASS); sub for pd_01 nude HOLD",
       "bytes": 758751,
       "md5": "f5681b972fa6065a0307439e6608cecd",
-      "has_after": true,
-      "after_authentic_file": "pd_02_stains_authentic.jpg",
-      "after_modern_file": "pd_02_stains_modern.jpg",
-      "after_file": "pd_02_stains_modern.jpg",
-      "qa_status": "PASS",
-      "qa_note": "WAVE2 parent-eye PASS authentic+modern; on panel awaiting Roman approve; status stays NEED_ETALON",
+      "has_after": false,
+      "after_authentic_file": null,
+      "after_modern_file": null,
+      "after_file": null,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE2 child self-QA FAIL (auth psychedelic/corruption; modern not pair-PASS); removed from panel; hold locally",
       "after_authentic_url": null,
       "after_modern_url": null,
       "wave1_note": "WAVE1 demoted; superseded by WAVE2 AFTER (parent PASS 2026-08-08)",
       "wave2_parent_eye": "PASS_auth_PASS_mod_await_Roman",
-      "after_url": null
+      "after_url": null,
+      "wave2_note": "FAIL_HOLD — demoted; no parent-eye PASS claimed"
     },
     {
       "id": "pd_03_fade",
@@ -131,14 +132,17 @@
       "notes": "photo-testset 03_fade; WAVE2 CF+Nano AFTER authentic only (parent PASS; modern WEAK hold)",
       "bytes": 806802,
       "md5": "b05d7557d869b594dee3c2276581b569",
-      "has_after": true,
-      "after_authentic_file": "pd_03_fade_authentic.jpg",
-      "after_file": "pd_03_fade_authentic.jpg",
-      "qa_status": "PASS_auth",
-      "qa_note": "WAVE2 parent-eye PASS authentic only; modern WEAK hold; on panel awaiting Roman; status stays NEED_ETALON",
+      "has_after": false,
+      "after_authentic_file": null,
+      "after_file": null,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE2 child self-QA FAIL both auth+mod (face invent/eyepatch); removed from panel; hold locally",
       "wave2_parent_eye": "PASS_auth_WEAK_mod_hold",
       "after_authentic_url": null,
-      "after_url": null
+      "after_url": null,
+      "after_modern_file": null,
+      "after_modern_url": null,
+      "wave2_note": "FAIL_HOLD — demoted; no parent-eye PASS claimed"
     },
     {
       "id": "pd_04_soft_portrait",
@@ -153,7 +157,10 @@
       "notes": "photo-testset 04_soft_portrait",
       "bytes": 94718,
       "md5": "1a64df909f40dd323f44c46b763835c0",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE2 child self-QA FAIL authentic (face/pose invent); modern not attempted (Nano budget); hold locally",
+      "wave2_note": "FAIL_HOLD — never deployed"
     },
     {
       "id": "pd_06_cracks",
@@ -168,7 +175,7 @@
       "notes": "photo-testset 06_cracks; WAVE1 candidate CF+Nano",
       "bytes": 1753075,
       "md5": "880057a4a38af2348810ecc29d72107f",
-      "has_after": false,
+      "has_after": true,
       "after_authentic_file": "pd_06_cracks_authentic.jpg",
       "after_modern_file": "pd_06_cracks_modern.jpg",
       "after_file": "pd_06_cracks_modern.jpg",
