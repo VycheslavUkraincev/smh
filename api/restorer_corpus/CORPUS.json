@@ -504,7 +504,14 @@
       "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
       "bytes": 8147873,
       "md5": "84a690b1589991d7082d82c48f6b56b4",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_150_authentic.jpg",
+      "after_modern_file": "db_pd_150_modern.jpg",
+      "after_file": "db_pd_150_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE9 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave9_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave9_child_eye": "PASS_auth_PASS_mod"
     },
     {
       "id": "db_pd_157",
@@ -545,7 +552,14 @@
       "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
       "bytes": 26105871,
       "md5": "163ada6ff78aaa1cfa3c1e786f77c6ab",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_163_authentic.jpg",
+      "after_modern_file": "db_pd_163_modern.jpg",
+      "after_file": "db_pd_163_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE9 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave9_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave9_child_eye": "PASS_auth_PASS_mod"
     },
     {
       "id": "db_pd_19",
@@ -682,7 +696,14 @@
       "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
       "bytes": 2935834,
       "md5": "afdc21e385dcabd0b8687254c5690dca",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_55_authentic.jpg",
+      "after_modern_file": "db_pd_55_modern.jpg",
+      "after_file": "db_pd_55_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE9 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave9_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave9_child_eye": "PASS_auth_PASS_mod"
     },
     {
       "id": "db_pd_62",
@@ -747,7 +768,14 @@
       "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
       "bytes": 145696,
       "md5": "b543c5093a903a7857222c556a363a96",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_76_authentic.jpg",
+      "after_modern_file": "db_pd_76_modern.jpg",
+      "after_file": "db_pd_76_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE9 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave9_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave9_child_eye": "PASS_auth_PASS_mod"
     }
   ]
 }
