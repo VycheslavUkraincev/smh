@@ -750,8 +750,11 @@ async def admin_check(authorization: str = Header(None)):
 # ---- Restorer board corpus (private; not under /public) ----
 _RESTORER_ROOT = Path(__file__).resolve().parent / "restorer_corpus"
 _RESTORER_CORPUS_DIR = _RESTORER_ROOT / "corpus"
+_RESTORER_AFTER_DIR = _RESTORER_ROOT / "after"
 _RESTORER_META = _RESTORER_ROOT / "CORPUS.json"
+_RESTORER_MARKS = _RESTORER_ROOT / "marks.json"
 _SAFE_NAME = re.compile(r"^[A-Za-z0-9._-]{1,180}$")
+_RESTORER_VERDICTS = {"", "approve", "weak", "bad"}
 
 
 def _restorer_load_meta():
@@ -764,56 +767,198 @@ def _restorer_load_meta():
     return data
 
 
+def _restorer_photo_ids(meta=None):
+    meta = meta or _restorer_load_meta()
+    return {(p.get("id") or "").strip() for p in (meta.get("photos") or []) if (p.get("id") or "").strip()}
+
+
+def _restorer_load_marks():
+    if not _RESTORER_MARKS.is_file():
+        return {}
+    try:
+        raw = json.loads(_RESTORER_MARKS.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    if isinstance(raw, dict) and isinstance(raw.get("marks"), dict):
+        return raw["marks"]
+    if isinstance(raw, dict):
+        return raw
+    return {}
+
+
+def _restorer_save_marks(marks: dict, email: str = ""):
+    payload = {
+        "version": "restorer_marks_v1",
+        "updated_at": int(time.time()),
+        "updated_by": (email or "").strip().lower(),
+        "marks": marks,
+    }
+    _RESTORER_ROOT.mkdir(parents=True, exist_ok=True)
+    tmp = _RESTORER_MARKS.with_suffix(".tmp")
+    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
+    tmp.replace(_RESTORER_MARKS)
+    return payload
+
+
+def _restorer_ctype(name: str):
+    low = name.lower()
+    if low.endswith(".png"):
+        return "image/png"
+    if low.endswith(".webp"):
+        return "image/webp"
+    return "image/jpeg"
+
+
 @app.get("/api/admin/restorer/corpus")
 async def admin_restorer_corpus(authorization: str = Header(None)):
     """List restorer-board corpus metadata (admin only). Photos via /photo/{file}."""
     await require_admin(authorization)
     data = _restorer_load_meta()
+    marks = _restorer_load_marks()
     photos = []
     for p in (data.get("photos") or []):
         fname = (p.get("file") or "").strip()
         if not fname or not _SAFE_NAME.match(fname):
             continue
-        item = {k: p.get(k) for k in ("id", "file", "damage_tags", "status", "notes", "bytes", "md5") if k in p}
+        item = {k: p.get(k) for k in ("id", "file", "damage_tags", "status", "notes", "bytes", "md5", "after_file") if k in p}
         item["photo_url"] = f"/api/admin/restorer/photo/{fname}"
+        after_name = (p.get("after_file") or "").strip()
+        has_after = bool(after_name and _SAFE_NAME.match(after_name) and (_RESTORER_AFTER_DIR / after_name).is_file())
+        item["has_after"] = has_after
+        if has_after:
+            item["after_url"] = f"/api/admin/restorer/photo/{after_name}?kind=after"
+        mid = item.get("id") or ""
+        if mid in marks:
+            item["mark"] = marks[mid]
         photos.append(item)
     return {
         "ok": True,
-        "version": data.get("version") or "restorer_board_v1",
+        "version": data.get("version") or "restorer_board_v2",
         "n_photos": len(photos),
         "excluded": data.get("excluded") or [],
         "has_etalon": data.get("has_etalon") or [],
         "need_etalon": data.get("need_etalon") or [],
+        "marks": marks,
+        "warehouse": {
+            "path_a": "HIT",
+            "brushnet": "HIT",
+            "flux_sdxl_qwen": "MISS",
+            "spaces": "smh-photos",
+            "region": "fra1",
+            "n_instances": 0,
+            "note": "учёт склада; GPU не арендуем из панели",
+        },
+        "cogs": {
+            "path_a_mid_usd": 0.002,
+            "path_a_classic_mid_usd": 0.0018,
+            "default_gpu_usd_per_hour": 0.40,
+            "default_photos_per_hour": 200,
+        },
         "photos": photos,
     }
 
 
 @app.get("/api/admin/restorer/photo/{filename}")
-async def admin_restorer_photo(filename: str, authorization: str = Header(None)):
-    """Serve one corpus image only to ADMIN_EMAILS."""
+async def admin_restorer_photo(filename: str, kind: str = "before", authorization: str = Header(None)):
+    """Serve one corpus BEFORE/AFTER image only to ADMIN_EMAILS."""
     await require_admin(authorization)
     name = (filename or "").strip()
     if not _SAFE_NAME.match(name) or "/" in name or ".." in name:
         raise HTTPException(400, "bad filename")
-    path = (_RESTORER_CORPUS_DIR / name).resolve()
-    root = _RESTORER_CORPUS_DIR.resolve()
-    if not str(path).startswith(str(root) + os.sep) or not path.is_file():
-        raise HTTPException(404, "not found")
-    # whitelist against CORPUS.json files
+    kind = (kind or "before").strip().lower()
+    if kind not in ("before", "after"):
+        raise HTTPException(400, "bad kind")
     meta = _restorer_load_meta()
-    allowed = {(p.get("file") or "").strip() for p in (meta.get("photos") or [])}
+    if kind == "after":
+        allowed = {(p.get("after_file") or "").strip() for p in (meta.get("photos") or [])}
+        base = _RESTORER_AFTER_DIR
+    else:
+        allowed = {(p.get("file") or "").strip() for p in (meta.get("photos") or [])}
+        base = _RESTORER_CORPUS_DIR
     if name not in allowed:
         raise HTTPException(404, "not found")
-    data = path.read_bytes()
-    ctype = "image/jpeg"
-    if name.lower().endswith(".png"):
-        ctype = "image/png"
-    elif name.lower().endswith(".webp"):
-        ctype = "image/webp"
-    return Response(content=data, media_type=ctype, headers={
+    path = (base / name).resolve()
+    root = base.resolve()
+    if not str(path).startswith(str(root) + os.sep) or not path.is_file():
+        raise HTTPException(404, "not found")
+    return Response(content=path.read_bytes(), media_type=_restorer_ctype(name), headers={
         "Cache-Control": "private, max-age=300",
         "X-Content-Type-Options": "nosniff",
     })
+
+
+@app.get("/api/admin/restorer/marks")
+async def admin_restorer_marks_get(authorization: str = Header(None)):
+    """Load etalon decisions (approve/weak/bad + comment). Admin only."""
+    await require_admin(authorization)
+    marks = _restorer_load_marks()
+    return {"ok": True, "version": "restorer_marks_v1", "marks": marks}
+
+
+@app.put("/api/admin/restorer/marks")
+async def admin_restorer_marks_put(request: Request, authorization: str = Header(None)):
+    """Persist etalon decisions under private restorer_corpus/marks.json."""
+    user = await require_admin(authorization)
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    incoming = body.get("marks") if isinstance(body, dict) and "marks" in body else body
+    if not isinstance(incoming, dict):
+        raise HTTPException(400, "marks object required")
+    allowed_ids = _restorer_photo_ids()
+    cleaned = {}
+    for pid, raw in incoming.items():
+        pid = str(pid or "").strip()
+        if pid not in allowed_ids:
+            continue
+        if not isinstance(raw, dict):
+            continue
+        verdict = str(raw.get("verdict") or "").strip()
+        if verdict not in _RESTORER_VERDICTS:
+            raise HTTPException(400, f"bad verdict for {pid}")
+        comment = str(raw.get("comment") or "")[:2000]
+        defect_note = str(raw.get("defect_note") or "")[:2000]
+        cleaned[pid] = {
+            "verdict": verdict,
+            "comment": comment,
+            "defect_note": defect_note,
+            "updated_at": int(raw.get("updated_at") or time.time()),
+        }
+    # merge: allow partial updates when body.patch=true
+    if isinstance(body, dict) and body.get("patch"):
+        merged = _restorer_load_marks()
+        merged.update(cleaned)
+        cleaned = merged
+    payload = _restorer_save_marks(cleaned, email=(user.get("email") or ""))
+    return {"ok": True, "version": payload["version"], "updated_at": payload["updated_at"], "marks": payload["marks"]}
+
+
+@app.put("/api/admin/restorer/marks/{photo_id}")
+async def admin_restorer_mark_one(photo_id: str, request: Request, authorization: str = Header(None)):
+    """Upsert one photo mark (verdict/comment/defect_note)."""
+    user = await require_admin(authorization)
+    pid = (photo_id or "").strip()
+    if pid not in _restorer_photo_ids():
+        raise HTTPException(404, "unknown photo")
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    if not isinstance(body, dict):
+        raise HTTPException(400, "object required")
+    verdict = str(body.get("verdict") or "").strip()
+    if verdict not in _RESTORER_VERDICTS:
+        raise HTTPException(400, "bad verdict")
+    marks = _restorer_load_marks()
+    marks[pid] = {
+        "verdict": verdict,
+        "comment": str(body.get("comment") or "")[:2000],
+        "defect_note": str(body.get("defect_note") or "")[:2000],
+        "updated_at": int(time.time()),
+    }
+    payload = _restorer_save_marks(marks, email=(user.get("email") or ""))
+    return {"ok": True, "id": pid, "mark": marks[pid], "updated_at": payload["updated_at"]}
 
 
 @app.get("/api/admin/stats")

@@ -23,32 +23,36 @@ body{
 .wrap{max-width:1180px;margin:0 auto;padding:28px 18px 80px;}
 .hero{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;margin-bottom:22px;}
 .hero h1{font-size:clamp(1.6rem,3vw,2.3rem);margin:0 0 6px;letter-spacing:-.02em;}
-.hero p{margin:0;color:var(--muted);max-width:52ch;line-height:1.45;}
+.hero p{margin:0;color:var(--muted);max-width:56ch;line-height:1.45;}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:.85rem;}
 .nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px;}
-.nav a,.theme-btn,button, .btn{
+.nav a,button,.btn,.filter-btn{
   appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
   border-radius:999px;padding:10px 14px;font:inherit;cursor:pointer;text-decoration:none;
   box-shadow:var(--shadow);
 }
-.nav a:hover,.theme-btn:hover,button:hover{transform:translateY(-1px);}
+.nav a:hover,button:hover,.filter-btn:hover{transform:translateY(-1px);}
 .btn.primary{background:var(--gold-d);color:#fff;border-color:var(--gold-d);}
+.filter-btn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
 .grid{display:grid;gap:16px;}
-.grid.tools{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-.grid.stock{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
-.grid.etalon{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.grid.tools{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.grid.stock{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
+.grid.etalon{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
 .card h2,.card h3{margin:0 0 8px;font-size:1.05rem;}
 .card p,.muted{color:var(--muted);line-height:1.45;}
 .hit{color:var(--ok);font-weight:700;}
 .miss{color:var(--bad);font-weight:700;}
 .stat{font-size:1.8rem;font-weight:750;letter-spacing:-.03em;}
-.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;align-items:end;}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;align-items:end;}
 label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px;}
 input,textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fff;}
 .outbox{background:linear-gradient(180deg,#f7fbff,#fff);border:1px dashed #b7c7d8;border-radius:14px;padding:14px;}
-.photo{overflow:hidden;}
-.photo img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:#ddd;display:block;}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:560px){.ba{grid-template-columns:1fr;}}
+.shot{position:relative;}
+.shot img,.img-slot{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:#ddd;display:block;}
+.shot .lbl{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:.7rem;padding:4px 8px;border-radius:999px;}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
 .tag{font-size:.75rem;padding:4px 8px;border-radius:999px;background:#eef3f0;color:#355246;}
 .status{font-size:.8rem;font-weight:700;}
@@ -61,23 +65,20 @@ input,textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);bor
 .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
 .step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:120px;}
 .arrow{color:var(--muted);font-size:1.2rem;}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px;}
-.theme-panel{display:none;}
-.theme-panel.on{display:block;}
-body.theme-sklad{--accent:#245c48; --soft:#dfece5;}
-body.theme-etalony{--bg:#f7f1ea; --accent:#6b3f2a; --soft:#efe2d4;}
-body.theme-progon{--bg:#eef2f6; --accent:#243f63; --soft:#dce6f1;}
 .footer{margin-top:28px;color:var(--muted);font-size:.85rem;}
 .sec{margin:28px 0;}
 .sec > h2{margin:0 0 12px;font-size:1.35rem;}
 .sec > .lead{margin:0 0 14px;color:var(--muted);}
-.formula{font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:.9rem;background:#f5f7fa;padding:10px 12px;border-radius:10px;}
+.formula{font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:.85rem;background:#f5f7fa;padding:10px 12px;border-radius:10px;}
 .gate{max-width:420px;margin:80px auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px;box-shadow:var(--shadow);}
 .gate h2{margin:0 0 10px;font-size:1.6rem;}
 .gate p{color:var(--muted);}
 .topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .who{color:var(--muted);font-size:.9rem;}
 a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
+.save-hint{font-size:.8rem;min-height:1.2em;}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:10px 0 16px;}
 </style>
 </head>
 <body>
@@ -92,129 +93,116 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
   <div id="panel" style="display:none">
   <div class="topbar">
     <span class="who" id="who"></span>
-    <div><a class="home" href="/admin.html">Админ</a> · <a class="home" href="/">Сайт</a></div>
+    <div><a class="home" href="/admin.html">Админ</a> · <a class="home" href="/">Сайт</a> · <a class="home" href="#" id="exportMarks">Экспорт отметок</a></div>
   </div>
   <header class="hero">
     <div>
-      <div class="badge">SaveMyHistory · панель реставратора v1 · ADMIN</div>
+      <div class="badge">SaveMyHistory · панель реставратора v2 · ADMIN</div>
       <h1>Панель реставратора</h1>
-      <p>Доска для Романа: склад инструментов, очередь фото, калькулятор прогона и эталонный набор BEFORE. Отметки сохраняются в браузере. Фото только через admin API.</p>
+      <p>Склад, очередь, калькулятор Path A и эталонная доска. Отметки (утвердить / слабо / брак + комментарий) пишутся на сервер. Фото только через admin API.</p>
     </div>
     <div class="badge" id="photoBadge">… фото · group-seed исключён · без GPU-аренды</div>
   </header>
 
   <nav class="nav">
-    <a href="#tools">Склад инструментов</a>
-    <a href="#stock">Склад фото</a>
+    <a href="#tools">Склад</a>
+    <a href="#stock">Очередь</a>
     <a href="#calc">Калькулятор</a>
     <a href="#etalon">Эталоны</a>
     <a href="#brain">Мозг</a>
-    <a href="#mock">Макеты</a>
   </nav>
 
   <section class="sec" id="tools">
     <h2>A. Склад инструментов</h2>
-    <p class="lead">Что уже лежит на Spaces smh-photos (fra1), без новых аренд и скачиваний.</p>
-    <div class="grid tools">
-      <div class="card"><h3>Path A</h3><div class="hit">HIT</div><p>~1.8 GB с DDColor. Классический конвейер восстановления.</p></div>
-      <div class="card"><h3>BrushNet</h3><div class="hit">HIT</div><p>~2.5 GB на складе. Не арендуем заново в этой сессии.</p></div>
-      <div class="card"><h3>Flux / SDXL / Qwen</h3><div class="miss">MISS</div><p>На складе нет полного комплекта под боевой прогон.</p></div>
-      <div class="card"><h3>Spaces</h3><p><strong>smh-photos</strong> · регион <strong>fra1</strong></p><p class="muted">Только учёт склада, без запуска GPU.</p></div>
+    <p class="lead">Учёт на Spaces smh-photos (fra1). n_instances = 0. Из панели GPU не арендуем.</p>
+    <div class="grid tools" id="warehouseGrid">
+      <div class="card"><h3>Path A</h3><div class="hit">HIT</div><p>~1.8 GB с DDColor. Классический конвейер. Ориентир COGS mid ≈ $0.002 / фото.</p></div>
+      <div class="card"><h3>BrushNet</h3><div class="hit">HIT</div><p>~2.5 GB на складе. Не запускаем и не арендуем заново в этой сессии.</p></div>
+      <div class="card"><h3>Flux / SDXL / Qwen</h3><div class="miss">MISS</div><p>Полного комплекта под боевой прогон нет. Честный MISS.</p></div>
+      <div class="card"><h3>Spaces</h3><p><strong>smh-photos</strong> · <strong>fra1</strong></p><p class="muted">Только учёт склада. n_instances = 0.</p></div>
     </div>
   </section>
 
   <section class="sec" id="stock">
-    <h2>B. Склад фото</h2>
-    <p class="lead">Очередь по статусам (макет учёта; цифры из локальных отметок).</p>
+    <h2>B. Очередь фото</h2>
+    <p class="lead">Счётчики из серверных отметок. «В конвейере» всегда 0: прогон из панели не запускаем.</p>
     <div class="grid stock">
-      <div class="card"><div class="muted">new</div><div class="stat" id="q-new">0</div></div>
-      <div class="card"><div class="muted">inspected</div><div class="stat" id="q-inspected">0</div></div>
-      <div class="card"><div class="muted">recipe ready</div><div class="stat" id="q-recipe">0</div></div>
-      <div class="card"><div class="muted">in conveyor</div><div class="stat" id="q-conv">0</div></div>
-      <div class="card"><div class="muted">done</div><div class="stat" id="q-done">0</div></div>
-      <div class="card"><div class="muted">defect</div><div class="stat" id="q-defect">0</div></div>
+      <div class="card"><div class="muted">новые</div><div class="stat" id="q-new">0</div></div>
+      <div class="card"><div class="muted">просмотрены</div><div class="stat" id="q-inspected">0</div></div>
+      <div class="card"><div class="muted">слабо</div><div class="stat" id="q-weak">0</div></div>
+      <div class="card"><div class="muted">в конвейере</div><div class="stat" id="q-conv">0</div></div>
+      <div class="card"><div class="muted">утверждены</div><div class="stat" id="q-done">0</div></div>
+      <div class="card"><div class="muted">брак</div><div class="stat" id="q-defect">0</div></div>
     </div>
   </section>
 
   <section class="sec" id="calc">
     <h2>C. Калькулятор прогона</h2>
-    <p class="lead">Порядок величины Path A classic mid ≈ $0.002 / фото. Формула ниже.</p>
+    <p class="lead">Path A classic mid ≈ $0.0018–$0.002 / фото (COGS docs). Оценка времени и $, без запуска GPU.</p>
     <div class="card">
       <div class="calc">
         <div><label>N фото</label><input id="nPhotos" type="number" value="12" min="1" step="1" /></div>
         <div><label>$ / час GPU</label><input id="priceHour" type="number" value="0.40" min="0" step="0.01" /></div>
         <div><label>фото / час</label><input id="pph" type="number" value="200" min="1" step="1" /></div>
         <div class="outbox">
-          <div class="muted">Итого</div>
+          <div class="muted">Итого GPU</div>
           <div class="stat" id="costOut">$0.00</div>
           <div id="minOut" class="muted">0 мин</div>
         </div>
       </div>
-      <p class="formula" style="margin-top:14px">минуты = N / (фото/час) × 60 ····· доллары = (минуты/60) × ($/час) ····· ориентир COGS ≈ N × 0.002</p>
+      <p class="formula" style="margin-top:14px">минуты = N / (фото/час) × 60 · доллары = часы × ($/час) · COGS mid ≈ N × 0.002 · classic ≈ N × 0.0018</p>
       <p class="muted" id="cogsOut"></p>
     </div>
   </section>
 
   <section class="sec" id="etalon">
     <h2>D. Эталонная доска</h2>
-    <p class="lead">Отметь: утвердить эталон / слабо / брак. Комментарий сохраняется локально. Фото грузятся только после admin login.</p>
+    <p class="lead">Сначала фильтр «нужно эталон»: жми «утвердить эталон» / «слабо» / «брак» и пиши комментарий. У HAS_ETALON видно BEFORE / AFTER.</p>
+    <div class="toolbar">
+      <div class="nav" style="margin:0" id="filters">
+        <button type="button" class="filter-btn on" data-f="all">все</button>
+        <button type="button" class="filter-btn" data-f="need">нужно эталон</button>
+        <button type="button" class="filter-btn" data-f="has">есть эталон</button>
+        <button type="button" class="filter-btn" data-f="bad">брак</button>
+      </div>
+      <span class="muted save-hint" id="saveHint"></span>
+    </div>
     <div class="grid etalon" id="etalonGrid"></div>
   </section>
 
   <section class="sec" id="brain">
     <h2>E. Мозг-реставратор</h2>
-    <p class="lead">Простой цикл, без претензии «conveyor ready».</p>
+    <p class="lead">Цикл обучения на заметках. Без претензии «conveyor ready».</p>
     <div class="card">
       <div class="flow">
-        <div class="step"><strong>1. Inspect</strong><br/><span class="muted">тип порчи, лица, группа</span></div>
+        <div class="step"><strong>1. Смотр</strong><br/><span class="muted">тип порчи, лица, группа</span></div>
         <div class="arrow">→</div>
-        <div class="step"><strong>2. Recipe</strong><br/><span class="muted">Path A / Path C / API CF+Nano</span></div>
+        <div class="step"><strong>2. Рецепт</strong><br/><span class="muted">Path A / заметка / API</span></div>
         <div class="arrow">→</div>
-        <div class="step"><strong>3. Run</strong><br/><span class="muted">только по явному «да»</span></div>
+        <div class="step"><strong>3. Прогон</strong><br/><span class="muted">только по явному «да»</span></div>
         <div class="arrow">→</div>
         <div class="step"><strong>4. QA</strong><br/><span class="muted">глаза Романа</span></div>
         <div class="arrow">→</div>
-        <div class="step"><strong>5. Learn</strong><br/><span class="muted">заметки → следующий рецепт</span></div>
+        <div class="step"><strong>5. Учёт</strong><br/><span class="muted">брак/слабо → мозг</span></div>
       </div>
+      <div id="brainNotes" style="margin-top:16px"></div>
     </div>
   </section>
 
-  <section class="sec" id="mock">
-    <h2>F. Три мини-макета</h2>
-    <p class="lead">Переключи тему и сравни ощущение интерфейса.</p>
-    <div class="tabs">
-      <button class="theme-btn" data-theme="theme-sklad" type="button">Склад</button>
-      <button class="theme-btn" data-theme="theme-etalony" type="button">Эталоны</button>
-      <button class="theme-btn" data-theme="theme-progon" type="button">Прогон+отчёт</button>
-    </div>
-    <div class="card theme-panel on" id="panel-sklad">
-      <h3>Макет «Склад»</h3>
-      <p>Спокойный зелёный учёт: инструменты HIT/MISS и очередь статусов на одной плоскости.</p>
-    </div>
-    <div class="card theme-panel" id="panel-etalony">
-      <h3>Макет «Эталоны»</h3>
-      <p>Тёплый акцент на сетке BEFORE: решения Романа важнее метрик.</p>
-    </div>
-    <div class="card theme-panel" id="panel-progon">
-      <h3>Макет «Прогон+отчёт»</h3>
-      <p>Холодный операционный вид: калькулятор, минуты, деньги, потом отчёт QA.</p>
-    </div>
-  </section>
-
-  <p class="footer">Admin-only board. Не утверждает: sellable · conveyor ready · etalon met · Path C proven · BrushNet PASS · public open board.</p>
+  <p class="footer">Admin-only board v2. Не утверждает: sellable · conveyor ready · etalon met · Path C proven · BrushNet PASS · public open board.</p>
   </div>
 </div>
 <script>
 const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
 const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
-const MARK_KEY='smh_restorer_board_v1_marks';
+const MARK_KEY='smh_restorer_board_v2_marks';
 const $=s=>document.querySelector(s);
-let _token=null, PHOTOS=[], _blobUrls={};
+let _token=null, PHOTOS=[], MARKS={}, FILTER='all', _blobUrls={}, _saveTimer=null, COGS={path_a_mid_usd:0.002,path_a_classic_mid_usd:0.0018};
 function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
 function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
-function H(){ return {Authorization:'Bearer '+getToken()}; }
+function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
 (function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
-
+function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 async function login(){
   const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(SB_URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
   const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/restorer.html'}});
@@ -222,127 +210,161 @@ async function login(){
 }
 function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
 function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
-
-function loadMarks(){ try { return JSON.parse(localStorage.getItem(MARK_KEY)||'{}'); } catch(e){ return {}; } }
-function saveMarks(m){ localStorage.setItem(MARK_KEY, JSON.stringify(m)); }
-
+function cacheMarksLocal(){ try{ localStorage.setItem(MARK_KEY, JSON.stringify(MARKS)); }catch(e){} }
 async function authFetchBlob(url){
-  const r=await fetch(url,{headers:H()});
+  const r=await fetch(url,{headers:{Authorization:'Bearer '+getToken()}});
   if(!r.ok) throw new Error('img '+r.status);
-  const blob=await r.blob();
-  return URL.createObjectURL(blob);
+  return URL.createObjectURL(await r.blob());
 }
-
+function markOf(id){ return MARKS[id] || {verdict:'', comment:'', defect_note:''}; }
+function filteredPhotos(){
+  return PHOTOS.filter(p=>{
+    const m=markOf(p.id);
+    if(FILTER==='need') return p.status==='NEED_ETALON';
+    if(FILTER==='has') return p.status==='HAS_ETALON';
+    if(FILTER==='bad') return m.verdict==='bad';
+    return true;
+  });
+}
+function updateQueue(){
+  let approved=0, weak=0, bad=0;
+  Object.values(MARKS).forEach(m=>{
+    if(m.verdict==='approve') approved++;
+    else if(m.verdict==='weak') weak++;
+    else if(m.verdict==='bad') bad++;
+  });
+  const inspected=approved+weak+bad;
+  $('#q-new').textContent=String(Math.max(0, PHOTOS.length-inspected));
+  $('#q-inspected').textContent=String(inspected);
+  $('#q-weak').textContent=String(weak);
+  $('#q-conv').textContent='0';
+  $('#q-done').textContent=String(approved);
+  $('#q-defect').textContent=String(bad);
+  const notes=PHOTOS.map(p=>{ const m=markOf(p.id); if(!m.verdict && !m.comment && !m.defect_note) return null;
+    return `<div style="margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:12px"><strong>${esc(p.id)}</strong> · ${esc(m.verdict||'—')}<div class="muted" style="font-size:.85rem">${esc(m.comment||'')}</div>${m.defect_note?`<div class="muted" style="font-size:.85rem">брак/урок: ${esc(m.defect_note)}</div>`:''}</div>`;
+  }).filter(Boolean);
+  $('#brainNotes').innerHTML = notes.length ? notes.join('') : '<p class="muted">Пока нет заметок для обучения. Отметь фото на доске.</p>';
+}
+async function persistMark(id){
+  const body=markOf(id);
+  body.updated_at=Math.floor(Date.now()/1000);
+  MARKS[id]=body; cacheMarksLocal();
+  $('#saveHint').textContent='сохраняю…';
+  try{
+    const r=await fetch('/api/admin/restorer/marks/'+encodeURIComponent(id),{method:'PUT',headers:H(),body:JSON.stringify(body)});
+    if(!r.ok) throw new Error('save '+r.status);
+    $('#saveHint').textContent='сохранено на сервере';
+  }catch(e){
+    $('#saveHint').textContent='сервер недоступен, держу локально + экспорт';
+  }
+}
+function schedulePersist(id){
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(()=>persistMark(id), 400);
+}
+async function fillImg(slot, key, url){
+  try{
+    if(!_blobUrls[key]) _blobUrls[key]=await authFetchBlob(url);
+    const img=document.createElement('img'); img.alt=key; img.loading='lazy'; img.src=_blobUrls[key];
+    slot.replaceWith(img);
+  }catch(e){ slot.textContent='нет фото'; slot.style.display='grid'; slot.style.placeItems='center'; slot.style.color='#666'; slot.style.fontSize='.85rem'; }
+}
 async function render(){
-  const marks = loadMarks();
-  const grid = document.getElementById('etalonGrid');
-  grid.innerHTML = '';
-  for (const p of PHOTOS) {
-    const m = marks[p.id] || {verdict:'', comment:''};
-    const el = document.createElement('article');
-    el.className = 'card photo';
-    const stClass = p.status === 'HAS_ETALON' ? 'has' : 'need';
-    const stLabel = p.status === 'HAS_ETALON' ? 'есть эталон AFTER' : 'нужен эталон';
-    el.innerHTML = `
-      <div class="img-slot" style="aspect-ratio:4/3;background:#ddd;border-radius:14px"></div>
-      <h3 style="margin-top:12px">${p.id}</h3>
+  const grid=$('#etalonGrid'); grid.innerHTML='';
+  const list=filteredPhotos();
+  if(!list.length){ grid.innerHTML='<div class="empty">В этом фильтре пусто.</div>'; updateQueue(); return; }
+  for(const p of list){
+    const m=markOf(p.id);
+    const el=document.createElement('article'); el.className='card photo';
+    const stClass=p.status==='HAS_ETALON'?'has':'need';
+    const stLabel=p.status==='HAS_ETALON'?'есть эталон AFTER':'нужен эталон';
+    const ba = p.has_after ? `<div class="ba">
+        <div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(p.photo_url||('/api/admin/restorer/photo/'+p.file))}"></div><span class="lbl">BEFORE</span></div>
+        <div class="shot"><div class="img-slot" data-k="a:${esc(p.after_file||'')}" data-u="${esc(p.after_url||'')}"></div><span class="lbl">AFTER</span></div>
+      </div>` : `<div class="shot"><div class="img-slot" data-k="b:${esc(p.file)}" data-u="${esc(p.photo_url||('/api/admin/restorer/photo/'+p.file))}"></div><span class="lbl">BEFORE</span></div>`;
+    el.innerHTML = `${ba}
+      <h3 style="margin-top:12px">${esc(p.id)}</h3>
       <div class="status ${stClass}">${stLabel}</div>
-      <div class="tags">${(p.damage_tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-      <p class="muted" style="font-size:.85rem">${(p.notes||'').replace(/</g,'&lt;')}</p>
+      <div class="tags">${(p.damage_tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <p class="muted" style="font-size:.85rem">${esc(p.notes||'')}</p>
       <div class="actions">
         <button type="button" data-v="approve" class="${m.verdict==='approve'?'active-ok':''}">утвердить эталон</button>
         <button type="button" data-v="weak" class="${m.verdict==='weak'?'active-weak':''}">слабо</button>
         <button type="button" data-v="bad" class="${m.verdict==='bad'?'active-bad':''}">брак</button>
       </div>
-      <label style="margin-top:10px">комментарий</label>
-      <textarea rows="2" placeholder="заметка для рецепта">${(m.comment||'').replace(/</g,'&lt;')}</textarea>
-    `;
+      <label style="margin-top:10px">комментарий для рецепта</label>
+      <textarea rows="2" data-f="comment" placeholder="что улучшить / почему ок">${esc(m.comment||'')}</textarea>
+      <label style="margin-top:8px">заметка для мозга (брак / урок)</label>
+      <textarea rows="2" data-f="defect_note" placeholder="что запомнить системе">${esc(m.defect_note||'')}</textarea>`;
     el.querySelectorAll('button[data-v]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        const marks = loadMarks();
-        marks[p.id] = marks[p.id] || {verdict:'', comment:''};
-        marks[p.id].verdict = btn.getAttribute('data-v');
-        saveMarks(marks); render();
+        MARKS[p.id]=markOf(p.id); MARKS[p.id].verdict=btn.getAttribute('data-v');
+        persistMark(p.id).then(()=>render());
       });
     });
-    el.querySelector('textarea').addEventListener('change', (ev)=>{
-      const marks = loadMarks();
-      marks[p.id] = marks[p.id] || {verdict:'', comment:''};
-      marks[p.id].comment = ev.target.value;
-      saveMarks(marks);
+    el.querySelectorAll('textarea').forEach(ta=>{
+      ta.addEventListener('change', ev=>{
+        MARKS[p.id]=markOf(p.id); MARKS[p.id][ta.getAttribute('data-f')]=ev.target.value;
+        schedulePersist(p.id); updateQueue();
+      });
     });
     grid.appendChild(el);
-    // load image via auth header → blob URL
-    (async ()=>{
-      try{
-        if(!_blobUrls[p.file]){
-          _blobUrls[p.file]=await authFetchBlob(p.photo_url||('/api/admin/restorer/photo/'+p.file));
-        }
-        const slot=el.querySelector('.img-slot');
-        const img=document.createElement('img');
-        img.alt=p.id; img.loading='lazy'; img.src=_blobUrls[p.file];
-        slot.replaceWith(img);
-      }catch(e){
-        const slot=el.querySelector('.img-slot');
-        if(slot) slot.textContent='нет доступа к фото';
-      }
-    })();
+    el.querySelectorAll('.img-slot').forEach(slot=>{
+      const u=slot.getAttribute('data-u'); const k=slot.getAttribute('data-k');
+      if(u) fillImg(slot,k,u);
+    });
   }
-  let approved=0, weak=0, bad=0;
-  Object.values(loadMarks()).forEach(m=>{
-    if(m.verdict==='approve') approved++;
-    if(m.verdict==='weak') weak++;
-    if(m.verdict==='bad') bad++;
-  });
-  document.getElementById('q-new').textContent = String(PHOTOS.length - approved - weak - bad);
-  document.getElementById('q-inspected').textContent = String(approved + weak + bad);
-  document.getElementById('q-done').textContent = String(approved);
-  document.getElementById('q-defect').textContent = String(bad);
+  updateQueue();
 }
 function calc(){
-  const n = Math.max(0, Number(document.getElementById('nPhotos').value||0));
-  const ph = Math.max(0, Number(document.getElementById('priceHour').value||0));
-  const pph = Math.max(1, Number(document.getElementById('pph').value||1));
-  const hours = n / pph;
-  const mins = hours * 60;
-  const cost = hours * ph;
-  const cogs = n * 0.002;
-  document.getElementById('costOut').textContent = '$' + cost.toFixed(2);
-  document.getElementById('minOut').textContent = Math.round(mins) + ' мин · ' + hours.toFixed(2) + ' ч';
-  document.getElementById('cogsOut').textContent = 'Ориентир COGS Path A mid: $' + cogs.toFixed(3) + ' (= N × 0.002)';
+  const n=Math.max(0, Number($('#nPhotos').value||0));
+  const ph=Math.max(0, Number($('#priceHour').value||0));
+  const pph=Math.max(1, Number($('#pph').value||1));
+  const hours=n/pph; const mins=hours*60; const cost=hours*ph;
+  const mid=(COGS.path_a_mid_usd||0.002)*n;
+  const classic=(COGS.path_a_classic_mid_usd||0.0018)*n;
+  $('#costOut').textContent='$'+cost.toFixed(2);
+  $('#minOut').textContent=Math.round(mins)+' мин · '+hours.toFixed(2)+' ч';
+  $('#cogsOut').textContent='Ориентир COGS Path A: mid $'+mid.toFixed(3)+' (N×0.002) · classic $'+classic.toFixed(3)+' (N×0.0018). Flux/SDXL/Qwen = MISS, в оценку не входят.';
 }
 ['nPhotos','priceHour','pph'].forEach(id=>document.getElementById(id).addEventListener('input', calc));
-document.querySelectorAll('.theme-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.body.classList.remove('theme-sklad','theme-etalony','theme-progon');
-    document.body.classList.add(btn.dataset.theme);
-    document.querySelectorAll('.theme-panel').forEach(p=>p.classList.remove('on'));
-    const map={ 'theme-sklad':'panel-sklad','theme-etalony':'panel-etalony','theme-progon':'panel-progon'};
-    document.getElementById(map[btn.dataset.theme]).classList.add('on');
-  });
+document.getElementById('filters').addEventListener('click', e=>{
+  const btn=e.target.closest('.filter-btn'); if(!btn) return;
+  FILTER=btn.getAttribute('data-f');
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('on', b===btn));
+  render();
 });
-
+document.getElementById('exportMarks').onclick=e=>{
+  e.preventDefault();
+  const blob=new Blob([JSON.stringify({version:'restorer_marks_v1', marks:MARKS},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='restorer_marks.json'; a.click();
+};
 async function loadCorpus(){
-  const r=await fetch('/api/admin/restorer/corpus',{headers:H()});
+  const r=await fetch('/api/admin/restorer/corpus',{headers:{Authorization:'Bearer '+getToken()}});
   if(!r.ok) throw new Error('corpus '+r.status);
   const j=await r.json();
   PHOTOS=j.photos||[];
-  $('#photoBadge').textContent=(PHOTOS.length)+' фото · group-seed исключён · без GPU-аренды';
-  const nEl=$('#nPhotos'); if(nEl) nEl.value=String(PHOTOS.length||12);
+  MARKS=j.marks||{};
+  if(j.cogs) COGS=Object.assign(COGS,j.cogs);
+  cacheMarksLocal();
+  const need=(j.need_etalon||[]).length, has=(j.has_etalon||[]).length;
+  $('#photoBadge').textContent=(PHOTOS.length)+' фото · нужно эталон: '+need+' · есть: '+has+' · GPU=0';
+  $('#nPhotos').value=String(PHOTOS.length||12);
+  FILTER='need';
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('on', b.getAttribute('data-f')==='need'));
   await render(); calc();
 }
-
 async function init(){
   $('#login').onclick=e=>{e.preventDefault();login();};
   if(!getToken()){ showGate(); return; }
   let r;
-  try{ r=await fetch('/api/admin/check',{headers:H()}); }catch(e){ showGate('Ошибка сети.'); return; }
+  try{ r=await fetch('/api/admin/check',{headers:{Authorization:'Bearer '+getToken()}}); }catch(e){ showGate('Ошибка сети.'); return; }
   if(r.status===403){ showGate('Этот аккаунт не админ. Войдите аккаунтом из белого списка.'); return; }
   if(r.status===401){ setToken(null); showGate('Сессия истекла. Войдите снова.'); return; }
   if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
   const me=await r.json(); $('#who').textContent=me.email||'';
   showPanel();
-  try{ await loadCorpus(); }catch(e){ document.getElementById('etalonGrid').innerHTML='<p class="muted">Не удалось загрузить корпус.</p>'; }
+  try{ await loadCorpus(); }catch(e){ $('#etalonGrid').innerHTML='<p class="muted">Не удалось загрузить корпус.</p>'; }
 }
 init();
 </script>

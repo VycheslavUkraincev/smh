@@ -1,5 +1,5 @@
 {
-  "version": "restorer_board_v1",
+  "version": "restorer_board_v2",
   "n_photos": 12,
   "dropbox_status": "reachable_after_refresh",
   "excluded": [
@@ -36,7 +36,9 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_two_boys_desk.jpg",
       "notes": "Эталон Roman: AFTER_two_boys_roman.jpg есть в etalon_cf_nano_bar",
       "bytes": 252362,
-      "md5": "fac0f408c9f5d7d1c80c0d8557dee85f"
+      "md5": "fac0f408c9f5d7d1c80c0d8557dee85f",
+      "after_file": "two_boys.jpg",
+      "has_after": true
     },
     {
       "id": "frida",
@@ -52,7 +54,9 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_frida_damaged.jpg",
       "notes": "Эталон Roman: AFTER_frida_roman_ready.jpg",
       "bytes": 111515,
-      "md5": "fbe7f348fb5451de0b4e23249bc04fc5"
+      "md5": "fbe7f348fb5451de0b4e23249bc04fc5",
+      "after_file": "frida.jpg",
+      "has_after": true
     },
     {
       "id": "family_baby",
@@ -68,7 +72,9 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_family_baby_indoor.jpg",
       "notes": "Эталон Roman: AFTER_family_baby_roman.png",
       "bytes": 66661,
-      "md5": "cc662fde0ef126738b48dd0363792709"
+      "md5": "cc662fde0ef126738b48dd0363792709",
+      "after_file": "family_baby.jpg",
+      "has_after": true
     },
     {
       "id": "pd_01_scratches",
@@ -82,7 +88,8 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_01.jpg",
       "notes": "photo-testset 01_scratches",
       "bytes": 373824,
-      "md5": "006e58324f501f6c330685b5fed7887d"
+      "md5": "006e58324f501f6c330685b5fed7887d",
+      "has_after": false
     },
     {
       "id": "pd_02_stains",
@@ -96,7 +103,8 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_02.jpg",
       "notes": "photo-testset 02_stains",
       "bytes": 758751,
-      "md5": "f5681b972fa6065a0307439e6608cecd"
+      "md5": "f5681b972fa6065a0307439e6608cecd",
+      "has_after": false
     },
     {
       "id": "pd_03_fade",
@@ -110,7 +118,8 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_03.jpg",
       "notes": "photo-testset 03_fade",
       "bytes": 806802,
-      "md5": "b05d7557d869b594dee3c2276581b569"
+      "md5": "b05d7557d869b594dee3c2276581b569",
+      "has_after": false
     },
     {
       "id": "pd_04_soft_portrait",
@@ -124,7 +133,8 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_04.jpg",
       "notes": "photo-testset 04_soft_portrait",
       "bytes": 94718,
-      "md5": "1a64df909f40dd323f44c46b763835c0"
+      "md5": "1a64df909f40dd323f44c46b763835c0",
+      "has_after": false
     },
     {
       "id": "pd_06_cracks",
@@ -138,7 +148,8 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_06.jpg",
       "notes": "photo-testset 06_cracks; group-seed permanently excluded",
       "bytes": 1753075,
-      "md5": "880057a4a38af2348810ecc29d72107f"
+      "md5": "880057a4a38af2348810ecc29d72107f",
+      "has_after": false
     },
     {
       "id": "pd_08_inbound",
@@ -153,7 +164,8 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_08.jpg",
       "notes": "media/inbound personal scan candidate",
       "bytes": 162022,
-      "md5": "89f1c6a6777f279f64d8e5da0ee95d82"
+      "md5": "89f1c6a6777f279f64d8e5da0ee95d82",
+      "has_after": false
     },
     {
       "id": "pd_24_group",
@@ -167,7 +179,8 @@
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_24.jpg",
       "notes": "photo-testset 06_cracks; group-seed permanently excluded",
       "bytes": 257198,
-      "md5": "9fbe7fb25a1253f6acc3b761484d3191"
+      "md5": "9fbe7fb25a1253f6acc3b761484d3191",
+      "has_after": false
     },
     {
       "id": "db_pd_101",
@@ -182,7 +195,8 @@
       "source_path": "/SaveMyHistory/pilot_200_before/pd_101.jpg",
       "notes": "Dropbox pilot_200_before; Roman to tag damage type",
       "bytes": 6048539,
-      "md5": "72a13b1415c9c65841382f7ee5c46717"
+      "md5": "72a13b1415c9c65841382f7ee5c46717",
+      "has_after": false
     },
     {
       "id": "db_pd_126",
@@ -197,7 +211,8 @@
       "source_path": "/SaveMyHistory/pilot_200_before/pd_126.jpg",
       "notes": "Dropbox pilot_200_before; Roman to tag damage type",
       "bytes": 6094791,
-      "md5": "0fea5ab71222a23811afc453293291b5"
+      "md5": "0fea5ab71222a23811afc453293291b5",
+      "has_after": false
     }
   ]
 }
