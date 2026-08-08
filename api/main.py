@@ -10,6 +10,7 @@ Auth: проверяем Supabase JWT (Bearer) пользователя, при�
 """
 import os, time, uuid, json, io, hmac, hashlib, secrets, string, re
 from collections import defaultdict
+from pathlib import Path
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse, HTMLResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -745,6 +746,75 @@ async def list_restorations(authorization: str = Header(None)):
 async def admin_check(authorization: str = Header(None)):
     user = await require_admin(authorization)
     return {"ok": True, "email": user.get("email")}
+
+# ---- Restorer board corpus (private; not under /public) ----
+_RESTORER_ROOT = Path(__file__).resolve().parent / "restorer_corpus"
+_RESTORER_CORPUS_DIR = _RESTORER_ROOT / "corpus"
+_RESTORER_META = _RESTORER_ROOT / "CORPUS.json"
+_SAFE_NAME = re.compile(r"^[A-Za-z0-9._-]{1,180}$")
+
+
+def _restorer_load_meta():
+    if not _RESTORER_META.is_file():
+        raise HTTPException(503, "restorer corpus unavailable")
+    try:
+        data = json.loads(_RESTORER_META.read_text(encoding="utf-8"))
+    except Exception:
+        raise HTTPException(500, "restorer corpus meta corrupt")
+    return data
+
+
+@app.get("/api/admin/restorer/corpus")
+async def admin_restorer_corpus(authorization: str = Header(None)):
+    """List restorer-board corpus metadata (admin only). Photos via /photo/{file}."""
+    await require_admin(authorization)
+    data = _restorer_load_meta()
+    photos = []
+    for p in (data.get("photos") or []):
+        fname = (p.get("file") or "").strip()
+        if not fname or not _SAFE_NAME.match(fname):
+            continue
+        item = {k: p.get(k) for k in ("id", "file", "damage_tags", "status", "notes", "bytes", "md5") if k in p}
+        item["photo_url"] = f"/api/admin/restorer/photo/{fname}"
+        photos.append(item)
+    return {
+        "ok": True,
+        "version": data.get("version") or "restorer_board_v1",
+        "n_photos": len(photos),
+        "excluded": data.get("excluded") or [],
+        "has_etalon": data.get("has_etalon") or [],
+        "need_etalon": data.get("need_etalon") or [],
+        "photos": photos,
+    }
+
+
+@app.get("/api/admin/restorer/photo/{filename}")
+async def admin_restorer_photo(filename: str, authorization: str = Header(None)):
+    """Serve one corpus image only to ADMIN_EMAILS."""
+    await require_admin(authorization)
+    name = (filename or "").strip()
+    if not _SAFE_NAME.match(name) or "/" in name or ".." in name:
+        raise HTTPException(400, "bad filename")
+    path = (_RESTORER_CORPUS_DIR / name).resolve()
+    root = _RESTORER_CORPUS_DIR.resolve()
+    if not str(path).startswith(str(root) + os.sep) or not path.is_file():
+        raise HTTPException(404, "not found")
+    # whitelist against CORPUS.json files
+    meta = _restorer_load_meta()
+    allowed = {(p.get("file") or "").strip() for p in (meta.get("photos") or [])}
+    if name not in allowed:
+        raise HTTPException(404, "not found")
+    data = path.read_bytes()
+    ctype = "image/jpeg"
+    if name.lower().endswith(".png"):
+        ctype = "image/png"
+    elif name.lower().endswith(".webp"):
+        ctype = "image/webp"
+    return Response(content=data, media_type=ctype, headers={
+        "Cache-Control": "private, max-age=300",
+        "X-Content-Type-Options": "nosniff",
+    })
+
 
 @app.get("/api/admin/stats")
 async def admin_stats(authorization: str = Header(None)):

@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
+Disallow: /restorer.html
 Disallow: /cabinet.html
 Disallow: /api/
 Disallow: /app.html

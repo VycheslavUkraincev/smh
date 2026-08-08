@@ -1,0 +1,203 @@
+{
+  "version": "restorer_board_v1",
+  "n_photos": 12,
+  "dropbox_status": "reachable_after_refresh",
+  "excluded": [
+    "group-seed-permanently-excluded"
+  ],
+  "has_etalon": [
+    "two_boys",
+    "frida",
+    "family_baby"
+  ],
+  "need_etalon": [
+    "pd_01_scratches",
+    "pd_02_stains",
+    "pd_03_fade",
+    "pd_04_soft_portrait",
+    "pd_06_cracks",
+    "pd_08_inbound",
+    "pd_24_group",
+    "db_pd_101",
+    "db_pd_126"
+  ],
+  "photos": [
+    {
+      "id": "two_boys",
+      "file": "two_boys.jpg",
+      "rel_path": "corpus/two_boys.jpg",
+      "damage_tags": [
+        "desk-scan",
+        "group",
+        "kids",
+        "print"
+      ],
+      "status": "HAS_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_two_boys_desk.jpg",
+      "notes": "Эталон Roman: AFTER_two_boys_roman.jpg есть в etalon_cf_nano_bar",
+      "bytes": 252362,
+      "md5": "fac0f408c9f5d7d1c80c0d8557dee85f"
+    },
+    {
+      "id": "frida",
+      "file": "frida.jpg",
+      "rel_path": "corpus/frida.jpg",
+      "damage_tags": [
+        "portrait",
+        "damage",
+        "color-cast",
+        "soft-face"
+      ],
+      "status": "HAS_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_frida_damaged.jpg",
+      "notes": "Эталон Roman: AFTER_frida_roman_ready.jpg",
+      "bytes": 111515,
+      "md5": "fbe7f348fb5451de0b4e23249bc04fc5"
+    },
+    {
+      "id": "family_baby",
+      "file": "family_baby.jpg",
+      "rel_path": "corpus/family_baby.jpg",
+      "damage_tags": [
+        "family",
+        "indoor",
+        "soft-faces",
+        "group"
+      ],
+      "status": "HAS_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_family_baby_indoor.jpg",
+      "notes": "Эталон Roman: AFTER_family_baby_roman.png",
+      "bytes": 66661,
+      "md5": "cc662fde0ef126738b48dd0363792709"
+    },
+    {
+      "id": "pd_01_scratches",
+      "file": "pd_01_scratches.jpg",
+      "rel_path": "corpus/pd_01_scratches.jpg",
+      "damage_tags": [
+        "scratches",
+        "surface"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_01.jpg",
+      "notes": "photo-testset 01_scratches",
+      "bytes": 373824,
+      "md5": "006e58324f501f6c330685b5fed7887d"
+    },
+    {
+      "id": "pd_02_stains",
+      "file": "pd_02_stains.jpg",
+      "rel_path": "corpus/pd_02_stains.jpg",
+      "damage_tags": [
+        "stains",
+        "spots"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_02.jpg",
+      "notes": "photo-testset 02_stains",
+      "bytes": 758751,
+      "md5": "f5681b972fa6065a0307439e6608cecd"
+    },
+    {
+      "id": "pd_03_fade",
+      "file": "pd_03_fade.jpg",
+      "rel_path": "corpus/pd_03_fade.jpg",
+      "damage_tags": [
+        "fade",
+        "color-cast"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_03.jpg",
+      "notes": "photo-testset 03_fade",
+      "bytes": 806802,
+      "md5": "b05d7557d869b594dee3c2276581b569"
+    },
+    {
+      "id": "pd_04_soft_portrait",
+      "file": "pd_04_soft_portrait.jpg",
+      "rel_path": "corpus/pd_04_soft_portrait.jpg",
+      "damage_tags": [
+        "soft-faces",
+        "portrait"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_04.jpg",
+      "notes": "photo-testset 04_soft_portrait",
+      "bytes": 94718,
+      "md5": "1a64df909f40dd323f44c46b763835c0"
+    },
+    {
+      "id": "pd_06_cracks",
+      "file": "pd_06_cracks.jpg",
+      "rel_path": "corpus/pd_06_cracks.jpg",
+      "damage_tags": [
+        "cracks",
+        "tears"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_06.jpg",
+      "notes": "photo-testset 06_cracks; group-seed permanently excluded",
+      "bytes": 1753075,
+      "md5": "880057a4a38af2348810ecc29d72107f"
+    },
+    {
+      "id": "pd_08_inbound",
+      "file": "pd_08_inbound.jpg",
+      "rel_path": "corpus/pd_08_inbound.jpg",
+      "damage_tags": [
+        "desk-scan",
+        "personal",
+        "print"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_08.jpg",
+      "notes": "media/inbound personal scan candidate",
+      "bytes": 162022,
+      "md5": "89f1c6a6777f279f64d8e5da0ee95d82"
+    },
+    {
+      "id": "pd_24_group",
+      "file": "pd_24_group.jpg",
+      "rel_path": "corpus/pd_24_group.jpg",
+      "damage_tags": [
+        "group",
+        "gallery"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_24.jpg",
+      "notes": "photo-testset 06_cracks; group-seed permanently excluded",
+      "bytes": 257198,
+      "md5": "9fbe7fb25a1253f6acc3b761484d3191"
+    },
+    {
+      "id": "db_pd_101",
+      "file": "db_pd_101.jpg",
+      "rel_path": "corpus/db_pd_101.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "diverse"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_101.jpg",
+      "notes": "Dropbox pilot_200_before; Roman to tag damage type",
+      "bytes": 6048539,
+      "md5": "72a13b1415c9c65841382f7ee5c46717"
+    },
+    {
+      "id": "db_pd_126",
+      "file": "db_pd_126.jpg",
+      "rel_path": "corpus/db_pd_126.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "diverse"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_126.jpg",
+      "notes": "Dropbox pilot_200_before; Roman to tag damage type",
+      "bytes": 6094791,
+      "md5": "0fea5ab71222a23811afc453293291b5"
+    }
+  ]
+}

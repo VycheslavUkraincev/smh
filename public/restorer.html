@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Панель реставратора · SaveMyHistory Admin</title>
+<style>
+:root{
+  --bg:#f3efe6; --ink:#1c1915; --muted:#5c564c; --card:#fffdf8;
+  --line:#d8d0c2; --ok:#2f6b4f; --warn:#9a6b1f; --bad:#8b3a2f;
+  --accent:#2a4a6b; --soft:#e7e0d2; --shadow:0 10px 30px rgba(28,25,21,.08);
+  --radius:18px; --font:"Segoe UI", "PT Sans", "Helvetica Neue", sans-serif;
+  --gold-d:#A67C32;
+}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--font);}
+body{
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #fff7e8 0%, transparent 55%),
+    radial-gradient(900px 400px at 100% 0%, #e8f0ea 0%, transparent 50%),
+    var(--bg);
+}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 80px;}
+.hero{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;margin-bottom:22px;}
+.hero h1{font-size:clamp(1.6rem,3vw,2.3rem);margin:0 0 6px;letter-spacing:-.02em;}
+.hero p{margin:0;color:var(--muted);max-width:52ch;line-height:1.45;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:.85rem;}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px;}
+.nav a,.theme-btn,button, .btn{
+  appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:999px;padding:10px 14px;font:inherit;cursor:pointer;text-decoration:none;
+  box-shadow:var(--shadow);
+}
+.nav a:hover,.theme-btn:hover,button:hover{transform:translateY(-1px);}
+.btn.primary{background:var(--gold-d);color:#fff;border-color:var(--gold-d);}
+.grid{display:grid;gap:16px;}
+.grid.tools{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+.grid.stock{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
+.grid.etalon{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
+.card h2,.card h3{margin:0 0 8px;font-size:1.05rem;}
+.card p,.muted{color:var(--muted);line-height:1.45;}
+.hit{color:var(--ok);font-weight:700;}
+.miss{color:var(--bad);font-weight:700;}
+.stat{font-size:1.8rem;font-weight:750;letter-spacing:-.03em;}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;align-items:end;}
+label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px;}
+input,textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fff;}
+.outbox{background:linear-gradient(180deg,#f7fbff,#fff);border:1px dashed #b7c7d8;border-radius:14px;padding:14px;}
+.photo{overflow:hidden;}
+.photo img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:#ddd;display:block;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
+.tag{font-size:.75rem;padding:4px 8px;border-radius:999px;background:#eef3f0;color:#355246;}
+.status{font-size:.8rem;font-weight:700;}
+.status.has{color:var(--ok);} .status.need{color:var(--warn);}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.actions button{padding:8px 10px;font-size:.82rem;box-shadow:none;}
+.actions button.active-ok{background:#e7f5ec;border-color:#9dceb0;}
+.actions button.active-weak{background:#fff4d8;border-color:#e2c57a;}
+.actions button.active-bad{background:#fde8e4;border-color:#e2a498;}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:120px;}
+.arrow{color:var(--muted);font-size:1.2rem;}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px;}
+.theme-panel{display:none;}
+.theme-panel.on{display:block;}
+body.theme-sklad{--accent:#245c48; --soft:#dfece5;}
+body.theme-etalony{--bg:#f7f1ea; --accent:#6b3f2a; --soft:#efe2d4;}
+body.theme-progon{--bg:#eef2f6; --accent:#243f63; --soft:#dce6f1;}
+.footer{margin-top:28px;color:var(--muted);font-size:.85rem;}
+.sec{margin:28px 0;}
+.sec > h2{margin:0 0 12px;font-size:1.35rem;}
+.sec > .lead{margin:0 0 14px;color:var(--muted);}
+.formula{font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:.9rem;background:#f5f7fa;padding:10px 12px;border-radius:10px;}
+.gate{max-width:420px;margin:80px auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px;box-shadow:var(--shadow);}
+.gate h2{margin:0 0 10px;font-size:1.6rem;}
+.gate p{color:var(--muted);}
+.topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.who{color:var(--muted);font-size:.9rem;}
+a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Панель реставратора</h2>
+    <p id="gate-msg">Войдите аккаунтом администратора (тот же Google, что и /admin.html).</p>
+    <a class="btn primary" id="login" href="#">Войти через Google</a>
+    <p class="muted" style="margin-top:16px"><a class="home" href="/admin.html">← Админ-панель</a></p>
+  </div>
+
+  <div id="panel" style="display:none">
+  <div class="topbar">
+    <span class="who" id="who"></span>
+    <div><a class="home" href="/admin.html">Админ</a> · <a class="home" href="/">Сайт</a></div>
+  </div>
+  <header class="hero">
+    <div>
+      <div class="badge">SaveMyHistory · панель реставратора v1 · ADMIN</div>
+      <h1>Панель реставратора</h1>
+      <p>Доска для Романа: склад инструментов, очередь фото, калькулятор прогона и эталонный набор BEFORE. Отметки сохраняются в браузере. Фото только через admin API.</p>
+    </div>
+    <div class="badge" id="photoBadge">… фото · group-seed исключён · без GPU-аренды</div>
+  </header>
+
+  <nav class="nav">
+    <a href="#tools">Склад инструментов</a>
+    <a href="#stock">Склад фото</a>
+    <a href="#calc">Калькулятор</a>
+    <a href="#etalon">Эталоны</a>
+    <a href="#brain">Мозг</a>
+    <a href="#mock">Макеты</a>
+  </nav>
+
+  <section class="sec" id="tools">
+    <h2>A. Склад инструментов</h2>
+    <p class="lead">Что уже лежит на Spaces smh-photos (fra1), без новых аренд и скачиваний.</p>
+    <div class="grid tools">
+      <div class="card"><h3>Path A</h3><div class="hit">HIT</div><p>~1.8 GB с DDColor. Классический конвейер восстановления.</p></div>
+      <div class="card"><h3>BrushNet</h3><div class="hit">HIT</div><p>~2.5 GB на складе. Не арендуем заново в этой сессии.</p></div>
+      <div class="card"><h3>Flux / SDXL / Qwen</h3><div class="miss">MISS</div><p>На складе нет полного комплекта под боевой прогон.</p></div>
+      <div class="card"><h3>Spaces</h3><p><strong>smh-photos</strong> · регион <strong>fra1</strong></p><p class="muted">Только учёт склада, без запуска GPU.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="stock">
+    <h2>B. Склад фото</h2>
+    <p class="lead">Очередь по статусам (макет учёта; цифры из локальных отметок).</p>
+    <div class="grid stock">
+      <div class="card"><div class="muted">new</div><div class="stat" id="q-new">0</div></div>
+      <div class="card"><div class="muted">inspected</div><div class="stat" id="q-inspected">0</div></div>
+      <div class="card"><div class="muted">recipe ready</div><div class="stat" id="q-recipe">0</div></div>
+      <div class="card"><div class="muted">in conveyor</div><div class="stat" id="q-conv">0</div></div>
+      <div class="card"><div class="muted">done</div><div class="stat" id="q-done">0</div></div>
+      <div class="card"><div class="muted">defect</div><div class="stat" id="q-defect">0</div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="calc">
+    <h2>C. Калькулятор прогона</h2>
+    <p class="lead">Порядок величины Path A classic mid ≈ $0.002 / фото. Формула ниже.</p>
+    <div class="card">
+      <div class="calc">
+        <div><label>N фото</label><input id="nPhotos" type="number" value="12" min="1" step="1" /></div>
+        <div><label>$ / час GPU</label><input id="priceHour" type="number" value="0.40" min="0" step="0.01" /></div>
+        <div><label>фото / час</label><input id="pph" type="number" value="200" min="1" step="1" /></div>
+        <div class="outbox">
+          <div class="muted">Итого</div>
+          <div class="stat" id="costOut">$0.00</div>
+          <div id="minOut" class="muted">0 мин</div>
+        </div>
+      </div>
+      <p class="formula" style="margin-top:14px">минуты = N / (фото/час) × 60 ····· доллары = (минуты/60) × ($/час) ····· ориентир COGS ≈ N × 0.002</p>
+      <p class="muted" id="cogsOut"></p>
+    </div>
+  </section>
+
+  <section class="sec" id="etalon">
+    <h2>D. Эталонная доска</h2>
+    <p class="lead">Отметь: утвердить эталон / слабо / брак. Комментарий сохраняется локально. Фото грузятся только после admin login.</p>
+    <div class="grid etalon" id="etalonGrid"></div>
+  </section>
+
+  <section class="sec" id="brain">
+    <h2>E. Мозг-реставратор</h2>
+    <p class="lead">Простой цикл, без претензии «conveyor ready».</p>
+    <div class="card">
+      <div class="flow">
+        <div class="step"><strong>1. Inspect</strong><br/><span class="muted">тип порчи, лица, группа</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><strong>2. Recipe</strong><br/><span class="muted">Path A / Path C / API CF+Nano</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><strong>3. Run</strong><br/><span class="muted">только по явному «да»</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><strong>4. QA</strong><br/><span class="muted">глаза Романа</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><strong>5. Learn</strong><br/><span class="muted">заметки → следующий рецепт</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="mock">
+    <h2>F. Три мини-макета</h2>
+    <p class="lead">Переключи тему и сравни ощущение интерфейса.</p>
+    <div class="tabs">
+      <button class="theme-btn" data-theme="theme-sklad" type="button">Склад</button>
+      <button class="theme-btn" data-theme="theme-etalony" type="button">Эталоны</button>
+      <button class="theme-btn" data-theme="theme-progon" type="button">Прогон+отчёт</button>
+    </div>
+    <div class="card theme-panel on" id="panel-sklad">
+      <h3>Макет «Склад»</h3>
+      <p>Спокойный зелёный учёт: инструменты HIT/MISS и очередь статусов на одной плоскости.</p>
+    </div>
+    <div class="card theme-panel" id="panel-etalony">
+      <h3>Макет «Эталоны»</h3>
+      <p>Тёплый акцент на сетке BEFORE: решения Романа важнее метрик.</p>
+    </div>
+    <div class="card theme-panel" id="panel-progon">
+      <h3>Макет «Прогон+отчёт»</h3>
+      <p>Холодный операционный вид: калькулятор, минуты, деньги, потом отчёт QA.</p>
+    </div>
+  </section>
+
+  <p class="footer">Admin-only board. Не утверждает: sellable · conveyor ready · etalon met · Path C proven · BrushNet PASS · public open board.</p>
+  </div>
+</div>
+<script>
+const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
+const MARK_KEY='smh_restorer_board_v1_marks';
+const $=s=>document.querySelector(s);
+let _token=null, PHOTOS=[], _blobUrls={};
+function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
+function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
+function H(){ return {Authorization:'Bearer '+getToken()}; }
+(function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
+
+async function login(){
+  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(SB_URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
+  const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/restorer.html'}});
+  if(data&&data.url) location.href=data.url;
+}
+function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
+function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
+
+function loadMarks(){ try { return JSON.parse(localStorage.getItem(MARK_KEY)||'{}'); } catch(e){ return {}; } }
+function saveMarks(m){ localStorage.setItem(MARK_KEY, JSON.stringify(m)); }
+
+async function authFetchBlob(url){
+  const r=await fetch(url,{headers:H()});
+  if(!r.ok) throw new Error('img '+r.status);
+  const blob=await r.blob();
+  return URL.createObjectURL(blob);
+}
+
+async function render(){
+  const marks = loadMarks();
+  const grid = document.getElementById('etalonGrid');
+  grid.innerHTML = '';
+  for (const p of PHOTOS) {
+    const m = marks[p.id] || {verdict:'', comment:''};
+    const el = document.createElement('article');
+    el.className = 'card photo';
+    const stClass = p.status === 'HAS_ETALON' ? 'has' : 'need';
+    const stLabel = p.status === 'HAS_ETALON' ? 'есть эталон AFTER' : 'нужен эталон';
+    el.innerHTML = `
+      <div class="img-slot" style="aspect-ratio:4/3;background:#ddd;border-radius:14px"></div>
+      <h3 style="margin-top:12px">${p.id}</h3>
+      <div class="status ${stClass}">${stLabel}</div>
+      <div class="tags">${(p.damage_tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <p class="muted" style="font-size:.85rem">${(p.notes||'').replace(/</g,'&lt;')}</p>
+      <div class="actions">
+        <button type="button" data-v="approve" class="${m.verdict==='approve'?'active-ok':''}">утвердить эталон</button>
+        <button type="button" data-v="weak" class="${m.verdict==='weak'?'active-weak':''}">слабо</button>
+        <button type="button" data-v="bad" class="${m.verdict==='bad'?'active-bad':''}">брак</button>
+      </div>
+      <label style="margin-top:10px">комментарий</label>
+      <textarea rows="2" placeholder="заметка для рецепта">${(m.comment||'').replace(/</g,'&lt;')}</textarea>
+    `;
+    el.querySelectorAll('button[data-v]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const marks = loadMarks();
+        marks[p.id] = marks[p.id] || {verdict:'', comment:''};
+        marks[p.id].verdict = btn.getAttribute('data-v');
+        saveMarks(marks); render();
+      });
+    });
+    el.querySelector('textarea').addEventListener('change', (ev)=>{
+      const marks = loadMarks();
+      marks[p.id] = marks[p.id] || {verdict:'', comment:''};
+      marks[p.id].comment = ev.target.value;
+      saveMarks(marks);
+    });
+    grid.appendChild(el);
+    // load image via auth header → blob URL
+    (async ()=>{
+      try{
+        if(!_blobUrls[p.file]){
+          _blobUrls[p.file]=await authFetchBlob(p.photo_url||('/api/admin/restorer/photo/'+p.file));
+        }
+        const slot=el.querySelector('.img-slot');
+        const img=document.createElement('img');
+        img.alt=p.id; img.loading='lazy'; img.src=_blobUrls[p.file];
+        slot.replaceWith(img);
+      }catch(e){
+        const slot=el.querySelector('.img-slot');
+        if(slot) slot.textContent='нет доступа к фото';
+      }
+    })();
+  }
+  let approved=0, weak=0, bad=0;
+  Object.values(loadMarks()).forEach(m=>{
+    if(m.verdict==='approve') approved++;
+    if(m.verdict==='weak') weak++;
+    if(m.verdict==='bad') bad++;
+  });
+  document.getElementById('q-new').textContent = String(PHOTOS.length - approved - weak - bad);
+  document.getElementById('q-inspected').textContent = String(approved + weak + bad);
+  document.getElementById('q-done').textContent = String(approved);
+  document.getElementById('q-defect').textContent = String(bad);
+}
+function calc(){
+  const n = Math.max(0, Number(document.getElementById('nPhotos').value||0));
+  const ph = Math.max(0, Number(document.getElementById('priceHour').value||0));
+  const pph = Math.max(1, Number(document.getElementById('pph').value||1));
+  const hours = n / pph;
+  const mins = hours * 60;
+  const cost = hours * ph;
+  const cogs = n * 0.002;
+  document.getElementById('costOut').textContent = '$' + cost.toFixed(2);
+  document.getElementById('minOut').textContent = Math.round(mins) + ' мин · ' + hours.toFixed(2) + ' ч';
+  document.getElementById('cogsOut').textContent = 'Ориентир COGS Path A mid: $' + cogs.toFixed(3) + ' (= N × 0.002)';
+}
+['nPhotos','priceHour','pph'].forEach(id=>document.getElementById(id).addEventListener('input', calc));
+document.querySelectorAll('.theme-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.body.classList.remove('theme-sklad','theme-etalony','theme-progon');
+    document.body.classList.add(btn.dataset.theme);
+    document.querySelectorAll('.theme-panel').forEach(p=>p.classList.remove('on'));
+    const map={ 'theme-sklad':'panel-sklad','theme-etalony':'panel-etalony','theme-progon':'panel-progon'};
+    document.getElementById(map[btn.dataset.theme]).classList.add('on');
+  });
+});
+
+async function loadCorpus(){
+  const r=await fetch('/api/admin/restorer/corpus',{headers:H()});
+  if(!r.ok) throw new Error('corpus '+r.status);
+  const j=await r.json();
+  PHOTOS=j.photos||[];
+  $('#photoBadge').textContent=(PHOTOS.length)+' фото · group-seed исключён · без GPU-аренды';
+  const nEl=$('#nPhotos'); if(nEl) nEl.value=String(PHOTOS.length||12);
+  await render(); calc();
+}
+
+async function init(){
+  $('#login').onclick=e=>{e.preventDefault();login();};
+  if(!getToken()){ showGate(); return; }
+  let r;
+  try{ r=await fetch('/api/admin/check',{headers:H()}); }catch(e){ showGate('Ошибка сети.'); return; }
+  if(r.status===403){ showGate('Этот аккаунт не админ. Войдите аккаунтом из белого списка.'); return; }
+  if(r.status===401){ setToken(null); showGate('Сессия истекла. Войдите снова.'); return; }
+  if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
+  const me=await r.json(); $('#who').textContent=me.email||'';
+  showPanel();
+  try{ await loadCorpus(); }catch(e){ document.getElementById('etalonGrid').innerHTML='<p class="muted">Не удалось загрузить корпус.</p>'; }
+}
+init();
+</script>
+</body>
+</html>
