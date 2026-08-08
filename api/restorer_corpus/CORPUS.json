@@ -6,11 +6,11 @@
     "group-seed-permanently-excluded"
   ],
   "has_etalon": [
-    "family_baby",
-    "frida",
     "two_boys"
   ],
   "need_etalon": [
+    "frida",
+    "family_baby",
     "pd_01_scratches",
     "pd_02_stains",
     "pd_03_fade",
@@ -94,9 +94,7 @@
     "db_pd_106",
     "db_pd_109",
     "db_pd_113",
-    "db_pd_116",
-    "family_baby",
-    "frida"
+    "db_pd_116"
   ],
   "photos": [
     {
@@ -127,12 +125,12 @@
         "color-cast",
         "soft-face"
       ],
-      "status": "HAS_ETALON",
+      "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_frida_damaged.jpg",
       "notes": "Эталон Roman: AFTER_frida_roman_ready.jpg",
       "bytes": 111515,
       "md5": "fbe7f348fb5451de0b4e23249bc04fc5",
-      "after_file": "",
+      "after_file": null,
       "has_after": false,
       "qa_status": "FAIL_HOLD",
       "qa_note": "ROMAN_NOTES_20260808 DEMOTE — AFTER jewelry invent; HAS_ETALON id preserved; BEFORE kept LIVE",
@@ -150,16 +148,18 @@
         "soft-faces",
         "group"
       ],
-      "status": "HAS_ETALON",
+      "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_family_baby_indoor.jpg",
       "notes": "Эталон Roman: AFTER_family_baby_roman.png",
       "bytes": 66661,
       "md5": "cc662fde0ef126738b48dd0363792709",
-      "after_file": "family_baby.jpg",
-      "has_after": true,
+      "after_file": null,
+      "has_after": false,
       "after_authentic_file": null,
       "after_modern_file": null,
-      "roman_notes_20260808_quality": "AFTER not sharp enough - quality only, not invent demote; AFTER kept LIVE"
+      "roman_notes_20260808_quality": "AFTER not sharp enough - quality only, not invent demote; AFTER kept LIVE",
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE — AFTER not sharp enough; dual/single AFTER unwired; BEFORE kept LIVE"
     },
     {
       "id": "pd_01_scratches",
@@ -1826,13 +1826,13 @@
       "notes": "WAVE17 Dropbox BEFORE add; fade grain soft stains outdoor-mourning-group; no AFTER yet",
       "bytes": 3727211,
       "md5": "d49ee740e425e9f57349e13fa44a731b",
-      "has_after": false,
-      "after_file": null,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE — AUTH crack appeared + head changed; MOD scarf pattern invent; dual/single AFTER unwired; BEFORE kept LIVE",
+      "has_after": true,
+      "after_file": "db_pd_94_authentic.jpg",
+      "qa_status": "PASS_auth_ROMAN_REGEN_mod_FAIL_HOLD",
+      "qa_note": "ROMAN_NOTES_20260808: auth regen PASS (no invent crack/head); mod FAIL_HOLD (scarf invent risk); dual not wired; BEFORE LIVE",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave17_child_eye": "PASS auth neutral B&W + mod natural color; outdoor-mourning-group likeness locked",
-      "after_authentic_file": null,
+      "after_authentic_file": "db_pd_94_authentic.jpg",
       "after_modern_file": null,
       "roman_notes_20260808": {
         "sides_demoted": [
@@ -1946,12 +1946,12 @@
       "md5": "a5cbc44d187ae93515fc04f8e3855496",
       "has_after": true,
       "after_authentic_file": "db_pd_90_authentic.jpg",
-      "after_file": "db_pd_90_authentic.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD frame invent — never invent frames; remaining after kept; BEFORE LIVE",
+      "after_file": "db_pd_90_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN_REGEN_MOD",
+      "qa_note": "ROMAN_NOTES_20260808: mod regen PASS (no invent); auth prior kept; NEED_ETALON; parent eye still required",
       "wave18_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave18_child_eye": "PASS auth neutral B&W + mod natural color; elder-portrait likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "db_pd_90_modern.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
@@ -2276,12 +2276,12 @@
       "md5": "4179abf122238814124759bd4d38aaaa",
       "has_after": true,
       "after_authentic_file": "db_pd_113_authentic.jpg",
-      "after_file": "db_pd_113_authentic.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD vase+flowers invent; hat elements invent; remaining after kept; BEFORE LIVE",
+      "after_file": "db_pd_113_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN_REGEN_MOD",
+      "qa_note": "ROMAN_NOTES_20260808: mod regen PASS (no invent); auth prior kept; NEED_ETALON; parent eye still required",
       "wave20_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave20_child_eye": "PASS auth neutral B&W + mod period color; folk-family-portrait likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "db_pd_113_modern.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
