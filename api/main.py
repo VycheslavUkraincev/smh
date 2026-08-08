@@ -22,6 +22,10 @@ from waitlist_fallback import (
     count_entries as _waitlist_spaces_count,
     load_entries as _waitlist_spaces_load,
 )
+from restorer_feedback import (
+    build_event as _fb_build_event,
+    publish_feedback as _fb_publish,
+)
 import httpx
 from PIL import Image, ImageDraw, ImageFont
 
@@ -803,6 +807,27 @@ def _restorer_save_marks(marks: dict, email: str = ""):
     return payload
 
 
+
+def _restorer_feedback_emit(*, photo_id: str, verdict: str = "", comment: str = "",
+                            defect_note: str = "", regions=None, email: str = "",
+                            source: str = "review"):
+    """Best-effort Spaces journal + Telegram/wake ping. Never raises."""
+    try:
+        if not SPACES_KEY or not SPACES_SECRET:
+            return {"ok": False, "reason": "no_spaces_env"}
+        ev = _fb_build_event(
+            photo_id=photo_id,
+            verdict=verdict,
+            comment=comment,
+            defect_note=defect_note,
+            regions=regions,
+            email=email,
+            source=source,
+        )
+        return _fb_publish(s3(), SPACES_BUCKET, ev)
+    except Exception as e:
+        return {"ok": False, "reason": "exception", "error": str(e)[:300]}
+
 def _restorer_ctype(name: str):
     low = name.lower()
     if low.endswith(".png"):
@@ -975,9 +1000,18 @@ async def admin_restorer_mark_one(photo_id: str, request: Request, authorization
         "defect_note": str(body.get("defect_note") or "")[:2000],
         "updated_at": int(time.time()),
     }
-    payload = _restorer_save_marks(marks, email=(user.get("email") or ""))
-    return {"ok": True, "id": pid, "mark": marks[pid], "updated_at": payload["updated_at"]}
-
+    email = (user.get("email") or "").strip().lower()
+    payload = _restorer_save_marks(marks, email=email)
+    fb = _restorer_feedback_emit(
+        photo_id=pid,
+        verdict=verdict,
+        comment=marks[pid].get("comment") or "",
+        defect_note=marks[pid].get("defect_note") or "",
+        regions=[],
+        email=email,
+        source="restorer",
+    )
+    return {"ok": True, "id": pid, "mark": marks[pid], "updated_at": payload["updated_at"], "feedback": fb}
 
 
 def _restorer_clamp01(v):
@@ -1156,7 +1190,23 @@ async def admin_restorer_region_notes_post(request: Request, authorization: str 
     notes = _restorer_load_region_notes()
     notes.append(note)
     payload = _restorer_save_region_notes(notes, email=email)
-    return {"ok": True, "note": note, "updated_at": payload["updated_at"]}
+    fb = _restorer_feedback_emit(
+        photo_id=note.get("photo_id") or "",
+        verdict=str((body or {}).get("verdict") or "").strip(),
+        comment=note.get("comment") or "",
+        defect_note="",
+        regions=[{
+            "x": (note.get("bbox") or {}).get("x"),
+            "y": (note.get("bbox") or {}).get("y"),
+            "w": (note.get("bbox") or {}).get("w"),
+            "h": (note.get("bbox") or {}).get("h"),
+            "side": note.get("image") or "before",
+            "comment": note.get("comment") or "",
+        }],
+        email=email,
+        source="review",
+    )
+    return {"ok": True, "note": note, "updated_at": payload["updated_at"], "feedback": fb}
 
 
 @app.delete("/api/admin/restorer/region_notes/{note_id}")
@@ -1225,8 +1275,45 @@ async def admin_restorer_region_notes_patch(note_id: str, request: Request, auth
     cur["updated_at"] = int(time.time())
     notes[found] = cur
     payload = _restorer_save_region_notes(notes, email=email)
-    return {"ok": True, "note": cur, "updated_at": payload["updated_at"]}
+    fb = _restorer_feedback_emit(
+        photo_id=cur.get("photo_id") or "",
+        verdict=str((body or {}).get("verdict") or "").strip(),
+        comment=cur.get("comment") or "",
+        defect_note="",
+        regions=[{
+            "x": (cur.get("bbox") or {}).get("x"),
+            "y": (cur.get("bbox") or {}).get("y"),
+            "w": (cur.get("bbox") or {}).get("w"),
+            "h": (cur.get("bbox") or {}).get("h"),
+            "side": cur.get("image") or "before",
+            "comment": cur.get("comment") or "",
+        }],
+        email=email,
+        source="review",
+    )
+    return {"ok": True, "note": cur, "updated_at": payload["updated_at"], "feedback": fb}
 
+
+
+@app.post("/api/admin/restorer/feedback_smoke")
+async def admin_restorer_feedback_smoke(authorization: str = Header(None)):
+    """Admin-only smoke: write one Spaces journal event + wake ping (no corpus change)."""
+    user = await require_admin(authorization)
+    email = (user.get("email") or "").strip().lower()
+    fb = _restorer_feedback_emit(
+        photo_id="_smoke_feedback",
+        verdict="weak",
+        comment="smoke feedback journal+ping",
+        defect_note="",
+        regions=[{"x": 0.1, "y": 0.1, "w": 0.2, "h": 0.2, "side": "before", "comment": "smoke"}],
+        email=email,
+        source="smoke",
+    )
+    return {"ok": True, "feedback": fb, "keys": {
+        "jsonl": "restorer_feedback/marks.jsonl",
+        "latest": "restorer_feedback/marks_latest.json",
+        "wake": "restorer_feedback/tg_wake.jsonl",
+    }}
 
 @app.get("/api/admin/stats")
 async def admin_stats(authorization: str = Header(None)):
