@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
-  "n_photos": 47,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE12 wire PASS dual AFTER 2026-08-08",
+  "n_photos": 52,
+  "dropbox_status": "pilot_200_before_partial; panel WAVE13 +5 BEFORE FAIL_HOLD auth-sepia 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -54,7 +54,12 @@
     "db_pd_16",
     "db_pd_14",
     "db_pd_37",
-    "db_pd_80"
+    "db_pd_80",
+    "db_pd_12",
+    "db_pd_29",
+    "db_pd_32",
+    "db_pd_57",
+    "db_pd_42"
   ],
   "photos": [
     {
@@ -1138,6 +1143,116 @@
       "wave12_note": "HOLD after child-QA; dual AFTER not wired",
       "wave12_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm tint not B&W) + mod FAIL (stylized remake/likeness drift)",
       "wave12_parent_eye": "auth=FAIL mod=FAIL; chroma warm R-B≈6.9; confirm FAIL_HOLD BEFORE-only"
+    },
+    {
+      "id": "db_pd_12",
+      "file": "db_pd_12.jpg",
+      "rel_path": "corpus/db_pd_12.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "scratches",
+        "fade",
+        "dust"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_12.jpg",
+      "notes": "WAVE13 Dropbox BEFORE add; scratches fade dust outdoor-family-group; no AFTER yet",
+      "bytes": 139637,
+      "md5": "dd83ece069fe948cf96099f3818f8475",
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE13 child-QA HOLD — auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave13_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave13_child_eye": "auth=FAIL mod=PASS; auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired"
+    },
+    {
+      "id": "db_pd_29",
+      "file": "db_pd_29.jpg",
+      "rel_path": "corpus/db_pd_29.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "stains",
+        "discoloration"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_29.jpg",
+      "notes": "WAVE13 Dropbox BEFORE add; fade stains discoloration studio-couple; no AFTER yet",
+      "bytes": 305128,
+      "md5": "a95de71dbf323836601defff0c99cb71",
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE13 child-QA HOLD — auth FAIL (sepia/yellow cast not neutral grayscale); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave13_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave13_child_eye": "auth=FAIL mod=PASS; auth FAIL (sepia/yellow cast not neutral grayscale); mod PASS alone — dual not wired"
+    },
+    {
+      "id": "db_pd_32",
+      "file": "db_pd_32.jpg",
+      "rel_path": "corpus/db_pd_32.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "border-wear",
+        "fade",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_32.jpg",
+      "notes": "WAVE13 Dropbox BEFORE add; border-wear fade soft mother-baby; no AFTER yet",
+      "bytes": 232115,
+      "md5": "38b2e6fe788dff72f001a2017fdd2f24",
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE13 child-QA HOLD — auth FAIL (yellowed warm tint not B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave13_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave13_child_eye": "auth=FAIL mod=PASS; auth FAIL (yellowed warm tint not B&W); mod PASS alone — dual not wired"
+    },
+    {
+      "id": "db_pd_57",
+      "file": "db_pd_57.jpg",
+      "rel_path": "corpus/db_pd_57.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "scratches",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_57.jpg",
+      "notes": "WAVE13 Dropbox BEFORE add; fade scratches soft outdoor-large-group; no AFTER yet",
+      "bytes": 187495,
+      "md5": "77aae124a49d365b8ce45d75f1e7ab9c",
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE13 child-QA HOLD — auth FAIL (sepia/greenish aging tint not neutral B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave13_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave13_child_eye": "auth=FAIL mod=PASS; auth FAIL (sepia/greenish aging tint not neutral B&W); mod PASS alone — dual not wired"
+    },
+    {
+      "id": "db_pd_42",
+      "file": "db_pd_42.jpg",
+      "rel_path": "corpus/db_pd_42.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "grain",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_42.jpg",
+      "notes": "WAVE13 Dropbox BEFORE add; fade grain soft wedding-couple; no AFTER yet",
+      "bytes": 353652,
+      "md5": "dc433ea7f5e028e0e389eac2c038fc0f",
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE13 child-QA HOLD — auth FAIL (warm brown cast not archival B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave13_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave13_child_eye": "auth=FAIL mod=PASS; auth FAIL (warm brown cast not archival B&W); mod PASS alone — dual not wired"
     }
   ]
 }
