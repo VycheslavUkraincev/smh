@@ -178,12 +178,12 @@
       "bytes": 94718,
       "md5": "1a64df909f40dd323f44c46b763835c0",
       "has_after": true,
-      "qa_status": "PASS_auth_parent_r1",
-      "qa_note": "parent re-eye: r1 PASS (wire); r2 WEAK beautify HOLD local; modern not wired; status stays NEED_ETALON for Roman",
+      "qa_status": "PASS_auth",
+      "qa_note": "parent re-eye prefer r1 PASS; r2 WEAK demoted; await Roman",
       "wave2_note": "wired authentic r1 LIVE after parent re-eye; r2 demoted WEAK",
       "after_authentic_file": "pd_04_soft_portrait_authentic.jpg",
       "after_file": "pd_04_soft_portrait_authentic.jpg",
-      "wave2_parent_eye": "PASS_auth_r1_wire_r2_WEAK_hold"
+      "wave2_parent_eye": "PASS_r1_WEAK_r2"
     },
     {
       "id": "pd_06_cracks",
