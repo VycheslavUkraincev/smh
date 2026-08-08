@@ -1,5 +1,5 @@
 {
-  "version": "restorer_board_v2_wave1",
+  "version": "restorer_board_v2_wave2_demote",
   "n_photos": 12,
   "dropbox_status": "reachable_after_refresh",
   "excluded": [
@@ -110,12 +110,12 @@
       "after_authentic_file": null,
       "after_modern_file": null,
       "after_file": null,
-      "qa_status": "PASS",
-      "qa_note": "wave1 substitute for pd_01 (nude HOLD); CF+Nano; authentic B&W PASS; modern color PASS; parent eyeball pending Roman",
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "PARENT_EYE FAIL both authentic+modern; removed from panel; redo pending WAVE2",
       "after_url": null,
       "after_authentic_url": null,
       "after_modern_url": null,
-      "wave1_note": "PARENT_EYE_FAIL_HOLD — redo pending"
+      "wave1_note": "PARENT_EYE_FAIL_HOLD — demoted from live AFTER"
     },
     {
       "id": "pd_03_fade",
