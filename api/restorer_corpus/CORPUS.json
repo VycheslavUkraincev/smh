@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 57,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE14 +5 BEFORE 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; panel WAVE14 wire PASS dual AFTER force-BW chroma-gate 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -1295,7 +1295,14 @@
       "notes": "WAVE14 Dropbox BEFORE add; fade soft dust outdoor-family-group; no AFTER yet",
       "bytes": 87635,
       "md5": "fe5fc35840c1730a06f7e370bd0552a6",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_17_authentic.jpg",
+      "after_modern_file": "db_pd_17_modern.jpg",
+      "after_file": "db_pd_17_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE14 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave14_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
+      "wave14_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; outdoor-family likeness locked"
     },
     {
       "id": "db_pd_23",
@@ -1313,7 +1320,14 @@
       "notes": "WAVE14 Dropbox BEFORE add; fade soft studio-man-painted-backdrop; no AFTER yet",
       "bytes": 175229,
       "md5": "06d3477b831d817b20edff277ed90dc9",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_23_authentic.jpg",
+      "after_modern_file": "db_pd_23_modern.jpg",
+      "after_file": "db_pd_23_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE14 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave14_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
+      "wave14_child_eye": "PASS auth true B&W + mod period color; studio man/backdrop likeness locked"
     },
     {
       "id": "db_pd_28",
@@ -1331,7 +1345,14 @@
       "notes": "WAVE14 Dropbox BEFORE add; fade scratches soft wedding-kiss; no AFTER yet",
       "bytes": 2492971,
       "md5": "47874c3650d5478bb01025a4b55109d8",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_28_authentic.jpg",
+      "after_modern_file": "db_pd_28_modern.jpg",
+      "after_file": "db_pd_28_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE14 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave14_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
+      "wave14_child_eye": "PASS auth archival B&W + mod natural color; wedding-kiss pose/attire locked"
     },
     {
       "id": "db_pd_58",
@@ -1349,7 +1370,14 @@
       "notes": "WAVE14 Dropbox BEFORE add; fade grain soft winter-outdoor-trio; no AFTER yet",
       "bytes": 324509,
       "md5": "7fcb0c76563ad5b07fb5e4ffbd0b9757",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_58_authentic.jpg",
+      "after_modern_file": "db_pd_58_modern.jpg",
+      "after_file": "db_pd_58_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE14 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave14_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
+      "wave14_child_eye": "PASS auth neutral B&W + mod natural color; winter outdoor trio likeness locked"
     },
     {
       "id": "db_pd_18",
@@ -1367,7 +1395,14 @@
       "notes": "WAVE14 Dropbox BEFORE add; border-wear fade stains soft-portrait-woman; no AFTER yet",
       "bytes": 99814,
       "md5": "d5745520968d8b28a183b7f686b4f9f5",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_18_authentic.jpg",
+      "after_modern_file": "db_pd_18_modern.jpg",
+      "after_file": "db_pd_18_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE14 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave14_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
+      "wave14_child_eye": "PASS auth neutral B&W (soft but likeness>cleanliness) + mod plausible color; portrait woman likeness locked"
     }
   ]
 }
