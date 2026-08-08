@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
-  "n_photos": 82,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE19 wire 5/5 PASS dual AFTER force-BW chroma-gate; held=[] 2026-08-08",
+  "n_photos": 87,
+  "dropbox_status": "pilot_200_before_partial; panel WAVE20 +5 BEFORE 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -89,7 +89,12 @@
     "db_pd_102",
     "db_pd_59",
     "db_pd_65",
-    "db_pd_104"
+    "db_pd_104",
+    "db_pd_61",
+    "db_pd_106",
+    "db_pd_109",
+    "db_pd_113",
+    "db_pd_116"
   ],
   "photos": [
     {
@@ -2055,6 +2060,96 @@
       "qa_note": "WAVE19 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave19_child_eye": "PASS auth force-BW after chroma redo + mod period color; indoor-wedding-party likeness locked"
+    },
+    {
+      "id": "db_pd_61",
+      "file": "db_pd_61.jpg",
+      "rel_path": "corpus/db_pd_61.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "stains",
+        "creases"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_61.jpg",
+      "notes": "WAVE20 Dropbox BEFORE add; fade stains creases peeling solo-studio-portrait; no AFTER yet",
+      "bytes": 143347,
+      "md5": "b5bd7be89e92c7692d599b847765415b",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_106",
+      "file": "db_pd_106.jpg",
+      "rel_path": "corpus/db_pd_106.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "grain",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_106.jpg",
+      "notes": "WAVE20 Dropbox BEFORE add; fade grain soft outdoor-wedding-party; no AFTER yet",
+      "bytes": 1743139,
+      "md5": "02139554fc808030063bca3078e411be",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_109",
+      "file": "db_pd_109.jpg",
+      "rel_path": "corpus/db_pd_109.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "soft",
+        "grain"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_109.jpg",
+      "notes": "WAVE20 Dropbox BEFORE add; fade soft grain indoor-boys-group; no AFTER yet",
+      "bytes": 2513866,
+      "md5": "a3b9373cffe8fb48e01dcc943ff1c07a",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_113",
+      "file": "db_pd_113.jpg",
+      "rel_path": "corpus/db_pd_113.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "grain",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_113.jpg",
+      "notes": "WAVE20 Dropbox BEFORE add; fade grain soft folk-family-portrait; no AFTER yet",
+      "bytes": 1686043,
+      "md5": "4179abf122238814124759bd4d38aaaa",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_116",
+      "file": "db_pd_116.jpg",
+      "rel_path": "corpus/db_pd_116.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "soft",
+        "grain"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_116.jpg",
+      "notes": "WAVE20 Dropbox BEFORE add; fade soft grain toddler-toy-horse; no AFTER yet",
+      "bytes": 844073,
+      "md5": "dac0f72755403cc30c3ecbffd14844ea",
+      "has_after": false
     }
   ]
 }
