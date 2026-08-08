@@ -177,10 +177,13 @@
       "notes": "photo-testset 04_soft_portrait",
       "bytes": 94718,
       "md5": "1a64df909f40dd323f44c46b763835c0",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE2 child self-QA FAIL authentic (face/pose invent); modern not attempted (Nano budget); hold locally",
-      "wave2_note": "FAIL_HOLD — never deployed"
+      "has_after": true,
+      "qa_status": "PASS_auth",
+      "qa_note": "parent-eye r2 preferred PASS (tonal balance + face lock); r1 PASS held as alt; modern not run; status stays NEED_ETALON for Roman",
+      "wave2_note": "wired authentic r2 LIVE after parent-eye PASS; FAIL_HOLD cleared",
+      "after_authentic_file": "pd_04_soft_portrait_authentic.jpg",
+      "after_file": "pd_04_soft_portrait_authentic.jpg",
+      "wave2_parent_eye": "PASS_auth_r2_preferred_r1_alt"
     },
     {
       "id": "pd_06_cracks",
