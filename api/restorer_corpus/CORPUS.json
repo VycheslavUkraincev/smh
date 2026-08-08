@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE20 wire 5/5 PASS dual AFTER force-BW chroma-gate; held=[] 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; panel WAVE20 parent demote db_pd_61; WIRED remain db_pd_106/109/113/116; has_after=73 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -2077,14 +2077,12 @@
       "notes": "WAVE20 Dropbox BEFORE add; fade stains creases peeling solo-studio-portrait; no AFTER yet",
       "bytes": 143347,
       "md5": "b5bd7be89e92c7692d599b847765415b",
-      "has_after": true,
-      "after_authentic_file": "db_pd_61_authentic.jpg",
-      "after_modern_file": "db_pd_61_modern.jpg",
-      "after_file": "db_pd_61_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE20 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
-      "wave20_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave20_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod period color; solo-studio-portrait likeness locked"
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE20 parent-eye DEMOTE — invent_mod FAIL (modern invents blue painted backdrop + gold vertical strip not in BEFORE worn neutral studio bg); auth PASS NEUTRAL_BW alone insufficient for dual wire; dual AFTER unwired; BEFORE kept LIVE",
+      "wave20_note": "HOLD after parent-eye demote; dual AFTER unwired from tip 8b029c4",
+      "wave20_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod period color; solo-studio-portrait likeness locked",
+      "wave20_parent_eye": "auth=PASS mod=FAIL invent_bg; demoted wired AFTER"
     },
     {
       "id": "db_pd_106",
