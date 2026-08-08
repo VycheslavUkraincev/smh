@@ -1,14 +1,14 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE20 parent demote db_pd_61; WIRED remain db_pd_106/109/113/116; has_after=73 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; ROMAN_NOTES_20260808 demote invent FAIL sides; family_baby quality-only restored LIVE; frida HAS_ETALON+FAIL_HOLD AFTER; has_after=70; NO Wave21",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
   "has_etalon": [
-    "two_boys",
+    "family_baby",
     "frida",
-    "family_baby"
+    "two_boys"
   ],
   "need_etalon": [
     "pd_01_scratches",
@@ -94,7 +94,9 @@
     "db_pd_106",
     "db_pd_109",
     "db_pd_113",
-    "db_pd_116"
+    "db_pd_116",
+    "family_baby",
+    "frida"
   ],
   "photos": [
     {
@@ -130,8 +132,13 @@
       "notes": "Эталон Roman: AFTER_frida_roman_ready.jpg",
       "bytes": 111515,
       "md5": "fbe7f348fb5451de0b4e23249bc04fc5",
-      "after_file": "frida.jpg",
-      "has_after": true
+      "after_file": "",
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE — AFTER jewelry invent; HAS_ETALON id preserved; BEFORE kept LIVE",
+      "roman_notes_20260808": "invent FAIL after jewelry; HAS_ETALON preserved; AFTER FAIL_HOLD",
+      "after_authentic_file": null,
+      "after_modern_file": null
     },
     {
       "id": "family_baby",
@@ -149,7 +156,10 @@
       "bytes": 66661,
       "md5": "cc662fde0ef126738b48dd0363792709",
       "after_file": "family_baby.jpg",
-      "has_after": true
+      "has_after": true,
+      "after_authentic_file": null,
+      "after_modern_file": null,
+      "roman_notes_20260808_quality": "AFTER not sharp enough - quality only, not invent demote; AFTER kept LIVE"
     },
     {
       "id": "pd_01_scratches",
@@ -321,13 +331,21 @@
       "bytes": 6048539,
       "md5": "72a13b1415c9c65841382f7ee5c46717",
       "has_after": true,
-      "after_authentic_file": "db_pd_101_authentic.jpg",
       "after_modern_file": "db_pd_101_modern.jpg",
       "after_file": "db_pd_101_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE7 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['auth'] — AUTH invent bend stripe full-height not in BEFORE; remaining after kept; BEFORE LIVE",
       "wave7_note": "wired dual AFTER LIVE after child-QA PASS",
-      "wave7_child_eye": "PASS_auth_PASS_mod"
+      "wave7_child_eye": "PASS_auth_PASS_mod",
+      "after_authentic_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "auth"
+        ],
+        "reason": "AUTH invent bend stripe full-height not in BEFORE",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.740735+00:00"
+      }
     },
     {
       "id": "db_pd_126",
@@ -1527,12 +1545,20 @@
       "md5": "a42c087835eb87e2c6114c84ca30d7ab",
       "has_after": true,
       "after_authentic_file": "db_pd_67_authentic.jpg",
-      "after_modern_file": "db_pd_67_modern.jpg",
-      "after_file": "db_pd_67_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE15 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_67_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD flowers invent; remaining after kept; BEFORE LIVE",
       "wave15_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave15_child_eye": "PASS auth neutral B&W + mod natural color; family-portrait likeness locked"
+      "wave15_child_eye": "PASS auth neutral B&W + mod natural color; family-portrait likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD flowers invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744482+00:00"
+      }
     },
     {
       "id": "db_pd_81",
@@ -1577,12 +1603,20 @@
       "md5": "84aa5f0f661499279c049b01efa9d227",
       "has_after": true,
       "after_authentic_file": "db_pd_88_authentic.jpg",
-      "after_modern_file": "db_pd_88_modern.jpg",
-      "after_file": "db_pd_88_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE16 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_88_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD bag pattern invent; remaining after kept; BEFORE LIVE",
       "wave16_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave16_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; outdoor-winter-trio likeness locked"
+      "wave16_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; outdoor-winter-trio likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD bag pattern invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744475+00:00"
+      }
     },
     {
       "id": "db_pd_100",
@@ -1677,12 +1711,20 @@
       "md5": "8a27c078f58d7d1900fd0ed13a3edd83",
       "has_after": true,
       "after_authentic_file": "db_pd_130_authentic.jpg",
-      "after_modern_file": "db_pd_130_modern.jpg",
-      "after_file": "db_pd_130_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE16 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_130_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD wrong shirt + jockey invent (BEFORE=two horses, no jockey); remaining after kept; BEFORE LIVE",
       "wave16_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave16_child_eye": "PASS auth neutral B&W + mod plausible color; indoor-festive-group likeness locked"
+      "wave16_child_eye": "PASS auth neutral B&W + mod plausible color; indoor-festive-group likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD wrong shirt + jockey invent (BEFORE=two horses, no jockey)",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744467+00:00"
+      }
     },
     {
       "id": "db_pd_82",
@@ -1729,12 +1771,20 @@
       "md5": "6094de82f166bfb4f365ae64300db304",
       "has_after": true,
       "after_authentic_file": "db_pd_85_authentic.jpg",
-      "after_modern_file": "db_pd_85_modern.jpg",
-      "after_file": "db_pd_85_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE17 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_85_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD lace/light contour invent; remaining after kept; BEFORE LIVE",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave17_child_eye": "PASS auth true B&W + mod period color; outdoor-picnic-group likeness locked"
+      "wave17_child_eye": "PASS auth true B&W + mod period color; outdoor-picnic-group likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD lace/light contour invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744460+00:00"
+      }
     },
     {
       "id": "db_pd_89",
@@ -1776,14 +1826,23 @@
       "notes": "WAVE17 Dropbox BEFORE add; fade grain soft stains outdoor-mourning-group; no AFTER yet",
       "bytes": 3727211,
       "md5": "d49ee740e425e9f57349e13fa44a731b",
-      "has_after": true,
-      "after_authentic_file": "db_pd_94_authentic.jpg",
-      "after_modern_file": "db_pd_94_modern.jpg",
-      "after_file": "db_pd_94_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE17 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "has_after": false,
+      "after_file": null,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE — AUTH crack appeared + head changed; MOD scarf pattern invent; dual/single AFTER unwired; BEFORE kept LIVE",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave17_child_eye": "PASS auth neutral B&W + mod natural color; outdoor-mourning-group likeness locked"
+      "wave17_child_eye": "PASS auth neutral B&W + mod natural color; outdoor-mourning-group likeness locked",
+      "after_authentic_file": null,
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "auth",
+          "mod"
+        ],
+        "reason": "AUTH crack appeared + head changed; MOD scarf pattern invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744452+00:00"
+      }
     },
     {
       "id": "db_pd_108",
@@ -1829,12 +1888,20 @@
       "md5": "8e790d39e2b0d217bdd7446bdb06076b",
       "has_after": true,
       "after_authentic_file": "db_pd_83_authentic.jpg",
-      "after_modern_file": "db_pd_83_modern.jpg",
-      "after_file": "db_pd_83_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE18 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_83_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD ribbons invent; remaining after kept; BEFORE LIVE",
       "wave18_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave18_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; studio-wedding-portrait likeness locked"
+      "wave18_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; studio-wedding-portrait likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD ribbons invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744441+00:00"
+      }
     },
     {
       "id": "db_pd_87",
@@ -1879,12 +1946,20 @@
       "md5": "a5cbc44d187ae93515fc04f8e3855496",
       "has_after": true,
       "after_authentic_file": "db_pd_90_authentic.jpg",
-      "after_modern_file": "db_pd_90_modern.jpg",
-      "after_file": "db_pd_90_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE18 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_90_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD frame invent — never invent frames; remaining after kept; BEFORE LIVE",
       "wave18_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave18_child_eye": "PASS auth neutral B&W + mod natural color; elder-portrait likeness locked"
+      "wave18_child_eye": "PASS auth neutral B&W + mod natural color; elder-portrait likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD frame invent — never invent frames",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744434+00:00"
+      }
     },
     {
       "id": "db_pd_91",
@@ -1904,12 +1979,20 @@
       "md5": "e119d188326827a5cf25cc9d3d753e02",
       "has_after": true,
       "after_authentic_file": "db_pd_91_authentic.jpg",
-      "after_modern_file": "db_pd_91_modern.jpg",
-      "after_file": "db_pd_91_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE18 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_91_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD collar changed + invent; remaining after kept; BEFORE LIVE",
       "wave18_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave18_child_eye": "PASS auth neutral B&W + mod period color; outdoor-family-portrait likeness locked"
+      "wave18_child_eye": "PASS auth neutral B&W + mod period color; outdoor-family-portrait likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD collar changed + invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744425+00:00"
+      }
     },
     {
       "id": "db_pd_92",
@@ -1979,12 +2062,20 @@
       "md5": "fe3c66569661087575a474b0945739ca",
       "has_after": true,
       "after_authentic_file": "db_pd_102_authentic.jpg",
-      "after_modern_file": "db_pd_102_modern.jpg",
-      "after_file": "db_pd_102_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE19 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_102_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD scarf pattern invent (mild); remaining after kept; BEFORE LIVE",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave19_child_eye": "PASS auth true B&W + mod natural color; outdoor-family-porch likeness locked"
+      "wave19_child_eye": "PASS auth true B&W + mod natural color; outdoor-family-porch likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD scarf pattern invent (mild)",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744416+00:00"
+      }
     },
     {
       "id": "db_pd_59",
@@ -2003,13 +2094,21 @@
       "bytes": 336378,
       "md5": "6487f696ceec83a3df3299c8de576bb4",
       "has_after": true,
-      "after_authentic_file": "db_pd_59_authentic.jpg",
       "after_modern_file": "db_pd_59_modern.jpg",
       "after_file": "db_pd_59_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE19 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['auth'] — AUTH invent crack/bend; remaining after kept; BEFORE LIVE",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave19_child_eye": "PASS auth neutral B&W after chroma redo + FORCE_BW + mod natural color; outdoor-women-portrait locked"
+      "wave19_child_eye": "PASS auth neutral B&W after chroma redo + FORCE_BW + mod natural color; outdoor-women-portrait locked",
+      "after_authentic_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "auth"
+        ],
+        "reason": "AUTH invent crack/bend",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744406+00:00"
+      }
     },
     {
       "id": "db_pd_65",
@@ -2028,13 +2127,21 @@
       "bytes": 259390,
       "md5": "8f974334e766976f8e5f38c310724cdb",
       "has_after": true,
-      "after_authentic_file": "db_pd_65_authentic.jpg",
       "after_modern_file": "db_pd_65_modern.jpg",
       "after_file": "db_pd_65_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE19 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['auth'] — AUTH invent spots; remaining after kept; BEFORE LIVE",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave19_child_eye": "PASS auth neutral B&W + mod period color; outdoor-wedding-family likeness locked"
+      "wave19_child_eye": "PASS auth neutral B&W + mod period color; outdoor-wedding-family likeness locked",
+      "after_authentic_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "auth"
+        ],
+        "reason": "AUTH invent spots",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744393+00:00"
+      }
     },
     {
       "id": "db_pd_104",
@@ -2052,14 +2159,23 @@
       "notes": "WAVE19 Dropbox BEFORE add; fade yellow soft indoor-wedding-party; no AFTER yet",
       "bytes": 2270516,
       "md5": "fca5e91368481014c205295ac8346336",
-      "has_after": true,
-      "after_authentic_file": "db_pd_104_authentic.jpg",
-      "after_modern_file": "db_pd_104_modern.jpg",
-      "after_file": "db_pd_104_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE19 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "has_after": false,
+      "after_file": null,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE — AUTH color BEFORE forced B&W + invent spot; MOD invent elements; dual/single AFTER unwired; BEFORE kept LIVE",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave19_child_eye": "PASS auth force-BW after chroma redo + mod period color; indoor-wedding-party likeness locked"
+      "wave19_child_eye": "PASS auth force-BW after chroma redo + mod period color; indoor-wedding-party likeness locked",
+      "after_authentic_file": null,
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "auth",
+          "mod"
+        ],
+        "reason": "AUTH color BEFORE forced B&W + invent spot; MOD invent elements",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744384+00:00"
+      }
     },
     {
       "id": "db_pd_61",
@@ -2127,12 +2243,20 @@
       "md5": "a3b9373cffe8fb48e01dcc943ff1c07a",
       "has_after": true,
       "after_authentic_file": "db_pd_109_authentic.jpg",
-      "after_modern_file": "db_pd_109_modern.jpg",
-      "after_file": "db_pd_109_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE20 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_109_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD clock element invent; remaining after kept; BEFORE LIVE",
       "wave20_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave20_child_eye": "PASS auth neutral B&W + FORCE_BW + mod natural color; indoor-boys-group locked"
+      "wave20_child_eye": "PASS auth neutral B&W + FORCE_BW + mod natural color; indoor-boys-group locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD clock element invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744372+00:00"
+      }
     },
     {
       "id": "db_pd_113",
@@ -2152,12 +2276,20 @@
       "md5": "4179abf122238814124759bd4d38aaaa",
       "has_after": true,
       "after_authentic_file": "db_pd_113_authentic.jpg",
-      "after_modern_file": "db_pd_113_modern.jpg",
-      "after_file": "db_pd_113_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE20 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "after_file": "db_pd_113_authentic.jpg",
+      "qa_status": "FAIL_HOLD_SIDE",
+      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD vase+flowers invent; hat elements invent; remaining after kept; BEFORE LIVE",
       "wave20_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
-      "wave20_child_eye": "PASS auth neutral B&W + mod period color; folk-family-portrait likeness locked"
+      "wave20_child_eye": "PASS auth neutral B&W + mod period color; folk-family-portrait likeness locked",
+      "after_modern_file": null,
+      "roman_notes_20260808": {
+        "sides_demoted": [
+          "mod"
+        ],
+        "reason": "MOD vase+flowers invent; hat elements invent",
+        "removed": [],
+        "utc": "2026-08-08T22:28:44.744359+00:00"
+      }
     },
     {
       "id": "db_pd_116",
