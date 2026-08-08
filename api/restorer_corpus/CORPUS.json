@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
-  "n_photos": 12,
-  "dropbox_status": "reachable_after_refresh",
+  "n_photos": 32,
+  "dropbox_status": "pilot_200_before_partial; panel +20 BEFORE 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -19,7 +19,27 @@
     "pd_08_inbound",
     "pd_24_group",
     "db_pd_101",
-    "db_pd_126"
+    "db_pd_126",
+    "db_pd_7",
+    "db_pd_105",
+    "db_pd_111",
+    "db_pd_118",
+    "db_pd_124",
+    "db_pd_131",
+    "db_pd_138",
+    "db_pd_144",
+    "db_pd_150",
+    "db_pd_157",
+    "db_pd_163",
+    "db_pd_19",
+    "db_pd_27",
+    "db_pd_34",
+    "db_pd_41",
+    "db_pd_48",
+    "db_pd_55",
+    "db_pd_62",
+    "db_pd_69",
+    "db_pd_76"
   ],
   "photos": [
     {
@@ -244,6 +264,346 @@
       "notes": "Dropbox pilot_200_before; Roman to tag damage type",
       "bytes": 6094791,
       "md5": "0fea5ab71222a23811afc453293291b5",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_7",
+      "file": "db_pd_7.jpg",
+      "rel_path": "corpus/db_pd_7.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "scratches",
+        "surface"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_07.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 103272,
+      "md5": "a944a32877bfce26e06cdfc972a62336",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_105",
+      "file": "db_pd_105.jpg",
+      "rel_path": "corpus/db_pd_105.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "stains",
+        "spots"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_105.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 5339609,
+      "md5": "8f2cfe272e8e91031da761911f3ac82e",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_111",
+      "file": "db_pd_111.jpg",
+      "rel_path": "corpus/db_pd_111.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "color-cast"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_111.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 3845683,
+      "md5": "13d9701abcd829bc17285913e88ac003",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_118",
+      "file": "db_pd_118.jpg",
+      "rel_path": "corpus/db_pd_118.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "cracks",
+        "tears"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_118.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 4172265,
+      "md5": "06d0104d5da9fff522fe887ab16da62d",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_124",
+      "file": "db_pd_124.jpg",
+      "rel_path": "corpus/db_pd_124.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "soft-portrait",
+        "portrait"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_124.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 3884168,
+      "md5": "066eb276835e004faf350e79c6381bf8",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_131",
+      "file": "db_pd_131.jpg",
+      "rel_path": "corpus/db_pd_131.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "group",
+        "people"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_131.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 4858893,
+      "md5": "302b116d3408785af67ca76e66af204b",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_138",
+      "file": "db_pd_138.jpg",
+      "rel_path": "corpus/db_pd_138.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "color-cast",
+        "tint"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_138.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 14299561,
+      "md5": "8db20ca84f14c7f70130b61de49c30d2",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_144",
+      "file": "db_pd_144.jpg",
+      "rel_path": "corpus/db_pd_144.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "tears",
+        "edge-damage"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_144.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 4549576,
+      "md5": "dd2b13742aaee2bbb684176acd28fbbe",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_150",
+      "file": "db_pd_150.jpg",
+      "rel_path": "corpus/db_pd_150.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "desk-scan",
+        "print"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_150.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 8147873,
+      "md5": "84a690b1589991d7082d82c48f6b56b4",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_157",
+      "file": "db_pd_157.jpg",
+      "rel_path": "corpus/db_pd_157.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "scratches",
+        "fade"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_157.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 5354966,
+      "md5": "03ee86b22737e005c9ac08845c050f76",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_163",
+      "file": "db_pd_163.jpg",
+      "rel_path": "corpus/db_pd_163.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "stains",
+        "fade"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_163.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 26105871,
+      "md5": "163ada6ff78aaa1cfa3c1e786f77c6ab",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_19",
+      "file": "db_pd_19.jpg",
+      "rel_path": "corpus/db_pd_19.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "cracks",
+        "surface"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_19.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 204717,
+      "md5": "735e4e4b80b14c1a3536010c39d34a03",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_27",
+      "file": "db_pd_27.jpg",
+      "rel_path": "corpus/db_pd_27.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "soft-portrait",
+        "group"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_27.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 5109344,
+      "md5": "074233c13099f0e6c75412ecdffb0d09",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_34",
+      "file": "db_pd_34.jpg",
+      "rel_path": "corpus/db_pd_34.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "color-cast",
+        "soft-portrait"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_34.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 135299,
+      "md5": "7c1f12db5109a7f8e15e646b80c2639e",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_41",
+      "file": "db_pd_41.jpg",
+      "rel_path": "corpus/db_pd_41.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "tears",
+        "stains"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_41.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 146811,
+      "md5": "dbaba5517a5e797e19e807ec5f4980d6",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_48",
+      "file": "db_pd_48.png",
+      "rel_path": "corpus/db_pd_48.png",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "group",
+        "desk-scan"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_48.png",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 1554618,
+      "md5": "6b046db141b8cb66051e21519e0e1a8d",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_55",
+      "file": "db_pd_55.png",
+      "rel_path": "corpus/db_pd_55.png",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "scratches",
+        "color-cast"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_55.png",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 2935834,
+      "md5": "afdc21e385dcabd0b8687254c5690dca",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_62",
+      "file": "db_pd_62.jpg",
+      "rel_path": "corpus/db_pd_62.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "soft-portrait"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_62.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 134410,
+      "md5": "2127a82ff80e4b732775be33d8158809",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_69",
+      "file": "db_pd_69.jpg",
+      "rel_path": "corpus/db_pd_69.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "cracks",
+        "group"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_69.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 82560,
+      "md5": "d9a8a8bac5a9c4e8e90de44440de56ed",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_76",
+      "file": "db_pd_76.jpg",
+      "rel_path": "corpus/db_pd_76.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "diverse",
+        "pilot_200"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_76.jpg",
+      "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
+      "bytes": 145696,
+      "md5": "b543c5093a903a7857222c556a363a96",
       "has_after": false
     }
   ]
