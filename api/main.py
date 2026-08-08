@@ -810,19 +810,47 @@ def _restorer_save_marks(marks: dict, email: str = ""):
 
 def _restorer_feedback_emit(*, photo_id: str, verdict: str = "", comment: str = "",
                             defect_note: str = "", regions=None, email: str = "",
-                            source: str = "review"):
-    """Best-effort Spaces journal + Telegram/wake ping. Never raises."""
+                            source: str = "review", kind: str = "",
+                            action: str = "", note_id: str = "", image: str = "",
+                            severity: str = "", tip: str = ""):
+    """Best-effort Spaces journal + pending_ping queue. Never raises."""
     try:
         if not SPACES_KEY or not SPACES_SECRET:
             return {"ok": False, "reason": "no_spaces_env"}
+        regs = regions if isinstance(regions, list) else []
+        bbox = None
+        img = (image or "").strip()
+        if regs:
+            r0 = regs[0] if isinstance(regs[0], dict) else {}
+            try:
+                bbox = {
+                    "x": float(r0.get("x", 0)),
+                    "y": float(r0.get("y", 0)),
+                    "w": float(r0.get("w", 0)),
+                    "h": float(r0.get("h", 0)),
+                }
+            except Exception:
+                bbox = None
+            if not img:
+                img = str(r0.get("side") or r0.get("image") or "").strip()
+        k = (kind or "").strip()
+        if not k:
+            k = "region_note" if (bbox or note_id or action in ("create", "update", "delete", "replace")) else "mark"
         ev = _fb_build_event(
+            kind=k,
             photo_id=photo_id,
+            source=source,
             verdict=verdict,
             comment=comment,
-            defect_note=defect_note,
-            regions=regions,
             email=email,
-            source=source,
+            tip=tip,
+            bbox=bbox,
+            image=img,
+            note_id=note_id,
+            action=action,
+            defect_note=defect_note,
+            severity=severity,
+            extra={"regions": regs, "region_count": len(regs)} if regs else None,
         )
         return _fb_publish(s3(), SPACES_BUCKET, ev)
     except Exception as e:
@@ -1030,6 +1058,8 @@ async def admin_restorer_mark_one(photo_id: str, request: Request, authorization
         regions=[],
         email=email,
         source="restorer",
+        kind="mark",
+        action="upsert",
     )
     return {"ok": True, "id": pid, "mark": marks[pid], "updated_at": payload["updated_at"], "feedback": fb}
 
@@ -1380,6 +1410,9 @@ async def admin_restorer_feedback_smoke(authorization: str = Header(None)):
         regions=[{"x": 0.1, "y": 0.1, "w": 0.2, "h": 0.2, "side": "before", "comment": "smoke"}],
         email=email,
         source="smoke",
+        kind="region_note",
+        action="smoke",
+        tip="f98c2ac",
     )
     return {"ok": True, "feedback": fb, "keys": {
         "journal": "feedback/restorer_journal.jsonl",
