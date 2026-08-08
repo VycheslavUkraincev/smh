@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 42,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE11 +5 BEFORE 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; panel WAVE11 +5 BEFORE (pd_46->pd_20 swap) 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -47,9 +47,9 @@
     "db_pd_74",
     "db_pd_13",
     "db_pd_22",
-    "db_pd_46",
     "db_pd_64",
-    "db_pd_71"
+    "db_pd_71",
+    "db_pd_20"
   ],
   "photos": [
     {
@@ -938,24 +938,6 @@
       "has_after": false
     },
     {
-      "id": "db_pd_46",
-      "file": "db_pd_46.jpg",
-      "rel_path": "corpus/db_pd_46.jpg",
-      "damage_tags": [
-        "dropbox",
-        "pilot_200",
-        "scratches",
-        "stains",
-        "border-wear"
-      ],
-      "status": "NEED_ETALON",
-      "source_path": "/SaveMyHistory/pilot_200_before/pd_46.jpg",
-      "notes": "WAVE11 Dropbox BEFORE add; heavy scratches stains border-wear glamour; no AFTER yet",
-      "bytes": 244704,
-      "md5": "7a44e4dba53381dd3607ed787bbc6dbb",
-      "has_after": false
-    },
-    {
       "id": "db_pd_64",
       "file": "db_pd_64.jpg",
       "rel_path": "corpus/db_pd_64.jpg",
@@ -988,6 +970,24 @@
       "notes": "WAVE11 Dropbox BEFORE add; color-cast stains border-wear uniform; no AFTER yet",
       "bytes": 208312,
       "md5": "ab146bc119c9db09e4fcbddb0613835e",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_20",
+      "file": "db_pd_20.jpg",
+      "rel_path": "corpus/db_pd_20.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "sepia-fade",
+        "stains",
+        "scratches"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_20.jpg",
+      "notes": "WAVE11 Dropbox BEFORE add (swap for pd_46 content-policy); sepia-fade stains folk-dress; no AFTER yet",
+      "bytes": 301145,
+      "md5": "f2f117e8423da3acf22039d587f69909",
       "has_after": false
     }
   ]
