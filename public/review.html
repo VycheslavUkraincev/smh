@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Ревью с областью · SaveMyHistory Admin</title>
+<style>
+:root{
+  --bg:#f3efe6; --ink:#1c1915; --muted:#5c564c; --card:#fffdf8;
+  --line:#d8d0c2; --ok:#2f6b4f; --warn:#9a6b1f; --bad:#8b3a2f;
+  --accent:#2a4a6b; --soft:#e7e0d2; --shadow:0 10px 30px rgba(28,25,21,.08);
+  --radius:18px; --font:"Segoe UI", "PT Sans", "Helvetica Neue", sans-serif;
+  --gold-d:#A67C32; --box:#c0392b;
+}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--font);}
+body{
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #fff7e8 0%, transparent 55%),
+    radial-gradient(900px 400px at 100% 0%, #e8f0ea 0%, transparent 50%),
+    var(--bg);
+}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 18px 80px;}
+.hero{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;margin-bottom:18px;}
+.hero h1{font-size:clamp(1.5rem,3vw,2.2rem);margin:0 0 6px;letter-spacing:-.02em;}
+.hero p{margin:0;color:var(--muted);max-width:60ch;line-height:1.45;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:.85rem;}
+.nav a,button,.btn,.filter-btn{
+  appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:999px;padding:10px 14px;font:inherit;cursor:pointer;text-decoration:none;
+  box-shadow:var(--shadow);
+}
+.nav a:hover,button:hover,.filter-btn:hover{transform:translateY(-1px);}
+.btn.primary{background:var(--gold-d);color:#fff;border-color:var(--gold-d);}
+.btn.danger{background:#fde8e4;border-color:#e2a498;color:var(--bad);}
+.filter-btn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.gate{max-width:420px;margin:80px auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px;box-shadow:var(--shadow);}
+.gate h2{margin:0 0 10px;font-size:1.6rem;}
+.gate p{color:var(--muted);}
+.topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.who{color:var(--muted);font-size:.9rem;}
+a.home{color:var(--gold-d);text-decoration:none;font-size:.9rem;}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:10px 0 16px;}
+.toolbar .left,.toolbar .right{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+input,textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fff;}
+input#search{width:min(260px,70vw);}
+.muted{color:var(--muted);}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;}
+.case{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:18px;}
+.case h2{margin:0 0 6px;font-size:1.15rem;}
+.case-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px;}
+.tag{font-size:.75rem;padding:4px 8px;border-radius:999px;background:#eef3f0;color:#355246;}
+.tag.notes{background:#fff4d8;color:#7a5a14;}
+.ba{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+@media(max-width:960px){.ba{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.ba{grid-template-columns:1fr;}}
+.shot{position:relative;cursor:crosshair;user-select:none;border-radius:14px;overflow:hidden;background:#ddd;}
+.shot img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;pointer-events:none;}
+.shot .lbl{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.72);color:#fff;font-size:.7rem;padding:4px 8px;border-radius:999px;z-index:3;pointer-events:none;}
+.shot .hint{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;padding:4px 8px;border-radius:999px;z-index:3;pointer-events:none;}
+.shot .layer{position:absolute;inset:0;z-index:2;}
+.shot .box{position:absolute;border:2px solid var(--box);background:rgba(192,57,43,.18);box-sizing:border-box;pointer-events:none;}
+.shot .box.draft{border-style:dashed;background:rgba(192,57,43,.22);}
+.shot .box.active{border-color:#1a6fb5;background:rgba(26,111,181,.18);}
+.comments{margin-top:12px;border-top:1px solid var(--line);padding-top:12px;}
+.comments h3{margin:0 0 8px;font-size:.95rem;}
+.citem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fff;}
+.citem .meta{font-size:.78rem;color:var(--muted);margin-bottom:4px;}
+.citem .txt{white-space:pre-wrap;line-height:1.4;}
+.citem .ops{display:flex;flex-direction:column;gap:6px;}
+.citem .ops button{padding:6px 10px;font-size:.78rem;box-shadow:none;}
+.pager{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:8px 0 16px;}
+.save-hint{font-size:.8rem;min-height:1.2em;color:var(--muted);}
+
+/* comment modal */
+.modal{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(12,10,8,.55);padding:16px;}
+.modal.open{display:flex;}
+.modal-card{width:min(520px,100%);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);}
+.modal-card h3{margin:0 0 8px;}
+.modal-card .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:flex-end;}
+
+/* Lightbox */
+body.lb-open{overflow:hidden;}
+.lb{position:fixed;inset:0;z-index:9999;display:none;align-items:stretch;justify-content:center;background:rgba(12,10,8,.88);padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);}
+.lb.open{display:flex;}
+.lb-inner{display:flex;flex-direction:column;width:100%;max-width:1100px;height:100%;max-height:100%;margin:0 auto;padding:12px;box-sizing:border-box;min-height:0;}
+.lb-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#f5f0e6;margin-bottom:8px;flex:0 0 auto;}
+.lb-title{font-weight:700;font-size:.95rem;}
+.lb-close{appearance:none;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;width:42px;height:42px;font-size:1.4rem;line-height:1;cursor:pointer;}
+.lb-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;flex:0 0 auto;}
+.lb-tab{appearance:none;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:.82rem;cursor:pointer;}
+.lb-tab.on{background:#fff;color:#1c1915;border-color:#fff;}
+.lb-stage{position:relative;flex:1 1 auto;min-height:0;max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center;touch-action:none;overflow:hidden;border-radius:14px;background:rgba(0,0,0,.25);cursor:crosshair;}
+.lb-stage img,#lbImg{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;object-position:center;aspect-ratio:auto;user-select:none;-webkit-user-drag:none;display:block;pointer-events:none;}
+.lb-layer{position:absolute;inset:0;z-index:2;pointer-events:none;}
+.lb-layer .box{position:absolute;border:2px solid #ff6b5a;background:rgba(255,107,90,.18);box-sizing:border-box;}
+.lb-layer .box.draft{border-style:dashed;}
+.lb-nav{appearance:none;position:absolute;top:50%;transform:translateY(-50%);border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.45);color:#fff;width:44px;height:44px;border-radius:999px;font-size:1.3rem;cursor:pointer;z-index:3;}
+.lb-nav.prev{left:8px;}
+.lb-nav.next{right:8px;}
+.lb-meta{color:rgba(245,240,230,.75);font-size:.8rem;margin:8px 0 0;text-align:center;flex:0 0 auto;}
+.footer{margin-top:28px;color:var(--muted);font-size:.85rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Ревью с областью</h2>
+    <p id="gate-msg">Войдите аккаунтом администратора (тот же Google, что и /admin.html).</p>
+    <a class="btn primary" id="login" href="#">Войти через Google</a>
+    <p class="muted" style="margin-top:16px"><a class="home" href="/admin.html">← Админ-панель</a> · <a class="home" href="/restorer.html">Панель реставратора</a></p>
+  </div>
+
+  <div id="panel" style="display:none">
+    <div class="topbar">
+      <span class="who" id="who"></span>
+      <div>
+        <a class="home" href="/admin.html">Админ</a> ·
+        <a class="home" href="/restorer.html">Панель реставратора</a> ·
+        <a class="home" href="/">Сайт</a>
+      </div>
+    </div>
+    <header class="hero">
+      <div>
+        <div class="badge">SaveMyHistory · region review · ADMIN</div>
+        <h1>Ревью с областью</h1>
+        <p>Все кейсы с AFTER. Потяни прямоугольник на любом фото (BEFORE / authentic / modern), напиши «что не так», сохрани. Заметки на сервере.</p>
+      </div>
+      <div class="badge" id="photoBadge">…</div>
+    </header>
+
+    <div class="toolbar">
+      <div class="left" id="filters">
+        <button type="button" class="filter-btn on" data-f="all">все</button>
+        <button type="button" class="filter-btn" data-f="notes">есть заметки</button>
+        <button type="button" class="filter-btn" data-f="none">без заметок</button>
+      </div>
+      <div class="right">
+        <input id="search" type="search" placeholder="поиск по id…" />
+        <button type="button" class="btn" id="prevCase">← prev</button>
+        <button type="button" class="btn" id="nextCase">next →</button>
+      </div>
+    </div>
+    <div class="pager">
+      <span class="muted" id="casePos">0 / 0</span>
+      <span class="save-hint" id="saveHint"></span>
+    </div>
+    <div id="caseRoot"></div>
+    <p class="footer">Admin-only. Не утверждает: sellable · conveyor · warehouse HIT. NEVER pd_05.</p>
+  </div>
+</div>
+
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <h3>Что не так?</h3>
+    <p class="muted" id="modalMeta" style="margin:0 0 10px;font-size:.85rem"></p>
+    <textarea id="modalText" rows="4" placeholder="комментарий к выделенной области"></textarea>
+    <div class="row">
+      <button type="button" class="btn" id="modalCancel">Отмена</button>
+      <button type="button" class="btn primary" id="modalSave">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<div id="lightbox" class="lb" aria-hidden="true">
+  <div class="lb-inner" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+    <div class="lb-top">
+      <div class="lb-title" id="lbTitle">фото</div>
+      <button type="button" class="lb-close" id="lbClose" aria-label="Закрыть">×</button>
+    </div>
+    <div class="lb-tabs" id="lbTabs"></div>
+    <div class="lb-stage" id="lbStage">
+      <button type="button" class="lb-nav prev" id="lbPrev" aria-label="Предыдущее">‹</button>
+      <img id="lbImg" alt="просмотр" />
+      <div class="lb-layer" id="lbLayer"></div>
+      <button type="button" class="lb-nav next" id="lbNext" aria-label="Следующее">›</button>
+    </div>
+    <div class="lb-meta" id="lbMeta">тяни прямоугольник · Esc закрыть · ←/→ кейс</div>
+  </div>
+</div>
+
+<script>
+const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
+const $=s=>document.querySelector(s);
+let _token=null, PHOTOS=[], NOTES=[], FILTER='all', QUERY='', IDX=0, ME='';
+let _blobUrls={};
+let DRAFT=null; // {photo_id,image,bbox,source:'card'|'lb'}
+let EDIT_ID=null;
+let LB={open:false, view:0, views:[], drawing:false, x0:0,y0:0};
+
+function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
+function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
+function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
+(function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname+location.search); } })();
+function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
+function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
+async function login(){
+  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(SB_URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
+  const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/review.html'}});
+  if(data&&data.url) location.href=data.url;
+}
+async function authFetchBlob(url){
+  const r=await fetch(url,{headers:{Authorization:'Bearer '+getToken()}});
+  if(!r.ok) throw new Error('img '+r.status);
+  return URL.createObjectURL(await r.blob());
+}
+async function ensureBlob(key,url){
+  if(!url) throw new Error('no url');
+  if(!_blobUrls[key]) _blobUrls[key]=await authFetchBlob(url);
+  return _blobUrls[key];
+}
+function notesFor(pid){ return NOTES.filter(n=>n.photo_id===pid); }
+function hasNotes(pid){ return notesFor(pid).length>0; }
+function photoViews(p){
+  const beforeU=p.photo_url||('/api/admin/restorer/photo/'+p.file);
+  const views=[{image:'before', label:'BEFORE', key:'b:'+p.file, url:beforeU}];
+  if(p.has_after_authentic || p.after_authentic_url){
+    views.push({image:'auth', label:'AFTER authentic', key:'aa:'+(p.after_authentic_file||''), url:p.after_authentic_url||''});
+  }
+  if(p.has_after_modern || p.after_modern_url){
+    views.push({image:'mod', label:'AFTER modern', key:'am:'+(p.after_modern_file||''), url:p.after_modern_url||''});
+  }
+  if(views.length===1 && p.has_after && (p.after_url||p.after_file)){
+    views.push({image:'after', label:'AFTER', key:'a:'+(p.after_file||''), url:p.after_url||''});
+  }
+  return views.filter(v=>v.url);
+}
+function filtered(){
+  const q=(QUERY||'').trim().toLowerCase();
+  return PHOTOS.filter(p=>{
+    if(!p.has_after) return false;
+    if(FILTER==='notes' && !hasNotes(p.id)) return false;
+    if(FILTER==='none' && hasNotes(p.id)) return false;
+    if(q && !(p.id||'').toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+function clamp01(n){ n=Number(n); if(!isFinite(n)) return 0; return Math.min(1, Math.max(0,n)); }
+function normBox(x0,y0,x1,y1,w,h){
+  if(w<=0||h<=0) return null;
+  const ax=Math.min(x0,x1)/w, ay=Math.min(y0,y1)/h;
+  const bw=Math.abs(x1-x0)/w, bh=Math.abs(y1-y0)/h;
+  if(bw<0.01 || bh<0.01) return null;
+  return {x:clamp01(ax), y:clamp01(ay), w:clamp01(bw), h:clamp01(bh)};
+}
+function boxStyle(b){ return 'left:'+(b.x*100)+'%;top:'+(b.y*100)+'%;width:'+(b.w*100)+'%;height:'+(b.h*100)+'%'; }
+function imgLabel(img){ return ({before:'BEFORE',auth:'AFTER authentic',mod:'AFTER modern',after:'AFTER'})[img]||img; }
+function hint(msg){ $('#saveHint').textContent=msg||''; }
+
+function openModal(draft, editNote){
+  DRAFT=draft;
+  EDIT_ID=editNote?editNote.id:null;
+  $('#modalMeta').textContent=(draft.photo_id||'')+' · '+imgLabel(draft.image)+(editNote?' · правка':'');
+  $('#modalText').value=editNote?(editNote.comment||''):'';
+  $('#modal').classList.add('open');
+  $('#modal').setAttribute('aria-hidden','false');
+  setTimeout(()=>$('#modalText').focus(),50);
+}
+function closeModal(){
+  $('#modal').classList.remove('open');
+  $('#modal').setAttribute('aria-hidden','true');
+  DRAFT=null; EDIT_ID=null;
+  document.querySelectorAll('.box.draft').forEach(el=>el.remove());
+  if(LB.open) paintLbBoxes();
+}
+async function saveModal(){
+  const text=($('#modalText').value||'').trim();
+  if(!text){ hint('напиши комментарий'); return; }
+  if(!DRAFT) return;
+  hint('сохраняю…');
+  try{
+    if(EDIT_ID){
+      const r=await fetch('/api/admin/restorer/region_notes/'+encodeURIComponent(EDIT_ID),{
+        method:'PATCH', headers:H(), body:JSON.stringify({comment:text, bbox:DRAFT.bbox, image:DRAFT.image})
+      });
+      if(!r.ok) throw new Error('patch '+r.status);
+      const j=await r.json();
+      const i=NOTES.findIndex(n=>n.id===EDIT_ID);
+      if(i>=0) NOTES[i]=j.note; else NOTES.push(j.note);
+    } else {
+      const body={photo_id:DRAFT.photo_id, image:DRAFT.image, bbox:DRAFT.bbox, comment:text};
+      const r=await fetch('/api/admin/restorer/region_notes',{method:'POST',headers:H(),body:JSON.stringify(body)});
+      if(!r.ok) throw new Error('post '+r.status);
+      const j=await r.json();
+      NOTES.push(j.note);
+    }
+    hint('сохранено');
+    closeModal();
+    renderCase();
+    if(LB.open) paintLbBoxes();
+  }catch(e){ hint('ошибка сохранения'); }
+}
+async function deleteNote(id){
+  if(!confirm('Удалить заметку?')) return;
+  hint('удаляю…');
+  try{
+    const r=await fetch('/api/admin/restorer/region_notes/'+encodeURIComponent(id),{method:'DELETE',headers:H()});
+    if(!r.ok) throw new Error('del '+r.status);
+    NOTES=NOTES.filter(n=>n.id!==id);
+    hint('удалено');
+    renderCase();
+    if(LB.open) paintLbBoxes();
+  }catch(e){ hint('ошибка удаления'); }
+}
+async function editNote(id){
+  const n=NOTES.find(x=>x.id===id); if(!n) return;
+  openModal({photo_id:n.photo_id, image:n.image, bbox:n.bbox, source:'edit'}, n);
+}
+
+function bindDraw(shotEl, photoId, image){
+  const layer=shotEl.querySelector('.layer');
+  let drawing=false, x0=0,y0=0, draftEl=null;
+  function rel(ev){
+    const r=shotEl.getBoundingClientRect();
+    return {x:ev.clientX-r.left, y:ev.clientY-r.top, w:r.width, h:r.height};
+  }
+  shotEl.addEventListener('pointerdown', ev=>{
+    if(ev.button!==0) return;
+    if(ev.target.closest('button,a,textarea,input')) return;
+    // double purpose: hold Alt/Option or use Shift+click for lightbox open without draw
+    if(ev.altKey || ev.shiftKey){
+      openLightbox(photoId, image);
+      return;
+    }
+    ev.preventDefault();
+    shotEl.setPointerCapture(ev.pointerId);
+    const p=rel(ev); drawing=true; x0=p.x; y0=p.y;
+    draftEl=document.createElement('div'); draftEl.className='box draft'; layer.appendChild(draftEl);
+  });
+  shotEl.addEventListener('pointermove', ev=>{
+    if(!drawing||!draftEl) return;
+    const p=rel(ev);
+    const left=Math.min(x0,p.x), top=Math.min(y0,p.y);
+    draftEl.style.left=left+'px'; draftEl.style.top=top+'px';
+    draftEl.style.width=Math.abs(p.x-x0)+'px'; draftEl.style.height=Math.abs(p.y-y0)+'px';
+  });
+  shotEl.addEventListener('pointerup', ev=>{
+    if(!drawing) return;
+    drawing=false;
+    const p=rel(ev);
+    const bbox=normBox(x0,y0,p.x,p.y,p.w,p.h);
+    if(draftEl) draftEl.remove();
+    draftEl=null;
+    if(!bbox){
+      // tiny drag = open lightbox
+      openLightbox(photoId, image);
+      return;
+    }
+    // show draft overlay in normalized coords
+    const d=document.createElement('div'); d.className='box draft'; d.style.cssText=boxStyle(bbox); layer.appendChild(d);
+    openModal({photo_id:photoId, image, bbox, source:'card'});
+  });
+  shotEl.addEventListener('dblclick', ev=>{ ev.preventDefault(); openLightbox(photoId, image); });
+}
+
+function paintCardBoxes(root, pid){
+  root.querySelectorAll('.shot[data-image]').forEach(shot=>{
+    const image=shot.getAttribute('data-image');
+    const layer=shot.querySelector('.layer');
+    if(!layer) return;
+    layer.querySelectorAll('.box:not(.draft)').forEach(el=>el.remove());
+    notesFor(pid).filter(n=>n.image===image).forEach(n=>{
+      if(!n.bbox) return;
+      const el=document.createElement('div');
+      el.className='box';
+      el.style.cssText=boxStyle(n.bbox);
+      el.title=n.comment||'';
+      layer.appendChild(el);
+    });
+  });
+}
+
+function renderCase(){
+  const list=filtered();
+  if(!list.length){
+    $('#caseRoot').innerHTML='<div class="empty">Нет кейсов в этом фильтре.</div>';
+    $('#casePos').textContent='0 / 0';
+    $('#photoBadge').textContent=(PHOTOS.filter(p=>p.has_after).length)+' с AFTER · заметок: '+NOTES.length;
+    return;
+  }
+  if(IDX>=list.length) IDX=list.length-1;
+  if(IDX<0) IDX=0;
+  const p=list[IDX];
+  $('#casePos').textContent=(IDX+1)+' / '+list.length;
+  $('#photoBadge').textContent=list.length+' в фильтре · всего AFTER: '+PHOTOS.filter(x=>x.has_after).length+' · заметок: '+NOTES.length;
+  const views=photoViews(p);
+  const cols=views.map(v=>`
+    <div class="shot" data-image="${esc(v.image)}" data-key="${esc(v.key)}" data-u="${esc(v.url)}">
+      <img alt="${esc(v.label)}" />
+      <div class="layer"></div>
+      <span class="lbl">${esc(v.label)}</span>
+      <span class="hint">тяни область · Shift+клик = увеличить</span>
+    </div>`).join('');
+  const notes=notesFor(p.id);
+  const notesHtml=notes.length? notes.map(n=>`
+    <div class="citem" data-id="${esc(n.id)}">
+      <div>
+        <div class="meta">${esc(imgLabel(n.image))} · ${esc(n.email||'')} · ${n.updated_at?new Date(n.updated_at*1000).toLocaleString():''}</div>
+        <div class="txt">${esc(n.comment||'')}</div>
+      </div>
+      <div class="ops">
+        <button type="button" data-edit="${esc(n.id)}">править</button>
+        <button type="button" class="danger" data-del="${esc(n.id)}">удалить</button>
+      </div>
+    </div>`).join('') : '<p class="muted">Пока нет заметок по областям для этого кейса.</p>';
+  $('#caseRoot').innerHTML=`
+    <article class="case" id="case-${esc(p.id)}">
+      <h2>${esc(p.id)}</h2>
+      <div class="case-meta">
+        <span class="tag">${esc(p.status||'')}</span>
+        ${notes.length?`<span class="tag notes">${notes.length} замет(ки)</span>`:''}
+        ${(p.damage_tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}
+      </div>
+      <div class="ba">${cols}</div>
+      <div class="comments">
+        <h3>Комментарии к областям</h3>
+        ${notesHtml}
+      </div>
+    </article>`;
+  const root=$('#caseRoot');
+  root.querySelectorAll('.shot').forEach(async shot=>{
+    const key=shot.getAttribute('data-key');
+    const url=shot.getAttribute('data-u');
+    const image=shot.getAttribute('data-image');
+    const img=shot.querySelector('img');
+    try{ img.src=await ensureBlob(key,url); }catch(e){ img.alt='нет фото'; }
+    bindDraw(shot, p.id, image);
+  });
+  paintCardBoxes(root, p.id);
+  root.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editNote(b.getAttribute('data-edit')));
+  root.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>deleteNote(b.getAttribute('data-del')));
+}
+
+function containRect(stage, img){
+  const sw=stage.clientWidth, sh=stage.clientHeight;
+  const iw=img.naturalWidth||img.clientWidth, ih=img.naturalHeight||img.clientHeight;
+  if(!iw||!ih||!sw||!sh) return {left:0,top:0,width:sw,height:sh};
+  const scale=Math.min(sw/iw, sh/ih);
+  const width=iw*scale, height=ih*scale;
+  return {left:(sw-width)/2, top:(sh-height)/2, width, height};
+}
+function paintLbBoxes(){
+  const list=filtered(); const p=list[IDX]; if(!p||!LB.open) return;
+  const v=LB.views[LB.view]; if(!v) return;
+  const layer=$('#lbLayer'); layer.innerHTML='';
+  const stage=$('#lbStage'); const img=$('#lbImg');
+  const cr=containRect(stage,img);
+  notesFor(p.id).filter(n=>n.image===v.image).forEach(n=>{
+    if(!n.bbox) return;
+    const el=document.createElement('div');
+    el.className='box';
+    el.style.left=(cr.left+n.bbox.x*cr.width)+'px';
+    el.style.top=(cr.top+n.bbox.y*cr.height)+'px';
+    el.style.width=(n.bbox.w*cr.width)+'px';
+    el.style.height=(n.bbox.h*cr.height)+'px';
+    el.title=n.comment||'';
+    layer.appendChild(el);
+  });
+}
+async function paintLightbox(){
+  const list=filtered(); const p=list[IDX]; if(!p) return;
+  LB.views=photoViews(p);
+  if(LB.view>=LB.views.length) LB.view=0;
+  const v=LB.views[LB.view]||LB.views[0];
+  $('#lbTitle').textContent=p.id+' · '+(v?v.label:'');
+  $('#lbMeta').textContent=(IDX+1)+' / '+list.length+' · тяни область на фото · Esc закрыть';
+  const tabs=$('#lbTabs'); tabs.innerHTML='';
+  LB.views.forEach((vv,i)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='lb-tab'+(i===LB.view?' on':''); b.textContent=vv.label;
+    b.onclick=()=>{ LB.view=i; paintLightbox(); };
+    tabs.appendChild(b);
+  });
+  const img=$('#lbImg'); img.style.opacity='.4';
+  try{ img.src=await ensureBlob(v.key,v.url); img.style.opacity='1'; }catch(e){ img.removeAttribute('src'); img.alt='нет фото'; img.style.opacity='1'; }
+  img.onload=()=>paintLbBoxes();
+  paintLbBoxes();
+}
+function openLightbox(photoId, image){
+  const list=filtered();
+  const i=list.findIndex(p=>p.id===photoId);
+  if(i>=0) IDX=i;
+  const p=list[IDX]; if(!p) return;
+  LB.views=photoViews(p);
+  LB.view=Math.max(0, LB.views.findIndex(v=>v.image===image));
+  if(LB.view<0) LB.view=0;
+  LB.open=true;
+  $('#lightbox').classList.add('open');
+  $('#lightbox').setAttribute('aria-hidden','false');
+  document.body.classList.add('lb-open');
+  paintLightbox();
+}
+function closeLightbox(){
+  LB.open=false;
+  $('#lightbox').classList.remove('open');
+  $('#lightbox').setAttribute('aria-hidden','true');
+  document.body.classList.remove('lb-open');
+}
+
+(function bindLbDraw(){
+  const stage=$('#lbStage');
+  let drawing=false,x0=0,y0=0,draft=null;
+  function pt(ev){
+    const r=stage.getBoundingClientRect();
+    return {x:ev.clientX-r.left, y:ev.clientY-r.top};
+  }
+  stage.addEventListener('pointerdown', ev=>{
+    if(!LB.open || ev.button!==0) return;
+    if(ev.target.closest('.lb-nav,button')) return;
+    const list=filtered(); const p=list[IDX]; if(!p) return;
+    const img=$('#lbImg'); const cr=containRect(stage,img);
+    const p0=pt(ev);
+    if(p0.x<cr.left||p0.y<cr.top||p0.x>cr.left+cr.width||p0.y>cr.top+cr.height) return;
+    ev.preventDefault(); stage.setPointerCapture(ev.pointerId);
+    drawing=true; x0=p0.x; y0=p0.y;
+    draft=document.createElement('div'); draft.className='box draft'; $('#lbLayer').appendChild(draft);
+  });
+  stage.addEventListener('pointermove', ev=>{
+    if(!drawing||!draft) return;
+    const p0=pt(ev);
+    const left=Math.min(x0,p0.x), top=Math.min(y0,p0.y);
+    draft.style.left=left+'px'; draft.style.top=top+'px';
+    draft.style.width=Math.abs(p0.x-x0)+'px'; draft.style.height=Math.abs(p0.y-y0)+'px';
+  });
+  stage.addEventListener('pointerup', ev=>{
+    if(!drawing) return;
+    drawing=false;
+    const list=filtered(); const p=list[IDX]; const v=LB.views[LB.view];
+    const img=$('#lbImg'); const cr=containRect(stage,img);
+    const p0=pt(ev);
+    if(draft) draft.remove(); draft=null;
+    if(!p||!v||cr.width<=0||cr.height<=0) return;
+    const bbox=normBox(x0-cr.left,y0-cr.top,p0.x-cr.left,p0.y-cr.top,cr.width,cr.height);
+    if(!bbox) return;
+    openModal({photo_id:p.id, image:v.image, bbox, source:'lb'});
+  });
+})();
+
+async function loadAll(){
+  const [rc, rn]=await Promise.all([
+    fetch('/api/admin/restorer/corpus',{headers:{Authorization:'Bearer '+getToken()}}),
+    fetch('/api/admin/restorer/region_notes',{headers:{Authorization:'Bearer '+getToken()}})
+  ]);
+  if(!rc.ok) throw new Error('corpus '+rc.status);
+  if(!rn.ok) throw new Error('notes '+rn.status);
+  const cj=await rc.json(); const nj=await rn.json();
+  PHOTOS=(cj.photos||[]).filter(p=>p.has_after);
+  NOTES=nj.notes||[];
+  IDX=0; renderCase();
+}
+async function init(){
+  $('#login').onclick=e=>{e.preventDefault();login();};
+  if(!getToken()){ showGate(); return; }
+  let r;
+  try{ r=await fetch('/api/admin/check',{headers:{Authorization:'Bearer '+getToken()}}); }catch(e){ showGate('Ошибка сети.'); return; }
+  if(r.status===403){ showGate('Этот аккаунт не админ. Войдите аккаунтом из белого списка.'); return; }
+  if(r.status===401){ setToken(null); showGate('Сессия истекла. Войдите снова.'); return; }
+  if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
+  const me=await r.json(); ME=me.email||''; $('#who').textContent=ME;
+  showPanel();
+  try{ await loadAll(); }catch(e){ $('#caseRoot').innerHTML='<p class="muted">Не удалось загрузить корпус/заметки.</p>'; }
+}
+$('#filters').addEventListener('click', e=>{
+  const btn=e.target.closest('.filter-btn'); if(!btn) return;
+  FILTER=btn.getAttribute('data-f');
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('on', b===btn));
+  IDX=0; renderCase(); if(LB.open) closeLightbox();
+});
+$('#search').addEventListener('input', e=>{ QUERY=e.target.value||''; IDX=0; renderCase(); });
+$('#prevCase').onclick=()=>{ const list=filtered(); if(!list.length) return; IDX=(IDX-1+list.length)%list.length; renderCase(); if(LB.open) paintLightbox(); };
+$('#nextCase').onclick=()=>{ const list=filtered(); if(!list.length) return; IDX=(IDX+1)%list.length; renderCase(); if(LB.open) paintLightbox(); };
+$('#modalCancel').onclick=()=>closeModal();
+$('#modalSave').onclick=()=>saveModal();
+$('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+$('#lbClose').onclick=()=>closeLightbox();
+$('#lightbox').addEventListener('click', e=>{ if(e.target.id==='lightbox') closeLightbox(); });
+$('.lb-inner').addEventListener('click', e=>e.stopPropagation());
+$('#lbPrev').onclick=()=>{ const list=filtered(); if(!list.length) return; IDX=(IDX-1+list.length)%list.length; LB.view=0; renderCase(); paintLightbox(); };
+$('#lbNext').onclick=()=>{ const list=filtered(); if(!list.length) return; IDX=(IDX+1)%list.length; LB.view=0; renderCase(); paintLightbox(); };
+document.addEventListener('keydown', e=>{
+  const tag=(e.target&&e.target.tagName||'').toLowerCase();
+  if($('#modal').classList.contains('open')){
+    if(e.key==='Escape'){ e.preventDefault(); closeModal(); }
+    if(e.key==='Enter' && (e.metaKey||e.ctrlKey)){ e.preventDefault(); saveModal(); }
+    return;
+  }
+  if(tag==='textarea'||tag==='input') return;
+  if(LB.open && e.key==='Escape'){ e.preventDefault(); closeLightbox(); return; }
+  if(e.key==='ArrowLeft'){ e.preventDefault(); $('#prevCase').click(); }
+  if(e.key==='ArrowRight'){ e.preventDefault(); $('#nextCase').click(); }
+});
+window.addEventListener('resize', ()=>{ if(LB.open) paintLbBoxes(); });
+init();
+</script>
+</body>
+</html>

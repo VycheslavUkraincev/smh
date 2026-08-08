@@ -1,3 +1,4 @@
+import secrets
 #!/usr/bin/env python3
 """
 SaveMyHistory backend API (FastAPI).
@@ -753,8 +754,10 @@ _RESTORER_CORPUS_DIR = _RESTORER_ROOT / "corpus"
 _RESTORER_AFTER_DIR = _RESTORER_ROOT / "after"
 _RESTORER_META = _RESTORER_ROOT / "CORPUS.json"
 _RESTORER_MARKS = _RESTORER_ROOT / "marks.json"
+_RESTORER_REGION_NOTES = _RESTORER_ROOT / "region_notes.json"
 _SAFE_NAME = re.compile(r"^[A-Za-z0-9._-]{1,180}$")
 _RESTORER_VERDICTS = {"", "approve", "approve_authentic", "approve_modern", "weak", "bad"}
+_RESTORER_REGION_IMAGES = {"before", "auth", "mod", "after"}
 
 
 def _restorer_load_meta():
@@ -974,6 +977,255 @@ async def admin_restorer_mark_one(photo_id: str, request: Request, authorization
     }
     payload = _restorer_save_marks(marks, email=(user.get("email") or ""))
     return {"ok": True, "id": pid, "mark": marks[pid], "updated_at": payload["updated_at"]}
+
+
+
+def _restorer_clamp01(v):
+    try:
+        x = float(v)
+    except Exception:
+        return None
+    if x != x:  # NaN
+        return None
+    return max(0.0, min(1.0, x))
+
+
+def _restorer_norm_bbox(raw):
+    if not isinstance(raw, dict):
+        return None
+    x = _restorer_clamp01(raw.get("x"))
+    y = _restorer_clamp01(raw.get("y"))
+    w = _restorer_clamp01(raw.get("w"))
+    h = _restorer_clamp01(raw.get("h"))
+    if None in (x, y, w, h):
+        return None
+    # keep inside image bounds
+    if w <= 0 or h <= 0:
+        return None
+    if x + w > 1.0:
+        w = 1.0 - x
+    if y + h > 1.0:
+        h = 1.0 - y
+    if w <= 0 or h <= 0:
+        return None
+    return {"x": round(x, 6), "y": round(y, 6), "w": round(w, 6), "h": round(h, 6)}
+
+
+def _restorer_load_region_notes():
+    if not _RESTORER_REGION_NOTES.is_file():
+        return []
+    try:
+        raw = json.loads(_RESTORER_REGION_NOTES.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    if isinstance(raw, dict) and isinstance(raw.get("notes"), list):
+        return raw["notes"]
+    if isinstance(raw, list):
+        return raw
+    return []
+
+
+def _restorer_save_region_notes(notes: list, email: str = ""):
+    payload = {
+        "version": "restorer_region_notes_v1",
+        "updated_at": int(time.time()),
+        "updated_by": (email or "").strip().lower(),
+        "notes": notes,
+    }
+    _RESTORER_ROOT.mkdir(parents=True, exist_ok=True)
+    tmp = _RESTORER_REGION_NOTES.with_suffix(".tmp")
+    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
+    tmp.replace(_RESTORER_REGION_NOTES)
+    return payload
+
+
+def _restorer_clean_region_note(raw, allowed_ids, email="", note_id=None):
+    if not isinstance(raw, dict):
+        return None
+    pid = str(raw.get("photo_id") or "").strip()
+    if pid not in allowed_ids:
+        return None
+    image = str(raw.get("image") or "").strip().lower()
+    if image not in _RESTORER_REGION_IMAGES:
+        return None
+    bbox = _restorer_norm_bbox(raw.get("bbox") or {})
+    if not bbox:
+        return None
+    comment = str(raw.get("comment") or "").strip()[:4000]
+    if not comment:
+        return None
+    nid = str(note_id or raw.get("id") or "").strip()
+    if not nid or len(nid) > 80 or not re.match(r"^[A-Za-z0-9._-]{8,80}$", nid):
+        nid = f"rn_{int(time.time()*1000)}_{secrets.token_hex(4)}"
+    em = (email or str(raw.get("email") or "")).strip().lower()[:200]
+    ts = int(raw.get("timestamp") or raw.get("updated_at") or time.time())
+    return {
+        "id": nid,
+        "photo_id": pid,
+        "image": image,
+        "bbox": bbox,
+        "comment": comment,
+        "timestamp": ts,
+        "email": em,
+        "updated_at": int(time.time()),
+    }
+
+
+@app.get("/api/admin/restorer/region_notes")
+async def admin_restorer_region_notes_get(authorization: str = Header(None), photo_id: str = None):
+    """Load region annotation notes (admin only). Optional photo_id filter."""
+    await require_admin(authorization)
+    notes = _restorer_load_region_notes()
+    pid = (photo_id or "").strip()
+    if pid:
+        notes = [n for n in notes if isinstance(n, dict) and n.get("photo_id") == pid]
+    return {"ok": True, "version": "restorer_region_notes_v1", "notes": notes, "n": len(notes)}
+
+
+@app.put("/api/admin/restorer/region_notes")
+async def admin_restorer_region_notes_put(request: Request, authorization: str = Header(None)):
+    """Replace or patch region notes under private restorer_corpus/region_notes.json."""
+    user = await require_admin(authorization)
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    incoming = body.get("notes") if isinstance(body, dict) and "notes" in body else body
+    if not isinstance(incoming, list):
+        raise HTTPException(400, "notes array required")
+    allowed_ids = _restorer_photo_ids()
+    email = (user.get("email") or "").strip().lower()
+    cleaned = []
+    for raw in incoming:
+        note = _restorer_clean_region_note(raw, allowed_ids, email=email)
+        if note:
+            cleaned.append(note)
+    if isinstance(body, dict) and body.get("patch"):
+        by_id = {n.get("id"): n for n in _restorer_load_region_notes() if isinstance(n, dict) and n.get("id")}
+        for n in cleaned:
+            by_id[n["id"]] = n
+        cleaned = list(by_id.values())
+    payload = _restorer_save_region_notes(cleaned, email=email)
+    return {"ok": True, "version": payload["version"], "updated_at": payload["updated_at"], "notes": payload["notes"], "n": len(payload["notes"])}
+
+
+@app.put("/api/admin/restorer/region_notes/{photo_id}")
+async def admin_restorer_region_notes_photo_put(photo_id: str, request: Request, authorization: str = Header(None)):
+    """Replace all notes for one photo_id (keeps other photos)."""
+    user = await require_admin(authorization)
+    pid = (photo_id or "").strip()
+    if pid not in _restorer_photo_ids():
+        raise HTTPException(404, "unknown photo")
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    incoming = body.get("notes") if isinstance(body, dict) and "notes" in body else body
+    if not isinstance(incoming, list):
+        raise HTTPException(400, "notes array required")
+    allowed_ids = {pid}
+    email = (user.get("email") or "").strip().lower()
+    cleaned = []
+    for raw in incoming:
+        if isinstance(raw, dict):
+            raw = dict(raw)
+            raw["photo_id"] = pid
+        note = _restorer_clean_region_note(raw, allowed_ids, email=email)
+        if note:
+            cleaned.append(note)
+    existing = [n for n in _restorer_load_region_notes() if isinstance(n, dict) and n.get("photo_id") != pid]
+    payload = _restorer_save_region_notes(existing + cleaned, email=email)
+    photo_notes = [n for n in payload["notes"] if n.get("photo_id") == pid]
+    return {"ok": True, "id": pid, "notes": photo_notes, "updated_at": payload["updated_at"], "n": len(photo_notes)}
+
+
+@app.post("/api/admin/restorer/region_notes")
+async def admin_restorer_region_notes_post(request: Request, authorization: str = Header(None)):
+    """Append one region note."""
+    user = await require_admin(authorization)
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    if not isinstance(body, dict):
+        raise HTTPException(400, "object required")
+    email = (user.get("email") or "").strip().lower()
+    note = _restorer_clean_region_note(body, _restorer_photo_ids(), email=email)
+    if not note:
+        raise HTTPException(400, "invalid note (photo_id/image/bbox/comment)")
+    notes = _restorer_load_region_notes()
+    notes.append(note)
+    payload = _restorer_save_region_notes(notes, email=email)
+    return {"ok": True, "note": note, "updated_at": payload["updated_at"]}
+
+
+@app.delete("/api/admin/restorer/region_notes/{note_id}")
+async def admin_restorer_region_notes_delete(note_id: str, authorization: str = Header(None)):
+    """Delete one region note by id (own notes only, unless same admin list)."""
+    user = await require_admin(authorization)
+    nid = (note_id or "").strip()
+    if not nid:
+        raise HTTPException(400, "note id required")
+    email = (user.get("email") or "").strip().lower()
+    notes = _restorer_load_region_notes()
+    keep = []
+    deleted = None
+    for n in notes:
+        if isinstance(n, dict) and n.get("id") == nid:
+            # allow any admin to delete (small team); prefer own
+            deleted = n
+            continue
+        keep.append(n)
+    if deleted is None:
+        raise HTTPException(404, "note not found")
+    payload = _restorer_save_region_notes(keep, email=email)
+    return {"ok": True, "deleted": deleted.get("id"), "updated_at": payload["updated_at"]}
+
+
+@app.patch("/api/admin/restorer/region_notes/{note_id}")
+async def admin_restorer_region_notes_patch(note_id: str, request: Request, authorization: str = Header(None)):
+    """Edit own region note comment/bbox."""
+    user = await require_admin(authorization)
+    nid = (note_id or "").strip()
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    if not isinstance(body, dict):
+        raise HTTPException(400, "object required")
+    email = (user.get("email") or "").strip().lower()
+    notes = _restorer_load_region_notes()
+    found = None
+    for i, n in enumerate(notes):
+        if isinstance(n, dict) and n.get("id") == nid:
+            found = i
+            break
+    if found is None:
+        raise HTTPException(404, "note not found")
+    cur = dict(notes[found])
+    owner = (cur.get("email") or "").strip().lower()
+    if owner and owner != email:
+        raise HTTPException(403, "can only edit own note")
+    if "comment" in body:
+        c = str(body.get("comment") or "").strip()[:4000]
+        if not c:
+            raise HTTPException(400, "comment required")
+        cur["comment"] = c
+    if "bbox" in body:
+        bb = _restorer_norm_bbox(body.get("bbox") or {})
+        if not bb:
+            raise HTTPException(400, "bad bbox")
+        cur["bbox"] = bb
+    if "image" in body:
+        image = str(body.get("image") or "").strip().lower()
+        if image not in _RESTORER_REGION_IMAGES:
+            raise HTTPException(400, "bad image")
+        cur["image"] = image
+    cur["email"] = email or owner
+    cur["updated_at"] = int(time.time())
+    notes[found] = cur
+    payload = _restorer_save_region_notes(notes, email=email)
+    return {"ok": True, "note": cur, "updated_at": payload["updated_at"]}
 
 
 @app.get("/api/admin/stats")
