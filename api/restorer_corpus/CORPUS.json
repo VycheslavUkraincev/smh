@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 42,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE11 +5 BEFORE (pd_46->pd_20 swap) 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; panel WAVE11 wire PASS dual AFTER 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -917,7 +917,11 @@
       "notes": "WAVE11 Dropbox BEFORE add; creases scratches fade two-boys; no AFTER yet",
       "bytes": 322273,
       "md5": "5beba84a022add415e1eefe54f9be162",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE11 child-QA HOLD — mod FAIL (right child outfit/legs altered); auth PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave11_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave11_child_eye": "auth=PASS mod=FAIL; mod FAIL (right child outfit/legs altered); auth PASS alone — dual not wired"
     },
     {
       "id": "db_pd_22",
@@ -935,7 +939,11 @@
       "notes": "WAVE11 Dropbox BEFORE add; scratches dust fade seated-trio; no AFTER yet",
       "bytes": 271882,
       "md5": "e1457ecd1822e01578410eb020225154",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE11 child-QA HOLD — mod FAIL (stylized/likeness drift); auth PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave11_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave11_child_eye": "auth=PASS mod=FAIL; mod FAIL (stylized/likeness drift); auth PASS alone — dual not wired"
     },
     {
       "id": "db_pd_64",
@@ -952,7 +960,11 @@
       "notes": "WAVE11 Dropbox BEFORE add; stains scratches head-portrait; no AFTER yet",
       "bytes": 173921,
       "md5": "e7f3eba7d5c35289cad31f52c1162e88",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE11 child-QA HOLD — auth FAIL (warm/sepia not archival B&W) + mod FAIL (face/attire remade); no LIVE AFTER wired",
+      "wave11_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave11_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm/sepia not archival B&W) + mod FAIL (face/attire remade)"
     },
     {
       "id": "db_pd_71",
@@ -970,7 +982,11 @@
       "notes": "WAVE11 Dropbox BEFORE add; color-cast stains border-wear uniform; no AFTER yet",
       "bytes": 208312,
       "md5": "ab146bc119c9db09e4fcbddb0613835e",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE11 child-QA HOLD — auth FAIL (not true grayscale/colorized); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave11_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave11_child_eye": "auth=FAIL mod=PASS; auth FAIL (not true grayscale/colorized); mod PASS alone — dual not wired"
     },
     {
       "id": "db_pd_20",
@@ -988,7 +1004,14 @@
       "notes": "WAVE11 Dropbox BEFORE add (swap for pd_46 content-policy); sepia-fade stains folk-dress; no AFTER yet",
       "bytes": 301145,
       "md5": "f2f117e8423da3acf22039d587f69909",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_20_authentic.jpg",
+      "after_modern_file": "db_pd_20_modern.jpg",
+      "after_file": "db_pd_20_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE11 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave11_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave11_child_eye": "PASS auth true archival B&W + mod natural color; likeness/clothes locked"
     }
   ]
 }
