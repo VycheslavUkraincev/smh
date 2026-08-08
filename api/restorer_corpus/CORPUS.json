@@ -107,11 +107,15 @@
       "bytes": 758751,
       "md5": "f5681b972fa6065a0307439e6608cecd",
       "has_after": false,
-      "after_authentic_file": "pd_02_stains_authentic.jpg",
-      "after_modern_file": "pd_02_stains_modern.jpg",
-      "after_file": "pd_02_stains_modern.jpg",
+      "after_authentic_file": null,
+      "after_modern_file": null,
+      "after_file": null,
       "qa_status": "PASS",
-      "qa_note": "wave1 substitute for pd_01 (nude HOLD); CF+Nano; authentic B&W PASS; modern color PASS; parent eyeball pending Roman"
+      "qa_note": "wave1 substitute for pd_01 (nude HOLD); CF+Nano; authentic B&W PASS; modern color PASS; parent eyeball pending Roman",
+      "after_url": null,
+      "after_authentic_url": null,
+      "after_modern_url": null,
+      "wave1_note": "PARENT_EYE_FAIL_HOLD — redo pending"
     },
     {
       "id": "pd_03_fade",
@@ -161,7 +165,8 @@
       "after_modern_file": "pd_06_cracks_modern.jpg",
       "after_file": "pd_06_cracks_modern.jpg",
       "qa_status": "PASS",
-      "qa_note": "wave1 CF+Nano; authentic B&W PASS; modern color PASS; parent eyeball pending Roman"
+      "qa_note": "wave1 CF+Nano; authentic B&W PASS; modern color PASS; parent eyeball pending Roman",
+      "wave1_parent_eye": "PASS_auth_PASS_mod_await_Roman"
     },
     {
       "id": "pd_08_inbound",
