@@ -573,6 +573,13 @@ async function exportReview(){
       }
     }
   }catch(e){}
+  let n_approve=0, n_weak=0, n_bad=0;
+  Object.values(marks).forEach(m=>{
+    const v=(m&&m.verdict)||'';
+    if(v==='approve' || v==='approve_authentic' || v==='approve_modern') n_approve++;
+    else if(v==='weak') n_weak++;
+    else if(v==='bad') n_bad++;
+  });
   const payload={
     version:'restorer_review_export_v1',
     exported_at:new Date().toISOString(),
@@ -580,6 +587,7 @@ async function exportReview(){
     tip:(typeof window!=='undefined' && window.__SMH_TIP)||'',
     n_marks:Object.keys(marks).length,
     n_notes:notes.length,
+    n_approve, n_weak, n_bad,
     marks,
     notes
   };
