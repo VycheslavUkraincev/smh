@@ -1039,9 +1039,10 @@
       "after_modern_file": "db_pd_25_modern.jpg",
       "after_file": "db_pd_25_modern.jpg",
       "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE12 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "qa_note": "WAVE12 parent-eye PASS authentic+modern; chroma neutral B&W; likeness/clothes/bg locked; status NEED_ETALON (no auto HAS_ETALON)",
       "wave12_note": "wired dual AFTER LIVE after child-QA PASS",
-      "wave12_child_eye": "PASS auth true B&W lock + mod natural color; likeness/pose/clothing preserved"
+      "wave12_child_eye": "PASS auth true B&W lock + mod natural color; likeness/pose/clothing preserved",
+      "wave12_parent_eye": "auth=PASS mod=PASS; chroma neutral (R-B≈0.26); likeness lock OK; keep wired"
     },
     {
       "id": "db_pd_16",
@@ -1064,9 +1065,10 @@
       "after_modern_file": "db_pd_16_modern.jpg",
       "after_file": "db_pd_16_modern.jpg",
       "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE12 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "qa_note": "WAVE12 parent-eye PASS authentic+modern; chroma neutral B&W; group likeness locked; status NEED_ETALON (no auto HAS_ETALON)",
       "wave12_note": "wired dual AFTER LIVE after child-QA PASS",
-      "wave12_child_eye": "PASS auth archival grayscale + mod period-plausible color; group likeness locked"
+      "wave12_child_eye": "PASS auth archival grayscale + mod period-plausible color; group likeness locked",
+      "wave12_parent_eye": "auth=PASS mod=PASS; chroma neutral (R-B≈-0.35); likeness lock OK; keep wired"
     },
     {
       "id": "db_pd_14",
@@ -1084,14 +1086,12 @@
       "notes": "WAVE12 Dropbox BEFORE add; stains scratches fade winter-trio; no AFTER yet",
       "bytes": 370873,
       "md5": "5a4a0c34f0a541bf4d323f47526e4585",
-      "has_after": true,
-      "after_authentic_file": "db_pd_14_authentic.jpg",
-      "after_modern_file": "db_pd_14_modern.jpg",
-      "after_file": "db_pd_14_modern.jpg",
-      "qa_status": "PASS_auth_mod",
-      "qa_note": "WAVE12 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
-      "wave12_note": "wired dual AFTER LIVE after child-QA PASS",
-      "wave12_child_eye": "PASS auth B&W + mod natural color; wedding-family framing/likeness locked"
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE12 parent-eye DEMOTE — auth FAIL (warm/sepia tint not archival neutral B&W; chroma R-B≈10.3 / frac_d8≈0.48); mod PASS alone — dual AFTER unwired; BEFORE kept LIVE",
+      "wave12_note": "HOLD after parent-eye demote; dual AFTER unwired from tip 1e89cd9",
+      "wave12_child_eye": "auth=PASS(child) mod=PASS(child); parent OVERRIDE auth=FAIL warm tint",
+      "wave12_parent_eye": "auth=FAIL mod=PASS; demoted wired AFTER"
     },
     {
       "id": "db_pd_37",
@@ -1111,9 +1111,10 @@
       "md5": "d1079a40d253ebad4e2a7e039129e793",
       "has_after": false,
       "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE12 child-QA HOLD — auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "qa_note": "WAVE12 parent-eye HOLD — auth FAIL (warm/sepia tint chroma R-B≈6.1 not archival B&W); mod PASS alone — dual not wired; BEFORE kept LIVE",
       "wave12_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave12_child_eye": "auth=FAIL mod=PASS; auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired"
+      "wave12_child_eye": "auth=FAIL mod=PASS; auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired",
+      "wave12_parent_eye": "auth=FAIL mod=PASS; chroma warm R-B≈6.1; confirm FAIL_HOLD BEFORE-only"
     },
     {
       "id": "db_pd_80",
@@ -1133,9 +1134,10 @@
       "md5": "b0ab3663e0cf39a6331dc0cab039da1e",
       "has_after": false,
       "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE12 child-QA HOLD — auth FAIL (warm tint not B&W) + mod FAIL (stylized remake/likeness drift); no LIVE AFTER wired",
+      "qa_note": "WAVE12 parent-eye HOLD — auth FAIL (warm tint chroma R-B≈6.9) + mod FAIL (stylized remake/likeness drift); BEFORE kept LIVE",
       "wave12_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave12_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm tint not B&W) + mod FAIL (stylized remake/likeness drift)"
+      "wave12_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm tint not B&W) + mod FAIL (stylized remake/likeness drift)",
+      "wave12_parent_eye": "auth=FAIL mod=FAIL; chroma warm R-B≈6.9; confirm FAIL_HOLD BEFORE-only"
     }
   ]
 }
