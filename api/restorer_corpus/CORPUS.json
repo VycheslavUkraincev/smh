@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
-  "n_photos": 37,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE10 wire PASS dual AFTER 2026-08-08",
+  "n_photos": 42,
+  "dropbox_status": "pilot_200_before_partial; panel WAVE11 +5 BEFORE 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -44,7 +44,12 @@
     "db_pd_15",
     "db_pd_31",
     "db_pd_45",
-    "db_pd_74"
+    "db_pd_74",
+    "db_pd_13",
+    "db_pd_22",
+    "db_pd_46",
+    "db_pd_64",
+    "db_pd_71"
   ],
   "photos": [
     {
@@ -895,6 +900,95 @@
       "qa_note": "WAVE10 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
       "wave10_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave10_child_eye": "PASS auth B&W + mod natural color; mother/baby framing locked"
+    },
+    {
+      "id": "db_pd_13",
+      "file": "db_pd_13.jpg",
+      "rel_path": "corpus/db_pd_13.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "creases",
+        "scratches",
+        "fade"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_13.jpg",
+      "notes": "WAVE11 Dropbox BEFORE add; creases scratches fade two-boys; no AFTER yet",
+      "bytes": 322273,
+      "md5": "5beba84a022add415e1eefe54f9be162",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_22",
+      "file": "db_pd_22.jpg",
+      "rel_path": "corpus/db_pd_22.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "scratches",
+        "dust",
+        "fade"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_22.jpg",
+      "notes": "WAVE11 Dropbox BEFORE add; scratches dust fade seated-trio; no AFTER yet",
+      "bytes": 271882,
+      "md5": "e1457ecd1822e01578410eb020225154",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_46",
+      "file": "db_pd_46.jpg",
+      "rel_path": "corpus/db_pd_46.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "scratches",
+        "stains",
+        "border-wear"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_46.jpg",
+      "notes": "WAVE11 Dropbox BEFORE add; heavy scratches stains border-wear glamour; no AFTER yet",
+      "bytes": 244704,
+      "md5": "7a44e4dba53381dd3607ed787bbc6dbb",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_64",
+      "file": "db_pd_64.jpg",
+      "rel_path": "corpus/db_pd_64.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "stains",
+        "scratches"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_64.jpg",
+      "notes": "WAVE11 Dropbox BEFORE add; stains scratches head-portrait; no AFTER yet",
+      "bytes": 173921,
+      "md5": "e7f3eba7d5c35289cad31f52c1162e88",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_71",
+      "file": "db_pd_71.jpg",
+      "rel_path": "corpus/db_pd_71.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "color-cast",
+        "stains",
+        "border-wear"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_71.jpg",
+      "notes": "WAVE11 Dropbox BEFORE add; color-cast stains border-wear uniform; no AFTER yet",
+      "bytes": 208312,
+      "md5": "ab146bc119c9db09e4fcbddb0613835e",
+      "has_after": false
     }
   ]
 }
