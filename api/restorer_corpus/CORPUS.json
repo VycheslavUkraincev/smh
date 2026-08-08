@@ -220,7 +220,12 @@
       "notes": "media/inbound personal scan candidate",
       "bytes": 162022,
       "md5": "89f1c6a6777f279f64d8e5da0ee95d82",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "pd_08_inbound_authentic.jpg",
+      "after_modern_file": "pd_08_inbound_modern.jpg",
+      "after_file": "pd_08_inbound_modern.jpg",
+      "qa_status": "PASS",
+      "qa_note": "WAVE5 child self-QA PASS auth+mod; parent eye pending; status NEED_ETALON"
     },
     {
       "id": "pd_24_group",
@@ -235,7 +240,12 @@
       "notes": "photo-testset 06_cracks; group-seed permanently excluded",
       "bytes": 257198,
       "md5": "9fbe7fb25a1253f6acc3b761484d3191",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "pd_24_group_authentic.jpg",
+      "after_modern_file": "pd_24_group_modern.jpg",
+      "after_file": "pd_24_group_modern.jpg",
+      "qa_status": "PASS",
+      "qa_note": "WAVE5 child self-QA PASS auth+mod; parent eye pending; status NEED_ETALON"
     },
     {
       "id": "db_pd_101",
@@ -284,7 +294,12 @@
       "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
       "bytes": 103272,
       "md5": "a944a32877bfce26e06cdfc972a62336",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_7_authentic.jpg",
+      "after_modern_file": null,
+      "after_file": "db_pd_7_authentic.jpg",
+      "qa_status": "PASS_auth",
+      "qa_note": "WAVE5 child self-QA PASS authentic; modern WEAK hold; parent eye pending; status NEED_ETALON"
     },
     {
       "id": "db_pd_105",
@@ -471,7 +486,12 @@
       "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
       "bytes": 204717,
       "md5": "735e4e4b80b14c1a3536010c39d34a03",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_19_authentic.jpg",
+      "after_modern_file": null,
+      "after_file": "db_pd_19_authentic.jpg",
+      "qa_status": "PASS_auth",
+      "qa_note": "WAVE5 child self-QA PASS authentic; modern WEAK hold; parent eye pending; status NEED_ETALON"
     },
     {
       "id": "db_pd_27",
@@ -488,7 +508,12 @@
       "notes": "Panel BEFORE expand +20; Dropbox pilot_200_before; no AFTER yet",
       "bytes": 5109344,
       "md5": "074233c13099f0e6c75412ecdffb0d09",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_27_authentic.jpg",
+      "after_modern_file": null,
+      "after_file": "db_pd_27_authentic.jpg",
+      "qa_status": "PASS_auth",
+      "qa_note": "WAVE5 child self-QA PASS authentic; modern WEAK hold; parent eye pending; status NEED_ETALON"
     },
     {
       "id": "db_pd_34",
