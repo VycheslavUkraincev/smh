@@ -126,7 +126,7 @@ body.lb-open{overflow:hidden;}
   <div id="panel" style="display:none">
   <div class="topbar">
     <span class="who" id="who"></span>
-    <div><a class="home" href="/admin.html">Админ</a> · <a class="home" href="/review.html">Ревью с областью</a> · <a class="home" href="/">Сайт</a> · <a class="home" href="#" id="exportMarks">Экспорт отметок</a></div>
+    <div><a class="home" href="/admin.html">Админ</a> · <a class="home" href="/review.html">Ревью с областью</a> · <a class="home" href="/">Сайт</a> · <a class="home" href="#" id="exportMarks">Экспорт отметок</a> · <a class="home" href="#" id="sendQ">Отправить Q</a> <span class="muted save-hint" id="sendQHint" style="margin-left:6px"></span></div>
   </div>
   <header class="hero">
     <div>
@@ -553,6 +553,21 @@ document.getElementById('exportMarks').onclick=e=>{
   e.preventDefault();
   const blob=new Blob([JSON.stringify({version:'restorer_marks_v1', marks:MARKS},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='restorer_marks.json'; a.click();
+};
+document.getElementById('sendQ').onclick=async e=>{
+  e.preventDefault();
+  const hint=document.getElementById('sendQHint')||$('#saveHint');
+  if(!getToken()){ hint.textContent='нужен вход'; return; }
+  hint.textContent='отправляю Q…';
+  try{
+    const r=await fetch('/api/admin/restorer/send_q',{method:'POST',headers:H(),body:JSON.stringify({kind:'marks_export',marks:MARKS})});
+    if(r.status===401){ hint.textContent='сессия истекла'; return; }
+    if(r.status===403){ hint.textContent='не админ'; return; }
+    if(!r.ok){ const t=await r.text().catch(()=>''); hint.textContent='ошибка '+(r.status)+(t?': '+t.slice(0,80):''); return; }
+    const j=await r.json().catch(()=>({}));
+    hint.textContent=j.message||'Отправлено Q';
+    if($('#saveHint') && hint!==$('#saveHint')) $('#saveHint').textContent=j.message||'Отправлено Q';
+  }catch(err){ hint.textContent='сеть недоступна'; }
 };
 $('#lbClose').onclick=()=>closeLightbox();
 $('#lightbox').addEventListener('click', e=>{ if(e.target.id==='lightbox') closeLightbox(); });

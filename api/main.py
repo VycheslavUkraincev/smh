@@ -25,6 +25,8 @@ from waitlist_fallback import (
 from restorer_feedback import (
     build_event as _fb_build_event,
     publish_feedback as _fb_publish,
+    publish_marks_export as _fb_publish_marks_export,
+    publish_region_notes_export as _fb_publish_region_notes_export,
 )
 import httpx
 from PIL import Image, ImageDraw, ImageFont
@@ -808,6 +810,27 @@ def _restorer_save_marks(marks: dict, email: str = ""):
 
 
 
+
+def _restorer_git_tip() -> str:
+    """Best-effort short tip for journal/ping (never raises)."""
+    try:
+        tip = (Path(__file__).resolve().parent.parent / '.git' / 'HEAD')
+        # prefer env / deployed commit if present
+        for k in ('GIT_COMMIT', 'COMMIT_SHA', 'DIGITALOCEAN_GIT_COMMIT_SHA'):
+            v = (os.environ.get(k) or '').strip()
+            if v:
+                return v[:12]
+        # fallback: read from a stamped file if any
+        for cand in (
+            Path(__file__).resolve().parent / 'GIT_TIP',
+            Path(__file__).resolve().parent.parent / 'GIT_TIP',
+        ):
+            if cand.is_file():
+                return cand.read_text(encoding='utf-8').strip()[:12]
+    except Exception:
+        pass
+    return ''
+
 def _restorer_feedback_emit(*, photo_id: str, verdict: str = "", comment: str = "",
                             defect_note: str = "", regions=None, email: str = "",
                             source: str = "review", kind: str = "",
@@ -1395,6 +1418,77 @@ async def admin_restorer_region_notes_patch(note_id: str, request: Request, auth
     )
     return {"ok": True, "note": cur, "updated_at": payload["updated_at"], "feedback": fb}
 
+
+
+
+@app.post("/api/admin/restorer/send_q")
+async def admin_restorer_send_q(request: Request, authorization: str = Header(None)):
+    """Admin one-tap: queue FULL marks/notes snapshot for Q (+ optional LIVE TG)."""
+    user = await require_admin(authorization)
+    email = (user.get("email") or "").strip().lower()
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    if not isinstance(body, dict):
+        body = {}
+    kind = str(body.get("kind") or "marks_export").strip().lower()
+    tip = str(body.get("tip") or _restorer_git_tip() or "").strip()[:80]
+    if not SPACES_KEY or not SPACES_SECRET:
+        raise HTTPException(503, "spaces unavailable")
+    client = s3()
+    if kind in ("region_notes_export", "region_notes", "notes"):
+        notes = _restorer_load_region_notes()
+        # optional client overlay: body.notes array replaces for this ping only
+        if isinstance(body.get("notes"), list):
+            notes = body["notes"]
+        fb = _fb_publish_region_notes_export(
+            client, SPACES_BUCKET, notes=notes, email=email, tip=tip, source="review",
+        )
+        if not fb.get("ok"):
+            raise HTTPException(502, "send_q failed")
+        return {
+            "ok": True,
+            "kind": "region_notes_export",
+            "ping_mode": fb.get("ping_mode"),
+            "event_id": fb.get("event_id"),
+            "summary": fb.get("summary"),
+            "queue": fb.get("queue"),
+            "ping": {"ok": bool((fb.get("ping") or {}).get("ok")), "reason": (fb.get("ping") or {}).get("reason") or (fb.get("ping") or {}).get("via")},
+            "message": "Отправлено Q",
+        }
+    # default: marks_export — server marks + optional body.marks overlay
+    marks = _restorer_load_marks()
+    incoming = body.get("marks") if "marks" in body else None
+    if isinstance(incoming, dict):
+        # merge client snapshot over server (UI may have fresher local state)
+        merged = dict(marks)
+        for pid, raw in incoming.items():
+            pid_s = str(pid or "").strip()
+            if not pid_s or not isinstance(raw, dict):
+                continue
+            merged[pid_s] = {
+                "verdict": str(raw.get("verdict") or "").strip(),
+                "comment": str(raw.get("comment") or "")[:2000],
+                "defect_note": str(raw.get("defect_note") or "")[:2000],
+                "updated_at": int(raw.get("updated_at") or time.time()),
+            }
+        marks = merged
+    fb = _fb_publish_marks_export(
+        client, SPACES_BUCKET, marks=marks, email=email, tip=tip, source="restorer",
+    )
+    if not fb.get("ok"):
+        raise HTTPException(502, "send_q failed")
+    return {
+        "ok": True,
+        "kind": "marks_export",
+        "ping_mode": fb.get("ping_mode"),
+        "event_id": fb.get("event_id"),
+        "summary": fb.get("summary"),
+        "queue": fb.get("queue"),
+        "ping": {"ok": bool((fb.get("ping") or {}).get("ok")), "reason": (fb.get("ping") or {}).get("reason") or (fb.get("ping") or {}).get("via")},
+        "message": "Отправлено Q",
+    }
 
 
 @app.post("/api/admin/restorer/feedback_smoke")

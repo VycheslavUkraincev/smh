@@ -117,7 +117,9 @@ body.lb-open{overflow:hidden;}
       <div>
         <a class="home" href="/admin.html">Админ</a> ·
         <a class="home" href="/restorer.html">Панель реставратора</a> ·
-        <a class="home" href="/">Сайт</a>
+        <a class="home" href="/">Сайт</a> ·
+        <a class="home" href="#" id="sendQ">Отправить Q</a>
+        <span class="muted" id="sendQHint" style="margin-left:6px;font-size:.8rem"></span>
       </div>
     </div>
     <header class="hero">
@@ -550,7 +552,21 @@ async function loadAll(){
   NOTES=nj.notes||[];
   IDX=0; renderCase();
 }
+async function sendQ(){
+  const hint=$('#sendQHint');
+  if(!getToken()){ if(hint) hint.textContent='нужен вход'; return; }
+  if(hint) hint.textContent='отправляю Q…';
+  try{
+    const r=await fetch('/api/admin/restorer/send_q',{method:'POST',headers:H(),body:JSON.stringify({kind:'region_notes_export',notes:NOTES})});
+    if(r.status===401){ if(hint) hint.textContent='сессия истекла'; return; }
+    if(r.status===403){ if(hint) hint.textContent='не админ'; return; }
+    if(!r.ok){ const t=await r.text().catch(()=>''); if(hint) hint.textContent='ошибка '+(r.status)+(t?': '+t.slice(0,80):''); return; }
+    const j=await r.json().catch(()=>({}));
+    if(hint) hint.textContent=j.message||'Отправлено Q';
+  }catch(err){ if(hint) hint.textContent='сеть недоступна'; }
+}
 async function init(){
+  const sq=$('#sendQ'); if(sq) sq.onclick=e=>{e.preventDefault();sendQ();};
   $('#login').onclick=e=>{e.preventDefault();login();};
   if(!getToken()){ showGate(); return; }
   let r;
