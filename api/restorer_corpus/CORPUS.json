@@ -135,8 +135,8 @@
       "qa_status": "FAIL_HOLD",
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL after — jewelry invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
       "roman_notes_20260808": "invent FAIL after jewelry; HAS_ETALON preserved; AFTER FAIL_HOLD",
-      "after_authentic_file": null,
-      "after_modern_file": null,
+      "after_authentic_file": "",
+      "after_modern_file": "",
       "roman_notes_20260808_export2": {
         "sides_demoted": [
           "after"
@@ -361,7 +361,7 @@
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL auth — full-height crease invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
       "wave7_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave7_child_eye": "PASS_auth_PASS_mod",
-      "after_authentic_file": null,
+      "after_authentic_file": "",
       "roman_notes_20260808": {
         "sides_demoted": [
           "auth"
@@ -545,7 +545,7 @@
       "md5": "06d0104d5da9fff522fe887ab16da62d",
       "has_after": true,
       "after_authentic_file": "db_pd_118_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_118_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL mod — ball invent; dark fabric lost; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
@@ -1059,8 +1059,8 @@
       "md5": "d9a8a8bac5a9c4e8e90de44440de56ed",
       "has_after": true,
       "after_authentic_file": "db_pd_69_authentic.jpg",
-      "after_modern_file": "db_pd_69_modern.jpg",
-      "after_file": "db_pd_69_modern.jpg",
+      "after_modern_file": "",
+      "after_file": "db_pd_69_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL mod — EYES FAIL closed→open; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
       "wave6_note": "wired dual AFTER LIVE after child-QA PASS",
@@ -1745,7 +1745,7 @@
       "wave13_note": "wired dual AFTER LIVE after parent-eye override of child FAIL_HOLD",
       "wave13_child_eye": "auth=FAIL(BA false) mod=PASS; parent override",
       "after_authentic_file": "db_pd_42_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_42_authentic.jpg",
       "wave13_parent_eye": "parent PASS dual: auth NEUTRAL_BW chroma R-B=1.5 frac_d8=0 + AFTER-alone vision; mod PASS; child BA false-FAIL discarded",
       "roman_notes_20260808_export2": {
@@ -1790,7 +1790,7 @@
       "md5": "fe5fc35840c1730a06f7e370bd0552a6",
       "has_after": true,
       "after_authentic_file": "db_pd_17_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_17_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL mod — face more frontal than BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
@@ -1980,7 +1980,7 @@
       "md5": "44e79314368b9194934e317f3a087977",
       "has_after": true,
       "after_authentic_file": "db_pd_38_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_38_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL mod — glasses + clothing invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
@@ -2224,7 +2224,7 @@
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL mod — jockey invent + shirt change; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
       "wave16_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave16_child_eye": "PASS auth neutral B&W + mod plausible color; indoor-festive-group likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
@@ -2431,7 +2431,7 @@
       "qa_note": "ROMAN_NOTES51_WAVEA parent-eye FAIL mod — ribbons invent/embellish; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:10:54.119076+00:00",
       "wave18_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave18_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; studio-wedding-portrait likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
