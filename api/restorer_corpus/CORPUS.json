@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 37,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE10 +5 BEFORE 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; panel WAVE10 wire PASS dual AFTER 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -797,7 +797,11 @@
       "notes": "WAVE10 Dropbox BEFORE add; color-cast stains couple; no AFTER yet",
       "bytes": 101140,
       "md5": "e46dca024de2e30c176298e933e8a191",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE10 child-QA HOLD — auth FAIL (sepia/color not archival B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave10_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave10_child_eye": "auth=FAIL mod=PASS; auth FAIL (sepia/color not archival B&W); mod PASS alone — dual not wired"
     },
     {
       "id": "db_pd_15",
@@ -814,7 +818,11 @@
       "notes": "WAVE10 Dropbox BEFORE add; stains fade family; no AFTER yet",
       "bytes": 97898,
       "md5": "1e50d3e40e0882f75abe2814fbe7b0ad",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE10 child-QA HOLD — auth FAIL (sepia not B&W) + mod FAIL (over-invented garb/likeness); no LIVE AFTER wired",
+      "wave10_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave10_child_eye": "auth=FAIL mod=FAIL; auth FAIL (sepia not B&W) + mod FAIL (over-invented garb/likeness)"
     },
     {
       "id": "db_pd_31",
@@ -831,7 +839,14 @@
       "notes": "WAVE10 Dropbox BEFORE add; cracks crease mother-children; no AFTER yet",
       "bytes": 114534,
       "md5": "75e38d7791be7b0ec42fbf991e93155d",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_31_authentic.jpg",
+      "after_modern_file": "db_pd_31_modern.jpg",
+      "after_file": "db_pd_31_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE10 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave10_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave10_child_eye": "PASS auth B&W lock + mod natural color; likeness/pose/crop preserved"
     },
     {
       "id": "db_pd_45",
@@ -848,7 +863,14 @@
       "notes": "WAVE10 Dropbox BEFORE add; scratches border-wear military; no AFTER yet",
       "bytes": 153783,
       "md5": "984e78b3e262ecae7d0694ce27ae61d3",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_45_authentic.jpg",
+      "after_modern_file": "db_pd_45_modern.jpg",
+      "after_file": "db_pd_45_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE10 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave10_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave10_child_eye": "PASS auth archival B&W + mod plausible color; strong likeness"
     },
     {
       "id": "db_pd_74",
@@ -865,7 +887,14 @@
       "notes": "WAVE10 Dropbox BEFORE add; soft-portrait mother-baby; no AFTER yet",
       "bytes": 229178,
       "md5": "6ab6e4d2ed256421c06c3c802e0fc94e",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_74_authentic.jpg",
+      "after_modern_file": "db_pd_74_modern.jpg",
+      "after_file": "db_pd_74_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE10 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave10_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave10_child_eye": "PASS auth B&W + mod natural color; mother/baby framing locked"
     }
   ]
 }
