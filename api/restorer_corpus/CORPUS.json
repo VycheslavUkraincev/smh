@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 47,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE12 +5 BEFORE 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; panel WAVE12 wire PASS dual AFTER 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -1034,7 +1034,14 @@
       "notes": "WAVE12 Dropbox BEFORE add; scratches fade dust three-women; no AFTER yet",
       "bytes": 277155,
       "md5": "dc9564807bcb7fb88939e3b49acd282f",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_25_authentic.jpg",
+      "after_modern_file": "db_pd_25_modern.jpg",
+      "after_file": "db_pd_25_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE12 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave12_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave12_child_eye": "PASS auth true B&W lock + mod natural color; likeness/pose/clothing preserved"
     },
     {
       "id": "db_pd_16",
@@ -1052,7 +1059,14 @@
       "notes": "WAVE12 Dropbox BEFORE add; creases fade border-wear wedding-family; no AFTER yet",
       "bytes": 261824,
       "md5": "418433a39a1c926443d3bcb40fd8e150",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_16_authentic.jpg",
+      "after_modern_file": "db_pd_16_modern.jpg",
+      "after_file": "db_pd_16_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE12 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave12_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave12_child_eye": "PASS auth archival grayscale + mod period-plausible color; group likeness locked"
     },
     {
       "id": "db_pd_14",
@@ -1070,7 +1084,14 @@
       "notes": "WAVE12 Dropbox BEFORE add; stains scratches fade winter-trio; no AFTER yet",
       "bytes": 370873,
       "md5": "5a4a0c34f0a541bf4d323f47526e4585",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "db_pd_14_authentic.jpg",
+      "after_modern_file": "db_pd_14_modern.jpg",
+      "after_file": "db_pd_14_modern.jpg",
+      "qa_status": "PASS_auth_mod",
+      "qa_note": "WAVE12 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
+      "wave12_note": "wired dual AFTER LIVE after child-QA PASS",
+      "wave12_child_eye": "PASS auth B&W + mod natural color; wedding-family framing/likeness locked"
     },
     {
       "id": "db_pd_37",
@@ -1088,7 +1109,11 @@
       "notes": "WAVE12 Dropbox BEFORE add; scratches dust fade outdoor-group; no AFTER yet",
       "bytes": 375608,
       "md5": "d1079a40d253ebad4e2a7e039129e793",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE12 child-QA HOLD — auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "wave12_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave12_child_eye": "auth=FAIL mod=PASS; auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired"
     },
     {
       "id": "db_pd_80",
@@ -1106,7 +1131,11 @@
       "notes": "WAVE12 Dropbox BEFORE add; soft fade border-wear studio-portrait; no AFTER yet",
       "bytes": 104421,
       "md5": "b0ab3663e0cf39a6331dc0cab039da1e",
-      "has_after": false
+      "has_after": false,
+      "qa_status": "FAIL_HOLD",
+      "qa_note": "WAVE12 child-QA HOLD — auth FAIL (warm tint not B&W) + mod FAIL (stylized remake/likeness drift); no LIVE AFTER wired",
+      "wave12_note": "HOLD after child-QA; dual AFTER not wired",
+      "wave12_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm tint not B&W) + mod FAIL (stylized remake/likeness drift)"
     }
   ]
 }
