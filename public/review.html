@@ -118,6 +118,7 @@ body.lb-open{overflow:hidden;}
         <a class="home" href="/admin.html">Админ</a> ·
         <a class="home" href="/restorer.html">Панель реставратора</a> ·
         <a class="home" href="/">Сайт</a> ·
+        <a class="home" href="#" id="exportNotes">Экспорт пометок</a> ·
         <a class="home" href="#" id="sendQ">Отправить Q</a>
         <span class="muted" id="sendQHint" style="margin-left:6px;font-size:.8rem"></span>
       </div>
@@ -552,6 +553,36 @@ async function loadAll(){
   NOTES=nj.notes||[];
   IDX=0; renderCase();
 }
+async function exportReview(){
+  const hint=$('#sendQHint');
+  let marks={};
+  try{
+    if(getToken()){
+      const r=await fetch('/api/admin/restorer/marks',{headers:H()});
+      if(r.ok){
+        const j=await r.json().catch(()=>({}));
+        if(j && typeof j.marks==='object' && j.marks) marks=j.marks;
+      }
+    }
+  }catch(e){}
+  const notes=Array.isArray(NOTES)?NOTES.slice():[];
+  const payload={
+    version:'restorer_review_export_v1',
+    utc:new Date().toISOString(),
+    tip:(typeof window!=='undefined' && window.__SMH_TIP)||'',
+    n_notes:notes.length,
+    n_marks:Object.keys(marks).length,
+    notes,
+    marks
+  };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='restorer_review_export.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  if(hint) hint.textContent='экспорт: '+notes.length+' заметок · '+Object.keys(marks).length+' отметок';
+}
 async function sendQ(){
   const hint=$('#sendQHint');
   if(!getToken()){ if(hint) hint.textContent='нужен вход'; return; }
@@ -566,6 +597,7 @@ async function sendQ(){
   }catch(err){ if(hint) hint.textContent='сеть недоступна'; }
 }
 async function init(){
+  const ex=$('#exportNotes'); if(ex) ex.onclick=e=>{e.preventDefault();exportReview();};
   const sq=$('#sendQ'); if(sq) sq.onclick=e=>{e.preventDefault();sendQ();};
   $('#login').onclick=e=>{e.preventDefault();login();};
   if(!getToken()){ showGate(); return; }
