@@ -1,16 +1,16 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveC wire PASS mod ['db_pd_130', 'db_pd_101', 'frida', 'db_pd_38', 'db_pd_17']; held=['db_pd_42', 'db_pd_118', 'db_pd_83', 'db_pd_94', 'db_pd_34', 'family_baby'] 2026-08-08",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveD wire PASS ['family_baby']; held=['db_pd_42', 'db_pd_118', 'db_pd_83', 'db_pd_94', 'db_pd_34'] 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
   "has_etalon": [
     "two_boys",
-    "frida"
+    "frida",
+    "family_baby"
   ],
   "need_etalon": [
-    "family_baby",
     "pd_01_scratches",
     "pd_02_stains",
     "pd_03_fade",
@@ -164,18 +164,18 @@
         "soft-faces",
         "group"
       ],
-      "status": "NEED_ETALON",
+      "status": "HAS_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/etalon_cf_nano_bar/BEFORE_family_baby_indoor.jpg",
       "notes": "Эталон Roman: AFTER_family_baby_roman.png",
       "bytes": 66661,
       "md5": "cc662fde0ef126738b48dd0363792709",
-      "after_file": "",
-      "has_after": false,
+      "after_file": "family_baby.jpg",
+      "has_after": true,
       "after_authentic_file": "",
       "after_modern_file": "",
       "roman_notes_20260808_quality": "AFTER not sharp enough - quality only, not invent demote; AFTER kept LIVE",
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "ROMAN_NOTES51_WAVEC parent-eye FAIL after — likeness drift / facial invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:44:45.566242+00:00",
+      "qa_status": "PASS_ROMAN51_WAVED",
+      "qa_note": "ROMAN_NOTES51_WAVED parent-eye PASS after; PASS faces/likeness lock; sharpen only; no facial invent; BEFORE kept LIVE; utc=2026-08-08T23:56:02.274994+00:00",
       "roman_notes_20260808_export2": {
         "sides_demoted": [
           "after"
@@ -184,7 +184,8 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[after] WAVEC FAIL_HOLD — likeness drift / facial invent"
+      "roman_note": "[after] WAVED parent PASS — PASS faces/likeness lock; sharpen only; no facial invent",
+      "roman51_waveD_eye": "PASS faces/likeness lock; sharpen only; no facial invent"
     },
     {
       "id": "pd_01_scratches",
@@ -550,7 +551,7 @@
       "after_modern_file": "",
       "after_file": "db_pd_118_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEC parent-eye FAIL mod — dark fabric replaced / Christmas-tree scene invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:44:45.566242+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVED parent-eye FAIL mod — dark fabric replaced / Christmas-tree scene invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:56:02.274994+00:00",
       "wave7_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave7_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -561,7 +562,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEC FAIL_HOLD — dark fabric replaced / Christmas-tree scene invent",
+      "roman_note": "[mod] WAVED FAIL_HOLD — dark fabric replaced / Christmas-tree scene invent",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -569,7 +570,8 @@
         "reason": "MOD ball invent + dark fabric replaced",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveD_eye": "FAIL dark fabric replaced / Christmas-tree scene invent"
     },
     {
       "id": "db_pd_124",
@@ -879,7 +881,7 @@
       "after_modern_file": null,
       "after_file": null,
       "qa_status": "FAIL_HOLD",
-      "qa_note": "ROMAN_NOTES51_WAVEC parent-eye FAIL mod — button fidelity fail; clothing detail invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:44:45.566242+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVED parent-eye FAIL mod — button fidelity fail; shoulder/clothing detail invent; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:56:02.274994+00:00",
       "wave6_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave6_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -891,7 +893,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEC FAIL_HOLD — button fidelity fail; clothing detail invent",
+      "roman_note": "[mod] WAVED FAIL_HOLD — button fidelity fail; shoulder/clothing detail invent",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod",
@@ -912,7 +914,8 @@
         "reason": "epaulettes invent",
         "removed": "db_pd_34_modern.jpg",
         "utc": "2026-08-08T23:08:43.600480+00:00"
-      }
+      },
+      "roman51_waveD_eye": "FAIL button fidelity fail; shoulder/clothing detail invent"
     },
     {
       "id": "db_pd_41",
@@ -1744,7 +1747,7 @@
       "md5": "dc433ea7f5e028e0e389eac2c038fc0f",
       "has_after": true,
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEC parent-eye FAIL mod — bow-tie/butterfly invent on groom; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:44:45.566242+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVED parent-eye FAIL mod — bow-tie/butterfly/ribbon invent on groom neck; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:56:02.274994+00:00",
       "wave13_note": "wired dual AFTER LIVE after parent-eye override of child FAIL_HOLD",
       "wave13_child_eye": "auth=FAIL(BA false) mod=PASS; parent override",
       "after_authentic_file": "db_pd_42_authentic.jpg",
@@ -1759,7 +1762,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEC FAIL_HOLD — bow-tie/butterfly invent on groom",
+      "roman_note": "[mod] WAVED FAIL_HOLD — bow-tie/butterfly/ribbon invent on groom neck",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -1773,7 +1776,8 @@
         "verdict": "FAIL",
         "reason": "butterfly invent",
         "utc": "2026-08-08T23:06:18.027863+00:00"
-      }
+      },
+      "roman51_waveD_eye": "FAIL bow-tie/butterfly/ribbon invent on groom neck"
     },
     {
       "id": "db_pd_17",
@@ -2364,7 +2368,7 @@
       "has_after": true,
       "after_file": "db_pd_94_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEC parent-eye FAIL mod — scarf pattern invent/embellish (auth PASS stays LIVE); AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:44:45.566242+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVED parent-eye FAIL mod — scarf pattern invent/embellish (auth PASS stays LIVE); AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:56:02.274994+00:00",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave17_child_eye": "PASS auth neutral B&W + mod natural color; outdoor-mourning-group likeness locked",
       "after_authentic_file": "db_pd_94_authentic.jpg",
@@ -2386,7 +2390,8 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEC FAIL_HOLD — scarf pattern invent/embellish (auth PASS stays LIVE)"
+      "roman_note": "[mod] WAVED FAIL_HOLD — scarf pattern invent/embellish (auth PASS stays LIVE)",
+      "roman51_waveD_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)"
     },
     {
       "id": "db_pd_108",
@@ -2434,7 +2439,7 @@
       "after_authentic_file": "db_pd_83_authentic.jpg",
       "after_file": "db_pd_83_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEC parent-eye FAIL mod — ribbons/bows invent on suits; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:44:45.566242+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVED parent-eye FAIL mod — ribbons/bows/ornament invent on suits; AFTER not wired; BEFORE LIVE; utc=2026-08-08T23:56:02.274994+00:00",
       "wave18_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave18_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; studio-wedding-portrait likeness locked",
       "after_modern_file": "",
@@ -2446,7 +2451,8 @@
         "removed": [],
         "utc": "2026-08-08T22:28:44.744441+00:00"
       },
-      "roman_note": "[mod] WAVEC FAIL_HOLD — ribbons/bows invent on suits"
+      "roman_note": "[mod] WAVED FAIL_HOLD — ribbons/bows/ornament invent on suits",
+      "roman51_waveD_eye": "FAIL ribbons/bows/ornament invent on suits"
     },
     {
       "id": "db_pd_87",
