@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
-  "n_photos": 77,
-  "dropbox_status": "pilot_200_before_partial; panel WAVE18 wire 5/5 PASS dual AFTER force-BW chroma-gate; held=[] 2026-08-08",
+  "n_photos": 82,
+  "dropbox_status": "pilot_200_before_partial; panel WAVE19 +5 BEFORE 2026-08-08",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -84,7 +84,12 @@
     "db_pd_87",
     "db_pd_90",
     "db_pd_91",
-    "db_pd_92"
+    "db_pd_92",
+    "db_pd_93",
+    "db_pd_102",
+    "db_pd_59",
+    "db_pd_65",
+    "db_pd_104"
   ],
   "photos": [
     {
@@ -1925,6 +1930,96 @@
       "qa_note": "WAVE18 child-QA PASS authentic+modern; status NEED_ETALON (no auto HAS_ETALON); parent eye still required",
       "wave18_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave18_child_eye": "PASS auth neutral B&W + mod plausible color; child-portrait likeness locked"
+    },
+    {
+      "id": "db_pd_93",
+      "file": "db_pd_93.jpg",
+      "rel_path": "corpus/db_pd_93.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "grain",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_93.jpg",
+      "notes": "WAVE19 Dropbox BEFORE add; fade grain soft school-class-group; no AFTER yet",
+      "bytes": 2619129,
+      "md5": "9fe30611fa3747f944157697c9faff56",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_102",
+      "file": "db_pd_102.jpg",
+      "rel_path": "corpus/db_pd_102.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "stains",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_102.jpg",
+      "notes": "WAVE19 Dropbox BEFORE add; fade stains soft outdoor-family-porch; no AFTER yet",
+      "bytes": 1081769,
+      "md5": "fe3c66569661087575a474b0945739ca",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_59",
+      "file": "db_pd_59.jpg",
+      "rel_path": "corpus/db_pd_59.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "grain",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_59.jpg",
+      "notes": "WAVE19 Dropbox BEFORE add; fade grain soft outdoor-women-portrait; no AFTER yet",
+      "bytes": 336378,
+      "md5": "6487f696ceec83a3df3299c8de576bb4",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_65",
+      "file": "db_pd_65.jpg",
+      "rel_path": "corpus/db_pd_65.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "grain",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_65.jpg",
+      "notes": "WAVE19 Dropbox BEFORE add; fade grain soft outdoor-wedding-family; no AFTER yet",
+      "bytes": 259390,
+      "md5": "8f974334e766976f8e5f38c310724cdb",
+      "has_after": false
+    },
+    {
+      "id": "db_pd_104",
+      "file": "db_pd_104.jpg",
+      "rel_path": "corpus/db_pd_104.jpg",
+      "damage_tags": [
+        "dropbox",
+        "pilot_200",
+        "fade",
+        "yellow",
+        "soft"
+      ],
+      "status": "NEED_ETALON",
+      "source_path": "/SaveMyHistory/pilot_200_before/pd_104.jpg",
+      "notes": "WAVE19 Dropbox BEFORE add; fade yellow soft indoor-wedding-party; no AFTER yet",
+      "bytes": 2270516,
+      "md5": "fca5e91368481014c205295ac8346336",
+      "has_after": false
     }
   ]
 }
