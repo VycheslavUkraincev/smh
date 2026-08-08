@@ -9,7 +9,9 @@ Disallow: /arena.html
 Disallow: /story.html
 Disallow: /story/
 Disallow: /about.html
+Disallow: /blog.html
 Disallow: /contact.html
+Disallow: /contacts.html
 Disallow: /demo.html
 Disallow: /faq.html
 Disallow: /login.html
