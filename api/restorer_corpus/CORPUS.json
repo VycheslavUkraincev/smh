@@ -128,10 +128,17 @@
       ],
       "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_03.jpg",
-      "notes": "photo-testset 03_fade",
+      "notes": "photo-testset 03_fade; WAVE2 CF+Nano AFTER authentic only (parent PASS; modern WEAK hold)",
       "bytes": 806802,
       "md5": "b05d7557d869b594dee3c2276581b569",
-      "has_after": false
+      "has_after": true,
+      "after_authentic_file": "pd_03_fade_authentic.jpg",
+      "after_file": "pd_03_fade_authentic.jpg",
+      "qa_status": "PASS_auth",
+      "qa_note": "WAVE2 parent-eye PASS authentic only; modern WEAK hold; on panel awaiting Roman; status stays NEED_ETALON",
+      "wave2_parent_eye": "PASS_auth_WEAK_mod_hold",
+      "after_authentic_url": null,
+      "after_url": null
     },
     {
       "id": "pd_04_soft_portrait",
