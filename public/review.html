@@ -555,9 +555,17 @@ async function loadAll(){
 }
 async function exportReview(){
   const hint=$('#sendQHint');
+  let notes=Array.isArray(NOTES)?NOTES.slice():[];
   let marks={};
   try{
     if(getToken()){
+      if(!notes.length){
+        const rn=await fetch('/api/admin/restorer/region_notes',{headers:H()});
+        if(rn.ok){
+          const nj=await rn.json().catch(()=>({}));
+          if(Array.isArray(nj.notes)) notes=nj.notes.slice();
+        }
+      }
       const r=await fetch('/api/admin/restorer/marks',{headers:H()});
       if(r.ok){
         const j=await r.json().catch(()=>({}));
@@ -565,15 +573,15 @@ async function exportReview(){
       }
     }
   }catch(e){}
-  const notes=Array.isArray(NOTES)?NOTES.slice():[];
   const payload={
     version:'restorer_review_export_v1',
-    utc:new Date().toISOString(),
+    exported_at:new Date().toISOString(),
+    source:'review',
     tip:(typeof window!=='undefined' && window.__SMH_TIP)||'',
-    n_notes:notes.length,
     n_marks:Object.keys(marks).length,
-    notes,
-    marks
+    n_notes:notes.length,
+    marks,
+    notes
   };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const a=document.createElement('a');
