@@ -55,7 +55,7 @@ a{color:var(--gold-d)}
   <p data-i18n="p4">Результаты реставрации храним 48 часов после готовности, потом удаляем. Дольше — только если вы сами включите «сейф». Вы можете запросить удаление своих фотографий и аккаунта в любой момент, написав нам.</p>
 
   <h2 data-i18n="h5">Контакт</h2>
-  <p><span data-i18n="p5">По вопросам приватности и удаления данных напишите нам:</span> <a href="mailto:savemyfamilyhistory@gmail.com" id="priv-email">savemyfamilyhistory@gmail.com</a></p>
+  <p><span data-i18n="p5">По вопросам приватности и удаления данных напишите нам:</span> <a href="#" id="priv-email" data-u="savemyfamilyhistory" data-d="gmail.com">savemyfamilyhistory@gmail.com</a></p>
 
   <div class="muted">© 2026 SaveMyHistory</div>
 <p class="muted"><a href="/terms.html" data-i18n="to_terms">Условия использования</a></p>
@@ -74,5 +74,6 @@ document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>apply(b.datas
 </script>
 <p class="legal-cross" style="text-align:center;margin:28px 12px"><a href="/" data-i18n="crumb_home">На главную</a> · <a href="/gallery.html" data-i18n="crumb_gallery">Галерея</a> · <a href="/waitlist.html" data-i18n="crumb_waitlist">Список ожидания</a> · <a href="/terms.html" data-i18n="crumb_terms">Условия</a></p>
 
+<script>(function(){var a=document.getElementById('priv-email');if(!a)return;var u=a.getAttribute('data-u'),d=a.getAttribute('data-d');if(!u||!d)return;var m='mailto:'+u+'@'+d;a.setAttribute('href',m);a.textContent=u+'@'+d;})();</script>
 </body>
 </html>
