@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveG wire PASS ['db_pd_83']; held=['db_pd_42', 'db_pd_94'] 2026-08-09",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveH wire PASS ['db_pd_42']; held=['db_pd_94'] 2026-08-09",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -1749,13 +1749,13 @@
       "bytes": 353652,
       "md5": "dc433ea7f5e028e0e389eac2c038fc0f",
       "has_after": true,
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEG parent-eye FAIL mod — pearl necklace invent on bride; bow-tie/butterfly invent on groom neck; AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:25:47.126209+00:00",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEH_MOD",
+      "qa_note": "ROMAN_NOTES51_WAVEH parent-eye PASS mod; PASS no pearl/jewelry invent on bride; no bow-tie/butterfly invent on groom; exactly two jacket rosettes; colorize-only; BEFORE kept LIVE; utc=2026-08-09T00:32:49.267634+00:00",
       "wave13_note": "wired dual AFTER LIVE after parent-eye override of child FAIL_HOLD",
       "wave13_child_eye": "auth=FAIL(BA false) mod=PASS; parent override",
       "after_authentic_file": "db_pd_42_authentic.jpg",
-      "after_modern_file": "",
-      "after_file": "db_pd_42_authentic.jpg",
+      "after_modern_file": "db_pd_42_modern.jpg",
+      "after_file": "db_pd_42_modern.jpg",
       "wave13_parent_eye": "parent PASS dual: auth NEUTRAL_BW chroma R-B=1.5 frac_d8=0 + AFTER-alone vision; mod PASS; child BA false-FAIL discarded",
       "roman_notes_20260808_export2": {
         "sides_demoted": [
@@ -1765,7 +1765,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEG FAIL_HOLD — pearl necklace invent on bride; bow-tie/butterfly invent on groom neck",
+      "roman_note": "[mod] WAVEH parent PASS — PASS no pearl/jewelry invent on bride; no bow-tie/butterfly invent on groom; exactly two jacket rosettes; colorize-only",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -1783,7 +1783,8 @@
       "roman51_waveD_eye": "FAIL bow-tie/butterfly/ribbon invent on groom neck",
       "roman51_waveE_eye": "FAIL pearl necklace invent on bride; clothing invent beyond BEFORE",
       "roman51_waveF_eye": "FAIL pearl necklace invent on bride; bow-tie/butterfly invent on groom neck",
-      "roman51_waveG_eye": "FAIL pearl necklace invent on bride; bow-tie/butterfly invent on groom neck"
+      "roman51_waveG_eye": "FAIL pearl necklace invent on bride; bow-tie/butterfly invent on groom neck",
+      "roman51_waveH_eye": "PASS no pearl/jewelry invent on bride; no bow-tie/butterfly invent on groom; exactly two jacket rosettes; colorize-only"
     },
     {
       "id": "db_pd_17",
@@ -2374,7 +2375,7 @@
       "has_after": true,
       "after_file": "db_pd_94_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEG parent-eye FAIL mod — scarf pattern invent/embellish (auth PASS stays LIVE); AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:25:47.126209+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVEH parent-eye FAIL mod — scarf pattern invent/embellish + background invent beyond BEFORE (auth PASS stays LIVE); AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:32:49.267634+00:00",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave17_child_eye": "PASS auth neutral B&W + mod natural color; outdoor-mourning-group likeness locked",
       "after_authentic_file": "db_pd_94_authentic.jpg",
@@ -2396,11 +2397,12 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEG FAIL_HOLD — scarf pattern invent/embellish (auth PASS stays LIVE)",
+      "roman_note": "[mod] WAVEH FAIL_HOLD — scarf pattern invent/embellish + background invent beyond BEFORE (auth PASS stays LIVE)",
       "roman51_waveD_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
       "roman51_waveE_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
       "roman51_waveF_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
-      "roman51_waveG_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)"
+      "roman51_waveG_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
+      "roman51_waveH_eye": "FAIL scarf pattern invent/embellish + background invent beyond BEFORE (auth PASS stays LIVE)"
     },
     {
       "id": "db_pd_108",
