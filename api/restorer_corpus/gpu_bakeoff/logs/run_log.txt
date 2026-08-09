@@ -1,0 +1,9 @@
+S2F n=4 face=skip_v1 tile=400 hard=['pd_02', 'pd_05', 'pd_06'] skip_esrgan=['pd_02', 'pd_11'] face_ok=['pd_01', 'pd_11', 'pd_15']
+ESRGAN_LOAD_SKIP env=STAGE2F_SKIP_ESRGAN_LOAD
+ESRGAN_LAZY all_ids_skip=[] load_esrgan=never force=True
+[1/4] children_dining.jpg OK lama_skip_mean57.90|face_skip_v1|esrgan_skip_force_env|qwen_skip_not_hard|ai_eye=WEAK:flag_parent_eyeball
+[2/4] family_portrait_knit.jpg OK lama_skip_mean177.80|face_skip_v1|esrgan_skip_force_env|qwen_skip_not_hard|ai_eye=WEAK:flag_parent_eyeball
+[3/4] mother_baby_knit.jpg OK lama_skip_mean60.58|face_skip_v1|esrgan_skip_force_env|qwen_skip_not_hard|ai_eye=FAIL:requeue_or_fail_hold|ai_eye_requeue_or_fail_hold
+[4/4] two_women_studio.jpg OK lama_ok_mean21.68|face_skip_v1|esrgan_skip_force_env|qwen_skip_not_hard|ai_eye=FAIL:requeue_or_fail_hold|ai_eye_requeue_or_fail_hold
+n_ok=4 n_fail=0 qwen=0 total=4 face=v1_skip
+DONE
