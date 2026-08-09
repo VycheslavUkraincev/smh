@@ -1196,6 +1196,7 @@ _GPU_BAKEOFF_REVIEW = _RESTORER_ROOT / "gpu_bakeoff_review.json"
 _GPU_BAKEOFF_MARKS = _RESTORER_ROOT / "gpu_bakeoff_marks.json"
 _GPU_BAKEOFF_BEFORE = _RESTORER_ROOT / "gpu_bakeoff" / "before"
 _GPU_BAKEOFF_AFTER = _RESTORER_ROOT / "gpu_bakeoff" / "after"
+_GPU_BAKEOFF_NANO_BAR = _RESTORER_ROOT / "gpu_bakeoff" / "nano_bar"
 _GPU_BAKEOFF_LOG = _RESTORER_ROOT / "gpu_bakeoff" / "run_log.txt"
 _GPU_BAKEOFF_VERDICTS = {"", "pass", "weak", "fail", "PASS", "WEAK", "FAIL", "approve", "bad"}
 
@@ -1256,9 +1257,17 @@ async def admin_gpu_bakeoff_review(authorization: str = Header(None)):
         pid = str(c.get("id") or "").strip()
         before = str(c.get("before_file") or "").strip()
         after = str(c.get("after_file") or "").strip()
+        nano = str(c.get("nano_bar_file") or "").strip()
         after_status = str(c.get("after_status") or "WAITING").strip().upper()
+        nano_status = str(c.get("nano_bar_status") or "").strip().upper()
         has_before = bool(before and _SAFE_NAME.match(before) and (_GPU_BAKEOFF_BEFORE / before).is_file())
         has_after = bool(after and _SAFE_NAME.match(after) and (_GPU_BAKEOFF_AFTER / after).is_file())
+        has_nano = bool(
+            nano
+            and _SAFE_NAME.match(nano)
+            and (_GPU_BAKEOFF_NANO_BAR / nano).is_file()
+            and nano_status == "PASS"
+        )
         if has_after:
             after_status = "FILLED"
         elif after_status not in ("WAITING", "NO_AFTER", "FILLED"):
@@ -1266,9 +1275,11 @@ async def admin_gpu_bakeoff_review(authorization: str = Header(None)):
         item = dict(c)
         item["has_before"] = has_before
         item["has_after"] = has_after
+        item["has_nano_bar"] = has_nano
         item["after_status"] = after_status
         item["before_url"] = f"/api/admin/gpu-bakeoff/photo/{before}?kind=before" if has_before else ""
         item["after_url"] = f"/api/admin/gpu-bakeoff/photo/{after}?kind=after" if has_after else ""
+        item["nano_bar_url"] = f"/api/admin/gpu-bakeoff/photo/{nano}?kind=nano_bar" if has_nano else ""
         if pid in marks:
             item["mark"] = marks[pid]
         cards_out.append(item)
@@ -1325,12 +1336,19 @@ async def admin_gpu_bakeoff_photo(filename: str, kind: str = "before", authoriza
     if not _SAFE_NAME.match(name) or "/" in name or ".." in name:
         raise HTTPException(400, "bad filename")
     kind = (kind or "before").strip().lower()
-    if kind not in ("before", "after"):
+    if kind not in ("before", "after", "nano_bar"):
         raise HTTPException(400, "bad kind")
     data = _gpu_bakeoff_load_review()
     if kind == "after":
         allowed = {(c.get("after_file") or "").strip() for c in (data.get("cards") or [])}
         base = _GPU_BAKEOFF_AFTER
+    elif kind == "nano_bar":
+        allowed = {
+            (c.get("nano_bar_file") or "").strip()
+            for c in (data.get("cards") or [])
+            if str(c.get("nano_bar_status") or "").strip().upper() == "PASS"
+        }
+        base = _GPU_BAKEOFF_NANO_BAR
     else:
         allowed = {(c.get("before_file") or "").strip() for c in (data.get("cards") or [])}
         base = _GPU_BAKEOFF_BEFORE

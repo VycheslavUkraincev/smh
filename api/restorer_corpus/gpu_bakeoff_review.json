@@ -1,7 +1,7 @@
 {
   "version": 2,
   "status": "FILLED",
-  "updated_at_utc": "2026-08-09T11:04:59Z",
+  "updated_at_utc": "2026-08-09T11:21:21Z",
   "run": {
     "candidate": "path_a_classic",
     "label": "smh-night1-patha-skip",
@@ -26,9 +26,12 @@
     "logs_excerpt": "PINNED 47263840 Oregon US RTX 4090; PATH_A_PULL_HIT; n_ok=4 n_fail=0 face=v1_skip; DESTROY 404-then-200; n_final=0 spent=$0.0493",
     "n_after_filled": 4,
     "fill_hook_utc": "2026-08-09T11:04:59Z",
-    "note": "ops PASS ($0.0493 DESTROY=Y n_final=0) + quality MIXED: children_dining FAIL_NOOP; family_portrait_knit PASS heal; mother_baby_knit FAIL_NOOP; two_women_studio PASS heal (mild face soft). Real GPU AFTER kept. Not claiming sellable/conveyor/PathA product-ready. spend_E=0 TELEGRAM:NO.",
+    "note": "Path A inbound4 bake-off kept (ops PASS $0.0493 DESTROY=Y; quality MIXED 2/4). THIRD column = Nano authentic chat-bar (nano-banana-2-edit Подлинный) for visual compare ДО | Path A GPU | Nano authentic (чат-бар). Not CodeFormer. Path A grades unchanged. Not claiming sellable/conveyor/Path C product-ready. TELEGRAM:NO.",
     "tip_commit": "86262a9a35822083cc31505c2e88cfd6680ba5b8",
-    "tip_short": "86262a9"
+    "tip_short": "86262a9",
+    "nano_bar_utc": "2026-08-09T11:21:21Z",
+    "nano_bar_model": "nano-banana-2-edit",
+    "nano_bar_label": "Nano authentic (чат-бар)"
   },
   "cards": [
     {
@@ -47,7 +50,10 @@
         "summary": "QUALITY FAIL: AFTER≈BEFORE; no meaningful damage heal (pct_changed≈0; eye)."
       },
       "sha16_before": "72b36cb134148700",
-      "notes": "QUALITY FAIL: AFTER≈BEFORE; no meaningful damage heal (pct_changed≈0; eye)."
+      "notes": "QUALITY FAIL: AFTER≈BEFORE; no meaningful damage heal (pct_changed≈0; eye).",
+      "nano_bar_file": "children_dining.jpg",
+      "nano_bar_status": "PASS",
+      "nano_bar_note": "r1 invent plant/scene FAIL; r2 stricter face/scene lock PASS; wired"
     },
     {
       "id": "family_portrait_knit",
@@ -65,7 +71,10 @@
         "summary": "QUALITY PASS: visible heal of large stains/discoloration; no invent/face wreck."
       },
       "sha16_before": "77b23fea95aa4546",
-      "notes": "QUALITY PASS: visible heal of large stains/discoloration; no invent/face wreck."
+      "notes": "QUALITY PASS: visible heal of large stains/discoloration; no invent/face wreck.",
+      "nano_bar_file": "family_portrait_knit.jpg",
+      "nano_bar_status": "PASS",
+      "nano_bar_note": "r1 PASS face/scene lock; wired"
     },
     {
       "id": "mother_baby_knit",
@@ -83,7 +92,10 @@
         "summary": "QUALITY FAIL: AFTER≈BEFORE; no meaningful damage heal (pct_changed≈0; eye)."
       },
       "sha16_before": "e7f7bccce833ee8a",
-      "notes": "QUALITY FAIL: AFTER≈BEFORE; no meaningful damage heal (pct_changed≈0; eye)."
+      "notes": "QUALITY FAIL: AFTER≈BEFORE; no meaningful damage heal (pct_changed≈0; eye).",
+      "nano_bar_file": "mother_baby_knit.jpg",
+      "nano_bar_status": "PASS",
+      "nano_bar_note": "r1 PASS face/scene lock; wired"
     },
     {
       "id": "two_women_studio",
@@ -101,7 +113,10 @@
         "summary": "QUALITY PASS: stains/blemishes reduced; some face softening on eyes/skin (note)."
       },
       "sha16_before": "99836dd2e49fbe22",
-      "notes": "QUALITY PASS: stains/blemishes reduced; some face softening on eyes/skin (note)."
+      "notes": "QUALITY PASS: stains/blemishes reduced; some face softening on eyes/skin (note).",
+      "nano_bar_file": "two_women_studio.jpg",
+      "nano_bar_status": "PASS",
+      "nano_bar_note": "r1 beautify/sepia FAIL; r2 stricter face lock PASS; wired"
     }
   ]
 }

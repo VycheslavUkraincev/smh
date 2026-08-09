@@ -41,7 +41,8 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
 .card h3{margin:0 0 8px;font-size:18px}
-.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ba{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+@media(max-width:700px){.ba{grid-template-columns:1fr;overflow-x:auto}}
 .shot{position:relative;cursor:zoom-in;border-radius:12px;overflow:hidden;background:#e8dfd0}
 .shot img,.img-slot{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#ddd}
 .shot .lbl{position:absolute;left:8px;top:8px;background:rgba(42,32,24,.72);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px}
@@ -90,7 +91,7 @@ textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;f
     <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админка</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
 
     <div class="run" id="runBox">
-      <div class="honesty" id="honestyBanner"><strong>ops PASS</strong> ($0.103 DESTROY Y) · <strong>quality FAIL</strong> (глаз: AFTER≈BEFORE; pd_05 без лечения; pd_10/11 noop ~0.19%/0.07%)</div>
+      <div class="honesty" id="honestyBanner"><strong>сравнение</strong>: ДО · Path A GPU · <strong>Nano authentic (чат-бар)</strong> — не CodeFormer. Path A grades без изменений. Не sellable / conveyor / Path C product-ready.</div>
       <div class="run-hero" id="runHero">—</div>
       <p class="run-sub" id="runSub"></p>
       <div class="row" id="runRow"></div>
@@ -206,7 +207,7 @@ function paintRun(){
   const spent=r.spent_usd!=null?r.spent_usd:r.cost_usd;
   const wm=wallMinutes(r);
   $('#runHero').textContent=model;
-  $('#runSub').textContent=(r.path_c||'Path C')+(r.label?(' · '+r.label):'');
+  $('#runSub').textContent=(r.path_a||r.path_c||'Path A')+(r.label?(' · '+r.label):'')+' · 3 колонки: ДО | Path A GPU | Nano authentic (чат-бар)';
   const cells=[
     ['модель / stack', model, true],
     ['GPU', (r.gpu||'—')+(r.geo?(' · '+r.geo):''), false],
@@ -223,6 +224,7 @@ function paintRun(){
     return '<div class="cell"><span class="k">'+esc(k)+'</span><span class="v'+(hi?' big':'')+'">'+inner+'</span></div>';
   }).join('');
   $('#runNote').textContent=r.note||'';
+  if(r.note){ const hb=$('#honestyBanner'); if(hb) hb.innerHTML='<strong>сравнение</strong> · '+esc(r.note); }
   const pre=$('#logsPre');
   if(r.logs_excerpt){ pre.textContent=r.logs_excerpt; }
   else if(r.logs_file){ pre.textContent='файл логов: '+r.logs_file+' (откройте секцию после загрузки API)'; loadLogsFile(r.logs_file); }
@@ -250,13 +252,17 @@ async function render(){
     const m=markOf(c.id);
     const el=document.createElement('article'); el.className='card';
     const afterHtml = c.has_after
-      ? `<div class="shot" data-u="${esc(c.after_url||'')}" data-t="${esc(c.id)} AFTER"><div class="img-slot"></div><span class="lbl">AFTER</span></div>`
+      ? `<div class="shot" data-u="${esc(c.after_url||'')}" data-t="${esc(c.id)} Path A GPU"><div class="img-slot"></div><span class="lbl">Path A GPU</span></div>`
       : `<div class="empty-after">${esc(c.after_status||'WAITING')}</div>`;
+    const nanoHtml = c.has_nano_bar
+      ? `<div class="shot" data-u="${esc(c.nano_bar_url||'')}" data-t="${esc(c.id)} Nano authentic (чат-бар)"><div class="img-slot"></div><span class="lbl">Nano authentic (чат-бар)</span></div>`
+      : `<div class="empty-after">${esc(c.nano_bar_status||'нет')}${c.nano_bar_note?(' · '+esc(c.nano_bar_note)):''}</div>`;
     el.innerHTML=`
-      <h3>${esc(c.id)} · <span class="st ${esc(c.after_status||'WAITING')}">${esc(c.after_status||'WAITING')}</span>${c.q_verdict?(' · <span class="st '+esc(c.q_verdict)+'">'+esc(c.q_verdict)+'</span>'):''}</h3>
+      <h3>${esc(c.id)} · <span class="st ${esc(c.after_status||'WAITING')}">${esc(c.after_status||'WAITING')}</span>${c.q_verdict?(' · <span class="st '+esc(c.q_verdict)+'">'+esc(c.q_verdict)+'</span>'):''}${c.nano_bar_status?(' · <span class="st '+esc(c.nano_bar_status)+'">Nano '+esc(c.nano_bar_status)+'</span>'):''}</h3>
       <div class="ba">
-        <div class="shot" data-u="${esc(c.before_url||'')}" data-t="${esc(c.id)} BEFORE"><div class="img-slot"></div><span class="lbl">BEFORE</span></div>
+        <div class="shot" data-u="${esc(c.before_url||'')}" data-t="${esc(c.id)} ДО"><div class="img-slot"></div><span class="lbl">ДО</span></div>
         ${afterHtml}
+        ${nanoHtml}
       </div>
       <div class="qbox">${fmtQ(c)}</div>
       <div class="actions">
