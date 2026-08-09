@@ -39,6 +39,14 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .st.WAITING,.st.PLANNED,.st.NEED_ETALON,.st.HOLD{background:#FBEFD6;color:var(--weak)}
 .st.WEAK{background:#F3E8D8;color:var(--weak)}
 .st.FAIL{background:#FBE4E1;color:var(--fail)}
+.st.SKIP{background:#eee7db;color:#6E6152}
+.st.ESRGAN{background:#e5eef8;color:#1f4f7a}
+.st.PIL{background:#e8f3ea;color:#1e7a3f}
+.method-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.02em}
+.method-badge.esrgan{background:#e5eef8;color:#1f4f7a}
+.method-badge.pil{background:#e8f3ea;color:#1e7a3f}
+.method-badge.skip{background:#eee7db;color:#6E6152}
+.method-badge.wait{background:#FBEFD6;color:#8e5a2b}
 .pe-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 2px}
 .pe-row .pe-label{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
 .pe-note{margin-top:4px;font-size:13px;color:var(--ink);background:#faf6ef;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
@@ -88,7 +96,7 @@ textarea{resize:vertical;min-height:54px}
     <h1>Сервис-панель: кейсы до/после</h1>
     <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админ</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="/gpu-review.html">GPU</a> · <a class="home" href="/model-compare.html">Сравнение моделей</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
     <div class="hero">
-      <div class="honesty"><strong>Канон:</strong> inspect → CodeFormer только если лица мягкие → Nano Banana (fal) face/identity lock, без invent/plastic. Parent eye / Roman сильнее child PASS. Upscale = DONE when upscale_file wired (thumb shown). pd_05 AFTER не выдумываем. Аренды GPU нет.</div>
+      <div class="honesty"><strong>Канон:</strong> inspect → CodeFormer только если лица мягкие → Nano Banana (fal) face/identity lock, без invent/plastic. Parent eye / Roman сильнее child PASS. Upscale method badge: <code>fal-ai/esrgan</code> (pd_02/pd_03) vs <code>PIL Lanczos ×2 FREE</code> vs SKIP. Stats: DONE / SKIP / WAITING after. pd_05 AFTER не выдумываем. Аренды GPU нет · spend_E=0.</div>
       <p id="lead">Все существующие AFTER + Nano API core4. PASS / WEAK / FAIL + комментарий пишутся в case DB.</p>
       <div class="stats" id="stats"></div>
     </div>
@@ -212,16 +220,50 @@ function filtered(){
     return true;
   });
 }
+
+function upscaleMethodLabel(m){
+  const s=String(m||'').trim();
+  if(!s) return '';
+  if(s==='fal-ai/esrgan') return 'fal-ai/esrgan';
+  if(s==='PIL_LANCZOS_x2_FREE') return 'PIL Lanczos ×2 FREE';
+  if(s==='SKIP') return 'SKIP';
+  return s;
+}
+function upscaleMethodClass(m){
+  const s=String(m||'').trim();
+  if(s==='fal-ai/esrgan') return 'esrgan';
+  if(s==='PIL_LANCZOS_x2_FREE') return 'pil';
+  if(s==='SKIP') return 'skip';
+  return 'wait';
+}
+function methodBadgeHtml(c){
+  const st=String(c.upscale_status||'').toUpperCase();
+  let meth=String(c.upscale_method||'').trim();
+  if(!meth && st==='SKIP') meth='SKIP';
+  if(!meth && (st==='WAITING'||st==='PLANNED')) return '<span class="method-badge wait">UPSCALE '+esc(st)+'</span>';
+  if(!meth) return '';
+  const label=upscaleMethodLabel(meth);
+  const cls=upscaleMethodClass(meth);
+  return '<span class="method-badge '+cls+'">'+esc(label)+'</span>';
+}
 function paintStats(){
   const n=CASES.length;
   const withAfter=CASES.filter(c=>c.has_after).length;
   const waiting=CASES.filter(c=>c.after_status==='WAITING').length;
   const marked=CASES.filter(c=>markHas(markOf(c.id))).length;
   const pass=CASES.filter(c=>String(markOf(c.id).verdict||'').toLowerCase()==='pass').length;
+  const upDone = (META.n_upscale_done!=null) ? META.n_upscale_done : CASES.filter(c=>c.upscale_status==='DONE').length;
+  const upSkip = (META.n_upscale_skip!=null) ? META.n_upscale_skip : CASES.filter(c=>c.upscale_status==='SKIP').length;
+  const upWait = (META.n_upscale_waiting!=null) ? META.n_upscale_waiting : CASES.filter(c=>c.has_after && (c.upscale_status==='WAITING'||c.upscale_status==='PLANNED')).length;
+  const nEsrgan = (META.n_upscale_esrgan!=null) ? META.n_upscale_esrgan : CASES.filter(c=>c.upscale_method==='fal-ai/esrgan').length;
+  const nPil = (META.n_upscale_pil!=null) ? META.n_upscale_pil : CASES.filter(c=>c.upscale_method==='PIL_LANCZOS_x2_FREE').length;
   $('#stats').innerHTML=[
-    ['кейсов', n],['с AFTER', withAfter],['WAITING', waiting],['отметок', marked],['PASS', pass],['Nano API', CASES.filter(c=>c.lane==='api_nano').length]
+    ['кейсов', n],['с AFTER', withAfter],['WAITING', waiting],
+    ['Upscale DONE', upDone],['Upscale SKIP', upSkip],['WAITING after', upWait],
+    ['ESRGAN', nEsrgan],['PIL FREE', nPil],
+    ['отметок', marked],['PASS', pass],['Nano API', CASES.filter(c=>c.lane==='api_nano').length]
   ].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${esc(k)}</span></div>`).join('');
-  $('#lead').textContent=(META.n_cases||n)+' кейсов · AFTER '+(META.n_with_after||withAfter)+' · WAITING '+(META.n_waiting||waiting)+' · tip '+(META.git_tip||'—')+' · NO_RENT';
+  $('#lead').textContent=(META.n_cases||n)+' кейсов · AFTER '+(META.n_with_after||withAfter)+' · upscale DONE '+upDone+' / SKIP '+upSkip+' / WAITING after '+upWait+' · ESRGAN '+nEsrgan+' · PIL '+nPil+' · tip '+(META.git_tip||'—')+' · NO_RENT';
 }
 function render(){
   const list=filtered();
@@ -241,20 +283,21 @@ function render(){
       afterHtml=`<div class="empty-after">WAITING — нет AFTER (не выдумываем)</div>`;
     }
     const upDone=(c.upscale_status==='DONE' && !!c.upscale_url) || ((m.upscale_status||'')==='DONE' && !!c.upscale_url);
-    const upHtml=upDone?`<div class="shot" data-u="${esc(c.upscale_url)}" data-t="${esc(c.id)} upscale"><div class="img-slot"></div><span class="lbl">UPSCALE</span></div>`:'';
+    const upHtml=upDone?`<div class="shot" data-u="${esc(c.upscale_url)}" data-t="${esc(c.id)} upscale"><div class="img-slot"></div><span class="lbl">UPSCALE · ${esc(upscaleMethodLabel(c.upscale_method)||'DONE')}</span></div>`:'';
     const tags=(c.damage_tags||[]).slice(0,8).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
     const baClass=upDone?(triple?'quad':'triple'):(triple?'triple':'');
     return `<article class="card" data-id="${esc(c.id)}">
       <h3>${esc(c.title||c.id)} · <span class="st ${esc(c.after_status||'')}">${esc(c.after_status||'')}</span>
         ${c.lane==='api_nano'?' · <span class="st PASS">Nano API</span>':''}
         ${v?(' · <span class="st '+esc(v.toUpperCase())+'">'+esc(v.toUpperCase())+'</span>'):''}
-        ${upDone?' · <span class="st PASS">UPSCALE</span>':''}</h3>
+        ${upDone?' · <span class="st PASS">UPSCALE</span>':(String(c.upscale_status||'').toUpperCase()==='SKIP'?' · <span class="st SKIP">SKIP</span>':'')}
+        ${methodBadgeHtml(c)?' · '+methodBadgeHtml(c):''}</h3>
       <div class="ba ${baClass}">
         <div class="shot" data-u="${esc(c.before_url||'')}" data-t="${esc(c.id)} before"><div class="img-slot"></div><span class="lbl">ДО</span></div>
         ${afterHtml}
         ${upHtml}
       </div>
-      <div class="tags">${tags}<span class="tag">upscale:${esc((c.upscale_status==='DONE'?'DONE':(m.upscale_status||c.upscale_status||'PLANNED')))}</span></div>
+      <div class="tags">${tags}<span class="tag">upscale:${esc((c.upscale_status==='DONE'?'DONE':(m.upscale_status||c.upscale_status||'PLANNED')))}</span>${c.upscale_method?`<span class="tag">method:${esc(c.upscale_method)}</span>`:""}</div>
     ${upU?`<div class="shot" data-u="${esc(upU)}" data-t="${esc(c.id)} upscale"><div class="k">Upscale preview</div><img alt="upscale"></div>`:''}
       ${peBadges(c)}
       <div class="meta">${esc(c.pipeline||'')}</div>

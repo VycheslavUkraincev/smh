@@ -1484,6 +1484,28 @@ def _service_case_ids():
     return ids
 
 
+
+def _service_infer_upscale_method(p: dict) -> str:
+    """CORPUS upscale_method, else infer from notes/status. Never invent spend."""
+    m = str(p.get("upscale_method") or "").strip()
+    if m:
+        return m[:80]
+    blob = " ".join(
+        str(p.get(k) or "")
+        for k in ("upscale_note", "notes", "parent_eye", "qa_note")
+    ).lower()
+    st = str(p.get("upscale_status") or "").strip().upper()
+    if "fal-ai/esrgan" in blob or "fal_ai/esrgan" in blob or "esrgan" in blob and "fal" in blob:
+        return "fal-ai/esrgan"
+    if "pil_lanczos" in blob or "lanczos" in blob:
+        return "PIL_LANCZOS_x2_FREE"
+    if st == "SKIP":
+        return "SKIP"
+    if st == "DONE" or p.get("upscale_file"):
+        return "PIL_LANCZOS_x2_FREE"
+    return ""
+
+
 def _service_build_cases():
     """Seed case DB from existing AFTER only — never invent. pd_05 invent hard-banned."""
     meta = _restorer_load_meta()
@@ -1537,19 +1559,26 @@ def _service_build_cases():
             mark = dict(mark)
             mark["verdict"] = "fail"
             mark["verdict_source"] = "restorer_board"
+        corpus_up = str(p.get("upscale_status") or "").strip().upper()
         mark_up = str((mark or {}).get("upscale_status") or "").strip().upper()
+        upscale_method = _service_infer_upscale_method(p)
         if has_upscale:
             upscale_status = "DONE"
             upscale_url = f"/api/admin/restorer/photo/{upscale_name}?kind=after"
-        else:
-            upscale_status = mark_up if mark_up in ("PLANNED", "WAITING", "DONE", "SKIP") else "PLANNED"
+        elif corpus_up == "SKIP" or mark_up == "SKIP":
+            upscale_status = "SKIP"
             upscale_url = ""
-        mark_up = str((mark or {}).get("upscale_status") or "").strip().upper()
-        if has_upscale:
-            upscale_status = "DONE"
-            upscale_url = f"/api/admin/restorer/photo/{upscale_name}?kind=after"
+            if not upscale_method:
+                upscale_method = "SKIP"
         else:
-            upscale_status = mark_up if mark_up in ("PLANNED", "WAITING", "DONE", "SKIP") else "PLANNED"
+            if (has_after or has_auth or has_mod) and corpus_up in ("", "WAITING", "PLANNED"):
+                upscale_status = "WAITING" if corpus_up in ("", "WAITING") else corpus_up
+            else:
+                upscale_status = (
+                    corpus_up
+                    if corpus_up in ("PLANNED", "WAITING", "DONE", "SKIP")
+                    else (mark_up if mark_up in ("PLANNED", "WAITING", "DONE", "SKIP") else "PLANNED")
+                )
             upscale_url = ""
         case = {
             "id": pid,
@@ -1570,6 +1599,7 @@ def _service_build_cases():
             "upscale_file": upscale_name if has_upscale else "",
             "upscale_status": upscale_status,
             "upscale_url": f"/api/admin/restorer/photo/{upscale_name}?kind=after" if has_upscale else "",
+            "upscale_method": upscale_method,
             "damage_tags": p.get("damage_tags") or [],
             "status": p.get("status") or "",
             "qa_status": p.get("qa_status") or "",
@@ -1619,6 +1649,7 @@ def _service_build_cases():
                 "after_status": "READY",
                 "upscale_status": "PLANNED",
                 "upscale_url": "",
+                "upscale_method": "",
                 "damage_tags": ["nano_bar", "api", "core4"],
                 "status": "HAS_ETALON",
                 "qa_status": nano_status,
@@ -1632,17 +1663,31 @@ def _service_build_cases():
 
     n_with_after = sum(1 for x in cases if x.get("has_after"))
     n_waiting = sum(1 for x in cases if x.get("after_status") == "WAITING")
-    return cases, marks, n_with_after, n_waiting
+    n_upscale_done = sum(1 for x in cases if x.get("upscale_status") == "DONE")
+    n_upscale_skip = sum(1 for x in cases if x.get("upscale_status") == "SKIP")
+    n_upscale_waiting = sum(
+        1
+        for x in cases
+        if x.get("upscale_status") in ("WAITING", "PLANNED") and x.get("has_after")
+    )
+    upscale_stats = {
+        "n_upscale_done": n_upscale_done,
+        "n_upscale_skip": n_upscale_skip,
+        "n_upscale_waiting": n_upscale_waiting,
+        "n_upscale_esrgan": sum(1 for x in cases if str(x.get("upscale_method") or "") == "fal-ai/esrgan"),
+        "n_upscale_pil": sum(1 for x in cases if str(x.get("upscale_method") or "") == "PIL_LANCZOS_x2_FREE"),
+    }
+    return cases, marks, n_with_after, n_waiting, upscale_stats
 
 
 @app.get("/api/admin/service-cases")
 async def admin_service_cases(authorization: str = Header(None)):
     """Aggregated before/after case DB for API service review panel (admin)."""
     await require_admin(authorization)
-    cases, marks, n_with_after, n_waiting = _service_build_cases()
+    cases, marks, n_with_after, n_waiting, upscale_stats = _service_build_cases()
     return {
         "ok": True,
-        "version": "service_cases_v1",
+        "version": "service_cases_v2",
         "panel": "/service-review.html",
         "pipeline_canon": [
             "inspect photo",
@@ -1652,6 +1697,7 @@ async def admin_service_cases(authorization: str = Header(None)):
             "B&W → authentic B&W AFTER + separate color variant",
             "color → authentic restore (no invented recolor)",
             "upscale = DONE when CORPUS upscale_file exists under after/",
+            "upscale_method = fal-ai/esrgan | PIL_LANCZOS_x2_FREE | SKIP (from CORPUS)",
             "parent eye / Roman marks overrule child PASS",
         ],
         "no_rent": True,
@@ -1659,6 +1705,11 @@ async def admin_service_cases(authorization: str = Header(None)):
         "n_cases": len(cases),
         "n_with_after": n_with_after,
         "n_waiting": n_waiting,
+        "n_upscale_done": upscale_stats["n_upscale_done"],
+        "n_upscale_skip": upscale_stats["n_upscale_skip"],
+        "n_upscale_waiting": upscale_stats["n_upscale_waiting"],
+        "n_upscale_esrgan": upscale_stats["n_upscale_esrgan"],
+        "n_upscale_pil": upscale_stats["n_upscale_pil"],
         "n_marks": sum(1 for m in marks.values() if isinstance(m, dict) and str(m.get("verdict") or "").strip()),
         "git_tip": _restorer_git_tip(),
         "cases": cases,
