@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>SaveMyHistory — Ревью GPU bake-off</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--paper:#F7F1E7;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32;--card:#fff;--line:#E3D8C5;--ok:#1e7a3f;--weak:#8e5a2b;--fail:#c0392b}
 *{box-sizing:border-box}
@@ -18,16 +21,19 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .gate h2{font-family:'Cormorant Garamond',Georgia,serif;margin:0 0 10px}
 .gate p{color:var(--muted)}
 .btn{display:inline-block;margin-top:14px;background:var(--gold-d);color:#fff;border:none;border-radius:10px;padding:10px 20px;cursor:pointer;font-size:15px;text-decoration:none;min-height:40px}
-.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
-.run{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0 22px}
-.run .row{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:14px}
-.run .k{color:var(--muted)}
+.run{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0 22px}
+.run-hero{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:700;margin:0 0 4px;line-height:1.2}
+.run-sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+.run .row{display:flex;flex-wrap:wrap;gap:12px 20px;font-size:14px}
+.run .cell{min-width:140px}
+.run .k{color:var(--muted);font-size:12px;display:block;margin-bottom:2px}
 .run .v{font-weight:600}
+.run .v.big{font-size:18px}
 .st{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700}
 .st.WAITING,.st.PENDING{background:#FBEFD6;color:#8e5a2b}
 .st.FILLED,.st.Y,.st.PASS{background:#E4F6E9;color:var(--ok)}
 .st.WEAK{background:#F3E8D8;color:var(--weak)}
-.st.FAIL,.st.NO_AFTER{background:#FBE4E1;color:var(--fail)}
+.st.FAIL,.st.NO_AFTER,.st.N{background:#FBE4E1;color:var(--fail)}
 .grid{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -37,7 +43,11 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .shot img,.img-slot{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#ddd}
 .shot .lbl{position:absolute;left:8px;top:8px;background:rgba(42,32,24,.72);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px}
 .empty-after{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px;background:#faf6ef}
-qbox{display:block;margin-top:10px;padding:10px;border-radius:10px;background:#faf6ef;border:1px solid var(--line);font-size:13px;white-space:pre-wrap}
+.qbox{display:block;margin-top:10px;padding:12px;border-radius:10px;background:#faf6ef;border:1px solid var(--line);font-size:13px}
+.qbox .qhead{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-weight:700}
+.qbox .qrow{margin:0 0 6px;line-height:1.4}
+.qbox .qlab{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.03em;display:block}
+.qbox .qsum{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-weight:600}
 .actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .actions button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer;min-height:34px}
 .actions button.active-pass{background:#E4F6E9;border-color:#27ae60;color:#1e7a3f;font-weight:700}
@@ -45,6 +55,12 @@ qbox{display:block;margin-top:10px;padding:10px;border-radius:10px;background:#f
 .actions button.active-fail{background:#FBE4E1;border-color:#c0392b;color:#c0392b;font-weight:700}
 label{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
 textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;resize:vertical;background:#fff}
+.logs{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:18px 0}
+.logs summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+.logs summary::-webkit-details-marker{display:none}
+.logs summary::before{content:'▸ ';color:var(--gold-d)}
+.logs[open] summary::before{content:'▾ '}
+.logs pre{margin:12px 0 0;padding:12px;background:#1e1a16;color:#f0e6d8;border-radius:10px;font-size:11px;line-height:1.45;overflow:auto;max-height:420px;white-space:pre-wrap;word-break:break-word}
 .footer{margin-top:28px;color:var(--muted);font-size:12px}
 .lb{position:fixed;inset:0;background:rgba(20,14,10,.88);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
 .lb.open{display:flex}
@@ -71,11 +87,19 @@ textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;f
     <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админка</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
 
     <div class="run" id="runBox">
+      <div class="run-hero" id="runHero">—</div>
+      <p class="run-sub" id="runSub"></p>
       <div class="row" id="runRow"></div>
-      <p class="muted" id="runNote" style="margin:10px 0 0"></p>
+      <p class="muted" id="runNote" style="margin:12px 0 0"></p>
     </div>
 
     <div class="grid" id="grid"></div>
+
+    <details class="logs" id="logsBox">
+      <summary>Логи прогона</summary>
+      <pre id="logsPre">загрузка…</pre>
+    </details>
+
     <p class="footer">Admin-only. Не утверждает: sellable · conveyor · etalon met · Path C proven. pd_05 AFTER никогда не выдумывается. Fill-hook: scripts/fill_gpu_bakeoff_review.py</p>
   </div>
 </div>
@@ -92,7 +116,7 @@ const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
 const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
 const MARK_KEY='smh_gpu_bakeoff_marks_v1';
 const $=s=>document.querySelector(s);
-let _token=null, RUN={}, CARDS=[], MARKS={}, _blobUrls={}, _saveTimer=null;
+let _token=null, RUN={}, CARDS=[], MARKS={}, _blobUrls={}, _saveTimer=null, RUN_STATUS='WAITING';
 function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
 function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
 function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
@@ -137,35 +161,77 @@ async function fillImg(slot,url){
     slot.replaceWith(img);
   }catch(e){ slot.textContent='нет фото'; }
 }
+function parseUtc(s){
+  if(!s) return null;
+  const t=Date.parse(String(s).endsWith('Z')||String(s).includes('+')?s:s+'Z');
+  return Number.isFinite(t)?t:null;
+}
+function wallMinutes(r){
+  if(r.wall_minutes!=null && r.wall_minutes!=='') return Number(r.wall_minutes);
+  if(r.duration_minutes!=null && r.duration_minutes!=='') return Number(r.duration_minutes);
+  const a=parseUtc(r.started_utc), b=parseUtc(r.ended_utc||r.fill_hook_utc);
+  if(a!=null && b!=null && b>=a) return (b-a)/60000;
+  const spent=Number(r.spent_usd!=null?r.spent_usd:r.cost_usd);
+  const dph=Number(r.dph_usd);
+  if(Number.isFinite(spent)&&Number.isFinite(dph)&&dph>0) return (spent/dph)*60;
+  return null;
+}
+function fmtMoney(v){
+  if(v==null||v==='') return 'n/a';
+  const n=Number(v);
+  return Number.isFinite(n)?('$'+n.toFixed(3)):'n/a';
+}
+function fmtMin(m){
+  if(m==null||!Number.isFinite(m)) return 'n/a';
+  return (Math.round(m*10)/10)+' мин';
+}
 function fmtQ(c){
   const q=c.q_comments||{};
-  const lines=[];
-  if(c.q_verdict) lines.push('Q: '+c.q_verdict);
-  [['faces','лица'],['clothes','одежда'],['invent','invent'],['damage_heal','лечение повреждений'],['sharpness_vs_likeness','резкость vs likeness'],['summary','итог']].forEach(([k,lab])=>{
-    if(q[k]) lines.push(lab+': '+q[k]);
-  });
-  if(!lines.length && c.notes) lines.push(c.notes);
-  return lines.join('\n') || 'WAITING — комментарии появятся после RESULT.';
+  const rows=[['faces','лица'],['clothes','одежда'],['invent','invent'],['damage_heal','лечение повреждений'],['sharpness_vs_likeness','резкость vs likeness']];
+  let body='';
+  rows.forEach(([k,lab])=>{ if(q[k]) body+='<div class="qrow"><span class="qlab">'+esc(lab)+'</span>'+esc(q[k])+'</div>'; });
+  if(q.summary) body+='<div class="qsum">'+esc(q.summary)+'</div>';
+  if(!body && c.notes) body='<div class="qrow">'+esc(c.notes)+'</div>';
+  if(!body) body='<div class="muted">WAITING — оценка Q появится после RESULT.</div>';
+  const verd=c.q_verdict||'WAITING';
+  return '<div class="qhead"><span>оценка Q</span><span class="st '+esc(verd)+'">'+esc(verd)+'</span></div>'+body;
 }
 function paintRun(){
   const r=RUN||{};
-  const cost = (r.cost_usd==null||r.cost_usd==='') ? 'n/a (WAITING)' : ('$'+Number(r.cost_usd).toFixed(4));
+  const model=r.model_stack||r.model||(r.candidate==='brushnet'?'BrushNet (Path C) · face=v1_skip · warehouse weights':(r.candidate||'—'));
+  const spent=r.spent_usd!=null?r.spent_usd:r.cost_usd;
+  const wm=wallMinutes(r);
+  $('#runHero').textContent=model;
+  $('#runSub').textContent=(r.path_c||'Path C')+(r.label?(' · '+r.label):'');
   const cells=[
-    ['кандидат', r.candidate||'—'],
-    ['GPU', r.gpu||'—'],
-    ['стоимость', cost+' · cap $'+(r.cost_cap_usd||1.5)],
-    ['destroy', r.destroy||'PENDING'],
-    ['tip', (r.tip_short||r.tip_commit||'—')],
-    ['UTC старт', r.started_utc||'—'],
-    ['статус', RUN_STATUS||'WAITING'],
+    ['модель / stack', model, true],
+    ['GPU', (r.gpu||'—')+(r.geo?(' · '+r.geo):''), false],
+    ['instance', r.instance_id!=null?String(r.instance_id):'—', false],
+    ['DESTROY', r.destroy||'PENDING', true],
+    ['spent / cap', fmtMoney(spent)+' / '+fmtMoney(r.cost_cap_usd||1.5), true],
+    ['duration', fmtMin(wm)+(r.started_utc?(' · '+r.started_utc+' → '+(r.ended_utc||r.fill_hook_utc||'?')):''), true],
+    ['статус', RUN_STATUS||'WAITING', true],
+    ['tip', r.tip_short||r.tip_commit||'—', false],
   ];
-  $('#runRow').innerHTML=cells.map(([k,v])=>{
-    const cls = (k==='статус'||k==='destroy') ? ('st '+String(v).replace(/\s+/g,'_')) : '';
-    return '<div><span class="k">'+esc(k)+'</span><br><span class="v '+(cls||'')+'">'+(cls?('<span class="'+cls+'">'+esc(v)+'</span>'):esc(v))+'</span></div>';
+  $('#runRow').innerHTML=cells.map(([k,v,hi])=>{
+    const badge=(k==='статус'||k==='DESTROY');
+    const inner=badge?('<span class="st '+esc(String(v).replace(/\s+/g,'_'))+'">'+esc(v)+'</span>'):esc(v);
+    return '<div class="cell"><span class="k">'+esc(k)+'</span><span class="v'+(hi?' big':'')+'">'+inner+'</span></div>';
   }).join('');
   $('#runNote').textContent=r.note||'';
+  const pre=$('#logsPre');
+  if(r.logs_excerpt){ pre.textContent=r.logs_excerpt; }
+  else if(r.logs_file){ pre.textContent='файл логов: '+r.logs_file+' (откройте секцию после загрузки API)'; loadLogsFile(r.logs_file); }
+  else { pre.textContent='Логи прогона пока не приложены.'; }
 }
-let RUN_STATUS='WAITING';
+async function loadLogsFile(name){
+  try{
+    const r=await fetch('/api/admin/gpu-bakeoff/log',{headers:{Authorization:'Bearer '+getToken()}});
+    if(!r.ok) throw new Error('log '+r.status);
+    const t=await r.text();
+    if(t && t.trim()) $('#logsPre').textContent=t;
+  }catch(e){ /* keep excerpt/fallback */ }
+}
 function openLightbox(title,url){
   if(!url) return;
   $('#lbTitle').textContent=title;
@@ -188,7 +254,7 @@ async function render(){
         <div class="shot" data-u="${esc(c.before_url||'')}" data-t="${esc(c.id)} BEFORE"><div class="img-slot"></div><span class="lbl">BEFORE</span></div>
         ${afterHtml}
       </div>
-      <qbox>${esc(fmtQ(c))}</qbox>
+      <div class="qbox">${fmtQ(c)}</div>
       <div class="actions">
         <button type="button" data-v="pass" class="${m.verdict==='pass'?'active-pass':''}">PASS</button>
         <button type="button" data-v="weak" class="${m.verdict==='weak'?'active-weak':''}">WEAK</button>
@@ -213,7 +279,6 @@ async function loadReview(){
   RUN=j.run||{}; RUN_STATUS=j.status||'WAITING'; CARDS=j.cards||[];
   const server=j.marks||{}; const local=loadMarksLocal();
   MARKS=Object.assign({}, server, local);
-  // prefer newer local
   Object.keys(local).forEach(id=>{ const L=local[id]||{}, S=server[id]||{}; if((L.updated_at||0)>=(S.updated_at||0)) MARKS[id]=L; else MARKS[id]=S; });
   cacheMarksLocal(); paintRun(); await render();
 }

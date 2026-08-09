@@ -1196,6 +1196,7 @@ _GPU_BAKEOFF_REVIEW = _RESTORER_ROOT / "gpu_bakeoff_review.json"
 _GPU_BAKEOFF_MARKS = _RESTORER_ROOT / "gpu_bakeoff_marks.json"
 _GPU_BAKEOFF_BEFORE = _RESTORER_ROOT / "gpu_bakeoff" / "before"
 _GPU_BAKEOFF_AFTER = _RESTORER_ROOT / "gpu_bakeoff" / "after"
+_GPU_BAKEOFF_LOG = _RESTORER_ROOT / "gpu_bakeoff" / "run_log.txt"
 _GPU_BAKEOFF_VERDICTS = {"", "pass", "weak", "fail", "PASS", "WEAK", "FAIL", "approve", "bad"}
 
 
@@ -1271,16 +1272,49 @@ async def admin_gpu_bakeoff_review(authorization: str = Header(None)):
         if pid in marks:
             item["mark"] = marks[pid]
         cards_out.append(item)
+    run = dict(data.get("run") or {})
+    # Prefer embedded excerpt; fall back to on-disk sanitized run_log.txt
+    if not str(run.get("logs_excerpt") or "").strip() and _GPU_BAKEOFF_LOG.is_file():
+        try:
+            run["logs_excerpt"] = _GPU_BAKEOFF_LOG.read_text(encoding="utf-8", errors="replace")[:12000]
+            run.setdefault("logs_file", "run_log.txt")
+        except Exception:
+            pass
     return {
         "ok": True,
         "version": data.get("version") or "gpu_bakeoff_review_v1",
         "status": data.get("status") or "WAITING",
         "updated_at_utc": data.get("updated_at_utc") or "",
-        "run": data.get("run") or {},
+        "run": run,
         "cards": cards_out,
         "marks": marks,
         "n_cards": len(cards_out),
     }
+
+
+@app.get("/api/admin/gpu-bakeoff/log")
+async def admin_gpu_bakeoff_log(authorization: str = Header(None)):
+    """Sanitized bake-off run log excerpt (admin only)."""
+    await require_admin(authorization)
+    data = _gpu_bakeoff_load_review()
+    run = data.get("run") or {}
+    excerpt = str(run.get("logs_excerpt") or "").strip()
+    if not excerpt and _GPU_BAKEOFF_LOG.is_file():
+        try:
+            excerpt = _GPU_BAKEOFF_LOG.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            excerpt = ""
+    if not excerpt:
+        raise HTTPException(404, "log unavailable")
+    # hard cap + light sanitize (no secrets patterns)
+    out = excerpt[:20000]
+    for bad in ("Authorization:", "Bearer ", "api_key", "API_KEY", "VAST_API", "OPENAI_API", "sk-"):
+        if bad in out:
+            out = out.replace(bad, "[redacted]")
+    return Response(content=out, media_type="text/plain; charset=utf-8", headers={
+        "Cache-Control": "private, max-age=60",
+        "X-Content-Type-Options": "nosniff",
+    })
 
 
 @app.get("/api/admin/gpu-bakeoff/photo/{filename}")

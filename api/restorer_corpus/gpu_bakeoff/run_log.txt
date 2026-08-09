@@ -1,0 +1,132 @@
+===== GO_RUN_20260809T073218Z.log =====
+n_instances_pre 0 / 0
+n_instances 0 / 0 — proceed single rent
+SPACES_MINT_OK name=smh-pathc-brushnet-20260809073227 id_present=False
+BRUSHNET_TAR 2475366400
+find_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500
+offer {'id': 46064288, 'gpu': 'RTX 4090', 'dph': 0.34725925925925927, 'geo': 'Washington, US', 'disk': 2705.5, 'reliability': 0.9989625, 'inet_down': 1875.1}
+created 47251698
+  running_wait status= ssh=ssh2.vast.ai:11698
+  running_wait status= ssh=ssh2.vast.ai:11698
+  running_wait status= ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=loading ssh=ssh2.vast.ai:11698
+  running_wait status=running ssh=ssh2.vast.ai:11698
+PINNED 47251698 ssh2.vast.ai:11698 dph=0.3496296296296296 gpu=RTX 4090 geo=Washington, US
+scp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1
+scp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1
+scp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1
+scp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1
+scp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1
+scp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1
+scp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1
+scp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1
+launch rc=0 LAUNCH_PID:625
+spend_est=$0.032
+STATUS=RUNNING
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WEIGHTS brushnet
+PATH_A PENDING
+N_JPG 0
+QWEN_DIR_PRESENT False
+spend_est=$0.035
+STATUS=RUNNING
+WEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRGAN_x2plus.pth big-lama.pt brushnet codeformer codeformer.pth
+PATH_A PENDING
+N_JPG 0
+QWEN_DIR_PRESENT False
+spend_est=$0.037
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your s
+…[truncated]
+
+===== path_c_brushnet_host.log =====
+PATH_C_BRUSHNET_HOST START 2026-08-09 07:41 UTC
+n_instances_pre 0 / 0
+n_instances 0 / 0 — proceed single rent
+BRUSHNET_TAR 2475366400
+find_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500
+offer {'id': 22694030, 'gpu': 'RTX 4090', 'dph': 0.4437037037037037, 'geo': 'Spain, ES', 'disk': 443.0, 'reliability': 0.9987047, 'inet_down': 5812.3}
+created 47252245
+  running_wait status= ssh=ssh6.vast.ai:12244
+  running_wait status=loading ssh=ssh6.vast.ai:12244
+  running_wait status=running ssh=ssh6.vast.ai:12244
+PINNED 47252245 ssh6.vast.ai:12244 dph=0.45851851851851855 gpu=RTX 4090 geo=Spain, ES
+scp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1
+scp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1
+scp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1
+scp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1
+scp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1
+scp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1
+scp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1
+scp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1
+launch rc=0 LAUNCH_PID:620
+spend_est=$0.035
+STATUS=RUNNING
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WEIGHTS brushnet
+PATH_A PENDING
+N_JPG 0
+QWEN_DIR_PRESENT False
+spend_est=$0.038
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+CV2_OK 5.0.0
+WEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRGAN_x2plus.pth big-lama.pt brushnet codeformer codeformer.pth ddcolor_modelscope.pth manifest.json weights.sha256.txt
+PATH_A PENDING
+N_JPG 0
+QWEN_DIR_PRESENT False
+spend_est=$0.042
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+CV2_OK 5.0.0
+ESRGAN_PIP_SKIP face=v1_skip
+S2F n=4 face=skip_v1 tile=400 hard=['pd_02', 'pd_05', 'pd_06'] skip_esrgan=['pd_02', 'pd_11'] face_ok=['pd_01', 'pd_11', 'pd_15']
+ESRGAN_LAZY all_ids_skip=['pd_05:esrgan_skip_large_6597x4599', 'pd_02:esrgan_skip_recipe_pd_02'] load_esrgan=never force=True
+WEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRG
+…[truncated]
+
+===== path_c_brushnet_host_rerun.log =====
+n_instances_pre 0 / 0
+n_instances 0 / 0 — proceed single rent
+BRUSHNET_TAR 2475366400
+find_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500
+offer {'id': 22694030, 'gpu': 'RTX 4090', 'dph': 0.4437037037037037, 'geo': 'Spain, ES', 'disk': 443.0, 'reliability': 0.9987047, 'inet_down': 5812.3}
+created 47252245
+  running_wait status= ssh=ssh6.vast.ai:12244
+  running_wait status=loading ssh=ssh6.vast.ai:12244
+  running_wait status=running ssh=ssh6.vast.ai:12244
+PINNED 47252245 ssh6.vast.ai:12244 dph=0.45851851851851855 gpu=RTX 4090 geo=Spain, ES
+scp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1
+scp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1
+scp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1
+scp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1
+scp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1
+scp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1
+scp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1
+scp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1
+launch rc=0 LAUNCH_PID:620
+spend_est=$0.035
+STATUS=RUNNING
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WEIGHTS brushnet
+PATH_A PENDING
+N_JPG 0
+QWEN_DIR_PRESENT False
+spend_est=$0.038
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recomm
+…[truncated]
