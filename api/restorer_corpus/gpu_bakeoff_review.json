@@ -28,8 +28,8 @@
     "quality_note": "Parent eye 4 PASS / 0 WEAK / 0 FAIL — NOT sellable / NOT conveyor / NOT PASS-all claim",
     "flight": "PATH_A_INBOUND4_FULL_R2",
     "boot": "TV_FT_SHIM + CV2_OK + ESRGAN_PIP_NEED + DDCOLOR_PKG_OK/READY + GFPGAN",
-    "tip_short": "855fb51",
-    "tip_commit": "855fb516fd1959eef467ca2e739d53469f857d7b"
+    "tip_short": "906809d",
+    "tip_commit": "906809d8e0f043663c1a5b89bd10151ada03f2ce"
   },
   "cards": [
     {
