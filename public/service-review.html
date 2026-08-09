@@ -49,6 +49,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .fh-card .fh-tag{font-size:11px;color:#8a3a3a}
 .fh-focus-note{margin:8px 0 0;font-size:12px;color:#6a2a2a}
 .card.card-focus{outline:2px solid #c06060;box-shadow:0 0 0 4px rgba(192,96,96,.18);transition:outline-color .2s,box-shadow .2s}
+.actions button[data-copy-case]{color:#6a2a2a}
 .grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -123,7 +124,7 @@ textarea{resize:vertical;min-height:54px}
       <p class="muted" id="failhold-sample" data-marker="failhold-sample-ids" hidden></p>
       <div class="failhold-board" id="failhold-board" data-marker="failhold-board" data-failhold-ids="db_pd_48,db_pd_67,db_pd_111,db_pd_131,pd_03_fade" hidden>
         <h2>FAIL_HOLD redo board</h2>
-        <p class="fh-note">redo · parent eye required · no auto-rerun · spend_E=0 · NO_RENT · ids: db_pd_48, db_pd_67, db_pd_111, db_pd_131, pd_03_fade · click id/thumb → filter FAIL_HOLD + focus card</p>
+        <p class="fh-note">redo · parent eye required · no auto-rerun · spend_E=0 · NO_RENT · ids: db_pd_48, db_pd_67, db_pd_111, db_pd_131, pd_03_fade · click id/thumb → filter FAIL_HOLD + focus card · #case= / ?case= deep-link</p>
         <div class="fh-grid" id="failhold-board-grid"></div>
         <p class="fh-focus-note muted" id="fh-focus-note" data-focus-note hidden></p>
       </div>
@@ -365,26 +366,73 @@ function shortEye(c){
 function setFailHoldFilterBtn(){
   document.querySelectorAll('.filter-btn').forEach(x=>x.classList.toggle('on', x.getAttribute('data-f')==='failhold'));
 }
+function caseIdFromLocation(){
+  /* deep-link: ?case=ID or #case=ID (after auth / cases loaded → focusCase) */
+  try{
+    const q=new URLSearchParams(location.search||'').get('case');
+    if(q && String(q).trim()) return String(q).trim();
+  }catch(e){}
+  const h=location.hash||'';
+  if(h.indexOf('access_token=')>=0) return '';
+  const m=h.match(/^#case=([^&]+)/i);
+  if(!m) return '';
+  try{ return decodeURIComponent(m[1]).trim(); }catch(e){ return String(m[1]||'').trim(); }
+}
+function caseDeepLinkUrl(id){
+  return location.origin+location.pathname+'#case='+encodeURIComponent(id);
+}
+function setCaseDeepLink(id){
+  id=String(id||'').trim(); if(!id) return;
+  const want='#case='+encodeURIComponent(id);
+  if((location.hash||'')===want) return;
+  try{ history.replaceState(null,'',location.pathname+location.search+want); }
+  catch(e){ try{ location.hash=want; }catch(_){ } }
+}
+async function copyCaseLink(id){
+  id=String(id||'').trim(); if(!id) return false;
+  setCaseDeepLink(id);
+  const url=caseDeepLinkUrl(id);
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText) await navigator.clipboard.writeText(url);
+    else {
+      const ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    return true;
+  }catch(e){ return false; }
+}
+function applyCaseDeepLink(){
+  const id=caseIdFromLocation();
+  if(!id || !CASES.length) return false;
+  return focusCase(id);
+}
 function focusCase(id){
-  /* data-focus / scrollIntoView / focusCase — board row click → FAIL_HOLD filter + card focus */
+  /* data-focus / scrollIntoView / focusCase — board row click → FAIL_HOLD filter + card focus + #case= deep link */
+  id=String(id||'').trim();
+  if(!id) return false;
   const note=$('#fh-focus-note');
   if(FILTER!=='failhold'){
     FILTER='failhold';
     setFailHoldFilterBtn();
   }
   render();
+  setCaseDeepLink(id);
   const card=document.querySelector('#grid .card[data-id="'+CSS.escape(id)+'"]') || document.querySelector('#grid [data-id="'+CSS.escape(id)+'"]');
   if(card){
     if(note){ note.hidden=true; note.textContent=''; }
     card.setAttribute('data-focus','1');
     card.classList.add('card-focus');
     try{ card.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){ card.scrollIntoView(true); }
+    const copyBtn=card.querySelector('[data-copy-case]');
+    if(copyBtn){
+      copyBtn.setAttribute('data-focus-copy','1');
+      copyBtn.textContent='ссылка';
+    }
     setTimeout(()=>{ card.classList.remove('card-focus'); card.removeAttribute('data-focus'); }, 1800);
     return true;
   }
   if(note){
     note.hidden=false;
-    note.textContent='Карточка '+id+' не в сетке (фильтр FAIL_HOLD применён).';
+    note.textContent='Карточка '+id+' не в сетке (фильтр FAIL_HOLD применён). Ссылка: #case='+id;
   }
   return false;
 }
@@ -467,6 +515,7 @@ function render(){
         <button type="button" data-v="weak" class="${v==='weak'?'active-weak':''}">WEAK</button>
         <button type="button" data-v="fail" class="${v==='fail'?'active-fail':''}">FAIL</button>
         <button type="button" data-v="">сброс</button>
+        <button type="button" data-copy-case="${esc(c.id)}" title="Копировать #case= ссылку">ссылка</button>
         <span class="save-hint" data-save="${esc(c.id)}"></span>
       </div>
       <label>Комментарий</label>
@@ -490,6 +539,15 @@ function render(){
       cacheMarksLocal(); scheduleSave(id); render();
     });
   });
+  grid.querySelectorAll('.actions button[data-copy-case]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const id=btn.getAttribute('data-copy-case');
+      const ok=await copyCaseLink(id);
+      const hint=btn.parentElement && btn.parentElement.querySelector('[data-save="'+CSS.escape(id)+'"]');
+      if(hint){ hint.textContent=ok?'ссылка скопирована':'не удалось скопировать'; setTimeout(()=>{ if(hint.textContent.indexOf('ссылка')===0||hint.textContent.indexOf('не удалось')===0) hint.textContent=''; }, 1600); }
+      else { btn.textContent=ok?'ок':'err'; setTimeout(()=>{ btn.textContent='ссылка'; }, 1200); }
+    });
+  });
   grid.querySelectorAll('textarea[data-c]').forEach(ta=>{
     ta.addEventListener('input',()=>{ const id=ta.getAttribute('data-c'); MARKS[id]=Object.assign({}, markOf(id), {comment: ta.value}); cacheMarksLocal(); scheduleSave(id); });
   });
@@ -511,6 +569,7 @@ async function loadCases(){
   Object.keys(server).forEach(id=>{ if(!markHas(MARKS[id]) && markHas(server[id])) MARKS[id]=server[id]; });
   cacheMarksLocal();
   paintStats(); render();
+  applyCaseDeepLink();
 }
 async function init(){
   $('#login').onclick=e=>{e.preventDefault();login();};
@@ -528,6 +587,11 @@ async function init(){
   if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
   const me=await r.json(); $('#who').textContent=me.email||'';
   showPanel();
+  window.addEventListener('hashchange',()=>{
+    if(!CASES.length) return;
+    const id=caseIdFromLocation();
+    if(id) focusCase(id);
+  });
   try{ await loadCases(); }catch(e){ $('#grid').innerHTML='<p class="muted">Не удалось загрузить кейсы.</p>'; }
 }
 init();
