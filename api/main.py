@@ -1033,7 +1033,7 @@ async def admin_restorer_photo(filename: str, kind: str = "before", authorizatio
     if kind == "after":
         allowed = set()
         for p in (meta.get("photos") or []):
-            for k in ("after_file", "after_authentic_file", "after_modern_file"):
+            for k in ("after_file", "after_authentic_file", "after_modern_file", "upscale_file"):
                 n = (p.get(k) or "").strip()
                 if n:
                     allowed.add(n)
@@ -1505,18 +1505,28 @@ def _service_build_cases():
         has_after = bool(after_name and _SAFE_NAME.match(after_name) and (after_root / after_name).is_file())
         has_auth = bool(auth_name and _SAFE_NAME.match(auth_name) and (after_root / auth_name).is_file())
         has_mod = bool(mod_name and _SAFE_NAME.match(mod_name) and (after_root / mod_name).is_file())
+        upscale_name = str(p.get("upscale_file") or "").strip()
+        has_upscale = False
+        if upscale_name and _SAFE_NAME.match(upscale_name):
+            if (after_root / upscale_name).is_file():
+                has_upscale = True
+            elif (after_root / "upscale" / upscale_name).is_file():
+                has_upscale = True
+            else:
+                upscale_name = ""
+        else:
+            upscale_name = ""
         # HARD BAN: never invent AFTER for pd_05*
         if pid in _HARD_BAN_INVENT_IDS or pid.startswith("pd_05"):
             if not (has_after or has_auth or has_mod):
                 has_after = has_auth = has_mod = False
+            has_upscale = False
+            upscale_name = ""
         if has_after or has_auth or has_mod:
             after_status = "READY"
         else:
             after_status = "WAITING"
         parent_eye = _service_parent_eye(p)
-        upscale_name = str(p.get("upscale_file") or "").strip()
-        has_upscale = bool(upscale_name and _SAFE_NAME.match(upscale_name) and (after_root / upscale_name).is_file())
-        upscale_status = "DONE" if has_upscale else (str(p.get("upscale_status") or "PLANNED")[:40] or "PLANNED")
         mark = marks.get(pid) or restorer_marks.get(pid) or {}
         # normalize restorer approve/bad → pass/fail for service UI
         if mark and str(mark.get("verdict") or "") in ("approve", "approve_authentic", "approve_modern"):
@@ -1527,6 +1537,20 @@ def _service_build_cases():
             mark = dict(mark)
             mark["verdict"] = "fail"
             mark["verdict_source"] = "restorer_board"
+        mark_up = str((mark or {}).get("upscale_status") or "").strip().upper()
+        if has_upscale:
+            upscale_status = "DONE"
+            upscale_url = f"/api/admin/restorer/photo/{upscale_name}?kind=after"
+        else:
+            upscale_status = mark_up if mark_up in ("PLANNED", "WAITING", "DONE", "SKIP") else "PLANNED"
+            upscale_url = ""
+        mark_up = str((mark or {}).get("upscale_status") or "").strip().upper()
+        if has_upscale:
+            upscale_status = "DONE"
+            upscale_url = f"/api/admin/restorer/photo/{upscale_name}?kind=after"
+        else:
+            upscale_status = mark_up if mark_up in ("PLANNED", "WAITING", "DONE", "SKIP") else "PLANNED"
+            upscale_url = ""
         case = {
             "id": pid,
             "title": pid.replace("_", " "),
@@ -1627,7 +1651,7 @@ async def admin_service_cases(authorization: str = Header(None)):
             "reject invent/plastic",
             "B&W → authentic B&W AFTER + separate color variant",
             "color → authentic restore (no invented recolor)",
-            "upscale = planned field",
+            "upscale = DONE when CORPUS upscale_file exists under after/",
             "parent eye / Roman marks overrule child PASS",
         ],
         "no_rent": True,
