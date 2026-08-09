@@ -1190,6 +1190,165 @@ def _restorer_norm_bbox(raw):
     return {"x": round(x, 6), "y": round(y, 6), "w": round(w, 6), "h": round(h, 6)}
 
 
+
+# ---- GPU bake-off review (private admin; Path C BrushNet) ----
+_GPU_BAKEOFF_REVIEW = _RESTORER_ROOT / "gpu_bakeoff_review.json"
+_GPU_BAKEOFF_MARKS = _RESTORER_ROOT / "gpu_bakeoff_marks.json"
+_GPU_BAKEOFF_BEFORE = _RESTORER_ROOT / "gpu_bakeoff" / "before"
+_GPU_BAKEOFF_AFTER = _RESTORER_ROOT / "gpu_bakeoff" / "after"
+_GPU_BAKEOFF_VERDICTS = {"", "pass", "weak", "fail", "PASS", "WEAK", "FAIL", "approve", "bad"}
+
+
+def _gpu_bakeoff_load_review():
+    if not _GPU_BAKEOFF_REVIEW.is_file():
+        raise HTTPException(503, "gpu bakeoff review unavailable")
+    try:
+        data = json.loads(_GPU_BAKEOFF_REVIEW.read_text(encoding="utf-8"))
+    except Exception:
+        raise HTTPException(500, "gpu bakeoff review corrupt")
+    if not isinstance(data, dict):
+        raise HTTPException(500, "gpu bakeoff review corrupt")
+    return data
+
+
+def _gpu_bakeoff_photo_ids():
+    data = _gpu_bakeoff_load_review()
+    return {str(c.get("id") or "").strip() for c in (data.get("cards") or []) if str(c.get("id") or "").strip()}
+
+
+def _gpu_bakeoff_load_marks():
+    if not _GPU_BAKEOFF_MARKS.is_file():
+        return {}
+    try:
+        raw = json.loads(_GPU_BAKEOFF_MARKS.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    if isinstance(raw, dict) and isinstance(raw.get("marks"), dict):
+        return raw["marks"]
+    if isinstance(raw, dict):
+        return raw
+    return {}
+
+
+def _gpu_bakeoff_save_marks(marks: dict, email: str = ""):
+    payload = {
+        "version": "gpu_bakeoff_marks_v1",
+        "updated_at": int(time.time()),
+        "updated_by": email or "",
+        "marks": marks,
+    }
+    _GPU_BAKEOFF_MARKS.parent.mkdir(parents=True, exist_ok=True)
+    _GPU_BAKEOFF_MARKS.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return payload
+
+
+@app.get("/api/admin/gpu-bakeoff/review")
+async def admin_gpu_bakeoff_review(authorization: str = Header(None)):
+    """Path C / GPU bake-off review board metadata (admin only)."""
+    await require_admin(authorization)
+    data = _gpu_bakeoff_load_review()
+    marks = _gpu_bakeoff_load_marks()
+    cards_out = []
+    for c in (data.get("cards") or []):
+        if not isinstance(c, dict):
+            continue
+        pid = str(c.get("id") or "").strip()
+        before = str(c.get("before_file") or "").strip()
+        after = str(c.get("after_file") or "").strip()
+        after_status = str(c.get("after_status") or "WAITING").strip().upper()
+        has_before = bool(before and _SAFE_NAME.match(before) and (_GPU_BAKEOFF_BEFORE / before).is_file())
+        has_after = bool(after and _SAFE_NAME.match(after) and (_GPU_BAKEOFF_AFTER / after).is_file())
+        if has_after:
+            after_status = "FILLED"
+        elif after_status not in ("WAITING", "NO_AFTER", "FILLED"):
+            after_status = "WAITING"
+        item = dict(c)
+        item["has_before"] = has_before
+        item["has_after"] = has_after
+        item["after_status"] = after_status
+        item["before_url"] = f"/api/admin/gpu-bakeoff/photo/{before}?kind=before" if has_before else ""
+        item["after_url"] = f"/api/admin/gpu-bakeoff/photo/{after}?kind=after" if has_after else ""
+        if pid in marks:
+            item["mark"] = marks[pid]
+        cards_out.append(item)
+    return {
+        "ok": True,
+        "version": data.get("version") or "gpu_bakeoff_review_v1",
+        "status": data.get("status") or "WAITING",
+        "updated_at_utc": data.get("updated_at_utc") or "",
+        "run": data.get("run") or {},
+        "cards": cards_out,
+        "marks": marks,
+        "n_cards": len(cards_out),
+    }
+
+
+@app.get("/api/admin/gpu-bakeoff/photo/{filename}")
+async def admin_gpu_bakeoff_photo(filename: str, kind: str = "before", authorization: str = Header(None)):
+    """Serve bake-off BEFORE/AFTER only to ADMIN_EMAILS."""
+    await require_admin(authorization)
+    name = (filename or "").strip()
+    if not _SAFE_NAME.match(name) or "/" in name or ".." in name:
+        raise HTTPException(400, "bad filename")
+    kind = (kind or "before").strip().lower()
+    if kind not in ("before", "after"):
+        raise HTTPException(400, "bad kind")
+    data = _gpu_bakeoff_load_review()
+    if kind == "after":
+        allowed = {(c.get("after_file") or "").strip() for c in (data.get("cards") or [])}
+        base = _GPU_BAKEOFF_AFTER
+    else:
+        allowed = {(c.get("before_file") or "").strip() for c in (data.get("cards") or [])}
+        base = _GPU_BAKEOFF_BEFORE
+    if name not in allowed:
+        raise HTTPException(404, "not found")
+    path = (base / name).resolve()
+    root = base.resolve()
+    if not str(path).startswith(str(root) + os.sep) or not path.is_file():
+        raise HTTPException(404, "not found")
+    return Response(content=path.read_bytes(), media_type=_restorer_ctype(name), headers={
+        "Cache-Control": "private, max-age=300",
+        "X-Content-Type-Options": "nosniff",
+    })
+
+
+@app.get("/api/admin/gpu-bakeoff/marks")
+async def admin_gpu_bakeoff_marks_get(authorization: str = Header(None)):
+    await require_admin(authorization)
+    marks = _gpu_bakeoff_load_marks()
+    return {"ok": True, "version": "gpu_bakeoff_marks_v1", "marks": marks}
+
+
+@app.put("/api/admin/gpu-bakeoff/marks/{photo_id}")
+async def admin_gpu_bakeoff_mark_one(photo_id: str, request: Request, authorization: str = Header(None)):
+    """Upsert PASS/WEAK/FAIL + comment for one bake-off card."""
+    user = await require_admin(authorization)
+    pid = (photo_id or "").strip()
+    if pid not in _gpu_bakeoff_photo_ids():
+        raise HTTPException(404, "unknown photo")
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    if not isinstance(body, dict):
+        raise HTTPException(400, "object required")
+    verdict = str(body.get("verdict") or "").strip()
+    # normalize UI labels
+    vmap = {"approve": "pass", "bad": "fail", "PASS": "pass", "WEAK": "weak", "FAIL": "fail"}
+    verdict = vmap.get(verdict, verdict).lower()
+    if verdict not in ("", "pass", "weak", "fail"):
+        raise HTTPException(400, "bad verdict")
+    marks = _gpu_bakeoff_load_marks()
+    marks[pid] = {
+        "verdict": verdict,
+        "comment": str(body.get("comment") or "")[:4000],
+        "updated_at": int(time.time()),
+    }
+    email = (user.get("email") or "").strip().lower()
+    payload = _gpu_bakeoff_save_marks(marks, email=email)
+    return {"ok": True, "id": pid, "mark": marks[pid], "updated_at": payload["updated_at"]}
+
+
 def _restorer_load_region_notes():
     if not _RESTORER_REGION_NOTES.is_file():
         return []

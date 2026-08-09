@@ -1,0 +1,88 @@
+{
+  "version": "gpu_bakeoff_review_v1",
+  "status": "WAITING",
+  "updated_at_utc": "2026-08-09T07:38:31Z",
+  "run": {
+    "candidate": "BrushNet",
+    "label": "smh-pathc-brushnet",
+    "gpu": "RTX 4090",
+    "geo": "Washington, US",
+    "instance_id": 47251698,
+    "dph_usd": 0.3496296296296296,
+    "cost_usd": null,
+    "cost_cap_usd": 1.5,
+    "destroy": "PENDING",
+    "tip_commit": "db774a2feddb6d8ce62e0188510f9862b68d2b05",
+    "tip_short": "db774a2",
+    "started_utc": "2026-08-09T07:32:50Z",
+    "result_path": "projects/savemyhistory/.openclaw/tmp/PATH_C_BAKEOFF_GO_RESULT.txt",
+    "path_c": "BrushNet-first ONE 4090 DESTROY",
+    "note": "Bake-off child still running. Scaffold LIVE with BEFORE canaries; AFTER fills via scripts/fill_gpu_bakeoff_review.py when RESULT lands. NEVER invent pd_05 AFTER."
+  },
+  "cards": [
+    {
+      "id": "pd_05",
+      "before_file": "pd_05.jpg",
+      "after_file": "",
+      "after_status": "WAITING",
+      "q_verdict": "",
+      "q_comments": {
+        "faces": "",
+        "clothes": "",
+        "invent": "",
+        "damage_heal": "",
+        "sharpness_vs_likeness": "",
+        "summary": "Path A FAIL_HOLD: тяжёлая деградация / структура. AFTER не выдумывать — только из bake-off RESULT."
+      },
+      "notes": "Path A FAIL_HOLD: тяжёлая деградация / структура. AFTER не выдумывать — только из bake-off RESULT."
+    },
+    {
+      "id": "pd_02",
+      "before_file": "pd_02.jpg",
+      "after_file": "",
+      "after_status": "WAITING",
+      "q_verdict": "",
+      "q_comments": {
+        "faces": "",
+        "clothes": "",
+        "invent": "",
+        "damage_heal": "",
+        "sharpness_vs_likeness": "",
+        "summary": "Path A FAIL_HOLD: абстрактные пятна / likeness. Ждём BrushNet AFTER."
+      },
+      "notes": "Path A FAIL_HOLD: абстрактные пятна / likeness. Ждём BrushNet AFTER."
+    },
+    {
+      "id": "pd_10",
+      "before_file": "pd_10.jpg",
+      "after_file": "",
+      "after_status": "WAITING",
+      "q_verdict": "",
+      "q_comments": {
+        "faces": "",
+        "clothes": "",
+        "invent": "",
+        "damage_heal": "",
+        "sharpness_vs_likeness": "",
+        "summary": "Path A WEAK_HOLD: ghosting child-area. Опциональный canary."
+      },
+      "notes": "Path A WEAK_HOLD: ghosting child-area. Опциональный canary."
+    },
+    {
+      "id": "pd_11",
+      "before_file": "pd_11.jpg",
+      "after_file": "",
+      "after_status": "WAITING",
+      "q_verdict": "",
+      "q_comments": {
+        "faces": "",
+        "clothes": "",
+        "invent": "",
+        "damage_heal": "",
+        "sharpness_vs_likeness": "",
+        "summary": "Path A PASS control: face/ESRGAN law. BEFORE из roman_stage."
+      },
+      "notes": "Path A PASS control: face/ESRGAN law. BEFORE из roman_stage."
+    }
+  ]
+}

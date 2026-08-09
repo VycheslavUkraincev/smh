@@ -3,6 +3,7 @@ Allow: /
 Disallow: /admin.html
 Disallow: /restorer.html
 Disallow: /review.html
+Disallow: /gpu-review.html
 Disallow: /cabinet.html
 Disallow: /api/
 Disallow: /app.html

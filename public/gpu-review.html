@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SaveMyHistory — Ревью GPU bake-off</title>
+<style>
+:root{--paper:#F7F1E7;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32;--card:#fff;--line:#E3D8C5;--ok:#1e7a3f;--weak:#8e5a2b;--fail:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+.badge{display:inline-block;background:#F0E7D7;color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px;letter-spacing:.03em}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;margin:10px 0 6px}
+.who{color:var(--muted);font-size:14px}
+a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
+.gate{max-width:420px;margin:80px auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px}
+.gate h2{font-family:'Cormorant Garamond',Georgia,serif;margin:0 0 10px}
+.gate p{color:var(--muted)}
+.btn{display:inline-block;margin-top:14px;background:var(--gold-d);color:#fff;border:none;border-radius:10px;padding:10px 20px;cursor:pointer;font-size:15px;text-decoration:none;min-height:40px}
+.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.run{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0 22px}
+.run .row{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:14px}
+.run .k{color:var(--muted)}
+.run .v{font-weight:600}
+.st{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700}
+.st.WAITING,.st.PENDING{background:#FBEFD6;color:#8e5a2b}
+.st.FILLED,.st.Y,.st.PASS{background:#E4F6E9;color:var(--ok)}
+.st.WEAK{background:#F3E8D8;color:var(--weak)}
+.st.FAIL,.st.NO_AFTER{background:#FBE4E1;color:var(--fail)}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card h3{margin:0 0 8px;font-size:18px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.shot{position:relative;cursor:zoom-in;border-radius:12px;overflow:hidden;background:#e8dfd0}
+.shot img,.img-slot{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#ddd}
+.shot .lbl{position:absolute;left:8px;top:8px;background:rgba(42,32,24,.72);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px}
+.empty-after{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px;background:#faf6ef}
+qbox{display:block;margin-top:10px;padding:10px;border-radius:10px;background:#faf6ef;border:1px solid var(--line);font-size:13px;white-space:pre-wrap}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.actions button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer;min-height:34px}
+.actions button.active-pass{background:#E4F6E9;border-color:#27ae60;color:#1e7a3f;font-weight:700}
+.actions button.active-weak{background:#F3E8D8;border-color:#c49a6c;color:#8e5a2b;font-weight:700}
+.actions button.active-fail{background:#FBE4E1;border-color:#c0392b;color:#c0392b;font-weight:700}
+label{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
+textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;resize:vertical;background:#fff}
+.footer{margin-top:28px;color:var(--muted);font-size:12px}
+.lb{position:fixed;inset:0;background:rgba(20,14,10,.88);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+.lb.open{display:flex}
+.lb-inner{max-width:min(96vw,1100px);max-height:92vh;display:flex;flex-direction:column;gap:10px}
+.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.lb-stage img{max-width:100%;max-height:78vh;width:auto;height:auto;object-fit:contain}
+.lb-top{display:flex;justify-content:space-between;align-items:center;color:#fff}
+.lb-close{background:transparent;border:0;color:#fff;font-size:28px;cursor:pointer}
+.muted{color:var(--muted);font-size:13px}
+.save-hint{font-size:12px;color:var(--muted);margin-left:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Ревью GPU</h2>
+    <p id="gate-msg">Войдите аккаунтом администратора.</p>
+    <a class="btn" id="login" href="#">Войти через Google</a>
+  </div>
+
+  <div id="panel" style="display:none">
+    <div class="badge">SaveMyHistory · GPU bake-off review · ADMIN</div>
+    <h1>Ревью Path C / GPU bake-off</h1>
+    <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админка</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
+
+    <div class="run" id="runBox">
+      <div class="row" id="runRow"></div>
+      <p class="muted" id="runNote" style="margin:10px 0 0"></p>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <p class="footer">Admin-only. Не утверждает: sellable · conveyor · etalon met · Path C proven. pd_05 AFTER никогда не выдумывается. Fill-hook: scripts/fill_gpu_bakeoff_review.py</p>
+  </div>
+</div>
+
+<div id="lightbox" class="lb" aria-hidden="true">
+  <div class="lb-inner">
+    <div class="lb-top"><div id="lbTitle">фото</div><button type="button" class="lb-close" id="lbClose" aria-label="Закрыть">×</button></div>
+    <div class="lb-stage"><img id="lbImg" alt="просмотр"></div>
+  </div>
+</div>
+
+<script>
+const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
+const MARK_KEY='smh_gpu_bakeoff_marks_v1';
+const $=s=>document.querySelector(s);
+let _token=null, RUN={}, CARDS=[], MARKS={}, _blobUrls={}, _saveTimer=null;
+function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
+function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
+function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
+(function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
+function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+async function login(){
+  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(SB_URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
+  const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/gpu-review.html'}});
+  if(data&&data.url) location.href=data.url;
+}
+function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
+function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
+function markOf(id){ return MARKS[id] || {verdict:'', comment:'', updated_at:0}; }
+function cacheMarksLocal(){ try{ localStorage.setItem(MARK_KEY, JSON.stringify(MARKS)); }catch(e){} }
+function loadMarksLocal(){
+  try{ const raw=localStorage.getItem(MARK_KEY); if(!raw) return {}; const j=JSON.parse(raw); return (j&&typeof j==='object'&&!Array.isArray(j))?j:{}; }catch(e){ return {}; }
+}
+async function persistMark(id){
+  const body=markOf(id); body.updated_at=Math.floor(Date.now()/1000);
+  MARKS[id]=body; cacheMarksLocal();
+  try{
+    const r=await fetch('/api/admin/gpu-bakeoff/marks/'+encodeURIComponent(id),{method:'PUT',headers:H(),body:JSON.stringify(body)});
+    if(!r.ok) throw new Error('mark '+r.status);
+    const hint=document.querySelector('[data-hint="'+CSS.escape(id)+'"]');
+    if(hint){ hint.textContent='сохранено'; setTimeout(()=>{ if(hint.textContent==='сохранено') hint.textContent=''; },1200); }
+  }catch(e){
+    const hint=document.querySelector('[data-hint="'+CSS.escape(id)+'"]');
+    if(hint) hint.textContent='локально (сервер недоступен)';
+  }
+}
+function schedulePersist(id){ clearTimeout(_saveTimer); _saveTimer=setTimeout(()=>persistMark(id),450); }
+async function authFetchBlob(url){
+  const r=await fetch(url,{headers:{Authorization:'Bearer '+getToken()}});
+  if(!r.ok) throw new Error('img '+r.status);
+  return URL.createObjectURL(await r.blob());
+}
+async function fillImg(slot,url){
+  if(!url) return;
+  try{
+    if(!_blobUrls[url]) _blobUrls[url]=await authFetchBlob(url);
+    const img=document.createElement('img'); img.alt=''; img.src=_blobUrls[url];
+    slot.replaceWith(img);
+  }catch(e){ slot.textContent='нет фото'; }
+}
+function fmtQ(c){
+  const q=c.q_comments||{};
+  const lines=[];
+  if(c.q_verdict) lines.push('Q: '+c.q_verdict);
+  [['faces','лица'],['clothes','одежда'],['invent','invent'],['damage_heal','лечение повреждений'],['sharpness_vs_likeness','резкость vs likeness'],['summary','итог']].forEach(([k,lab])=>{
+    if(q[k]) lines.push(lab+': '+q[k]);
+  });
+  if(!lines.length && c.notes) lines.push(c.notes);
+  return lines.join('\n') || 'WAITING — комментарии появятся после RESULT.';
+}
+function paintRun(){
+  const r=RUN||{};
+  const cost = (r.cost_usd==null||r.cost_usd==='') ? 'n/a (WAITING)' : ('$'+Number(r.cost_usd).toFixed(4));
+  const cells=[
+    ['кандидат', r.candidate||'—'],
+    ['GPU', r.gpu||'—'],
+    ['стоимость', cost+' · cap $'+(r.cost_cap_usd||1.5)],
+    ['destroy', r.destroy||'PENDING'],
+    ['tip', (r.tip_short||r.tip_commit||'—')],
+    ['UTC старт', r.started_utc||'—'],
+    ['статус', RUN_STATUS||'WAITING'],
+  ];
+  $('#runRow').innerHTML=cells.map(([k,v])=>{
+    const cls = (k==='статус'||k==='destroy') ? ('st '+String(v).replace(/\s+/g,'_')) : '';
+    return '<div><span class="k">'+esc(k)+'</span><br><span class="v '+(cls||'')+'">'+(cls?('<span class="'+cls+'">'+esc(v)+'</span>'):esc(v))+'</span></div>';
+  }).join('');
+  $('#runNote').textContent=r.note||'';
+}
+let RUN_STATUS='WAITING';
+function openLightbox(title,url){
+  if(!url) return;
+  $('#lbTitle').textContent=title;
+  const img=$('#lbImg');
+  (async()=>{ try{ if(!_blobUrls[url]) _blobUrls[url]=await authFetchBlob(url); img.src=_blobUrls[url]; }catch(e){ img.removeAttribute('src'); } })();
+  $('#lightbox').classList.add('open'); $('#lightbox').setAttribute('aria-hidden','false');
+}
+function closeLightbox(){ $('#lightbox').classList.remove('open'); $('#lightbox').setAttribute('aria-hidden','true'); }
+async function render(){
+  const grid=$('#grid'); grid.innerHTML='';
+  for(const c of CARDS){
+    const m=markOf(c.id);
+    const el=document.createElement('article'); el.className='card';
+    const afterHtml = c.has_after
+      ? `<div class="shot" data-u="${esc(c.after_url||'')}" data-t="${esc(c.id)} AFTER"><div class="img-slot"></div><span class="lbl">AFTER</span></div>`
+      : `<div class="empty-after">${esc(c.after_status||'WAITING')}</div>`;
+    el.innerHTML=`
+      <h3>${esc(c.id)} · <span class="st ${esc(c.after_status||'WAITING')}">${esc(c.after_status||'WAITING')}</span>${c.q_verdict?(' · <span class="st '+esc(c.q_verdict)+'">'+esc(c.q_verdict)+'</span>'):''}</h3>
+      <div class="ba">
+        <div class="shot" data-u="${esc(c.before_url||'')}" data-t="${esc(c.id)} BEFORE"><div class="img-slot"></div><span class="lbl">BEFORE</span></div>
+        ${afterHtml}
+      </div>
+      <qbox>${esc(fmtQ(c))}</qbox>
+      <div class="actions">
+        <button type="button" data-v="pass" class="${m.verdict==='pass'?'active-pass':''}">PASS</button>
+        <button type="button" data-v="weak" class="${m.verdict==='weak'?'active-weak':''}">WEAK</button>
+        <button type="button" data-v="fail" class="${m.verdict==='fail'?'active-fail':''}">FAIL</button>
+        <span class="save-hint" data-hint="${esc(c.id)}"></span>
+      </div>
+      <label>комментарий Романа</label>
+      <textarea rows="3" data-f="comment" placeholder="лица / одежда / invent / damage / sharpness vs likeness">${esc(m.comment||'')}</textarea>`;
+    el.querySelectorAll('button[data-v]').forEach(btn=>btn.onclick=()=>{ MARKS[c.id]=markOf(c.id); MARKS[c.id].verdict=btn.getAttribute('data-v'); persistMark(c.id).then(render); });
+    el.querySelector('textarea').onchange=ev=>{ MARKS[c.id]=markOf(c.id); MARKS[c.id].comment=ev.target.value; schedulePersist(c.id); };
+    el.querySelectorAll('.shot[data-u]').forEach(shot=>{
+      shot.addEventListener('click',()=>openLightbox(shot.getAttribute('data-t')||c.id, shot.getAttribute('data-u')));
+      const slot=shot.querySelector('.img-slot'); if(slot) fillImg(slot, shot.getAttribute('data-u'));
+    });
+    grid.appendChild(el);
+  }
+}
+async function loadReview(){
+  const r=await fetch('/api/admin/gpu-bakeoff/review',{headers:{Authorization:'Bearer '+getToken()}});
+  if(!r.ok) throw new Error('review '+r.status);
+  const j=await r.json();
+  RUN=j.run||{}; RUN_STATUS=j.status||'WAITING'; CARDS=j.cards||[];
+  const server=j.marks||{}; const local=loadMarksLocal();
+  MARKS=Object.assign({}, server, local);
+  // prefer newer local
+  Object.keys(local).forEach(id=>{ const L=local[id]||{}, S=server[id]||{}; if((L.updated_at||0)>=(S.updated_at||0)) MARKS[id]=L; else MARKS[id]=S; });
+  cacheMarksLocal(); paintRun(); await render();
+}
+async function init(){
+  $('#login').onclick=e=>{e.preventDefault();login();};
+  $('#lbClose').onclick=closeLightbox;
+  $('#lightbox').addEventListener('click',e=>{ if(e.target.id==='lightbox') closeLightbox(); });
+  $('#refresh').onclick=e=>{e.preventDefault(); loadReview().catch(()=>{});};
+  if(!getToken()){ showGate(); return; }
+  let r; try{ r=await fetch('/api/admin/check',{headers:{Authorization:'Bearer '+getToken()}}); }catch(e){ showGate('Ошибка сети.'); return; }
+  if(r.status===403){ showGate('Этот аккаунт не админ. Войдите аккаунтом из белого списка.'); return; }
+  if(r.status===401){ setToken(null); showGate('Сессия истекла. Войдите снова.'); return; }
+  if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
+  const me=await r.json(); $('#who').textContent=me.email||'';
+  showPanel();
+  try{ await loadReview(); }catch(e){ $('#grid').innerHTML='<p class="muted">Не удалось загрузить ревью.</p>'; }
+}
+init();
+</script>
+</body>
+</html>
