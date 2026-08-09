@@ -999,7 +999,11 @@
       },
       "roman51_waveD_eye": "FAIL button fidelity fail; shoulder/clothing detail invent",
       "roman51_waveE_eye": "FAIL shoulder/clothing detail invent beyond button fidelity",
-      "roman51_waveF_eye": "PASS button/shoulder clothing fidelity exact BEFORE; no epaulettes invent; colorize only"
+      "roman51_waveF_eye": "PASS button/shoulder clothing fidelity exact BEFORE; no epaulettes invent; colorize only",
+      "upscale_status": "SKIP",
+      "upscale_method": "SKIP",
+      "upscale_file": null,
+      "upscale_note": "modern-only PASS → authentic upscale SKIP (no auth AFTER)"
     },
     {
       "id": "db_pd_41",
@@ -3089,7 +3093,11 @@
       "after_authentic_file": "",
       "roman_note": "[mod] WAVEO parent PASS — worn neutral studio backdrop exact BEFORE; no blue painted backdrop / gold vertical strip invent; clothing/face lock; colorize-only",
       "roman51_waveN_eye": "FAIL invent blue painted backdrop / gold vertical strip vs worn neutral studio BEFORE",
-      "roman51_waveO_eye": "worn neutral studio backdrop exact BEFORE; no blue painted backdrop / gold vertical strip invent; clothing/face lock; colorize-only"
+      "roman51_waveO_eye": "worn neutral studio backdrop exact BEFORE; no blue painted backdrop / gold vertical strip invent; clothing/face lock; colorize-only",
+      "upscale_status": "SKIP",
+      "upscale_method": "SKIP",
+      "upscale_file": null,
+      "upscale_note": "modern-only PASS → authentic upscale SKIP (no auth AFTER)"
     },
     {
       "id": "db_pd_106",

@@ -109,6 +109,10 @@ textarea{resize:vertical;min-height:54px}
       <button type="button" class="filter-btn" data-f="pass">PASS</button>
       <button type="button" class="filter-btn" data-f="weak">WEAK</button>
       <button type="button" class="filter-btn" data-f="fail">FAIL</button>
+      <button type="button" class="filter-btn" data-f="esrgan">ESRGAN</button>
+      <button type="button" class="filter-btn" data-f="pil">PIL FREE</button>
+      <button type="button" class="filter-btn" data-f="upskip">Upscale SKIP</button>
+      <button type="button" class="filter-btn" data-f="updone">Upscale DONE</button>
     </div>
     <div class="grid" id="grid"></div>
     <p class="footer">Admin-only. Не sellable / conveyor / PASS-all. Feedback: /api/admin/service-cases/marks/{id}. Restorer не ломали.</p>
@@ -211,12 +215,18 @@ async function saveMark(id){
 function filtered(){
   return CASES.filter(c=>{
     const m=markOf(c.id); const v=String(m.verdict||'').toLowerCase();
+    const um=String(c.upscale_method||'').trim();
+    const us=String(c.upscale_status||m.upscale_status||'').toUpperCase();
     if(FILTER==='all') return true;
     if(FILTER==='ready') return !!c.has_after;
     if(FILTER==='waiting') return c.after_status==='WAITING';
     if(FILTER==='api_nano') return c.lane==='api_nano';
     if(FILTER==='unmarked') return !markHas(m);
     if(FILTER==='pass'||FILTER==='weak'||FILTER==='fail') return v===FILTER;
+    if(FILTER==='esrgan') return um==='fal-ai/esrgan';
+    if(FILTER==='pil') return um==='PIL_LANCZOS_x2_FREE';
+    if(FILTER==='upskip') return us==='SKIP' || um==='SKIP';
+    if(FILTER==='updone') return us==='DONE';
     return true;
   });
 }
