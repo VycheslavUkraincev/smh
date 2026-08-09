@@ -297,8 +297,8 @@ function render(){
         ${afterHtml}
         ${upHtml}
       </div>
-      <div class="tags">${tags}<span class="tag">upscale:${esc((c.upscale_status==='DONE'?'DONE':(m.upscale_status||c.upscale_status||'PLANNED')))}</span>${c.upscale_method?`<span class="tag">method:${esc(c.upscale_method)}</span>`:""}</div>
-    ${upU?`<div class="shot" data-u="${esc(upU)}" data-t="${esc(c.id)} upscale"><div class="k">Upscale preview</div><img alt="upscale"></div>`:''}
+      <div class="tags">${tags}<span class="tag">upscale:${esc((c.upscale_status==='DONE'?'DONE':(m.upscale_status||c.upscale_status||'PLANNED')))}</span>${c.upscale_method?`<span class="tag meth ${methClass(c.upscale_method)}">method:${esc(methLabel(c.upscale_method))}</span>`:""}</div>
+    ${upU?`<div class="shot" data-u="${esc(upU)}" data-t="${esc(c.id)} upscale"><div class="k">Upscale preview${c.upscale_method?(' · '+esc(methLabel(c.upscale_method))):''}</div><img alt="upscale"></div>`:''}
       ${peBadges(c)}
       <div class="meta">${esc(c.pipeline||'')}</div>
       <div class="actions">
