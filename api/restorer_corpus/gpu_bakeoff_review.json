@@ -1,7 +1,7 @@
 {
   "version": 2,
   "status": "FILLED",
-  "updated_at_utc": "2026-08-09T11:40:20Z",
+  "updated_at_utc": "2026-08-09T11:46:49Z",
   "run": {
     "label": "smh-night1-patha-full",
     "stack": "PathA_FULL_LaMa_GFPGAN_ESRGAN_DDColor",
@@ -25,7 +25,9 @@
     "ddcolor_note": "ddcolor_skip_no_pkg ×4 (weight on disk, package missing) — LaMa+GFPGAN+ESRGAN delivered; still B&W",
     "model": "Path A FULL LaMa→GFPGAN→ESRGAN→DDColor(miss pkg)",
     "stages_note": "lama_ok×4; gfpgan ok×3 (children_dining face_skip torchvision.functional_tensor); esrgan_ok×4; ddcolor_skip_no_pkg×4",
-    "quality_note": "Parent eye WEAK×4 — NOT sellable / NOT conveyor / NOT PASS"
+    "quality_note": "Parent eye WEAK×4 — NOT sellable / NOT conveyor / NOT PASS",
+    "tip_short": "cf38d84",
+    "tip_commit": "cf38d84fbbc5609bafeb17a9bccf1345c8e548ee"
   },
   "cards": [
     {
