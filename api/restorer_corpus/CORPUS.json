@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveK wire PASS ['db_pd_41:mod', 'db_pd_88:mod']; held=['db_pd_111:mod', 'db_pd_131:mod', 'db_pd_48:mod', 'db_pd_67:mod', 'db_pd_85:mod'] 2026-08-09",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveL wire PASS ['db_pd_85:mod']; held=['db_pd_111:mod', 'db_pd_131:mod', 'db_pd_48:mod', 'db_pd_67:mod'] 2026-08-09",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -510,7 +510,7 @@
       "after_modern_file": "",
       "after_file": "db_pd_111_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEK parent-eye FAIL mod — bouquet/flowers/props invent beyond BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:03:15.214404+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVEL parent-eye FAIL mod — bouquet/flowers/props invent beyond BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:13:24.348094+00:00",
       "wave6_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave6_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -521,7 +521,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEK FAIL_HOLD — bouquet/flowers/props invent beyond BEFORE",
+      "roman_note": "[mod] WAVEL FAIL_HOLD — bouquet/flowers/props invent beyond BEFORE",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -531,7 +531,8 @@
         "utc": "2026-08-08T22:57:12.068618+00:00"
       },
       "roman51_waveJ_eye": "FAIL bouquet/flowers invent beyond BEFORE",
-      "roman51_waveK_eye": "FAIL bouquet/flowers/props invent beyond BEFORE"
+      "roman51_waveK_eye": "FAIL bouquet/flowers/props invent beyond BEFORE",
+      "roman51_waveL_eye": "FAIL bouquet/flowers/props invent beyond BEFORE"
     },
     {
       "id": "db_pd_118",
@@ -620,7 +621,7 @@
       "after_modern_file": "",
       "after_file": "db_pd_131_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEK parent-eye FAIL mod — hair style/volume invent vs BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:03:15.214404+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVEL parent-eye FAIL mod — hair style/volume invent vs BEFORE (full QA FAIL; note crop alone insufficient); AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:13:24.348094+00:00",
       "wave6_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave6_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -631,7 +632,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEK FAIL_HOLD — hair style/volume invent vs BEFORE",
+      "roman_note": "[mod] WAVEL FAIL_HOLD — hair style/volume invent vs BEFORE (full QA FAIL; note crop alone insufficient)",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -641,7 +642,8 @@
         "utc": "2026-08-08T22:57:12.068618+00:00"
       },
       "roman51_waveJ_eye": "FAIL hair style/volume invent vs BEFORE",
-      "roman51_waveK_eye": "FAIL hair style/volume invent vs BEFORE"
+      "roman51_waveK_eye": "FAIL hair style/volume invent vs BEFORE",
+      "roman51_waveL_eye": "FAIL hair style/volume invent vs BEFORE (full QA FAIL; note crop alone insufficient)"
     },
     {
       "id": "db_pd_138",
@@ -988,7 +990,7 @@
       "after_modern_file": "",
       "after_file": "db_pd_48_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEK parent-eye FAIL mod — likeness/clothing remake (MOD брак); AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:03:15.214404+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVEL parent-eye FAIL mod — likeness/clothing remake (MOD брак; full QA FAIL); AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:13:24.348094+00:00",
       "wave8_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave8_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -999,7 +1001,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEK FAIL_HOLD — likeness/clothing remake (MOD брак)",
+      "roman_note": "[mod] WAVEL FAIL_HOLD — likeness/clothing remake (MOD брак; full QA FAIL)",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -1009,7 +1011,8 @@
         "utc": "2026-08-08T22:57:12.068618+00:00"
       },
       "roman51_waveJ_eye": "FAIL likeness/clothing remake (MOD брак)",
-      "roman51_waveK_eye": "FAIL likeness/clothing remake (MOD брак)"
+      "roman51_waveK_eye": "FAIL likeness/clothing remake (MOD брак)",
+      "roman51_waveL_eye": "FAIL likeness/clothing remake (MOD брак; full QA FAIL)"
     },
     {
       "id": "db_pd_55",
@@ -2081,7 +2084,7 @@
       "after_authentic_file": "db_pd_67_authentic.jpg",
       "after_file": "db_pd_67_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEK parent-eye FAIL mod — clothing detail drift/invent (flowers/hair crops ok); AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:03:15.214404+00:00",
+      "qa_note": "ROMAN_NOTES51_WAVEL parent-eye FAIL mod — flowers invent + clothing detail drift (hair crop ok; full FAIL); AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:13:24.348094+00:00",
       "wave15_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave15_child_eye": "PASS auth neutral B&W + mod natural color; family-portrait likeness locked",
       "after_modern_file": "",
@@ -2093,9 +2096,10 @@
         "removed": [],
         "utc": "2026-08-08T22:28:44.744482+00:00"
       },
-      "roman_note": "[mod] WAVEK FAIL_HOLD — clothing detail drift/invent (flowers/hair crops ok)",
+      "roman_note": "[mod] WAVEL FAIL_HOLD — flowers invent + clothing detail drift (hair crop ok; full FAIL)",
       "roman51_waveJ_eye": "FAIL flowers invent + clothing detail drift",
-      "roman51_waveK_eye": "FAIL clothing detail drift/invent (flowers/hair crops ok)"
+      "roman51_waveK_eye": "FAIL clothing detail drift/invent (flowers/hair crops ok)",
+      "roman51_waveL_eye": "FAIL flowers invent + clothing detail drift (hair crop ok; full FAIL)"
     },
     {
       "id": "db_pd_81",
@@ -2333,12 +2337,12 @@
       "md5": "6094de82f166bfb4f365ae64300db304",
       "has_after": true,
       "after_authentic_file": "db_pd_85_authentic.jpg",
-      "after_file": "db_pd_85_authentic.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEK parent-eye FAIL mod — lace/embroidered contour invent on garments; AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:03:15.214404+00:00",
+      "after_file": "db_pd_85_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEL_MOD",
+      "qa_note": "ROMAN_NOTES51_WAVEL parent-eye PASS mod; PASS garment edges exact BEFORE; no lace/embroidered contour invent; colorize-only; BEFORE kept LIVE; utc=2026-08-09T01:13:24.348094+00:00",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave17_child_eye": "PASS auth true B&W + mod period color; outdoor-picnic-group likeness locked",
-      "after_modern_file": "",
+      "after_modern_file": "db_pd_85_modern.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
@@ -2347,9 +2351,10 @@
         "removed": [],
         "utc": "2026-08-08T22:28:44.744460+00:00"
       },
-      "roman_note": "[mod] WAVEK FAIL_HOLD — lace/embroidered contour invent on garments",
+      "roman_note": "[mod] WAVEL parent PASS — PASS garment edges exact BEFORE; no lace/embroidered contour invent; colorize-only",
       "roman51_waveJ_eye": "FAIL lace/embroidered contour invent on garments",
-      "roman51_waveK_eye": "FAIL lace/embroidered contour invent on garments"
+      "roman51_waveK_eye": "FAIL lace/embroidered contour invent on garments",
+      "roman51_waveL_eye": "PASS garment edges exact BEFORE; no lace/embroidered contour invent; colorize-only"
     },
     {
       "id": "db_pd_89",
