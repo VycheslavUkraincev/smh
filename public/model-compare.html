@@ -46,6 +46,14 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .nav a{color:var(--gold-d);text-decoration:none;font-size:14px}
 .honesty{margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid #d8c7a8;background:#fff8ef;color:#5c4630;font-size:14px}
 .honesty code{font-size:12px;background:#faf6ef;border:1px solid var(--line);border-radius:6px;padding:1px 5px}
+.matrix-after{margin-top:12px;overflow-x:auto}
+.matrix-after table{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid var(--line);border-radius:10px}
+.matrix-after th,.matrix-after td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.matrix-after th{background:#faf6ef;color:var(--muted);font-weight:700}
+.matrix-after .after-slot{min-width:110px}
+.matrix-after .slot-box{display:block;min-height:54px;border:1px dashed #d2c2a5;border-radius:8px;background:#fbf7f0;padding:6px 7px;color:var(--muted)}
+.matrix-after .slot-box .slot-model{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--ink);margin-bottom:3px}
+.nano-alt-after{margin-top:8px}
 </style>
 </head>
 <body>
@@ -80,18 +88,35 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
     </div>
 
     <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview">
-      <strong>Matrix picks preview</strong> · disk status only · Nano authentic AFTER bar on disk · no new AFTER invent · READY_DRY · spend_E=0
-      <br><code>pd_02_stains</code> before-ok · nano-bar-ok
-      <br><code>pd_03_fade</code> before-ok · nano-bar-ok
-      <br><code>pd_04_soft_portrait</code> before-ok · nano-bar-ok
-      <br><code>pd_06_cracks</code> before-ok · nano-bar-ok
-      <br><code>pd_08_inbound</code> before-ok · nano-bar-ok
-      <br><code>pd_24_group</code> before-ok · nano-bar-ok
-      <br><code>db_pd_100</code> before-ok · nano-bar-ok
-      <br><code>db_pd_101</code> before-ok · nano-bar-ok
-      <br><code>db_pd_102</code> before-ok · nano-bar-ok
-      <br><code>db_pd_104</code> before-ok · nano-bar-ok
-      <br>These 10 run if Roman says exact gate «да matrix 3×3 ≤18E» (pilot) or «да matrix 10×3 ≤60E» (core). Live also needs SMH_NANO_ALT_GO=YES + --force. NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference.
+      <strong>Matrix picks preview</strong> · disk status + empty AFTER slots · Nano authentic AFTER bar on disk · no new AFTER invent · READY_DRY · spend_E=0
+      <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
+      <br>Quote held: pilot ≤18E · core ≤60E · full ≤160E · gate «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
+      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots" id="matrix-after-slots">
+        <table>
+          <thead>
+            <tr>
+              <th>pick id</th>
+              <th>disk</th>
+              <th class="after-slot">AFTER grok-edit</th>
+              <th class="after-slot">AFTER fal-ai/flux-pro/kontext</th>
+              <th class="after-slot">AFTER fal-ai/flux-2-pro/edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-pick="pd_02_stains"><td><code>pd_02_stains</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_03_fade"><td><code>pd_03_fade</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_04_soft_portrait"><td><code>pd_04_soft_portrait</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_06_cracks"><td><code>pd_06_cracks</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_08_inbound"><td><code>pd_08_inbound</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_24_group"><td><code>pd_24_group</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="db_pd_100"><td><code>db_pd_100</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="db_pd_101"><td><code>db_pd_101</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="db_pd_102"><td><code>db_pd_102</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="db_pd_104"><td><code>db_pd_104</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <br>These 10 run if Roman says exact gate «да matrix 3×3 ≤18E» (pilot) or «да matrix 10×3 ≤60E» (core). Live also needs SMH_NANO_ALT_GO=YES + --force. Slots stay empty until then — no invented AFTER.
     </div>
 
     <div class="honesty" id="nano-alt-prompt-notes" data-marker="nano-alt-prompt-notes">
