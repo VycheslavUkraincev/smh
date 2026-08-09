@@ -543,7 +543,7 @@ def stage_face(
     in_path: str,
     out_path: str,
     *,
-    fidelity: float = 0.5,
+    fidelity: float = 0.75,
     model: Optional[str] = None,
 ) -> StageResult:
     """Face restore: GFPGAN (default) or RestoreFormer++."""
@@ -576,13 +576,26 @@ def _stage_gfpgan(in_path: str, out_path: str, *, fidelity: float) -> StageResul
         img = cv2.imread(in_path, cv2.IMREAD_COLOR)
         if img is None:
             raise RuntimeError("decode_failed")
-        # weight: higher → more fidelity to input (less "beautify")
-        w_fid = max(0.0, min(1.0, float(fidelity)))
+        # weight: higher → more fidelity to input (less "beautify"/plastic)
+        # Prefer GFPGAN_WEIGHT env; else fidelity arg (default 0.75).
+        env_w = (os.environ.get("GFPGAN_WEIGHT") or "").strip()
+        w_fid = float(env_w) if env_w else float(fidelity)
+        w_fid = max(0.0, min(1.0, w_fid))
+        only_center = (os.environ.get("GFPGAN_ONLY_CENTER_FACE") or "1").strip().lower() in (
+            "1", "true", "yes", "on"
+        )
         _, _, output = restorer.enhance(
-            img, has_aligned=False, only_center_face=False, paste_back=True, weight=w_fid
+            img,
+            has_aligned=False,
+            only_center_face=only_center,
+            paste_back=True,
+            weight=w_fid,
         )
         _write_bgr(out_path, output)
-        return StageResult("face", "real", True, f"gfpgan:w={w_fid}", in_path, out_path)
+        tag = f"gfpgan:w={w_fid}"
+        if only_center:
+            tag += ":ocf"
+        return StageResult("face", "real", True, tag, in_path, out_path)
     except ImportError:
         pass
     except Exception as e:
@@ -748,6 +761,54 @@ def stage_realesrgan(in_path: str, out_path: str, *, outscale: float = 2.0) -> S
     return StageResult("realesrgan", "stub", True, detail, in_path, out_path)
 
 
+def _ddcolor_tag() -> str:
+    strength = float(os.environ.get("DDCOLOR_STRENGTH", "0.55") or "0.55")
+    chroma = float(os.environ.get("DDCOLOR_CHROMA_SCALE", "0.70") or "0.70")
+    return f"ddcolor_ok_s{strength}_c{chroma}"
+
+
+def _ddcolor_mild_cast(src_bgr, out_bgr):
+    """Blend DDColor invent toward mild cast (less over-color on B&W family)."""
+    try:
+        import cv2
+        import numpy as np
+    except ImportError:
+        return out_bgr
+    if src_bgr is None or out_bgr is None:
+        return out_bgr
+    strength = float(os.environ.get("DDCOLOR_STRENGTH", "0.55") or "0.55")
+    strength = max(0.0, min(1.0, strength))
+    chroma = float(os.environ.get("DDCOLOR_CHROMA_SCALE", "0.70") or "0.70")
+    chroma = max(0.0, min(1.5, chroma))
+    if strength >= 0.999 and chroma >= 0.999:
+        return out_bgr
+    src = src_bgr.astype(np.float32)
+    col = out_bgr.astype(np.float32)
+    if chroma < 0.999:
+        yuv = cv2.cvtColor(np.clip(col, 0, 255).astype(np.uint8), cv2.COLOR_BGR2YUV).astype(
+            np.float32
+        )
+        yuv[:, :, 1] = 128.0 + (yuv[:, :, 1] - 128.0) * chroma
+        yuv[:, :, 2] = 128.0 + (yuv[:, :, 2] - 128.0) * chroma
+        col = cv2.cvtColor(np.clip(yuv, 0, 255).astype(np.uint8), cv2.COLOR_YUV2BGR).astype(
+            np.float32
+        )
+    if strength < 0.999:
+        src_y = cv2.cvtColor(np.clip(src, 0, 255).astype(np.uint8), cv2.COLOR_BGR2YUV)[
+            :, :, 0:1
+        ].astype(np.float32)
+        col_yuv = cv2.cvtColor(np.clip(col, 0, 255).astype(np.uint8), cv2.COLOR_BGR2YUV).astype(
+            np.float32
+        )
+        mild = col_yuv.copy()
+        mild[:, :, 0:1] = src_y
+        mild_bgr = cv2.cvtColor(np.clip(mild, 0, 255).astype(np.uint8), cv2.COLOR_YUV2BGR).astype(
+            np.float32
+        )
+        return np.clip(src * (1.0 - strength) + mild_bgr * strength, 0, 255).astype(np.uint8)
+    return np.clip(col, 0, 255).astype(np.uint8)
+
+
 def stage_ddcolor(in_path: str, out_path: str) -> StageResult:
     """Optional colorization via DDColor."""
     if not enable_ddcolor():
@@ -769,9 +830,10 @@ def stage_ddcolor(in_path: str, out_path: str) -> StageResult:
                 if hasattr(model, "colorize"):
                     img = _read_bgr(in_path)
                     out = model.colorize(img)
+                    out = _ddcolor_mild_cast(img, out)
                     _write_bgr(out_path, out)
                     return StageResult(
-                        "ddcolor", "real", True, "ddcolor", in_path, out_path
+                        "ddcolor", "real", True, _ddcolor_tag(), in_path, out_path
                     )
         except ImportError:
             pass
@@ -781,9 +843,11 @@ def stage_ddcolor(in_path: str, out_path: str) -> StageResult:
             result = pipe(in_path)
             out_img = result.get("output_img") if isinstance(result, dict) else None
             if out_img is not None:
+                src = _read_bgr(in_path)
+                out_img = _ddcolor_mild_cast(src, out_img)
                 _write_bgr(out_path, out_img)
                 return StageResult(
-                    "ddcolor", "real", True, "modelscope", in_path, out_path
+                    "ddcolor", "real", True, "modelscope:" + _ddcolor_tag(), in_path, out_path
                 )
         except ImportError:
             pass
@@ -841,7 +905,7 @@ def run_stages(
     out_path: str,
     stage_names: Sequence[str],
     *,
-    fidelity: float = 0.5,
+    fidelity: float = 0.75,
     work_dir: Optional[str] = None,
     stage_fns: Optional[Dict[str, Callable[..., StageResult]]] = None,
 ) -> PipelineResult:
@@ -910,7 +974,7 @@ def face_restore(
     out_path: str,
     *,
     model: Optional[str] = None,
-    fidelity: float = 0.5,
+    fidelity: float = 0.75,
 ) -> StageResult:
     """Alias → stage_face (GFPGAN | RestoreFormer++ via FACE_MODEL / model=)."""
     return stage_face(in_path, out_path, model=model, fidelity=fidelity)
@@ -935,7 +999,7 @@ def restore_path_a(
     *,
     img_bytes: Optional[bytes] = None,
     prompt: str = "",
-    fidelity: float = 0.5,
+    fidelity: float = 0.75,
     preserve_identity: bool = True,
     colorize: Optional[bool] = None,
 ) -> Any:
