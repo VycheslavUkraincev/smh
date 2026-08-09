@@ -36,6 +36,16 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .hold-banner code{font-size:12px;background:#f7e8d0;padding:1px 6px;border-radius:6px}
 .failhold-banner{margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid #e8b4b4;background:#fff0f0;color:#6a2a2a;font-size:14px}
 .failhold-banner code{font-size:12px;background:#f7dede;padding:1px 6px;border-radius:6px}
+.failhold-board{margin:12px 0 0;padding:12px 12px 10px;border-radius:12px;border:1px solid #e8b4b4;background:#fff7f7}
+.failhold-board h2{margin:0 0 8px;font-size:15px;color:#6a2a2a}
+.failhold-board .fh-note{margin:0 0 10px;font-size:12px;color:#6a2a2a}
+.fh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.fh-card{background:#fff;border:1px solid #e8c4c4;border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.fh-card .fh-id{font-size:13px;font-weight:700;color:var(--ink)}
+.fh-card .fh-qa{font-size:11px;color:#6a2a2a;line-height:1.35;word-break:break-word}
+.fh-card .shot{border-radius:8px}
+.fh-card .shot img,.fh-card .img-slot{aspect-ratio:1/1}
+.fh-card .fh-tag{font-size:11px;color:#8a3a3a}
 .grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -108,6 +118,11 @@ textarea{resize:vertical;min-height:54px}
       <p id="lead">Все существующие AFTER + Nano API core4. PASS / WEAK / FAIL + комментарий пишутся в case DB.</p>
       <div class="stats" id="stats" data-marker="stats-fail-hold"></div>
       <p class="muted" id="failhold-sample" data-marker="failhold-sample-ids" hidden></p>
+      <div class="failhold-board" id="failhold-board" data-marker="failhold-board" data-failhold-ids="db_pd_48,db_pd_67,db_pd_111,db_pd_131,pd_03_fade" hidden>
+        <h2>FAIL_HOLD redo board</h2>
+        <p class="fh-note">redo · parent eye required · no auto-rerun · spend_E=0 · NO_RENT · ids: db_pd_48, db_pd_67, db_pd_111, db_pd_131, pd_03_fade</p>
+        <div class="fh-grid" id="failhold-board-grid"></div>
+      </div>
     </div>
     <div class="filters" id="filters">
       <button type="button" class="filter-btn on" data-f="all">Все</button>
@@ -332,7 +347,48 @@ function paintStats(){
       sample.textContent='';
     }
   }
+  paintFailHoldBoard(failHoldIds);
   $('#lead').textContent=(META.n_cases||n)+' кейсов · AFTER '+(META.n_with_after||withAfter)+' · upscale DONE '+upDone+' / SKIP '+upSkip+' / WAITING after '+upWait+' · ESRGAN '+nEsrgan+' · PIL '+nPil+' · FAIL_HOLD '+nFailHold+' · tip '+(META.git_tip||'—')+' · NO_RENT';
+}
+function shortEye(c){
+  const pe=String(c.parent_eye||'').trim();
+  const qa=String(c.qa_status||'').trim();
+  const note=String(c.qa_note||'').trim();
+  let s=pe||qa||note||'FAIL_HOLD';
+  if(s.length>72) s=s.slice(0,69)+'…';
+  return s;
+}
+function paintFailHoldBoard(ids){
+  const board=$('#failhold-board');
+  const grid=$('#failhold-board-grid');
+  if(!board||!grid) return;
+  const idList=(Array.isArray(ids)&&ids.length)?ids:CASES.filter(isFailHoldCase).map(c=>c.id);
+  if(!idList.length){
+    board.hidden=true;
+    grid.innerHTML='';
+    return;
+  }
+  const byId={};
+  CASES.forEach(c=>{ byId[c.id]=c; });
+  board.hidden=false;
+  grid.innerHTML=idList.map(id=>{
+    const c=byId[id]||{id:id,before_url:''};
+    const qa=String(c.qa_status||'').trim();
+    const pe=String(c.parent_eye||'').trim();
+    const eyeBits=[qa?('qa '+qa):'', pe?('pe '+pe):''].filter(Boolean).join(' · ')||shortEye(c);
+    const short=eyeBits.length>80?eyeBits.slice(0,77)+'…':eyeBits;
+    const before=c.before_url||'';
+    return `<article class="fh-card" data-fh-id="${esc(id)}">
+      <div class="fh-id"><code>${esc(id)}</code></div>
+      <div class="shot" data-u="${esc(before)}" data-t="${esc(id)} before"><div class="img-slot"></div><span class="lbl">ДО</span></div>
+      <div class="fh-qa">${esc(short)}</div>
+      <div class="fh-tag">redo · parent eye required · no auto-rerun</div>
+    </article>`;
+  }).join('');
+  grid.querySelectorAll('.shot[data-u]').forEach(el=>{
+    el.addEventListener('click',()=>{ const u=el.getAttribute('data-u'); if(u) openLightbox(el.getAttribute('data-t')||'', u); });
+  });
+  fillSlots(grid);
 }
 function render(){
   const list=filtered();
