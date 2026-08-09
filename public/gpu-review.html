@@ -33,7 +33,10 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .st.WAITING,.st.PENDING{background:#FBEFD6;color:#8e5a2b}
 .st.FILLED,.st.Y,.st.PASS{background:#E4F6E9;color:var(--ok)}
 .st.WEAK{background:#F3E8D8;color:var(--weak)}
-.st.FAIL,.st.NO_AFTER,.st.N{background:#FBE4E1;color:var(--fail)}
+.st.FAIL,.st.FAIL_NOOP,.st.FAIL_or_NOOP_SAFE,.st.NO_AFTER,.st.N,.st.QUALITY_FAIL{background:#FBE4E1;color:var(--fail)}
+.st.OPS_PASS{background:#E4F6E9;color:var(--ok)}
+.honesty{margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid #e0b4a8;background:#FBE4E1;color:#7a2418;font-size:14px;line-height:1.4}
+.honesty strong{font-weight:700}
 .grid{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -87,6 +90,7 @@ textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;f
     <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админка</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
 
     <div class="run" id="runBox">
+      <div class="honesty" id="honestyBanner"><strong>ops PASS</strong> ($0.103 DESTROY Y) · <strong>quality FAIL</strong> (глаз: AFTER≈BEFORE; pd_05 без лечения; pd_10/11 noop ~0.19%/0.07%)</div>
       <div class="run-hero" id="runHero">—</div>
       <p class="run-sub" id="runSub"></p>
       <div class="row" id="runRow"></div>

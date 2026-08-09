@@ -1,7 +1,7 @@
 {
   "version": "gpu_bakeoff_review_v1",
   "status": "FILLED",
-  "updated_at_utc": "2026-08-09T08:16:00Z",
+  "updated_at_utc": "2026-08-09T09:17:43Z",
   "run": {
     "candidate": "brushnet",
     "label": "smh-pathc-brushnet",
@@ -17,7 +17,7 @@
     "started_utc": "2026-08-09T07:32:50Z",
     "result_path": "projects/savemyhistory/.openclaw/tmp/PATH_C_BAKEOFF_GO_RESULT.txt",
     "path_c": "BrushNet-first ONE 4090 DESTROY",
-    "note": "Path C BrushNet bake-off FILLED. spent=$0.103 DESTROY=Y n_final=0. Real AFTER for pd_05/02/10/11; pd_05 NOT invented. Parent-eye: pd_05 WEAK, pd_02/10/11 PASS. spend_E=0 TELEGRAM:NO.",
+    "note": "ops PASS ($0.103 DESTROY=Y) + quality FAIL (eye says same photo). Pixel metrics from CONVEYOR_READINESS_REPORT: pd_05 mean|Δ|~6.7 pct_changed~24% still looks same; pd_02 mean|Δ|~3.2 pct~11% abstract little useful change; pd_10 mean|Δ|~0.76 pct_changed~0.19% AFTER≈BEFORE; pd_11 mean|Δ|~0.79 pct_changed~0.07% AFTER≈BEFORE. Real GPU AFTER kept (not invented). Not claiming sellable/conveyor/PathC product-ready. spend_E=0 TELEGRAM:NO NO_RENT.",
     "fill_hook_utc": "2026-08-09T07:54:06Z",
     "n_after_filled": 4,
     "model": "BrushNet (Path C)",
@@ -30,7 +30,10 @@
     "wall_minutes": 21.27,
     "cost_minutes_est": 17.68,
     "logs_file": "run_log.txt",
-    "logs_excerpt": "===== GO_RUN_20260809T073218Z.log =====\nn_instances_pre 0 / 0\nn_instances 0 / 0 — proceed single rent\nSPACES_MINT_OK name=smh-pathc-brushnet-20260809073227 id_present=False\nBRUSHNET_TAR 2475366400\nfind_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500\noffer {'id': 46064288, 'gpu': 'RTX 4090', 'dph': 0.34725925925925927, 'geo': 'Washington, US', 'disk': 2705.5, 'reliability': 0.9989625, 'inet_down': 1875.1}\ncreated 47251698\n  running_wait status= ssh=ssh2.vast.ai:11698\n  running_wait status= ssh=ssh2.vast.ai:11698\n  running_wait status= ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=running ssh=ssh2.vast.ai:11698\nPINNED 47251698 ssh2.vast.ai:11698 dph=0.3496296296296296 gpu=RTX 4090 geo=Washington, US\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1\nscp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1\nscp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1\nscp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1\nscp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1\nlaunch rc=0 LAUNCH_PID:625\nspend_est=$0.032\nSTATUS=RUNNING\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWEIGHTS brushnet\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.035\nSTATUS=RUNNING\nWEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRGAN_x2plus.pth big-lama.pt brushnet codeformer codeformer.pth\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.037\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your s\n…[truncated]\n\n===== path_c_brushnet_host.log =====\nPATH_C_BRUSHNET_HOST START 2026-08-09 07:41 UTC\nn_instances_pre 0 / 0\nn_instances 0 / 0 — proceed single rent\nBRUSHNET_TAR 2475366400\nfind_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500\noffer {'id': 22694030, 'gpu': 'RTX 4090', 'dph': 0.4437037037037037, 'geo': 'Spain, ES', 'disk': 443.0, 'reliability': 0.9987047, 'inet_down': 5812.3}\ncreated 47252245\n  running_wait status= ssh=ssh6.vast.ai:12244\n  running_wait status=loading ssh=ssh6.vast.ai:12244\n  running_wait status=running ssh=ssh6.vast.ai:12244\nPINNED 47252245 ssh6.vast.ai:12244 dph=0.45851851851851855 gpu=RTX 4090 geo=Spain, ES\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1\nscp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1\nscp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1\nscp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1\nscp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1\nlaunch rc=0 LAUNCH_PID:620\nspend_est=$0.035\nSTATUS=RUNNING\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWEIGHTS brushnet\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.038\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nCV2_OK 5.0.0\nWEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRGAN_x2plus.pth big-lama.pt brushnet codeformer codeformer.pth ddcolor_modelscope.pth manifest.json weights.sha256.txt\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.042\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nCV2_OK 5.0.0\nESRGAN_PIP_SKIP face=v1_skip\nS2F n=4 face=skip_v1 tile=400 hard=['pd_02', 'pd_05', 'pd_06'] skip_esrgan=['pd_02', 'pd_11'] face_ok=['pd_01', 'pd_11', 'pd_15']\nESRGAN_LAZY all_ids_skip=['pd_05:esrgan_skip_large_6597x4599', 'pd_02:esrgan_skip_recipe_pd_02'] load_esrgan=never force=True\nWEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRG\n…[truncated]\n\n===== path_c_brushnet_host_rerun.log =====\nn_instances_pre 0 / 0\nn_instances 0 / 0 — proceed single rent\nBRUSHNET_TAR 2475366400\nfind_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500\noffer {'id': 22694030, 'gpu': 'RTX 4090', 'dph': 0.4437037037037037, 'geo': 'Spain, ES', 'disk': 443.0, 'reliability': 0.9987047, 'inet_down': 5812.3}\ncreated 47252245\n  running_wait status= ssh=ssh6.vast.ai:12244\n  running_wait status=loading ssh=ssh6.vast.ai:12244\n  running_wait status=running ssh=ssh6.vast.ai:12244\nPINNED 47252245 ssh6.vast.ai:12244 dph=0.45851851851851855 gpu=RTX 4090 geo=Spain, ES\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1\nscp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1\nscp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1\nscp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1\nscp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1\nlaunch rc=0 LAUNCH_PID:620\nspend_est=$0.035\nSTATUS=RUNNING\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWEIGHTS brushnet\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.038\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recomm\n…[truncated]\n"
+    "logs_excerpt": "===== GO_RUN_20260809T073218Z.log =====\nn_instances_pre 0 / 0\nn_instances 0 / 0 — proceed single rent\nSPACES_MINT_OK name=smh-pathc-brushnet-20260809073227 id_present=False\nBRUSHNET_TAR 2475366400\nfind_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500\noffer {'id': 46064288, 'gpu': 'RTX 4090', 'dph': 0.34725925925925927, 'geo': 'Washington, US', 'disk': 2705.5, 'reliability': 0.9989625, 'inet_down': 1875.1}\ncreated 47251698\n  running_wait status= ssh=ssh2.vast.ai:11698\n  running_wait status= ssh=ssh2.vast.ai:11698\n  running_wait status= ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=loading ssh=ssh2.vast.ai:11698\n  running_wait status=running ssh=ssh2.vast.ai:11698\nPINNED 47251698 ssh2.vast.ai:11698 dph=0.3496296296296296 gpu=RTX 4090 geo=Washington, US\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1\nscp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1\nscp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1\nscp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1\nscp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1\nlaunch rc=0 LAUNCH_PID:625\nspend_est=$0.032\nSTATUS=RUNNING\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWEIGHTS brushnet\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.035\nSTATUS=RUNNING\nWEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRGAN_x2plus.pth big-lama.pt brushnet codeformer codeformer.pth\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.037\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your s\n…[truncated]\n\n===== path_c_brushnet_host.log =====\nPATH_C_BRUSHNET_HOST START 2026-08-09 07:41 UTC\nn_instances_pre 0 / 0\nn_instances 0 / 0 — proceed single rent\nBRUSHNET_TAR 2475366400\nfind_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500\noffer {'id': 22694030, 'gpu': 'RTX 4090', 'dph': 0.4437037037037037, 'geo': 'Spain, ES', 'disk': 443.0, 'reliability': 0.9987047, 'inet_down': 5812.3}\ncreated 47252245\n  running_wait status= ssh=ssh6.vast.ai:12244\n  running_wait status=loading ssh=ssh6.vast.ai:12244\n  running_wait status=running ssh=ssh6.vast.ai:12244\nPINNED 47252245 ssh6.vast.ai:12244 dph=0.45851851851851855 gpu=RTX 4090 geo=Spain, ES\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1\nscp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1\nscp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1\nscp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1\nscp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1\nlaunch rc=0 LAUNCH_PID:620\nspend_est=$0.035\nSTATUS=RUNNING\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWEIGHTS brushnet\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.038\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nCV2_OK 5.0.0\nWEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRGAN_x2plus.pth big-lama.pt brushnet codeformer codeformer.pth ddcolor_modelscope.pth manifest.json weights.sha256.txt\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.042\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nCV2_OK 5.0.0\nESRGAN_PIP_SKIP face=v1_skip\nS2F n=4 face=skip_v1 tile=400 hard=['pd_02', 'pd_05', 'pd_06'] skip_esrgan=['pd_02', 'pd_11'] face_ok=['pd_01', 'pd_11', 'pd_15']\nESRGAN_LAZY all_ids_skip=['pd_05:esrgan_skip_large_6597x4599', 'pd_02:esrgan_skip_recipe_pd_02'] load_esrgan=never force=True\nWEIGHTS GFPGANv1.4.pth MANIFEST.md README.md RealESRG\n…[truncated]\n\n===== path_c_brushnet_host_rerun.log =====\nn_instances_pre 0 / 0\nn_instances 0 / 0 — proceed single rent\nBRUSHNET_TAR 2475366400\nfind_offers n=21 blacklist=[47063061] floor_rel=0.99 inet>=500\noffer {'id': 22694030, 'gpu': 'RTX 4090', 'dph': 0.4437037037037037, 'geo': 'Spain, ES', 'disk': 443.0, 'reliability': 0.9987047, 'inet_down': 5812.3}\ncreated 47252245\n  running_wait status= ssh=ssh6.vast.ai:12244\n  running_wait status=loading ssh=ssh6.vast.ai:12244\n  running_wait status=running ssh=ssh6.vast.ai:12244\nPINNED 47252245 ssh6.vast.ai:12244 dph=0.45851851851851855 gpu=RTX 4090 geo=Spain, ES\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/seeded_fail_overrides.json attempt=1\nscp_ok seeded_fail_overrides.json -> /root/p1_ai_eye/seeded_fail_overrides.json attempt=1\nscp_ok pull_weights_from_spaces.sh -> /root/pull_weights_from_spaces.sh attempt=1\nscp_ok path_c_images.tar -> /root/s2f_images.tar attempt=1\nscp_ok path_c_fill_remote.py -> /root/path_c_fill_remote.py attempt=1\nscp_ok path_c_remote_wrap.sh -> /root/path_c_remote_wrap.sh attempt=1\nscp_ok brushnet_weights.tar -> /root/brushnet_weights.tar attempt=1\nlaunch rc=0 LAUNCH_PID:620\nspend_est=$0.035\nSTATUS=RUNNING\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\nWEIGHTS brushnet\nPATH_A PENDING\nN_JPG 0\nQWEN_DIR_PRESENT False\nspend_est=$0.038\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recomm\n…[truncated]\n",
+    "quality_verdict": "FAIL",
+    "ops_verdict": "PASS",
+    "honesty_updated_utc": "2026-08-09T09:17:43Z"
   },
   "cards": [
     {
@@ -38,64 +41,64 @@
       "before_file": "pd_05.jpg",
       "after_file": "pd_05.jpg",
       "after_status": "FILLED",
-      "q_verdict": "WEAK",
+      "q_verdict": "FAIL",
       "q_comments": {
-        "faces": "Групповой кадр: идентичности лиц в целом держатся, без явной подмены и без уплывших глаз; детализация ограничена исходной порчей",
-        "clothes": "Смокинги/платья на местах, фасон и позиции без дрейфа",
-        "invent": "Сильного инвента нет; текстуры сглажены, но сцена не переписана",
-        "damage_heal": "Слабо: царапины/пятна/потеря эмульсии всё ещё доминируют; консервативно, почти без лечения",
-        "sharpness_vs_likeness": "Приоритет likeness соблюдён; без over-sharpen и без выдуманных черт",
-        "summary": "Осторожный AFTER с реальными GPU-пикселями. Locks OK, но для FAIL_HOLD canary польза мала — WEAK"
+        "faces": "Групповой кадр: лица в целом узнаваемы, без грубой подмены — но это не зачёт качества",
+        "clothes": "Смокинги/платья на местах",
+        "invent": "Сильного инвента нет",
+        "damage_heal": "FAIL: царапины/пятна/потеря эмульсии доминируют; видимого лечения нет",
+        "sharpness_vs_likeness": "Likeness удержан ценой noop — для продукта бесполезно",
+        "summary": "QUALITY FAIL — no visible heal; damage remains. pct_changed~24% но глаз: то же фото"
       },
-      "notes": "Path A FAIL_HOLD: тяжёлая деградация / структура. AFTER не выдумывать — только из bake-off RESULT."
+      "notes": "Honest regrade 2026-08-09: FAIL (no visible heal). Real GPU AFTER kept."
     },
     {
       "id": "pd_02",
       "before_file": "pd_02.jpg",
       "after_file": "pd_02.jpg",
       "after_status": "FILLED",
-      "q_verdict": "PASS",
+      "q_verdict": "FAIL_or_NOOP_SAFE",
       "q_comments": {
-        "faces": "Читаемых лиц нет ни до, ни после; псевдолиц/глаз не появилось — критично OK",
-        "clothes": "Одежда неразличима; дрейфа фасона/пуговиц нет",
-        "invent": "Новых объектов/фигур/текста нет; тот же хаос фактуры",
-        "damage_heal": "Содержательно почти без изменений; без агрессивной перерисовки",
-        "sharpness_vs_likeness": "Не купили резкость ценой ложного образа",
-        "summary": "Безопасный AFTER на абстрактном FAIL_HOLD; инвента нет — PASS"
+        "faces": "Читаемых лиц нет ни до, ни после; псевдолиц не появилось",
+        "clothes": "Одежда неразличима",
+        "invent": "Новых объектов нет",
+        "damage_heal": "Содержательно почти без изменений; пользы мало",
+        "sharpness_vs_likeness": "Безопасный noop на абстракте",
+        "summary": "FAIL_or_NOOP_SAFE — abstract; little useful change (mean|Δ|~3.2, pct~11%)"
       },
-      "notes": "Path A FAIL_HOLD: абстрактные пятна / likeness. Ждём BrushNet AFTER."
+      "notes": "Honest regrade 2026-08-09: FAIL_or_NOOP_SAFE. Real GPU AFTER kept."
     },
     {
       "id": "pd_10",
       "before_file": "pd_10.jpg",
       "after_file": "pd_10.jpg",
       "after_status": "FILLED",
-      "q_verdict": "PASS",
+      "q_verdict": "FAIL_NOOP",
       "q_comments": {
-        "faces": "Мужчина/женщина/ребёнок/справа — likeness держится, глаз без подмены",
-        "clothes": "Платье и светлая одежда согласованы с BEFORE; лёгкий контраст, без смены фасона",
-        "invent": "Новых аксессуаров/фона/рук нет",
-        "damage_heal": "Верхняя грязь частично осталась; локально минимально",
-        "sharpness_vs_likeness": "Чуть четче или паритет; likeness в приоритете",
-        "summary": "Узнаваемость сохранена, locks OK — PASS"
+        "faces": "Likeness держится — но AFTER≈BEFORE (~0.19% changed)",
+        "clothes": "Без смены фасона",
+        "invent": "Новых объектов нет",
+        "damage_heal": "Практически идентично BEFORE; лечения нет",
+        "sharpness_vs_likeness": "Технический «не сломали» ≠ реставрация",
+        "summary": "FAIL_NOOP — AFTER≈BEFORE ~0.19%. Quality FAIL for eye."
       },
-      "notes": "Path A WEAK_HOLD: ghosting child-area. Опциональный canary."
+      "notes": "Honest regrade 2026-08-09: FAIL_NOOP. Real GPU AFTER kept."
     },
     {
       "id": "pd_11",
       "before_file": "pd_11.jpg",
       "after_file": "pd_11.jpg",
       "after_status": "FILLED",
-      "q_verdict": "PASS",
+      "q_verdict": "FAIL_NOOP",
       "q_comments": {
-        "faces": "Трое узнаваемы; глаза/нос/улыбки без уплыва",
-        "clothes": "Шапка, пальто, мех, брошь, шарфы стабильны",
-        "invent": "Ребёнок и предметы на руках на местах; без ломающих артефактов",
-        "damage_heal": "Аккуратно, без грубых швов инпейнта",
-        "sharpness_vs_likeness": "Likeness > sharpness выдержан",
-        "summary": "Сильный control PASS для BrushNet Path C"
+        "faces": "Трое узнаваемы — но AFTER≈BEFORE (~0.07% changed)",
+        "clothes": "Шапка/пальто/мех стабильны",
+        "invent": "Без ломающих артефактов",
+        "damage_heal": "Практически идентично BEFORE; noop",
+        "sharpness_vs_likeness": "Control PASS по locks = бесполезен как демо лечения",
+        "summary": "FAIL_NOOP — AFTER≈BEFORE ~0.07%. Quality FAIL for eye."
       },
-      "notes": "Path A PASS control: face/ESRGAN law. BEFORE из roman_stage."
+      "notes": "Honest regrade 2026-08-09: FAIL_NOOP. Real GPU AFTER kept."
     }
   ]
 }
