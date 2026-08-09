@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SaveMyHistory — Сравнение моделей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F7F1E7;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32;--card:#fff;--line:#E3D8C5;--ok:#1e7a3f;--weak:#8e5a2b;--fail:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1100px 420px at 8% -8%,#fff8ea 0%,transparent 55%),radial-gradient(900px 380px at 100% 0%,#eaf3ee 0%,transparent 50%),var(--paper);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+.wrap{max-width:1200px;margin:0 auto;padding:22px 16px 80px}
+.badge{display:inline-block;background:#F0E7D7;color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.7rem,3vw,2.3rem);margin:10px 0 6px}
+h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.45rem;margin:28px 0 12px}
+.who,.muted{color:var(--muted);font-size:14px}
+a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
+.gate{max-width:420px;margin:80px auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px}
+.gate h2{margin:0 0 10px}
+.btn{display:inline-block;margin-top:14px;background:var(--gold-d);color:#fff;border:none;border-radius:10px;padding:10px 20px;cursor:pointer;font-size:15px;text-decoration:none}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0 18px}
+.hero p{margin:0;color:var(--muted);max-width:75ch}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:900px){.grid.models{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card h3{margin:0;font-size:17px}
+.rowtop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}
+.meta{display:grid;grid-template-columns:120px 1fr;gap:6px 10px;font-size:14px;margin:4px 0}
+.meta .k{color:var(--muted)}
+.prompt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:#faf6ef;border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:block}
+.note{color:var(--muted);font-size:13px;margin:10px 0 0}
+.q{display:inline-block;background:#2A2018;color:#fff;border-radius:999px;padding:3px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+.st{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700}
+.st.PASS,.st.OK{background:#E4F6E9;color:var(--ok)}
+.st.WEAK,.st.WAIT{background:#FBEFD6;color:var(--weak)}
+.st.FAIL{background:#FBE4E1;color:var(--fail)}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:12px}
+.shot{background:#faf6ef;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.shot img{display:block;width:100%;height:160px;object-fit:cover;background:#ddd}
+.cap{padding:6px 8px;font-size:12px}
+.cap .sub{color:var(--muted);font-weight:400;margin-top:2px}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 0}
+.nav a{color:var(--gold-d);text-decoration:none;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Сравнение моделей</h2>
+    <p id="gate-msg">Войдите аккаунтом администратора (тот же Google, что и /admin.html).</p>
+    <a class="btn" id="login" href="#">Войти через Google</a>
+    <p class="muted" style="margin-top:16px"><a class="home" href="/admin.html">← Админ-панель</a></p>
+  </div>
+  <div id="panel" style="display:none">
+    <div class="badge">SaveMyHistory · model compare · admin · NO GPU RENT</div>
+    <h1>Сравнение моделей на реальных кейсах</h1>
+    <div class="who">Название · цена · промпт/рецепт · моя оценка Q + PASS/WEAK/FAIL</div>
+    <div class="nav">
+      <a class="home" href="/service-review.html">← Сервис-панель</a>
+      <a class="home" href="/gpu-review.html">GPU review</a>
+      <a class="home" href="/restorer.html">Restorer</a>
+    </div>
+    <div class="hero">
+      <p>Визуально: Face A/B (skip vs GFPGAN/CF/RF++) и API Nano на pd_02/pd_03. Сверху — сводная таблица моделей с ценой и промптом. Parent eye важнее child draft. Не claim: sellable / conveyor / PASS-all.</p>
+    </div>
+
+    <h2>Модели — сводка</h2>
+    <div class="grid models">
+<article class="card model">
+  <div class="rowtop"><h3>skip-face (LaMa → Real-ESRGAN)</h3><span class="q">Q 4/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>Path A face policy</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.001–0.002 / кадр (4090)</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">face=v1_skip · без GFPGAN/CF/RF++ · только inpaint+upscale</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st WAIT">PASS CORE4</span></div>
+  <p class="note">Parent eye WINNER Face A/B inbound4_plus: лица не пластиковые.</p>
+</article>
+<article class="card model">
+  <div class="rowtop"><h3>GFPGAN (Path A face)</h3><span class="q">Q 2/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>Path A face</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.0018 / кадр classic mid</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">LaMa → GFPGAN → Real-ESRGAN → DDColor mild</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st WEAK">WEAK CORE4</span></div>
+  <p class="note">Резкость есть, identity/plastic хуже skip. Default GFPGAN не оправдан.</p>
+</article>
+<article class="card model">
+  <div class="rowtop"><h3>CodeFormer (soft-face gate)</h3><span class="q">Q 2/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>R&D / API soft faces</span></div>
+  <div class="meta"><span class="k">Цена</span><span>API fal CF / OSS R&D · не prod default</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">fidelity~0.9 soft faces only → затем generative; не fill повреждений</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st WEAK">WEAK CORE4</span></div>
+  <p class="note">Face A/B: WEAK. В API — только если лица мыльные.</p>
+</article>
+<article class="card model">
+  <div class="rowtop"><h3>RestoreFormer++ / rfpp_gfpgan_arch</h3><span class="q">Q 1/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>Path A face</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.002 / кадр</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">LaMa → RF++ (факт: rfpp_gfpgan_arch fallback) → ESRGAN</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st WEAK">WEAK/FAIL</span></div>
+  <p class="note">Не полный RF++; identity rewrite риск. Не winner.</p>
+</article>
+<article class="card model">
+  <div class="rowtop"><h3>Nano Banana 2 edit (fal)</h3><span class="q">Q 5/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>API service / chat demo</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.038 / кадр · 2E Portal</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">inspect → CF if soft → Nano identity lock: heal damage only, same faces/clothes/scene; B&W→authentic B&W + optional color</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st WAIT">Q5 BAR / MIXED EYE</span></div>
+  <p class="note">Качественная планка «Готовый». Ночь/конвейер дорого. pd_02 auth PASS; pd_03 mod FAIL demoted.</p>
+</article>
+<article class="card model">
+  <div class="rowtop"><h3>SDXL + ControlNet Tile + IP-Adapter Face</h3><span class="q">Q 3/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>Path C generative</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.001–0.004 / кадр (4090 est.)</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">SDXL inpaint + CN Tile + IPA ViT-H 1280 · damage mask · face freeze</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st FAIL">OPS FAIL_NO_AFTER → FIX READY</span></div>
+  <p class="note">IPA shape fixed (ViT-H HIT). STOP_NO_RERENT until NEW «да A/B SDXL ≤$0.44…».</p>
+</article>
+<article class="card model">
+  <div class="rowtop"><h3>FLUX.1 Fill [dev]</h3><span class="q">Q 3/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>Path C mask-native</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.002–0.006 / кадр</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">Flux Fill mask-only · faces frozen · Path A freeze</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st WAIT">SHELF</span></div>
+  <p class="note">Mask-native топ GEN10. Аренда только по отдельному «да».</p>
+</article>
+<article class="card model">
+  <div class="rowtop"><h3>Qwen-Image-Edit-2511</h3><span class="q">Q 4/5</span></div>
+  <div class="meta"><span class="k">Линия</span><span>Path B/C hybrid</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.003 / кадр</span></div>
+  <div class="meta"><span class="k">Промпт / рецепт</span><span class="prompt">brief → Qwen edit · Apache 2.0 · hard residual only</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st WAIT">WAREHOUSE HIT / RENT BLOCKED</span></div>
+  <p class="note">Долгий hybrid. Не rent без HIT+«да».</p>
+</article></div>
+
+    <h2>Face A/B — inbound4 CORE4</h2>
+    <p class="muted">Потрачено $0.1104 · DESTROY · winner parent eye = <b>skip-face</b></p>
+    
+<article class="card case">
+  <h3>Children dining</h3>
+  <div class="meta"><span class="k">Модели</span><span>skip / GFPGAN / CodeFormer / RF++</span></div>
+  <div class="meta"><span class="k">Цена прогона</span><span>Face A/B share · spent $0.1104 / 12×4</span></div>
+  <div class="meta"><span class="k">Промпт</span><span class="prompt">LaMa → [face variant] → Real-ESRGAN ×2 → DDColor mild</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st PASS">PASS</span> <span class="muted">winner = skip-face</span></div>
+  <div class="shots"><div class="shot"><img src="/model-compare/face_children_dining_before.jpg" alt="before"><div class="cap">До</div></div><div class="shot"><img src="/model-compare/face_children_dining_skip_after.jpg" alt="skip"><div class="cap">skip <span class="st PASS">PASS</span></div></div><div class="shot"><img src="/model-compare/face_children_dining_gfpgan_after.jpg" alt="gfpgan"><div class="cap">gfpgan <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_children_dining_codeformer_after.jpg" alt="codeformer"><div class="cap">codeformer <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_children_dining_rfpp_after.jpg" alt="rfpp"><div class="cap">rfpp <span class="st WEAK">WEAK</span></div></div></div>
+</article>
+<article class="card case">
+  <h3>Family portrait knit</h3>
+  <div class="meta"><span class="k">Модели</span><span>skip / GFPGAN / CodeFormer / RF++</span></div>
+  <div class="meta"><span class="k">Цена прогона</span><span>Face A/B share · spent $0.1104 / 12×4</span></div>
+  <div class="meta"><span class="k">Промпт</span><span class="prompt">LaMa → [face variant] → Real-ESRGAN ×2 → DDColor mild</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st PASS">PASS</span> <span class="muted">winner = skip-face</span></div>
+  <div class="shots"><div class="shot"><img src="/model-compare/face_family_portrait_knit_before.jpg" alt="before"><div class="cap">До</div></div><div class="shot"><img src="/model-compare/face_family_portrait_knit_skip_after.jpg" alt="skip"><div class="cap">skip <span class="st PASS">PASS</span></div></div><div class="shot"><img src="/model-compare/face_family_portrait_knit_gfpgan_after.jpg" alt="gfpgan"><div class="cap">gfpgan <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_family_portrait_knit_codeformer_after.jpg" alt="codeformer"><div class="cap">codeformer <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_family_portrait_knit_rfpp_after.jpg" alt="rfpp"><div class="cap">rfpp <span class="st FAIL">FAIL</span></div></div></div>
+</article>
+<article class="card case">
+  <h3>Mother + baby knit</h3>
+  <div class="meta"><span class="k">Модели</span><span>skip / GFPGAN / CodeFormer / RF++</span></div>
+  <div class="meta"><span class="k">Цена прогона</span><span>Face A/B share · spent $0.1104 / 12×4</span></div>
+  <div class="meta"><span class="k">Промпт</span><span class="prompt">LaMa → [face variant] → Real-ESRGAN ×2 → DDColor mild</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st PASS">PASS</span> <span class="muted">winner = skip-face</span></div>
+  <div class="shots"><div class="shot"><img src="/model-compare/face_mother_baby_knit_before.jpg" alt="before"><div class="cap">До</div></div><div class="shot"><img src="/model-compare/face_mother_baby_knit_skip_after.jpg" alt="skip"><div class="cap">skip <span class="st PASS">PASS</span></div></div><div class="shot"><img src="/model-compare/face_mother_baby_knit_gfpgan_after.jpg" alt="gfpgan"><div class="cap">gfpgan <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_mother_baby_knit_codeformer_after.jpg" alt="codeformer"><div class="cap">codeformer <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_mother_baby_knit_rfpp_after.jpg" alt="rfpp"><div class="cap">rfpp <span class="st WEAK">WEAK</span></div></div></div>
+</article>
+<article class="card case">
+  <h3>Two women studio</h3>
+  <div class="meta"><span class="k">Модели</span><span>skip / GFPGAN / CodeFormer / RF++</span></div>
+  <div class="meta"><span class="k">Цена прогона</span><span>Face A/B share · spent $0.1104 / 12×4</span></div>
+  <div class="meta"><span class="k">Промпт</span><span class="prompt">LaMa → [face variant] → Real-ESRGAN ×2 → DDColor mild</span></div>
+  <div class="meta"><span class="k">Моя оценка</span><span class="st PASS">PASS</span> <span class="muted">winner = skip-face</span></div>
+  <div class="shots"><div class="shot"><img src="/model-compare/face_two_women_studio_before.jpg" alt="before"><div class="cap">До</div></div><div class="shot"><img src="/model-compare/face_two_women_studio_skip_after.jpg" alt="skip"><div class="cap">skip <span class="st PASS">PASS</span></div></div><div class="shot"><img src="/model-compare/face_two_women_studio_gfpgan_after.jpg" alt="gfpgan"><div class="cap">gfpgan <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_two_women_studio_codeformer_after.jpg" alt="codeformer"><div class="cap">codeformer <span class="st WEAK">WEAK</span></div></div><div class="shot"><img src="/model-compare/face_two_women_studio_rfpp_after.jpg" alt="rfpp"><div class="cap">rfpp <span class="st WEAK">WEAK</span></div></div></div>
+</article>
+
+    <h2>API Nano — WAITING wire</h2>
+    <p class="muted">spend_E batch 10 · parent eye: pd_02 auth PASS / mod WEAK · pd_03 auth PASS · modern FAIL снят</p>
+    
+<article class="card case">
+  <div class="rowtop"><h3>pd_02 stains — API Nano</h3><span class="q">Q 4/5</span></div>
+  <div class="meta"><span class="k">Модель</span><span>Nano Banana 2 edit</span></div>
+  <div class="meta"><span class="k">Цена</span><span>2E / вызов (~$0.038)</span></div>
+  <div class="meta"><span class="k">Промпт</span><span class="prompt">identity lock · heal emulsion stains only · no new content</span></div>
+  <div class="shots"><div class="shot"><img src="/model-compare/api_pd_02_stains_before.jpg" alt="before"><div class="cap">До</div></div><div class="shot"><img src="/model-compare/api_pd_02_stains_auth_after.jpg" alt="authentic"><div class="cap">authentic <span class="st PASS">PASS</span><div class="sub">Parent eye: damage heal, no invent</div></div></div><div class="shot"><img src="/model-compare/api_pd_02_stains_mod_after.jpg" alt="modern"><div class="cap">modern <span class="st WEAK">WEAK</span><div class="sub">Parent eye: stylized finish</div></div></div></div>
+  
+</article>
+<article class="card case">
+  <div class="rowtop"><h3>pd_03 fade — API Nano</h3><span class="q">Q 4/5</span></div>
+  <div class="meta"><span class="k">Модель</span><span>Nano Banana 2 edit</span></div>
+  <div class="meta"><span class="k">Цена</span><span>2E / вызов (~$0.038)</span></div>
+  <div class="meta"><span class="k">Промпт</span><span class="prompt">authentic B&W restore · keep AG hat badge · no plastic modern</span></div>
+  <div class="shots"><div class="shot"><img src="/model-compare/api_pd_03_fade_before.jpg" alt="before"><div class="cap">До</div></div><div class="shot"><img src="/model-compare/api_pd_03_fade_auth_after.jpg" alt="authentic"><div class="cap">authentic <span class="st PASS">PASS</span><div class="sub">AG badge + face lock OK</div></div></div></div>
+  <p class="note">modern FAIL demoted (plastic/rewrite) — не на панели</p>
+</article>
+  </div>
+</div>
+<script>
+let _token=null;
+function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
+function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
+function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
+(function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
+async function ensureAuth(){
+  const gate=document.getElementById('gate');
+  const panel=document.getElementById('panel');
+  const login=document.getElementById('login');
+  login.href='/api/auth/google?next='+encodeURIComponent('/model-compare.html');
+  if(!getToken()){ gate.style.display='block'; panel.style.display='none'; return; }
+  try{
+    const r=await fetch('/api/admin/me',{headers:H()});
+    if(!r.ok) throw new Error('auth');
+    gate.style.display='none'; panel.style.display='block';
+  }catch(e){
+    setToken(null);
+    gate.style.display='block'; panel.style.display='none';
+    document.getElementById('gate-msg').textContent='Сессия истекла — войдите снова.';
+  }
+}
+ensureAuth();
+</script>
+</body>
+</html>

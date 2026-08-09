@@ -1,0 +1,342 @@
+{
+  "version": "model_compare_v1",
+  "updated_at": "2026-08-09T20:20Z",
+  "spend_E": 0,
+  "no_rent": true,
+  "smh_path_c_rent": "unset",
+  "honesty": "Parent eye overrules child. Не sellable / conveyor / PASS-all. AFTER только где файлы есть. Цены: measured vs estimate помечены.",
+  "scoreboard": [
+    {
+      "rank": 1,
+      "name": "Nano Banana / Gemini image edit (fal)",
+      "q": 5,
+      "f": 3,
+      "m": 3,
+      "ops": 5,
+      "price": "~$0.038/frame · ~2E edit",
+      "price_kind": "measured API",
+      "verdict": "QUALITY BAR",
+      "note": "Качество эталона; ночной COGS запрещён",
+      "prompt_kind": "text"
+    },
+    {
+      "rank": 2,
+      "name": "Qwen-Image-Edit-2511",
+      "q": 4,
+      "f": 2,
+      "m": 3,
+      "ops": 2,
+      "price": "~$0.002–0.005 (~0.003)",
+      "price_kind": "estimate 4090",
+      "verdict": "RENT BLOCKED",
+      "note": "Warehouse MISS; Apache; long-term hybrid",
+      "prompt_kind": "text+mask"
+    },
+    {
+      "rank": 3,
+      "name": "FLUX.1 Fill [dev]",
+      "q": 3,
+      "f": 4,
+      "m": 5,
+      "ops": 3,
+      "price": "~$0.002–0.006",
+      "price_kind": "estimate 4090",
+      "verdict": "FIRST BAKEOFF",
+      "note": "Mask-native; warehouse MISS; FLUX NC",
+      "prompt_kind": "mask"
+    },
+    {
+      "rank": 4,
+      "name": "FLUX.1 Kontext [dev]",
+      "q": 4,
+      "f": 3,
+      "m": 2,
+      "ops": 3,
+      "price": "~$0.003–0.008",
+      "price_kind": "estimate 4090",
+      "verdict": "SECOND PASS",
+      "note": "Instruction drift risk; not mask-first",
+      "prompt_kind": "text"
+    },
+    {
+      "rank": 5,
+      "name": "SDXL Inpaint + ControlNet + IP-Adapter Face",
+      "q": 3,
+      "f": 5,
+      "m": 4,
+      "ops": 3,
+      "price": "~$0.001–0.004",
+      "price_kind": "estimate 4090",
+      "verdict": "FACE TOOLKIT",
+      "note": "Best OSS F; warehouse MISS",
+      "prompt_kind": "mask+IPA"
+    },
+    {
+      "rank": 6,
+      "name": "SD 1.5 / SDXL plain inpaint",
+      "q": 2,
+      "f": 3,
+      "m": 4,
+      "ops": 4,
+      "price": "~$0.001–0.003",
+      "price_kind": "estimate 4090",
+      "verdict": "FLOOR",
+      "note": "Cheap smoke only",
+      "prompt_kind": "mask"
+    },
+    {
+      "rank": 7,
+      "name": "InstructPix2Pix",
+      "q": 2,
+      "f": 2,
+      "m": 1,
+      "ops": 4,
+      "price": "~$0.001–0.003",
+      "price_kind": "estimate 4090",
+      "verdict": "SKIP Path C",
+      "note": "Full-frame rewrite; fails подлинность",
+      "prompt_kind": "text"
+    },
+    {
+      "rank": 8,
+      "name": "SD 3.5 Medium",
+      "q": 3,
+      "f": 2,
+      "m": 2,
+      "ops": 3,
+      "price": "~$0.002–0.005",
+      "price_kind": "estimate 4090",
+      "verdict": "WATCH",
+      "note": "Not mask-native specialist",
+      "prompt_kind": "text"
+    },
+    {
+      "rank": 9,
+      "name": "BrushNet / PowerPaint",
+      "q": 3,
+      "f": 4,
+      "m": 5,
+      "ops": 4,
+      "price": "~$0.001–0.003",
+      "price_kind": "estimate 4090",
+      "verdict": "LaMa-gen hybrid",
+      "note": "Cheap mask specialist",
+      "prompt_kind": "mask"
+    },
+    {
+      "rank": 10,
+      "name": "Step1X-Edit",
+      "q": 4,
+      "f": 2,
+      "m": 2,
+      "ops": 2,
+      "price": "~$0.004–0.012",
+      "price_kind": "estimate 4090",
+      "verdict": "LATER R&D",
+      "note": "Ops heavy; after Fill/SDXL/Qwen HIT",
+      "prompt_kind": "text"
+    }
+  ],
+  "face_ab": {
+    "source": "FACE_AB_INBOUND4_PLUS_PARENT_EYE",
+    "winner": "skip-face",
+    "amort_usd_per_frame": 0.0023,
+    "amort_note": "measured Face A/B: $0.1104 / 48 frames = $0.0023/frame (4090 Spain, DESTROY)",
+    "path_a_mid_est": "~$0.0018/frame (estimate classic Path A mid)",
+    "pipeline_shared": "pipeline: LaMa → Real-ESRGAN x2 → DDColor mild (best-effort; 0 real colorize this flight)",
+    "variants": [
+      {
+        "id": "skip",
+        "name": "skip-face (LaMa+ESRGAN)",
+        "price": "~$0.0023/frame measured amort",
+        "price_kind": "measured Face A/B",
+        "prompt": "pipeline: LaMa → Real-ESRGAN x2; face=v1_skip (no GFPGAN/CF/RF++)",
+        "default_verdict": "PASS"
+      },
+      {
+        "id": "gfpgan",
+        "name": "GFPGAN face branch",
+        "price": "~$0.0023/frame measured amort",
+        "price_kind": "measured Face A/B",
+        "prompt": "pipeline: LaMa → GFPGAN face → Real-ESRGAN x2",
+        "default_verdict": "WEAK"
+      },
+      {
+        "id": "codeformer",
+        "name": "CodeFormer soft-faces",
+        "price": "~$0.0023/frame measured amort",
+        "price_kind": "measured Face A/B",
+        "prompt": "pipeline: LaMa → CodeFormer (fidelity~0.9 soft) → Real-ESRGAN x2",
+        "default_verdict": "WEAK"
+      },
+      {
+        "id": "rfpp",
+        "name": "RF++ (RestoreFormer.pth via GFPGANer)",
+        "price": "~$0.0023/frame measured amort",
+        "price_kind": "measured Face A/B",
+        "prompt": "pipeline: LaMa → RestoreFormer.pth (rfpp_gfpgan_arch, NOT full RestoreFormer++ pip) → Real-ESRGAN x2",
+        "default_verdict": "WEAK"
+      }
+    ],
+    "cases": [
+      {
+        "id": "children_dining",
+        "title": "children_dining",
+        "scores": {
+          "skip": "PASS",
+          "gfpgan": "WEAK",
+          "codeformer": "WEAK",
+          "rfpp": "WEAK"
+        },
+        "reasons": {
+          "skip": "Лица свои, без пластика",
+          "gfpgan": "Резче, но риск rewrite",
+          "codeformer": "Мягче, identity не лучше skip",
+          "rfpp": "Пластик/rewrite риск"
+        },
+        "before": "/model-compare/face_children_dining_before.jpg",
+        "ba5": "/model-compare/face_children_dining_BA5.jpg",
+        "after": {
+          "skip": "/model-compare/face_children_dining_skip_after.jpg",
+          "gfpgan": "/model-compare/face_children_dining_gfpgan_after.jpg",
+          "codeformer": "/model-compare/face_children_dining_codeformer_after.jpg",
+          "rfpp": "/model-compare/face_children_dining_rfpp_after.jpg"
+        }
+      },
+      {
+        "id": "family_portrait_knit",
+        "title": "family_portrait_knit",
+        "scores": {
+          "skip": "PASS",
+          "gfpgan": "WEAK",
+          "codeformer": "WEAK",
+          "rfpp": "FAIL"
+        },
+        "reasons": {
+          "skip": "Identity держится",
+          "gfpgan": "Beautify/plastic",
+          "codeformer": "Soft rewrite",
+          "rfpp": "Identity FAIL parent"
+        },
+        "before": "/model-compare/face_family_portrait_knit_before.jpg",
+        "ba5": "/model-compare/face_family_portrait_knit_BA5.jpg",
+        "after": {
+          "skip": "/model-compare/face_family_portrait_knit_skip_after.jpg",
+          "gfpgan": "/model-compare/face_family_portrait_knit_gfpgan_after.jpg",
+          "codeformer": "/model-compare/face_family_portrait_knit_codeformer_after.jpg",
+          "rfpp": "/model-compare/face_family_portrait_knit_rfpp_after.jpg"
+        }
+      },
+      {
+        "id": "mother_baby_knit",
+        "title": "mother_baby_knit",
+        "scores": {
+          "skip": "PASS",
+          "gfpgan": "WEAK",
+          "codeformer": "WEAK",
+          "rfpp": "WEAK"
+        },
+        "reasons": {
+          "skip": "Лица без rewrite",
+          "gfpgan": "Резкость ценой likeness",
+          "codeformer": "Не лучше skip",
+          "rfpp": "Plastic risk"
+        },
+        "before": "/model-compare/face_mother_baby_knit_before.jpg",
+        "ba5": "/model-compare/face_mother_baby_knit_BA5.jpg",
+        "after": {
+          "skip": "/model-compare/face_mother_baby_knit_skip_after.jpg",
+          "gfpgan": "/model-compare/face_mother_baby_knit_gfpgan_after.jpg",
+          "codeformer": "/model-compare/face_mother_baby_knit_codeformer_after.jpg",
+          "rfpp": "/model-compare/face_mother_baby_knit_rfpp_after.jpg"
+        }
+      },
+      {
+        "id": "two_women_studio",
+        "title": "two_women_studio",
+        "scores": {
+          "skip": "PASS",
+          "gfpgan": "WEAK",
+          "codeformer": "WEAK",
+          "rfpp": "WEAK"
+        },
+        "reasons": {
+          "skip": "PASS на всех core4",
+          "gfpgan": "Beautify",
+          "codeformer": "Soft plastic",
+          "rfpp": "Rewrite risk"
+        },
+        "before": "/model-compare/face_two_women_studio_before.jpg",
+        "ba5": "/model-compare/face_two_women_studio_BA5.jpg",
+        "after": {
+          "skip": "/model-compare/face_two_women_studio_skip_after.jpg",
+          "gfpgan": "/model-compare/face_two_women_studio_gfpgan_after.jpg",
+          "codeformer": "/model-compare/face_two_women_studio_codeformer_after.jpg",
+          "rfpp": "/model-compare/face_two_women_studio_rfpp_after.jpg"
+        }
+      }
+    ]
+  },
+  "api_nano": {
+    "source": "API_WAITING_PARENT_EYE",
+    "price": "~$0.038/frame · ~2E edit (fal nano-banana-2-edit)",
+    "price_kind": "measured API",
+    "pipeline": "inspect → CF reused (wave2 CFSMALL) → Nano identity lock",
+    "cases": [
+      {
+        "id": "pd_02_stains",
+        "title": "pd_02_stains",
+        "before": "/model-compare/api_pd_02_stains_before.jpg",
+        "variants": [
+          {
+            "name": "Nano Banana authentic",
+            "mode": "auth",
+            "price": "~$0.038/frame · 2E",
+            "price_kind": "measured",
+            "verdict": "PASS",
+            "reason": "Parent: authentic PASS",
+            "prompt": "Strict archival AUTHENTIC restoration of THIS exact damaged photograph only. Repair emulsion stains blotches and surface loss from evidence that remains. Do NOT invent a new subject, face, body, or scene that is not already present. Keep the same composition and crop. TRUE black and white grayscale only. Cold neutral silver gelatin — no sepia, no colorization, no psychedelic textures. Minimal intervention. Not a remake.",
+            "after": "/model-compare/api_pd_02_stains_auth_after.jpg"
+          },
+          {
+            "name": "Nano Banana modern",
+            "mode": "mod",
+            "price": "~$0.038/frame · 2E",
+            "price_kind": "measured",
+            "verdict": "WEAK",
+            "reason": "Parent: stylized / modern WEAK",
+            "prompt": "Natural MODERN color restoration of THIS exact same photograph only. Repair damage first, then careful period-plausible colorization of existing skin hair and clothing. Hard FACE LOCK: same people, same faces, same ages, same hair, same pose, same crop, same clothing. Keep the same background structure - do not invent rooms props scenery. No beauty retouch, no plastic skin, no fashion remake. Same frame, natural color.",
+            "after": "/model-compare/api_pd_02_stains_mod_after.jpg"
+          }
+        ]
+      },
+      {
+        "id": "pd_03_fade",
+        "title": "pd_03_fade",
+        "before": "/model-compare/api_pd_03_fade_before.jpg",
+        "variants": [
+          {
+            "name": "Nano Banana authentic",
+            "mode": "auth",
+            "price": "~$0.038/frame · 2E",
+            "price_kind": "measured",
+            "verdict": "PASS",
+            "reason": "Parent: auth PASS AG+face",
+            "prompt": "Strict archival AUTHENTIC restoration of THIS exact photograph only. Remove scratches dust stains tears cracks fade and surface damage from evidence. Hard FACE LOCK: same people, same faces, same ages, same hair, same pose, same crop, same clothing. TRUE black and white grayscale fresh-print ONLY. Neutral silver gelatin tones. Cold neutral gray — absolutely NO sepia, NO warm tint, NO yellow/brown cast, NO amber, NO colorization. Output must look like a cold archival B&W print, not a toned print. Preserve film grain and paper texture. Do not beautify, reshape faces, invent eyes, invent limbs, or change background. Not a remake. Not a modern photo. Minimal intervention.",
+            "after": "/model-compare/api_pd_03_fade_auth_after.jpg"
+          },
+          {
+            "name": "Nano Banana modern",
+            "mode": "mod",
+            "price": "~$0.038/frame · 2E",
+            "price_kind": "measured",
+            "verdict": "FAIL",
+            "reason": "Parent: plastic/rewrite demoted; AFTER not live",
+            "prompt": "Natural MODERN color restoration of THIS exact same photograph only. Repair damage first, then careful period-plausible colorization of existing skin hair and clothing. Hard FACE LOCK: same people, same faces, same ages, same hair, same pose, same crop, same clothing. Keep the same background structure - do not invent rooms props scenery. No beauty retouch, no plastic skin, no fashion remake. Same frame, natural color.",
+            "after": null
+          }
+        ]
+      }
+    ]
+  }
+}
