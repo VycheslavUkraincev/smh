@@ -1,6 +1,6 @@
 {
   "version": "service_marks_v1",
-  "updated_at": "2026-08-09T20:41:45Z",
+  "updated_at": "2026-08-09T20:43:22Z",
   "updated_by": "api_upscale_expand_pil_x2",
   "marks": {
     "pd_01_scratches": {
@@ -14,21 +14,25 @@
     },
     "pd_02_stains": {
       "verdict": "weak",
-      "comment": "PARENT_EYE auth PASS; modern WEAK stylized; both remain wired",
+      "comment": "PARENT_EYE auth PASS; modern WEAK stylized; both remain wired | upscale DONE fal-ai/esrgan 2x authentic",
       "upscale_status": "DONE",
       "parent_eye": "auth PASS; modern WEAK stylized (parent 2026-08-09)",
       "qa_status": "PARENT_PASS_auth_WEAK_mod",
-      "updated_at": 1786306485,
-      "source": "API_WAITING_PARENT_EYE"
+      "updated_at": 1786307703,
+      "source": "API_UPSCALE_FAL_ESRGAN",
+      "upscale_method": "fal-ai/esrgan",
+      "upscale_file": "pd_02_stains_authentic_upscale.jpg"
     },
     "pd_03_fade": {
       "verdict": "pass",
-      "comment": "PARENT_EYE auth PASS AG+face; modern FAIL plastic demoted; authentic only live",
+      "comment": "PARENT_EYE auth PASS AG+face; modern FAIL plastic demoted; authentic only live | upscale DONE fal-ai/esrgan 2x authentic",
       "upscale_status": "DONE",
       "parent_eye": "auth PASS AG+face; modern FAIL plastic demoted (parent 2026-08-09)",
       "qa_status": "PARENT_PASS_auth_FAIL_mod_demoted",
-      "updated_at": 1786306485,
-      "source": "API_WAITING_PARENT_EYE"
+      "updated_at": 1786307703,
+      "source": "API_UPSCALE_FAL_ESRGAN",
+      "upscale_method": "fal-ai/esrgan",
+      "upscale_file": "pd_03_fade_authentic_upscale.jpg"
     },
     "frida": {
       "upscale_status": "DONE",
