@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveO wire PASS ['db_pd_61:mod']; held=['db_pd_111:mod', 'db_pd_131:mod', 'db_pd_48:mod', 'db_pd_67:mod'] 2026-08-09",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveQ wire PASS ['db_pd_37:auth', 'db_pd_37:mod', 'db_pd_9:auth', 'db_pd_9:mod', 'db_pd_71:auth', 'db_pd_71:mod', 'db_pd_13:auth', 'db_pd_22:auth', 'db_pd_15:auth', 'db_pd_64:auth', 'db_pd_80:auth']; held=['db_pd_13:mod', 'db_pd_22:mod'] 2026-08-09",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -1165,11 +1165,16 @@
       "notes": "WAVE10 Dropbox BEFORE add; color-cast stains couple; no AFTER yet",
       "bytes": 101140,
       "md5": "e46dca024de2e30c176298e933e8a191",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE10 child-QA HOLD — auth FAIL (sepia/color not archival B&W); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "has_after": true,
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEQ",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye PASS mod; prior Wave10 mod PASS invent-clean dual-wire with new auth; colorize-only; BEFORE kept LIVE; utc=2026-08-09T01:57:45.435628+00:00",
       "wave10_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave10_child_eye": "auth=FAIL mod=PASS; auth FAIL (sepia/color not archival B&W); mod PASS alone — dual not wired"
+      "wave10_child_eye": "auth=FAIL mod=PASS; auth FAIL (sepia/color not archival B&W); mod PASS alone — dual not wired",
+      "after_authentic_file": "db_pd_9_authentic.jpg",
+      "after_file": "db_pd_9_modern.jpg",
+      "roman_note": "[mod] WAVEQ parent PASS — prior Wave10 mod PASS invent-clean dual-wire with new auth; colorize-only",
+      "roman51_waveQ_eye": "prior Wave10 mod PASS invent-clean dual-wire with new auth; colorize-only",
+      "after_modern_file": "db_pd_9_modern.jpg"
     },
     {
       "id": "db_pd_15",
@@ -1186,11 +1191,15 @@
       "notes": "WAVE10 Dropbox BEFORE add; stains fade family; no AFTER yet",
       "bytes": 97898,
       "md5": "1e50d3e40e0882f75abe2814fbe7b0ad",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE10 child-QA HOLD — auth FAIL (sepia not B&W) + mod FAIL (over-invented garb/likeness); no LIVE AFTER wired",
+      "has_after": true,
+      "qa_status": "PASS_auth_ROMAN51_WAVEQ",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye PASS auth; archival neutral B&W FORCE_BW mean=0; sepia FAIL cleared; WaveQ new; mod still HOLD; BEFORE kept LIVE; utc=2026-08-09T01:57:45.435628+00:00",
       "wave10_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave10_child_eye": "auth=FAIL mod=FAIL; auth FAIL (sepia not B&W) + mod FAIL (over-invented garb/likeness)"
+      "wave10_child_eye": "auth=FAIL mod=FAIL; auth FAIL (sepia not B&W) + mod FAIL (over-invented garb/likeness)",
+      "after_authentic_file": "db_pd_15_authentic.jpg",
+      "after_file": "db_pd_15_authentic.jpg",
+      "roman_note": "[auth] WAVEQ parent PASS — archival neutral B&W FORCE_BW mean=0; sepia FAIL cleared; WaveQ new; mod still HOLD",
+      "roman51_waveQ_eye": "archival neutral B&W FORCE_BW mean=0; sepia FAIL cleared; WaveQ new; mod still HOLD"
     },
     {
       "id": "db_pd_31",
@@ -1340,11 +1349,16 @@
       "notes": "WAVE11 Dropbox BEFORE add; creases scratches fade two-boys; no AFTER yet",
       "bytes": 322273,
       "md5": "5beba84a022add415e1eefe54f9be162",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE11 child-QA HOLD — mod FAIL (right child outfit/legs altered); auth PASS alone — dual not wired; no LIVE AFTER wired",
+      "has_after": true,
+      "qa_status": "PASS_auth_ROMAN51_WAVEQ_MOD_HOLD",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye FAIL mod — right child outfit/legs altered vs BEFORE (WaveQ redo; invent not colorize-only); AFTER not wired; BEFORE LIVE; counterpart keep if PASS; utc=2026-08-09T01:57:45.435628+00:00",
       "wave11_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave11_child_eye": "auth=PASS mod=FAIL; mod FAIL (right child outfit/legs altered); auth PASS alone — dual not wired"
+      "wave11_child_eye": "auth=PASS mod=FAIL; mod FAIL (right child outfit/legs altered); auth PASS alone — dual not wired",
+      "after_authentic_file": "db_pd_13_authentic.jpg",
+      "after_file": "db_pd_13_authentic.jpg",
+      "roman_note": "[auth] WAVEQ parent PASS — prior Wave11 auth PASS invent-clean dual-wire; FORCE_BW archival neutral (warm prior cleared) | [mod] WAVEQ FAIL_HOLD — right child outfit/legs altered vs BEFORE (WaveQ redo; invent not colorize-only)",
+      "roman51_waveQ_eye": "prior Wave11 auth PASS invent-clean dual-wire; FORCE_BW archival neutral (warm prior cleared); FAIL mod right child outfit/legs altered vs BEFORE (WaveQ redo; invent not colorize-only)",
+      "after_modern_file": ""
     },
     {
       "id": "db_pd_22",
@@ -1362,11 +1376,16 @@
       "notes": "WAVE11 Dropbox BEFORE add; scratches dust fade seated-trio; no AFTER yet",
       "bytes": 271882,
       "md5": "e1457ecd1822e01578410eb020225154",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE11 child-QA HOLD — mod FAIL (stylized/likeness drift); auth PASS alone — dual not wired; no LIVE AFTER wired",
+      "has_after": true,
+      "qa_status": "PASS_auth_ROMAN51_WAVEQ_MOD_HOLD",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye FAIL mod — stylized/likeness drift vs BEFORE (WaveQ redo; faces/clothing not exact); AFTER not wired; BEFORE LIVE; counterpart keep if PASS; utc=2026-08-09T01:57:45.435628+00:00",
       "wave11_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave11_child_eye": "auth=PASS mod=FAIL; mod FAIL (stylized/likeness drift); auth PASS alone — dual not wired"
+      "wave11_child_eye": "auth=PASS mod=FAIL; mod FAIL (stylized/likeness drift); auth PASS alone — dual not wired",
+      "after_authentic_file": "db_pd_22_authentic.jpg",
+      "after_file": "db_pd_22_authentic.jpg",
+      "roman_note": "[auth] WAVEQ parent PASS — prior Wave11 auth PASS invent-clean dual-wire; FORCE_BW archival neutral (warm prior cleared) | [mod] WAVEQ FAIL_HOLD — stylized/likeness drift vs BEFORE (WaveQ redo; faces/clothing not exact)",
+      "roman51_waveQ_eye": "prior Wave11 auth PASS invent-clean dual-wire; FORCE_BW archival neutral (warm prior cleared); FAIL mod stylized/likeness drift vs BEFORE (WaveQ redo; faces/clothing not exact)",
+      "after_modern_file": ""
     },
     {
       "id": "db_pd_64",
@@ -1383,11 +1402,15 @@
       "notes": "WAVE11 Dropbox BEFORE add; stains scratches head-portrait; no AFTER yet",
       "bytes": 173921,
       "md5": "e7f3eba7d5c35289cad31f52c1162e88",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE11 child-QA HOLD — auth FAIL (warm/sepia not archival B&W) + mod FAIL (face/attire remade); no LIVE AFTER wired",
+      "has_after": true,
+      "qa_status": "PASS_auth_ROMAN51_WAVEQ",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye PASS auth; archival neutral B&W FORCE_BW mean=0; warm/sepia cleared; WaveQ new; mod still HOLD; BEFORE kept LIVE; utc=2026-08-09T01:57:45.435628+00:00",
       "wave11_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave11_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm/sepia not archival B&W) + mod FAIL (face/attire remade)"
+      "wave11_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm/sepia not archival B&W) + mod FAIL (face/attire remade)",
+      "after_authentic_file": "db_pd_64_authentic.jpg",
+      "after_file": "db_pd_64_authentic.jpg",
+      "roman_note": "[auth] WAVEQ parent PASS — archival neutral B&W FORCE_BW mean=0; warm/sepia cleared; WaveQ new; mod still HOLD",
+      "roman51_waveQ_eye": "archival neutral B&W FORCE_BW mean=0; warm/sepia cleared; WaveQ new; mod still HOLD"
     },
     {
       "id": "db_pd_71",
@@ -1405,11 +1428,16 @@
       "notes": "WAVE11 Dropbox BEFORE add; color-cast stains border-wear uniform; no AFTER yet",
       "bytes": 208312,
       "md5": "ab146bc119c9db09e4fcbddb0613835e",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE11 child-QA HOLD — auth FAIL (not true grayscale/colorized); mod PASS alone — dual not wired; no LIVE AFTER wired",
+      "has_after": true,
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEQ",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye PASS mod; prior Wave11 mod PASS invent-clean dual-wire with new auth; colorize-only; BEFORE kept LIVE; utc=2026-08-09T01:57:45.435628+00:00",
       "wave11_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave11_child_eye": "auth=FAIL mod=PASS; auth FAIL (not true grayscale/colorized); mod PASS alone — dual not wired"
+      "wave11_child_eye": "auth=FAIL mod=PASS; auth FAIL (not true grayscale/colorized); mod PASS alone — dual not wired",
+      "after_authentic_file": "db_pd_71_authentic.jpg",
+      "after_file": "db_pd_71_modern.jpg",
+      "roman_note": "[mod] WAVEQ parent PASS — prior Wave11 mod PASS invent-clean dual-wire with new auth; colorize-only",
+      "roman51_waveQ_eye": "prior Wave11 mod PASS invent-clean dual-wire with new auth; colorize-only",
+      "after_modern_file": "db_pd_71_modern.jpg"
     },
     {
       "id": "db_pd_20",
@@ -1551,12 +1579,17 @@
       "notes": "WAVE12 Dropbox BEFORE add; scratches dust fade outdoor-group; no AFTER yet",
       "bytes": 375608,
       "md5": "d1079a40d253ebad4e2a7e039129e793",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE12 parent-eye HOLD — auth FAIL (warm/sepia tint chroma R-B≈6.1 not archival B&W); mod PASS alone — dual not wired; BEFORE kept LIVE",
+      "has_after": true,
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEQ",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye PASS mod; prior Wave12 mod PASS invent-clean dual-wire with new auth; colorize-only; BEFORE kept LIVE; utc=2026-08-09T01:57:45.435628+00:00",
       "wave12_note": "HOLD after child-QA; dual AFTER not wired",
       "wave12_child_eye": "auth=FAIL mod=PASS; auth FAIL (warm/sepia tint not archival B&W); mod PASS alone — dual not wired",
-      "wave12_parent_eye": "auth=FAIL mod=PASS; chroma warm R-B≈6.1; confirm FAIL_HOLD BEFORE-only"
+      "wave12_parent_eye": "auth=FAIL mod=PASS; chroma warm R-B≈6.1; confirm FAIL_HOLD BEFORE-only",
+      "after_authentic_file": "db_pd_37_authentic.jpg",
+      "after_file": "db_pd_37_modern.jpg",
+      "roman_note": "[mod] WAVEQ parent PASS — prior Wave12 mod PASS invent-clean dual-wire with new auth; colorize-only",
+      "roman51_waveQ_eye": "prior Wave12 mod PASS invent-clean dual-wire with new auth; colorize-only",
+      "after_modern_file": "db_pd_37_modern.jpg"
     },
     {
       "id": "db_pd_80",
@@ -1574,12 +1607,16 @@
       "notes": "WAVE12 Dropbox BEFORE add; soft fade border-wear studio-portrait; no AFTER yet",
       "bytes": 104421,
       "md5": "b0ab3663e0cf39a6331dc0cab039da1e",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE12 parent-eye HOLD — auth FAIL (warm tint chroma R-B≈6.9) + mod FAIL (stylized remake/likeness drift); BEFORE kept LIVE",
+      "has_after": true,
+      "qa_status": "PASS_auth_ROMAN51_WAVEQ",
+      "qa_note": "ROMAN_NOTES51_WAVEQ parent-eye PASS auth; archival neutral B&W FORCE_BW mean=0; warm tint cleared; WaveQ new; mod still HOLD; BEFORE kept LIVE; utc=2026-08-09T01:57:45.435628+00:00",
       "wave12_note": "HOLD after child-QA; dual AFTER not wired",
       "wave12_child_eye": "auth=FAIL mod=FAIL; auth FAIL (warm tint not B&W) + mod FAIL (stylized remake/likeness drift)",
-      "wave12_parent_eye": "auth=FAIL mod=FAIL; chroma warm R-B≈6.9; confirm FAIL_HOLD BEFORE-only"
+      "wave12_parent_eye": "auth=FAIL mod=FAIL; chroma warm R-B≈6.9; confirm FAIL_HOLD BEFORE-only",
+      "after_authentic_file": "db_pd_80_authentic.jpg",
+      "after_file": "db_pd_80_authentic.jpg",
+      "roman_note": "[auth] WAVEQ parent PASS — archival neutral B&W FORCE_BW mean=0; warm tint cleared; WaveQ new; mod still HOLD",
+      "roman51_waveQ_eye": "archival neutral B&W FORCE_BW mean=0; warm tint cleared; WaveQ new; mod still HOLD"
     },
     {
       "id": "db_pd_12",
