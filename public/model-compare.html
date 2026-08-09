@@ -61,6 +61,10 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .pilot3-bar button{border:1px solid #d8c7a8;background:#fff;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;color:#5c4630}
 .pilot3-bar button:hover{border-color:#c4ae86;background:#fff8ef}
 .pilot3-copy-hint{font-size:12px;color:#5c4630;min-height:1.2em}
+.pilot3-before{margin-top:10px}
+.pilot3-before-shots{margin-top:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.pilot3-before .before-missing{display:flex;align-items:center;justify-content:center;height:160px;background:#fbf7f0;border-bottom:1px solid var(--line);color:var(--weak);font-size:12px;font-weight:700;text-align:center;padding:8px}
+.pilot3-before .shot[data-pilot-before="1"]{border-color:#cfe8d6}
 </style>
 </head>
 <body>
@@ -141,12 +145,30 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Pilot ids (first 3 of Top-10): <code>pd_02_stains</code> <code>pd_03_fade</code> <code>pd_04_soft_portrait</code>
       <br>Honesty: pilot 3×3 → <strong>9 calls / 18E</strong> · core 10×3 → TOTAL_CALLS=30 / TOTAL_E=60 · full 10×8 ≤160E
       <br>READY_DRY · LIVE_BLOCKED without exact gate да (+ SMH_NANO_ALT_GO=YES + --force). NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference.
+      <div class="pilot3-before" id="nano-alt-matrix-pilot3-before" data-marker="nano-alt-matrix-pilot3-before" data-pilot-before="1" data-pilot3="1">
+        <strong>Pilot 3×3 · BEFORE thumbs</strong> · FREE preview for Roman eye before «да» · spend_E=0 · no fal · no inference · no AFTER invent · <span class="pilot-badge" data-pilot="1">пилот 3×3</span>
+        <br>Status from picks: nano-bar-ok held · AFTER slots stay empty (WAITING / READY_DRY) · public thumb only if asset already on /model-compare/
+        <div class="shots pilot3-before-shots" data-marker="pilot3-before">
+          <div class="shot" data-pick="pd_02_stains" data-pilot="1" data-pilot3="1" data-pilot-before="1">
+            <img src="/model-compare/api_pd_02_stains_before.jpg" alt="pd_02_stains before">
+            <div class="cap"><code>pd_02_stains</code> · before-ok · nano-bar-ok · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">BEFORE only · no AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="pd_03_fade" data-pilot="1" data-pilot3="1" data-pilot-before="1">
+            <img src="/model-compare/api_pd_03_fade_before.jpg" alt="pd_03_fade before">
+            <div class="cap"><code>pd_03_fade</code> · before-ok · nano-bar-ok · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">BEFORE only · no AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="pd_04_soft_portrait" data-pilot="1" data-pilot3="1" data-pilot-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>pd_04_soft_portrait</code> · before-missing · nano-bar-ok · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+        </div>
+      </div>
       <div class="pilot3-bar" data-marker="pilot3-copy-bar" id="pilot-3">
         <button type="button" id="pilot3-copy-18" data-copy-gate="да matrix 3×3 ≤18E" title="Скопировать точную gate-фразу pilot">копировать «да matrix 3×3 ≤18E»</button>
         <button type="button" id="pilot3-copy-60" data-copy-gate="да matrix 10×3 ≤60E" title="Скопировать точную gate-фразу core">копировать «да matrix 10×3 ≤60E»</button>
         <span class="pilot3-copy-hint" id="pilot3-copy-hint" data-copy-hint aria-live="polite"></span>
       </div>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-pilot3">→ service-review pilot mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-pilot3-before">→ service-review pilot BEFORE mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-prompt-notes" data-marker="nano-alt-prompt-notes">
