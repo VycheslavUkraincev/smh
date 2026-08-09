@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SaveMyHistory — Сервис-панель API (Nano)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F7F1E7;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32;--card:#fff;--line:#E3D8C5;--ok:#1e7a3f;--weak:#8e5a2b;--fail:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1100px 420px at 8% -8%,#fff8ea 0%,transparent 55%),radial-gradient(900px 380px at 100% 0%,#eaf3ee 0%,transparent 50%),var(--paper);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+.badge{display:inline-block;background:#F0E7D7;color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.7rem,3vw,2.2rem);margin:10px 0 6px}
+.who{color:var(--muted);font-size:14px}
+a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
+.gate{max-width:420px;margin:80px auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px}
+.gate h2{font-family:'Cormorant Garamond',Georgia,serif;margin:0 0 10px}
+.gate p{color:var(--muted)}
+.btn{display:inline-block;margin-top:14px;background:var(--gold-d);color:#fff;border:none;border-radius:10px;padding:10px 20px;cursor:pointer;font-size:15px;text-decoration:none}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0 18px}
+.hero p{margin:0;color:var(--muted);max-width:70ch}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.stat{background:#faf6ef;border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:110px}
+.stat b{display:block;font-size:1.35rem}
+.stat span{color:var(--muted);font-size:12px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.filter-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;font:inherit}
+.filter-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card h3{margin:0 0 8px;font-size:17px}
+.st{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700}
+.st.READY,.st.PASS,.st.HAS_ETALON{background:#E4F6E9;color:var(--ok)}
+.st.WAITING,.st.PLANNED,.st.NEED_ETALON{background:#FBEFD6;color:var(--weak)}
+.st.WEAK{background:#F3E8D8;color:var(--weak)}
+.st.FAIL{background:#FBE4E1;color:var(--fail)}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ba.triple{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:700px){.ba,.ba.triple{grid-template-columns:1fr}}
+.shot{position:relative;cursor:zoom-in;border-radius:12px;overflow:hidden;background:#e8dfd0}
+.shot img,.img-slot{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#ddd}
+.shot .lbl{position:absolute;left:8px;top:8px;background:rgba(42,32,24,.72);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px}
+.empty-after{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px;background:#faf6ef;text-align:center;padding:8px}
+.meta{margin-top:8px;font-size:13px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tag{font-size:11px;padding:3px 8px;border-radius:999px;background:#eef3f0;color:#355246}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.actions button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer}
+.actions button.active-pass{background:#E4F6E9;border-color:#27ae60;color:#1e7a3f;font-weight:700}
+.actions button.active-weak{background:#F3E8D8;border-color:#c49a6c;color:#8e5a2b;font-weight:700}
+.actions button.active-fail{background:#FBE4E1;border-color:#c0392b;color:#c0392b;font-weight:700}
+label{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
+textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;background:#fff}
+textarea{resize:vertical;min-height:54px}
+.honesty{margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid #d8c7a8;background:#fff8ef;color:#5c4630;font-size:14px}
+.footer{margin-top:28px;color:var(--muted);font-size:12px}
+.lb{position:fixed;inset:0;background:rgba(20,14,10,.88);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+.lb.open{display:flex}
+.lb-inner{max-width:min(96vw,1100px);max-height:92vh;display:flex;flex-direction:column;gap:10px}
+.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.lb-stage img{max-width:100%;max-height:78vh;object-fit:contain}
+.lb-top{display:flex;justify-content:space-between;align-items:center;color:#fff}
+.lb-close{background:transparent;border:0;color:#fff;font-size:28px;cursor:pointer}
+.muted{color:var(--muted);font-size:13px}
+.save-hint{font-size:12px;color:var(--muted);margin-left:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Сервис-панель API</h2>
+    <p id="gate-msg">Войдите аккаунтом администратора (тот же Google, что и /admin.html).</p>
+    <a class="btn" id="login" href="#">Войти через Google</a>
+    <p class="muted" style="margin-top:16px"><a class="home" href="/admin.html">← Админ-панель</a></p>
+  </div>
+  <div id="panel" style="display:none">
+    <div class="badge">SaveMyHistory · API service review · fal Nano Banana · NO GPU RENT</div>
+    <h1>Сервис-панель: кейсы до/после</h1>
+    <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админ</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="/gpu-review.html">GPU</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
+    <div class="hero">
+      <div class="honesty"><strong>Канон:</strong> inspect → CodeFormer только если лица мягкие → Nano Banana (fal) face/identity lock, без invent/plastic. Parent eye / Roman сильнее child PASS. Upscale = PLANNED. pd_05 AFTER не выдумываем. Аренды GPU нет.</div>
+      <p id="lead">Все существующие AFTER + Nano API core4. PASS / WEAK / FAIL + комментарий пишутся в case DB.</p>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="filters" id="filters">
+      <button type="button" class="filter-btn on" data-f="all">Все</button>
+      <button type="button" class="filter-btn" data-f="ready">С AFTER</button>
+      <button type="button" class="filter-btn" data-f="waiting">WAITING</button>
+      <button type="button" class="filter-btn" data-f="api_nano">Nano API</button>
+      <button type="button" class="filter-btn" data-f="unmarked">Без отметки</button>
+      <button type="button" class="filter-btn" data-f="pass">PASS</button>
+      <button type="button" class="filter-btn" data-f="weak">WEAK</button>
+      <button type="button" class="filter-btn" data-f="fail">FAIL</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="footer">Admin-only. Не sellable / conveyor / PASS-all. Feedback: /api/admin/service-cases/marks/{id}. Restorer не ломали.</p>
+  </div>
+</div>
+<div id="lightbox" class="lb" aria-hidden="true">
+  <div class="lb-inner">
+    <div class="lb-top"><div id="lbTitle">фото</div><button type="button" class="lb-close" id="lbClose" aria-label="Закрыть">×</button></div>
+    <div class="lb-stage"><img id="lbImg" alt="просмотр"></div>
+  </div>
+</div>
+<script>
+const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
+const MARK_KEY='smh_service_review_marks_v1';
+const $=s=>document.querySelector(s);
+let _token=null, CASES=[], MARKS={}, FILTER='all', META={}, _blobUrls={}, _saveTimer=null;
+function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
+function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
+function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
+(function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
+function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+async function login(){
+  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(SB_URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
+  const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/service-review.html'}});
+  if(data&&data.url) location.href=data.url;
+}
+function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
+function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
+function cacheMarksLocal(){ try{ localStorage.setItem(MARK_KEY, JSON.stringify(MARKS)); }catch(e){} }
+function loadMarksLocal(){ try{ const raw=localStorage.getItem(MARK_KEY); if(!raw) return {}; const j=JSON.parse(raw); return (j&&typeof j==='object'&&!Array.isArray(j))?j:{}; }catch(e){ return {}; } }
+function markOf(id){ return MARKS[id] || {verdict:'', comment:'', upscale_status:'PLANNED'}; }
+function markHas(m){ return !!(m && String(m.verdict||'').trim()); }
+async function authImg(url){
+  if(!url) return '';
+  if(_blobUrls[url]) return _blobUrls[url];
+  const r=await fetch(url,{headers:{Authorization:'Bearer '+getToken()}});
+  if(!r.ok) throw new Error('img '+r.status);
+  const b=await r.blob();
+  const u=URL.createObjectURL(b);
+  _blobUrls[url]=u; return u;
+}
+async function fillSlots(root){
+  const slots=root.querySelectorAll('[data-u]');
+  await Promise.all([...slots].map(async el=>{
+    const u=el.getAttribute('data-u')||'';
+    if(!u) return;
+    try{
+      const src=await authImg(u);
+      const img=document.createElement('img');
+      img.src=src; img.alt='';
+      el.innerHTML=''; el.appendChild(img);
+    }catch(e){ el.innerHTML='<div class="empty-after">нет файла</div>'; }
+  }));
+}
+function openLightbox(title, url){
+  $('#lbTitle').textContent=title||'фото';
+  $('#lbImg').removeAttribute('src');
+  $('#lightbox').classList.add('open');
+  $('#lightbox').setAttribute('aria-hidden','false');
+  authImg(url).then(src=>{ $('#lbImg').src=src; }).catch(()=>{});
+}
+function closeLightbox(){ $('#lightbox').classList.remove('open'); $('#lightbox').setAttribute('aria-hidden','true'); }
+function scheduleSave(id){
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(()=>saveMark(id), 350);
+}
+async function saveMark(id){
+  const m=markOf(id);
+  const body={verdict:m.verdict||'', comment:m.comment||'', upscale_status:m.upscale_status||'PLANNED'};
+  try{
+    const r=await fetch('/api/admin/service-cases/marks/'+encodeURIComponent(id),{method:'PUT',headers:H(),body:JSON.stringify(body)});
+    const hint=document.querySelector('[data-save="'+CSS.escape(id)+'"]');
+    if(hint) hint.textContent=r.ok?'сохранено':'ошибка '+r.status;
+  }catch(e){
+    const hint=document.querySelector('[data-save="'+CSS.escape(id)+'"]');
+    if(hint) hint.textContent='сеть';
+  }
+}
+function filtered(){
+  return CASES.filter(c=>{
+    const m=markOf(c.id); const v=String(m.verdict||'').toLowerCase();
+    if(FILTER==='all') return true;
+    if(FILTER==='ready') return !!c.has_after;
+    if(FILTER==='waiting') return c.after_status==='WAITING';
+    if(FILTER==='api_nano') return c.lane==='api_nano';
+    if(FILTER==='unmarked') return !markHas(m);
+    if(FILTER==='pass'||FILTER==='weak'||FILTER==='fail') return v===FILTER;
+    return true;
+  });
+}
+function paintStats(){
+  const n=CASES.length;
+  const withAfter=CASES.filter(c=>c.has_after).length;
+  const waiting=CASES.filter(c=>c.after_status==='WAITING').length;
+  const marked=CASES.filter(c=>markHas(markOf(c.id))).length;
+  const pass=CASES.filter(c=>String(markOf(c.id).verdict||'').toLowerCase()==='pass').length;
+  $('#stats').innerHTML=[
+    ['кейсов', n],['с AFTER', withAfter],['WAITING', waiting],['отметок', marked],['PASS', pass],['Nano API', CASES.filter(c=>c.lane==='api_nano').length]
+  ].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${esc(k)}</span></div>`).join('');
+  $('#lead').textContent=(META.n_cases||n)+' кейсов · AFTER '+(META.n_with_after||withAfter)+' · WAITING '+(META.n_waiting||waiting)+' · tip '+(META.git_tip||'—')+' · NO_RENT';
+}
+function render(){
+  const list=filtered();
+  const grid=$('#grid');
+  if(!list.length){ grid.innerHTML='<p class="muted">Нет кейсов по фильтру.</p>'; return; }
+  grid.innerHTML=list.map(c=>{
+    const m=markOf(c.id); const v=String(m.verdict||'').toLowerCase();
+    const triple=!!(c.after_authentic_url || c.after_modern_url);
+    let afterHtml='';
+    if(triple){
+      afterHtml=`<div class="shot" data-u="${esc(c.after_authentic_url||'')}" data-t="${esc(c.id)} authentic"><div class="img-slot"></div><span class="lbl">AFTER подлинный</span></div>`+
+        (c.after_modern_url?`<div class="shot" data-u="${esc(c.after_modern_url)}" data-t="${esc(c.id)} modern"><div class="img-slot"></div><span class="lbl">AFTER готовый</span></div>`:`<div class="empty-after">нет modern</div>`);
+    } else if(c.has_after && c.after_url){
+      afterHtml=`<div class="shot" data-u="${esc(c.after_url)}" data-t="${esc(c.id)} after"><div class="img-slot"></div><span class="lbl">AFTER</span></div>`;
+    } else {
+      afterHtml=`<div class="empty-after">WAITING — нет AFTER (не выдумываем)</div>`;
+    }
+    const tags=(c.damage_tags||[]).slice(0,8).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
+    return `<article class="card" data-id="${esc(c.id)}">
+      <h3>${esc(c.title||c.id)} · <span class="st ${esc(c.after_status||'')}">${esc(c.after_status||'')}</span>
+        ${c.lane==='api_nano'?' · <span class="st PASS">Nano API</span>':''}
+        ${v?(' · <span class="st '+esc(v.toUpperCase())+'">'+esc(v.toUpperCase())+'</span>'):''}</h3>
+      <div class="ba ${triple?'triple':''}">
+        <div class="shot" data-u="${esc(c.before_url||'')}" data-t="${esc(c.id)} before"><div class="img-slot"></div><span class="lbl">ДО</span></div>
+        ${afterHtml}
+      </div>
+      <div class="tags">${tags}<span class="tag">upscale:${esc(m.upscale_status||c.upscale_status||'PLANNED')}</span></div>
+      <div class="meta">${esc(c.pipeline||'')} ${c.parent_eye?(' · parent: '+esc(c.parent_eye)):''}</div>
+      <div class="actions">
+        <button type="button" data-v="pass" class="${v==='pass'?'active-pass':''}">PASS</button>
+        <button type="button" data-v="weak" class="${v==='weak'?'active-weak':''}">WEAK</button>
+        <button type="button" data-v="fail" class="${v==='fail'?'active-fail':''}">FAIL</button>
+        <button type="button" data-v="">сброс</button>
+        <span class="save-hint" data-save="${esc(c.id)}"></span>
+      </div>
+      <label>Комментарий</label>
+      <textarea data-c="${esc(c.id)}" rows="2">${esc(m.comment||'')}</textarea>
+      <label>Upscale (planned)</label>
+      <select data-u2="${esc(c.id)}">
+        <option value="PLANNED" ${(m.upscale_status||'PLANNED')==='PLANNED'?'selected':''}>PLANNED</option>
+        <option value="WAITING" ${m.upscale_status==='WAITING'?'selected':''}>WAITING</option>
+        <option value="DONE" ${m.upscale_status==='DONE'?'selected':''}>DONE</option>
+        <option value="SKIP" ${m.upscale_status==='SKIP'?'selected':''}>SKIP</option>
+      </select>
+    </article>`;
+  }).join('');
+  grid.querySelectorAll('.shot[data-u]').forEach(el=>{
+    el.addEventListener('click',()=>{ const u=el.getAttribute('data-u'); if(u) openLightbox(el.getAttribute('data-t')||'', u); });
+  });
+  grid.querySelectorAll('.actions button[data-v]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const card=btn.closest('[data-id]'); const id=card.getAttribute('data-id');
+      MARKS[id]=Object.assign({}, markOf(id), {verdict: btn.getAttribute('data-v')||''});
+      cacheMarksLocal(); scheduleSave(id); render();
+    });
+  });
+  grid.querySelectorAll('textarea[data-c]').forEach(ta=>{
+    ta.addEventListener('input',()=>{ const id=ta.getAttribute('data-c'); MARKS[id]=Object.assign({}, markOf(id), {comment: ta.value}); cacheMarksLocal(); scheduleSave(id); });
+  });
+  grid.querySelectorAll('select[data-u2]').forEach(sel=>{
+    sel.addEventListener('change',()=>{ const id=sel.getAttribute('data-u2'); MARKS[id]=Object.assign({}, markOf(id), {upscale_status: sel.value}); cacheMarksLocal(); scheduleSave(id); });
+  });
+  fillSlots(grid);
+}
+async function loadCases(){
+  const r=await fetch('/api/admin/service-cases',{headers:{Authorization:'Bearer '+getToken()}});
+  if(!r.ok) throw new Error('cases '+r.status);
+  const j=await r.json();
+  CASES=j.cases||[];
+  META=j;
+  const server=j.marks||{};
+  const local=loadMarksLocal();
+  MARKS=Object.assign({}, server, local);
+  // prefer newer local timestamps lightly: keep local if has verdict
+  Object.keys(server).forEach(id=>{ if(!markHas(MARKS[id]) && markHas(server[id])) MARKS[id]=server[id]; });
+  cacheMarksLocal();
+  paintStats(); render();
+}
+async function init(){
+  $('#login').onclick=e=>{e.preventDefault();login();};
+  $('#lbClose').onclick=()=>closeLightbox();
+  $('#lightbox').addEventListener('click',e=>{ if(e.target.id==='lightbox') closeLightbox(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
+  $('#refresh').onclick=e=>{e.preventDefault(); loadCases().catch(()=>{});};
+  document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{
+    FILTER=b.getAttribute('data-f'); document.querySelectorAll('.filter-btn').forEach(x=>x.classList.toggle('on',x===b)); render();
+  }));
+  if(!getToken()){ showGate(); return; }
+  let r; try{ r=await fetch('/api/admin/check',{headers:{Authorization:'Bearer '+getToken()}}); }catch(e){ showGate('Ошибка сети.'); return; }
+  if(r.status===403){ showGate('Этот аккаунт не админ.'); return; }
+  if(r.status===401){ setToken(null); showGate('Сессия истекла.'); return; }
+  if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
+  const me=await r.json(); $('#who').textContent=me.email||'';
+  showPanel();
+  try{ await loadCases(); }catch(e){ $('#grid').innerHTML='<p class="muted">Не удалось загрузить кейсы.</p>'; }
+}
+init();
+</script>
+</body>
+</html>

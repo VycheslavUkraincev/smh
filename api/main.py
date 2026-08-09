@@ -1397,8 +1397,297 @@ async def admin_gpu_bakeoff_mark_one(photo_id: str, request: Request, authorizat
         "updated_at": int(time.time()),
     }
     email = (user.get("email") or "").strip().lower()
+
     payload = _gpu_bakeoff_save_marks(marks, email=email)
     return {"ok": True, "id": pid, "mark": marks[pid], "updated_at": payload["updated_at"]}
+
+
+# ---- API service review panel (fal Nano Banana path; no GPU rent) ----
+_SERVICE_MARKS = _RESTORER_ROOT / "service_marks.json"
+_SERVICE_VERDICTS = {"", "pass", "weak", "fail"}
+_HARD_BAN_INVENT_IDS = {"pd_05", "pd_05_invent"}
+
+
+def _service_parent_eye(p: dict) -> str:
+    """Latest non-empty parent-eye / Roman mark string from corpus fields."""
+    if not isinstance(p, dict):
+        return ""
+    # prefer explicit roman / qa, then newest wave*_parent_eye by name sort desc
+    for k in ("roman_notes51_eye", "qa_status", "roman_note", "qa_note"):
+        v = p.get(k)
+        if isinstance(v, dict):
+            bits = [str(v.get("verdict") or "").strip(), str(v.get("reason") or "").strip()]
+            s = " ".join(x for x in bits if x)
+            if s:
+                return s[:500]
+        elif v:
+            s = str(v).strip()
+            if s:
+                return s[:500]
+    parent_keys = sorted(
+        (k for k in p.keys() if str(k).endswith("_parent_eye") and p.get(k)),
+        reverse=True,
+    )
+    for k in parent_keys:
+        s = str(p.get(k) or "").strip()
+        if s:
+            return f"{k}: {s}"[:500]
+    return ""
+
+
+def _service_load_marks():
+    if not _SERVICE_MARKS.is_file():
+        return {}
+    try:
+        raw = json.loads(_SERVICE_MARKS.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    if isinstance(raw, dict) and isinstance(raw.get("marks"), dict):
+        return raw["marks"]
+    return {}
+
+
+def _service_save_marks(marks: dict, email: str = ""):
+    payload = {
+        "version": "service_marks_v1",
+        "updated_at": int(time.time()),
+        "updated_by": (email or "").strip().lower(),
+        "marks": marks,
+    }
+    _RESTORER_ROOT.mkdir(parents=True, exist_ok=True)
+    tmp = _SERVICE_MARKS.with_suffix(".tmp")
+    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
+    tmp.replace(_SERVICE_MARKS)
+    return payload
+
+
+def _service_case_ids():
+    ids = set(_restorer_photo_ids())
+    try:
+        data = _gpu_bakeoff_load_review()
+        for c in (data.get("cards") or []):
+            if not isinstance(c, dict):
+                continue
+            pid = str(c.get("id") or "").strip()
+            nano = str(c.get("nano_bar_file") or "").strip()
+            nano_status = str(c.get("nano_bar_status") or "").strip().upper()
+            if pid and nano and nano_status == "PASS" and (_GPU_BAKEOFF_NANO_BAR / nano).is_file():
+                ids.add(f"api_nano__{pid}")
+    except Exception:
+        pass
+    return ids
+
+
+def _service_build_cases():
+    """Seed case DB from existing AFTER only — never invent. pd_05 invent hard-banned."""
+    meta = _restorer_load_meta()
+    marks = _service_load_marks()
+    # also surface restorer marks as prior feedback (parent/roman board)
+    restorer_marks = _restorer_load_marks()
+    cases = []
+    after_root = _RESTORER_ROOT / "after"
+    for p in (meta.get("photos") or []):
+        if not isinstance(p, dict):
+            continue
+        pid = str(p.get("id") or "").strip()
+        if not pid:
+            continue
+        fname = str(p.get("file") or "").strip()
+        after_name = str(p.get("after_file") or "").strip()
+        auth_name = str(p.get("after_authentic_file") or "").strip()
+        mod_name = str(p.get("after_modern_file") or "").strip()
+        has_after = bool(after_name and _SAFE_NAME.match(after_name) and (after_root / after_name).is_file())
+        has_auth = bool(auth_name and _SAFE_NAME.match(auth_name) and (after_root / auth_name).is_file())
+        has_mod = bool(mod_name and _SAFE_NAME.match(mod_name) and (after_root / mod_name).is_file())
+        # HARD BAN: never invent AFTER for pd_05*
+        if pid in _HARD_BAN_INVENT_IDS or pid.startswith("pd_05"):
+            if not (has_after or has_auth or has_mod):
+                has_after = has_auth = has_mod = False
+        if has_after or has_auth or has_mod:
+            after_status = "READY"
+        else:
+            after_status = "WAITING"
+        parent_eye = _service_parent_eye(p)
+        mark = marks.get(pid) or restorer_marks.get(pid) or {}
+        # normalize restorer approve/bad → pass/fail for service UI
+        if mark and str(mark.get("verdict") or "") in ("approve", "approve_authentic", "approve_modern"):
+            mark = dict(mark)
+            mark["verdict"] = "pass"
+            mark["verdict_source"] = "restorer_board"
+        elif mark and str(mark.get("verdict") or "") == "bad":
+            mark = dict(mark)
+            mark["verdict"] = "fail"
+            mark["verdict_source"] = "restorer_board"
+        case = {
+            "id": pid,
+            "title": pid.replace("_", " "),
+            "lane": "corpus",
+            "pipeline": "inspect → CodeFormer(if soft faces) → Nano Banana(fal) face-lock",
+            "provider": "api_fal_nano",
+            "before_file": fname,
+            "before_url": f"/api/admin/restorer/photo/{fname}" if fname else "",
+            "after_file": after_name if has_after else "",
+            "after_url": f"/api/admin/restorer/photo/{after_name}?kind=after" if has_after else "",
+            "after_authentic_file": auth_name if has_auth else "",
+            "after_authentic_url": f"/api/admin/restorer/photo/{auth_name}?kind=after" if has_auth else "",
+            "after_modern_file": mod_name if has_mod else "",
+            "after_modern_url": f"/api/admin/restorer/photo/{mod_name}?kind=after" if has_mod else "",
+            "has_after": bool(has_after or has_auth or has_mod),
+            "after_status": after_status,
+            "upscale_status": "PLANNED",
+            "upscale_url": "",
+            "damage_tags": p.get("damage_tags") or [],
+            "status": p.get("status") or "",
+            "qa_status": p.get("qa_status") or "",
+            "parent_eye": parent_eye,
+            "notes": (p.get("notes") or "")[:800],
+            "color_policy": "bw_source→authentic_bw+color_variant; color_source→authentic_only",
+            "mark": mark,
+        }
+        cases.append(case)
+
+    # Seed known PASS Nano authentic core4 (API path) — existing AFTER only
+    try:
+        gb = _gpu_bakeoff_load_review()
+        for c in (gb.get("cards") or []):
+            if not isinstance(c, dict):
+                continue
+            pid = str(c.get("id") or "").strip()
+            before = str(c.get("before_file") or "").strip()
+            nano = str(c.get("nano_bar_file") or "").strip()
+            nano_status = str(c.get("nano_bar_status") or "").strip().upper()
+            has_before = bool(before and (_GPU_BAKEOFF_BEFORE / before).is_file())
+            has_nano = bool(
+                nano
+                and nano_status == "PASS"
+                and (_GPU_BAKEOFF_NANO_BAR / nano).is_file()
+            )
+            if not pid or not has_nano:
+                continue
+            cid = f"api_nano__{pid}"
+            mark = marks.get(cid) or {}
+            cases.append({
+                "id": cid,
+                "title": f"{pid} · Nano API authentic",
+                "lane": "api_nano",
+                "pipeline": "fal Nano Banana · face/identity lock · no invent",
+                "provider": "api_fal_nano",
+                "stem_id": pid,
+                "before_file": before,
+                "before_url": f"/api/admin/gpu-bakeoff/photo/{before}?kind=before" if has_before else "",
+                "after_file": nano,
+                "after_url": f"/api/admin/gpu-bakeoff/photo/{nano}?kind=nano_bar",
+                "after_authentic_file": nano,
+                "after_authentic_url": f"/api/admin/gpu-bakeoff/photo/{nano}?kind=nano_bar",
+                "after_modern_file": "",
+                "after_modern_url": "",
+                "has_after": True,
+                "after_status": "READY",
+                "upscale_status": "PLANNED",
+                "upscale_url": "",
+                "damage_tags": ["nano_bar", "api", "core4"],
+                "status": "HAS_ETALON",
+                "qa_status": nano_status,
+                "parent_eye": str(c.get("nano_bar_note") or c.get("q_verdict") or "")[:500],
+                "notes": str(c.get("nano_bar_note") or c.get("notes") or "")[:800],
+                "color_policy": "authentic restore; no invented recolor",
+                "mark": mark,
+            })
+    except Exception:
+        pass
+
+    n_with_after = sum(1 for x in cases if x.get("has_after"))
+    n_waiting = sum(1 for x in cases if x.get("after_status") == "WAITING")
+    return cases, marks, n_with_after, n_waiting
+
+
+@app.get("/api/admin/service-cases")
+async def admin_service_cases(authorization: str = Header(None)):
+    """Aggregated before/after case DB for API service review panel (admin)."""
+    await require_admin(authorization)
+    cases, marks, n_with_after, n_waiting = _service_build_cases()
+    return {
+        "ok": True,
+        "version": "service_cases_v1",
+        "panel": "/service-review.html",
+        "pipeline_canon": [
+            "inspect photo",
+            "CodeFormer ONLY if faces soft/unreadable",
+            "Nano Banana (fal) restore with face/identity lock",
+            "reject invent/plastic",
+            "B&W → authentic B&W AFTER + separate color variant",
+            "color → authentic restore (no invented recolor)",
+            "upscale = planned field",
+            "parent eye / Roman marks overrule child PASS",
+        ],
+        "no_rent": True,
+        "provider": "api_fal_nano",
+        "n_cases": len(cases),
+        "n_with_after": n_with_after,
+        "n_waiting": n_waiting,
+        "n_marks": sum(1 for m in marks.values() if isinstance(m, dict) and str(m.get("verdict") or "").strip()),
+        "git_tip": _restorer_git_tip(),
+        "cases": cases,
+        "marks": marks,
+    }
+
+
+@app.get("/api/admin/service-cases/marks")
+async def admin_service_marks_get(authorization: str = Header(None)):
+    await require_admin(authorization)
+    marks = _service_load_marks()
+    return {"ok": True, "version": "service_marks_v1", "marks": marks}
+
+
+@app.put("/api/admin/service-cases/marks/{case_id}")
+async def admin_service_mark_one(case_id: str, request: Request, authorization: str = Header(None)):
+    """Persist PASS/WEAK/FAIL + comment for one service case."""
+    user = await require_admin(authorization)
+    cid = (case_id or "").strip()
+    if cid not in _service_case_ids():
+        raise HTTPException(404, "unknown case")
+    try:
+        body = await request.json()
+    except Exception:
+        raise HTTPException(400, "bad json")
+    if not isinstance(body, dict):
+        raise HTTPException(400, "object required")
+    verdict = str(body.get("verdict") or "").strip()
+    vmap = {
+        "approve": "pass", "bad": "fail",
+        "PASS": "pass", "WEAK": "weak", "FAIL": "fail",
+        "pass": "pass", "weak": "weak", "fail": "fail",
+    }
+    verdict = vmap.get(verdict, verdict).lower()
+    if verdict not in _SERVICE_VERDICTS:
+        raise HTTPException(400, "bad verdict")
+    marks = _service_load_marks()
+    marks[cid] = {
+        "verdict": verdict,
+        "comment": str(body.get("comment") or "")[:4000],
+        "upscale_status": str(body.get("upscale_status") or "PLANNED")[:40],
+        "updated_at": int(time.time()),
+    }
+    email = (user.get("email") or "").strip().lower()
+    payload = _service_save_marks(marks, email=email)
+    # journal for corpus-linked ids (not api_nano__*)
+    fb = None
+    if not cid.startswith("api_nano__"):
+        try:
+            fb = _restorer_feedback_emit(
+                photo_id=cid,
+                verdict=verdict,
+                comment=marks[cid].get("comment") or "",
+                defect_note="",
+                regions=[],
+                email=email,
+                source="service_review",
+                kind="mark",
+                action="upsert",
+            )
+        except Exception:
+            fb = None
+    return {"ok": True, "id": cid, "mark": marks[cid], "updated_at": payload["updated_at"], "feedback": fb}
 
 
 def _restorer_load_region_notes():
