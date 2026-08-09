@@ -1,0 +1,95 @@
+{
+  "verdict": "OPS_PASS_QUALITY_PASS",
+  "grades": {
+    "children_dining": {
+      "sha16": "72b36cb134148700",
+      "sha_match": true,
+      "msg": "lama_ok_mean69.89|face_skip:ModuleNotFoundError:No module named 'torchvision.transforms.functional_tensor'|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold",
+      "parent_eye": "PASS",
+      "reason": "heal_visible_upscaled",
+      "before_size": [
+        960,
+        1280
+      ],
+      "after_size_raw": [
+        1920,
+        2560
+      ],
+      "resized_for_cmp": true,
+      "mean_abs": 6.328,
+      "pct_changed": 19.13,
+      "chroma_before": 6.781,
+      "chroma_after": 6.282,
+      "chroma_delta": -0.499,
+      "after_path": "projects/savemyhistory/.openclaw/tmp/night1_patha_inbound4_full_out/children_dining_after.jpg"
+    },
+    "family_portrait_knit": {
+      "sha16": "77b23fea95aa4546",
+      "sha_match": true,
+      "msg": "lama_ok_mean191.92|face_gfpgan_ok_w0.5|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold",
+      "parent_eye": "PASS",
+      "reason": "heal_visible_upscaled",
+      "before_size": [
+        1280,
+        875
+      ],
+      "after_size_raw": [
+        2560,
+        1760
+      ],
+      "resized_for_cmp": true,
+      "mean_abs": 16.838,
+      "pct_changed": 52.673,
+      "chroma_before": 2.251,
+      "chroma_after": 1.928,
+      "chroma_delta": -0.324,
+      "after_path": "projects/savemyhistory/.openclaw/tmp/night1_patha_inbound4_full_out/family_portrait_knit_after.jpg"
+    },
+    "mother_baby_knit": {
+      "sha16": "e7f7bccce833ee8a",
+      "sha_match": true,
+      "msg": "lama_ok_mean81.88|face_gfpgan_ok_w0.5|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold",
+      "parent_eye": "PASS",
+      "reason": "heal_visible_upscaled",
+      "before_size": [
+        960,
+        1280
+      ],
+      "after_size_raw": [
+        1920,
+        2560
+      ],
+      "resized_for_cmp": true,
+      "mean_abs": 7.038,
+      "pct_changed": 20.002,
+      "chroma_before": 12.37,
+      "chroma_after": 11.397,
+      "chroma_delta": -0.973,
+      "after_path": "projects/savemyhistory/.openclaw/tmp/night1_patha_inbound4_full_out/mother_baby_knit_after.jpg"
+    },
+    "two_women_studio": {
+      "sha16": "99836dd2e49fbe22",
+      "sha_match": true,
+      "msg": "lama_ok_mean30.17|face_gfpgan_ok_w0.5|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold",
+      "parent_eye": "PASS",
+      "reason": "heal_visible_upscaled",
+      "before_size": [
+        907,
+        1280
+      ],
+      "after_size_raw": [
+        1824,
+        2560
+      ],
+      "resized_for_cmp": true,
+      "mean_abs": 6.597,
+      "pct_changed": 17.889,
+      "chroma_before": 7.65,
+      "chroma_after": 6.82,
+      "chroma_delta": -0.829,
+      "after_path": "projects/savemyhistory/.openclaw/tmp/night1_patha_inbound4_full_out/two_women_studio_after.jpg"
+    }
+  },
+  "spent": "0.0412",
+  "n_final": 0
+}

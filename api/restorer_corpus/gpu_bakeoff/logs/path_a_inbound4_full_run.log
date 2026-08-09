@@ -1,0 +1,77 @@
+CV2_OK 5.0.0
+S2F_FULL n=4 face=gfpgan/gfpgan tile=400 ddcolor=1 need_esrgan=1
+ESRGAN_LAZY load_esrgan=on_demand_inside_stage_esrgan FULL
+patched /opt/conda/lib/python3.1/site-packages/basicsr/data/degradations.py
+/opt/conda/lib/python3.11/site-packages/realesrgan/utils.py:63: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  loadnet = torch.load(model_path, map_location=torch.device('cpu'))
+MODELS_READY lazy device=cuda face=gfpgan tile=400
+	Tile 1/12
+	Tile 2/12
+	Tile 3/12
+	Tile 4/12
+	Tile 5/12
+	Tile 6/12
+	Tile 7/12
+	Tile 8/12
+	Tile 9/12
+	Tile 10/12
+	Tile 11/12
+	Tile 12/12
+[1/4] children_dining.jpg OK lama_ok_mean69.89|face_skip:ModuleNotFoundError:No module named 'torchvision.transforms.functional_tensor'|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold
+/opt/conda/lib/python3.11/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/opt/conda/lib/python3.11/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
+  warnings.warn(msg)
+Downloading: "https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth" to /root/gfpgan/weights/detection_Resnet50_Final.pth
+
+  0%|          | 0.00/104M [00:00<?, ?B/s] 17%|█▋        | 17.4M/104M [00:00<00:00, 180MB/s] 48%|████▊     | 50.5M/104M [00:00<00:00, 278MB/s] 86%|████████▌ | 89.6M/104M [00:00<00:00, 338MB/s]100%|██████████| 104M/104M [00:00<00:00, 320MB/s] 
+/opt/conda/lib/python3.11/site-packages/facexlib/detection/__init__.py:22: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  load_net = torch.load(model_path, map_location=lambda storage, loc: storage)
+Downloading: "https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsenet.pth" to /root/gfpgan/weights/parsing_parsenet.pth
+
+  0%|          | 0.00/81.4M [00:00<?, ?B/s] 25%|██▍       | 20.2M/81.4M [00:00<00:00, 212MB/s] 65%|██████▍   | 52.5M/81.4M [00:00<00:00, 285MB/s]100%|██████████| 81.4M/81.4M [00:00<00:00, 285MB/s]
+/opt/conda/lib/python3.11/site-packages/facexlib/parsing/__init__.py:20: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  load_net = torch.load(model_path, map_location=lambda storage, loc: storage)
+/opt/conda/lib/python3.11/site-packages/gfpgan/utils.py:92: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  loadnet = torch.load(model_path)
+	Tile 1/12
+	Tile 2/12
+	Tile 3/12
+	Tile 4/12
+	Tile 5/12
+	Tile 6/12
+	Tile 7/12
+	Tile 8/12
+	Tile 9/12
+	Tile 10/12
+	Tile 11/12
+	Tile 12/12
+[2/4] family_portrait_knit.jpg OK lama_ok_mean191.92|face_gfpgan_ok_w0.5|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold
+	Tile 1/12
+	Tile 2/12
+	Tile 3/12
+	Tile 4/12
+	Tile 5/12
+	Tile 6/12
+	Tile 7/12
+	Tile 8/12
+	Tile 9/12
+	Tile 10/12
+	Tile 11/12
+	Tile 12/12
+[3/4] mother_baby_knit.jpg OK lama_ok_mean81.88|face_gfpgan_ok_w0.5|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold
+	Tile 1/12
+	Tile 2/12
+	Tile 3/12
+	Tile 4/12
+	Tile 5/12
+	Tile 6/12
+	Tile 7/12
+	Tile 8/12
+	Tile 9/12
+	Tile 10/12
+	Tile 11/12
+	Tile 12/12
+[4/4] two_women_studio.jpg OK lama_ok_mean30.17|face_gfpgan_ok_w0.5|esrgan_ok_tile400|ddcolor_skip_no_pkg|qwen_skip_path_c|ai_eye=FAIL:requeue_or_fail_hold
+n_ok=4 n_fail=0 qwen=0 total=4 face=gfpgan/gfpgan
+DONE
