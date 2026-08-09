@@ -106,7 +106,8 @@ textarea{resize:vertical;min-height:54px}
       <div class="hold-banner" id="hold-banner" data-marker="hold-banner-pd01"><strong>WAITING / HOLD:</strong> <code>pd_01_scratches</code> = HOLD nude · AFTER нет и не выдумываем · upscale SKIP. Без GPU rent · spend_E=0.</div>
       <div class="failhold-banner" id="failhold-banner" data-marker="failhold-banner-redo"><strong>FAIL_HOLD:</strong> очередь redo · <code>FAIL_HOLD</code> / <code>FAIL_HOLD_SIDE</code> (+ demoted FAIL modern) · не auto-rerun · нужен parent eye. spend_E=0 · NO_RENT.</div>
       <p id="lead">Все существующие AFTER + Nano API core4. PASS / WEAK / FAIL + комментарий пишутся в case DB.</p>
-      <div class="stats" id="stats"></div>
+      <div class="stats" id="stats" data-marker="stats-fail-hold"></div>
+      <p class="muted" id="failhold-sample" data-marker="failhold-sample-ids" hidden></p>
     </div>
     <div class="filters" id="filters">
       <button type="button" class="filter-btn on" data-f="all">Все</button>
@@ -312,13 +313,26 @@ function paintStats(){
   const upWait = (META.n_upscale_waiting!=null) ? META.n_upscale_waiting : CASES.filter(c=>c.has_after && (c.upscale_status==='WAITING'||c.upscale_status==='PLANNED')).length;
   const nEsrgan = (META.n_upscale_esrgan!=null) ? META.n_upscale_esrgan : CASES.filter(c=>c.upscale_method==='fal-ai/esrgan').length;
   const nPil = (META.n_upscale_pil!=null) ? META.n_upscale_pil : CASES.filter(c=>c.upscale_method==='PIL_LANCZOS_x2_FREE').length;
+  const failHoldIds = Array.isArray(META.fail_hold_ids) ? META.fail_hold_ids : CASES.filter(isFailHoldCase).map(c=>c.id);
+  const nFailHold = (META.n_fail_hold!=null) ? META.n_fail_hold : failHoldIds.length;
   $('#stats').innerHTML=[
     ['кейсов', n],['с AFTER', withAfter],['WAITING', waiting],
     ['Upscale DONE', upDone],['Upscale SKIP', upSkip],['WAITING after', upWait],
     ['ESRGAN', nEsrgan],['PIL FREE', nPil],
+    ['FAIL_HOLD', nFailHold],
     ['отметок', marked],['PASS', pass],['Nano API', CASES.filter(c=>c.lane==='api_nano').length]
   ].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${esc(k)}</span></div>`).join('');
-  $('#lead').textContent=(META.n_cases||n)+' кейсов · AFTER '+(META.n_with_after||withAfter)+' · upscale DONE '+upDone+' / SKIP '+upSkip+' / WAITING after '+upWait+' · ESRGAN '+nEsrgan+' · PIL '+nPil+' · tip '+(META.git_tip||'—')+' · NO_RENT';
+  const sample=$('#failhold-sample');
+  if(sample){
+    if(nFailHold>0){
+      sample.hidden=false;
+      sample.textContent='FAIL_HOLD redo: '+(failHoldIds.length?failHoldIds.join(', '):('N='+nFailHold));
+    }else{
+      sample.hidden=true;
+      sample.textContent='';
+    }
+  }
+  $('#lead').textContent=(META.n_cases||n)+' кейсов · AFTER '+(META.n_with_after||withAfter)+' · upscale DONE '+upDone+' / SKIP '+upSkip+' / WAITING after '+upWait+' · ESRGAN '+nEsrgan+' · PIL '+nPil+' · FAIL_HOLD '+nFailHold+' · tip '+(META.git_tip||'—')+' · NO_RENT';
 }
 function render(){
   const list=filtered();

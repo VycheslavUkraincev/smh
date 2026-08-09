@@ -1408,6 +1408,23 @@ _SERVICE_VERDICTS = {"", "pass", "weak", "fail"}
 _HARD_BAN_INVENT_IDS = {"pd_05", "pd_05_invent"}
 
 
+def _service_is_fail_hold_case(case: dict) -> bool:
+    """Match service-review isFailHoldCase: FAIL_HOLD / FAIL_HOLD_SIDE / demoted FAIL mod."""
+    if not isinstance(case, dict):
+        return False
+    pe = str(case.get("parent_eye") or "")
+    qa = str(case.get("qa_status") or "")
+    blob = (pe + " " + qa).upper()
+    if "FAIL_HOLD" in blob:
+        return True
+    if "FAIL_MOD_DEMOTED" in blob:
+        return True
+    pe_qa = pe + " " + qa
+    if re.search(r"MODERN\s+FAIL", pe, flags=re.I) and re.search(r"demoted", pe_qa, flags=re.I):
+        return True
+    return False
+
+
 def _service_parent_eye(p: dict) -> str:
     """Latest non-empty parent-eye / Roman mark string from corpus fields."""
     if not isinstance(p, dict):
@@ -1670,12 +1687,16 @@ def _service_build_cases():
         for x in cases
         if x.get("upscale_status") in ("WAITING", "PLANNED") and x.get("has_after")
     )
+    fail_hold_ids = [str(x.get("id") or "") for x in cases if _service_is_fail_hold_case(x)]
+    fail_hold_ids = [x for x in fail_hold_ids if x]
     upscale_stats = {
         "n_upscale_done": n_upscale_done,
         "n_upscale_skip": n_upscale_skip,
         "n_upscale_waiting": n_upscale_waiting,
         "n_upscale_esrgan": sum(1 for x in cases if str(x.get("upscale_method") or "") == "fal-ai/esrgan"),
         "n_upscale_pil": sum(1 for x in cases if str(x.get("upscale_method") or "") == "PIL_LANCZOS_x2_FREE"),
+        "n_fail_hold": len(fail_hold_ids),
+        "fail_hold_ids": fail_hold_ids,
     }
     return cases, marks, n_with_after, n_waiting, upscale_stats
 
@@ -1710,6 +1731,8 @@ async def admin_service_cases(authorization: str = Header(None)):
         "n_upscale_waiting": upscale_stats["n_upscale_waiting"],
         "n_upscale_esrgan": upscale_stats["n_upscale_esrgan"],
         "n_upscale_pil": upscale_stats["n_upscale_pil"],
+        "n_fail_hold": upscale_stats["n_fail_hold"],
+        "fail_hold_ids": upscale_stats.get("fail_hold_ids") or [],
         "n_marks": sum(1 for m in marks.values() if isinstance(m, dict) and str(m.get("verdict") or "").strip()),
         "git_tip": _restorer_git_tip(),
         "cases": cases,
