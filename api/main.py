@@ -1412,8 +1412,8 @@ def _service_parent_eye(p: dict) -> str:
     """Latest non-empty parent-eye / Roman mark string from corpus fields."""
     if not isinstance(p, dict):
         return ""
-    # prefer explicit roman / qa, then newest wave*_parent_eye by name sort desc
-    for k in ("roman_notes51_eye", "qa_status", "roman_note", "qa_note"):
+    # prefer human parent_eye note, then roman / qa, then newest wave*_parent_eye
+    for k in ("parent_eye", "roman_notes51_eye", "roman_note"):
         v = p.get(k)
         if isinstance(v, dict):
             bits = [str(v.get("verdict") or "").strip(), str(v.get("reason") or "").strip()]
@@ -1432,6 +1432,12 @@ def _service_parent_eye(p: dict) -> str:
         s = str(p.get(k) or "").strip()
         if s:
             return f"{k}: {s}"[:500]
+    for k in ("qa_status", "qa_note"):
+        v = p.get(k)
+        if v:
+            s = str(v).strip()
+            if s:
+                return s[:500]
     return ""
 
 
