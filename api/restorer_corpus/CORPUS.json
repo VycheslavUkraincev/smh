@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveH wire PASS ['db_pd_42']; held=['db_pd_94'] 2026-08-09",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveI wire PASS ['db_pd_94']; held=[] 2026-08-09",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -2373,13 +2373,13 @@
       "bytes": 3727211,
       "md5": "d49ee740e425e9f57349e13fa44a731b",
       "has_after": true,
-      "after_file": "db_pd_94_authentic.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_WAVEH parent-eye FAIL mod — scarf pattern invent/embellish + background invent beyond BEFORE (auth PASS stays LIVE); AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:32:49.267634+00:00",
+      "after_file": "db_pd_94_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEI_MOD",
+      "qa_note": "ROMAN_NOTES51_WAVEI parent-eye PASS mod; PASS scarf plain solid colorize-only; no floral/paisley/print invent on note scarf; background banners/roof/branches match BEFORE; BEFORE kept LIVE; utc=2026-08-09T00:42:50.123065+00:00",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave17_child_eye": "PASS auth neutral B&W + mod natural color; outdoor-mourning-group likeness locked",
       "after_authentic_file": "db_pd_94_authentic.jpg",
-      "after_modern_file": "",
+      "after_modern_file": "db_pd_94_modern.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "auth",
@@ -2397,12 +2397,13 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] WAVEH FAIL_HOLD — scarf pattern invent/embellish + background invent beyond BEFORE (auth PASS stays LIVE)",
+      "roman_note": "[mod] WAVEI parent PASS — PASS scarf plain solid colorize-only; no floral/paisley/print invent on note scarf; background banners/roof/branches match BEFORE",
       "roman51_waveD_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
       "roman51_waveE_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
       "roman51_waveF_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
       "roman51_waveG_eye": "FAIL scarf pattern invent/embellish (auth PASS stays LIVE)",
-      "roman51_waveH_eye": "FAIL scarf pattern invent/embellish + background invent beyond BEFORE (auth PASS stays LIVE)"
+      "roman51_waveH_eye": "FAIL scarf pattern invent/embellish + background invent beyond BEFORE (auth PASS stays LIVE)",
+      "roman51_waveI_eye": "PASS scarf plain solid colorize-only; no floral/paisley/print invent on note scarf; background banners/roof/branches match BEFORE"
     },
     {
       "id": "db_pd_108",
