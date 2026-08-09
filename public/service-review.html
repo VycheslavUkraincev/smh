@@ -27,9 +27,13 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .stat{background:#faf6ef;border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:110px}
 .stat b{display:block;font-size:1.35rem}
 .stat span{color:var(--muted);font-size:12px}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;align-items:center}
 .filter-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;font:inherit}
 .filter-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.filter-count{margin:0 0 16px;font-size:13px;color:var(--muted);min-height:1.2em}
+.filter-count.active{color:var(--ink);font-weight:600}
+.hold-banner{margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid #e0c49a;background:#fff3e0;color:#6a4a22;font-size:14px}
+.hold-banner code{font-size:12px;background:#f7e8d0;padding:1px 6px;border-radius:6px}
 .grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -97,6 +101,7 @@ textarea{resize:vertical;min-height:54px}
     <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админ</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="/gpu-review.html">GPU</a> · <a class="home" href="/model-compare.html">Сравнение моделей</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
     <div class="hero">
       <div class="honesty"><strong>Канон:</strong> inspect → CodeFormer только если лица мягкие → Nano Banana (fal) face/identity lock, без invent/plastic. Parent eye / Roman сильнее child PASS. Upscale method badge: <code>fal-ai/esrgan</code> (pd_02/pd_03) vs <code>PIL Lanczos ×2 FREE</code> vs SKIP. Stats: DONE / SKIP / WAITING after. pd_05 AFTER не выдумываем. Аренды GPU нет · spend_E=0.</div>
+      <div class="hold-banner" id="hold-banner" data-marker="hold-banner-pd01"><strong>WAITING / HOLD:</strong> <code>pd_01_scratches</code> = HOLD nude · AFTER нет и не выдумываем · upscale SKIP. Без GPU rent · spend_E=0.</div>
       <p id="lead">Все существующие AFTER + Nano API core4. PASS / WEAK / FAIL + комментарий пишутся в case DB.</p>
       <div class="stats" id="stats"></div>
     </div>
@@ -104,6 +109,7 @@ textarea{resize:vertical;min-height:54px}
       <button type="button" class="filter-btn on" data-f="all">Все</button>
       <button type="button" class="filter-btn" data-f="ready">С AFTER</button>
       <button type="button" class="filter-btn" data-f="waiting">WAITING</button>
+      <button type="button" class="filter-btn" data-f="hold">HOLD</button>
       <button type="button" class="filter-btn" data-f="api_nano">Nano API</button>
       <button type="button" class="filter-btn" data-f="unmarked">Без отметки</button>
       <button type="button" class="filter-btn" data-f="pass">PASS</button>
@@ -114,6 +120,7 @@ textarea{resize:vertical;min-height:54px}
       <button type="button" class="filter-btn" data-f="upskip">Upscale SKIP</button>
       <button type="button" class="filter-btn" data-f="updone">Upscale DONE</button>
     </div>
+    <p class="filter-count" id="filter-count" data-marker="filter-count-n-of-m" hidden></p>
     <div class="grid" id="grid"></div>
     <p class="footer">Admin-only. Не sellable / conveyor / PASS-all. Feedback: /api/admin/service-cases/marks/{id}. Restorer не ломали.</p>
   </div>
@@ -212,6 +219,11 @@ async function saveMark(id){
     if(hint) hint.textContent='сеть';
   }
 }
+function isHoldCase(c){
+  const pe=String(c.parent_eye||'');
+  const qa=String(c.qa_status||'');
+  return /\bHOLD\b/i.test(pe) || /\bHOLD\b/i.test(qa) || peTone(pe)==='HOLD' || peTone(qa)==='HOLD';
+}
 function filtered(){
   return CASES.filter(c=>{
     const m=markOf(c.id); const v=String(m.verdict||'').toLowerCase();
@@ -220,6 +232,7 @@ function filtered(){
     if(FILTER==='all') return true;
     if(FILTER==='ready') return !!c.has_after;
     if(FILTER==='waiting') return c.after_status==='WAITING';
+    if(FILTER==='hold') return isHoldCase(c);
     if(FILTER==='api_nano') return c.lane==='api_nano';
     if(FILTER==='unmarked') return !markHas(m);
     if(FILTER==='pass'||FILTER==='weak'||FILTER==='fail') return v===FILTER;
@@ -229,6 +242,21 @@ function filtered(){
     if(FILTER==='updone') return us==='DONE';
     return true;
   });
+}
+function paintFilterCount(shown){
+  const el=$('#filter-count');
+  if(!el) return;
+  const total=CASES.length;
+  const n=(typeof shown==='number')?shown:filtered().length;
+  if(FILTER==='all'){
+    el.hidden=true;
+    el.classList.remove('active');
+    el.textContent='';
+    return;
+  }
+  el.hidden=false;
+  el.classList.add('active');
+  el.textContent='показано '+n+' из '+total;
 }
 
 function upscaleMethodLabel(m){
@@ -277,6 +305,7 @@ function paintStats(){
 }
 function render(){
   const list=filtered();
+  paintFilterCount(list.length);
   const grid=$('#grid');
   if(!list.length){ grid.innerHTML='<p class="muted">Нет кейсов по фильтру.</p>'; return; }
   grid.innerHTML=list.map(c=>{
