@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveL wire PASS ['db_pd_85:mod']; held=['db_pd_111:mod', 'db_pd_131:mod', 'db_pd_48:mod', 'db_pd_67:mod'] 2026-08-09",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveN wire PASS ['db_pd_59:auth', 'db_pd_65:auth', 'db_pd_16:auth', 'db_pd_16:mod', 'db_pd_104:auth', 'db_pd_104:mod', 'db_pd_14:auth']; held=['db_pd_61:mod'] 2026-08-09",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -1475,12 +1475,12 @@
       "notes": "WAVE12 Dropbox BEFORE add; creases fade border-wear wedding-family; no AFTER yet",
       "bytes": 261824,
       "md5": "418433a39a1c926443d3bcb40fd8e150",
-      "has_after": false,
-      "after_authentic_file": null,
-      "after_modern_file": null,
-      "after_file": null,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "ROMAN_NOTES51_20260808 DEMOTE sides=['mod', 'auth'] — MOD windows invent; AUTH bend stripe invent; BEFORE LIVE",
+      "has_after": true,
+      "after_authentic_file": "db_pd_16_authentic.jpg",
+      "after_modern_file": "db_pd_16_modern.jpg",
+      "after_file": "db_pd_16_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEN",
+      "qa_note": "ROMAN_NOTES51_WAVEN parent-eye PASS mod; no windows invent; scene/props exact BEFORE; colorize-only; BEFORE kept LIVE; utc=2026-08-09T01:32:07.394545+00:00",
       "wave12_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave12_child_eye": "PASS auth archival grayscale + mod period-plausible color; group likeness locked",
       "wave12_parent_eye": "auth=PASS mod=PASS; chroma neutral (R-B≈-0.35); likeness lock OK; keep wired",
@@ -1493,7 +1493,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[auth] crease/strip invent damage",
+      "roman_note": "[mod] WAVEN parent PASS — no windows invent; scene/props exact BEFORE; colorize-only",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod",
@@ -1502,7 +1502,8 @@
         "reason": "MOD windows invent; AUTH bend stripe invent",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveN_eye": "no windows invent; scene/props exact BEFORE; colorize-only"
     },
     {
       "id": "db_pd_14",
@@ -1520,12 +1521,16 @@
       "notes": "WAVE12 Dropbox BEFORE add; stains scratches fade winter-trio; no AFTER yet",
       "bytes": 370873,
       "md5": "5a4a0c34f0a541bf4d323f47526e4585",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE12 parent-eye DEMOTE — auth FAIL (warm/sepia tint not archival neutral B&W; chroma R-B≈10.3 / frac_d8≈0.48); mod PASS alone — dual AFTER unwired; BEFORE kept LIVE",
+      "has_after": true,
+      "qa_status": "PASS_auth_ROMAN51_WAVEN",
+      "qa_note": "ROMAN_NOTES51_WAVEN parent-eye PASS auth; archival neutral B&W only; no warm/sepia tint; BEFORE kept LIVE; utc=2026-08-09T01:32:07.394545+00:00",
       "wave12_note": "HOLD after parent-eye demote; dual AFTER unwired from tip 1e89cd9",
       "wave12_child_eye": "auth=PASS(child) mod=PASS(child); parent OVERRIDE auth=FAIL warm tint",
-      "wave12_parent_eye": "auth=FAIL mod=PASS; demoted wired AFTER"
+      "wave12_parent_eye": "auth=FAIL mod=PASS; demoted wired AFTER",
+      "after_authentic_file": "db_pd_14_authentic.jpg",
+      "after_file": "db_pd_14_authentic.jpg",
+      "roman_note": "[auth] WAVEN parent PASS — archival neutral B&W only; no warm/sepia tint",
+      "roman51_waveN_eye": "archival neutral B&W only; no warm/sepia tint"
     },
     {
       "id": "db_pd_37",
@@ -2690,11 +2695,11 @@
       "has_after": true,
       "after_modern_file": "db_pd_59_modern.jpg",
       "after_file": "db_pd_59_modern.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['auth'] — AUTH invent crack/bend; remaining after kept; BEFORE LIVE",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEN",
+      "qa_note": "ROMAN_NOTES51_WAVEN parent-eye PASS auth; neutral archival B&W; crack/bend healed without inventing new tears; BEFORE kept LIVE; utc=2026-08-09T01:32:07.394545+00:00",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave19_child_eye": "PASS auth neutral B&W after chroma redo + FORCE_BW + mod natural color; outdoor-women-portrait locked",
-      "after_authentic_file": null,
+      "after_authentic_file": "db_pd_59_authentic.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "auth"
@@ -2702,7 +2707,9 @@
         "reason": "AUTH invent crack/bend",
         "removed": [],
         "utc": "2026-08-08T22:28:44.744406+00:00"
-      }
+      },
+      "roman_note": "[auth] WAVEN parent PASS — neutral archival B&W; crack/bend healed without inventing new tears",
+      "roman51_waveN_eye": "neutral archival B&W; crack/bend healed without inventing new tears"
     },
     {
       "id": "db_pd_65",
@@ -2723,11 +2730,11 @@
       "has_after": true,
       "after_modern_file": "db_pd_65_modern.jpg",
       "after_file": "db_pd_65_modern.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['auth'] — AUTH invent spots; remaining after kept; BEFORE LIVE",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEN",
+      "qa_note": "ROMAN_NOTES51_WAVEN parent-eye PASS auth; neutral archival B&W; no invent stains/spots; BEFORE kept LIVE; utc=2026-08-09T01:32:07.394545+00:00",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave19_child_eye": "PASS auth neutral B&W + mod period color; outdoor-wedding-family likeness locked",
-      "after_authentic_file": null,
+      "after_authentic_file": "db_pd_65_authentic.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "auth"
@@ -2735,7 +2742,9 @@
         "reason": "AUTH invent spots",
         "removed": [],
         "utc": "2026-08-08T22:28:44.744393+00:00"
-      }
+      },
+      "roman_note": "[auth] WAVEN parent PASS — neutral archival B&W; no invent stains/spots",
+      "roman51_waveN_eye": "neutral archival B&W; no invent stains/spots"
     },
     {
       "id": "db_pd_104",
@@ -2753,14 +2762,14 @@
       "notes": "WAVE19 Dropbox BEFORE add; fade yellow soft indoor-wedding-party; no AFTER yet",
       "bytes": 2270516,
       "md5": "fca5e91368481014c205295ac8346336",
-      "has_after": false,
-      "after_file": null,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE — AUTH color BEFORE forced B&W + invent spot; MOD invent elements; dual/single AFTER unwired; BEFORE kept LIVE",
+      "has_after": true,
+      "after_file": "db_pd_104_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEN",
+      "qa_note": "ROMAN_NOTES51_WAVEN parent-eye PASS mod; no invent elements; clothing/scene exact BEFORE; colorize-only; BEFORE kept LIVE; utc=2026-08-09T01:32:07.394545+00:00",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave19_child_eye": "PASS auth force-BW after chroma redo + mod period color; indoor-wedding-party likeness locked",
-      "after_authentic_file": null,
-      "after_modern_file": null,
+      "after_authentic_file": "db_pd_104_authentic.jpg",
+      "after_modern_file": "db_pd_104_modern.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "auth",
@@ -2769,7 +2778,9 @@
         "reason": "AUTH color BEFORE forced B&W + invent spot; MOD invent elements",
         "removed": [],
         "utc": "2026-08-08T22:28:44.744384+00:00"
-      }
+      },
+      "roman_note": "[mod] WAVEN parent PASS — no invent elements; clothing/scene exact BEFORE; colorize-only",
+      "roman51_waveN_eye": "no invent elements; clothing/scene exact BEFORE; colorize-only"
     },
     {
       "id": "db_pd_61",
@@ -2789,10 +2800,15 @@
       "md5": "b5bd7be89e92c7692d599b847765415b",
       "has_after": false,
       "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE20 parent-eye DEMOTE — invent_mod FAIL (modern invents blue painted backdrop + gold vertical strip not in BEFORE worn neutral studio bg); auth PASS NEUTRAL_BW alone insufficient for dual wire; dual AFTER unwired; BEFORE kept LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEN parent-eye FAIL mod — invent blue painted backdrop / gold vertical strip vs worn neutral studio BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T01:32:07.394545+00:00",
       "wave20_note": "HOLD after parent-eye demote; dual AFTER unwired from tip 8b029c4",
       "wave20_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod period color; solo-studio-portrait likeness locked",
-      "wave20_parent_eye": "auth=PASS mod=FAIL invent_bg; demoted wired AFTER"
+      "wave20_parent_eye": "auth=PASS mod=FAIL invent_bg; demoted wired AFTER",
+      "after_file": "",
+      "after_modern_file": "",
+      "after_authentic_file": "",
+      "roman_note": "[mod] WAVEN FAIL_HOLD — invent blue painted backdrop / gold vertical strip vs worn neutral studio BEFORE",
+      "roman51_waveN_eye": "FAIL invent blue painted backdrop / gold vertical strip vs worn neutral studio BEFORE"
     },
     {
       "id": "db_pd_106",
