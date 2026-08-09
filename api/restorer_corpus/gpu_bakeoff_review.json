@@ -26,7 +26,9 @@
     "logs_excerpt": "PINNED 47263840 Oregon US RTX 4090; PATH_A_PULL_HIT; n_ok=4 n_fail=0 face=v1_skip; DESTROY 404-then-200; n_final=0 spent=$0.0493",
     "n_after_filled": 4,
     "fill_hook_utc": "2026-08-09T11:04:59Z",
-    "note": "ops PASS ($0.0493 DESTROY=Y n_final=0) + quality MIXED: children_dining FAIL_NOOP; family_portrait_knit PASS heal; mother_baby_knit FAIL_NOOP; two_women_studio PASS heal (mild face soft). Real GPU AFTER kept. Not claiming sellable/conveyor/PathA product-ready. spend_E=0 TELEGRAM:NO."
+    "note": "ops PASS ($0.0493 DESTROY=Y n_final=0) + quality MIXED: children_dining FAIL_NOOP; family_portrait_knit PASS heal; mother_baby_knit FAIL_NOOP; two_women_studio PASS heal (mild face soft). Real GPU AFTER kept. Not claiming sellable/conveyor/PathA product-ready. spend_E=0 TELEGRAM:NO.",
+    "tip_commit": "86262a9a35822083cc31505c2e88cfd6680ba5b8",
+    "tip_short": "86262a9"
   },
   "cards": [
     {
