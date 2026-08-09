@@ -86,7 +86,7 @@ textarea{resize:vertical;min-height:54px}
     <h1>Сервис-панель: кейсы до/после</h1>
     <div><span class="who" id="who"></span> · <a class="home" href="/admin.html">Админ</a> · <a class="home" href="/restorer.html">Реставратор</a> · <a class="home" href="/gpu-review.html">GPU</a> · <a class="home" href="/model-compare.html">Сравнение моделей</a> · <a class="home" href="#" id="refresh">Обновить</a></div>
     <div class="hero">
-      <div class="honesty"><strong>Канон:</strong> inspect → CodeFormer только если лица мягкие → Nano Banana (fal) face/identity lock, без invent/plastic. Parent eye / Roman сильнее child PASS. Upscale = PLANNED. pd_05 AFTER не выдумываем. Аренды GPU нет.</div>
+      <div class="honesty"><strong>Канон:</strong> inspect → CodeFormer только если лица мягкие → Nano Banana (fal) face/identity lock, без invent/plastic. Parent eye / Roman сильнее child PASS. Upscale: превью DONE (PIL x2) для PASS authentic; ESRGAN later. pd_05 AFTER не выдумываем. Аренды GPU нет.</div>
       <p id="lead">Все существующие AFTER + Nano API core4. PASS / WEAK / FAIL + комментарий пишутся в case DB.</p>
       <div class="stats" id="stats"></div>
     </div>
@@ -228,6 +228,7 @@ function render(){
   grid.innerHTML=list.map(c=>{
     const m=markOf(c.id); const v=String(m.verdict||'').toLowerCase();
     const triple=!!(c.after_authentic_url || c.after_modern_url);
+    const upU=c.upscale_url||'';
     let afterHtml='';
     if(triple){
       afterHtml=`<div class="shot" data-u="${esc(c.after_authentic_url||'')}" data-t="${esc(c.id)} authentic"><div class="img-slot"></div><span class="lbl">AFTER подлинный</span></div>`+
@@ -247,6 +248,7 @@ function render(){
         ${afterHtml}
       </div>
       <div class="tags">${tags}<span class="tag">upscale:${esc(m.upscale_status||c.upscale_status||'PLANNED')}</span></div>
+    ${upU?`<div class="shot" data-u="${esc(upU)}" data-t="${esc(c.id)} upscale"><div class="k">Upscale preview</div><img alt="upscale"></div>`:''}
       ${peBadges(c)}
       <div class="meta">${esc(c.pipeline||'')}</div>
       <div class="actions">

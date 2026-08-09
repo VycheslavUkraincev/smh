@@ -1514,6 +1514,9 @@ def _service_build_cases():
         else:
             after_status = "WAITING"
         parent_eye = _service_parent_eye(p)
+        upscale_name = str(p.get("upscale_file") or "").strip()
+        has_upscale = bool(upscale_name and _SAFE_NAME.match(upscale_name) and (after_root / upscale_name).is_file())
+        upscale_status = "DONE" if has_upscale else (str(p.get("upscale_status") or "PLANNED")[:40] or "PLANNED")
         mark = marks.get(pid) or restorer_marks.get(pid) or {}
         # normalize restorer approve/bad → pass/fail for service UI
         if mark and str(mark.get("verdict") or "") in ("approve", "approve_authentic", "approve_modern"):
@@ -1540,8 +1543,9 @@ def _service_build_cases():
             "after_modern_url": f"/api/admin/restorer/photo/{mod_name}?kind=after" if has_mod else "",
             "has_after": bool(has_after or has_auth or has_mod),
             "after_status": after_status,
-            "upscale_status": "PLANNED",
-            "upscale_url": "",
+            "upscale_file": upscale_name if has_upscale else "",
+            "upscale_status": upscale_status,
+            "upscale_url": f"/api/admin/restorer/photo/{upscale_name}?kind=after" if has_upscale else "",
             "damage_tags": p.get("damage_tags") or [],
             "status": p.get("status") or "",
             "qa_status": p.get("qa_status") or "",

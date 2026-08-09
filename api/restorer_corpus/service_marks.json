@@ -30,5 +30,14 @@
       "updated_at": 1786306485,
       "source": "API_WAITING_PARENT_EYE"
     }
+  },
+  "pd_02_stains": {
+    "upscale_status": "DONE"
+  },
+  "pd_03_fade": {
+    "upscale_status": "DONE"
+  },
+  "pd_01_scratches": {
+    "upscale_status": "SKIP"
   }
 }

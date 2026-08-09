@@ -203,7 +203,9 @@
       "has_after": false,
       "qa_status": "HOLD",
       "qa_note": "HOLD: nude/topless content; Nano+Grok content_policy; API_WAITING_BATCH skipped Nano; not panel candidate",
-      "parent_eye": "HOLD nude content_policy; no AFTER"
+      "parent_eye": "HOLD nude content_policy; no AFTER",
+      "upscale_status": "SKIP",
+      "upscale_file": null
     },
     {
       "id": "pd_02_stains",
@@ -215,7 +217,7 @@
       ],
       "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_02.jpg",
-      "notes": "photo-testset 02_stains; WAVE2 parent PASS AFTER wired auth+mod; sub for pd_01 nude HOLD | PARENT_EYE auth PASS / mod WEAK",
+      "notes": "photo-testset 02_stains; WAVE2 parent PASS AFTER wired auth+mod; sub for pd_01 nude HOLD | PARENT_EYE auth PASS / mod WEAK | UPSCALE_PIL_x2 DONE on authentic",
       "bytes": 758751,
       "md5": "f5681b972fa6065a0307439e6608cecd",
       "has_after": true,
@@ -231,7 +233,10 @@
       "after_url": null,
       "wave2_note": "WIRED 2026-08-09 API WAITING batch — parent PASS AFTER only; spend_E=0",
       "wave_api_waiting_batch": "PASS_auth_PASS_mod_await_Roman",
-      "parent_eye": "auth PASS; modern WEAK stylized (parent 2026-08-09)"
+      "parent_eye": "auth PASS; modern WEAK stylized (parent 2026-08-09)",
+      "upscale_file": "pd_02_stains_authentic_upscale.jpg",
+      "upscale_status": "DONE",
+      "upscale_method": "PIL_LANCZOS_x2_FREE"
     },
     {
       "id": "pd_03_fade",
@@ -243,7 +248,7 @@
       ],
       "status": "NEED_ETALON",
       "source_path": "projects/savemyhistory/.openclaw/tmp/pilot_pack_25/images/pd_03.jpg",
-      "notes": "photo-testset 03_fade; WAVE2 parent PASS authentic wired; modern WEAK hold | PARENT_EYE auth PASS; modern FAIL demoted",
+      "notes": "photo-testset 03_fade; WAVE2 parent PASS authentic wired; modern WEAK hold | PARENT_EYE auth PASS; modern FAIL demoted | UPSCALE_PIL_x2 DONE on authentic",
       "bytes": 806802,
       "md5": "b05d7557d869b594dee3c2276581b569",
       "has_after": true,
@@ -258,7 +263,10 @@
       "after_modern_url": null,
       "wave2_note": "WIRED 2026-08-09 API WAITING batch — authentic ONLY from deployed PASS; modern WEAK hold; spend_E=0",
       "wave_api_waiting_batch": "WEAK_auth_WEAK_mod_await_Roman",
-      "parent_eye": "auth PASS AG+face; modern FAIL plastic demoted (parent 2026-08-09)"
+      "parent_eye": "auth PASS AG+face; modern FAIL plastic demoted (parent 2026-08-09)",
+      "upscale_file": "pd_03_fade_authentic_upscale.jpg",
+      "upscale_status": "DONE",
+      "upscale_method": "PIL_LANCZOS_x2_FREE"
     },
     {
       "id": "pd_04_soft_portrait",
