@@ -39,6 +39,10 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .failhold-board{margin:12px 0 0;padding:12px 12px 10px;border-radius:12px;border:1px solid #e8b4b4;background:#fff7f7}
 .failhold-board h2{margin:0 0 8px;font-size:15px;color:#6a2a2a}
 .failhold-board .fh-note{margin:0 0 10px;font-size:12px;color:#6a2a2a}
+.fh-board-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 10px}
+.fh-board-bar button{border:1px solid #e8b4b4;background:#fff;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;color:#6a2a2a}
+.fh-board-bar button:hover{border-color:#d09090;background:#fff0f0}
+.fh-copy-hint{font-size:12px;color:#6a2a2a;min-height:1.2em}
 .fh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
 .fh-card{background:#fff;border:1px solid #e8c4c4;border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
 .fh-card:hover{border-color:#d09090;box-shadow:0 0 0 2px rgba(180,80,80,.12)}
@@ -47,6 +51,8 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .fh-card .shot{border-radius:8px;cursor:pointer}
 .fh-card .shot img,.fh-card .img-slot{aspect-ratio:1/1}
 .fh-card .fh-tag{font-size:11px;color:#8a3a3a}
+.fh-card .fh-copy{align-self:stretch;border:1px solid #e8b4b4;background:#fff7f7;border-radius:8px;padding:6px 8px;font-size:11px;cursor:pointer;color:#6a2a2a}
+.fh-card .fh-copy:hover{border-color:#d09090;background:#fff0f0}
 .fh-focus-note{margin:8px 0 0;font-size:12px;color:#6a2a2a}
 .card.card-focus{outline:2px solid #c06060;box-shadow:0 0 0 4px rgba(192,96,96,.18);transition:outline-color .2s,box-shadow .2s}
 .actions button[data-copy-case]{color:#6a2a2a}
@@ -124,7 +130,11 @@ textarea{resize:vertical;min-height:54px}
       <p class="muted" id="failhold-sample" data-marker="failhold-sample-ids" hidden></p>
       <div class="failhold-board" id="failhold-board" data-marker="failhold-board" data-failhold-ids="db_pd_48,db_pd_67,db_pd_111,db_pd_131,pd_03_fade" hidden>
         <h2>FAIL_HOLD redo board</h2>
-        <p class="fh-note">redo · parent eye required · no auto-rerun · spend_E=0 · NO_RENT · ids: db_pd_48, db_pd_67, db_pd_111, db_pd_131, pd_03_fade · click id/thumb → filter FAIL_HOLD + focus card · #case= / ?case= deep-link</p>
+        <p class="fh-note">redo · parent eye required · no auto-rerun · spend_E=0 · NO_RENT · ids: db_pd_48, db_pd_67, db_pd_111, db_pd_131, pd_03_fade · click id/thumb → filter FAIL_HOLD + focus card · #case= / ?case= deep-link · копировать ссылку / все</p>
+        <div class="fh-board-bar" data-marker="failhold-copy-bar">
+          <button type="button" id="fh-copy-all" data-copy-all-failhold="1" title="Скопировать все 5 FAIL_HOLD deep-link (#case=) по строке">копировать все</button>
+          <span class="fh-copy-hint" id="fh-copy-hint" data-copy-hint aria-live="polite"></span>
+        </div>
         <div class="fh-grid" id="failhold-board-grid"></div>
         <p class="fh-focus-note muted" id="fh-focus-note" data-focus-note hidden></p>
       </div>
@@ -388,17 +398,51 @@ function setCaseDeepLink(id){
   try{ history.replaceState(null,'',location.pathname+location.search+want); }
   catch(e){ try{ location.hash=want; }catch(_){ } }
 }
-async function copyCaseLink(id){
-  id=String(id||'').trim(); if(!id) return false;
-  setCaseDeepLink(id);
-  const url=caseDeepLinkUrl(id);
+async function copyTextToClipboard(text){
+  text=String(text||'');
   try{
-    if(navigator.clipboard&&navigator.clipboard.writeText) await navigator.clipboard.writeText(url);
+    if(navigator.clipboard&&navigator.clipboard.writeText) await navigator.clipboard.writeText(text);
     else {
-      const ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
     }
     return true;
   }catch(e){ return false; }
+}
+function showCopyHint(ok, msg){
+  const hint=$('#fh-copy-hint');
+  if(!hint) return;
+  hint.textContent=msg||(ok?'скопировано':'ошибка');
+  clearTimeout(showCopyHint._t);
+  showCopyHint._t=setTimeout(()=>{ if(hint.textContent=== (msg||(ok?'скопировано':'ошибка'))) hint.textContent=''; }, 1600);
+}
+async function copyCaseLink(id){
+  id=String(id||'').trim(); if(!id) return false;
+  setCaseDeepLink(id);
+  return copyTextToClipboard(caseDeepLinkUrl(id));
+}
+async function copyFailHoldLink(id){
+  /* board card «копировать ссылку» — #case= deep-link, stopPropagation on caller */
+  id=String(id||'').trim(); if(!id) return false;
+  const ok=await copyCaseLink(id);
+  showCopyHint(ok, ok?'скопировано':'ошибка');
+  return ok;
+}
+function failHoldBoardIds(){
+  const board=$('#failhold-board');
+  const attr=board && board.getAttribute('data-failhold-ids');
+  if(attr && String(attr).trim()){
+    return String(attr).split(',').map(s=>s.trim()).filter(Boolean);
+  }
+  return CASES.filter(isFailHoldCase).map(c=>c.id);
+}
+async function copyAllFailHold(){
+  /* board «копировать все» — all FAIL_HOLD deep-links, one per line */
+  const ids=failHoldBoardIds();
+  if(!ids.length){ showCopyHint(false,'ошибка'); return false; }
+  const text=ids.map(id=>caseDeepLinkUrl(id)).join('\n');
+  const ok=await copyTextToClipboard(text);
+  showCopyHint(ok, ok?('скопировано '+ids.length):'ошибка');
+  return ok;
 }
 function applyCaseDeepLink(){
   const id=caseIdFromLocation();
@@ -425,7 +469,7 @@ function focusCase(id){
     const copyBtn=card.querySelector('[data-copy-case]');
     if(copyBtn){
       copyBtn.setAttribute('data-focus-copy','1');
-      copyBtn.textContent='ссылка';
+      copyBtn.textContent='копировать ссылку';
     }
     setTimeout(()=>{ card.classList.remove('card-focus'); card.removeAttribute('data-focus'); }, 1800);
     return true;
@@ -440,16 +484,18 @@ function paintFailHoldBoard(ids){
   const board=$('#failhold-board');
   const grid=$('#failhold-board-grid');
   if(!board||!grid) return;
-  const idList=(Array.isArray(ids)&&ids.length)?ids:CASES.filter(isFailHoldCase).map(c=>c.id);
+  const idList=(Array.isArray(ids)&&ids.length)?ids:failHoldBoardIds();
   if(!idList.length){
     board.hidden=true;
     grid.innerHTML='';
     const note=$('#fh-focus-note'); if(note){ note.hidden=true; note.textContent=''; }
+    const hint=$('#fh-copy-hint'); if(hint) hint.textContent='';
     return;
   }
   const byId={};
   CASES.forEach(c=>{ byId[c.id]=c; });
   board.hidden=false;
+  board.setAttribute('data-failhold-ids', idList.join(','));
   grid.innerHTML=idList.map(id=>{
     const c=byId[id]||{id:id,before_url:''};
     const qa=String(c.qa_status||'').trim();
@@ -462,15 +508,32 @@ function paintFailHoldBoard(ids){
       <div class="shot" data-fh-thumb="1" data-u="${esc(before)}" data-t="${esc(id)} before"><div class="img-slot"></div><span class="lbl">ДО</span></div>
       <div class="fh-qa">${esc(short)}</div>
       <div class="fh-tag">redo · parent eye required · no auto-rerun</div>
+      <button type="button" class="fh-copy" data-copy-case="${esc(id)}" data-copy-failhold="1" title="Копировать https://savemyhistory.tech/service-review.html#case=${esc(id)}">копировать ссылку</button>
     </article>`;
   }).join('');
   grid.querySelectorAll('.fh-card[data-fh-id]').forEach(el=>{
     el.addEventListener('click',(ev)=>{
+      if(ev.target && ev.target.closest && ev.target.closest('[data-copy-case]')) return;
       ev.preventDefault();
       const id=el.getAttribute('data-fh-id');
       if(id) focusCase(id);
     });
   });
+  grid.querySelectorAll('button[data-copy-case]').forEach(btn=>{
+    btn.addEventListener('click', async (ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+      const id=btn.getAttribute('data-copy-case');
+      const ok=await copyFailHoldLink(id);
+      btn.textContent=ok?'скопировано':'ошибка';
+      setTimeout(()=>{ btn.textContent='копировать ссылку'; }, 1200);
+    });
+  });
+  const copyAll=$('#fh-copy-all');
+  if(copyAll && !copyAll.getAttribute('data-bound')){
+    copyAll.setAttribute('data-bound','1');
+    copyAll.addEventListener('click', async (ev)=>{ ev.preventDefault(); ev.stopPropagation(); await copyAllFailHold(); });
+  }
   fillSlots(grid);
 }
 function render(){
@@ -515,7 +578,7 @@ function render(){
         <button type="button" data-v="weak" class="${v==='weak'?'active-weak':''}">WEAK</button>
         <button type="button" data-v="fail" class="${v==='fail'?'active-fail':''}">FAIL</button>
         <button type="button" data-v="">сброс</button>
-        <button type="button" data-copy-case="${esc(c.id)}" title="Копировать #case= ссылку">ссылка</button>
+        <button type="button" data-copy-case="${esc(c.id)}" title="Копировать #case= ссылку">копировать ссылку</button>
         <span class="save-hint" data-save="${esc(c.id)}"></span>
       </div>
       <label>Комментарий</label>
@@ -540,12 +603,14 @@ function render(){
     });
   });
   grid.querySelectorAll('.actions button[data-copy-case]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
+    btn.addEventListener('click', async (ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();
       const id=btn.getAttribute('data-copy-case');
       const ok=await copyCaseLink(id);
       const hint=btn.parentElement && btn.parentElement.querySelector('[data-save="'+CSS.escape(id)+'"]');
-      if(hint){ hint.textContent=ok?'ссылка скопирована':'не удалось скопировать'; setTimeout(()=>{ if(hint.textContent.indexOf('ссылка')===0||hint.textContent.indexOf('не удалось')===0) hint.textContent=''; }, 1600); }
-      else { btn.textContent=ok?'ок':'err'; setTimeout(()=>{ btn.textContent='ссылка'; }, 1200); }
+      if(hint){ hint.textContent=ok?'скопировано':'ошибка'; setTimeout(()=>{ if(hint.textContent==='скопировано'||hint.textContent==='ошибка') hint.textContent=''; }, 1600); }
+      else { btn.textContent=ok?'скопировано':'ошибка'; setTimeout(()=>{ btn.textContent='копировать ссылку'; }, 1200); }
     });
   });
   grid.querySelectorAll('textarea[data-c]').forEach(ta=>{
