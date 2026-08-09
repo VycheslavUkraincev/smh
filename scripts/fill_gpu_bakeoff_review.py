@@ -79,6 +79,7 @@ def find_after(pid: str, search_dirs: list[Path]) -> Path | None:
         f"{pid}.jpg",
         f"{pid}.png",
         f"{pid}_after.jpg",
+        f"{pid}_pathc_after.jpg",
         f"AFTER_{pid}.jpg",
         f"{pid}_brushnet.jpg",
         f"{pid}_out.jpg",

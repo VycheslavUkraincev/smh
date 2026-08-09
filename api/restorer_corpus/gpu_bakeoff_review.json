@@ -1,86 +1,88 @@
 {
   "version": "gpu_bakeoff_review_v1",
-  "status": "WAITING",
-  "updated_at_utc": "2026-08-09T07:38:31Z",
+  "status": "FILLED",
+  "updated_at_utc": "2026-08-09T07:54:06Z",
   "run": {
-    "candidate": "BrushNet",
+    "candidate": "brushnet",
     "label": "smh-pathc-brushnet",
     "gpu": "RTX 4090",
-    "geo": "Washington, US",
-    "instance_id": 47251698,
+    "geo": "Spain, ES",
+    "instance_id": 47252245,
     "dph_usd": 0.3496296296296296,
-    "cost_usd": null,
+    "cost_usd": 0.103,
     "cost_cap_usd": 1.5,
-    "destroy": "PENDING",
+    "destroy": "Y",
     "tip_commit": "db774a2feddb6d8ce62e0188510f9862b68d2b05",
     "tip_short": "db774a2",
     "started_utc": "2026-08-09T07:32:50Z",
     "result_path": "projects/savemyhistory/.openclaw/tmp/PATH_C_BAKEOFF_GO_RESULT.txt",
     "path_c": "BrushNet-first ONE 4090 DESTROY",
-    "note": "Bake-off child still running. Scaffold LIVE with BEFORE canaries; AFTER fills via scripts/fill_gpu_bakeoff_review.py when RESULT lands. NEVER invent pd_05 AFTER."
+    "note": "Path C BrushNet bake-off FILLED. spent=$0.103 DESTROY=Y n_final=0. Real AFTER for pd_05/02/10/11; pd_05 NOT invented. Parent-eye: pd_05 WEAK, pd_02/10/11 PASS. spend_E=0 TELEGRAM:NO.",
+    "fill_hook_utc": "2026-08-09T07:54:06Z",
+    "n_after_filled": 4
   },
   "cards": [
     {
       "id": "pd_05",
       "before_file": "pd_05.jpg",
-      "after_file": "",
-      "after_status": "WAITING",
-      "q_verdict": "",
+      "after_file": "pd_05.jpg",
+      "after_status": "FILLED",
+      "q_verdict": "WEAK",
       "q_comments": {
-        "faces": "",
-        "clothes": "",
-        "invent": "",
-        "damage_heal": "",
-        "sharpness_vs_likeness": "",
-        "summary": "Path A FAIL_HOLD: тяжёлая деградация / структура. AFTER не выдумывать — только из bake-off RESULT."
+        "faces": "Групповой кадр: идентичности лиц в целом держатся, без явной подмены и без уплывших глаз; детализация ограничена исходной порчей",
+        "clothes": "Смокинги/платья на местах, фасон и позиции без дрейфа",
+        "invent": "Сильного инвента нет; текстуры сглажены, но сцена не переписана",
+        "damage_heal": "Слабо: царапины/пятна/потеря эмульсии всё ещё доминируют; консервативно, почти без лечения",
+        "sharpness_vs_likeness": "Приоритет likeness соблюдён; без over-sharpen и без выдуманных черт",
+        "summary": "Осторожный AFTER с реальными GPU-пикселями. Locks OK, но для FAIL_HOLD canary польза мала — WEAK"
       },
       "notes": "Path A FAIL_HOLD: тяжёлая деградация / структура. AFTER не выдумывать — только из bake-off RESULT."
     },
     {
       "id": "pd_02",
       "before_file": "pd_02.jpg",
-      "after_file": "",
-      "after_status": "WAITING",
-      "q_verdict": "",
+      "after_file": "pd_02.jpg",
+      "after_status": "FILLED",
+      "q_verdict": "PASS",
       "q_comments": {
-        "faces": "",
-        "clothes": "",
-        "invent": "",
-        "damage_heal": "",
-        "sharpness_vs_likeness": "",
-        "summary": "Path A FAIL_HOLD: абстрактные пятна / likeness. Ждём BrushNet AFTER."
+        "faces": "Читаемых лиц нет ни до, ни после; псевдолиц/глаз не появилось — критично OK",
+        "clothes": "Одежда неразличима; дрейфа фасона/пуговиц нет",
+        "invent": "Новых объектов/фигур/текста нет; тот же хаос фактуры",
+        "damage_heal": "Содержательно почти без изменений; без агрессивной перерисовки",
+        "sharpness_vs_likeness": "Не купили резкость ценой ложного образа",
+        "summary": "Безопасный AFTER на абстрактном FAIL_HOLD; инвента нет — PASS"
       },
       "notes": "Path A FAIL_HOLD: абстрактные пятна / likeness. Ждём BrushNet AFTER."
     },
     {
       "id": "pd_10",
       "before_file": "pd_10.jpg",
-      "after_file": "",
-      "after_status": "WAITING",
-      "q_verdict": "",
+      "after_file": "pd_10.jpg",
+      "after_status": "FILLED",
+      "q_verdict": "PASS",
       "q_comments": {
-        "faces": "",
-        "clothes": "",
-        "invent": "",
-        "damage_heal": "",
-        "sharpness_vs_likeness": "",
-        "summary": "Path A WEAK_HOLD: ghosting child-area. Опциональный canary."
+        "faces": "Мужчина/женщина/ребёнок/справа — likeness держится, глаз без подмены",
+        "clothes": "Платье и светлая одежда согласованы с BEFORE; лёгкий контраст, без смены фасона",
+        "invent": "Новых аксессуаров/фона/рук нет",
+        "damage_heal": "Верхняя грязь частично осталась; локально минимально",
+        "sharpness_vs_likeness": "Чуть четче или паритет; likeness в приоритете",
+        "summary": "Узнаваемость сохранена, locks OK — PASS"
       },
       "notes": "Path A WEAK_HOLD: ghosting child-area. Опциональный canary."
     },
     {
       "id": "pd_11",
       "before_file": "pd_11.jpg",
-      "after_file": "",
-      "after_status": "WAITING",
-      "q_verdict": "",
+      "after_file": "pd_11.jpg",
+      "after_status": "FILLED",
+      "q_verdict": "PASS",
       "q_comments": {
-        "faces": "",
-        "clothes": "",
-        "invent": "",
-        "damage_heal": "",
-        "sharpness_vs_likeness": "",
-        "summary": "Path A PASS control: face/ESRGAN law. BEFORE из roman_stage."
+        "faces": "Трое узнаваемы; глаза/нос/улыбки без уплыва",
+        "clothes": "Шапка, пальто, мех, брошь, шарфы стабильны",
+        "invent": "Ребёнок и предметы на руках на местах; без ломающих артефактов",
+        "damage_heal": "Аккуратно, без грубых швов инпейнта",
+        "sharpness_vs_likeness": "Likeness > sharpness выдержан",
+        "summary": "Сильный control PASS для BrushNet Path C"
       },
       "notes": "Path A PASS control: face/ESRGAN law. BEFORE из roman_stage."
     }
