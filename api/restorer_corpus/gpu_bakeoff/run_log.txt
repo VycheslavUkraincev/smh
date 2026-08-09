@@ -130,3 +130,5 @@ QWEN_DIR_PRESENT False
 spend_est=$0.038
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recomm
 …[truncated]
+
+[2026-08-09T11:40:20Z] Path A FULL inbound4 wired LIVE column: label=smh-night1-patha-full spent_usd=0.0412 DESTROY=Y n_final=0 RTX4090 Spain 47266138 stages=lama_ok×4 gfpgan_ok×3(children face_skip torchvision) esrgan_ok×4 ddcolor_skip_no_pkg×4 parent_eye=WEAK×4 verdict=OPS_PASS_QUALITY_WEAK NOT sellable/conveyor/PASS AFTER ~1MB class replaced prior skip ~250KB outs; nano_bar preserved.
