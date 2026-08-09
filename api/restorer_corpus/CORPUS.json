@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveI wire PASS ['db_pd_94']; held=[] 2026-08-09",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveJ wire PASS ['db_pd_28:mod', 'db_pd_102:mod', 'db_pd_138:auth']; held=['db_pd_111:mod', 'db_pd_131:mod', 'db_pd_41:mod', 'db_pd_48:mod', 'db_pd_67:mod', 'db_pd_88:mod', 'db_pd_85:mod'] 2026-08-09",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -507,10 +507,10 @@
       "md5": "13d9701abcd829bc17285913e88ac003",
       "has_after": true,
       "after_authentic_file": "db_pd_111_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_111_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_20260808 DEMOTE sides=['mod'] — MOD брак; BEFORE LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye FAIL mod — bouquet/flowers invent beyond BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave6_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave6_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -521,7 +521,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] defect/brak",
+      "roman_note": "[mod] WAVEJ FAIL_HOLD — bouquet/flowers invent beyond BEFORE",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -529,7 +529,8 @@
         "reason": "MOD брак",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveJ_eye": "FAIL bouquet/flowers invent beyond BEFORE"
     },
     {
       "id": "db_pd_118",
@@ -615,10 +616,10 @@
       "md5": "302b116d3408785af67ca76e66af204b",
       "has_after": true,
       "after_authentic_file": "db_pd_131_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_131_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_20260808 DEMOTE sides=['mod'] — MOD hair invent; BEFORE LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye FAIL mod — hair style/volume invent vs BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave6_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave6_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -629,7 +630,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] hairstyle invent",
+      "roman_note": "[mod] WAVEJ FAIL_HOLD — hair style/volume invent vs BEFORE",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -637,7 +638,8 @@
         "reason": "MOD hair invent",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveJ_eye": "FAIL hair style/volume invent vs BEFORE"
     },
     {
       "id": "db_pd_138",
@@ -655,11 +657,11 @@
       "bytes": 14299561,
       "md5": "8db20ca84f14c7f70130b61de49c30d2",
       "has_after": true,
-      "after_authentic_file": null,
+      "after_authentic_file": "db_pd_138_authentic.jpg",
       "after_modern_file": "db_pd_138_modern.jpg",
       "after_file": "db_pd_138_modern.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_20260808 DEMOTE sides=['auth'] — AUTH color-stay rule (BEFORE color must stay color); BEFORE LIVE",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEJ_AUTH",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye PASS auth; PASS COLOR-STAY; BEFORE color kept COLOR (enhance ok); no FORCE_BW; no invent; BEFORE kept LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave8_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave8_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -670,7 +672,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[auth] color BEFORE → authentic must stay COLOR not B&W",
+      "roman_note": "[auth] WAVEJ parent PASS — PASS COLOR-STAY; BEFORE color kept COLOR (enhance ok); no FORCE_BW; no invent",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "auth"
@@ -678,7 +680,8 @@
         "reason": "AUTH color-stay rule (BEFORE color must stay color)",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveJ_eye": "PASS COLOR-STAY; BEFORE color kept COLOR (enhance ok); no FORCE_BW; no invent"
     },
     {
       "id": "db_pd_144",
@@ -937,10 +940,10 @@
       "md5": "dbaba5517a5e797e19e807ec5f4980d6",
       "has_after": true,
       "after_authentic_file": "db_pd_41_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_41_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_20260808 DEMOTE sides=['mod'] — MOD flowers invent; BEFORE LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye FAIL mod — flowers/clothing invent vs BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave6_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave6_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -951,7 +954,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] flowers invent",
+      "roman_note": "[mod] WAVEJ FAIL_HOLD — flowers/clothing invent vs BEFORE",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -959,7 +962,8 @@
         "reason": "MOD flowers invent",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveJ_eye": "FAIL flowers/clothing invent vs BEFORE"
     },
     {
       "id": "db_pd_48",
@@ -978,10 +982,10 @@
       "md5": "6b046db141b8cb66051e21519e0e1a8d",
       "has_after": true,
       "after_authentic_file": "db_pd_48_authentic.jpg",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "after_file": "db_pd_48_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_20260808 DEMOTE sides=['mod'] — MOD брак; BEFORE LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye FAIL mod — likeness/clothing remake (MOD брак); AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave8_note": "wired dual AFTER LIVE after child-QA PASS",
       "wave8_child_eye": "PASS_auth_PASS_mod",
       "roman_notes_20260808_export2": {
@@ -992,7 +996,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] defect/brak",
+      "roman_note": "[mod] WAVEJ FAIL_HOLD — likeness/clothing remake (MOD брак)",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -1000,7 +1004,8 @@
         "reason": "MOD брак",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveJ_eye": "FAIL likeness/clothing remake (MOD брак)"
     },
     {
       "id": "db_pd_55",
@@ -1878,10 +1883,10 @@
       "md5": "47874c3650d5478bb01025a4b55109d8",
       "has_after": true,
       "after_authentic_file": "db_pd_28_authentic.jpg",
-      "after_modern_file": null,
-      "after_file": "db_pd_28_authentic.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES51_20260808 DEMOTE sides=['mod'] — MOD element invent; BEFORE LIVE",
+      "after_modern_file": "db_pd_28_modern.jpg",
+      "after_file": "db_pd_28_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEJ_MOD",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye PASS mod; PASS scene/props/clothing exact BEFORE; no element invent; colorize-only; BEFORE kept LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave14_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave14_child_eye": "PASS auth archival B&W + mod natural color; wedding-kiss pose/attire locked",
       "roman_notes_20260808_export2": {
@@ -1892,7 +1897,7 @@
         "utc": "2026-08-08T22:56:42.725946+00:00",
         "export": 2
       },
-      "roman_note": "[mod] element invent",
+      "roman_note": "[mod] WAVEJ parent PASS — PASS scene/props/clothing exact BEFORE; no element invent; colorize-only",
       "roman_notes51_20260808": {
         "sides_demoted": [
           "mod"
@@ -1900,7 +1905,8 @@
         "reason": "MOD element invent",
         "removed": [],
         "utc": "2026-08-08T22:57:12.068618+00:00"
-      }
+      },
+      "roman51_waveJ_eye": "PASS scene/props/clothing exact BEFORE; no element invent; colorize-only"
     },
     {
       "id": "db_pd_58",
@@ -2071,10 +2077,10 @@
       "after_authentic_file": "db_pd_67_authentic.jpg",
       "after_file": "db_pd_67_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD flowers invent; remaining after kept; BEFORE LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye FAIL mod — flowers invent + clothing detail drift; AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave15_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave15_child_eye": "PASS auth neutral B&W + mod natural color; family-portrait likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
@@ -2082,7 +2088,9 @@
         "reason": "MOD flowers invent",
         "removed": [],
         "utc": "2026-08-08T22:28:44.744482+00:00"
-      }
+      },
+      "roman_note": "[mod] WAVEJ FAIL_HOLD — flowers invent + clothing detail drift",
+      "roman51_waveJ_eye": "FAIL flowers invent + clothing detail drift"
     },
     {
       "id": "db_pd_81",
@@ -2129,10 +2137,10 @@
       "after_authentic_file": "db_pd_88_authentic.jpg",
       "after_file": "db_pd_88_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD bag pattern invent; remaining after kept; BEFORE LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye FAIL mod — bag shape/pattern invent vs BEFORE; AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave16_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave16_child_eye": "PASS auth forced-neutral silver-gelatin B&W + mod natural color; outdoor-winter-trio likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
@@ -2140,7 +2148,9 @@
         "reason": "MOD bag pattern invent",
         "removed": [],
         "utc": "2026-08-08T22:28:44.744475+00:00"
-      }
+      },
+      "roman_note": "[mod] WAVEJ FAIL_HOLD — bag shape/pattern invent vs BEFORE",
+      "roman51_waveJ_eye": "FAIL bag shape/pattern invent vs BEFORE"
     },
     {
       "id": "db_pd_100",
@@ -2319,10 +2329,10 @@
       "after_authentic_file": "db_pd_85_authentic.jpg",
       "after_file": "db_pd_85_authentic.jpg",
       "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD lace/light contour invent; remaining after kept; BEFORE LIVE",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye FAIL mod — lace/embroidered contour invent on garments; AFTER not wired; BEFORE LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave17_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave17_child_eye": "PASS auth true B&W + mod period color; outdoor-picnic-group likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
@@ -2330,7 +2340,9 @@
         "reason": "MOD lace/light contour invent",
         "removed": [],
         "utc": "2026-08-08T22:28:44.744460+00:00"
-      }
+      },
+      "roman_note": "[mod] WAVEJ FAIL_HOLD — lace/embroidered contour invent on garments",
+      "roman51_waveJ_eye": "FAIL lace/embroidered contour invent on garments"
     },
     {
       "id": "db_pd_89",
@@ -2630,12 +2642,12 @@
       "md5": "fe3c66569661087575a474b0945739ca",
       "has_after": true,
       "after_authentic_file": "db_pd_102_authentic.jpg",
-      "after_file": "db_pd_102_authentic.jpg",
-      "qa_status": "FAIL_HOLD_SIDE",
-      "qa_note": "ROMAN_NOTES_20260808 DEMOTE sides=['mod'] — MOD scarf pattern invent (mild); remaining after kept; BEFORE LIVE",
+      "after_file": "db_pd_102_modern.jpg",
+      "qa_status": "PASS_auth_mod_ROMAN51_WAVEJ_MOD",
+      "qa_note": "ROMAN_NOTES51_WAVEJ parent-eye PASS mod; PASS scarf exact BEFORE; no pattern invent/embellish; colorize-only; BEFORE kept LIVE; utc=2026-08-09T00:54:08.056418+00:00",
       "wave19_note": "wired dual AFTER LIVE after child-QA PASS; auth force-neutral B&W + chroma gate",
       "wave19_child_eye": "PASS auth true B&W + mod natural color; outdoor-family-porch likeness locked",
-      "after_modern_file": null,
+      "after_modern_file": "db_pd_102_modern.jpg",
       "roman_notes_20260808": {
         "sides_demoted": [
           "mod"
@@ -2643,7 +2655,9 @@
         "reason": "MOD scarf pattern invent (mild)",
         "removed": [],
         "utc": "2026-08-08T22:28:44.744416+00:00"
-      }
+      },
+      "roman_note": "[mod] WAVEJ parent PASS — PASS scarf exact BEFORE; no pattern invent/embellish; colorize-only",
+      "roman51_waveJ_eye": "PASS scarf exact BEFORE; no pattern invent/embellish; colorize-only"
     },
     {
       "id": "db_pd_59",
