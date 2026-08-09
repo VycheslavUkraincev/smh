@@ -65,6 +65,10 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .pilot3-before-shots{margin-top:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .pilot3-before .before-missing{display:flex;align-items:center;justify-content:center;height:160px;background:#fbf7f0;border-bottom:1px solid var(--line);color:var(--weak);font-size:12px;font-weight:700;text-align:center;padding:8px}
 .pilot3-before .shot[data-pilot-before="1"]{border-color:#cfe8d6}
+.pilot3-nanobar{margin-top:12px}
+.pilot3-nanobar-shots{margin-top:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.pilot3-nanobar .nano-bar-missing{display:flex;align-items:center;justify-content:center;height:160px;background:#fbf7f0;border-bottom:1px solid var(--line);color:var(--weak);font-size:12px;font-weight:700;text-align:center;padding:8px}
+.pilot3-nanobar .shot[data-pilot-nanobar="1"]{border-color:#cfe8d6}
 </style>
 </head>
 <body>
@@ -163,12 +167,30 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
           </div>
         </div>
       </div>
+      <div class="pilot3-nanobar" id="nano-alt-matrix-pilot3-nanobar" data-marker="nano-alt-matrix-pilot3-nanobar" data-pilot-nanobar="1" data-pilot3="1">
+        <strong>Pilot 3×3 · Nano-bar AFTER</strong> · existing Nano authentic only · FREE preview · spend_E=0 · no fal · no inference · alt AFTER slots stay empty · <span class="pilot-badge" data-pilot="1">пилот 3×3</span>
+        <br>Markers: pilot3-nanobar · nano-bar-after · comparison bar (not alt matrix AFTER) · READY_DRY · LIVE_BLOCKED
+        <div class="shots pilot3-nanobar-shots" data-marker="pilot3-nanobar">
+          <div class="shot" data-pick="pd_02_stains" data-pilot="1" data-pilot3="1" data-pilot-nanobar="1" data-nano-bar-after="1">
+            <img src="/model-compare/api_pd_02_stains_auth_after.jpg" alt="pd_02_stains nano authentic after">
+            <div class="cap"><code>pd_02_stains</code> · nano-bar-after · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">Nano authentic · existing file</div></div>
+          </div>
+          <div class="shot" data-pick="pd_03_fade" data-pilot="1" data-pilot3="1" data-pilot-nanobar="1" data-nano-bar-after="1">
+            <img src="/model-compare/api_pd_03_fade_auth_after.jpg" alt="pd_03_fade nano authentic after">
+            <div class="cap"><code>pd_03_fade</code> · nano-bar-after · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">Nano authentic · existing file</div></div>
+          </div>
+          <div class="shot" data-pick="pd_04_soft_portrait" data-pilot="1" data-pilot3="1" data-pilot-nanobar="1" data-nano-bar-missing="1">
+            <div class="nano-bar-missing" data-marker="nano-bar-missing">nano-bar-missing<br><span style="font-weight:400">disk nano-bar-ok · public auth AFTER absent</span></div>
+            <div class="cap"><code>pd_04_soft_portrait</code> · nano-bar-missing · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">no invented AFTER</div></div>
+          </div>
+        </div>
+      </div>
       <div class="pilot3-bar" data-marker="pilot3-copy-bar" id="pilot-3">
         <button type="button" id="pilot3-copy-18" data-copy-gate="да matrix 3×3 ≤18E" title="Скопировать точную gate-фразу pilot">копировать «да matrix 3×3 ≤18E»</button>
         <button type="button" id="pilot3-copy-60" data-copy-gate="да matrix 10×3 ≤60E" title="Скопировать точную gate-фразу core">копировать «да matrix 10×3 ≤60E»</button>
         <span class="pilot3-copy-hint" id="pilot3-copy-hint" data-copy-hint aria-live="polite"></span>
       </div>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-pilot3-before">→ service-review pilot BEFORE mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-pilot3-nanobar">→ service-review pilot Nano-bar mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-prompt-notes" data-marker="nano-alt-prompt-notes">
