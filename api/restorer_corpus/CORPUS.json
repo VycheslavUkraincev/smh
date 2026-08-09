@@ -1,7 +1,7 @@
 {
   "version": "restorer_board_v2_wave2_failhold",
   "n_photos": 87,
-  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveQ wire PASS ['db_pd_37:auth', 'db_pd_37:mod', 'db_pd_9:auth', 'db_pd_9:mod', 'db_pd_71:auth', 'db_pd_71:mod', 'db_pd_13:auth', 'db_pd_22:auth', 'db_pd_15:auth', 'db_pd_64:auth', 'db_pd_80:auth']; held=['db_pd_13:mod', 'db_pd_22:mod'] 2026-08-09",
+  "dropbox_status": "pilot_200_before_partial; Roman notes51 WaveS wire PASS ['db_pd_89:auth']; held=['db_pd_89:mod'] 2026-08-09",
   "excluded": [
     "group-seed-permanently-excluded"
   ],
@@ -2419,11 +2419,16 @@
       "notes": "WAVE17 Dropbox BEFORE add; fade grain soft stains cracks indoor-performance-group; no AFTER yet",
       "bytes": 2645694,
       "md5": "6c8a0b4f5f4a60821d95317a639afeeb",
-      "has_after": false,
-      "qa_status": "FAIL_HOLD",
-      "qa_note": "WAVE17 child-QA HOLD — modern over-smoothed/slightly reshaped faces; stylized finish; dual not wired; no LIVE AFTER wired",
+      "has_after": true,
+      "qa_status": "PASS_auth_ROMAN51_WAVES_MOD_HOLD",
+      "qa_note": "ROMAN_NOTES51_WAVES parent-eye PASS auth; archival neutral B&W FORCE_BW mean=0; faces/pose/clothing/scene lock exact BEFORE; no reshape/beautify; full-frame invent-clean; WaveS new; BEFORE kept LIVE; mod FAIL_HOLD; utc=2026-08-09T02:13:19.036677+00:00 | ROMAN_NOTES51_WAVES parent-eye FAIL mod — over-smoothed/beautified faces + stylized polish vs BEFORE (Wave17 pattern persists after auth→colorize-only; likeness drift); AFTER not wired; BEFORE LIVE; utc=2026-08-09T02:13:19.036677+00:00",
       "wave17_note": "HOLD after child-QA; dual AFTER not wired",
-      "wave17_child_eye": "auth=PASS mod=FAIL; modern over-smoothed/slightly reshaped faces; stylized finish; dual not wired"
+      "wave17_child_eye": "auth=PASS mod=FAIL; modern over-smoothed/slightly reshaped faces; stylized finish; dual not wired",
+      "after_authentic_file": "db_pd_89_authentic.jpg",
+      "after_file": "db_pd_89_authentic.jpg",
+      "roman_note": "[auth] WAVES parent PASS — archival neutral B&W FORCE_BW mean=0; faces/pose/clothing/scene lock exact BEFORE; no reshape/beautify; full-frame invent-clean; WaveS new | [mod] WAVES FAIL_HOLD — over-smoothed/beautified faces + stylized polish vs BEFORE (Wave17 pattern persists after auth→colorize-only; likeness drift)",
+      "roman51_waveS_eye": "archival neutral B&W FORCE_BW mean=0; faces/pose/clothing/scene lock exact BEFORE; no reshape/beautify; full-frame invent-clean; WaveS new; FAIL mod over-smoothed/beautified faces + stylized polish vs BEFORE (Wave17 pattern persists after auth→colorize-only; likeness drift)",
+      "after_modern_file": ""
     },
     {
       "id": "db_pd_94",
