@@ -54,6 +54,13 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .matrix-after .slot-box{display:block;min-height:54px;border:1px dashed #d2c2a5;border-radius:8px;background:#fbf7f0;padding:6px 7px;color:var(--muted)}
 .matrix-after .slot-box .slot-model{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--ink);margin-bottom:3px}
 .nano-alt-after{margin-top:8px}
+.pilot-badge{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;background:#E4F6E9;color:var(--ok);border:1px solid #b7e0c3}
+.matrix-after tr[data-pilot="1"]{background:#f3faf5}
+.matrix-after tr[data-pilot="1"] td:first-child{border-left:3px solid var(--ok)}
+.pilot3-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 4px}
+.pilot3-bar button{border:1px solid #d8c7a8;background:#fff;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;color:#5c4630}
+.pilot3-bar button:hover{border-color:#c4ae86;background:#fff8ef}
+.pilot3-copy-hint{font-size:12px;color:#5c4630;min-height:1.2em}
 </style>
 </head>
 <body>
@@ -103,9 +110,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
             </tr>
           </thead>
           <tbody>
-            <tr data-pick="pd_02_stains"><td><code>pd_02_stains</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
-            <tr data-pick="pd_03_fade"><td><code>pd_03_fade</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
-            <tr data-pick="pd_04_soft_portrait"><td><code>pd_04_soft_portrait</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_02_stains" data-pilot="1" data-pilot3="1"><td><code>pd_02_stains</code> <span class="pilot-badge" data-pilot="1">пилот 3×3</span></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_03_fade" data-pilot="1" data-pilot3="1"><td><code>pd_03_fade</code> <span class="pilot-badge" data-pilot="1">пилот 3×3</span></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
+            <tr data-pick="pd_04_soft_portrait" data-pilot="1" data-pilot3="1"><td><code>pd_04_soft_portrait</code> <span class="pilot-badge" data-pilot="1">пилот 3×3</span></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
             <tr data-pick="pd_06_cracks"><td><code>pd_06_cracks</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
             <tr data-pick="pd_08_inbound"><td><code>pd_08_inbound</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
             <tr data-pick="pd_24_group"><td><code>pd_24_group</code></td><td>before-ok · nano-bar-ok</td><td class="after-slot" data-model="grok-edit"><span class="slot-box"><span class="slot-model">grok-edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-pro/kontext"><span class="slot-box"><span class="slot-model">fal-ai/flux-pro/kontext</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td><td class="after-slot" data-model="fal-ai/flux-2-pro/edit"><span class="slot-box"><span class="slot-model">fal-ai/flux-2-pro/edit</span><span class="st WAIT">WAITING</span> · READY_DRY · empty</span></td></tr>
@@ -127,6 +134,19 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><strong>LIVE_BLOCKED</strong> without <code>SMH_NANO_ALT_GO=YES</code> + <code>--force</code> (and exact gate да).
       <br>Gates held: «да matrix 3×3 ≤18E» · «да matrix 10×3 ≤60E»
       <br>after-slots <span class="st WAIT">WAITING</span> held · no fake AFTER thumbs · NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / AFTER from alts
+    </div>
+
+    <div class="honesty" id="nano-alt-matrix-pilot3" data-marker="nano-alt-matrix-pilot3" data-pilot3="1">
+      <strong>Pilot 3×3 · gate copy</strong> · FREE UI · spend_E=0 · NO GPU RENT · no fal · no inference · <span class="pilot-badge" data-pilot="1">пилот 3×3</span>
+      <br>Pilot ids (first 3 of Top-10): <code>pd_02_stains</code> <code>pd_03_fade</code> <code>pd_04_soft_portrait</code>
+      <br>Honesty: pilot 3×3 → <strong>9 calls / 18E</strong> · core 10×3 → TOTAL_CALLS=30 / TOTAL_E=60 · full 10×8 ≤160E
+      <br>READY_DRY · LIVE_BLOCKED without exact gate да (+ SMH_NANO_ALT_GO=YES + --force). NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference.
+      <div class="pilot3-bar" data-marker="pilot3-copy-bar" id="pilot-3">
+        <button type="button" id="pilot3-copy-18" data-copy-gate="да matrix 3×3 ≤18E" title="Скопировать точную gate-фразу pilot">копировать «да matrix 3×3 ≤18E»</button>
+        <button type="button" id="pilot3-copy-60" data-copy-gate="да matrix 10×3 ≤60E" title="Скопировать точную gate-фразу core">копировать «да matrix 10×3 ≤60E»</button>
+        <span class="pilot3-copy-hint" id="pilot3-copy-hint" data-copy-hint aria-live="polite"></span>
+      </div>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-pilot3">→ service-review pilot mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-prompt-notes" data-marker="nano-alt-prompt-notes">
@@ -406,6 +426,39 @@ async function init(){
   showPanel();
 }
 init();
+
+async function copyTextToClipboard(text){
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  }catch(e){}
+  try{
+    const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    return true;
+  }catch(e){ return false; }
+}
+function setPilot3CopyHint(msg){
+  const hint=document.getElementById('pilot3-copy-hint');
+  if(hint) hint.textContent=msg||'';
+}
+async function copyGatePhrase(phrase){
+  const ok=await copyTextToClipboard(phrase);
+  setPilot3CopyHint(ok ? ('скопировано: '+phrase) : 'не удалось скопировать');
+  return ok;
+}
+(function bindPilot3Copy(){
+  document.querySelectorAll('[data-copy-gate]').forEach(btn=>{
+    if(btn.getAttribute('data-bound')) return;
+    btn.setAttribute('data-bound','1');
+    btn.addEventListener('click', async (ev)=>{
+      ev.preventDefault(); ev.stopPropagation();
+      const phrase=btn.getAttribute('data-copy-gate')||'';
+      if(phrase) await copyGatePhrase(phrase);
+    });
+  });
+})();
 
 </script>
 </body>
