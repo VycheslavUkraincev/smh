@@ -227,28 +227,46 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
   </div>
 </div>
 <script>
+
+const SB_URL='https://dvjpfabqkhtcjlqlvuhr.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2anBmYWJxa2h0Y2pscWx2dWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTQ2NTEsImV4cCI6MjA5Njc3MDY1MX0.NvUzPTcaam386b_o_qtJMocvvfSmTfcB-tfxSYiQFRU';
+const $=s=>document.querySelector(s);
 let _token=null;
 function getToken(){ if(_token)return _token; try{_token=localStorage.getItem('smh_at')||null;}catch(e){} return _token; }
 function setToken(t){ _token=t; try{ t?localStorage.setItem('smh_at',t):localStorage.removeItem('smh_at'); }catch(e){} }
 function H(){ return {Authorization:'Bearer '+getToken(), 'Content-Type':'application/json'}; }
 (function(){ const h=location.hash||''; const m=h.match(/access_token=([^&]+)/); if(m){ setToken(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname); } })();
-async function ensureAuth(){
-  const gate=document.getElementById('gate');
-  const panel=document.getElementById('panel');
-  const login=document.getElementById('login');
-  login.href='/api/auth/google?next='+encodeURIComponent('/model-compare.html');
-  if(!getToken()){ gate.style.display='block'; panel.style.display='none'; return; }
-  try{
-    const r=await fetch('/api/admin/me',{headers:H()});
-    if(!r.ok) throw new Error('auth');
-    gate.style.display='none'; panel.style.display='block';
-  }catch(e){
-    setToken(null);
-    gate.style.display='block'; panel.style.display='none';
-    document.getElementById('gate-msg').textContent='Сессия истекла — войдите снова.';
-  }
+async function login(){
+  const sb=(await import('https://esm.sh/@supabase/supabase-js@2')).createClient(SB_URL,KEY,{auth:{detectSessionInUrl:false,flowType:'implicit',persistSession:false}});
+  const {data}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/model-compare.html'}});
+  if(data&&data.url) location.href=data.url;
 }
-ensureAuth();
+function showGate(msg){ $('#gate').style.display='block'; $('#panel').style.display='none'; if(msg)$('#gate-msg').textContent=msg; }
+function showPanel(){ $('#gate').style.display='none'; $('#panel').style.display='block'; }
+async function ensureAuth(){
+  const login=$('#login');
+  if(login) login.onclick=e=>{e.preventDefault();loginFn();};
+  // bind via named fn to avoid shadowing by element id=login in some browsers
+}
+async function loginFn(){ return login(); }
+async function init(){
+  const loginEl=$('#login');
+  if(loginEl) loginEl.onclick=e=>{e.preventDefault();login();};
+  if(!getToken()){ showGate(); return; }
+  let r;
+  try{ r=await fetch('/api/admin/check',{headers:H()}); }catch(e){ showGate('Ошибка сети.'); return; }
+  if(r.status===403){ showGate('Этот аккаунт не админ. Войдите аккаунтом из белого списка.'); return; }
+  if(r.status===401){ setToken(null); showGate('Сессия истекла. Войдите снова.'); return; }
+  if(!r.ok){ showGate('Не удалось проверить доступ.'); return; }
+  try{
+    const me=await r.json();
+    const who=document.querySelector('.who');
+    if(who && me && me.email) who.textContent=(who.textContent||'')+' · '+me.email;
+  }catch(e){}
+  showPanel();
+}
+init();
+
 </script>
 </body>
 </html>
