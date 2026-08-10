@@ -123,13 +123,13 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><a class="home" href="/service-review.html">→ service-review</a> (кейсы до/после + FAIL_HOLD board)
     </div>
 
-    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus" data-board-wire="1" data-board-wired="1" data-board-focus="1">
-      <strong>Matrix picks board · wired + focus</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView
-      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10
+    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1">
+      <strong>Matrix picks board · wired + focus + deeplink</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick=
+      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10
       <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
       <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · LIVE_BLOCKED · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
-      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1">
-        <table data-board-wire="1" data-board-focus="1">
+      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1">
+        <table data-board-wire="1" data-board-focus="1" data-board-deeplink="1">
           <thead>
             <tr>
               <th>pick id</th>
@@ -156,8 +156,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       </div>
       <br>Board wired for all 10 matrix picks from public thumbs · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER stay WAITING / READY_DRY.
       <br>Focus: click pick row / id chip → focusPick(id) · data-focus="1" · scrollIntoView · FREE UI · no inference.
+      <br>Deep-link: #pick=&lt;id&gt; / ?pick=&lt;id&gt; → applyPickDeepLink → focusPick · click updates hash via setPickDeepLink · example <a class="home" href="/model-compare.html#pick=pd_02_stains">#pick=pd_02_stains</a>
       <p class="board-focus-note" id="board-focus-note" data-focus-note hidden></p>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ service-review board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ service-review board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-wire" data-marker="nano-alt-matrix-board-wire" data-board-wire="1" data-board-wired="1">
@@ -185,6 +186,14 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Mirrors FAIL_HOLD focusCase pattern on matrix board rows · active row gets data-focus="1" + pick-focus class · scrollIntoView center.
       <br>NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts / fake AFTER / GPU rent
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ #nano-alt-matrix-picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ service-review board-focus mirror</a>
+    </div>
+
+    <div class="honesty" id="nano-alt-matrix-board-deeplink" data-marker="nano-alt-matrix-board-deeplink board-deeplink" data-board-deeplink="1">
+      <strong>Matrix all-10 · board-deeplink</strong> · FREE UI · #pick=&lt;id&gt; / ?pick=&lt;id&gt; → pickIdFromLocation + applyPickDeepLink → focusPick + scrollIntoView · click → setPickDeepLink · hashchange · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · board-focus · board-ready · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · pilot3 · copy-gates · Top-10 · dry-status
+      <br>Example: <a class="home" href="/model-compare.html#pick=pd_02_stains">https://savemyhistory.tech/model-compare.html#pick=pd_02_stains</a> · mirrors FAIL_HOLD #case= / ?case= pattern.
+      <br>NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts / fake AFTER / GPU rent
+      <br><a class="home" href="/model-compare.html#pick=pd_02_stains">→ #pick=pd_02_stains</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ service-review board-deeplink mirror</a>
     </div>
     <div class="honesty" id="nano-alt-matrix-dry-status" data-marker="nano-alt-matrix-dry-status">
       <strong>Matrix dry-run numbers</strong> · <strong>DRY_OK</strong> / <strong>READY_DRY</strong> · spend_E=0 · NO GPU RENT · no fal · no Nano spend · no inference
@@ -688,7 +697,35 @@ async function copyGatePhrase(phrase){
 })();
 
 
+/* nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange */
 /* nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · focusPick */
+function pickIdFromLocation(){
+  /* deep-link: ?pick=ID or #pick=ID → focusPick */
+  try{
+    const q=new URLSearchParams(location.search||'').get('pick');
+    if(q && String(q).trim()) return String(q).trim();
+  }catch(e){}
+  const h=location.hash||'';
+  if(h.indexOf('access_token=')>=0) return '';
+  const m=h.match(/^#pick=([^&]+)/i);
+  if(!m) return '';
+  try{ return decodeURIComponent(m[1]).trim(); }catch(e){ return String(m[1]||'').trim(); }
+}
+function pickDeepLinkUrl(id){
+  return location.origin+location.pathname+'#pick='+encodeURIComponent(id);
+}
+function setPickDeepLink(id){
+  id=String(id||'').trim(); if(!id) return;
+  const want='#pick='+encodeURIComponent(id);
+  if((location.hash||'')===want) return;
+  try{ history.replaceState(null,'',location.pathname+location.search+want); }
+  catch(e){ try{ location.hash=want; }catch(_){ } }
+}
+function applyPickDeepLink(){
+  const id=pickIdFromLocation();
+  if(!id) return false;
+  return focusPick(id);
+}
 function focusPick(id){
   id=String(id||'').trim();
   if(!id) return false;
@@ -710,13 +747,10 @@ function focusPick(id){
   if(note){ note.hidden=true; note.textContent=''; }
   row.setAttribute('data-focus','1');
   row.setAttribute('data-board-focus','1');
+  row.setAttribute('data-board-deeplink','1');
   row.classList.add('pick-focus');
   try{ row.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){ row.scrollIntoView(true); }
-  try{
-    if(location.hash!=='#nano-alt-matrix-picks'){
-      history.replaceState(null,'',location.pathname+location.search+'#nano-alt-matrix-picks');
-    }
-  }catch(e){}
+  setPickDeepLink(id);
   setTimeout(()=>{ row.classList.remove('pick-focus'); row.removeAttribute('data-focus'); }, 1800);
   return true;
 }
@@ -724,7 +758,9 @@ function focusPick(id){
   const root=document.getElementById('matrix-after-slots');
   if(!root || root.getAttribute('data-focus-bound')==='1') return;
   root.setAttribute('data-focus-bound','1');
+  root.setAttribute('data-board-deeplink','1');
   root.querySelectorAll('tr[data-pick]').forEach(tr=>{
+    tr.setAttribute('data-board-deeplink','1');
     tr.addEventListener('click',(ev)=>{
       if(ev.target && ev.target.closest && ev.target.closest('a,button,[data-copy-gate]')) return;
       const id=tr.getAttribute('data-pick');
@@ -732,6 +768,7 @@ function focusPick(id){
     });
   });
   root.querySelectorAll('[data-focus-target]').forEach(chip=>{
+    chip.setAttribute('data-board-deeplink','1');
     chip.addEventListener('click',(ev)=>{
       ev.preventDefault();
       ev.stopPropagation();
@@ -739,6 +776,11 @@ function focusPick(id){
       if(id) focusPick(id);
     });
   });
+})();
+(function bindBoardDeepLink(){
+  /* nano-alt-matrix-board-deeplink · board-deeplink · #pick= · ?pick= · hashchange */
+  applyPickDeepLink();
+  window.addEventListener('hashchange',()=>{ applyPickDeepLink(); });
 })();
 
 </script>
