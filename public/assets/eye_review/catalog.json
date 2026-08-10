@@ -1,0 +1,63 @@
+{
+  "family3": {
+    "before": "family3_before.jpg",
+    "models": {
+      "cf-nano-authentic": "family3_cf-nano-authentic.png",
+      "banana2-color": "family3_banana2-color.png"
+    },
+    "photo_id": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5"
+  },
+  "folk3": {
+    "before": "folk3_before.jpg",
+    "models": {
+      "cf-nano-authentic": "folk3_cf-nano-authentic.png",
+      "banana2-color": "folk3_banana2-color.png"
+    },
+    "photo_id": "3a64c1f9-1733-4611-b43d-7448862db76e"
+  },
+  "frida": {
+    "before": "frida_before.jpg",
+    "models": {
+      "cf-nano-authentic": "frida_cf-nano-authentic.png",
+      "banana2-color": "frida_banana2-color.png"
+    },
+    "photo_id": "8d88b2af-b252-4849-862b-5804ff4b4806"
+  },
+  "fedora": {
+    "before": "fedora_before.jpg",
+    "models": {
+      "cf-nano-authentic": "fedora_cf-nano-authentic.png",
+      "banana2-color": "fedora_banana2-color.png",
+      "bake-gpt2": "fedora_bake-gpt2.png",
+      "bake-banana-pro": "fedora_bake-banana-pro.png"
+    },
+    "photo_id": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a"
+  },
+  "couple": {
+    "before": "couple_before.jpg",
+    "models": {
+      "cf-nano-authentic": "couple_cf-nano-authentic.png",
+      "banana2-color": "couple_banana2-color.png",
+      "banana-pro-color": "couple_banana-pro-color.png"
+    },
+    "photo_id": "b856b364-c132-4df9-971b-9cb6bf340585"
+  },
+  "doorway": {
+    "before": "doorway_before.jpg",
+    "models": {
+      "cf-nano-authentic": "doorway_cf-nano-authentic.png",
+      "banana2-color": "doorway_banana2-color.png",
+      "banana-pro-color": "doorway_banana-pro-color.png"
+    },
+    "photo_id": "365f7cb5-9694-4f40-b43f-d39d47f064f2"
+  },
+  "wedding": {
+    "before": "wedding_before.jpg",
+    "models": {
+      "cf-nano-authentic": "wedding_cf-nano-authentic.png",
+      "banana2-color": "wedding_banana2-color.png",
+      "banana-pro-color": "wedding_banana-pro-color.png"
+    },
+    "photo_id": "71c52fea-0a7c-42d7-8d11-d09c867f475d"
+  }
+}

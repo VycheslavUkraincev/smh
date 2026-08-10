@@ -94,6 +94,14 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .sticky .bar{margin:0}
 #notesCount{font-weight:700}
 .target-toggle{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+
+.lb{position:fixed;inset:0;background:rgba(20,14,10,.88);display:none;align-items:center;justify-content:center;z-index:80;padding:18px}
+.lb.open{display:flex}
+.lb-inner{max-width:min(96vw,1100px);max-height:92vh;display:flex;flex-direction:column;gap:10px;width:100%}
+.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.lb-stage img{max-width:100%;max-height:78vh;width:auto;height:auto;object-fit:contain}
+.lb-top{display:flex;justify-content:space-between;align-items:center;color:#fff}
+.lb-close{background:transparent;border:0;color:#fff;font-size:28px;cursor:pointer}
 </style>
 </head>
 <body class="eye-review" data-eye-review="1">
@@ -125,6 +133,13 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
   <div id="cases"></div>
 
   <p class="foot">Markers: nano-alt-eye-review · data-eye-review · eye-review · client-side clipboard only · no webhook secrets.</p>
+</div>
+
+<div id="lightbox" class="lb" aria-hidden="true">
+  <div class="lb-inner">
+    <div class="lb-top"><div id="lbTitle">фото</div><button type="button" class="lb-close" id="lbClose" aria-label="Закрыть">×</button></div>
+    <div class="lb-stage"><img id="lbImg" alt="просмотр"></div>
+  </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -525,7 +540,27 @@ document.getElementById('btnMailto').addEventListener('click', ()=>{
   location.href = 'mailto:?subject='+subject+'&body='+body;
 });
 
+
+document.getElementById('lbClose')?.addEventListener('click', closeLightbox);
+document.getElementById('lightbox')?.addEventListener('click', (e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeLightbox(); });
 render();
+
+function openLightbox(src, title){
+  const lb = document.getElementById('lightbox');
+  if(!lb) return;
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lbTitle').textContent = title || '';
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden','false');
+}
+function closeLightbox(){
+  const lb = document.getElementById('lightbox');
+  if(!lb) return;
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden','true');
+  document.getElementById('lbImg').src = '';
+}
 </script>
 </body>
 </html>

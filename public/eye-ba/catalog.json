@@ -1,0 +1,79 @@
+{
+  "family3": {
+    "before": "family3_before.jpg",
+    "models": {
+      "cf": "family3_cf.png",
+      "cf_nano": "family3_cf_nano.png",
+      "nano2_color": "family3_nano2_color.png",
+      "banana2_color": "family3_banana2_color.png"
+    },
+    "photo_id": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5"
+  },
+  "folk3": {
+    "before": "folk3_before.jpg",
+    "models": {
+      "cf": "folk3_cf.png",
+      "cf_nano": "folk3_cf_nano.png",
+      "nano2_color": "folk3_nano2_color.png",
+      "banana2_color": "folk3_banana2_color.png"
+    },
+    "photo_id": "3a64c1f9-1733-4611-b43d-7448862db76e"
+  },
+  "frida": {
+    "before": "frida_before.jpg",
+    "models": {
+      "cf": "frida_cf.png",
+      "cf_nano": "frida_cf_nano.png",
+      "nano2_color": "frida_nano2_color.png",
+      "banana2_color": "frida_banana2_color.png"
+    },
+    "photo_id": "8d88b2af-b252-4849-862b-5804ff4b4806"
+  },
+  "fedora": {
+    "before": "fedora_before.jpg",
+    "models": {
+      "cf": "fedora_cf.png",
+      "cf_nano": "fedora_cf_nano.png",
+      "nano2_color": "fedora_nano2_color.png",
+      "banana2_color": "fedora_banana2_color.png",
+      "banana_pro_color": "fedora_banana_pro_color.png",
+      "bake_banana2": "fedora_bake_banana2.png",
+      "bake_banana_pro": "fedora_bake_banana_pro.png",
+      "bake_gpt2": "fedora_bake_gpt2.png"
+    },
+    "photo_id": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a"
+  },
+  "couple": {
+    "before": "couple_before.jpg",
+    "models": {
+      "cf": "couple_cf.png",
+      "cf_nano": "couple_cf_nano.png",
+      "nano2_color": "couple_nano2_color.png",
+      "banana2_color": "couple_banana2_color.png",
+      "banana_pro_color": "couple_banana_pro_color.png"
+    },
+    "photo_id": "b856b364-c132-4df9-971b-9cb6bf340585"
+  },
+  "doorway": {
+    "before": "doorway_before.jpg",
+    "models": {
+      "cf": "doorway_cf.png",
+      "cf_nano": "doorway_cf_nano.png",
+      "nano2_color": "doorway_nano2_color.png",
+      "banana2_color": "doorway_banana2_color.png",
+      "banana_pro_color": "doorway_banana_pro_color.png"
+    },
+    "photo_id": "365f7cb5-9694-4f40-b43f-d39d47f064f2"
+  },
+  "wedding": {
+    "before": "wedding_before.jpg",
+    "models": {
+      "cf": "wedding_cf.png",
+      "cf_nano": "wedding_cf_nano.png",
+      "nano2_color": "wedding_nano2_color.png",
+      "banana2_color": "wedding_banana2_color.png",
+      "banana_pro_color": "wedding_banana_pro_color.png"
+    },
+    "photo_id": "71c52fea-0a7c-42d7-8d11-d09c867f475d"
+  }
+}
