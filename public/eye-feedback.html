@@ -7,108 +7,149 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#F7F1E7;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32;--card:#fff;--line:#E3D8C5;--ok:#1e7a3f;--weak:#8e5a2b;--fail:#c0392b;--soft:#F0E7D7;--shadow:0 10px 28px rgba(42,32,24,.08)}
-*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Manrope,-apple-system,Segoe UI,sans-serif;line-height:1.45;background:radial-gradient(1100px 420px at 8% -8%,#fff8ea 0%,transparent 55%),radial-gradient(900px 380px at 100% 0%,#eaf3ee 0%,transparent 50%),var(--paper)}
-.wrap{max-width:1180px;margin:0 auto;padding:22px 16px 96px}.badge{display:inline-block;background:var(--soft);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px}
-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.7rem,3vw,2.3rem);margin:10px 0 6px}.who{color:var(--muted);font-size:14px;max-width:70ch}a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
-.nav{display:flex;flex-wrap:wrap;gap:10px 14px;margin:8px 0 18px;align-items:center}.hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 18px;box-shadow:var(--shadow)}.hero p{margin:0;color:var(--muted)}
-.btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer;min-height:40px}.btn.primary{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}.btn.ghost{background:transparent}
-.case{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 18px;box-shadow:var(--shadow)}
-.case-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;justify-content:space-between;margin-bottom:10px}.case-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.45rem;margin:0}.meta{color:var(--muted);font-size:12px}
-.mark{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;background:var(--soft);color:var(--muted)}.mark.fail{background:#fde8e6;color:var(--fail)}.mark.pass{background:#e7f6ec;color:var(--ok)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;color:var(--ink)}.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.ba{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media (max-width:820px){.ba{grid-template-columns:1fr}}
-.pane{position:relative;background:#faf6ef;border:1px solid var(--line);border-radius:12px;overflow:hidden}.pane .lab{position:absolute;left:8px;top:8px;z-index:3;background:rgba(247,241,231,.92);border:1px solid var(--line);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700}
-.stage{position:relative;width:100%;aspect-ratio:1/1;background:#efe6d6;touch-action:none;cursor:crosshair;user-select:none}.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;background:#efe6d6}
-.rect{position:absolute;border:2px solid var(--gold-d);background:rgba(166,124,50,.18);pointer-events:none;display:none;z-index:2}.coords{font-size:12px;color:var(--muted);padding:8px 10px;border-top:1px solid var(--line);min-height:38px}
-.note-box{margin-top:12px}.note-box textarea{width:100%;min-height:88px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fffdf8;color:var(--ink)}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.foot{color:var(--muted);font-size:12px;margin-top:22px}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;z-index:50;opacity:0;transition:transform .25s ease,opacity .25s ease;max-width:90vw;text-align:center}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.target-toggle{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}.empty{padding:24px;color:var(--muted);font-size:13px;text-align:center}
+:root{--paper:#F7F1E7;--ink:#2A2018;--muted:#6E6152;--gold-d:#A67C32;--card:#fff;--line:#E3D8C5;--ok:#1e7a3f;--fail:#c0392b;--soft:#F0E7D7}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45;background:radial-gradient(1100px 420px at 8% -8%,#fff8ea 0%,transparent 55%),radial-gradient(900px 380px at 100% 0%,#eaf3ee 0%,transparent 50%),var(--paper)}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 16px 96px}
+.badge{display:inline-block;background:var(--soft);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.7rem,3vw,2.3rem);margin:10px 0 6px}
+.who{color:var(--muted);font-size:14px;max-width:72ch}
+a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
+.nav{display:flex;flex-wrap:wrap;gap:10px 14px;margin:8px 0 16px;align-items:center}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 16px}
+.hero p{margin:0;color:var(--muted);font-size:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 14px}
+.case-head{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.case-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.35rem;margin:0}
+.meta{color:var(--muted);font-size:12px}
+.mark{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;background:var(--soft);color:var(--muted)}
+.mark.fail{background:#fde8e6;color:var(--fail)}.mark.pass{background:#e7f6ec;color:var(--ok)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:820px){.ba{grid-template-columns:1fr}}
+.pane{position:relative;background:#faf6ef;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.pane .lab{position:absolute;left:8px;top:8px;z-index:3;background:rgba(247,241,231,.92);border:1px solid var(--line);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700}
+.stage{position:relative;width:100%;aspect-ratio:1/1;background:#efe6d6;touch-action:none;cursor:crosshair;user-select:none}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#efe6d6}
+.rect{position:absolute;border:2px solid var(--gold-d);background:rgba(166,124,50,.18);pointer-events:none;display:none;z-index:2}
+.coords{font-size:12px;color:var(--muted);padding:8px 10px;border-top:1px solid var(--line);min-height:38px}
+.note-box{margin-top:12px}
+.note-box textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fffdf8}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer;min-height:40px}
+.btn.primary{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}
+.btn.ghost{background:transparent}
+.foot{color:var(--muted);font-size:12px;margin-top:18px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;z-index:60;opacity:0;transition:transform .25s ease,opacity .25s ease;max-width:90vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+pre#preview{background:#faf6ef;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;overflow:auto;max-height:220px;margin-top:10px;display:none}
 </style>
 </head>
 <body class="eye-feedback" data-eye-feedback="1">
-<!-- nano-alt-eye-feedback -->
-<div class="wrap" data-eye-feedback="page">
+<!-- nano-alt-eye-feedback · eye-feedback · data-eye-feedback -->
+<div class="wrap" id="eye-feedback" data-eye-feedback="page">
   <div class="nav">
     <span class="badge">nano-alt-eye-feedback · FREE UI</span>
     <a class="home" href="/">SaveMyHistory</a>
     <a class="home" href="/restorer.html">Restorer</a>
     <a class="home" href="/model-compare.html">Model compare</a>
-    <a class="home" href="/service-review.html">Service review</a>
+    <a class="home" href="/eye-review.html">Eye review</a>
   </div>
-  <h1>Eye feedback · правки для Q</h1>
-  <p class="who">Роман: выбери кейс, сравни BEFORE / AFTER по моделям, выдели область, напиши правку. «Отправить Q» копирует JSON в буфер и скачивает файл. Без GPU, без списаний.</p>
-  <div class="hero"><p>Честно: family3 color = FAIL · doorway Pro color = FACE_FAIL · couple Pro color = PASS. Нет файла AFTER — чип не показываем. spend_E=0 · NO_RENT.</p></div>
-  <div class="chips" id="caseChips"></div>
-  <div id="board"></div>
-  <p class="foot">Markers: nano-alt-eye-feedback · eye-feedback · data-eye-feedback · client-side clipboard only · no webhook secrets.</p>
+  <h1>Eye feedback · BEFORE / AFTER</h1>
+  <p class="who">Роман: выбери кейс, чип модели/AFTER, сравни BEFORE|AFTER. На AFTER тяни прямоугольник, напиши правку, жми «Скопировать JSON» — буфер + файл для Telegram Q. spend_E=0.</p>
+  <div class="hero" id="nano-alt-eye-feedback" data-marker="nano-alt-eye-feedback eye-feedback data-eye-feedback">
+    <p><strong>Честно:</strong> слот только если файл есть. family3 color = FAIL · doorway/wedding Pro color = FACE_FAIL · couple Pro color = PASS. Bake: banana2 / banana-pro / gpt2 у fedora. Markers: nano-alt-eye-feedback · eye-feedback · data-eye-feedback.</p>
+  </div>
+  <div class="panel">
+    <div class="meta">Кейс</div>
+    <div class="chips" id="caseChips" data-role="cases"></div>
+    <div class="case-head">
+      <h2 id="caseTitle">—</h2>
+      <span class="mark" id="caseMark" hidden></span>
+    </div>
+    <div class="meta" id="caseMeta"></div>
+    <div class="meta" style="margin-top:8px">AFTER / модель</div>
+    <div class="chips" id="modelChips" data-role="models"></div>
+    <div class="ba">
+      <div class="pane" data-pane="before">
+        <div class="lab">BEFORE</div>
+        <div class="stage" data-stage="before"><img id="beforeImg" alt="before"><div class="rect" data-rect="before"></div></div>
+        <div class="coords" data-coords="before">область: —</div>
+      </div>
+      <div class="pane" data-pane="after">
+        <div class="lab" id="afterLab">AFTER</div>
+        <div class="stage" data-stage="after"><img id="afterImg" alt="after"><div class="rect" data-rect="after"></div></div>
+        <div class="coords" data-coords="after">область: — (тяни на AFTER)</div>
+      </div>
+    </div>
+    <div class="note-box">
+      <label class="meta" for="note">Правка для Q</label>
+      <textarea id="note" placeholder="Что исправить в выделенной области? Например: пластик на щеке слева, глаз стал круглее..."></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn primary" type="button" id="btnCopy">Скопировать JSON</button>
+      <button class="btn" type="button" id="btnClearRegion">Сбросить область</button>
+      <button class="btn ghost" type="button" id="btnClearNote">Очистить текст</button>
+    </div>
+    <pre id="preview"></pre>
+  </div>
+  <p class="foot">Markers: nano-alt-eye-feedback · eye-feedback · data-eye-feedback · FREE UI · no fal · no GPU · no rent</p>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-/* nano-alt-eye-feedback */
+/* nano-alt-eye-feedback · eye-feedback · data-eye-feedback */
 const CASES = [
   {
     "id": "family3",
     "title": "Family3",
     "photoId": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5",
-    "before": "/eye-ba/family3_before.jpg",
+    "before": "/eye-ba/family3/before.jpg",
     "models": [
       {
         "id": "cf",
         "label": "CF",
-        "src": "/eye-ba/family3_cf.png"
+        "src": "/eye-ba/family3/cf.jpg"
       },
       {
         "id": "cf_nano",
-        "label": "CF+Nano authentic",
-        "src": "/eye-ba/family3_cf_nano.png"
+        "label": "CF→Nano authentic",
+        "src": "/eye-ba/family3/cf_nano.jpg"
       },
       {
-        "id": "nano2_color",
-        "label": "Nano2 color",
-        "src": "/eye-ba/family3_nano2_color.png",
-        "mark": "fail"
-      },
-      {
-        "id": "banana2_color",
-        "label": "Banana2 color",
-        "src": "/eye-ba/family3_banana2_color.png",
-        "mark": "fail"
+        "id": "color",
+        "label": "color Banana2",
+        "src": "/eye-ba/family3/color.jpg"
       }
     ],
     "honesty": {
-      "text": "color FAIL",
+      "text": "color FAIL identity/plastic",
       "kind": "fail"
     }
   },
   {
     "id": "folk3",
-    "title": "Folk3 · женщина + девочка",
+    "title": "Folk3",
     "photoId": "3a64c1f9-1733-4611-b43d-7448862db76e",
-    "before": "/eye-ba/folk3_before.jpg",
+    "before": "/eye-ba/folk3/before.jpg",
     "models": [
       {
         "id": "cf",
         "label": "CF",
-        "src": "/eye-ba/folk3_cf.png"
+        "src": "/eye-ba/folk3/cf.jpg"
       },
       {
         "id": "cf_nano",
-        "label": "CF+Nano authentic",
-        "src": "/eye-ba/folk3_cf_nano.png"
+        "label": "CF→Nano authentic",
+        "src": "/eye-ba/folk3/cf_nano.jpg"
       },
       {
-        "id": "nano2_color",
-        "label": "Nano2 color",
-        "src": "/eye-ba/folk3_nano2_color.png"
-      },
-      {
-        "id": "banana2_color",
-        "label": "Banana2 color",
-        "src": "/eye-ba/folk3_banana2_color.png"
+        "id": "color",
+        "label": "color Banana2",
+        "src": "/eye-ba/folk3/color.jpg"
       }
     ]
   },
@@ -116,27 +157,22 @@ const CASES = [
     "id": "frida",
     "title": "Frida",
     "photoId": "8d88b2af-b252-4849-862b-5804ff4b4806",
-    "before": "/eye-ba/frida_before.jpg",
+    "before": "/eye-ba/frida/before.jpg",
     "models": [
       {
         "id": "cf",
         "label": "CF",
-        "src": "/eye-ba/frida_cf.png"
+        "src": "/eye-ba/frida/cf.jpg"
       },
       {
         "id": "cf_nano",
-        "label": "CF+Nano authentic",
-        "src": "/eye-ba/frida_cf_nano.png"
+        "label": "CF→Nano authentic",
+        "src": "/eye-ba/frida/cf_nano.jpg"
       },
       {
-        "id": "nano2_color",
-        "label": "Nano2 color",
-        "src": "/eye-ba/frida_nano2_color.png"
-      },
-      {
-        "id": "banana2_color",
-        "label": "Banana2 color",
-        "src": "/eye-ba/frida_banana2_color.png"
+        "id": "color",
+        "label": "color Banana2",
+        "src": "/eye-ba/frida/color.jpg"
       }
     ]
   },
@@ -144,47 +180,42 @@ const CASES = [
     "id": "fedora",
     "title": "Fedora",
     "photoId": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a",
-    "before": "/eye-ba/fedora_before.jpg",
+    "before": "/eye-ba/fedora/before.jpg",
     "models": [
       {
         "id": "cf",
         "label": "CF",
-        "src": "/eye-ba/fedora_cf.png"
+        "src": "/eye-ba/fedora/cf.jpg"
       },
       {
         "id": "cf_nano",
-        "label": "CF+Nano authentic",
-        "src": "/eye-ba/fedora_cf_nano.png"
+        "label": "CF→Nano authentic",
+        "src": "/eye-ba/fedora/cf_nano.jpg"
       },
       {
-        "id": "nano2_color",
-        "label": "Nano2 color",
-        "src": "/eye-ba/fedora_nano2_color.png"
+        "id": "color",
+        "label": "color Banana2",
+        "src": "/eye-ba/fedora/color.jpg"
       },
       {
-        "id": "banana2_color",
-        "label": "Banana2 color",
-        "src": "/eye-ba/fedora_banana2_color.png"
-      },
-      {
-        "id": "banana_pro_color",
-        "label": "Banana Pro color",
-        "src": "/eye-ba/fedora_banana_pro_color.png"
+        "id": "pro_color",
+        "label": "color Banana Pro",
+        "src": "/eye-ba/fedora/pro_color.jpg"
       },
       {
         "id": "bake_banana2",
-        "label": "Bake Banana2",
-        "src": "/eye-ba/fedora_bake_banana2.png"
+        "label": "bake Banana2",
+        "src": "/eye-ba/fedora/bake_banana2.jpg"
       },
       {
         "id": "bake_banana_pro",
-        "label": "Bake Banana Pro",
-        "src": "/eye-ba/fedora_bake_banana_pro.png"
+        "label": "bake Banana Pro",
+        "src": "/eye-ba/fedora/bake_banana_pro.jpg"
       },
       {
         "id": "bake_gpt2",
-        "label": "Bake GPT Image 2",
-        "src": "/eye-ba/fedora_bake_gpt2.png"
+        "label": "bake GPT2",
+        "src": "/eye-ba/fedora/bake_gpt2.jpg"
       }
     ]
   },
@@ -192,33 +223,27 @@ const CASES = [
     "id": "couple",
     "title": "Couple",
     "photoId": "b856b364-c132-4df9-971b-9cb6bf340585",
-    "before": "/eye-ba/couple_before.jpg",
+    "before": "/eye-ba/couple/before.jpg",
     "models": [
       {
         "id": "cf",
         "label": "CF",
-        "src": "/eye-ba/couple_cf.png"
+        "src": "/eye-ba/couple/cf.jpg"
       },
       {
         "id": "cf_nano",
-        "label": "CF+Nano authentic",
-        "src": "/eye-ba/couple_cf_nano.png"
+        "label": "CF→Nano authentic",
+        "src": "/eye-ba/couple/cf_nano.jpg"
       },
       {
-        "id": "nano2_color",
-        "label": "Nano2 color",
-        "src": "/eye-ba/couple_nano2_color.png"
+        "id": "color",
+        "label": "color Banana2",
+        "src": "/eye-ba/couple/color.jpg"
       },
       {
-        "id": "banana2_color",
-        "label": "Banana2 color",
-        "src": "/eye-ba/couple_banana2_color.png"
-      },
-      {
-        "id": "banana_pro_color",
-        "label": "Banana Pro color PASS",
-        "src": "/eye-ba/couple_banana_pro_color.png",
-        "mark": "pass"
+        "id": "pro_color",
+        "label": "color Banana Pro",
+        "src": "/eye-ba/couple/pro_color.jpg"
       }
     ],
     "honesty": {
@@ -230,33 +255,27 @@ const CASES = [
     "id": "doorway",
     "title": "Doorway",
     "photoId": "365f7cb5-9694-4f40-b43f-d39d47f064f2",
-    "before": "/eye-ba/doorway_before.jpg",
+    "before": "/eye-ba/doorway/before.jpg",
     "models": [
       {
         "id": "cf",
         "label": "CF",
-        "src": "/eye-ba/doorway_cf.png"
+        "src": "/eye-ba/doorway/cf.jpg"
       },
       {
         "id": "cf_nano",
-        "label": "CF+Nano authentic",
-        "src": "/eye-ba/doorway_cf_nano.png"
+        "label": "CF→Nano authentic",
+        "src": "/eye-ba/doorway/cf_nano.jpg"
       },
       {
-        "id": "nano2_color",
-        "label": "Nano2 color",
-        "src": "/eye-ba/doorway_nano2_color.png"
+        "id": "color",
+        "label": "color Banana2",
+        "src": "/eye-ba/doorway/color.jpg"
       },
       {
-        "id": "banana2_color",
-        "label": "Banana2 color",
-        "src": "/eye-ba/doorway_banana2_color.png"
-      },
-      {
-        "id": "banana_pro_color",
-        "label": "Banana Pro color FACE_FAIL",
-        "src": "/eye-ba/doorway_banana_pro_color.png",
-        "mark": "fail"
+        "id": "pro_color",
+        "label": "color Banana Pro",
+        "src": "/eye-ba/doorway/pro_color.jpg"
       }
     ],
     "honesty": {
@@ -268,100 +287,206 @@ const CASES = [
     "id": "wedding",
     "title": "Wedding",
     "photoId": "71c52fea-0a7c-42d7-8d11-d09c867f475d",
-    "before": "/eye-ba/wedding_before.jpg",
+    "before": "/eye-ba/wedding/before.jpg",
     "models": [
       {
         "id": "cf",
         "label": "CF",
-        "src": "/eye-ba/wedding_cf.png"
+        "src": "/eye-ba/wedding/cf.jpg"
       },
       {
         "id": "cf_nano",
-        "label": "CF+Nano authentic",
-        "src": "/eye-ba/wedding_cf_nano.png"
+        "label": "CF→Nano authentic",
+        "src": "/eye-ba/wedding/cf_nano.jpg"
       },
       {
-        "id": "nano2_color",
-        "label": "Nano2 color",
-        "src": "/eye-ba/wedding_nano2_color.png"
+        "id": "color",
+        "label": "color Banana2",
+        "src": "/eye-ba/wedding/color.jpg"
       },
       {
-        "id": "banana2_color",
-        "label": "Banana2 color",
-        "src": "/eye-ba/wedding_banana2_color.png"
-      },
-      {
-        "id": "banana_pro_color",
-        "label": "Banana Pro color",
-        "src": "/eye-ba/wedding_banana_pro_color.png"
+        "id": "pro_color",
+        "label": "color Banana Pro",
+        "src": "/eye-ba/wedding/pro_color.jpg"
       }
-    ]
+    ],
+    "honesty": {
+      "text": "Pro color FACE_FAIL",
+      "kind": "fail"
+    }
   }
 ];
-const state = { caseId: CASES[0]?.id, model: null, target: 'after', region: null };
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),2400)}
-function pct(n){return Math.round(n*1000)/1000}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function curCase(){return CASES.find(c=>c.id===state.caseId)||CASES[0]}
-function curModel(c){return (c.models||[]).find(m=>m.id===state.model)||(c.models||[])[0]}
-function renderChips(){
-  const root=document.getElementById('caseChips'); root.innerHTML='';
-  CASES.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='chip'+(c.id===state.caseId?' on':'');b.textContent=c.title;b.setAttribute('data-eye-feedback','case-chip');b.onclick=()=>{state.caseId=c.id;state.model=(c.models[0]||{}).id||null;state.region=null;render()};root.appendChild(b)})}
+const state = { caseId: CASES[0].id, modelId: CASES[0].models[0].id, region: null };
+
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function clamp(v,a,b){ return Math.max(a, Math.min(b,v)); }
+function pct(v){ return Math.round(v*10)/10; }
+function currentCase(){ return CASES.find(c=>c.id===state.caseId) || CASES[0]; }
+function currentModel(c){ return c.models.find(m=>m.id===state.modelId) || c.models[0]; }
+
+function renderCaseChips(){
+  const root = document.getElementById('caseChips');
+  root.innerHTML = '';
+  CASES.forEach(c=>{
+    const b = document.createElement('button');
+    b.type='button'; b.className='chip'+(c.id===state.caseId?' on':'');
+    b.textContent = c.title;
+    b.addEventListener('click', ()=>{
+      state.caseId = c.id;
+      state.modelId = c.models[0].id;
+      state.region = null;
+      document.getElementById('note').value = '';
+      render();
+    });
+    root.appendChild(b);
+  });
+}
+
+function renderModelChips(c){
+  const root = document.getElementById('modelChips');
+  root.innerHTML = '';
+  c.models.forEach(m=>{
+    const b = document.createElement('button');
+    b.type='button'; b.className='chip'+(m.id===state.modelId?' on':'');
+    b.textContent = m.label;
+    b.addEventListener('click', ()=>{
+      state.modelId = m.id;
+      state.region = null;
+      render();
+    });
+    root.appendChild(b);
+  });
+}
+
 function render(){
-  renderChips();
-  const c=curCase(); if(!c){document.getElementById('board').innerHTML='<div class="empty">Нет кейсов</div>';return}
-  if(!state.model) state.model=(c.models[0]||{}).id;
-  const m=curModel(c);
-  const honesty=c.honesty?`<span class="mark ${c.honesty.kind}">${c.honesty.text}</span>`:'';
-  const board=document.getElementById('board');
-  board.setAttribute('data-eye-feedback','board');
-  board.innerHTML=`
-  <section class="case" data-eye-feedback="case" data-case-id="${c.id}">
-    <div class="case-head"><div><h2>${c.title}</h2><div class="meta">photoId <code>${c.photoId}</code> · case <code>${c.id}</code></div></div><div>${honesty}</div></div>
-    <div class="chips" id="modelChips"></div>
-    <div class="target-toggle">
-      <button type="button" class="chip ${state.target==='before'?'on':''}" data-target="before">Рисовать на BEFORE</button>
-      <button type="button" class="chip ${state.target==='after'?'on':''}" data-target="after">Рисовать на AFTER</button>
-    </div>
-    <div class="ba">
-      <div class="pane"><div class="lab">BEFORE</div><div class="stage" data-stage="before"><img src="${c.before}" alt="${c.id} before" loading="lazy"><div class="rect" data-rect="before"></div></div><div class="coords" data-coords="before">область: —</div></div>
-      <div class="pane" data-pane="after"><div class="lab">AFTER · ${m?m.label:'—'}</div>${m?`<div class="stage" data-stage="after"><img data-after-img src="${m.src}" alt="${c.id} ${m.label}" loading="lazy"><div class="rect" data-rect="after"></div></div><div class="coords" data-coords="after">область: —</div>`:'<div class="empty">AFTER нет — честный пустой слот</div>'}</div>
-    </div>
-    <div class="note-box">
-      <textarea id="note" placeholder="что исправить в выделенной зоне" data-eye-feedback="note"></textarea>
-      <div class="actions">
-        <button class="btn primary" type="button" id="btnSend">Отправить Q</button>
-        <button class="btn ghost" type="button" id="btnClear">Сбросить область</button>
-      </div>
-    </div>
-  </section>`;
-  const chips=document.getElementById('modelChips');
-  (c.models||[]).forEach(mm=>{const b=document.createElement('button');b.type='button';b.className='chip'+(mm.id===state.model?' on':'');b.textContent=mm.label+(mm.mark==='fail'?' · FAIL':mm.mark==='pass'?' · PASS':'');b.onclick=()=>{state.model=mm.id;state.region=null;render()};chips.appendChild(b)});
-  board.querySelectorAll('[data-target]').forEach(btn=>btn.addEventListener('click',()=>{state.target=btn.getAttribute('data-target');board.querySelectorAll('[data-target]').forEach(x=>x.classList.toggle('on',x===btn))}));
-  wireStage(board,'before'); if(m) wireStage(board,'after'); updateRects(board);
-  document.getElementById('btnClear').onclick=()=>{state.region=null;updateRects(board);toast('Область сброшена')};
-  document.getElementById('btnSend').onclick=()=>sendQ(c,m);
+  const c = currentCase();
+  const m = currentModel(c);
+  state.modelId = m.id;
+  renderCaseChips();
+  renderModelChips(c);
+  document.getElementById('caseTitle').textContent = c.title;
+  document.getElementById('caseMeta').textContent = 'photo_id: ' + c.photoId;
+  const mark = document.getElementById('caseMark');
+  if(c.honesty){
+    mark.hidden = false;
+    mark.textContent = c.honesty.text;
+    mark.className = 'mark ' + (c.honesty.kind||'');
+  } else {
+    mark.hidden = true;
+  }
+  document.getElementById('beforeImg').src = c.before;
+  document.getElementById('afterImg').src = m.src;
+  document.getElementById('afterLab').textContent = 'AFTER · ' + m.label;
+  updateRect();
 }
-function wireStage(root,which){
-  const stage=root.querySelector('[data-stage="'+which+'"]'); if(!stage) return; const rect=root.querySelector('[data-rect="'+which+'"]'); let drag=null;
-  const pos=ev=>{const r=stage.getBoundingClientRect();const src=(ev.touches&&ev.touches[0])||(ev.changedTouches&&ev.changedTouches[0])||ev;return{x:clamp((src.clientX-r.left)/r.width,0,1),y:clamp((src.clientY-r.top)/r.height,0,1)}};
-  const start=ev=>{if(state.target!==which){toast('Сейчас рисуем на '+(state.target==='before'?'BEFORE':'AFTER'));return}ev.preventDefault();const p=pos(ev);drag={x0:p.x,y0:p.y,x1:p.x,y1:p.y};applyDrag(rect,drag)};
-  const move=ev=>{if(!drag)return;ev.preventDefault();const p=pos(ev);drag.x1=p.x;drag.y1=p.y;applyDrag(rect,drag)};
-  const end=ev=>{if(!drag)return;if(ev)ev.preventDefault();const x=Math.min(drag.x0,drag.x1),y=Math.min(drag.y0,drag.y1),w=Math.abs(drag.x1-drag.x0),h=Math.abs(drag.y1-drag.y0);drag=null;if(w<0.015||h<0.015){toast('Область слишком маленькая');return}state.region={x:pct(x),y:pct(y),w:pct(w),h:pct(h),on:which};updateRects(root)};
-  stage.addEventListener('mousedown',start);stage.addEventListener('mousemove',move);window.addEventListener('mouseup',end);stage.addEventListener('touchstart',start,{passive:false});stage.addEventListener('touchmove',move,{passive:false});stage.addEventListener('touchend',end,{passive:false});
+
+function updateRect(){
+  const rect = document.querySelector('[data-rect="after"]');
+  const coords = document.querySelector('[data-coords="after"]');
+  document.querySelector('[data-rect="before"]').style.display = 'none';
+  document.querySelector('[data-coords="before"]').textContent = 'область: —';
+  if(state.region){
+    rect.style.display='block';
+    rect.style.left=state.region.x+'%';
+    rect.style.top=state.region.y+'%';
+    rect.style.width=state.region.w+'%';
+    rect.style.height=state.region.h+'%';
+    coords.textContent = `область (норм.): x=${state.region.x} y=${state.region.y} w=${state.region.w} h=${state.region.h}`;
+  } else {
+    rect.style.display='none';
+    coords.textContent='область: — (тяни на AFTER)';
+  }
 }
-function applyDrag(rect,drag){const x=Math.min(drag.x0,drag.x1)*100,y=Math.min(drag.y0,drag.y1)*100,w=Math.abs(drag.x1-drag.x0)*100,h=Math.abs(drag.y1-drag.y0)*100;rect.style.display='block';rect.style.left=x+'%';rect.style.top=y+'%';rect.style.width=w+'%';rect.style.height=h+'%'}
-function updateRects(root){['before','after'].forEach(which=>{const rect=root.querySelector('[data-rect="'+which+'"]');const coords=root.querySelector('[data-coords="'+which+'"]');if(!rect||!coords)return;if(state.region&&state.region.on===which){rect.style.display='block';rect.style.left=(state.region.x*100)+'%';rect.style.top=(state.region.y*100)+'%';rect.style.width=(state.region.w*100)+'%';rect.style.height=(state.region.h*100)+'%';coords.textContent=`область: x=${state.region.x} y=${state.region.y} w=${state.region.w} h=${state.region.h} (0..1)`}else{rect.style.display='none';coords.textContent='область: —'}})}
-async function sendQ(c,m){
-  const note=(document.getElementById('note').value||'').trim();
-  if(!note){toast('Напиши, что исправить');return}
-  if(!state.region){toast('Сначала выдели область');return}
-  if(!m){toast('Нет AFTER для этой модели');return}
-  const payload={case:c.id,photoId:c.photoId,model:m.id,modelLabel:m.label,region:{x:state.region.x,y:state.region.y,w:state.region.w,h:state.region.h,on:state.region.on},note,ts:new Date().toISOString(),marker:'nano-alt-eye-feedback',page:'https://savemyhistory.tech/eye-feedback.html'};
-  const text=JSON.stringify(payload,null,2);
-  try{await navigator.clipboard.writeText(text);toast('скопировано — вставь в Telegram Q')}catch(e){toast('Буфер недоступен — скачан JSON')}
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'application/json'}));a.download='eye-feedback-'+Date.now()+'.json';a.click();URL.revokeObjectURL(a.href);
+
+function setupDraw(){
+  const stage = document.querySelector('[data-stage="after"]');
+  const rect = document.querySelector('[data-rect="after"]');
+  let drag = null;
+  function pos(ev){
+    const r = stage.getBoundingClientRect();
+    const src = (ev.touches && ev.touches[0]) || (ev.changedTouches && ev.changedTouches[0]) || ev;
+    return { x: clamp(((src.clientX-r.left)/r.width)*100,0,100), y: clamp(((src.clientY-r.top)/r.height)*100,0,100) };
+  }
+  function start(ev){ ev.preventDefault(); const p=pos(ev); drag={x0:p.x,y0:p.y,x1:p.x,y1:p.y}; apply(drag); }
+  function move(ev){ if(!drag) return; ev.preventDefault(); const p=pos(ev); drag.x1=p.x; drag.y1=p.y; apply(drag); }
+  function end(ev){
+    if(!drag) return; if(ev) ev.preventDefault();
+    const x=Math.min(drag.x0,drag.x1), y=Math.min(drag.y0,drag.y1);
+    const w=Math.abs(drag.x1-drag.x0), h=Math.abs(drag.y1-drag.y0);
+    drag=null;
+    if(w<1.5||h<1.5){ toast('Область слишком маленькая'); return; }
+    state.region = { x:pct(x), y:pct(y), w:pct(w), h:pct(h) };
+    updateRect();
+  }
+  function apply(d){
+    const x=Math.min(d.x0,d.x1), y=Math.min(d.y0,d.y1);
+    const w=Math.abs(d.x1-d.x0), h=Math.abs(d.y1-d.y0);
+    rect.style.display='block'; rect.style.left=x+'%'; rect.style.top=y+'%'; rect.style.width=w+'%'; rect.style.height=h+'%';
+  }
+  stage.addEventListener('mousedown', start);
+  stage.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  stage.addEventListener('touchstart', start, {passive:false});
+  stage.addEventListener('touchmove', move, {passive:false});
+  stage.addEventListener('touchend', end, {passive:false});
 }
+
+function buildPayload(){
+  const c = currentCase();
+  const m = currentModel(c);
+  const note = (document.getElementById('note').value || '').trim();
+  if(!note){ toast('Напиши текст правки'); return null; }
+  if(!state.region){ toast('Сначала выдели область на AFTER'); return null; }
+  return {
+    marker: 'nano-alt-eye-feedback',
+    page: 'https://savemyhistory.tech/eye-feedback.html',
+    case: c.id,
+    title: c.title,
+    photo_id: c.photoId,
+    model: m.id,
+    modelLabel: m.label,
+    after_src: m.src,
+    before_src: c.before,
+    region: {
+      x: state.region.x,
+      y: state.region.y,
+      w: state.region.w,
+      h: state.region.h,
+      normalized: true,
+      on: 'after'
+    },
+    note,
+    ts: new Date().toISOString()
+  };
+}
+
+async function copyJson(){
+  const payload = buildPayload();
+  if(!payload) return;
+  const text = JSON.stringify(payload, null, 2);
+  const prev = document.getElementById('preview');
+  prev.style.display='block'; prev.textContent = text;
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('JSON в буфере · скачан файл');
+  } catch(e) {
+    toast('Буфер недоступен · файл скачан');
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], {type:'application/json'}));
+  a.download = 'eye-feedback_'+payload.case+'_'+payload.model+'_'+Date.now()+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+document.getElementById('btnCopy').addEventListener('click', copyJson);
+document.getElementById('btnClearRegion').addEventListener('click', ()=>{ state.region=null; updateRect(); toast('Область сброшена'); });
+document.getElementById('btnClearNote').addEventListener('click', ()=>{ document.getElementById('note').value=''; toast('Текст очищен'); });
+setupDraw();
 render();
 </script>
 </body>

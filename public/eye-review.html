@@ -31,70 +31,40 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 18px;box-shadow:var(--shadow)}
 .hero p{margin:0;color:var(--muted)}
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 8px}
-.btn{
-  appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
-  border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer;min-height:40px;
-}
+.btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer;min-height:40px}
 .btn.primary{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}
 .btn.ghost{background:transparent}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.case{
-  background:var(--card);border:1px solid var(--line);border-radius:16px;
-  padding:16px;margin:0 0 18px;box-shadow:var(--shadow);
-}
+.case{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 18px;box-shadow:var(--shadow)}
 .case-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;justify-content:space-between;margin-bottom:10px}
 .case-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.45rem;margin:0}
 .meta{color:var(--muted);font-size:12px}
 .mark{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;background:var(--soft);color:var(--muted)}
 .mark.fail{background:#fde8e6;color:var(--fail)}
 .mark.pass{background:#e7f6ec;color:var(--ok)}
-.mark.weak{background:#FBEFD6;color:var(--weak)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
-.chip{
-  border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;
-  font-size:13px;cursor:pointer;color:var(--ink);
-}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;color:var(--ink)}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.chip:disabled{opacity:.35;cursor:not-allowed}
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:820px){.ba{grid-template-columns:1fr}}
 .pane{position:relative;background:#faf6ef;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.pane .lab{position:absolute;left:8px;top:8px;z-index:3;background:rgba(247,241,231,.92);border:1px solid var(--line);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700}
+.pane .lab{position:absolute;left:8px;top:8px;z-index:3;background:rgba(247,241,231,.92);border:1px solid var(--line);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700;cursor:zoom-in}
 .stage{position:relative;width:100%;aspect-ratio:1/1;background:#efe6d6;touch-action:none;cursor:crosshair;user-select:none}
 .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;background:#efe6d6}
-.stage.draw-before{cursor:crosshair}
-.rect{
-  position:absolute;border:2px solid var(--gold-d);background:rgba(166,124,50,.18);
-  pointer-events:none;display:none;z-index:2;
-}
+.rect{position:absolute;border:2px solid var(--gold-d);background:rgba(166,124,50,.18);pointer-events:none;display:none;z-index:2}
 .coords{font-size:12px;color:var(--muted);padding:8px 10px;border-top:1px solid var(--line);min-height:38px}
 .note-box{margin-top:12px}
-.note-box textarea{
-  width:100%;min-height:88px;resize:vertical;border:1px solid var(--line);border-radius:12px;
-  padding:10px 12px;font:inherit;background:#fffdf8;color:var(--ink);
-}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
-.tag{
-  border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;
-  font-size:12px;cursor:pointer;user-select:none;
-}
-.tag.on{background:var(--gold-d);color:#fff;border-color:var(--gold-d)}
+.note-box textarea{width:100%;min-height:88px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fffdf8;color:var(--ink)}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .foot{color:var(--muted);font-size:12px;margin-top:22px}
-.toast{
-  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120%);
-  background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;
-  z-index:50;opacity:0;transition:transform .25s ease,opacity .25s ease;max-width:90vw;text-align:center;
-}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;z-index:90;opacity:0;transition:transform .25s ease,opacity .25s ease;max-width:90vw;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.sticky{
-  position:sticky;top:0;z-index:20;background:rgba(247,241,231,.92);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);padding:10px 0;margin:0 -16px 16px;padding-left:16px;padding-right:16px;
-}
+.sticky{position:sticky;top:0;z-index:20;background:rgba(247,241,231,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 16px;margin:0 -16px 16px}
 .sticky .bar{margin:0}
 #notesCount{font-weight:700}
 .target-toggle{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
-
+.notes-side{margin-top:12px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;background:#fffaf2}
+.notes-side h3{margin:0 0 8px;font-size:14px}
+.notes-side ul{margin:0;padding-left:18px;font-size:13px;color:var(--muted)}
 .lb{position:fixed;inset:0;background:rgba(20,14,10,.88);display:none;align-items:center;justify-content:center;z-index:80;padding:18px}
 .lb.open{display:flex}
 .lb-inner{max-width:min(96vw,1100px);max-height:92vh;display:flex;flex-direction:column;gap:10px;width:100%}
@@ -105,34 +75,32 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 </style>
 </head>
 <body class="eye-review" data-eye-review="1">
-<!-- nano-alt-eye-review -->
+<!-- nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote -->
 <div class="wrap" data-eye-review="page">
   <div class="nav">
     <span class="badge">nano-alt-eye-review · FREE UI</span>
     <a class="home" href="/">SaveMyHistory</a>
     <a class="home" href="/restorer.html">Restorer</a>
     <a class="home" href="/model-compare.html">Model compare</a>
-    <a class="home" href="/service-review.html">Service review</a>
+    <a class="home" href="/service-review.html#nano-alt-eye-review">Service review</a>
   </div>
   <h1>Eye review · правки по области</h1>
-  <p class="who">Роман: сравни BEFORE / AFTER, выдели область, напиши правку. JSON копируется локально — без GPU и без списаний.</p>
+  <p class="who">Роман: сравни BEFORE / AFTER, выдели область, напиши правку, жми «Отправить Q». Clipboard EYE_NOTE + JSON. Без GPU, без списаний.</p>
 
   <div class="sticky">
     <div class="bar">
       <button class="btn primary" type="button" id="btnDownloadAll">Скачать правки.json (<span id="notesCount">0</span>)</button>
       <button class="btn" type="button" id="btnClearAll">Очистить накопленное</button>
-      <button class="btn ghost" type="button" id="btnMailto">Открыть mailto черновик</button>
-      <span class="meta" id="storageHint">накопление в этой вкладке</span>
+      <span class="meta" id="storageHint">накопление в этой вкладке · eye_notes/</span>
     </div>
   </div>
 
-  <div class="hero">
-    <p>Честные метки: family3 color = FAIL · doorway Pro color = FACE_FAIL · couple Pro color = PASS. Нет AFTER — слот не показываем. spend_E=0.</p>
+  <div class="hero" id="nano-alt-eye-review" data-marker="nano-alt-eye-review eye-review data-eye-review drawRegion sendEyeNote">
+    <p><strong>Честно:</strong> слот модели только если файл есть. family3 color = FAIL · doorway Pro color = FACE_FAIL · couple Pro color = PASS. Bake только у fedora (GPT2 / Banana Pro). Markers: nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote. spend_E=0 · no fal · no GPU · no fake AFTER.</p>
   </div>
 
   <div id="cases"></div>
-
-  <p class="foot">Markers: nano-alt-eye-review · data-eye-review · eye-review · client-side clipboard only · no webhook secrets.</p>
+  <p class="foot">Markers: nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote · FREE UI · no fal · no GPU · no fake AFTER</p>
 </div>
 
 <div id="lightbox" class="lb" aria-hidden="true">
@@ -144,98 +112,75 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* nano-alt-eye-review */
+/* nano-alt-eye-review · drawRegion · sendEyeNote */
+const ASSET = '/assets/eye_review/';
 const CASES = [
   {
-    id: 'fedora',
-    title: 'Fedora',
-    photoId: '64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a',
-    note: 'bakeoff + color',
-    before: '/eye-cases/fedora_before.jpg',
-    models: [
-      { id: 'cf', label: 'CF', src: '/eye-cases/fedora_cf.jpg' },
-      { id: 'cf_nano', label: 'CF+Nano authentic', src: '/eye-cases/fedora_cf_nano.jpg' },
-      { id: 'banana2', label: 'Banana2', src: '/eye-cases/fedora_banana2.jpg' },
-      { id: 'banana_pro', label: 'Banana Pro', src: '/eye-cases/fedora_banana_pro.jpg' },
-      { id: 'gpt2', label: 'GPT Image 2', src: '/eye-cases/fedora_gpt2.jpg' },
-      { id: 'color', label: 'Color', src: '/eye-cases/fedora_color.jpg' }
-    ]
-  },
-  {
-    id: 'frida',
-    title: 'Frida',
-    photoId: '8d88b2af-b252-4849-862b-5804ff4b4806',
-    before: '/eye-cases/frida_before.jpg',
-    models: [
-      { id: 'cf', label: 'CF', src: '/eye-cases/frida_cf.jpg' },
-      { id: 'cf_nano', label: 'CF+Nano', src: '/eye-cases/frida_cf_nano.jpg' },
-      { id: 'color', label: 'Color', src: '/eye-cases/frida_color.jpg' }
-    ]
-  },
-  {
-    id: 'folk3',
-    title: 'Folk3 · женщина + девочка',
-    photoId: '3a64c1f9-1733-4611-b43d-7448862db76e',
-    before: '/eye-cases/folk3_before.jpg',
-    models: [
-      { id: 'cf', label: 'CF', src: '/eye-cases/folk3_cf.jpg' },
-      { id: 'cf_nano', label: 'CF+Nano', src: '/eye-cases/folk3_cf_nano.jpg' },
-      { id: 'color', label: 'Color', src: '/eye-cases/folk3_color.jpg' }
-    ]
-  },
-  {
-    id: 'family3',
-    title: 'Family3',
-    photoId: 'e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5',
+    id: 'family3', title: 'Family3', photoId: 'e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5',
+    before: ASSET+'family3_before.jpg',
     honesty: { text: 'color FAIL', kind: 'fail' },
-    before: '/eye-cases/family3_before.jpg',
     models: [
-      { id: 'cf', label: 'CF', src: '/eye-cases/family3_cf.jpg' },
-      { id: 'cf_nano', label: 'CF+Nano', src: '/eye-cases/family3_cf_nano.jpg' },
-      { id: 'color', label: 'Color FAIL', src: '/eye-cases/family3_color.jpg', mark: 'fail' }
+      { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'family3_cf-nano-authentic.png' },
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'family3_banana2-color.png' }
     ]
   },
   {
-    id: 'couple',
-    title: 'Couple',
-    photoId: 'b856b364-c132-4df9-971b-9cb6bf340585',
+    id: 'folk3', title: 'Folk3 · женщина + девочка', photoId: '3a64c1f9-1733-4611-b43d-7448862db76e',
+    before: ASSET+'folk3_before.jpg',
+    models: [
+      { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'folk3_cf-nano-authentic.png' },
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'folk3_banana2-color.png' }
+    ]
+  },
+  {
+    id: 'frida', title: 'Frida', photoId: '8d88b2af-b252-4849-862b-5804ff4b4806',
+    before: ASSET+'frida_before.jpg',
+    models: [
+      { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'frida_cf-nano-authentic.png' },
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'frida_banana2-color.png' }
+    ]
+  },
+  {
+    id: 'fedora', title: 'Fedora', photoId: '64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a',
+    before: ASSET+'fedora_before.jpg',
+    models: [
+      { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'fedora_cf-nano-authentic.png' },
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'fedora_banana2-color.png' },
+      { id: 'bake-gpt2', label: 'bake GPT2', src: ASSET+'fedora_bake-gpt2.png' },
+      { id: 'bake-banana-pro', label: 'bake Banana Pro', src: ASSET+'fedora_bake-banana-pro.png' }
+    ]
+  },
+  {
+    id: 'couple', title: 'Couple', photoId: 'b856b364-c132-4df9-971b-9cb6bf340585',
+    before: ASSET+'couple_before.jpg',
     honesty: { text: 'Pro color PASS', kind: 'pass' },
-    before: '/eye-cases/couple_before.jpg',
     models: [
-      { id: 'cf', label: 'CF', src: '/eye-cases/couple_cf.jpg' },
-      { id: 'cf_nano', label: 'CF+Nano', src: '/eye-cases/couple_cf_nano.jpg' },
-      { id: 'banana2_color', label: 'Banana2 color', src: '/eye-cases/couple_banana2_color.jpg' },
-      { id: 'pro_color', label: 'Pro color PASS', src: '/eye-cases/couple_pro_color.jpg', mark: 'pass' }
+      { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'couple_cf-nano-authentic.png' },
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'couple_banana2-color.png' },
+      { id: 'banana-pro-color', label: 'color Banana Pro', src: ASSET+'couple_banana-pro-color.png' }
     ]
   },
   {
-    id: 'doorway',
-    title: 'Doorway',
-    photoId: '365f7cb5-9694-4f40-b43f-d39d47f064f2',
+    id: 'doorway', title: 'Doorway', photoId: '365f7cb5-9694-4f40-b43f-d39d47f064f2',
+    before: ASSET+'doorway_before.jpg',
     honesty: { text: 'Pro color FACE_FAIL', kind: 'fail' },
-    before: '/eye-cases/doorway_before.jpg',
     models: [
-      { id: 'cf', label: 'CF', src: '/eye-cases/doorway_cf.jpg' },
-      { id: 'cf_nano', label: 'CF+Nano', src: '/eye-cases/doorway_cf_nano.jpg' },
-      { id: 'banana2_color', label: 'Banana2 color', src: '/eye-cases/doorway_banana2_color.jpg' },
-      { id: 'pro_color', label: 'Pro color FACE_FAIL', src: '/eye-cases/doorway_pro_color.jpg', mark: 'fail' }
+      { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'doorway_cf-nano-authentic.png' },
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'doorway_banana2-color.png' },
+      { id: 'banana-pro-color', label: 'color Banana Pro', src: ASSET+'doorway_banana-pro-color.png' }
     ]
   },
   {
-    id: 'wedding',
-    title: 'Wedding',
-    photoId: '71c52fea-0a7c-42d7-8d11-d09c867f475d',
-    before: '/eye-cases/wedding_before.jpg',
+    id: 'wedding', title: 'Wedding', photoId: '71c52fea-0a7c-42d7-8d11-d09c867f475d',
+    before: ASSET+'wedding_before.jpg',
     models: [
-      { id: 'cf', label: 'CF', src: '/eye-cases/wedding_cf.jpg' },
-      { id: 'cf_nano', label: 'CF+Nano', src: '/eye-cases/wedding_cf_nano.jpg' },
-      { id: 'banana2_color', label: 'Banana2 color', src: '/eye-cases/wedding_banana2_color.jpg' },
-      { id: 'pro_color', label: 'Pro color', src: '/eye-cases/wedding_pro_color.jpg' }
+      { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'wedding_cf-nano-authentic.png' },
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'wedding_banana2-color.png' },
+      { id: 'banana-pro-color', label: 'color Banana Pro', src: ASSET+'wedding_banana-pro-color.png' }
     ]
   }
 ];
 
-const TAGS = ['лицо','фон','одежда','цвет','пластик'];
 const STORE_KEY = 'smh_eye_review_notes_v1';
 const notes = loadNotes();
 const state = {};
@@ -246,7 +191,8 @@ function loadNotes(){
 }
 function saveNotes(){
   localStorage.setItem(STORE_KEY, JSON.stringify(notes));
-  document.getElementById('notesCount').textContent = String(notes.length);
+  const el = document.getElementById('notesCount');
+  if(el) el.textContent = String(notes.length);
 }
 function toast(msg){
   const el = document.getElementById('toast');
@@ -258,16 +204,25 @@ function toast(msg){
 function pct(n){ return Math.round(n*10)/10; }
 function clamp(v,a,b){ return Math.max(a, Math.min(b,v)); }
 
+function openLightbox(src, title){
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lbTitle').textContent = title || '';
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden','false');
+}
+function closeLightbox(){
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden','true');
+  document.getElementById('lbImg').src = '';
+}
+
 function render(){
   const root = document.getElementById('cases');
   root.innerHTML = '';
-  CASES.forEach((c, idx)=>{
-    state[c.id] = state[c.id] || {
-      model: c.models[0].id,
-      target: 'after',
-      region: null,
-      tags: new Set()
-    };
+  CASES.forEach(c=>{
+    state[c.id] = state[c.id] || { model: c.models[0].id, target: 'after', region: null };
     const st = state[c.id];
     const model = c.models.find(m=>m.id===st.model) || c.models[0];
     const card = document.createElement('section');
@@ -275,16 +230,12 @@ function render(){
     card.id = 'case-'+c.id;
     card.setAttribute('data-eye-review','case');
     card.setAttribute('data-case-id', c.id);
-
-    const honesty = c.honesty
-      ? `<span class="mark ${c.honesty.kind}">${c.honesty.text}</span>`
-      : '';
-
+    const honesty = c.honesty ? `<span class="mark ${c.honesty.kind}">${c.honesty.text}</span>` : '';
     card.innerHTML = `
       <div class="case-head">
         <div>
           <h2>${c.title}</h2>
-          <div class="meta">photoId <code>${c.photoId}</code> · caseId <code>${c.id}</code></div>
+          <div class="meta">photo_id <code>${c.photoId}</code> · case <code>${c.id}</code></div>
         </div>
         <div>${honesty}</div>
       </div>
@@ -312,13 +263,16 @@ function render(){
         </div>
       </div>
       <div class="note-box">
-        <div class="tags" data-role="tags"></div>
-        <textarea placeholder="Что не так в выделенной области? Например: пластик на щеке, цвет шляпы слишком тёплый…" data-note></textarea>
+        <textarea placeholder="Что исправить в выделенной области?" data-note></textarea>
         <div class="actions">
-          <button class="btn primary" type="button" data-copy>Скопировать правку</button>
-          <button class="btn" type="button" data-add>Добавить в правки.json</button>
+          <button class="btn primary" type="button" data-send-eye-note id="sendEyeNote-${c.id}">Отправить Q</button>
+          <button class="btn" type="button" data-download-region>Скачать PNG области</button>
           <button class="btn ghost" type="button" data-clear-region>Сбросить область</button>
         </div>
+      </div>
+      <div class="notes-side" data-notes-side>
+        <h3>Заметки по кейсу</h3>
+        <ul data-notes-list></ul>
       </div>
     `;
 
@@ -328,25 +282,8 @@ function render(){
       b.type = 'button';
       b.className = 'chip'+(m.id===st.model?' on':'');
       b.textContent = m.label;
-      b.addEventListener('click', ()=>{
-        st.model = m.id;
-        st.region = null;
-        renderCase(card, c);
-      });
+      b.addEventListener('click', ()=>{ st.model = m.id; st.region = null; renderCase(card, c); });
       chips.appendChild(b);
-    });
-
-    const tagsEl = card.querySelector('[data-role="tags"]');
-    TAGS.forEach(t=>{
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'tag'+(st.tags.has(t)?' on':'');
-      b.textContent = t;
-      b.addEventListener('click', ()=>{
-        if(st.tags.has(t)) st.tags.delete(t); else st.tags.add(t);
-        b.classList.toggle('on');
-      });
-      tagsEl.appendChild(b);
     });
 
     card.querySelectorAll('[data-target]').forEach(btn=>{
@@ -356,34 +293,23 @@ function render(){
       });
     });
 
-    wireStage(card, c, 'before');
-    wireStage(card, c, 'after');
+    drawRegion(card, c, 'before');
+    drawRegion(card, c, 'after');
 
-    card.querySelector('[data-copy]').addEventListener('click', async ()=>{
-      const payload = buildPayload(card, c);
-      if(!payload) return;
-      try{
-        await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
-        toast('Правка скопирована в буфер');
-      }catch(e){
-        toast('Не удалось скопировать — скачай JSON');
-      }
+    card.querySelectorAll('.pane .lab').forEach(lab=>{
+      lab.addEventListener('click', ()=>{
+        const img = lab.closest('.pane').querySelector('img');
+        if(img) openLightbox(img.currentSrc || img.src, lab.textContent);
+      });
     });
-    card.querySelector('[data-add]').addEventListener('click', ()=>{
-      const payload = buildPayload(card, c);
-      if(!payload) return;
-      notes.push(payload);
-      saveNotes();
-      toast('Добавлено в накопленные ('+notes.length+')');
-    });
-    card.querySelector('[data-clear-region]').addEventListener('click', ()=>{
-      st.region = null;
-      updateRects(card, c);
-      toast('Область сброшена');
-    });
+
+    card.querySelector('[data-send-eye-note]').addEventListener('click', ()=> sendEyeNote(card, c));
+    card.querySelector('[data-download-region]').addEventListener('click', ()=> downloadRegionPng(card, c));
+    card.querySelector('[data-clear-region]').addEventListener('click', ()=>{ st.region = null; updateRects(card, c); toast('Область сброшена'); });
 
     root.appendChild(card);
     updateRects(card, c);
+    refreshCaseNotes(card, c);
   });
   saveNotes();
 }
@@ -391,9 +317,7 @@ function render(){
 function renderCase(card, c){
   const st = state[c.id];
   const model = c.models.find(m=>m.id===st.model) || c.models[0];
-  card.querySelectorAll('[data-role="models"] .chip').forEach((b,i)=>{
-    b.classList.toggle('on', c.models[i].id===st.model);
-  });
+  card.querySelectorAll('[data-role="models"] .chip').forEach((b,i)=>{ b.classList.toggle('on', c.models[i].id===st.model); });
   const lab = card.querySelector('[data-pane="after"] .lab');
   if(lab) lab.textContent = 'AFTER · '+model.label;
   const img = card.querySelector('[data-after-img]');
@@ -401,7 +325,7 @@ function renderCase(card, c){
   updateRects(card, c);
 }
 
-function wireStage(card, c, which){
+function drawRegion(card, c, which){
   const stage = card.querySelector('[data-stage="'+which+'"]');
   const rect = card.querySelector('[data-rect="'+which+'"]');
   let drag = null;
@@ -413,22 +337,29 @@ function wireStage(card, c, which){
       y: clamp(((src.clientY - r.top) / r.height) * 100, 0, 100)
     };
   }
+  function applyDrag(d){
+    const x = Math.min(d.x0, d.x1), y = Math.min(d.y0, d.y1);
+    const w = Math.abs(d.x1 - d.x0), h = Math.abs(d.y1 - d.y0);
+    rect.style.display = 'block';
+    rect.style.left = x+'%'; rect.style.top = y+'%';
+    rect.style.width = w+'%'; rect.style.height = h+'%';
+  }
   function start(ev){
-    if(state[c.id].target !== which) {
-      toast('Сейчас рисуем на '+ (state[c.id].target==='before'?'BEFORE':'AFTER') +' — переключи тумблер');
+    if(state[c.id].target !== which){
+      toast('Сейчас рисуем на '+(state[c.id].target==='before'?'BEFORE':'AFTER'));
       return;
     }
     ev.preventDefault();
     const p = pos(ev);
     drag = {x0:p.x,y0:p.y,x1:p.x,y1:p.y};
-    applyDrag(rect, drag);
+    applyDrag(drag);
   }
   function move(ev){
     if(!drag) return;
     ev.preventDefault();
     const p = pos(ev);
     drag.x1 = p.x; drag.y1 = p.y;
-    applyDrag(rect, drag);
+    applyDrag(drag);
   }
   function end(ev){
     if(!drag) return;
@@ -438,10 +369,7 @@ function wireStage(card, c, which){
     const w = Math.abs(drag.x1 - drag.x0);
     const h = Math.abs(drag.y1 - drag.y0);
     drag = null;
-    if(w < 1.5 || h < 1.5){
-      toast('Область слишком маленькая');
-      return;
-    }
+    if(w < 1.5 || h < 1.5){ toast('Область слишком маленькая'); return; }
     state[c.id].region = { xPct: pct(x), yPct: pct(y), wPct: pct(w), hPct: pct(h), on: which };
     updateRects(card, c);
   }
@@ -451,18 +379,6 @@ function wireStage(card, c, which){
   stage.addEventListener('touchstart', start, {passive:false});
   stage.addEventListener('touchmove', move, {passive:false});
   stage.addEventListener('touchend', end, {passive:false});
-}
-
-function applyDrag(rect, drag){
-  const x = Math.min(drag.x0, drag.x1);
-  const y = Math.min(drag.y0, drag.y1);
-  const w = Math.abs(drag.x1 - drag.x0);
-  const h = Math.abs(drag.y1 - drag.y0);
-  rect.style.display = 'block';
-  rect.style.left = x+'%';
-  rect.style.top = y+'%';
-  rect.style.width = w+'%';
-  rect.style.height = h+'%';
 }
 
 function updateRects(card, c){
@@ -476,7 +392,7 @@ function updateRects(card, c){
       rect.style.top = st.region.yPct+'%';
       rect.style.width = st.region.wPct+'%';
       rect.style.height = st.region.hPct+'%';
-      coords.textContent = `область: x=${st.region.xPct}% y=${st.region.yPct}% w=${st.region.wPct}% h=${st.region.hPct}%`;
+      coords.textContent = `область: x%=${st.region.xPct} y%=${st.region.yPct} w%=${st.region.wPct} h%=${st.region.hPct}`;
     } else {
       rect.style.display = 'none';
       coords.textContent = 'область: —';
@@ -484,83 +400,111 @@ function updateRects(card, c){
   });
 }
 
+function buildEyeNoteText(payload){
+  return [
+    'EYE_NOTE',
+    'case: '+payload.case,
+    'photo_id: '+payload.photo_id,
+    'model: '+payload.model,
+    'region: x%='+payload.region.xPct+' y%='+payload.region.yPct+' w%='+payload.region.wPct+' h%='+payload.region.hPct+' on='+payload.region.on,
+    'note: '+payload.note,
+    ''
+  ].join('\n');
+}
+
 function buildPayload(card, c){
   const st = state[c.id];
   const model = c.models.find(m=>m.id===st.model) || c.models[0];
   const note = (card.querySelector('[data-note]').value || '').trim();
-  if(!note){
-    toast('Напиши текст правки');
-    return null;
-  }
-  if(!st.region){
-    toast('Сначала выдели область на картинке');
-    return null;
-  }
+  if(!note){ toast('Напиши текст правки'); return null; }
+  if(!st.region){ toast('Сначала выдели область'); return null; }
   return {
-    caseId: c.id,
-    photoId: c.photoId,
+    case: c.id,
+    photo_id: c.photoId,
     model: model.id,
     modelLabel: model.label,
-    region: {
-      xPct: st.region.xPct,
-      yPct: st.region.yPct,
-      wPct: st.region.wPct,
-      hPct: st.region.hPct,
-      on: st.region.on
-    },
+    region: { xPct: st.region.xPct, yPct: st.region.yPct, wPct: st.region.wPct, hPct: st.region.hPct, on: st.region.on },
     note,
-    tags: Array.from(st.tags),
     ts: new Date().toISOString(),
     marker: 'nano-alt-eye-review',
     page: 'https://savemyhistory.tech/eye-review.html'
   };
 }
 
+async function sendEyeNote(card, c){
+  const payload = buildPayload(card, c);
+  if(!payload) return;
+  const text = buildEyeNoteText(payload);
+  notes.push(payload);
+  saveNotes();
+  refreshCaseNotes(card, c);
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('Отправлено в буфер · EYE_NOTE');
+  } catch(e){
+    toast('Буфер недоступен — скачай JSON');
+  }
+  const fname = 'eye_note_'+payload.case+'_'+payload.model+'_'+Date.now()+'.json';
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fname;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function refreshCaseNotes(card, c){
+  const ul = card.querySelector('[data-notes-list]');
+  if(!ul) return;
+  const mine = notes.filter(n=>n.case===c.id);
+  ul.innerHTML = mine.length
+    ? mine.map(n=>`<li><code>${n.model}</code> · x%=${n.region.xPct} y%=${n.region.yPct} w%=${n.region.wPct} h%=${n.region.hPct} — ${n.note}</li>`).join('')
+    : '<li>пока пусто</li>';
+}
+
+function downloadRegionPng(card, c){
+  const st = state[c.id];
+  if(!st.region){ toast('Сначала выдели область'); return; }
+  const which = st.region.on;
+  const img = card.querySelector(which==='before' ? '[data-pane="before"] img' : '[data-after-img]');
+  if(!img || !img.naturalWidth){ toast('Картинка ещё грузится'); return; }
+  const x = Math.round(img.naturalWidth * st.region.xPct / 100);
+  const y = Math.round(img.naturalHeight * st.region.yPct / 100);
+  const w = Math.max(1, Math.round(img.naturalWidth * st.region.wPct / 100));
+  const h = Math.max(1, Math.round(img.naturalHeight * st.region.hPct / 100));
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  canvas.getContext('2d').drawImage(img, x, y, w, h, 0, 0, w, h);
+  canvas.toBlob(blob=>{
+    if(!blob){ toast('Не удалось сделать PNG'); return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = c.id+'_'+which+'_region.png';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('PNG области скачан');
+  }, 'image/png');
+}
+
 document.getElementById('btnDownloadAll').addEventListener('click', ()=>{
-  if(!notes.length){ toast('Пока нет накопленных правок'); return; }
+  if(!notes.length){ toast('Пока нет заметок'); return; }
   const blob = new Blob([JSON.stringify({ marker:'nano-alt-eye-review', count:notes.length, notes }, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'pravki-eye-review.json';
   a.click();
   URL.revokeObjectURL(a.href);
-  toast('Скачан pravki-eye-review.json');
 });
 document.getElementById('btnClearAll').addEventListener('click', ()=>{
   if(!notes.length){ toast('Уже пусто'); return; }
-  if(!confirm('Очистить все накопленные правки?')) return;
-  notes.length = 0;
-  saveNotes();
-  toast('Накопленное очищено');
+  if(!confirm('Очистить все заметки?')) return;
+  notes.length = 0; saveNotes(); render(); toast('Очищено');
 });
-document.getElementById('btnMailto').addEventListener('click', ()=>{
-  if(!notes.length){ toast('Сначала накопи правки'); return; }
-  const body = encodeURIComponent('Eye review правки ('+notes.length+')\n\n'+JSON.stringify(notes, null, 2).slice(0,1800));
-  const subject = encodeURIComponent('SMH eye-review правки');
-  location.href = 'mailto:?subject='+subject+'&body='+body;
-});
-
-
-document.getElementById('lbClose')?.addEventListener('click', closeLightbox);
-document.getElementById('lightbox')?.addEventListener('click', (e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lightbox').addEventListener('click', (e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
 document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeLightbox(); });
-render();
 
-function openLightbox(src, title){
-  const lb = document.getElementById('lightbox');
-  if(!lb) return;
-  document.getElementById('lbImg').src = src;
-  document.getElementById('lbTitle').textContent = title || '';
-  lb.classList.add('open');
-  lb.setAttribute('aria-hidden','false');
-}
-function closeLightbox(){
-  const lb = document.getElementById('lightbox');
-  if(!lb) return;
-  lb.classList.remove('open');
-  lb.setAttribute('aria-hidden','true');
-  document.getElementById('lbImg').src = '';
-}
+render();
 </script>
 </body>
 </html>
