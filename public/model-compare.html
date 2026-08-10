@@ -98,7 +98,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 #nano-alt-matrix-picks[data-board-compact="1"] .board-status-bar,
 #nano-alt-matrix-picks[data-board-compact="1"] .board-filter-bar,
 #nano-alt-matrix-picks[data-board-compact="1"] .board-gate-bar{padding:6px 8px;gap:6px 10px;margin-bottom:8px}
-#nano-alt-matrix-picks[data-board-compact="1"] .board-copy-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-compact-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-share-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-scrolltop-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-print-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-help-bar{margin-bottom:8px;gap:6px}
+#nano-alt-matrix-picks[data-board-compact="1"] .board-copy-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-compact-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-share-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-scrolltop-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-print-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-export-bar,#nano-alt-matrix-picks[data-board-compact="1"] .board-help-bar{margin-bottom:8px;gap:6px}
 /* nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare */
 .board-share-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
 .board-share-bar[data-board-share="1"]{border:0}
@@ -114,11 +114,16 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .board-print-bar[data-board-print="1"]{border:0}
 .board-print-btn{border:1px solid #d9c7a3;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;color:#5c4630;line-height:1.2}
 .board-print-btn:hover{border-color:#c4ae86;background:#fff3dc;font-weight:700}
+/* nano-alt-matrix-board-export · board-export · data-board-export · exportBoard · copyBoardExport */
+.board-export-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.board-export-bar[data-board-export="1"]{border:0}
+.board-export-btn{border:1px solid #d9c7a3;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;color:#5c4630;line-height:1.2}
+.board-export-btn:hover{border-color:#c4ae86;background:#fff3dc;font-weight:700}
 @media print{
   body *{visibility:hidden !important}
   #nano-alt-matrix-picks, #nano-alt-matrix-picks *{visibility:visible !important}
   #nano-alt-matrix-picks{position:absolute;left:0;top:0;width:100%}
-  .board-compact-bar,.board-share-bar,.board-scrolltop-bar,.board-print-bar,.board-copy-bar,.board-help-bar,.board-filter-bar,.board-filter-hint,.board-toast,.board-empty{display:none !important}
+  .board-compact-bar,.board-share-bar,.board-scrolltop-bar,.board-print-bar,.board-export-bar,.board-copy-bar,.board-help-bar,.board-filter-bar,.board-filter-hint,.board-toast,.board-empty{display:none !important}
   #nano-alt-matrix-picks .matrix-after tr[data-pick][hidden],#nano-alt-matrix-picks .matrix-after tr[data-pick][style*="display: none"]{display:none !important}
 }
 .matrix-after td[data-public-before-ok="1"],.matrix-after td[data-nano-bar-after-ok="1"]{background:#fff}
@@ -215,9 +220,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><a class="home" href="/service-review.html">→ service-review</a> (кейсы до/после + FAIL_HOLD board)
     </div>
 
-    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help nano-alt-matrix-pilot3-copyall pilot3-copyall nano-alt-matrix-all10-copyall all10-copyall nano-alt-matrix-board-compact board-compact nano-alt-matrix-board-empty board-empty empty-state nano-alt-matrix-board-share board-share nano-alt-matrix-board-scrolltop board-scrolltop nano-alt-matrix-board-print board-print nano-alt-matrix-board-filter-hint board-filter-hint" data-board-wire="1" data-pilot3-copyall="1" data-all10-copyall="1" data-board-compact="0" data-empty-state="0" data-board-share="1" data-board-scrolltop="1" data-board-print="1" data-filter-hint="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks board">
-      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria + board-help + pilot3-copyall + all10-copyall + board-compact + board-empty + board-share + board-scrolltop + board-print + board-filter-hint</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · copyPilot3Links · copyAll10Links · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria · hotkeys-help / showHotkeysHelp / ? · toggleBoardCompact компакт/обычно · board-empty / empty-state при 0 совпадений + сброс к Все 10 · copyBoardShare / board-share URL #pick=&filter=&compact= · scrollBoardTop ↑ наверх · printBoard / copyBoardPrint honesty print · board-filter-hint / updateFilterHint «показано N из 10»
-      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · nano-alt-matrix-board-toast · board-toast · data-board-toast · setBoardToast · toastShow · nano-alt-matrix-board-aria · board-aria · data-board-aria · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · nano-alt-matrix-board-help · board-help · data-board-help · hotkeys-help · data-hotkeys-help · showHotkeysHelp · nano-alt-matrix-pilot3-copyall · pilot3-copyall · data-pilot3-copyall · copyPilot3Links · nano-alt-matrix-all10-copyall · all10-copyall · data-all10-copyall · copyAll10Links · nano-alt-matrix-board-compact · board-compact · data-board-compact · toggleBoardCompact · nano-alt-matrix-board-empty · board-empty · data-empty-state · empty-state · resetBoardEmptyFilter · nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare · applyBoardShareDeepLink · filter=all10|pilot-3 · compact=1 · nano-alt-matrix-board-scrolltop · board-scrolltop · data-board-scrolltop · scrollBoardTop · nano-alt-matrix-board-print · board-print · data-board-print · printBoard · copyBoardPrint · nano-alt-matrix-board-filter-hint · board-filter-hint · data-filter-hint · updateFilterHint
+    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help nano-alt-matrix-pilot3-copyall pilot3-copyall nano-alt-matrix-all10-copyall all10-copyall nano-alt-matrix-board-compact board-compact nano-alt-matrix-board-empty board-empty empty-state nano-alt-matrix-board-share board-share nano-alt-matrix-board-scrolltop board-scrolltop nano-alt-matrix-board-print board-print nano-alt-matrix-board-export board-export nano-alt-matrix-board-filter-hint board-filter-hint" data-board-wire="1" data-pilot3-copyall="1" data-all10-copyall="1" data-board-compact="0" data-empty-state="0" data-board-share="1" data-board-scrolltop="1" data-board-print="1" data-board-export="1" data-filter-hint="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks board">
+      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria + board-help + pilot3-copyall + all10-copyall + board-compact + board-empty + board-share + board-scrolltop + board-print + board-export + board-filter-hint</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · copyPilot3Links · copyAll10Links · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria · hotkeys-help / showHotkeysHelp / ? · toggleBoardCompact компакт/обычно · board-empty / empty-state при 0 совпадений + сброс к Все 10 · copyBoardShare / board-share URL #pick=&filter=&compact= · scrollBoardTop ↑ наверх · printBoard / copyBoardPrint honesty print · exportBoard / copyBoardExport honesty JSON · board-filter-hint / updateFilterHint «показано N из 10»
+      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · nano-alt-matrix-board-toast · board-toast · data-board-toast · setBoardToast · toastShow · nano-alt-matrix-board-aria · board-aria · data-board-aria · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · nano-alt-matrix-board-help · board-help · data-board-help · hotkeys-help · data-hotkeys-help · showHotkeysHelp · nano-alt-matrix-pilot3-copyall · pilot3-copyall · data-pilot3-copyall · copyPilot3Links · nano-alt-matrix-all10-copyall · all10-copyall · data-all10-copyall · copyAll10Links · nano-alt-matrix-board-compact · board-compact · data-board-compact · toggleBoardCompact · nano-alt-matrix-board-empty · board-empty · data-empty-state · empty-state · resetBoardEmptyFilter · nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare · applyBoardShareDeepLink · filter=all10|pilot-3 · compact=1 · nano-alt-matrix-board-scrolltop · board-scrolltop · data-board-scrolltop · scrollBoardTop · nano-alt-matrix-board-print · board-print · data-board-print · printBoard · copyBoardPrint · nano-alt-matrix-board-export · board-export · data-board-export · exportBoard · copyBoardExport · nano-alt-matrix-board-filter-hint · board-filter-hint · data-filter-hint · updateFilterHint
       <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
       <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · LIVE_BLOCKED · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
       <div class="board-status-bar" id="nano-alt-matrix-board-status" data-marker="nano-alt-matrix-board-status board-status-bar" data-board-status="1" data-board-aria="1" role="status" aria-label="Matrix board status" aria-live="polite">
@@ -242,6 +247,10 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <div class="board-print-bar" id="nano-alt-matrix-board-print" data-marker="nano-alt-matrix-board-print board-print" data-board-print="1" data-board-aria="1" role="group" aria-label="Matrix board print">
         <button type="button" class="board-print-btn" id="board-print-btn" data-board-print="1" title="Печать honesty slice matrix board · visible picks + status · printBoard" aria-label="Печать matrix board">печать board</button>
         <button type="button" class="board-print-btn" id="board-print-copy" data-board-print="1" data-copy-board-print="1" title="Скопировать plain-text honesty summary · copyBoardPrint" aria-label="Копировать honesty summary board">копировать print-summary</button>
+      </div>
+      <div class="board-export-bar" id="nano-alt-matrix-board-export" data-marker="nano-alt-matrix-board-export board-export" data-board-export="1" data-board-aria="1" role="group" aria-label="Matrix board export">
+        <button type="button" class="board-export-btn" id="board-export-btn" data-board-export="1" title="Export honesty board state JSON · current filter/view · exportBoard" aria-label="Export matrix board JSON">export board JSON</button>
+        <button type="button" class="board-export-btn" id="board-export-copy" data-board-export="1" data-copy-board-export="1" title="Скопировать honesty board export · JSON preferred · copyBoardExport" aria-label="Копировать board export">копировать board-export</button>
       </div>
       <div class="board-filter-bar" id="board-filter-bar" data-marker="nano-alt-matrix-board-filter board-filter" data-board-filter="1" data-pick-filter="1" data-board-aria="1" role="toolbar" aria-label="Matrix board filter">
         <button type="button" class="bf-chip on" id="bf-all10" data-pick-filter="all" data-board-filter="1" data-board-aria="1" aria-pressed="true" aria-label="Все 10 matrix picks" title="Показать все 10 matrix picks">Все 10</button>
@@ -277,6 +286,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
             <li>Density: кнопка «плотность» · toggleBoardCompact · компакт / обычно · smh-board-compact</li>
             <li>Share: кнопка «копировать board-ссылку» · copyBoardShare · #pick=&amp;filter=all10|pilot-3&amp;compact=1 · applyBoardShareDeepLink</li>
             <li>Print: «печать board» · printBoard · window.print / honesty slice · «копировать print-summary» · copyBoardPrint</li>
+            <li>Export: «export board JSON» / «копировать board-export» · exportBoard / copyBoardExport · clipboard JSON honesty state · setBoardToast</li>
             <li>Empty-state: при 0 видимых picks — «нет совпадений» + сброс фильтра к Все 10 · board-empty / data-empty-state</li>
             <li>Gates: копировать «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E»</li>
             <li>Status-bar: честно показывает filter / focus / BEFORE 10/10 · Nano-bar 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED</li>
@@ -330,9 +340,10 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Share: <code>board-share</code> / <code>data-board-share</code> / <code>copyBoardShare</code> / <code>applyBoardShareDeepLink</code> · one-click URL <code>#pick=&lt;id&gt;&amp;filter=all10|pilot-3&amp;compact=1</code> (omit empty) · apply on load · setBoardToast · FREE UI · no inference.
       <br>Scrolltop: <code>board-scrolltop</code> / <code>data-board-scrolltop</code> / <code>scrollBoardTop</code> · compact «↑ наверх» · scrollIntoView board/toolbar · setBoardToast · FREE UI · no inference.
       <br>Print: <code>board-print</code> / <code>data-board-print</code> / <code>printBoard</code> / <code>copyBoardPrint</code> · one-click print honesty slice (visible picks + status) or window.print · optional plain-text honesty summary clipboard · setBoardToast · FREE UI · no inference · no fake AFTER.
+      <br>Export: <code>board-export</code> / <code>data-board-export</code> / <code>exportBoard</code> / <code>copyBoardExport</code> · one-click clipboard JSON (preferred) or plain-text honesty board state for CURRENT filter/view · visible pick ids · filter · compact · focus · BEFORE 10/10 · Nano-bar 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · setBoardToast · FREE UI · no inference · no fake AFTER · no image download.
       <br>Filter-hint: <code>board-filter-hint</code> / <code>data-filter-hint</code> / <code>updateFilterHint</code> · short RU honesty under chips · updates with filter mode + «показано N из 10» · hooks paintBoardFilterCount / filterPick · light setBoardToast on mode change · FREE UI · no inference · no fake AFTER.
       <p class="board-focus-note" id="board-focus-note" data-focus-note hidden></p>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-filter-hint">→ service-review board-filter-hint mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-print">→ service-review board-print mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-scrolltop">→ service-review board-scrolltop mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-share">→ service-review board-share mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-empty">→ service-review board-empty mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-compact">→ service-review board-compact mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-filter-hint">→ service-review board-filter-hint mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-export">→ service-review board-export mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-print">→ service-review board-print mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-scrolltop">→ service-review board-scrolltop mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-share">→ service-review board-share mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-empty">→ service-review board-empty mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-compact">→ service-review board-compact mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-wire" data-marker="nano-alt-matrix-board-wire" data-board-wire="1" data-board-wired="1">
@@ -464,6 +475,12 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Markers: nano-alt-matrix-board-print · board-print · data-board-print · printBoard · copyBoardPrint · board-scrolltop · board-share · board-empty · board-compact · all10-copyall · pilot3-copyall · board-help · board-aria · board-toast · board-status-bar · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
       <br>Honesty: print/copy status slice only · empty alt AFTER slots stay WAITING / READY_DRY · no invent · no fake AFTER.
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-print">→ #nano-alt-matrix-board-print</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-print">→ service-review board-print mirror</a>
+    </div>
+    <div class="honesty" id="nano-alt-matrix-board-export-honesty" data-marker="nano-alt-matrix-board-export board-export" data-board-export="1">
+      <strong>Matrix all-10 · board-export</strong> · FREE UI · exportBoard / copyBoardExport one-click clipboard JSON (preferred) or plain-text honesty board state for CURRENT filter/view · pick ids visible · filter mode · compact · focus · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · setBoardToast · spend_E=0 · no fal · no inference · no AFTER invent · no image binary download · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-export · board-export · data-board-export · exportBoard · copyBoardExport · board-print · board-filter-hint · board-scrolltop · board-share · board-empty · board-compact · all10-copyall · pilot3-copyall · board-help · board-aria · board-toast · board-status-bar · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
+      <br>Honesty: export status/filter/visible ids only · empty alt AFTER slots stay WAITING / READY_DRY · no invent · no fake AFTER · text/JSON only.
+      <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-export">→ #nano-alt-matrix-board-export</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-export">→ service-review board-export mirror</a>
     </div>
     <div class="honesty" id="nano-alt-matrix-board-filter-hint-honesty" data-marker="nano-alt-matrix-board-filter-hint board-filter-hint" data-filter-hint="1">
       <strong>Matrix all-10 · board-filter-hint</strong> · FREE UI · updateFilterHint short RU honesty under filter chips · mode Все 10 / Пилот 3×3 / поиск + «показано N из 10» · reuses paintBoardFilterCount / filterPick · light setBoardToast on mode change · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
@@ -1972,6 +1989,127 @@ async function copyBoardPrint(){
     copyBtn.setAttribute('data-board-print','1');
     copyBtn.setAttribute('data-copy-board-print','1');
     copyBtn.addEventListener('click', async function(ev){ ev.preventDefault(); ev.stopPropagation(); await copyBoardPrint(); });
+  }
+})();
+
+/* nano-alt-matrix-board-export · board-export · data-board-export · exportBoard · copyBoardExport */
+function boardExportVisiblePickIds(){
+  const rows=Array.from(document.querySelectorAll('#matrix-after-slots tr[data-pick]')).filter(function(tr){
+    if(tr.hidden) return false;
+    const st=window.getComputedStyle?window.getComputedStyle(tr):null;
+    if(st && (st.display==='none'||st.visibility==='hidden')) return false;
+    return true;
+  });
+  return rows.map(function(tr){ return tr.getAttribute('data-pick')||''; }).filter(Boolean);
+}
+function boardExportHonestyState(){
+  const ids=boardExportVisiblePickIds();
+  const picks=document.getElementById('nano-alt-matrix-picks');
+  const filterEl=document.getElementById('bs-filter');
+  const shownEl=document.getElementById('bs-shown');
+  const focusEl=document.getElementById('bs-focus');
+  const filterMode=(filterEl&&filterEl.textContent||'filter: Все 10').replace(/^filter:\s*/,'');
+  const shown=(shownEl&&shownEl.textContent)||('показано '+ids.length+' из 10');
+  const focus=(focusEl&&focusEl.textContent)||'focus: нет фокуса';
+  const compact=(picks&&picks.getAttribute('data-board-compact')==='1')?'1':'0';
+  const focusId=(function(){
+    const fr=document.querySelector('#matrix-after-slots tr[data-pick][data-focus="1"], #matrix-after-slots tr[data-pick].pick-focus');
+    return fr?(fr.getAttribute('data-pick')||''):'';
+  })();
+  return {
+    marker:'nano-alt-matrix-board-export',
+    kind:'board-export',
+    filter:filterMode,
+    shown:shown,
+    shown_n:ids.length,
+    shown_total:10,
+    compact:compact,
+    focus:focus,
+    focus_id:focusId||null,
+    visible_pick_ids:ids,
+    before_wired:'10/10',
+    nano_bar_after_wired:'10/10',
+    alt_after:'0/30 WAITING',
+    READY_DRY:true,
+    LIVE_BLOCKED:true,
+    TOTAL_CALLS:30,
+    TOTAL_E:60,
+    quote_pilot:'≤18E',
+    quote_all10:'≤60E',
+    spend_E:0,
+    NO_fake_AFTER:true,
+    NO_invent_alt_AFTER:true,
+    FREE_UI:true,
+    note:'text/JSON honesty only · no image binary download'
+  };
+}
+function boardExportHonestyText(state){
+  const s=state||boardExportHonestyState();
+  const ids=s.visible_pick_ids||[];
+  return [
+    'SaveMyHistory · matrix board export · honesty',
+    'filter: '+s.filter,
+    s.shown,
+    'compact: '+s.compact,
+    s.focus,
+    'BEFORE wired '+s.before_wired+' · Nano-bar AFTER wired '+s.nano_bar_after_wired,
+    'alt AFTER '+s.alt_after+' · READY_DRY · LIVE_BLOCKED',
+    'quote '+s.quote_pilot+' / '+s.quote_all10+' · TOTAL_CALLS='+s.TOTAL_CALLS+' · TOTAL_E='+s.TOTAL_E,
+    'visible picks ('+ids.length+'): '+(ids.length?ids.join(', '):'(none)'),
+    'NO fake AFTER · no invent alt AFTER · spend_E=0 · FREE UI · text/JSON only'
+  ].join('\n');
+}
+async function copyTextToClipboard(text){
+  let ok=false;
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(text); ok=true;
+    }
+  }catch(e){ ok=false; }
+  if(!ok){
+    try{
+      const ta=document.createElement('textarea');
+      ta.value=text; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.left='-9999px';
+      document.body.appendChild(ta); ta.select();
+      ok=document.execCommand('copy'); document.body.removeChild(ta);
+    }catch(e2){ ok=false; }
+  }
+  return ok;
+}
+async function exportBoard(){
+  const state=boardExportHonestyState();
+  let payload='';
+  try{ payload=JSON.stringify(state,null,2); }catch(e){ payload=boardExportHonestyText(state); }
+  const ok=await copyTextToClipboard(payload);
+  if(typeof setBoardToast==='function') setBoardToast(ok, ok?'скопирован board-export JSON · board-export':'ошибка exportBoard');
+  return ok;
+}
+async function copyBoardExport(){
+  const state=boardExportHonestyState();
+  let payload='';
+  try{ payload=JSON.stringify(state,null,2); }catch(e){ payload=boardExportHonestyText(state); }
+  const ok=await copyTextToClipboard(payload);
+  if(typeof setBoardToast==='function') setBoardToast(ok, ok?'скопирован board-export · copyBoardExport':'ошибка copyBoardExport');
+  return ok;
+}
+(function bindBoardExport(){
+  const bar=document.getElementById('nano-alt-matrix-board-export');
+  if(bar) bar.setAttribute('data-board-export','1');
+  const picks=document.getElementById('nano-alt-matrix-picks');
+  if(picks) picks.setAttribute('data-board-export','1');
+  const btn=document.getElementById('board-export-btn');
+  const copyBtn=document.getElementById('board-export-copy');
+  if(btn && !btn.getAttribute('data-bound')){
+    btn.setAttribute('data-bound','1');
+    btn.setAttribute('data-board-export','1');
+    btn.addEventListener('click', async function(ev){ ev.preventDefault(); ev.stopPropagation(); await exportBoard(); });
+  }
+  if(copyBtn && !copyBtn.getAttribute('data-bound')){
+    copyBtn.setAttribute('data-bound','1');
+    copyBtn.setAttribute('data-board-export','1');
+    copyBtn.setAttribute('data-copy-board-export','1');
+    copyBtn.addEventListener('click', async function(ev){ ev.preventDefault(); ev.stopPropagation(); await copyBoardExport(); });
   }
 })();
 </script>
