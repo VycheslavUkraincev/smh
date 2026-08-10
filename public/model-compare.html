@@ -117,6 +117,15 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .board-toast[data-board-toast="1"].show,.board-toast.show{display:block}
 .board-toast[data-ok="0"]{background:#fbe8e0;border-color:#e0b8a8}
 .board-toast[data-ok="1"]{background:#fff3dc;border-color:#d8c7a8}
+.board-help-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;margin:0 0 10px}
+.board-help-bar[data-board-help="1"]{border:0}
+.board-help-btn{border:1px solid #d9c7a3;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;color:#5c4630;font-weight:700;min-width:2em}
+.board-help-btn:hover,.board-help-btn[aria-expanded="true"]{border-color:#c4ae86;background:#fff3dc}
+.board-help-panel{display:none;margin:0;padding:10px 12px;background:#fffaf0;border:1px solid #d8c7a8;border-radius:10px;font-size:12px;color:#5c4630;line-height:1.45;flex:1 1 100%}
+.board-help-panel[data-board-help="1"].open,.board-help-panel.open,.board-help-panel[data-hotkeys-help="1"].open{display:block}
+.board-help-panel kbd{display:inline-block;padding:1px 5px;border:1px solid #d9c7a3;border-radius:5px;background:#fff;font-size:11px;color:var(--ink)}
+.board-help-panel ul{margin:6px 0 0;padding-left:18px}
+.board-help-panel li{margin:2px 0}
 .matrix-after tr[data-pick][data-pick-filter-hide="1"]{display:none}
 .matrix-after .pick-id-chip[data-pick-filter-hide="1"]{opacity:.35}
 </style>
@@ -152,9 +161,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><a class="home" href="/service-review.html">→ service-review</a> (кейсы до/после + FAIL_HOLD board)
     </div>
 
-    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" role="region" aria-label="Matrix picks board">
-      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria
-      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · nano-alt-matrix-board-toast · board-toast · data-board-toast · setBoardToast · toastShow · nano-alt-matrix-board-aria · board-aria · data-board-aria · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10
+    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks board">
+      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria + board-help</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria · hotkeys-help / showHotkeysHelp / ?
+      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · nano-alt-matrix-board-toast · board-toast · data-board-toast · setBoardToast · toastShow · nano-alt-matrix-board-aria · board-aria · data-board-aria · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · nano-alt-matrix-board-help · board-help · data-board-help · hotkeys-help · data-hotkeys-help · showHotkeysHelp
       <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
       <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · LIVE_BLOCKED · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
       <div class="board-status-bar" id="nano-alt-matrix-board-status" data-marker="nano-alt-matrix-board-status board-status-bar" data-board-status="1" data-board-aria="1" role="status" aria-label="Matrix board status" aria-live="polite">
@@ -182,7 +191,23 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
         <span class="board-gate-hint" id="board-gate-hint" data-gate-buttons="1" data-copy-hint aria-live="polite"></span>
       </div>
       <div class="board-toast" id="board-toast" data-marker="nano-alt-matrix-board-toast board-toast" data-board-toast="1" data-board-aria="1" role="status" aria-live="polite" aria-atomic="true" aria-label="Matrix board toast"></div>
-      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-toast="1" data-board-aria="1" role="region" aria-label="Matrix picks table">
+      <div class="board-help-bar" id="nano-alt-matrix-board-help" data-marker="nano-alt-matrix-board-help board-help hotkeys-help" data-board-help="1" data-hotkeys-help="1" data-board-aria="1" role="group" aria-label="Matrix board help">
+        <button type="button" class="board-help-btn" id="board-help-toggle" data-board-help="1" data-hotkeys-help="1" aria-expanded="false" aria-controls="board-hotkeys-help" title="Справка по горячим клавишам и board (? )" aria-label="Открыть справку hotkeys-help">?</button>
+        <div class="board-help-panel hotkeys-help" id="board-hotkeys-help" data-marker="hotkeys-help board-help" data-board-help="1" data-hotkeys-help="1" data-board-aria="1" role="region" aria-label="Hotkeys help" hidden>
+          <strong>Справка board · hotkeys-help</strong> · FREE UI · showHotkeysHelp
+          <ul>
+            <li><kbd>↑</kbd>/<kbd>↓</kbd> или <kbd>j</kbd>/<kbd>k</kbd> — навигация по видимым picks</li>
+            <li><kbd>Enter</kbd> — focus + deeplink (#pick=)</li>
+            <li><kbd>c</kbd> — копировать ссылку pick</li>
+            <li><kbd>Esc</kbd> — закрыть справку (если открыта) или сбросить focus</li>
+            <li><kbd>?</kbd> или кнопка «?» — открыть/закрыть эту справку</li>
+            <li>Фильтр: чипы <strong>Все 10</strong> / <strong>Пилот 3×3</strong> · поиск id</li>
+            <li>Gates: копировать «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E»</li>
+            <li>Status-bar: честно показывает filter / focus / BEFORE 10/10 · Nano-bar 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED</li>
+          </ul>
+        </div>
+      </div>
+      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks table">
         <table data-board-wire="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-aria="1" role="grid" aria-label="Matrix picks 10 rows">
           <thead>
             <tr>
@@ -218,8 +243,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Status-bar: <code>board-status-bar</code> / <code>data-board-status</code> · live filter mode · «показано N из 10» · focus id / нет фокуса · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · FREE UI · no inference.
       <br>Toast: <code>board-toast</code> / <code>data-board-toast</code> / <code>setBoardToast</code> / <code>toastShow</code> · unified feedback for copyPickLink / copyAllPicks / copyGatePhrase / copyPilotGates / keyboard <code>c</code> / filter mode / Esc clear focus · auto-hide · consolidates board-copy-hint + board-gate-hint · FREE UI · no inference.
       <br>ARIA: <code>board-aria</code> / <code>data-board-aria</code> · region/label on board · status-bar/toast <code>aria-live</code> · filter chips aria-pressed · gate-buttons aria-label · pick rows aria-selected / aria-current on focus · FREE UI · no inference.
+      <br>Help: <code>board-help</code> / <code>hotkeys-help</code> / <code>data-board-help</code> / <code>data-hotkeys-help</code> / <code>showHotkeysHelp</code> · кнопка «?» или <code>?</code> · hotkeys ↑↓/j/k · Enter · c · Esc · filter Все 10 / Пилот 3×3 · copy gates · status-bar honesty · FREE UI · no inference.
       <p class="board-focus-note" id="board-focus-note" data-focus-note hidden></p>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-wire" data-marker="nano-alt-matrix-board-wire" data-board-wire="1" data-board-wired="1">
@@ -301,6 +327,14 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Keeps keyboardPick / focusPick / deeplink / copylink / filter / toast / status-bar / gate-buttons · does not invent AFTER · alt slots stay WAITING / READY_DRY.
       <br>NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts / fake AFTER / GPU rent
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-aria">→ #nano-alt-matrix-board-aria</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a>
+    </div>
+
+    <div class="honesty" id="nano-alt-matrix-board-help-honesty" data-marker="nano-alt-matrix-board-help board-help hotkeys-help" data-board-help="1" data-hotkeys-help="1">
+      <strong>Matrix all-10 · board-help / hotkeys-help</strong> · FREE UI · compact «?» / showHotkeysHelp · hotkeys ↑/↓ or j/k · Enter focus+deeplink · c copy link · Esc close help or clear focus · filter chips Все 10 / Пилот 3×3 · copy gates · status-bar honesty · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-help · board-help · data-board-help · hotkeys-help · data-hotkeys-help · showHotkeysHelp · board-aria · board-toast · board-status-bar · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
+      <br>Keeps keyboardPick / focusPick / deeplink / copylink / filter / toast / status-bar / gate-buttons / aria · does not invent AFTER · alt slots stay WAITING / READY_DRY.
+      <br>NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts / fake AFTER / GPU rent
+      <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-help">→ #nano-alt-matrix-board-help</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-gate-buttons-honesty" data-marker="nano-alt-matrix-gate-buttons gate-buttons" data-gate-buttons="1">
@@ -1164,6 +1198,52 @@ function searchPick(q){
   if(typeof updateBoardStatusBar==='function') updateBoardStatusBar();
 })();
 
+
+/* nano-alt-matrix-board-help · board-help · hotkeys-help · data-board-help · data-hotkeys-help · showHotkeysHelp */
+function boardHelpIsOpen(){
+  const panel=document.getElementById('board-hotkeys-help');
+  if(!panel) return false;
+  return panel.classList.contains('open') || panel.getAttribute('data-open')==='1';
+}
+function showHotkeysHelp(forceOpen){
+  const panel=document.getElementById('board-hotkeys-help');
+  const btn=document.getElementById('board-help-toggle');
+  const bar=document.getElementById('nano-alt-matrix-board-help');
+  if(!panel) return false;
+  let open;
+  if(typeof forceOpen==='boolean') open=forceOpen;
+  else open=!boardHelpIsOpen();
+  panel.classList.toggle('open', open);
+  panel.setAttribute('data-open', open?'1':'0');
+  panel.setAttribute('data-board-help','1');
+  panel.setAttribute('data-hotkeys-help','1');
+  if(open) panel.removeAttribute('hidden'); else panel.setAttribute('hidden','');
+  if(btn){
+    btn.setAttribute('aria-expanded', open?'true':'false');
+    btn.setAttribute('data-board-help','1');
+    btn.setAttribute('data-hotkeys-help','1');
+  }
+  if(bar){
+    bar.setAttribute('data-board-help','1');
+    bar.setAttribute('data-hotkeys-help','1');
+  }
+  const picks=document.getElementById('nano-alt-matrix-picks');
+  if(picks){ picks.setAttribute('data-board-help','1'); picks.setAttribute('data-hotkeys-help','1'); }
+  const root=document.getElementById('matrix-after-slots');
+  if(root){ root.setAttribute('data-board-help','1'); root.setAttribute('data-hotkeys-help','1'); }
+  if(typeof setBoardToast==='function'){
+    setBoardToast(true, open?'справка hotkeys открыта':'справка закрыта');
+  }
+  return open;
+}
+(function bindBoardHelp(){
+  if(document.documentElement.getAttribute('data-board-help-bound')==='1') return;
+  document.documentElement.setAttribute('data-board-help-bound','1');
+  const btn=document.getElementById('board-help-toggle');
+  if(btn){
+    btn.addEventListener('click',(ev)=>{ ev.preventDefault(); showHotkeysHelp(); });
+  }
+})();
 /* nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick */
 function boardKeyboardVisibleRows(){
   const root=document.getElementById('matrix-after-slots')||document.getElementById('nano-alt-matrix-picks');
@@ -1245,7 +1325,18 @@ function boardKeyboardTypingTarget(el){
       return;
     }
     if(key==='Escape'){
+      if(typeof boardHelpIsOpen==='function' && boardHelpIsOpen()){
+        ev.preventDefault();
+        showHotkeysHelp(false);
+        return;
+      }
       clearPickFocus({toast:true});
+      return;
+    }
+    if(key==='?' || (key==='/' && ev.shiftKey)){
+      ev.preventDefault();
+      if(typeof showHotkeysHelp==='function') showHotkeysHelp();
+      return;
     }
   });
 })();
