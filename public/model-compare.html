@@ -108,6 +108,11 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .board-filter-bar .bf-search{border:1px solid #d9c7a3;border-radius:8px;padding:5px 8px;font-size:11px;min-width:140px;background:#fff}
 .board-filter-count{font-size:12px;color:#5c4630;min-height:1.2em}
 .board-filter-count.active{font-weight:600;color:var(--ink)}
+.board-status-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:flex-start;margin:0 0 10px;padding:8px 10px;background:#fffaf0;border:1px solid #e6d7b8;border-radius:10px;font-size:12px;color:#5c4630;line-height:1.35}
+.board-status-bar[data-board-status="1"]{border-color:#d8c7a8}
+.board-status-bar .bs-label{font-weight:700;color:var(--ink);margin-right:2px}
+.board-status-bar .bs-item{white-space:normal}
+.board-status-bar .bs-item code{font-size:11px}
 .matrix-after tr[data-pick][data-pick-filter-hide="1"]{display:none}
 .matrix-after .pick-id-chip[data-pick-filter-hide="1"]{opacity:.35}
 </style>
@@ -143,11 +148,20 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><a class="home" href="/service-review.html">→ service-review</a> (кейсы до/после + FAIL_HOLD board)
     </div>
 
-    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1">
-      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates
-      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10
+    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1">
+      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates
+      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10
       <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
       <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · LIVE_BLOCKED · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
+      <div class="board-status-bar" id="nano-alt-matrix-board-status" data-marker="nano-alt-matrix-board-status board-status-bar" data-board-status="1" aria-live="polite">
+        <span class="bs-item"><span class="bs-label">status</span> board-status-bar</span>
+        <span class="bs-item" id="bs-filter" data-board-status="1">filter: Все 10</span>
+        <span class="bs-item" id="bs-shown" data-board-status="1">показано 10 из 10</span>
+        <span class="bs-item" id="bs-focus" data-board-status="1">focus: нет фокуса</span>
+        <span class="bs-item" id="bs-wired" data-board-status="1">BEFORE wired 10/10 · Nano-bar AFTER wired 10/10</span>
+        <span class="bs-item" id="bs-alt" data-board-status="1">alt AFTER 0/30 <span class="st WAIT">WAITING</span> · READY_DRY · LIVE_BLOCKED</span>
+        <span class="bs-item" id="bs-quote" data-board-status="1">TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E</span>
+      </div>
       <div class="board-filter-bar" id="board-filter-bar" data-marker="nano-alt-matrix-board-filter board-filter" data-board-filter="1" data-pick-filter="1">
         <button type="button" class="bf-chip on" id="bf-all10" data-pick-filter="all" data-board-filter="1" aria-pressed="true" title="Показать все 10 matrix picks">Все 10</button>
         <button type="button" class="bf-chip" id="bf-pilot" data-pick-filter="pilot" data-board-filter="1" data-pilot-only="1" pilot-only aria-pressed="false" title="Пилот 3×3: pd_02_stains · pd_03_fade · pd_04_soft_portrait (data-pilot=1)">Пилот 3×3</button>
@@ -196,8 +210,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Filter: <code>filterPick(mode)</code> · chips Все 10 / Пилот 3×3 (<code>data-pilot="1"</code> · pilot-only · pd_02_stains · pd_03_fade · pd_04_soft_portrait) · optional <code>searchPick</code> id · count «показано N из 10» · FREE UI · no inference.
       <br>Keyboard: <code>keyboardPick</code> · ↑/↓ or j/k among visible rows (respects filterPick / pilot-only / searchPick) · Enter → focusPick + setPickDeepLink · c → copyPickLink · Esc → clear data-focus / pick-focus · ignored in input/textarea/contenteditable · FREE UI · no inference.
       <br>Gate-buttons: <code>copyGatePhrase</code> / <code>copyPilotGates</code> / <code>data-gate-buttons</code> → clipboard exact «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E» + toast · READY_DRY · LIVE_BLOCKED · spend_E=0 · no inference.
+      <br>Status-bar: <code>board-status-bar</code> / <code>data-board-status</code> · live filter mode · «показано N из 10» · focus id / нет фокуса · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · FREE UI · no inference.
       <p class="board-focus-note" id="board-focus-note" data-focus-note hidden></p>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-wire" data-marker="nano-alt-matrix-board-wire" data-board-wire="1" data-board-wired="1">
@@ -258,6 +273,13 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Respects currently visible rows after filterPick / pilot-only / searchPick · keeps click focus / deeplink / copylink / filter / board-ready.
       <br>NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts / fake AFTER / GPU rent
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ service-review board-keyboard mirror</a>
+    </div>
+
+    <div class="honesty" id="nano-alt-matrix-board-status-honesty" data-marker="nano-alt-matrix-board-status board-status-bar" data-board-status="1">
+      <strong>Matrix all-10 · board-status-bar</strong> · FREE UI · compact live summary of filter / shown / focus / wired / alt AFTER / quote · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-status · board-status-bar · data-board-status · filterPick · focusPick · board-ready · gate-buttons · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
+      <br>Reuses filterPick / focusPick / boardKeyboardFocusedId · does not invent AFTER · alt slots stay WAITING / READY_DRY.
+      <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-status">→ #nano-alt-matrix-board-status</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-gate-buttons-honesty" data-marker="nano-alt-matrix-gate-buttons gate-buttons" data-gate-buttons="1">
@@ -852,6 +874,7 @@ function clearPickFocus(){
     tr.classList.remove('pick-focus');
     tr.removeAttribute('data-focus');
   });
+  if(typeof updateBoardStatusBar==='function') updateBoardStatusBar();
 }
 function focusPick(id, opts){
   id=String(id||'').trim();
@@ -880,8 +903,9 @@ function focusPick(id, opts){
   if(opts.persist){
     /* keyboard nav keeps focus until Esc / next move / Enter flash */
   }else{
-    BOARD_FOCUS_CLEAR_T=setTimeout(()=>{ row.classList.remove('pick-focus'); row.removeAttribute('data-focus'); BOARD_FOCUS_CLEAR_T=null; }, 1800);
+    BOARD_FOCUS_CLEAR_T=setTimeout(()=>{ row.classList.remove('pick-focus'); row.removeAttribute('data-focus'); BOARD_FOCUS_CLEAR_T=null; if(typeof updateBoardStatusBar==='function') updateBoardStatusBar(); }, 1800);
   }
+  if(typeof updateBoardStatusBar==='function') updateBoardStatusBar();
   return true;
 }
 (function bindBoardFocus(){
@@ -980,6 +1004,7 @@ function paintBoardFilterCount(n,total){
   el.textContent='показано '+n+' из '+total;
   el.classList.toggle('active', n!==total || BOARD_FILTER_MODE!=='all' || !!BOARD_FILTER_Q);
   el.setAttribute('data-board-filter','1');
+  if(typeof updateBoardStatusBar==='function') updateBoardStatusBar();
 }
 function filterPick(mode){
   /* filterPick(mode) · all | pilot | pilot-only | search · show/hide pick rows + id chips · «показано N из 10» */
@@ -1054,6 +1079,7 @@ function searchPick(q){
     inp.addEventListener('search',()=>{ searchPick(inp.value||''); });
   }
   filterPick('all');
+  if(typeof updateBoardStatusBar==='function') updateBoardStatusBar();
 })();
 
 /* nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick */
@@ -1142,6 +1168,46 @@ function boardKeyboardTypingTarget(el){
   });
 })();
 
+
+/* nano-alt-matrix-board-status · board-status-bar · data-board-status */
+function boardStatusFilterLabel(){
+  const q=String(BOARD_FILTER_Q||'').trim();
+  if(q) return 'search';
+  if(BOARD_FILTER_MODE==='pilot') return 'Пилот 3×3';
+  return 'Все 10';
+}
+function updateBoardStatusBar(){
+  const bar=document.getElementById('nano-alt-matrix-board-status');
+  if(!bar) return;
+  bar.setAttribute('data-board-status','1');
+  const root=document.getElementById('matrix-after-slots')||document.getElementById('nano-alt-matrix-picks');
+  let shown=0, total=0;
+  if(root){
+    root.querySelectorAll('tr[data-pick]').forEach(tr=>{
+      total+=1;
+      if(tr.getAttribute('data-pick-filter-hide')==='1') return;
+      if(tr.style && tr.style.display==='none') return;
+      shown+=1;
+    });
+  }
+  if(!total) total=10;
+  if(!shown && total && BOARD_FILTER_MODE==='all' && !String(BOARD_FILTER_Q||'').trim()) shown=total;
+  const fl=document.getElementById('bs-filter');
+  const sh=document.getElementById('bs-shown');
+  const fo=document.getElementById('bs-focus');
+  if(fl) fl.textContent='filter: '+boardStatusFilterLabel();
+  if(sh) sh.textContent='показано '+shown+' из '+total;
+  let focusId='';
+  try{ if(typeof boardKeyboardFocusedId==='function') focusId=boardKeyboardFocusedId()||''; }catch(e){}
+  if(!focusId && root){
+    const row=root.querySelector('tr[data-pick][data-focus="1"], tr[data-pick].pick-focus');
+    if(row) focusId=row.getAttribute('data-pick')||'';
+  }
+  if(fo) fo.textContent= focusId ? ('focus: '+focusId) : 'focus: нет фокуса';
+  const picks=document.getElementById('nano-alt-matrix-picks');
+  if(picks) picks.setAttribute('data-board-status','1');
+  if(root) root.setAttribute('data-board-status','1');
+}
 </script>
 </body>
 </html>
