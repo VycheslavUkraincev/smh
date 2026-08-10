@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-two-boys-models14="1">
+<html lang="ru" data-two-boys-models14="1" data-two-boys-review="1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,23 +10,24 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b1020; --bg2:#121933; --panel:#161e3a; --line:#2a355e;
+  --bg:#0b1020; --panel:#161e3a; --line:#2a355e;
   --ink:#e8eefc; --muted:#9aa8c7; --accent:#5b8cff; --accent2:#37d6b5;
   --ok:#3dd68c; --weak:#f0b35a; --fail:#ff6b7a; --skip:#8b93a7;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:radial-gradient(1200px 500px at 10% -10%,#1a2758 0%,transparent 55%),radial-gradient(900px 400px at 100% 0%,#12363a 0%,transparent 50%),var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.45}
 a{color:var(--accent);text-decoration:none}
-.wrap{max-width:1180px;margin:0 auto;padding:18px 14px 90px}
-.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 14px 100px}
+.sticky-nav{position:sticky;top:0;z-index:30;background:rgba(11,16,32,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 -14px 14px;padding:10px 14px}
+.sticky-nav .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
 .badge{display:inline-block;background:#1c274d;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px}
 h1{font-size:clamp(1.35rem,2.6vw,1.85rem);margin:8px 0 4px;letter-spacing:-.02em}
 .who{color:var(--muted);font-size:13px;margin:0 0 12px}
-.nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.nav{display:flex;flex-wrap:wrap;gap:8px}
 .nav a{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:#121933}
 .nav a:hover{color:var(--ink);border-color:#3d4d86}
 .hero{background:linear-gradient(180deg,#182246,#121933);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:0 0 14px}
-.hero p{margin:0;color:var(--muted);font-size:13.5px;max-width:85ch}
+.hero p{margin:0;color:var(--muted);font-size:13.5px;max-width:90ch}
 .stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .stat{background:#0f1630;border:1px solid var(--line);border-radius:12px;padding:8px 10px;min-width:96px}
 .stat b{display:block;font-size:1.2rem}
@@ -36,14 +37,11 @@ h1{font-size:clamp(1.35rem,2.6vw,1.85rem);margin:8px 0 4px;letter-spacing:-.02em
 .refcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px}
 .refcard h3{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:600}
 .refcard img{width:100%;display:block;border-radius:10px;background:#0a0f22;aspect-ratio:3/4;object-fit:contain}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;position:sticky;top:0;z-index:20;background:rgba(11,16,32,.92);backdrop-filter:blur(8px);padding:8px 0;border-bottom:1px solid transparent}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
 .chip{border:1px solid var(--line);background:#121933;color:var(--ink);border-radius:999px;padding:6px 10px;font:inherit;font-size:12px;cursor:pointer}
 .chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .chip .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
-.chip .dot.ok{background:var(--ok)}
-.chip .dot.weak{background:var(--weak)}
-.chip .dot.fail{background:var(--fail)}
-.chip .dot.skip{background:var(--skip)}
+.chip .dot.ok{background:var(--ok)}.chip .dot.weak{background:var(--weak)}.chip .dot.fail{background:var(--fail)}.chip .dot.skip{background:var(--skip)}
 .help{font-size:12px;color:var(--muted);margin:0 0 12px}
 kbd{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--line);border-radius:6px;padding:1px 5px;background:#0f1630}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 14px}
@@ -66,12 +64,15 @@ kbd{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--
 .details summary{cursor:pointer;padding:10px 12px;font-size:13px;font-weight:600;color:var(--ink)}
 .details .body{padding:0 12px 12px;font-size:12.5px;color:var(--muted)}
 .settings pre, .prompt pre{white-space:pre-wrap;word-break:break-word;background:#0a0f22;border:1px solid var(--line);border-radius:10px;padding:10px;color:#d7e2ff;font-family:'IBM Plex Mono',monospace;font-size:11.5px;max-height:280px;overflow:auto;margin:6px 0 0}
+.prompt-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .feedback{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:#0f1630;padding:12px}
 .feedback h3{margin:0 0 8px;font-size:14px}
 .feedback label{display:block;font-size:12px;color:var(--muted);margin:0 0 4px}
 .feedback textarea{width:100%;min-height:84px;resize:vertical;border-radius:10px;border:1px solid var(--line);background:#0a0f22;color:var(--ink);padding:10px;font:inherit;font-size:13px}
+.rate{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.rate button{border:1px solid var(--line);background:#0a0f22;color:var(--ink);border-radius:999px;padding:6px 10px;font:inherit;font-size:12px;cursor:pointer}
+.rate button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .feedback .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
-.feedback select{border-radius:10px;border:1px solid var(--line);background:#0a0f22;color:var(--ink);padding:8px 10px;font:inherit}
 .btn{border:1px solid var(--line);background:#1a2758;color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn:hover{filter:brightness(1.08)}
@@ -79,33 +80,40 @@ kbd{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--
 .toast.on{opacity:1}
 .foot{margin-top:18px;font-size:12px;color:var(--muted)}
 .hidden{display:none !important}
+.export-bar{position:sticky;bottom:0;z-index:25;background:rgba(11,16,32,.95);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 14px;margin:18px -14px -100px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 </style>
 </head>
-<body id="two-boys-models14" data-two-boys-models14="1" data-page-review-ui="1">
-<!-- nano-alt-two-boys-models14 · two-boys-models14 · data-two-boys-models14="1" · page-review-ui · prompt · settings · feedback · comment · отзыв · localStorage · clipboard -->
+<body id="two-boys-models14-review" class="two-boys-models14-review" data-two-boys-review="1" data-two-boys-models14="1" data-page-review-ui="1">
+<!-- two-boys-models14-review · data-two-boys-review="1" · data-model-prompt · data-model-feedback · nano-alt-two-boys-models14 · two-boys-models14 · page-review-ui · prompt · settings · feedback · comment · отзыв · localStorage · clipboard -->
 <div class="wrap">
-  <div class="top">
-    <span class="badge">nano-alt-two-boys-models14 · PAGE_REVIEW_UI · FREE UI</span>
-    <span class="badge">spend_E=36 · FACE_LOCK · NO_RENT · HARD BAN pd_02</span>
+  <div class="sticky-nav" id="sticky-nav">
+    <div class="row">
+      <div class="nav">
+        <a href="/">Home</a>
+        <a href="/model-compare.html">Model compare</a>
+        <a href="/service-review.html">Service review</a>
+        <a href="#export-bar">Сводка</a>
+      </div>
+      <div>
+        <span class="badge">two-boys-models14-review · FREE UI</span>
+        <span class="badge">generates spend_E≈28–36 · UI spend_E=0 · NO_RENT · HARD BAN pd_02</span>
+      </div>
+    </div>
+    <div class="chips" id="model-chips" aria-label="Model jump chips"></div>
   </div>
-  <div class="nav">
-    <a href="/">Home</a>
-    <a href="/model-compare.html">Model compare</a>
-    <a href="/service-review.html">Service review</a>
-    <a href="#feedback-panel">Отзыв / feedback</a>
-  </div>
-  <h1>two_boys · MODELS14 · полный review</h1>
-  <p class="who">Одно фото · 14 моделей · BEFORE/AFTER · prompt + settings · отзыв (localStorage) · copy/download JSON для Telegram → Q</p>
 
-  <div class="hero" id="nano-alt-two-boys-models14" data-two-boys-models14="1" data-marker="nano-alt-two-boys-models14 two-boys-models14 page-review-ui">
-    <p><strong>Честно:</strong> AFTER только если файл реально сгенерирован · Fill Pro / Ideogram = <b>SKIP</b> (нужен mask) · FACE_LOCK parent-eye · HARD BAN <code>pd_02_stains</code> (не на странице) · never fake AFTER · NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / GPU rent.</p>
+  <h1>two_boys · MODELS14 · review UI</h1>
+  <p class="who">Одно фото · 15 слотов (13 AFTER + 2 SKIP mask) · BEFORE/AFTER · FULL prompt + settings · отзыв per-model · copy/download JSON · сводка в Telegram → Q</p>
+
+  <div class="hero" id="nano-alt-two-boys-models14" data-two-boys-models14="1" data-two-boys-review="1" data-marker="two-boys-models14-review data-two-boys-review nano-alt-two-boys-models14 page-review-ui">
+    <p><strong>Честно:</strong> AFTER только если файл реально сгенерирован · Fill Pro / Ideogram = <b>SKIP</b> (нужен mask) · FACE_LOCK · TEST_UNCAP · HARD BAN <code>pd_02_stains</code> · never fake AFTER · NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / GPU rent. UI-only tonight: <b>spend_E=0</b>.</p>
     <div class="stats">
       <div class="stat"><b>13</b><span>AFTER OK</span></div>
       <div class="stat"><b>2</b><span>SKIP mask</span></div>
       <div class="stat"><b>6</b><span>FACE PASS</span></div>
       <div class="stat"><b>2</b><span>WEAK</span></div>
       <div class="stat"><b>5</b><span>FACE_FAIL</span></div>
-      <div class="stat"><b>36E</b><span>spend (13+5 redo)</span></div>
+      <div class="stat"><b>~28–36E</b><span>prior generates</span></div>
     </div>
   </div>
 
@@ -115,43 +123,29 @@ kbd{font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--
     <div class="refcard"><h3>REF · COLOR ALIVE (reuse)</h3><img src="two-boys-models14/ref_color_alive.png" alt="color alive reference" loading="lazy"></div>
   </div>
 
-  <div class="chips" id="model-chips" aria-label="Model chips"></div>
-  <p class="help">Навигация: клик по chip · клавиши <kbd>←</kbd>/<kbd>→</kbd> или <kbd>j</kbd>/<kbd>k</kbd> · deep-link <kbd>#model=gpt2</kbd> · Esc = показать все</p>
+  <p class="help">Навигация: chip · <kbd>←</kbd>/<kbd>→</kbd> или <kbd>j</kbd>/<kbd>k</kbd> · deep-link <kbd>#model=gpt2</kbd> · Esc = показать все</p>
 
   <div id="models-root"></div>
 
-  <div class="panel" id="feedback-panel" data-feedback="1">
-    <h2>Отзыв / feedback · export для Q</h2>
-    <p class="note">Комментарий + оценка по текущей модели. Сохраняется в <code>localStorage</code>. Copy JSON / Download JSON — для вставки в Telegram.</p>
-    <div class="feedback">
-      <h3 id="fb-model-label">Модель: —</h3>
-      <label for="fb-score">Оценка (optional)</label>
-      <select id="fb-score">
-        <option value="">—</option>
-        <option value="5">5 · отлично</option>
-        <option value="4">4 · хорошо</option>
-        <option value="3">3 · средне</option>
-        <option value="2">2 · слабо</option>
-        <option value="1">1 · плохо</option>
-      </select>
-      <label for="fb-comment" style="margin-top:8px">Комментарий / отзыв</label>
-      <textarea id="fb-comment" placeholder="Что не так с лицом / B&W / damage? Что оставить?"></textarea>
-      <div class="row">
-        <button class="btn primary" id="btn-save" type="button">Сохранить localStorage</button>
-        <button class="btn" id="btn-copy" type="button">Copy JSON</button>
-        <button class="btn" id="btn-download" type="button">Download JSON</button>
-        <button class="btn" id="btn-clear" type="button">Очистить модель</button>
-      </div>
-      <pre id="fb-preview" class="hidden" style="margin-top:10px;white-space:pre-wrap;word-break:break-word;background:#0a0f22;border:1px solid var(--line);border-radius:10px;padding:10px;color:#d7e2ff;font-family:'IBM Plex Mono',monospace;font-size:11.5px;max-height:240px;overflow:auto"></pre>
-    </div>
+  <div class="export-bar" id="export-bar">
+    <button class="btn primary" id="btn-summary" type="button">Отправить сводку (copy)</button>
+    <button class="btn" id="btn-copy-all" type="button">Copy JSON all</button>
+    <button class="btn" id="btn-download-all" type="button">Download JSON all</button>
+    <span class="badge">localStorage · clipboard · no webhook</span>
   </div>
 
-  <p class="foot">Markers: nano-alt-two-boys-models14 · two-boys-models14 · data-two-boys-models14 · page-review-ui · prompt · settings · feedback · comment · отзыв · localStorage · clipboard · FREE UI · NO_RENT · HARD BAN pd_02_stains</p>
+  <p class="foot">Markers: two-boys-models14-review · data-two-boys-review · data-model-prompt · data-model-feedback · nano-alt-two-boys-models14 · two-boys-models14 · page-review-ui · prompt · settings · feedback · comment · отзыв · localStorage · clipboard · FREE UI · NO_RENT · HARD BAN pd_02_stains · TEST_UNCAP · spend_E=0 UI</p>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-const MODELS = [{"id": "gpt2", "name": "GPT Image 2", "endpoint": "fal-ai/gpt-image-2/edit", "status": "PASS", "st": "ok", "after": "two-boys-models14/after_gpt2.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Лица обоих мальчиков locked; B&W; cleanup only.", "schema": "urls"}, {"id": "nano_pro", "name": "Nano Banana Pro", "endpoint": "fal-ai/nano-banana-pro/edit", "status": "WEAK", "st": "weak", "after": "two-boys-models14/after_nano_pro.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Лёгкий smoothing / tonal shift; identity близко.", "schema": "urls"}, {"id": "nano2", "name": "Nano Banana 2 Edit", "endpoint": "fal-ai/nano-banana-2/edit", "status": "PASS", "st": "ok", "after": "two-boys-models14/after_nano2.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Хороший B&W restore; expression почти без drift.", "schema": "urls"}, {"id": "flux2", "name": "FLUX.2 Pro Edit", "endpoint": "fal-ai/flux-2-pro/edit", "status": "PASS", "st": "ok", "after": "two-boys-models14/after_flux2.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note (flux-2-pro/edit): conservative restoration edit; no upscale-stylize, no plastic skin, no face morph. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Стабильные лица; repair/noise only.", "schema": "urls"}, {"id": "kontext_max", "name": "FLUX Kontext Max", "endpoint": "fal-ai/flux-pro/kontext/max", "status": "PASS", "st": "ok", "after": "two-boys-models14/after_kontext_max.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_url": "BEFORE", "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Сильный lock обоих лиц; TOP.", "schema": "url"}, {"id": "kontext", "name": "FLUX Kontext Pro", "endpoint": "fal-ai/flux-pro/kontext", "status": "PASS", "st": "ok", "after": "two-boys-models14/after_kontext.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_url": "BEFORE", "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note (flux-pro/kontext): treat the input as the sole reference; edit damage only, keep composition and wardrobe pixel-faithful. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Очень верные черты; minor restore.", "schema": "url"}, {"id": "seedream5", "name": "Seedream 5 Lite Edit", "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit", "status": "FACE_FAIL", "st": "fail", "after": "two-boys-models14/after_seedream5.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Colorize/beautify; B&W lock сломан. Redo×1 still FAIL.", "schema": "urls"}, {"id": "seedream45", "name": "Seedream 4.5 Edit", "endpoint": "fal-ai/bytedance/seedream/v4.5/edit", "status": "FACE_FAIL", "st": "fail", "after": "two-boys-models14/after_seedream45.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Heavy stylize/beautify; identity drift. Redo×1 still FAIL.", "schema": "urls"}, {"id": "grok", "name": "Grok Edit", "endpoint": "xai/grok-imagine-image/edit", "status": "WEAK", "st": "weak", "after": "two-boys-models14/after_grok.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only. Keep eye openness exactly as in the source. Keep the exact mouth shape; no smile, no teeth. Face must stay identical. No beautify. Keep eye openness exactly as in the source. Keep the exact mouth shape; no smile, no teeth. Face must stay identical. No beautify.", "skip_reason": "", "face_note": "Узнаваем, mild soften + expression drift.", "schema": "urls"}, {"id": "firered", "name": "FireRed Image Edit", "endpoint": "fal-ai/firered-image-edit", "status": "FACE_FAIL", "st": "fail", "after": "two-boys-models14/after_firered.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Сильная колоризация + beautify. Redo×1 still FAIL.", "schema": "urls"}, {"id": "flux2_max", "name": "FLUX.2 Max Edit", "endpoint": "fal-ai/flux-2-max/edit", "status": "PASS", "st": "ok", "after": "two-boys-models14/after_flux2_max.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Высокая consistency; clean mono. TOP.", "schema": "urls"}, {"id": "qwen", "name": "Qwen Image Edit", "endpoint": "fal-ai/qwen-image-edit", "status": "FACE_FAIL", "st": "fail", "after": "two-boys-models14/after_qwen.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_url": "BEFORE", "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Colorize + plastic skin. Redo×1 still FAIL.", "schema": "url"}, {"id": "kontext_multi", "name": "Kontext Multi", "endpoint": "fal-ai/flux-pro/kontext/multi", "status": "FACE_FAIL", "st": "fail", "after": "two-boys-models14/after_kontext_multi.jpg", "before": "two-boys-models14/before.jpg", "settings": {"prompt": "…", "image_urls": ["BEFORE", "BEFORE"], "timeout": 600}, "prompt": "CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.", "skip_reason": "", "face_note": "Color/synthetic drift / beautify. Redo×1 still FAIL.", "schema": "urls"}, {"id": "fill_pro", "name": "FLUX Fill Pro", "endpoint": "fal-ai/flux-pro/v1/fill", "status": "SKIP", "st": "skip", "after": null, "before": "two-boys-models14/before.jpg", "settings": {"reason": "SKIP_WITH_REASON — FLUX Fill Pro needs mask_url (no mask harness)"}, "prompt": "", "skip_reason": "SKIP_WITH_REASON — нужен mask_url (нет mask harness). AFTER не выдумываем.", "face_note": "Mask required — слот SKIP.", "schema": "skip"}, {"id": "ideogram", "name": "Ideogram V3 Edit", "endpoint": "fal-ai/ideogram/v3/edit", "status": "SKIP", "st": "skip", "after": null, "before": "two-boys-models14/before.jpg", "settings": {"reason": "SKIP_WITH_REASON — Ideogram V3 Edit needs mask_url (remix is not Edit)"}, "prompt": "", "skip_reason": "SKIP_WITH_REASON — нужен mask_url (remix ≠ Edit). AFTER не выдумываем.", "face_note": "Mask required — слот SKIP.", "schema": "skip"}];
+const MODELS = [{"id":"gpt2","name":"GPT Image 2","endpoint":"fal-ai/gpt-image-2/edit","status":"PASS","st":"ok","after":"two-boys-models14/after_gpt2.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Лица обоих мальчиков locked; B&W; cleanup only.","schema":"urls","E":2},{"id":"nano_pro","name":"Nano Banana Pro","endpoint":"fal-ai/nano-banana-pro/edit","status":"WEAK","st":"weak","after":"two-boys-models14/after_nano_pro.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Лёгкий smoothing / tonal shift; identity близко.","schema":"urls","E":2},{"id":"nano2","name":"Nano Banana 2 Edit","endpoint":"fal-ai/nano-banana-2/edit","status":"PASS","st":"ok","after":"two-boys-models14/after_nano2.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Хороший B&W restore; expression почти без drift.","schema":"urls","E":2},{"id":"flux2","name":"FLUX.2 Pro Edit","endpoint":"fal-ai/flux-2-pro/edit","status":"PASS","st":"ok","after":"two-boys-models14/after_flux2.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note (flux-2-pro/edit): conservative restoration edit; no upscale-stylize, no plastic skin, no face morph. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Стабильные лица; repair/noise only.","schema":"urls","E":2},{"id":"kontext_max","name":"FLUX Kontext Max","endpoint":"fal-ai/flux-pro/kontext/max","status":"PASS","st":"ok","after":"two-boys-models14/after_kontext_max.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_url":"BEFORE","timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Сильный lock обоих лиц; TOP.","schema":"url","E":2},{"id":"kontext","name":"FLUX Kontext Pro","endpoint":"fal-ai/flux-pro/kontext","status":"PASS","st":"ok","after":"two-boys-models14/after_kontext.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_url":"BEFORE","timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note (flux-pro/kontext): treat the input as the sole reference; edit damage only, keep composition and wardrobe pixel-faithful. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Очень верные черты; minor restore.","schema":"url","E":2},{"id":"seedream5","name":"Seedream 5 Lite Edit","endpoint":"fal-ai/bytedance/seedream/v5/lite/edit","status":"FACE_FAIL","st":"fail","after":"two-boys-models14/after_seedream5.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Colorize/beautify; B&W lock сломан. Redo×1 still FAIL.","schema":"urls","E":2},{"id":"seedream45","name":"Seedream 4.5 Edit","endpoint":"fal-ai/bytedance/seedream/v4.5/edit","status":"FACE_FAIL","st":"fail","after":"two-boys-models14/after_seedream45.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Heavy stylize/beautify; identity drift. Redo×1 still FAIL.","schema":"urls","E":2},{"id":"grok","name":"Grok Edit","endpoint":"xai/grok-imagine-image/edit","status":"WEAK","st":"weak","after":"two-boys-models14/after_grok.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only. Keep eye openness exactly as in the source. Keep the exact mouth shape; no smile, no teeth. Face must stay identical. No beautify. Keep eye openness exactly as in the source. Keep the exact mouth shape; no smile, no teeth. Face must stay identical. No beautify.","skip_reason":"","face_note":"Узнаваем, mild soften + expression drift.","schema":"urls","E":2},{"id":"firered","name":"FireRed Image Edit","endpoint":"fal-ai/firered-image-edit","status":"FACE_FAIL","st":"fail","after":"two-boys-models14/after_firered.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Сильная колоризация + beautify. Redo×1 still FAIL.","schema":"urls","E":2},{"id":"flux2_max","name":"FLUX.2 Max Edit","endpoint":"fal-ai/flux-2-max/edit","status":"PASS","st":"ok","after":"two-boys-models14/after_flux2_max.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Высокая consistency; clean mono. TOP.","schema":"urls","E":2},{"id":"qwen","name":"Qwen Image Edit","endpoint":"fal-ai/qwen-image-edit","status":"FACE_FAIL","st":"fail","after":"two-boys-models14/after_qwen.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_url":"BEFORE","timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Colorize + plastic skin. Redo×1 still FAIL.","schema":"url","E":2},{"id":"kontext_multi","name":"Kontext Multi","endpoint":"fal-ai/flux-pro/kontext/multi","status":"FACE_FAIL","st":"fail","after":"two-boys-models14/after_kontext_multi.jpg","before":"two-boys-models14/before.jpg","settings":{"prompt":"…","image_urls":["BEFORE","BEFORE"],"timeout":600,"E":2},"prompt":"CRITICAL: This is a real family-archive photo. NEVER redraw, beautify, idealize, rejuvenate or swap any face. Preserve every person's EXACT facial structure, features, proportions, age and expression — including small/blurry/background faces. Preserve the exact number of people, the same clothing geometry/patterns, background and scene. Do NOT invent new objects, people, outfits, props or backgrounds. Face accuracy is more important than beauty. LOCK: faces + clothes + pose + background geometry to the original frame. Restore this old family photograph as an AUTHENTIC fresh print of the same photo (as if just printed from the original negative/print). Carefully repair scratches, grain, bw, aging using only evidence from this same frame. Fill tears/scratches/stains when you can without inventing new faces, outfits or scenes. Fill frame edge to edge, no borders, no table edges around the print. Keep natural skin texture and real film grain. Do NOT smooth, beautify, rejuvenate or plasticize faces. Do NOT invent people, clothing patterns, props or backgrounds. Do NOT add AI watermarks or make it look AI-generated. LOCK faces, clothes, and background to the original. Keep it black-and-white (same color mode as the original). If the source is подлинный B&W / monochrome, it MUST stay B&W — never colorize. Same faces, clothes, pose and scene — fully repair damage, not a modern reshoot. FACE LOCK (Roman standing order): categorically forbidden to change facial features, expression/mimica, or gaze. Do not open closed eyes or half-closed eyes; keep eye openness exactly as in the source. Do not add a smile or teeth. Do not soften, sweeten, or remove a serious/neutral expression. Only remove defects (scratches, noise, pixelation, tears, stains). Preserve original expression and all appearance details. Face must stay identical to source. No beautify, no skin smoothing, no rejuvenation. Model note: conservative authentic restore only; identity lock over beauty. TWO SUBJECTS: taller boy left (buzz cut, checkered shirt) and shorter boy right (messy fringe, uniform shirt with epaulets). Lock BOTH faces identical to source. Keep B&W. Repair scratches/grain/specks only.","skip_reason":"","face_note":"Color/synthetic drift / beautify. Redo×1 still FAIL.","schema":"urls","E":2},{"id":"fill_pro","name":"FLUX Fill Pro","endpoint":"fal-ai/flux-pro/v1/fill","status":"SKIP","st":"skip","after":null,"before":"two-boys-models14/before.jpg","settings":{"reason":"SKIP_WITH_REASON — FLUX Fill Pro needs mask_url (no mask harness)","E":0,"timeout":600},"prompt":"","skip_reason":"SKIP_WITH_REASON — нужен mask_url (нет mask harness). AFTER не выдумываем.","face_note":"Mask required — слот SKIP.","schema":"skip","E":0},{"id":"ideogram","name":"Ideogram V3 Edit","endpoint":"fal-ai/ideogram/v3/edit","status":"SKIP","st":"skip","after":null,"before":"two-boys-models14/before.jpg","settings":{"reason":"SKIP_WITH_REASON — Ideogram V3 Edit needs mask_url (remix is not Edit)","E":0,"timeout":600},"prompt":"","skip_reason":"SKIP_WITH_REASON — нужен mask_url (remix ≠ Edit). AFTER не выдумываем.","face_note":"Mask required — слот SKIP.","schema":"skip","E":0}];
 const STORE_KEY = 'smh_two_boys_models14_feedback_v1';
+const RATES = [
+  {v:'PASS', label:'👍 PASS'},
+  {v:'WEAK', label:'😐 WEAK'},
+  {v:'FAIL', label:'👎 FAIL'},
+  {v:'SKIP', label:'SKIP'}
+];
 let currentId = MODELS[0].id;
 
 function toast(msg){
@@ -165,10 +159,20 @@ function loadStore(){
   try { return JSON.parse(localStorage.getItem(STORE_KEY)||'{}') || {}; }
   catch(e){ return {}; }
 }
-function saveStore(obj){
-  localStorage.setItem(STORE_KEY, JSON.stringify(obj));
-}
+function saveStore(obj){ localStorage.setItem(STORE_KEY, JSON.stringify(obj)); }
 function modelById(id){ return MODELS.find(m=>m.id===id) || MODELS[0]; }
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+function settingsText(m){
+  const s = Object.assign({}, m.settings || {});
+  if(m.status !== 'SKIP' && s.E == null) s.E = 2;
+  return JSON.stringify(s, null, 2);
+}
+async function copyText(text, ok){
+  try { await navigator.clipboard.writeText(text); toast(ok || 'Скопировано'); }
+  catch(e){ toast('Буфер недоступен'); }
+}
 
 function renderChips(){
   const root = document.getElementById('model-chips');
@@ -178,35 +182,102 @@ function renderChips(){
   });
 }
 
-function settingsText(m){
-  return JSON.stringify(m.settings || {}, null, 2);
-}
-
 function renderModels(){
+  const store = loadStore();
   const root = document.getElementById('models-root');
   root.innerHTML = MODELS.map(m=>{
+    const row = store[m.id] || {};
     const afterBlock = m.after
       ? `<div class="shot"><div class="lbl">AFTER · ${m.status}</div><img src="${m.after}" alt="after ${m.id}" loading="lazy"></div>`
-      : `<div class="shot"><div class="lbl">AFTER · SKIP</div><div class="empty">${m.skip_reason || 'SKIP — нет AFTER'}</div></div>`;
+      : `<div class="shot"><div class="lbl">AFTER · SKIP</div><div class="empty">${escapeHtml(m.skip_reason || 'SKIP — нет AFTER')}</div></div>`;
     const promptBlock = m.prompt
-      ? `<details class="details prompt" open><summary>FULL prompt (expandable)</summary><div class="body"><pre>${escapeHtml(m.prompt)}</pre></div></details>`
-      : `<details class="details prompt"><summary>FULL prompt</summary><div class="body"><pre>(нет — SKIP слот)</pre></div></details>`;
-    return `<section class="panel model-panel" id="model-${m.id}" data-model="${m.id}" data-status="${m.status}">
-      <h2>${m.name}</h2>
-      <div class="meta"><span class="st ${m.status}">${m.status}</span><span class="ep">${m.endpoint}</span></div>
+      ? `<details class="details prompt" open data-model-prompt="1"><summary>FULL prompt</summary><div class="body"><pre id="prompt-${m.id}">${escapeHtml(m.prompt)}</pre><div class="prompt-actions"><button class="btn" type="button" data-copy-prompt="${m.id}">Copy prompt</button></div></div></details>`
+      : `<details class="details prompt" data-model-prompt="1"><summary>FULL prompt</summary><div class="body"><pre>(нет — SKIP слот)</pre></div></details>`;
+    const rates = RATES.map(r=>`<button type="button" data-rate="${r.v}" data-model="${m.id}" class="${row.rating===r.v?'on':''}">${r.label}</button>`).join('');
+    return `<section class="panel model-panel" id="model-${m.id}" data-model="${m.id}" data-status="${m.status}" data-model-feedback="1">
+      <h2>${escapeHtml(m.name)}</h2>
+      <div class="meta"><span class="st ${m.status}">${m.status}</span><span class="ep">${escapeHtml(m.endpoint)}</span><span class="badge">E=${m.E||0} · timeout=${(m.settings&&m.settings.timeout)||'-'}</span></div>
       <p class="note">FACE_LOCK: ${escapeHtml(m.face_note || '')}</p>
       <div class="ba">
         <div class="shot"><div class="lbl">BEFORE</div><img src="${m.before}" alt="before" loading="lazy"></div>
         ${afterBlock}
       </div>
-      <details class="details settings" open><summary>Settings used</summary><div class="body"><pre>${escapeHtml(settingsText(m))}</pre></div></details>
+      <details class="details settings" open><summary>Settings used (schema + timeout + E)</summary><div class="body"><pre>${escapeHtml(settingsText(m))}</pre></div></details>
       ${promptBlock}
+      <div class="feedback" data-model-feedback="1">
+        <h3>Отзыв / feedback · ${escapeHtml(m.name)}</h3>
+        <label>Оценка</label>
+        <div class="rate" data-model="${m.id}">${rates}</div>
+        <label for="fb-${m.id}">Комментарий</label>
+        <textarea id="fb-${m.id}" data-fb="${m.id}" placeholder="Лицо / B&W / damage / что оставить?">${escapeHtml(row.comment || '')}</textarea>
+        <div class="row">
+          <button class="btn primary" type="button" data-save="${m.id}">Сохранить</button>
+          <button class="btn" type="button" data-copy-one="${m.id}">Copy JSON</button>
+          <button class="btn" type="button" data-clear="${m.id}">Очистить</button>
+        </div>
+      </div>
     </section>`;
   }).join('');
+
+  root.querySelectorAll('[data-copy-prompt]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-copy-prompt');
+      const m = modelById(id);
+      copyText(m.prompt || '', 'Prompt скопирован');
+    });
+  });
+  root.querySelectorAll('.rate button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-model');
+      const rating = btn.getAttribute('data-rate');
+      const store = loadStore();
+      const prev = store[id] || {model:id};
+      prev.rating = rating;
+      prev.ts = new Date().toISOString();
+      store[id] = prev;
+      saveStore(store);
+      btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b===btn));
+      toast('Оценка: ' + rating);
+    });
+  });
+  root.querySelectorAll('textarea[data-fb]').forEach(ta=>{
+    ta.addEventListener('change', ()=>persistComment(ta.getAttribute('data-fb'), ta.value));
+    ta.addEventListener('blur', ()=>persistComment(ta.getAttribute('data-fb'), ta.value));
+  });
+  root.querySelectorAll('[data-save]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-save');
+      const ta = document.getElementById('fb-' + id);
+      persistComment(id, ta ? ta.value : '');
+      toast('Сохранено в localStorage');
+    });
+  });
+  root.querySelectorAll('[data-copy-one]').forEach(btn=>{
+    btn.addEventListener('click', ()=>copyPayload(btn.getAttribute('data-copy-one')));
+  });
+  root.querySelectorAll('[data-clear]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-clear');
+      const store = loadStore();
+      delete store[id];
+      saveStore(store);
+      const ta = document.getElementById('fb-' + id);
+      if(ta) ta.value = '';
+      const rate = document.querySelector(`.rate[data-model="${id}"]`);
+      if(rate) rate.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+      toast('Очищено');
+    });
+  });
 }
 
-function escapeHtml(s){
-  return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+function persistComment(id, comment){
+  const store = loadStore();
+  const prev = store[id] || {model:id};
+  prev.comment = (comment || '').trim();
+  prev.отзыв = prev.comment;
+  prev.ts = new Date().toISOString();
+  store[id] = prev;
+  saveStore(store);
 }
 
 function selectModel(id, pushHash){
@@ -215,15 +286,7 @@ function selectModel(id, pushHash){
   document.querySelectorAll('.model-panel').forEach(p=>{
     p.classList.toggle('hidden', p.dataset.model !== id);
   });
-  const m = modelById(id);
-  document.getElementById('fb-model-label').textContent = 'Модель: ' + m.name + ' · ' + m.endpoint;
-  const store = loadStore();
-  const row = store[id] || {};
-  document.getElementById('fb-comment').value = row.comment || '';
-  document.getElementById('fb-score').value = row.score || '';
-  if(pushHash){
-    history.replaceState(null,'', '#model=' + id);
-  }
+  if(pushHash) history.replaceState(null,'', '#model=' + id);
   const el = document.getElementById('model-' + id);
   if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -234,24 +297,11 @@ function showAll(){
   history.replaceState(null,'', location.pathname);
 }
 
-function buildPayload(all){
-  const store = loadStore();
-  if(all){
-    return {
-      marker: 'nano-alt-two-boys-models14',
-      page: 'https://savemyhistory.tech/two-boys-models14.html',
-      pick: 'two_boys',
-      HARD_BAN: 'pd_02_stains',
-      spend_E: 36,
-      feedback: store,
-      models: MODELS.map(m=>({id:m.id,name:m.name,endpoint:m.endpoint,status:m.status,after:m.after,face_note:m.face_note})),
-      ts: new Date().toISOString()
-    };
-  }
-  const m = modelById(currentId);
-  const row = store[currentId] || {};
+function buildOne(id){
+  const m = modelById(id);
+  const row = loadStore()[id] || {};
   return {
-    marker: 'nano-alt-two-boys-models14',
+    marker: 'two-boys-models14-review',
     page: 'https://savemyhistory.tech/two-boys-models14.html',
     pick: 'two_boys',
     model: m.id,
@@ -263,60 +313,73 @@ function buildPayload(all){
     before: m.before,
     after: m.after,
     face_note: m.face_note,
-    score: row.score || '',
+    rating: row.rating || '',
     comment: row.comment || '',
     отзыв: row.comment || '',
     HARD_BAN: 'pd_02_stains',
+    TEST_UNCAP: true,
+    spend_E_ui: 0,
     ts: new Date().toISOString()
   };
 }
 
-async function copyPayload(all){
-  const payload = buildPayload(all);
-  const text = JSON.stringify(payload, null, 2);
-  const prev = document.getElementById('fb-preview');
-  prev.classList.remove('hidden');
-  prev.textContent = text;
-  try {
-    await navigator.clipboard.writeText(text);
-    toast('JSON в буфере');
-  } catch(e) {
-    toast('Буфер недоступен · смотри preview');
-  }
+function buildAll(){
+  const store = loadStore();
+  return {
+    marker: 'two-boys-models14-review',
+    page: 'https://savemyhistory.tech/two-boys-models14.html',
+    pick: 'two_boys',
+    HARD_BAN: 'pd_02_stains',
+    TEST_UNCAP: true,
+    spend_E_prior_generates: '≈28–36',
+    spend_E_ui: 0,
+    NOT_CLAIMED: ['sellable','conveyor','PASS-all','etalon','GPU rent','fake AFTER'],
+    feedback: store,
+    models: MODELS.map(m=>({
+      id:m.id,name:m.name,endpoint:m.endpoint,status:m.status,after:m.after,face_note:m.face_note,
+      rating:(store[m.id]||{}).rating||'', comment:(store[m.id]||{}).comment||''
+    })),
+    ts: new Date().toISOString()
+  };
 }
 
-function downloadPayload(all){
-  const payload = buildPayload(all);
-  const text = JSON.stringify(payload, null, 2);
+function summaryMarkdown(){
+  const store = loadStore();
+  const lines = ['# two_boys MODELS14 feedback', '', `page: https://savemyhistory.tech/two-boys-models14.html`, 'HARD_BAN: pd_02_stains', 'spend_E_ui: 0', ''];
+  for(const m of MODELS){
+    const row = store[m.id] || {};
+    if(!row.rating && !row.comment) continue;
+    lines.push(`## ${m.name} (${m.id})`);
+    lines.push(`- status: ${m.status}`);
+    lines.push(`- rating: ${row.rating || '—'}`);
+    lines.push(`- comment: ${row.comment || '—'}`);
+    lines.push('');
+  }
+  if(lines.length <= 5) lines.push('_нет сохранённых отзывов_');
+  return lines.join('\n');
+}
+
+async function copyPayload(id){
+  await copyText(JSON.stringify(id?buildOne(id):buildAll(), null, 2), 'JSON в буфере');
+}
+
+function downloadAll(){
+  const text = JSON.stringify(buildAll(), null, 2);
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([text], {type:'application/json'}));
-  a.download = 'two-boys-models14-feedback_' + (all?'all':currentId) + '_' + Date.now() + '.json';
+  a.download = 'two-boys-models14-feedback_all_' + Date.now() + '.json';
   a.click();
   URL.revokeObjectURL(a.href);
   toast('JSON скачан');
 }
 
-document.getElementById('btn-save').addEventListener('click', ()=>{
-  const store = loadStore();
-  store[currentId] = {
-    model: currentId,
-    score: document.getElementById('fb-score').value || '',
-    comment: (document.getElementById('fb-comment').value || '').trim(),
-    ts: new Date().toISOString()
-  };
-  saveStore(store);
-  toast('Сохранено в localStorage');
+document.getElementById('btn-summary').addEventListener('click', async ()=>{
+  const md = summaryMarkdown();
+  const json = JSON.stringify(buildAll(), null, 2);
+  await copyText(md + '\n\n```json\n' + json + '\n```', 'Сводка скопирована');
 });
-document.getElementById('btn-copy').addEventListener('click', ()=>copyPayload(false));
-document.getElementById('btn-download').addEventListener('click', ()=>downloadPayload(false));
-document.getElementById('btn-clear').addEventListener('click', ()=>{
-  const store = loadStore();
-  delete store[currentId];
-  saveStore(store);
-  document.getElementById('fb-comment').value = '';
-  document.getElementById('fb-score').value = '';
-  toast('Очищено для модели');
-});
+document.getElementById('btn-copy-all').addEventListener('click', ()=>copyPayload(null));
+document.getElementById('btn-download-all').addEventListener('click', downloadAll);
 
 document.addEventListener('keydown', (ev)=>{
   if(['INPUT','TEXTAREA','SELECT'].includes((ev.target||{}).tagName)) return;
