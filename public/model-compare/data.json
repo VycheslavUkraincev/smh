@@ -4,7 +4,7 @@
   "spend_E": 0,
   "no_rent": true,
   "smh_path_c_rent": "unset",
-  "honesty": "Parent eye overrules child. Не sellable / conveyor / PASS-all. AFTER только где файлы есть. Цены: measured vs estimate помечены.",
+  "honesty": "Parent eye overrules child. Не sellable / conveyor / PASS-all. AFTER только где файлы есть. Цены: measured vs estimate помечены. | HARD BAN pd_02_stains removed from public board UI (2026-08-10).",
   "scoreboard": [
     {
       "rank": 1,
@@ -284,33 +284,6 @@
     "pipeline": "inspect → CF reused (wave2 CFSMALL) → Nano identity lock",
     "cases": [
       {
-        "id": "pd_02_stains",
-        "title": "pd_02_stains",
-        "before": "/model-compare/api_pd_02_stains_before.jpg",
-        "variants": [
-          {
-            "name": "Nano Banana authentic",
-            "mode": "auth",
-            "price": "~$0.038/frame · 2E",
-            "price_kind": "measured",
-            "verdict": "PASS",
-            "reason": "Parent: authentic PASS",
-            "prompt": "Strict archival AUTHENTIC restoration of THIS exact damaged photograph only. Repair emulsion stains blotches and surface loss from evidence that remains. Do NOT invent a new subject, face, body, or scene that is not already present. Keep the same composition and crop. TRUE black and white grayscale only. Cold neutral silver gelatin — no sepia, no colorization, no psychedelic textures. Minimal intervention. Not a remake.",
-            "after": "/model-compare/api_pd_02_stains_auth_after.jpg"
-          },
-          {
-            "name": "Nano Banana modern",
-            "mode": "mod",
-            "price": "~$0.038/frame · 2E",
-            "price_kind": "measured",
-            "verdict": "WEAK",
-            "reason": "Parent: stylized / modern WEAK",
-            "prompt": "Natural MODERN color restoration of THIS exact same photograph only. Repair damage first, then careful period-plausible colorization of existing skin hair and clothing. Hard FACE LOCK: same people, same faces, same ages, same hair, same pose, same crop, same clothing. Keep the same background structure - do not invent rooms props scenery. No beauty retouch, no plastic skin, no fashion remake. Same frame, natural color.",
-            "after": "/model-compare/api_pd_02_stains_mod_after.jpg"
-          }
-        ]
-      },
-      {
         "id": "pd_03_fade",
         "title": "pd_03_fade",
         "before": "/model-compare/api_pd_03_fade_before.jpg",
@@ -337,6 +310,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pd_02_stains_banned": true,
+    "pd02_ban": "HARD_BAN_ROMAN_20260810"
   }
 }
