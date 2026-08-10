@@ -143,6 +143,16 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .board-help-panel kbd{display:inline-block;padding:1px 5px;border:1px solid #d9c7a3;border-radius:5px;background:#fff;font-size:11px;color:var(--ink)}
 .board-help-panel ul{margin:6px 0 0;padding-left:18px}
 .board-help-panel li{margin:2px 0}
+/* nano-alt-matrix-board-empty · board-empty · data-empty-state · empty-state */
+.board-empty{display:none;margin:0 0 10px;padding:14px 14px;background:#fffaf0;border:1px dashed #d8c7a8;border-radius:10px;font-size:13px;color:#5c4630;line-height:1.45;text-align:center}
+.board-empty[data-empty-state="1"].show,.board-empty.show,[data-empty-state="1"].board-empty.show{display:block}
+.board-empty .be-title{font-weight:700;color:var(--ink);margin:0 0 4px}
+.board-empty .be-msg{margin:0 0 10px}
+.board-empty .be-reset{border:1px solid #d9c7a3;background:#fff;border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;color:#5c4630}
+.board-empty .be-reset:hover{border-color:#c4ae86;background:#fff3dc;font-weight:700}
+#nano-alt-matrix-picks[data-board-compact="1"] .board-empty{padding:10px 12px;margin-bottom:8px;font-size:12px}
+.matrix-after[data-empty-state="1"] table{display:none}
+
 .matrix-after tr[data-pick][data-pick-filter-hide="1"]{display:none}
 .matrix-after .pick-id-chip[data-pick-filter-hide="1"]{opacity:.35}
 </style>
@@ -178,9 +188,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><a class="home" href="/service-review.html">→ service-review</a> (кейсы до/после + FAIL_HOLD board)
     </div>
 
-    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help nano-alt-matrix-pilot3-copyall pilot3-copyall nano-alt-matrix-all10-copyall all10-copyall nano-alt-matrix-board-compact board-compact" data-board-wire="1" data-pilot3-copyall="1" data-all10-copyall="1" data-board-compact="0" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks board">
-      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria + board-help + pilot3-copyall + all10-copyall + board-compact</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · copyPilot3Links · copyAll10Links · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria · hotkeys-help / showHotkeysHelp / ? · toggleBoardCompact компакт/обычно
-      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · nano-alt-matrix-board-toast · board-toast · data-board-toast · setBoardToast · toastShow · nano-alt-matrix-board-aria · board-aria · data-board-aria · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · nano-alt-matrix-board-help · board-help · data-board-help · hotkeys-help · data-hotkeys-help · showHotkeysHelp · nano-alt-matrix-pilot3-copyall · pilot3-copyall · data-pilot3-copyall · copyPilot3Links · nano-alt-matrix-all10-copyall · all10-copyall · data-all10-copyall · copyAll10Links · nano-alt-matrix-board-compact · board-compact · data-board-compact · toggleBoardCompact
+    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help nano-alt-matrix-pilot3-copyall pilot3-copyall nano-alt-matrix-all10-copyall all10-copyall nano-alt-matrix-board-compact board-compact nano-alt-matrix-board-empty board-empty empty-state" data-board-wire="1" data-pilot3-copyall="1" data-all10-copyall="1" data-board-compact="0" data-empty-state="0" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks board">
+      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria + board-help + pilot3-copyall + all10-copyall + board-compact + board-empty</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · copyPilot3Links · copyAll10Links · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria · hotkeys-help / showHotkeysHelp / ? · toggleBoardCompact компакт/обычно · board-empty / empty-state при 0 совпадений + сброс к Все 10
+      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · nano-alt-matrix-board-toast · board-toast · data-board-toast · setBoardToast · toastShow · nano-alt-matrix-board-aria · board-aria · data-board-aria · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · nano-alt-matrix-board-help · board-help · data-board-help · hotkeys-help · data-hotkeys-help · showHotkeysHelp · nano-alt-matrix-pilot3-copyall · pilot3-copyall · data-pilot3-copyall · copyPilot3Links · nano-alt-matrix-all10-copyall · all10-copyall · data-all10-copyall · copyAll10Links · nano-alt-matrix-board-compact · board-compact · data-board-compact · toggleBoardCompact · nano-alt-matrix-board-empty · board-empty · data-empty-state · empty-state · resetBoardEmptyFilter
       <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
       <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · LIVE_BLOCKED · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
       <div class="board-status-bar" id="nano-alt-matrix-board-status" data-marker="nano-alt-matrix-board-status board-status-bar" data-board-status="1" data-board-aria="1" role="status" aria-label="Matrix board status" aria-live="polite">
@@ -227,12 +237,18 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
             <li>Pilot3 copyall: кнопка «копировать 3 pilot links» · copyPilot3Links</li>
             <li>All10 copyall: кнопка «копировать 10 all10 links» · copyAll10Links</li>
             <li>Density: кнопка «плотность» · toggleBoardCompact · компакт / обычно · smh-board-compact</li>
+            <li>Empty-state: при 0 видимых picks — «нет совпадений» + сброс фильтра к Все 10 · board-empty / data-empty-state</li>
             <li>Gates: копировать «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E»</li>
             <li>Status-bar: честно показывает filter / focus / BEFORE 10/10 · Nano-bar 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED</li>
           </ul>
         </div>
       </div>
-      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" data-board-compact="0" role="region" aria-label="Matrix picks table">
+      <div class="board-empty empty-state" id="nano-alt-matrix-board-empty" data-marker="nano-alt-matrix-board-empty board-empty empty-state" data-empty-state="0" data-board-empty="1" data-board-aria="1" role="status" aria-live="polite" aria-label="Matrix board empty state" hidden>
+        <div class="be-title">нет совпадений</div>
+        <p class="be-msg" id="board-empty-msg">По текущему фильтру / поиску видимых picks нет. Сбросьте фильтр, чтобы снова показать все 10.</p>
+        <button type="button" class="be-reset" id="board-empty-reset" data-empty-state="1" data-board-empty="1" aria-label="Сбросить фильтр к Все 10" title="Сбросить фильтр и поиск · filterPick(all) · Все 10">сбросить к Все 10</button>
+      </div>
+      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help nano-alt-matrix-board-empty board-empty empty-state" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" data-board-compact="0" data-empty-state="0" role="region" aria-label="Matrix picks table">
         <table data-board-wire="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-aria="1" role="grid" aria-label="Matrix picks 10 rows">
           <thead>
             <tr>
@@ -270,8 +286,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>ARIA: <code>board-aria</code> / <code>data-board-aria</code> · region/label on board · status-bar/toast <code>aria-live</code> · filter chips aria-pressed · gate-buttons aria-label · pick rows aria-selected / aria-current on focus · FREE UI · no inference.
       <br>Help: <code>board-help</code> / <code>hotkeys-help</code> / <code>data-board-help</code> / <code>data-hotkeys-help</code> / <code>showHotkeysHelp</code> · кнопка «?» или <code>?</code> · hotkeys ↑↓/j/k · Enter · c · Esc · filter Все 10 / Пилот 3×3 · copy gates · status-bar honesty · FREE UI · no inference.
       <br>Compact: <code>board-compact</code> / <code>data-board-compact</code> / <code>toggleBoardCompact</code> · компакт vs обычно · smaller thumbs/spacing · localStorage <code>smh-board-compact</code> · status-bar density · setBoardToast · FREE UI · no inference.
+      <br>Empty-state: <code>board-empty</code> / <code>data-empty-state</code> / <code>empty-state</code> · когда filterPick показывает 0 · «нет совпадений» + сброс к Все 10 · status-bar «показано 0 из 10» · optional setBoardToast · FREE UI · no inference.
       <p class="board-focus-note" id="board-focus-note" data-focus-note hidden></p>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-compact">→ service-review board-compact mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-empty">→ service-review board-empty mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-compact">→ service-review board-compact mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-wire" data-marker="nano-alt-matrix-board-wire" data-board-wire="1" data-board-wired="1">
@@ -382,6 +399,13 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Markers: nano-alt-matrix-board-compact · board-compact · data-board-compact · toggleBoardCompact · smh-board-compact · board-status-bar · setBoardToast · board-help · board-aria · board-toast · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · all10-copyall · pilot3-copyall · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
       <br>Honesty: density preference only · empty alt AFTER slots stay WAITING / READY_DRY · no invent.
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-compact">→ #nano-alt-matrix-board-compact</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-compact">→ service-review board-compact mirror</a>
+    </div>
+
+    <div class="honesty" id="nano-alt-matrix-board-empty-honesty" data-marker="nano-alt-matrix-board-empty board-empty empty-state" data-empty-state="1">
+      <strong>Matrix all-10 · board-empty</strong> · FREE UI · empty-state when filterPick / searchPick shows 0 visible picks · honest RU «нет совпадений» + optional reset to Все 10 · status-bar «показано 0 из 10» · light setBoardToast · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-empty · board-empty · data-empty-state · empty-state · resetBoardEmptyFilter · filterPick · searchPick · board-status-bar · setBoardToast · board-compact · board-help · board-aria · board-toast · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · all10-copyall · pilot3-copyall · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
+      <br>Honesty: rows stay hidden when filtered out · empty panel visible only at 0 shown · reset clears search + filterPick(all) · alt AFTER slots stay WAITING / READY_DRY · no invent.
+      <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-empty">→ #nano-alt-matrix-board-empty</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-empty">→ service-review board-empty mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-gate-buttons-honesty" data-marker="nano-alt-matrix-gate-buttons gate-buttons" data-gate-buttons="1">
@@ -1204,10 +1228,11 @@ function paintBoardFilterCount(n,total){
   el.textContent='показано '+n+' из '+total;
   el.classList.toggle('active', n!==total || BOARD_FILTER_MODE!=='all' || !!BOARD_FILTER_Q);
   el.setAttribute('data-board-filter','1');
+  if(typeof updateBoardEmptyState==='function') updateBoardEmptyState(n, total);
   if(typeof updateBoardStatusBar==='function') updateBoardStatusBar();
 }
 function filterPick(mode){
-  /* filterPick(mode) · all | pilot | pilot-only | search · show/hide pick rows + id chips · «показано N из 10» */
+  /* filterPick(mode) · all | pilot | pilot-only | search · show/hide pick rows + id chips · «показано N из 10» · board-empty when 0 */
   mode=String(mode||BOARD_FILTER_MODE||'all').trim().toLowerCase();
   if(mode==='pilot-only' || mode==='pilot3' || mode==='3x3') mode='pilot';
   if(mode!=='pilot' && mode!=='search') mode='all';
@@ -1435,6 +1460,59 @@ function boardStatusFilterLabel(){
   if(BOARD_FILTER_MODE==='pilot') return 'Пилот 3×3';
   return 'Все 10';
 }
+
+/* nano-alt-matrix-board-empty · board-empty · data-empty-state · empty-state */
+var BOARD_EMPTY_TOASTED=false;
+function updateBoardEmptyState(shown, total){
+  /* show empty panel when filterPick yields 0 visible picks; hide otherwise */
+  shown=Number(shown||0); total=Number(total||10)||10;
+  const empty=document.getElementById('nano-alt-matrix-board-empty');
+  const picks=document.getElementById('nano-alt-matrix-picks');
+  const root=document.getElementById('matrix-after-slots');
+  const msg=document.getElementById('board-empty-msg');
+  const isEmpty = shown===0;
+  if(empty){
+    empty.setAttribute('data-marker','nano-alt-matrix-board-empty board-empty empty-state');
+    empty.setAttribute('data-empty-state', isEmpty?'1':'0');
+    empty.setAttribute('data-board-empty','1');
+    empty.classList.toggle('show', isEmpty);
+    if(isEmpty) empty.removeAttribute('hidden'); else empty.setAttribute('hidden','');
+    empty.setAttribute('aria-hidden', isEmpty?'false':'true');
+  }
+  if(msg){
+    const q=String(BOARD_FILTER_Q||'').trim();
+    if(q) msg.textContent='Нет совпадений по запросу «'+q+'». Сбросьте фильтр, чтобы снова показать все 10.';
+    else if(BOARD_FILTER_MODE==='pilot') msg.textContent='Нет совпадений в текущем фильтре. Сбросьте к Все 10.';
+    else msg.textContent='По текущему фильтру / поиску видимых picks нет. Сбросьте фильтр, чтобы снова показать все 10.';
+  }
+  if(picks) picks.setAttribute('data-empty-state', isEmpty?'1':'0');
+  if(root) root.setAttribute('data-empty-state', isEmpty?'1':'0');
+  if(isEmpty){
+    if(!BOARD_EMPTY_TOASTED && typeof setBoardToast==='function'){
+      setBoardToast(true, 'нет совпадений · показано 0 из '+total);
+      BOARD_EMPTY_TOASTED=true;
+    }
+  }else{
+    BOARD_EMPTY_TOASTED=false;
+  }
+  return isEmpty;
+}
+function resetBoardEmptyFilter(){
+  /* reset search + filterPick(all) · Все 10 */
+  const inp=document.getElementById('board-pick-search');
+  if(inp) inp.value='';
+  BOARD_FILTER_Q='';
+  const n=filterPick('all');
+  if(typeof setBoardToast==='function') setBoardToast(true, 'фильтр сброшен · Все 10');
+  return n;
+}
+(function bindBoardEmpty(){
+  const btn=document.getElementById('board-empty-reset');
+  if(btn && !btn.getAttribute('data-bound')){
+    btn.setAttribute('data-bound','1');
+    btn.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); resetBoardEmptyFilter(); });
+  }
+})();
 /* nano-alt-matrix-board-compact · board-compact · data-board-compact · toggleBoardCompact */
 const BOARD_COMPACT_KEY='smh-board-compact';
 function boardCompactPreferred(){
