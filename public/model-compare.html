@@ -95,6 +95,16 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .board-copy-bar button:hover,.matrix-after button.pick-copy:hover{border-color:#c4ae86;background:#fff3dc}
 .board-copy-hint{font-size:12px;color:#5c4630;min-height:1.2em}
 .matrix-after button.pick-copy{margin-left:6px;padding:3px 7px;vertical-align:middle}
+.board-filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px;padding:8px 10px;background:#fffaf0;border:1px solid #e6d7b8;border-radius:10px}
+.board-filter-bar[data-board-filter="1"]{border-color:#d8c7a8}
+.board-filter-bar .bf-chip{border:1px solid #d9c7a3;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;color:#5c4630}
+.board-filter-bar .bf-chip.on,.board-filter-bar .bf-chip[aria-pressed="true"]{background:#efe2c6;border-color:#c4ae86;font-weight:700}
+.board-filter-bar .bf-chip:hover{border-color:#c4ae86;background:#fff3dc}
+.board-filter-bar .bf-search{border:1px solid #d9c7a3;border-radius:8px;padding:5px 8px;font-size:11px;min-width:140px;background:#fff}
+.board-filter-count{font-size:12px;color:#5c4630;min-height:1.2em}
+.board-filter-count.active{font-weight:600;color:var(--ink)}
+.matrix-after tr[data-pick][data-pick-filter-hide="1"]{display:none}
+.matrix-after .pick-id-chip[data-pick-filter-hide="1"]{opacity:.35}
 </style>
 </head>
 <body>
@@ -128,17 +138,23 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><a class="home" href="/service-review.html">→ service-review</a> (кейсы до/после + FAIL_HOLD board)
     </div>
 
-    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1">
-      <strong>Matrix picks board · wired + focus + deeplink + copylink</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks
-      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10
+    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1">
+      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · filterPick Все 10 / Пилот 3×3 / search
+      <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10
       <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
       <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · LIVE_BLOCKED · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
+      <div class="board-filter-bar" id="board-filter-bar" data-marker="nano-alt-matrix-board-filter board-filter" data-board-filter="1" data-pick-filter="1">
+        <button type="button" class="bf-chip on" id="bf-all10" data-pick-filter="all" data-board-filter="1" aria-pressed="true" title="Показать все 10 matrix picks">Все 10</button>
+        <button type="button" class="bf-chip" id="bf-pilot" data-pick-filter="pilot" data-board-filter="1" data-pilot-only="1" pilot-only aria-pressed="false" title="Пилот 3×3: pd_02_stains · pd_03_fade · pd_04_soft_portrait (data-pilot=1)">Пилот 3×3</button>
+        <input type="search" class="bf-search" id="board-pick-search" data-pick-filter="search" data-board-filter="1" searchPick placeholder="поиск id…" title="searchPick · filter by pick id" autocomplete="off">
+        <span class="board-filter-count" id="board-filter-count" data-marker="board-filter-count" data-board-filter="1" aria-live="polite">показано 10 из 10</span>
+      </div>
       <div class="board-copy-bar" data-marker="board-copylink-bar nano-alt-matrix-board-copylink" data-board-copylink="1">
         <button type="button" id="board-copy-all-picks" data-copy-all-picks="1" data-board-copylink="1" title="Скопировать все 10 matrix-pick deep-link (#pick=) по строке">копировать все picks</button>
         <span class="board-copy-hint" id="board-copy-hint" data-copy-hint aria-live="polite"></span>
       </div>
-      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1">
-        <table data-board-wire="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1">
+      <div class="matrix-after nano-alt-after" data-marker="matrix-after-slots all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter" id="matrix-after-slots" data-board-wire="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1">
+        <table data-board-wire="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1">
           <thead>
             <tr>
               <th>pick id</th>
@@ -167,8 +183,9 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Focus: click pick row / id chip → focusPick(id) · data-focus="1" · scrollIntoView · FREE UI · no inference.
       <br>Deep-link: #pick=&lt;id&gt; / ?pick=&lt;id&gt; → applyPickDeepLink → focusPick · click updates hash via setPickDeepLink · example <a class="home" href="/model-compare.html#pick=pd_02_stains">#pick=pd_02_stains</a>
       <br>Copy-link: per-pick <code>copyPickLink(id)</code> / <code>data-copy-pick</code> → clipboard <code>https://savemyhistory.tech/model-compare.html#pick=&lt;id&gt;</code> + toast · <code>copyAllPicks</code> / <code>data-copy-all-picks</code> → 10 links newline-separated + toast · mirrors FAIL_HOLD copyFailHoldLink / copyAllFailHold.
+      <br>Filter: <code>filterPick(mode)</code> · chips Все 10 / Пилот 3×3 (<code>data-pilot="1"</code> · pilot-only · pd_02_stains · pd_03_fade · pd_04_soft_portrait) · optional <code>searchPick</code> id · count «показано N из 10» · FREE UI · no inference.
       <p class="board-focus-note" id="board-focus-note" data-focus-note hidden></p>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ service-review board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ service-review board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-wire" data-marker="nano-alt-matrix-board-wire" data-board-wire="1" data-board-wired="1">
@@ -213,6 +230,14 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br>Example: <a class="home" href="/model-compare.html#pick=pd_02_stains">https://savemyhistory.tech/model-compare.html#pick=pd_02_stains</a>
       <br>NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts / fake AFTER / GPU rent
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ service-review board-copylink mirror</a>
+    </div>
+
+    <div class="honesty" id="nano-alt-matrix-board-filter" data-marker="nano-alt-matrix-board-filter board-filter" data-board-filter="1" data-pick-filter="1">
+      <strong>Matrix all-10 · board-filter</strong> · FREE UI · filterPick(all|pilot|search) · chips Все 10 / Пилот 3×3 · optional id search · shows/hides pick rows + id chips · count «показано N из 10» · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · board-copylink · board-deeplink · board-focus · board-ready · board-wire · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · pilot3 · copy-gates · Top-10 · dry-status
+      <br>Pilot 3×3 rows: <code>pd_02_stains</code> · <code>pd_03_fade</code> · <code>pd_04_soft_portrait</code> via <code>data-pilot="1"</code> · focusPick / deeplink #pick= / copyPickLink / copyAllPicks kept.
+      <br>NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts / fake AFTER / GPU rent
+      <br><a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ service-review board-filter mirror</a>
     </div>
     <div class="honesty" id="nano-alt-matrix-dry-status" data-marker="nano-alt-matrix-dry-status">
       <strong>Matrix dry-run numbers</strong> · <strong>DRY_OK</strong> / <strong>READY_DRY</strong> · spend_E=0 · NO GPU RENT · no fal · no Nano spend · no inference
@@ -781,7 +806,7 @@ function focusPick(id){
   root.querySelectorAll('tr[data-pick]').forEach(tr=>{
     tr.setAttribute('data-board-deeplink','1');
     tr.addEventListener('click',(ev)=>{
-      if(ev.target && ev.target.closest && ev.target.closest('a,button,[data-copy-gate],[data-copy-pick],[data-copy-all-picks]')) return;
+      if(ev.target && ev.target.closest && ev.target.closest('a,button,input,[data-copy-gate],[data-copy-pick],[data-copy-all-picks],[data-pick-filter],.board-filter-bar')) return;
       const id=tr.getAttribute('data-pick');
       if(id) focusPick(id);
     });
@@ -858,6 +883,91 @@ async function copyAllPicks(){
     copyAll.setAttribute('data-board-copylink','1');
     copyAll.addEventListener('click', async (ev)=>{ ev.preventDefault(); ev.stopPropagation(); await copyAllPicks(); });
   }
+}})();
+
+/* nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick */
+var BOARD_FILTER_MODE='all';
+var BOARD_FILTER_Q='';
+function paintBoardFilterCount(n,total){
+  const el=document.getElementById('board-filter-count');
+  if(!el) return;
+  el.textContent='показано '+n+' из '+total;
+  el.classList.toggle('active', n!==total || BOARD_FILTER_MODE!=='all' || !!BOARD_FILTER_Q);
+  el.setAttribute('data-board-filter','1');
+}
+function filterPick(mode){
+  /* filterPick(mode) · all | pilot | pilot-only | search · show/hide pick rows + id chips · «показано N из 10» */
+  mode=String(mode||BOARD_FILTER_MODE||'all').trim().toLowerCase();
+  if(mode==='pilot-only' || mode==='pilot3' || mode==='3x3') mode='pilot';
+  if(mode!=='pilot' && mode!=='search') mode='all';
+  BOARD_FILTER_MODE=mode;
+  const root=document.getElementById('matrix-after-slots')||document.getElementById('nano-alt-matrix-picks');
+  const bar=document.getElementById('board-filter-bar');
+  if(bar){
+    bar.setAttribute('data-board-filter','1');
+    bar.setAttribute('data-pick-filter','1');
+    bar.setAttribute('data-filter-mode', mode);
+  }
+  document.querySelectorAll('#board-filter-bar .bf-chip').forEach(btn=>{
+    const m=btn.getAttribute('data-pick-filter');
+    const on=(m==='pilot' && mode==='pilot') || (m==='all' && mode==='all');
+    btn.classList.toggle('on', !!on);
+    btn.setAttribute('aria-pressed', on?'true':'false');
+  });
+  const q=String(BOARD_FILTER_Q||'').trim().toLowerCase();
+  let shown=0, total=0;
+  if(root){
+    root.setAttribute('data-board-filter','1');
+    root.setAttribute('data-pick-filter','1');
+    root.querySelectorAll('tr[data-pick]').forEach(tr=>{
+      total+=1;
+      const id=String(tr.getAttribute('data-pick')||'').toLowerCase();
+      const isPilot=tr.getAttribute('data-pilot')==='1' || tr.getAttribute('data-pilot3')==='1';
+      let ok=true;
+      if(mode==='pilot') ok=!!isPilot;
+      if(ok && q) ok=id.indexOf(q)>=0;
+      if(ok){
+        shown+=1;
+        tr.removeAttribute('data-pick-filter-hide');
+        tr.style.display='';
+      }else{
+        tr.setAttribute('data-pick-filter-hide','1');
+        tr.style.display='none';
+      }
+      tr.querySelectorAll('.pick-id-chip,[data-focus-target]').forEach(chip=>{
+        if(ok) chip.removeAttribute('data-pick-filter-hide');
+        else chip.setAttribute('data-pick-filter-hide','1');
+      });
+    });
+  }
+  if(!total) total=10;
+  paintBoardFilterCount(shown, total);
+  return shown;
+}
+function searchPick(q){
+  BOARD_FILTER_Q=String(q||'');
+  return filterPick(BOARD_FILTER_MODE==='pilot'?'pilot':'all');
+}
+(function bindBoardFilter(){
+  const bar=document.getElementById('board-filter-bar');
+  if(!bar || bar.getAttribute('data-filter-bound')==='1') return;
+  bar.setAttribute('data-filter-bound','1');
+  bar.setAttribute('data-board-filter','1');
+  bar.setAttribute('data-pick-filter','1');
+  bar.querySelectorAll('.bf-chip[data-pick-filter]').forEach(btn=>{
+    btn.addEventListener('click',(ev)=>{
+      ev.preventDefault(); ev.stopPropagation();
+      const m=btn.getAttribute('data-pick-filter')||'all';
+      filterPick(m==='pilot'?'pilot':'all');
+    });
+  });
+  const inp=document.getElementById('board-pick-search');
+  if(inp && !inp.getAttribute('data-bound')){
+    inp.setAttribute('data-bound','1');
+    inp.addEventListener('input',()=>{ searchPick(inp.value||''); });
+    inp.addEventListener('search',()=>{ searchPick(inp.value||''); });
+  }
+  filterPick('all');
 })();
 
 </script>
