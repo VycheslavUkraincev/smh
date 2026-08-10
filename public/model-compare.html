@@ -200,6 +200,39 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
 
 .matrix-after tr[data-pick][data-pick-filter-hide="1"]{display:none}
 .matrix-after .pick-id-chip[data-pick-filter-hide="1"]{opacity:.35}
+
+/* MODEL_COMPARE_TOP10_EYE_UI · API_MATRIX_TOP10_EYE_POLISH · nano-alt-matrix-top10-eye · top10-eye · data-top10-eye */
+.top10-eye{margin:8px 0 6px}
+.top10-eye[data-top10-eye="1"]{border:0}
+.top10-eye .top10-lede{margin:0 0 14px;max-width:68ch;color:var(--muted);font-size:14px;line-height:1.5}
+.top10-eye .top10-lede strong{color:var(--ink);font-weight:700}
+.top10-eye .top10-band{margin:0 0 10px;padding:0}
+.top10-eye .top10-band-label{display:block;margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.top10-eye .top10-band.bar .top10-band-label{color:var(--ok)}
+.top10-eye .top10-band.comp .top10-band-label{color:var(--gold-d)}
+.top10-eye .top10-band.frozen .top10-band-label{color:var(--fail)}
+.top10-eye .grid.models.top10-grid{gap:12px}
+.top10-eye .card.model.top10-card{padding:14px 15px;border-color:var(--line)}
+.top10-eye .card.model.top10-card.bar{border-color:#b7e0c3;background:linear-gradient(180deg,#f7fcf8 0%,#fff 48%);box-shadow:0 1px 0 rgba(30,122,63,.06)}
+.top10-eye .card.model.top10-card.frozen{border-color:#e8b4ae;background:linear-gradient(180deg,#fff7f5 0%,#fff 55%);opacity:.96}
+.top10-eye .card.model.top10-card .rowtop{align-items:center;margin-bottom:10px;gap:12px}
+.top10-eye .card.model.top10-card h3{font-size:16px;line-height:1.3;font-weight:700}
+.top10-eye .card.model.top10-card .rank{display:inline-block;min-width:1.4em;margin-right:4px;color:var(--gold-d);font-weight:700}
+.top10-eye .chip{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap;border:1px solid transparent}
+.top10-eye .chip.ready{background:#E4F6E9;color:var(--ok);border-color:#b7e0c3}
+.top10-eye .chip.quote{background:#FBEFD6;color:var(--weak);border-color:#e6d0a8}
+.top10-eye .chip.frozen{background:#FBE4E1;color:var(--fail);border-color:#e8b4ae}
+.top10-eye .card.model.top10-card .meta{grid-template-columns:88px 1fr;gap:5px 10px;font-size:13px;margin:3px 0}
+.top10-eye .card.model.top10-card .meta .k{font-size:12px}
+.top10-eye .card.model.top10-card .prompt{font-size:12px;padding:7px 9px;line-height:1.4}
+.top10-eye .card.model.top10-card .note{margin:8px 0 0;font-size:12px;line-height:1.4}
+.top10-eye .top10-honesty{margin:12px 0 0;padding:10px 12px;border-radius:10px;border:1px solid #e3d8c5;background:#faf6ef;color:var(--muted);font-size:12px;line-height:1.45}
+.top10-eye .top10-honesty code{font-size:11px}
+@media(min-width:900px){
+  .top10-eye .grid.models.top10-grid.bar-grid{grid-template-columns:1fr}
+  .top10-eye .grid.models.top10-grid.comp-grid{grid-template-columns:1fr 1fr}
+  .top10-eye .grid.models.top10-grid.frozen-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -801,106 +834,127 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
   <p class="note">Долгий hybrid. Не rent без HIT+«да». NOT API-without-rent · GPU frozen.</p>
 </article></div>
 
-    <h2 id="api-nano-analogues">API аналоги Nano Banana — Top-10 / топ-10</h2>
-    <p class="muted">Full Top-10 API edit models vs Nano bar. Nano = планка «Готовый», не competitor. spend_E=0 · NO GPU RENT · STOP_NO_RERENT. Не claim sellable / conveyor / PASS-all / etalon. Inference = NEEDS_QUOTE + explicit да.</p>
-    <div class="grid models">
-<article class="card model" data-marker="nano-banana">
-  <div class="rowtop"><h3>nano-banana-2-edit (fal) — BAR</h3><span class="st OK">API baseline</span></div>
-  <div class="meta"><span class="k">Линия</span><span>API baseline · текущая планка (не competitor)</span></div>
+    <h2 id="api-nano-analogues" data-top10-eye="1">API аналоги Nano Banana — Top-10</h2>
+    <!-- MODEL_COMPARE_TOP10_EYE_UI · API_MATRIX_TOP10_EYE_POLISH · markers: nano-alt-matrix-top10-eye · top10-eye · data-top10-eye -->
+    <section class="top10-eye" id="nano-alt-matrix-top10-eye" data-top10-eye="1" data-marker="nano-alt-matrix-top10-eye top10-eye">
+      <p class="top10-lede">Планка качества — <strong>Nano Banana</strong>. Ниже — API-конкуренты и отдельно GPU (заморожено). Без аренды и без inference, только сводка для глаза.</p>
+
+      <div class="top10-band bar">
+        <span class="top10-band-label">Планка · BAR</span>
+        <div class="grid models top10-grid bar-grid">
+<article class="card model top10-card bar" data-marker="nano-banana" data-top10-role="bar">
+  <div class="rowtop"><h3>nano-banana-2-edit (fal)</h3><span class="chip ready">READY</span></div>
+  <div class="meta"><span class="k">Роль</span><span>Планка «Готовый» · не конкурент</span></div>
   <div class="meta"><span class="k">Цена</span><span>~2E / edit (~$0.038)</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">Сервисный edit с identity lock; heal damage only. Бар качества для API-кейсов (pd_02/pd_03).</span></div>
-  <div class="meta"><span class="k">Gate</span><span>READY_IN_CLI · канон inspect → CF if soft → Nano</span></div>
-  <p class="note">Не ночной конвейер. Top-10 ниже — конкуренты этой планки.</p>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">Сервисный edit с identity lock; heal damage only. Бар для API-кейсов (pd_02 / pd_03).</span></div>
+  <div class="meta"><span class="k">Статус</span><span>В CLI · канон inspect → CF if soft → Nano</span></div>
+  <p class="note">Не ночной конвейер. Строки ниже — конкуренты этой планки.</p>
 </article>
-<article class="card model" data-marker="grok-edit">
-  <div class="rowtop"><h3>1. grok-edit (xai/grok-imagine-image/edit)</h3><span class="st OK">READY_IN_CLI</span></div>
-  <div class="meta"><span class="k">Линия</span><span>Основной CLI-аналог Nano · fal / xAI</span></div>
-  <div class="meta"><span class="k">Цена</span><span>~$0.022 / edit · ~2E Portal</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">Identity-edit class; уже в photo waves / CLI. Альтернатива Nano на том же API-lane без GPU rent.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>READY_IN_CLI · перед платным batch — цена + да</span></div>
-  <p class="note">Не GPU overnight. grok-edit batch not started here (FREE layer only).</p>
+        </div>
+      </div>
+
+      <div class="top10-band comp">
+        <span class="top10-band-label">Конкуренты · Top-10 API</span>
+        <div class="grid models top10-grid comp-grid">
+<article class="card model top10-card" data-marker="grok-edit" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">1</span> grok-edit</h3><span class="chip ready">READY</span></div>
+  <div class="meta"><span class="k">Линия</span><span>CLI-аналог Nano · fal / xAI</span></div>
+  <div class="meta"><span class="k">Цена</span><span>~$0.022 / edit · ~2E</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">Identity-edit class; уже в photo waves / CLI. Без GPU rent.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>В CLI · перед платным batch — цена + да</span></div>
+  <p class="note">Batch не стартовал здесь (только FREE слой).</p>
 </article>
-<article class="card model" data-marker="flux-kontext-pro">
-  <div class="rowtop"><h3>2. FLUX.1 Kontext [pro]</h3><span class="st WAIT">READY_PROBE / NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Линия</span><span>API fal direct · fal-ai/flux-pro/kontext</span></div>
-  <div class="meta"><span class="k">Цена</span><span>docs ~$0.04 / img · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">Identity-edit / prompt+image_url. Schema FREE tip 289fac0. Next to Nano when quote+да.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>READY_PROBE · spend BLOCKED_NEEDS_QUOTE</span></div>
-  <p class="note">Kontext Pro — held schema probe. No fal inference this layer.</p>
+<article class="card model top10-card" data-marker="flux-kontext-pro" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">2</span> FLUX.1 Kontext [pro]</h3><span class="chip quote">quote</span></div>
+  <div class="meta"><span class="k">Линия</span><span>API fal · fal-ai/flux-pro/kontext</span></div>
+  <div class="meta"><span class="k">Цена</span><span>docs ~$0.04 / img · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">Identity-edit / prompt+image_url. Рядом с Nano после quote+да.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Probe · spend только после квоты</span></div>
+  <p class="note">Schema probe держали FREE. Inference нет.</p>
 </article>
-<article class="card model" data-marker="flux-2-pro-edit">
-  <div class="rowtop"><h3>3. FLUX.2 [pro] Edit</h3><span class="st WAIT">READY_PROBE / NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Линия</span><span>API fal direct · fal-ai/flux-2-pro/edit</span></div>
-  <div class="meta"><span class="k">Цена</span><span>docs ~$0.03 / MP · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">prompt + image_urls. Newer FLUX.2 edit lane for multi-ref / detail heal.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>READY_PROBE · NEEDS_QUOTE</span></div>
-  <p class="note">Schema probed FREE. Not in CLI aliases yet as friendly name.</p>
+<article class="card model top10-card" data-marker="flux-2-pro-edit" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">3</span> FLUX.2 [pro] Edit</h3><span class="chip quote">quote</span></div>
+  <div class="meta"><span class="k">Линия</span><span>API fal · fal-ai/flux-2-pro/edit</span></div>
+  <div class="meta"><span class="k">Цена</span><span>docs ~$0.03 / MP · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">prompt + image_urls. Multi-ref / detail heal.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Probe · нужна квота</span></div>
+  <p class="note">Schema FREE. Дружелюбного CLI-алиаса ещё нет.</p>
 </article>
-<article class="card model" data-marker="flux-kontext-max">
-  <div class="rowtop"><h3>4. FLUX.1 Kontext [max]</h3><span class="st WAIT">READY_PROBE / NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Линия</span><span>API fal direct · fal-ai/flux-pro/kontext/max</span></div>
-  <div class="meta"><span class="k">Цена</span><span>docs ~$0.08 / img · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">Higher-tier Kontext when Pro is weak on hard damage / identity. prompt+image_url.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>READY_PROBE · NEEDS_QUOTE</span></div>
-  <p class="note">Costlier Kontext. Quote before any spend.</p>
+<article class="card model top10-card" data-marker="flux-kontext-max" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">4</span> FLUX.1 Kontext [max]</h3><span class="chip quote">quote</span></div>
+  <div class="meta"><span class="k">Линия</span><span>API fal · fal-ai/flux-pro/kontext/max</span></div>
+  <div class="meta"><span class="k">Цена</span><span>docs ~$0.08 / img · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">Выше Pro на hard damage / identity. prompt+image_url.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Probe · нужна квота</span></div>
+  <p class="note">Дороже Kontext. Квота до любого spend.</p>
 </article>
-<article class="card model" data-marker="gpt-image-edit">
-  <div class="rowtop"><h3>5. GPT Image 1.5 Edit</h3><span class="st WAIT">NOT_IN_CLI / NEEDS_QUOTE</span></div>
+<article class="card model top10-card" data-marker="gpt-image-edit" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">5</span> GPT Image 1.5 Edit</h3><span class="chip quote">quote</span></div>
   <div class="meta"><span class="k">Линия</span><span>API fal · fal-ai/gpt-image-1.5/edit</span></div>
-  <div class="meta"><span class="k">Цена</span><span>from ~$0.009 low · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">Cheap OpenAI-class edit probe when Nano/grok overkill on simple stains. NOT_IN_CLI.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>NOT_IN_CLI · NEEDS_QUOTE · no inference</span></div>
-  <p class="note">GPT Image marker on LIVE compare. Price floor only — quote before spend.</p>
+  <div class="meta"><span class="k">Цена</span><span>from ~$0.009 · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">Дешёвый OpenAI-class edit, если Nano/grok избыточны на простых пятнах.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Не в CLI · нужна квота</span></div>
+  <p class="note">Только floor цены — квота до spend.</p>
 </article>
-<article class="card model" data-marker="seedream-5-lite">
-  <div class="rowtop"><h3>6. Seedream 5.0 Lite Edit</h3><span class="st WAIT">NOT_IN_CLI / NEEDS_QUOTE</span></div>
+<article class="card model top10-card" data-marker="seedream-5-lite" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">6</span> Seedream 5.0 Lite Edit</h3><span class="chip quote">quote</span></div>
   <div class="meta"><span class="k">Линия</span><span>API fal · Seedream 5.0 Lite edit</span></div>
-  <div class="meta"><span class="k">Цена</span><span>~$0.035 / edit · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">ByteDance-class edit near Nano price. Candidate for identity heal A/B later.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>NOT_IN_CLI · NEEDS_QUOTE</span></div>
-  <p class="note">Seedream row filled (was FALSE/missing on CDN shortlist).</p>
+  <div class="meta"><span class="k">Цена</span><span>~$0.035 / edit · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">ByteDance-class edit около цены Nano. Кандидат на identity heal A/B.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Не в CLI · нужна квота</span></div>
+  <p class="note">Строка заполнена для честности shortlist.</p>
 </article>
-<article class="card model" data-marker="seedream-4-5">
-  <div class="rowtop"><h3>7. Seedream 4.5 Edit</h3><span class="st WAIT">NOT_IN_CLI / NEEDS_QUOTE</span></div>
+<article class="card model top10-card" data-marker="seedream-4-5" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">7</span> Seedream 4.5 Edit</h3><span class="chip quote">quote</span></div>
   <div class="meta"><span class="k">Линия</span><span>API fal · Seedream 4.5 edit</span></div>
-  <div class="meta"><span class="k">Цена</span><span>~$0.04 / edit · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">Prior Seedream edit tier; keep for A/B vs 5.0 Lite if quote opens.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>NOT_IN_CLI · NEEDS_QUOTE</span></div>
-  <p class="note">Seedream 4.5 listed for honesty; no fal call this layer.</p>
+  <div class="meta"><span class="k">Цена</span><span>~$0.04 / edit · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">Предыдущий tier Seedream; A/B vs 5.0 Lite если откроется квота.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Не в CLI · нужна квота</span></div>
+  <p class="note">Без fal-вызова в этом слое.</p>
 </article>
-<article class="card model" data-marker="firered-image-edit">
-  <div class="rowtop"><h3>8. FireRed Image Edit</h3><span class="st WAIT">NOT_IN_CLI / NEEDS_QUOTE</span></div>
+<article class="card model top10-card" data-marker="firered-image-edit" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">8</span> FireRed Image Edit</h3><span class="chip quote">quote</span></div>
   <div class="meta"><span class="k">Линия</span><span>API fal · FireRed Image Edit</span></div>
-  <div class="meta"><span class="k">Цена</span><span>~$0.0325 / MP · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">MP-priced edit when resolution varies; probe vs Nano on detail stains.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>NOT_IN_CLI · NEEDS_QUOTE</span></div>
-  <p class="note">FireRed marker on LIVE. No inference / no GPU rent.</p>
+  <div class="meta"><span class="k">Цена</span><span>~$0.0325 / MP · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">MP-priced edit при разном разрешении; probe vs Nano на detail stains.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Не в CLI · нужна квота</span></div>
+  <p class="note">Без inference / без GPU rent.</p>
 </article>
-<article class="card model" data-marker="flux-fill-pro">
-  <div class="rowtop"><h3>9. FLUX Fill Pro</h3><span class="st WAIT">READY_PROBE / NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Линия</span><span>API fal direct · fal-ai/flux-pro/v1/fill</span></div>
-  <div class="meta"><span class="k">Цена</span><span>docs ~$0.05 / MP + mask · NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">Mask-native fill: prompt+image_url+mask_url. Damage region only; faces frozen outside mask.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>READY_PROBE · NEEDS_QUOTE</span></div>
-  <p class="note">Fill Pro ≠ FLUX.1 Fill [dev] OSS (GPU frozen row below).</p>
+<article class="card model top10-card" data-marker="flux-fill-pro" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">9</span> FLUX Fill Pro</h3><span class="chip quote">quote</span></div>
+  <div class="meta"><span class="k">Линия</span><span>API fal · fal-ai/flux-pro/v1/fill</span></div>
+  <div class="meta"><span class="k">Цена</span><span>docs ~$0.05 / MP + mask · нужна квота</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">Mask-native fill: prompt+image_url+mask_url. Только зона повреждения.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Probe · нужна квота</span></div>
+  <p class="note">≠ FLUX.1 Fill [dev] OSS (GPU ниже).</p>
 </article>
-<article class="card model" data-marker="flux-kontext-multi">
-  <div class="rowtop"><h3>10. FLUX Kontext multi</h3><span class="st WAIT">READY_PROBE / NEEDS_QUOTE</span></div>
-  <div class="meta"><span class="k">Линия</span><span>API fal direct · fal-ai/flux-pro/kontext/multi</span></div>
-  <div class="meta"><span class="k">Цена</span><span>docs Kontext-class · NEEDS_QUOTE (multi-ref)</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">prompt + image_urls multi-ref. When one ref is weak; identity from several frames.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>READY_PROBE · NEEDS_QUOTE</span></div>
-  <p class="note">Schema FREE. No spend without quote+да.</p>
+<article class="card model top10-card" data-marker="flux-kontext-multi" data-top10-role="comp">
+  <div class="rowtop"><h3><span class="rank">10</span> FLUX Kontext multi</h3><span class="chip quote">quote</span></div>
+  <div class="meta"><span class="k">Линия</span><span>API fal · fal-ai/flux-pro/kontext/multi</span></div>
+  <div class="meta"><span class="k">Цена</span><span>Kontext-class · нужна квота (multi-ref)</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">prompt + image_urls multi-ref. Identity с нескольких кадров.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>Probe · нужна квота</span></div>
+  <p class="note">Schema FREE. Spend только после quote+да.</p>
 </article>
-<article class="card model" data-marker="gpu-frozen">
-  <div class="rowtop"><h3>Qwen-2511 · SDXL+CN+IPA · Flux Fill [dev] OSS</h3><span class="st FAIL">GPU frozen</span></div>
-  <div class="meta"><span class="k">Линия</span><span>NOT API-without-rent · STOP</span></div>
-  <div class="meta"><span class="k">Цена</span><span>аренда GPU · заморожено до NEW exact «да»</span></div>
-  <div class="meta"><span class="k">Когда</span><span class="prompt">GEN10 Path C order всё ещё Fill → SDXL+CN+IPA → Qwen. Только после нового явного «да» на аренду. Nano = API bar, не overnight.</span></div>
-  <div class="meta"><span class="k">Gate</span><span>GPU frozen · STOP_NO_RERENT · n_instances=0</span></div>
-  <p class="note">STOP_NO_RERENT stands. Не API-lane Top-10.</p>
+        </div>
+      </div>
+
+      <div class="top10-band frozen">
+        <span class="top10-band-label">GPU · заморожено</span>
+        <div class="grid models top10-grid frozen-grid">
+<article class="card model top10-card frozen" data-marker="gpu-frozen" data-top10-role="frozen">
+  <div class="rowtop"><h3>Qwen-2511 · SDXL+CN+IPA · Flux Fill [dev] OSS</h3><span class="chip frozen">frozen</span></div>
+  <div class="meta"><span class="k">Линия</span><span>Не API без аренды · STOP</span></div>
+  <div class="meta"><span class="k">Цена</span><span>аренда GPU · до нового явного «да»</span></div>
+  <div class="meta"><span class="k">Когда</span><span class="prompt">GEN10 Path C: Fill → SDXL+CN+IPA → Qwen. Только после нового «да» на аренду.</span></div>
+  <div class="meta"><span class="k">Статус</span><span>GPU frozen · STOP_NO_RERENT</span></div>
+  <p class="note">Не API-lane Top-10.</p>
 </article>
-    </div>
+        </div>
+      </div>
+
+      <p class="top10-honesty" data-top10-eye="1">Честно: spend_E=0 · NO GPU RENT · STOP_NO_RERENT · markers <code>nano-alt-matrix-top10-eye</code> · <code>top10-eye</code> · <code>data-top10-eye</code>. Не claim sellable / conveyor / PASS-all / etalon. Inference = квота + явное да.</p>
+    </section>
 
     <h2>Face A/B — inbound4 CORE4</h2>
     <p class="muted">Потрачено $0.1104 · DESTROY · winner parent eye = <b>skip-face</b></p>
