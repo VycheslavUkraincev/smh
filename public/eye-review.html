@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-eye-review="1">
+<html lang="ru" data-eye-review="1" data-eye-pro-refresh="1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -41,6 +41,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .mark{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;background:var(--soft);color:var(--muted)}
 .mark.fail{background:#fde8e6;color:var(--fail)}
 .mark.pass{background:#e7f6ec;color:var(--ok)}
+.mark.caveat{background:#fff3e0;color:var(--weak)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;color:var(--ink)}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -74,11 +75,11 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .lb-close{background:transparent;border:0;color:#fff;font-size:28px;cursor:pointer}
 </style>
 </head>
-<body class="eye-review" data-eye-review="1">
-<!-- nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote -->
-<div class="wrap" data-eye-review="page">
+<body class="eye-review" data-eye-review="1" data-eye-pro-refresh="1">
+<!-- nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote -->
+<div class="wrap" data-eye-review="page" data-eye-pro-refresh="page">
   <div class="nav">
-    <span class="badge">nano-alt-eye-review · FREE UI</span>
+    <span class="badge">nano-alt-eye-pro-refresh · FREE UI</span>
     <a class="home" href="/">SaveMyHistory</a>
     <a class="home" href="/restorer.html">Restorer</a>
     <a class="home" href="/model-compare.html">Model compare</a>
@@ -95,12 +96,12 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
     </div>
   </div>
 
-  <div class="hero" id="nano-alt-eye-review" data-marker="nano-alt-eye-review eye-review data-eye-review drawRegion sendEyeNote">
-    <p><strong>Честно:</strong> слот модели только если файл есть. family3 color = FAIL · doorway Pro color = FACE_FAIL · couple Pro color = PASS. Bake только у fedora (GPT2 / Banana Pro). Markers: nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote. spend_E=0 · no fal · no GPU · no fake AFTER.</p>
+  <div class="hero" id="nano-alt-eye-pro-refresh" data-marker="nano-alt-eye-pro-refresh eye-pro-refresh data-eye-pro-refresh nano-alt-eye-review eye-review data-eye-review drawRegion sendEyeNote">
+    <p><strong>Честно / Honest:</strong> слот модели только если файл есть · never sellable/etalon. couple Pro = <b>PASS</b> · fedora/frida Banana2 color = <b>PASS</b> · folk3 color = <b>PASS_CAVEAT</b> · doorway/wedding/family3 Pro = <b>FACE_FAIL</b>. Bake только у fedora. Markers: nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh. spend_E=0 · no fal · no GPU · no fake AFTER.</p>
   </div>
 
   <div id="cases"></div>
-  <p class="foot">Markers: nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote · FREE UI · no fal · no GPU · no fake AFTER</p>
+  <p class="foot">Markers: nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-review · eye-review · data-eye-review · drawRegion · sendEyeNote · FREE UI · no fal · no GPU · no fake AFTER</p>
 </div>
 
 <div id="lightbox" class="lb" aria-hidden="true">
@@ -112,21 +113,23 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* nano-alt-eye-review · drawRegion · sendEyeNote */
+/* nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-review · drawRegion · sendEyeNote */
 const ASSET = '/assets/eye_review/';
 const CASES = [
   {
     id: 'family3', title: 'Family3', photoId: 'e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5',
     before: ASSET+'family3_before.jpg',
-    honesty: { text: 'color FAIL', kind: 'fail' },
+    honesty: { text: 'FACE_FAIL · Pro color', kind: 'fail', text_en: 'FACE_FAIL · Pro color' },
     models: [
       { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'family3_cf-nano-authentic.png' },
-      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'family3_banana2-color.png' }
+      { id: 'banana2-color', label: 'color Banana2', src: ASSET+'family3_banana2-color.png' },
+      { id: 'banana-pro-color', label: 'color Banana Pro', src: ASSET+'family3_banana-pro-color.png' }
     ]
   },
   {
     id: 'folk3', title: 'Folk3 · женщина + девочка', photoId: '3a64c1f9-1733-4611-b43d-7448862db76e',
     before: ASSET+'folk3_before.jpg',
+    honesty: { text: 'PASS_CAVEAT · color', kind: 'caveat', text_en: 'PASS_CAVEAT · color' },
     models: [
       { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'folk3_cf-nano-authentic.png' },
       { id: 'banana2-color', label: 'color Banana2', src: ASSET+'folk3_banana2-color.png' }
@@ -135,6 +138,7 @@ const CASES = [
   {
     id: 'frida', title: 'Frida', photoId: '8d88b2af-b252-4849-862b-5804ff4b4806',
     before: ASSET+'frida_before.jpg',
+    honesty: { text: 'PASS · Banana2 color', kind: 'pass', text_en: 'PASS · Banana2 color' },
     models: [
       { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'frida_cf-nano-authentic.png' },
       { id: 'banana2-color', label: 'color Banana2', src: ASSET+'frida_banana2-color.png' }
@@ -143,6 +147,7 @@ const CASES = [
   {
     id: 'fedora', title: 'Fedora', photoId: '64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a',
     before: ASSET+'fedora_before.jpg',
+    honesty: { text: 'PASS · Banana2 color', kind: 'pass', text_en: 'PASS · Banana2 color' },
     models: [
       { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'fedora_cf-nano-authentic.png' },
       { id: 'banana2-color', label: 'color Banana2', src: ASSET+'fedora_banana2-color.png' },
@@ -153,7 +158,7 @@ const CASES = [
   {
     id: 'couple', title: 'Couple', photoId: 'b856b364-c132-4df9-971b-9cb6bf340585',
     before: ASSET+'couple_before.jpg',
-    honesty: { text: 'Pro color PASS', kind: 'pass' },
+    honesty: { text: 'PASS · Pro color', kind: 'pass', text_en: 'PASS · Pro color' },
     models: [
       { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'couple_cf-nano-authentic.png' },
       { id: 'banana2-color', label: 'color Banana2', src: ASSET+'couple_banana2-color.png' },
@@ -163,7 +168,7 @@ const CASES = [
   {
     id: 'doorway', title: 'Doorway', photoId: '365f7cb5-9694-4f40-b43f-d39d47f064f2',
     before: ASSET+'doorway_before.jpg',
-    honesty: { text: 'Pro color FACE_FAIL', kind: 'fail' },
+    honesty: { text: 'FACE_FAIL · Pro color', kind: 'fail', text_en: 'FACE_FAIL · Pro color' },
     models: [
       { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'doorway_cf-nano-authentic.png' },
       { id: 'banana2-color', label: 'color Banana2', src: ASSET+'doorway_banana2-color.png' },
@@ -173,6 +178,7 @@ const CASES = [
   {
     id: 'wedding', title: 'Wedding', photoId: '71c52fea-0a7c-42d7-8d11-d09c867f475d',
     before: ASSET+'wedding_before.jpg',
+    honesty: { text: 'FACE_FAIL · Pro color', kind: 'fail', text_en: 'FACE_FAIL · Pro color' },
     models: [
       { id: 'cf-nano-authentic', label: 'authentic CF→Nano', src: ASSET+'wedding_cf-nano-authentic.png' },
       { id: 'banana2-color', label: 'color Banana2', src: ASSET+'wedding_banana2-color.png' },
@@ -426,7 +432,7 @@ function buildPayload(card, c){
     region: { xPct: st.region.xPct, yPct: st.region.yPct, wPct: st.region.wPct, hPct: st.region.hPct, on: st.region.on },
     note,
     ts: new Date().toISOString(),
-    marker: 'nano-alt-eye-review',
+    marker: 'nano-alt-eye-pro-refresh',
     page: 'https://savemyhistory.tech/eye-review.html'
   };
 }
@@ -488,7 +494,7 @@ function downloadRegionPng(card, c){
 
 document.getElementById('btnDownloadAll').addEventListener('click', ()=>{
   if(!notes.length){ toast('Пока нет заметок'); return; }
-  const blob = new Blob([JSON.stringify({ marker:'nano-alt-eye-review', count:notes.length, notes }, null, 2)], {type:'application/json'});
+  const blob = new Blob([JSON.stringify({ marker:'nano-alt-eye-pro-refresh', count:notes.length, notes }, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'pravki-eye-review.json';

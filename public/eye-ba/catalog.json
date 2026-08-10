@@ -19,9 +19,17 @@
         "id": "color",
         "label": "color Banana2",
         "file": "color.jpg"
+      },
+      {
+        "id": "pro_color",
+        "label": "color Banana Pro",
+        "file": "pro_color.jpg"
       }
     ],
-    "note": "color FAIL identity/plastic"
+    "note": "Pro color FACE_FAIL · Banana2 color FAIL identity/plastic",
+    "verdict": "FACE_FAIL",
+    "verdict_ru": "FACE_FAIL · лицо/глаза Pro color",
+    "verdict_en": "FACE_FAIL · Pro color face/eyes"
   },
   "folk3": {
     "id": "folk3",
@@ -45,7 +53,10 @@
         "file": "color.jpg"
       }
     ],
-    "note": ""
+    "note": "color Banana2 PASS_CAVEAT · muted/grayish skin",
+    "verdict": "PASS_CAVEAT",
+    "verdict_ru": "PASS_CAVEAT · цвет ок, кожа сероватая",
+    "verdict_en": "PASS_CAVEAT · color ok, skin grayish"
   },
   "frida": {
     "id": "frida",
@@ -69,7 +80,10 @@
         "file": "color.jpg"
       }
     ],
-    "note": ""
+    "note": "color Banana2 PASS",
+    "verdict": "PASS",
+    "verdict_ru": "PASS · Banana2 color",
+    "verdict_en": "PASS · Banana2 color"
   },
   "fedora": {
     "id": "fedora",
@@ -113,7 +127,10 @@
         "file": "bake_gpt2.jpg"
       }
     ],
-    "note": ""
+    "note": "color Banana2 PASS · bake Banana Pro available",
+    "verdict": "PASS",
+    "verdict_ru": "PASS · Banana2 color",
+    "verdict_en": "PASS · Banana2 color"
   },
   "couple": {
     "id": "couple",
@@ -142,7 +159,10 @@
         "file": "pro_color.jpg"
       }
     ],
-    "note": "Pro color PASS"
+    "note": "Pro color PASS",
+    "verdict": "PASS",
+    "verdict_ru": "PASS · Banana Pro color",
+    "verdict_en": "PASS · Banana Pro color"
   },
   "doorway": {
     "id": "doorway",
@@ -171,7 +191,10 @@
         "file": "pro_color.jpg"
       }
     ],
-    "note": "Pro color FACE_FAIL"
+    "note": "Pro color FACE_FAIL",
+    "verdict": "FACE_FAIL",
+    "verdict_ru": "FACE_FAIL · Pro color лицо",
+    "verdict_en": "FACE_FAIL · Pro color face"
   },
   "wedding": {
     "id": "wedding",
@@ -200,6 +223,9 @@
         "file": "pro_color.jpg"
       }
     ],
-    "note": "Pro color FACE_FAIL"
+    "note": "Pro color FACE_FAIL",
+    "verdict": "FACE_FAIL",
+    "verdict_ru": "FACE_FAIL · Pro color лицо",
+    "verdict_en": "FACE_FAIL · Pro color face"
   }
 }

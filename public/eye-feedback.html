@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-eye-feedback="1">
+<html lang="ru" data-eye-feedback="1" data-eye-pro-refresh="1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -25,7 +25,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .case-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.35rem;margin:0}
 .meta{color:var(--muted);font-size:12px}
 .mark{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;background:var(--soft);color:var(--muted)}
-.mark.fail{background:#fde8e6;color:var(--fail)}.mark.pass{background:#e7f6ec;color:var(--ok)}
+.mark.fail{background:#fde8e6;color:var(--fail)}.mark.pass{background:#e7f6ec;color:var(--ok)}.mark.caveat{background:#fff3e0;color:#8e5a2b}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -49,11 +49,11 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 pre#preview{background:#faf6ef;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;overflow:auto;max-height:220px;margin-top:10px;display:none}
 </style>
 </head>
-<body class="eye-feedback" data-eye-feedback="1">
-<!-- nano-alt-eye-feedback · eye-feedback · data-eye-feedback -->
-<div class="wrap" id="eye-feedback" data-eye-feedback="page">
+<body class="eye-feedback" data-eye-feedback="1" data-eye-pro-refresh="1">
+<!-- nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-feedback · eye-feedback · data-eye-feedback -->
+<div class="wrap" id="eye-feedback" data-eye-feedback="page" data-eye-pro-refresh="page">
   <div class="nav">
-    <span class="badge">nano-alt-eye-feedback · FREE UI</span>
+    <span class="badge">nano-alt-eye-pro-refresh · FREE UI</span>
     <a class="home" href="/">SaveMyHistory</a>
     <a class="home" href="/restorer.html">Restorer</a>
     <a class="home" href="/model-compare.html">Model compare</a>
@@ -61,8 +61,8 @@ pre#preview{background:#faf6ef;border:1px solid var(--line);border-radius:12px;p
   </div>
   <h1>Eye feedback · BEFORE / AFTER</h1>
   <p class="who">Роман: выбери кейс, чип модели/AFTER, сравни BEFORE|AFTER. На AFTER тяни прямоугольник, напиши правку, жми «Скопировать JSON» — буфер + файл для Telegram Q. spend_E=0.</p>
-  <div class="hero" id="nano-alt-eye-feedback" data-marker="nano-alt-eye-feedback eye-feedback data-eye-feedback">
-    <p><strong>Честно:</strong> слот только если файл есть. family3 color = FAIL · doorway/wedding Pro color = FACE_FAIL · couple Pro color = PASS. Bake: banana2 / banana-pro / gpt2 у fedora. Markers: nano-alt-eye-feedback · eye-feedback · data-eye-feedback.</p>
+  <div class="hero" id="nano-alt-eye-pro-refresh" data-marker="nano-alt-eye-pro-refresh eye-pro-refresh data-eye-pro-refresh nano-alt-eye-feedback eye-feedback data-eye-feedback">
+    <p><strong>Честно / Honest:</strong> слот только если файл есть · never sellable/etalon. couple Pro = <b>PASS</b> · fedora/frida Banana2 color = <b>PASS</b> · folk3 color = <b>PASS_CAVEAT</b> · doorway/wedding/family3 Pro = <b>FACE_FAIL</b>. Markers: nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh.</p>
   </div>
   <div class="panel">
     <div class="meta">Кейс</div>
@@ -97,11 +97,11 @@ pre#preview{background:#faf6ef;border:1px solid var(--line);border-radius:12px;p
     </div>
     <pre id="preview"></pre>
   </div>
-  <p class="foot">Markers: nano-alt-eye-feedback · eye-feedback · data-eye-feedback · FREE UI · no fal · no GPU · no rent</p>
+  <p class="foot">Markers: nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-feedback · eye-feedback · data-eye-feedback · FREE UI · no fal · no GPU · no rent</p>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-/* nano-alt-eye-feedback · eye-feedback · data-eye-feedback */
+/* nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-feedback · eye-feedback · data-eye-feedback */
 const CASES = [
   {
     "id": "family3",
@@ -123,11 +123,17 @@ const CASES = [
         "id": "color",
         "label": "color Banana2",
         "src": "/eye-ba/family3/color.jpg"
+      },
+      {
+        "id": "pro_color",
+        "label": "color Banana Pro",
+        "src": "/eye-ba/family3/pro_color.jpg"
       }
     ],
     "honesty": {
-      "text": "color FAIL identity/plastic",
-      "kind": "fail"
+      "text": "FACE_FAIL · Pro color",
+      "kind": "fail",
+      "text_en": "FACE_FAIL · Pro color"
     }
   },
   {
@@ -151,7 +157,12 @@ const CASES = [
         "label": "color Banana2",
         "src": "/eye-ba/folk3/color.jpg"
       }
-    ]
+    ],
+    "honesty": {
+      "text": "PASS_CAVEAT · color",
+      "kind": "caveat",
+      "text_en": "PASS_CAVEAT · color"
+    }
   },
   {
     "id": "frida",
@@ -174,7 +185,12 @@ const CASES = [
         "label": "color Banana2",
         "src": "/eye-ba/frida/color.jpg"
       }
-    ]
+    ],
+    "honesty": {
+      "text": "PASS · Banana2 color",
+      "kind": "pass",
+      "text_en": "PASS · Banana2 color"
+    }
   },
   {
     "id": "fedora",
@@ -217,7 +233,12 @@ const CASES = [
         "label": "bake GPT2",
         "src": "/eye-ba/fedora/bake_gpt2.jpg"
       }
-    ]
+    ],
+    "honesty": {
+      "text": "PASS · Banana2 color",
+      "kind": "pass",
+      "text_en": "PASS · Banana2 color"
+    }
   },
   {
     "id": "couple",
@@ -247,8 +268,9 @@ const CASES = [
       }
     ],
     "honesty": {
-      "text": "Pro color PASS",
-      "kind": "pass"
+      "text": "PASS · Pro color",
+      "kind": "pass",
+      "text_en": "PASS · Pro color"
     }
   },
   {
@@ -279,8 +301,9 @@ const CASES = [
       }
     ],
     "honesty": {
-      "text": "Pro color FACE_FAIL",
-      "kind": "fail"
+      "text": "FACE_FAIL · Pro color",
+      "kind": "fail",
+      "text_en": "FACE_FAIL · Pro color"
     }
   },
   {
@@ -311,8 +334,9 @@ const CASES = [
       }
     ],
     "honesty": {
-      "text": "Pro color FACE_FAIL",
-      "kind": "fail"
+      "text": "FACE_FAIL · Pro color",
+      "kind": "fail",
+      "text_en": "FACE_FAIL · Pro color"
     }
   }
 ];
@@ -442,7 +466,7 @@ function buildPayload(){
   if(!note){ toast('Напиши текст правки'); return null; }
   if(!state.region){ toast('Сначала выдели область на AFTER'); return null; }
   return {
-    marker: 'nano-alt-eye-feedback',
+    marker: 'nano-alt-eye-pro-refresh',
     page: 'https://savemyhistory.tech/eye-feedback.html',
     case: c.id,
     title: c.title,
