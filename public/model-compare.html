@@ -65,6 +65,11 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .pilot3-before-shots{margin-top:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .pilot3-before .before-missing{display:flex;align-items:center;justify-content:center;height:160px;background:#fbf7f0;border-bottom:1px solid var(--line);color:var(--weak);font-size:12px;font-weight:700;text-align:center;padding:8px}
 .pilot3-before .shot[data-pilot-before="1"]{border-color:#cfe8d6}
+.all10-before{margin-top:10px}
+.all10-before-shots{margin-top:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.all10-before .before-missing{display:flex;align-items:center;justify-content:center;height:160px;background:#fbf7f0;border-bottom:1px solid var(--line);color:var(--weak);font-size:12px;font-weight:700;text-align:center;padding:8px}
+.all10-before .shot[data-all10-before="1"]{border-color:#e8dcc8}
+.all10-before .shot[data-pilot="1"]{border-color:#cfe8d6}
 .pilot3-nanobar{margin-top:12px}
 .pilot3-nanobar-shots{margin-top:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .pilot3-nanobar .nano-bar-missing{display:flex;align-items:center;justify-content:center;height:160px;background:#fbf7f0;border-bottom:1px solid var(--line);color:var(--weak);font-size:12px;font-weight:700;text-align:center;padding:8px}
@@ -142,6 +147,58 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
       <br><strong>LIVE_BLOCKED</strong> without <code>SMH_NANO_ALT_GO=YES</code> + <code>--force</code> (and exact gate да).
       <br>Gates held: «да matrix 3×3 ≤18E» · «да matrix 10×3 ≤60E»
       <br>after-slots <span class="st WAIT">WAITING</span> held · no fake AFTER thumbs · NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / AFTER from alts
+    </div>
+
+    <div class="honesty" id="nano-alt-matrix-all10-before" data-marker="nano-alt-matrix-all10-before" data-all10-before="1">
+      <strong>Matrix all-10 · BEFORE thumbs</strong> · FREE preview · nano-alt-matrix-picks · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Public thumb only if asset already on /model-compare/ · else <strong>before-missing</strong> (disk before-ok · public thumb absent) · honesty never invents BEFORE/AFTER.
+      <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · after-slot WAITING / READY_DRY · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E».
+      <div class="all10-before" data-marker="all10-before" data-all10-before="1">
+        <div class="shots all10-before-shots" data-marker="all10-before-shots">
+          <div class="shot" data-pick="pd_02_stains" data-pilot="1" data-pilot3="1" data-all10-before="1">
+            <img src="/model-compare/api_pd_02_stains_before.jpg" alt="pd_02_stains before">
+            <div class="cap"><code>pd_02_stains</code> · before-ok · nano-bar-ok · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">BEFORE only · no AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="pd_03_fade" data-pilot="1" data-pilot3="1" data-all10-before="1">
+            <img src="/model-compare/api_pd_03_fade_before.jpg" alt="pd_03_fade before">
+            <div class="cap"><code>pd_03_fade</code> · before-ok · nano-bar-ok · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">BEFORE only · no AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="pd_04_soft_portrait" data-pilot="1" data-pilot3="1" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>pd_04_soft_portrait</code> · before-missing · nano-bar-ok · <span class="pilot-badge" data-pilot="1">пилот 3×3</span><div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="pd_06_cracks" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>pd_06_cracks</code> · before-missing · nano-bar-ok<div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="pd_08_inbound" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>pd_08_inbound</code> · before-missing · nano-bar-ok<div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="pd_24_group" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>pd_24_group</code> · before-missing · nano-bar-ok<div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="db_pd_100" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>db_pd_100</code> · before-missing · nano-bar-ok<div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="db_pd_101" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>db_pd_101</code> · before-missing · nano-bar-ok<div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="db_pd_102" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>db_pd_102</code> · before-missing · nano-bar-ok<div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+          <div class="shot" data-pick="db_pd_104" data-all10-before="1" data-before-missing="1">
+            <div class="before-missing" data-marker="before-missing">before-missing<br><span style="font-weight:400">disk before-ok · public thumb absent</span></div>
+            <div class="cap"><code>db_pd_104</code> · before-missing · nano-bar-ok<div class="sub">no invented BEFORE/AFTER</div></div>
+          </div>
+        </div>
+      </div>
+      <br>Honesty: public before-ok = 2 (pd_02 · pd_03) · before-missing = 8 · pilot-3 highlight kept · Nano-bar/alt AFTER slots unchanged · NOT_CLAIMED: sellable / conveyor / PASS-all / etalon / matrix inference / AFTER from alts.
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-all10-before">→ service-review all-10 BEFORE mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-pilot3" data-marker="nano-alt-matrix-pilot3" data-pilot3="1">
