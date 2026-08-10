@@ -124,7 +124,7 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .board-reset-bar[data-board-reset="1"]{border:0}
 .board-reset-btn{border:1px solid #d9c7a3;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;color:#5c4630;line-height:1.2}
 .board-reset-btn:hover{border-color:#c4ae86;background:#fff3dc;font-weight:700}
-/* nano-alt-matrix-board-pin · board-pin · data-board-pin · pinPick */
+/* nano-alt-matrix-board-pin · board-pin · data-board-pin · pinPick · nano-alt-matrix-board-pin-share · board-pin-share · data-board-pin-share · pin= */
 .board-pin-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
 .board-pin-bar[data-board-pin="1"]{border:0}
 .board-pin-btn{border:1px solid #d9c7a3;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;color:#5c4630;line-height:1.2}
@@ -266,8 +266,8 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
       <br><a class="home" href="/service-review.html">→ service-review</a> (кейсы до/после + FAIL_HOLD board)
     </div>
 
-    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help nano-alt-matrix-pilot3-copyall pilot3-copyall nano-alt-matrix-all10-copyall all10-copyall nano-alt-matrix-board-compact board-compact nano-alt-matrix-board-empty board-empty empty-state nano-alt-matrix-board-share board-share nano-alt-matrix-board-scrolltop board-scrolltop nano-alt-matrix-board-print board-print nano-alt-matrix-board-export board-export nano-alt-matrix-board-filter-hint board-filter-hint nano-alt-matrix-board-reset board-reset nano-alt-matrix-board-pin board-pin" data-board-wire="1" data-pilot3-copyall="1" data-all10-copyall="1" data-board-compact="0" data-empty-state="0" data-board-share="1" data-board-scrolltop="1" data-board-print="1" data-board-export="1" data-filter-hint="1" data-board-reset="1" data-board-pin="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks board">
-      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria + board-help + pilot3-copyall + all10-copyall + board-compact + board-empty + board-share + board-scrolltop + board-print + board-export + board-filter-hint + board-reset + board-pin</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · copyPilot3Links · copyAll10Links · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria · hotkeys-help / showHotkeysHelp / ? · toggleBoardCompact компакт/обычно · board-empty / empty-state при 0 совпадений + сброс к Все 10 · copyBoardShare / board-share URL #pick=&filter=&compact= · scrollBoardTop ↑ наверх · printBoard / copyBoardPrint honesty print · exportBoard / copyBoardExport honesty JSON · board-filter-hint / updateFilterHint «показано N из 10» · resetBoardView сброс вида · pinPick закрепить pick (smh-board-pin)
+    <div class="honesty" id="nano-alt-matrix-picks" data-marker="nano-alt-matrix-picks-preview nano-alt-matrix-board-wire all10-board-wire nano-alt-matrix-board-focus board-focus nano-alt-matrix-board-deeplink board-deeplink nano-alt-matrix-board-copylink board-copylink nano-alt-matrix-board-filter board-filter nano-alt-matrix-board-keyboard board-keyboard nano-alt-matrix-gate-buttons gate-buttons nano-alt-matrix-board-status board-status-bar nano-alt-matrix-board-toast board-toast nano-alt-matrix-board-aria board-aria nano-alt-matrix-board-help board-help hotkeys-help nano-alt-matrix-pilot3-copyall pilot3-copyall nano-alt-matrix-all10-copyall all10-copyall nano-alt-matrix-board-compact board-compact nano-alt-matrix-board-empty board-empty empty-state nano-alt-matrix-board-share board-share nano-alt-matrix-board-scrolltop board-scrolltop nano-alt-matrix-board-print board-print nano-alt-matrix-board-export board-export nano-alt-matrix-board-filter-hint board-filter-hint nano-alt-matrix-board-reset board-reset nano-alt-matrix-board-pin board-pin nano-alt-matrix-board-pin-share board-pin-share" data-board-wire="1" data-pilot3-copyall="1" data-all10-copyall="1" data-board-compact="0" data-empty-state="0" data-board-share="1" data-board-scrolltop="1" data-board-print="1" data-board-export="1" data-filter-hint="1" data-board-reset="1" data-board-pin="1" data-board-pin-share="1" data-board-wired="1" data-board-focus="1" data-board-deeplink="1" data-board-copylink="1" data-board-filter="1" data-pick-filter="1" data-board-keyboard="1" data-gate-buttons="1" data-board-status="1" data-board-toast="1" data-board-aria="1" data-board-help="1" data-hotkeys-help="1" role="region" aria-label="Matrix picks board">
+      <strong>Matrix picks board · wired + focus + deeplink + copylink + filter + keyboard + gate-buttons + status-bar + toast + aria + board-help + pilot3-copyall + all10-copyall + board-compact + board-empty + board-share + board-scrolltop + board-print + board-export + board-filter-hint + board-reset + board-pin + board-pin-share</strong> · public BEFORE + Nano authentic AFTER thumbs · empty alt AFTER slots · READY_DRY · spend_E=0 · click pick row / id chip → focusPick + scrollIntoView · #pick= / ?pick= · copyPickLink / copyAllPicks · copyPilot3Links · copyAll10Links · filterPick Все 10 / Пилот 3×3 / search · keyboardPick ↑↓/j/k · Enter · c · Esc · copyGatePhrase / copyPilotGates · board-aria · hotkeys-help / showHotkeysHelp / ? · toggleBoardCompact компакт/обычно · board-empty / empty-state при 0 совпадений + сброс к Все 10 · copyBoardShare / board-share URL #pick=&filter=&compact=&pin= · board-pin-share · scrollBoardTop ↑ наверх · printBoard / copyBoardPrint honesty print · exportBoard / copyBoardExport honesty JSON · board-filter-hint / updateFilterHint «показано N из 10» · resetBoardView сброс вида · pinPick закрепить pick (smh-board-pin)
       <br>Markers: nano-alt-matrix-board-wire · all10-board-wire · data-board-wire · board-wired · nano-alt-matrix-board-focus · board-focus · data-board-focus · data-focus · nano-alt-matrix-board-deeplink · board-deeplink · data-board-deeplink · nano-alt-matrix-board-copylink · board-copylink · data-board-copylink · nano-alt-matrix-board-filter · board-filter · data-board-filter · filterPick · data-pick-filter · pilot-only · searchPick · nano-alt-matrix-board-keyboard · board-keyboard · data-board-keyboard · keyboardPick · nano-alt-matrix-gate-buttons · gate-buttons · data-gate-buttons · copyGatePhrase · copyPilotGates · nano-alt-matrix-board-status · board-status-bar · data-board-status · nano-alt-matrix-board-toast · board-toast · data-board-toast · setBoardToast · toastShow · nano-alt-matrix-board-aria · board-aria · data-board-aria · copyPickLink · copyAllPicks · data-copy-pick · data-copy-all-picks · pickIdFromLocation · applyPickDeepLink · setPickDeepLink · #pick= · ?pick= · hashchange · public-before-ok · nano-bar-after-ok · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · nano-alt-matrix-board-help · board-help · data-board-help · hotkeys-help · data-hotkeys-help · showHotkeysHelp · nano-alt-matrix-pilot3-copyall · pilot3-copyall · data-pilot3-copyall · copyPilot3Links · nano-alt-matrix-all10-copyall · all10-copyall · data-all10-copyall · copyAll10Links · nano-alt-matrix-board-compact · board-compact · data-board-compact · toggleBoardCompact · nano-alt-matrix-board-empty · board-empty · data-empty-state · empty-state · resetBoardEmptyFilter · nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare · applyBoardShareDeepLink · filter=all10|pilot-3 · compact=1 · nano-alt-matrix-board-scrolltop · board-scrolltop · data-board-scrolltop · scrollBoardTop · nano-alt-matrix-board-print · board-print · data-board-print · printBoard · copyBoardPrint · nano-alt-matrix-board-export · board-export · data-board-export · exportBoard · copyBoardExport · nano-alt-matrix-board-filter-hint · board-filter-hint · data-filter-hint · updateFilterHint · nano-alt-matrix-board-reset · board-reset · data-board-reset · resetBoardView · nano-alt-matrix-board-pin · board-pin · data-board-pin · pinPick
       <br>AFTER slots (placeholders only / matrix-after / nano-alt-after): <code>grok-edit</code> · <code>fal-ai/flux-pro/kontext</code> · <code>fal-ai/flux-2-pro/edit</code> · status <span class="st WAIT">WAITING</span> / <strong>READY_DRY</strong> · no fal · no inference · NO GPU RENT
       <br>Quote held: pilot ≤18E · core ≤60E · TOTAL_CALLS=30 · TOTAL_E=60 · LIVE_BLOCKED · gates «да matrix 3×3 ≤18E» / «да matrix 10×3 ≤60E». NOT_CLAIMED: sellable / conveyor / PASS-all / matrix inference / AFTER from alts.
@@ -286,7 +286,7 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
         <button type="button" class="board-compact-btn" id="board-compact-toggle" data-board-compact="1" aria-pressed="false" title="Переключить плотность board: компакт / обычно · toggleBoardCompact · localStorage smh-board-compact" aria-label="Переключить плотность board компакт или обычно">плотность: обычно</button>
       </div>
       <div class="board-share-bar" id="nano-alt-matrix-board-share" data-marker="nano-alt-matrix-board-share board-share" data-board-share="1" data-board-aria="1" role="group" aria-label="Matrix board share">
-        <button type="button" class="board-share-btn" id="board-share-copy" data-board-share="1" data-copy-board-share="1" title="Скопировать shareable board URL · filter + pick + compact · copyBoardShare" aria-label="Скопировать ссылку на текущее состояние board">копировать board-ссылку</button>
+        <button type="button" class="board-share-btn" id="board-share-copy" data-board-share="1" data-copy-board-share="1" title="Скопировать shareable board URL · filter + pick + compact + pin · copyBoardShare · board-pin-share" aria-label="Скопировать ссылку на текущее состояние board">копировать board-ссылку</button>
       </div>
       <div class="board-scrolltop-bar" id="nano-alt-matrix-board-scrolltop" data-marker="nano-alt-matrix-board-scrolltop board-scrolltop" data-board-scrolltop="1" data-board-aria="1" role="group" aria-label="Matrix board scroll top">
         <button type="button" class="board-scrolltop-btn" id="board-scrolltop-btn" data-board-scrolltop="1" title="Прокрутить к верху matrix board / toolbar · scrollBoardTop" aria-label="Наверх к matrix board">↑ наверх</button>
@@ -337,7 +337,7 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
             <li>Pilot3 copyall: кнопка «копировать 3 pilot links» · copyPilot3Links</li>
             <li>All10 copyall: кнопка «копировать 10 all10 links» · copyAll10Links</li>
             <li>Density: кнопка «плотность» · toggleBoardCompact · компакт / обычно · smh-board-compact</li>
-            <li>Share: кнопка «копировать board-ссылку» · copyBoardShare · #pick=&amp;filter=all10|pilot-3&amp;compact=1 · applyBoardShareDeepLink</li>
+            <li>Share: кнопка «копировать board-ссылку» · copyBoardShare · #pick=&amp;filter=all10|pilot-3&amp;compact=1&amp;pin=&lt;id&gt; · applyBoardShareDeepLink · board-pin-share</li>
             <li>Print: «печать board» · printBoard · window.print / honesty slice · «копировать print-summary» · copyBoardPrint</li>
             <li>Export: «export board JSON» / «копировать board-export» · exportBoard / copyBoardExport · clipboard JSON honesty state · setBoardToast</li>
             <li>Reset: кнопка «сбросить вид» · resetBoardView · Все 10 + clear focus + compact OFF + clear pin · setBoardToast «вид сброшен»</li>
@@ -392,15 +392,15 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
       <br>Help: <code>board-help</code> / <code>hotkeys-help</code> / <code>data-board-help</code> / <code>data-hotkeys-help</code> / <code>showHotkeysHelp</code> · кнопка «?» или <code>?</code> · hotkeys ↑↓/j/k · Enter · c · Esc · filter Все 10 / Пилот 3×3 · copy gates · status-bar honesty · FREE UI · no inference.
       <br>Compact: <code>board-compact</code> / <code>data-board-compact</code> / <code>toggleBoardCompact</code> · компакт vs обычно · smaller thumbs/spacing · localStorage <code>smh-board-compact</code> · status-bar density · setBoardToast · FREE UI · no inference.
       <br>Empty-state: <code>board-empty</code> / <code>data-empty-state</code> / <code>empty-state</code> · когда filterPick показывает 0 · «нет совпадений» + сброс к Все 10 · status-bar «показано 0 из 10» · optional setBoardToast · FREE UI · no inference.
-      <br>Share: <code>board-share</code> / <code>data-board-share</code> / <code>copyBoardShare</code> / <code>applyBoardShareDeepLink</code> · one-click URL <code>#pick=&lt;id&gt;&amp;filter=all10|pilot-3&amp;compact=1</code> (omit empty) · apply on load · setBoardToast · FREE UI · no inference.
+      <br>Share: <code>board-share</code> / <code>data-board-share</code> / <code>copyBoardShare</code> / <code>applyBoardShareDeepLink</code> · one-click URL <code>#pick=&lt;id&gt;&amp;filter=all10|pilot-3&amp;compact=1&amp;pin=&lt;id&gt;</code> (omit empty / omit pin if none) · apply on load · pin= → smh-board-pin / pinPick · setBoardToast · board-pin-share · FREE UI · no inference.
       <br>Scrolltop: <code>board-scrolltop</code> / <code>data-board-scrolltop</code> / <code>scrollBoardTop</code> · compact «↑ наверх» · scrollIntoView board/toolbar · setBoardToast · FREE UI · no inference.
       <br>Print: <code>board-print</code> / <code>data-board-print</code> / <code>printBoard</code> / <code>copyBoardPrint</code> · one-click print honesty slice (visible picks + status) or window.print · optional plain-text honesty summary clipboard · setBoardToast · FREE UI · no inference · no fake AFTER.
       <br>Export: <code>board-export</code> / <code>data-board-export</code> / <code>exportBoard</code> / <code>copyBoardExport</code> · one-click clipboard JSON (preferred) or plain-text honesty board state for CURRENT filter/view · visible pick ids · filter · compact · focus · BEFORE 10/10 · Nano-bar 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · setBoardToast · FREE UI · no inference · no fake AFTER · no image download.
       <br>Reset: <code>board-reset</code> / <code>data-board-reset</code> / <code>resetBoardView</code> · one-click сброс вида: filterPick Все 10 · clearPickFocus · compact OFF · clear pin (smh-board-pin) · update status/empty/filter-hint · setBoardToast «вид сброшен» · FREE UI · no inference · no fake AFTER.
-      <br>Pin: <code>board-pin</code> / <code>data-board-pin</code> / <code>pinPick</code> · pin focused pick (or current focusPick) → localStorage <code>smh-board-pin</code> · visual pinned badge · restore on load (focusPick + optional scroll) · unpin / toggle same control · setBoardToast · status-bar pin id · resetBoardView clears pin · FREE UI · no inference · no fake AFTER.
+      <br>Pin: <code>board-pin</code> / <code>data-board-pin</code> / <code>pinPick</code> · pin focused pick (or current focusPick) → localStorage <code>smh-board-pin</code> · visual pinned badge · restore on load (focusPick + optional scroll) · unpin / toggle same control · setBoardToast · status-bar pin id · resetBoardView clears pin · share deep-link <code>pin=</code> via board-pin-share · FREE UI · no inference · no fake AFTER.
       <br>Filter-hint: <code>board-filter-hint</code> / <code>data-filter-hint</code> / <code>updateFilterHint</code> · short RU honesty under chips · updates with filter mode + «показано N из 10» · hooks paintBoardFilterCount / filterPick · light setBoardToast on mode change · FREE UI · no inference · no fake AFTER.
       <p class="board-focus-note" id="board-focus-note" data-focus-note hidden></p>
-      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-pin">→ service-review board-pin mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-reset">→ service-review board-reset mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter-hint">→ service-review board-filter-hint mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-export">→ service-review board-export mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-print">→ service-review board-print mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-scrolltop">→ service-review board-scrolltop mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-share">→ service-review board-share mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-empty">→ service-review board-empty mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-compact">→ service-review board-compact mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
+      <br><a class="home" href="/service-review.html#nano-alt-matrix-board-pin-share">→ service-review board-pin-share mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-pin">→ service-review board-pin mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-reset">→ service-review board-reset mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter-hint">→ service-review board-filter-hint mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-export">→ service-review board-export mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-print">→ service-review board-print mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-scrolltop">→ service-review board-scrolltop mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-share">→ service-review board-share mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-empty">→ service-review board-empty mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-compact">→ service-review board-compact mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-help">→ service-review board-help mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-aria">→ service-review board-aria mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-toast">→ board-toast mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-status">→ service-review board-status mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-gate-buttons">→ service-review gate-buttons mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-keyboard">→ board-keyboard mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-filter">→ board-filter mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-copylink">→ board-copylink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-deeplink">→ board-deeplink mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-focus">→ board-focus mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-ready">→ board-ready mirror</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-wire">→ board-wire mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-wire" data-marker="nano-alt-matrix-board-wire" data-board-wire="1" data-board-wired="1">
@@ -521,8 +521,8 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-share-honesty" data-marker="nano-alt-matrix-board-share board-share" data-board-share="1">
-      <strong>Matrix all-10 · board-share</strong> · FREE UI · copyBoardShare one-click shareable board URL reflecting filter (all10|pilot-3) + focused pick if any + compact=1 if on · prefer <code>#pick=&lt;id&gt;&amp;filter=pilot-3&amp;compact=1</code> · omit empty params · applyBoardShareDeepLink on load (keeps pickIdFromLocation / applyPickDeepLink / filterPick / toggleBoardCompact) · setBoardToast · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
-      <br>Markers: nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare · applyBoardShareDeepLink · filter=all10|pilot-3 · compact=1 · board-empty · board-compact · all10-copyall · pilot3-copyall · board-help · board-aria · board-toast · board-status-bar · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
+      <strong>Matrix all-10 · board-share</strong> · FREE UI · copyBoardShare one-click shareable board URL reflecting filter (all10|pilot-3) + focused pick if any + compact=1 if on + pin=&lt;id&gt; if pinned · prefer <code>#pick=&lt;id&gt;&amp;filter=pilot-3&amp;compact=1&amp;pin=&lt;id&gt;</code> · omit empty params · applyBoardShareDeepLink on load (keeps pickIdFromLocation / applyPickDeepLink / filterPick / toggleBoardCompact / pinPick) · board-pin-share · setBoardToast · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare · applyBoardShareDeepLink · filter=all10|pilot-3 · compact=1 · pin= · nano-alt-matrix-board-pin-share · board-pin-share · data-board-pin-share · board-empty · board-compact · all10-copyall · pilot3-copyall · board-help · board-aria · board-toast · board-status-bar · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
       <br>Honesty: share URL only · empty alt AFTER slots stay WAITING / READY_DRY · no invent.
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-share">→ #nano-alt-matrix-board-share</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-share">→ service-review board-share mirror</a>
     </div>
@@ -550,6 +550,12 @@ tr[data-pick][data-board-pin="1"] .pick-id-chip,tr[data-pick].pick-pinned .pick-
       <br>Markers: nano-alt-matrix-board-pin · board-pin · data-board-pin · pinPick · smh-board-pin · board-reset · board-export · board-filter-hint · board-print · board-scrolltop · board-share · board-empty · board-compact · all10-copyall · pilot3-copyall · board-help · board-aria · board-toast · board-status-bar · gate-buttons · board-keyboard · board-filter · board-copylink · board-deeplink · board-focus · board-ready · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
       <br>BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · READY_DRY · LIVE_BLOCKED · after-slot · no fake AFTER
       <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-pin">→ #nano-alt-matrix-board-pin</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-pin">→ service-review board-pin mirror</a>
+    </div>
+    <div class="honesty" id="nano-alt-matrix-board-pin-share" data-marker="nano-alt-matrix-board-pin-share board-pin-share" data-board-pin-share="1">
+      <strong>Matrix all-10 · board-pin-share</strong> · FREE UI · pin=&lt;pickId&gt; in board-share deep-link · copyBoardShare includes pin= when smh-board-pin set · applyBoardShareDeepLink restores valid pin via pinPick / localStorage smh-board-pin · toast «pin из share» · omit pin= if none · invalid pin ignored · spend_E=0 · no fal · no inference · no AFTER invent · READY_DRY · LIVE_BLOCKED
+      <br>Markers: nano-alt-matrix-board-pin-share · board-pin-share · data-board-pin-share · pin= · pinPick · smh-board-pin · copyBoardShare · applyBoardShareDeepLink · board-pin · board-share · board-reset · board-export · filter-hint · print · scrolltop · empty · compact · all10-copyall · pilot3-copyall · help · aria · toast · status-bar · gate-buttons · keyboard · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING · TOTAL_CALLS=30 · TOTAL_E=60 · ≤18E · ≤60E · READY_DRY · LIVE_BLOCKED · after-slot · Top-10 · dry-status
+      <br>Prior held: board-pin · board-reset · board-export · filter-hint · print · scrolltop · share · empty · compact · all10-copyall · pilot3-copyall · help · aria · toast · status-bar · gate-buttons · keyboard · TOTAL_CALLS=30 · TOTAL_E=60 · READY_DRY · LIVE_BLOCKED · after-slot · ≤18E · ≤60E · BEFORE wired 10/10 · Nano-bar AFTER wired 10/10 · alt AFTER 0/30 WAITING
+      <br><a class="home" href="/model-compare.html#nano-alt-matrix-board-pin-share">→ #nano-alt-matrix-board-pin-share</a> · <a class="home" href="/model-compare.html#nano-alt-matrix-picks">→ picks board</a> · <a class="home" href="/service-review.html#nano-alt-matrix-board-pin-share">→ service-review board-pin-share mirror</a>
     </div>
 
     <div class="honesty" id="nano-alt-matrix-board-filter-hint-honesty" data-marker="nano-alt-matrix-board-filter-hint board-filter-hint" data-filter-hint="1">
@@ -1862,7 +1868,7 @@ function updateBoardStatusBar(){
   }
 })();
 
-/* nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare · applyBoardShareDeepLink */
+/* nano-alt-matrix-board-share · board-share · data-board-share · copyBoardShare · applyBoardShareDeepLink · nano-alt-matrix-board-pin-share · board-pin-share · data-board-pin-share */
 function boardShareFilterParam(){
   return (typeof BOARD_FILTER_MODE!=='undefined' && BOARD_FILTER_MODE==='pilot') ? 'pilot-3' : 'all10';
 }
@@ -1883,12 +1889,14 @@ function boardShareCompactOn(){
   return !!(picks && picks.getAttribute('data-board-compact')==='1');
 }
 function boardShareParamsFromLocation(){
-  const out={pick:'', filter:'', compact:''};
+  /* board-pin-share · pin= alongside pick/filter/compact */
+  const out={pick:'', filter:'', compact:'', pin:''};
   try{
     const sp=new URLSearchParams(location.search||'');
     const qp=sp.get('pick'); if(qp && String(qp).trim()) out.pick=String(qp).trim();
     const qf=sp.get('filter'); if(qf && String(qf).trim()) out.filter=String(qf).trim();
     const qc=sp.get('compact'); if(qc!=null && String(qc).trim()!=='') out.compact=String(qc).trim();
+    const qpin=sp.get('pin'); if(qpin && String(qpin).trim()) out.pin=String(qpin).trim();
   }catch(e){}
   const h=location.hash||'';
   if(h && h.indexOf('access_token=')<0){
@@ -1899,26 +1907,49 @@ function boardShareParamsFromLocation(){
         const hpPick=hp.get('pick'); if(hpPick && String(hpPick).trim()) out.pick=String(hpPick).trim();
         const hpFilter=hp.get('filter'); if(hpFilter && String(hpFilter).trim()) out.filter=String(hpFilter).trim();
         const hpCompact=hp.get('compact'); if(hpCompact!=null && String(hpCompact).trim()!=='') out.compact=String(hpCompact).trim();
+        const hpPin=hp.get('pin'); if(hpPin && String(hpPin).trim()) out.pin=String(hpPin).trim();
       }catch(e){}
     }
   }
   return out;
 }
+function boardSharePinnedPickId(){
+  /* board-pin-share · current pin for copyBoardShare */
+  try{ if(typeof getBoardPinId==='function'){ const g=getBoardPinId(); if(g) return String(g).trim(); } }catch(e){}
+  try{ return String(localStorage.getItem('smh-board-pin')||'').trim(); }catch(e){ return ''; }
+}
+function boardSharePinIdValid(pinId){
+  pinId=String(pinId||'').trim();
+  if(!pinId) return false;
+  const root=document.getElementById('matrix-after-slots')||document.getElementById('nano-alt-matrix-picks');
+  if(!root) return false;
+  try{
+    const rows=root.querySelectorAll('tr[data-pick]');
+    for(let i=0;i<rows.length;i++){
+      if((rows[i].getAttribute('data-pick')||'')===pinId) return true;
+    }
+  }catch(e){}
+  return false;
+}
 function buildBoardShareHash(opts){
+  /* board-pin-share · include pin=<id> when set; omit if none */
   opts=opts||{};
   const parts=[];
   const pick=opts.pick!=null ? String(opts.pick||'').trim() : boardShareFocusedPickId();
   const filter=opts.filter!=null ? String(opts.filter||'').trim() : boardShareFilterParam();
   const compact = opts.compact!=null ? !!opts.compact : boardShareCompactOn();
+  const pin=opts.pin!=null ? String(opts.pin||'').trim() : boardSharePinnedPickId();
   if(pick) parts.push('pick='+encodeURIComponent(pick));
   if(filter) parts.push('filter='+encodeURIComponent(filter));
   if(compact) parts.push('compact=1');
+  if(pin) parts.push('pin='+encodeURIComponent(pin));
   return parts.length ? ('#'+parts.join('&')) : '';
 }
 function buildBoardShareUrl(opts){
   return 'https://savemyhistory.tech/model-compare.html'+(buildBoardShareHash(opts)||'');
 }
 async function copyBoardShare(){
+  /* board-pin-share · copyBoardShare includes pin= when pinned */
   const url=buildBoardShareUrl();
   const ok=await copyTextToClipboard(url);
   if(typeof setBoardToast==='function'){
@@ -1926,13 +1957,16 @@ async function copyBoardShare(){
     const p=boardShareFocusedPickId(); if(p) bits.push('pick='+p);
     bits.push('filter='+boardShareFilterParam());
     if(boardShareCompactOn()) bits.push('compact=1');
+    const pin=boardSharePinnedPickId(); if(pin) bits.push('pin='+pin);
     setBoardToast(ok, ok ? ('скопировано board-share · '+bits.join(' · ')) : 'ошибка');
   }
   return ok;
 }
 function applyBoardShareDeepLink(){
+  /* board-pin-share · apply pin= via smh-board-pin + pinPick/paint when valid */
   const p=boardShareParamsFromLocation();
   let applied=false;
+  let pinRestored=false;
   if(p.filter){
     const f=String(p.filter).trim().toLowerCase();
     let mode='all';
@@ -1949,7 +1983,24 @@ function applyBoardShareDeepLink(){
     focusPick(pick, {setDeepLink:false, persist:true});
     applied=true;
   }
+  if(p.pin){
+    const pinId=String(p.pin||'').trim();
+    if(pinId && boardSharePinIdValid(pinId)){
+      try{ localStorage.setItem('smh-board-pin', pinId); }catch(e){}
+      if(typeof BOARD_PIN_KEY!=='undefined' && typeof pinPick==='function'){
+        try{ pinPick(pinId, {toast:false, force:true, focus:true, setDeepLink:false}); }catch(e){}
+      } else if(typeof paintBoardPinBadges==='function'){
+        try{ paintBoardPinBadges(pinId); }catch(e){}
+      }
+      pinRestored=true;
+      applied=true;
+    }
+    /* invalid/missing pin: do not break share restore */
+  }
   if(typeof updateBoardStatusBar==='function') updateBoardStatusBar();
+  if(pinRestored && typeof setBoardToast==='function'){
+    setBoardToast(true, 'pin из share · '+String(p.pin||'').trim());
+  }
   return applied;
 }
 (function bindBoardShare(){
