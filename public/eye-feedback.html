@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-eye-feedback="1" data-eye-pro-refresh="1">
+<html lang="ru" data-eye-feedback="1" data-eye-pro-refresh="1" data-eye-catalog-fix="1" data-eye-top10="1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -29,6 +29,8 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.wait{opacity:.72;border-style:dashed}
+.waiting{display:flex;align-items:center;justify-content:center;position:absolute;inset:0;background:#efe6d6;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.02em;text-align:center;padding:16px;z-index:1}
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:820px){.ba{grid-template-columns:1fr}}
 .pane{position:relative;background:#faf6ef;border:1px solid var(--line);border-radius:12px;overflow:hidden}
@@ -49,11 +51,11 @@ a.home{color:var(--gold-d);text-decoration:none;font-size:14px}
 pre#preview{background:#faf6ef;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;overflow:auto;max-height:220px;margin-top:10px;display:none}
 </style>
 </head>
-<body class="eye-feedback" data-eye-feedback="1" data-eye-pro-refresh="1">
-<!-- nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-feedback · eye-feedback · data-eye-feedback -->
+<body class="eye-feedback" data-eye-feedback="1" data-eye-pro-refresh="1" data-eye-catalog-fix="1" data-eye-top10="1">
+<!-- nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh · nano-alt-eye-feedback · eye-feedback · data-eye-feedback · nano-alt-eye-catalog-fix · eye-catalog-fix · data-eye-catalog-fix · nano-alt-eye-top10 · eye-top10 · data-eye-top10 -->
 <div class="wrap" id="eye-feedback" data-eye-feedback="page" data-eye-pro-refresh="page">
   <div class="nav">
-    <span class="badge">nano-alt-eye-pro-refresh · FREE UI</span>
+    <span class="badge">nano-alt-eye-catalog-fix · eye-top10 · FREE UI</span>
     <a class="home" href="/">SaveMyHistory</a>
     <a class="home" href="/restorer.html">Restorer</a>
     <a class="home" href="/model-compare.html">Model compare</a>
@@ -61,8 +63,8 @@ pre#preview{background:#faf6ef;border:1px solid var(--line);border-radius:12px;p
   </div>
   <h1>Eye feedback · BEFORE / AFTER</h1>
   <p class="who">Роман: выбери кейс, чип модели/AFTER, сравни BEFORE|AFTER. На AFTER тяни прямоугольник, напиши правку, жми «Скопировать JSON» — буфер + файл для Telegram Q. spend_E=0.</p>
-  <div class="hero" id="nano-alt-eye-pro-refresh" data-marker="nano-alt-eye-pro-refresh eye-pro-refresh data-eye-pro-refresh nano-alt-eye-feedback eye-feedback data-eye-feedback">
-    <p><strong>Честно / Honest:</strong> слот только если файл есть · never sellable/etalon. couple Pro = <b>PASS</b> · fedora/frida Banana2 color = <b>PASS</b> · folk3 color = <b>PASS_CAVEAT</b> · doorway/wedding/family3 Pro = <b>FACE_FAIL</b>. Markers: nano-alt-eye-pro-refresh · eye-pro-refresh · data-eye-pro-refresh.</p>
+  <div class="hero" id="nano-alt-eye-catalog-fix" data-eye-catalog-fix="1" data-eye-top10="1" data-marker="nano-alt-eye-catalog-fix eye-catalog-fix data-eye-catalog-fix nano-alt-eye-top10 eye-top10 data-eye-top10 nano-alt-eye-pro-refresh eye-pro-refresh data-eye-pro-refresh nano-alt-eye-feedback eye-feedback data-eye-feedback">
+    <p><strong>Честно / Honest:</strong> AFTER только если файл совпадает с кейсом · Top-10 API слоты без файла = <b>WAITING</b> · never fake AFTER. couple Pro = <b>PASS</b> · fedora/frida Banana2 color = <b>PASS</b> · folk3 color = <b>PASS_CAVEAT</b> · doorway/wedding/family3 Pro = <b>FACE_FAIL</b>. Markers: nano-alt-eye-catalog-fix · eye-catalog-fix · data-eye-catalog-fix · nano-alt-eye-top10 · data-eye-top10.</p>
   </div>
   <div class="panel">
     <div class="meta">Кейс</div>
@@ -105,7 +107,7 @@ pre#preview{background:#faf6ef;border:1px solid var(--line);border-radius:12px;p
 const CASES = [
   {
     "id": "family3",
-    "title": "Family3",
+    "title": "Family3 · студия (м+ж+младенец)",
     "photoId": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5",
     "before": "/eye-ba/family3/before.jpg",
     "models": [
@@ -128,6 +130,56 @@ const CASES = [
         "id": "pro_color",
         "label": "color Banana Pro",
         "src": "/eye-ba/family3/pro_color.jpg"
+      },
+      {
+        "id": "grok-edit",
+        "label": "1 · grok-edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-pro",
+        "label": "2 · FLUX.1 Kontext [pro]",
+        "waiting": true
+      },
+      {
+        "id": "flux-2-pro-edit",
+        "label": "3 · FLUX.2 [pro] Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-max",
+        "label": "4 · FLUX.1 Kontext [max]",
+        "waiting": true
+      },
+      {
+        "id": "gpt-image-edit",
+        "label": "5 · GPT Image 1.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-5-lite",
+        "label": "6 · Seedream 5.0 Lite Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-4-5",
+        "label": "7 · Seedream 4.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "firered-image-edit",
+        "label": "8 · FireRed Image Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-fill-pro",
+        "label": "9 · FLUX Fill Pro",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-multi",
+        "label": "10 · FLUX Kontext multi",
+        "waiting": true
       }
     ],
     "honesty": {
@@ -138,7 +190,7 @@ const CASES = [
   },
   {
     "id": "folk3",
-    "title": "Folk3",
+    "title": "Folk3 · женщина + девочка",
     "photoId": "3a64c1f9-1733-4611-b43d-7448862db76e",
     "before": "/eye-ba/folk3/before.jpg",
     "models": [
@@ -156,6 +208,56 @@ const CASES = [
         "id": "color",
         "label": "color Banana2",
         "src": "/eye-ba/folk3/color.jpg"
+      },
+      {
+        "id": "grok-edit",
+        "label": "1 · grok-edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-pro",
+        "label": "2 · FLUX.1 Kontext [pro]",
+        "waiting": true
+      },
+      {
+        "id": "flux-2-pro-edit",
+        "label": "3 · FLUX.2 [pro] Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-max",
+        "label": "4 · FLUX.1 Kontext [max]",
+        "waiting": true
+      },
+      {
+        "id": "gpt-image-edit",
+        "label": "5 · GPT Image 1.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-5-lite",
+        "label": "6 · Seedream 5.0 Lite Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-4-5",
+        "label": "7 · Seedream 4.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "firered-image-edit",
+        "label": "8 · FireRed Image Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-fill-pro",
+        "label": "9 · FLUX Fill Pro",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-multi",
+        "label": "10 · FLUX Kontext multi",
+        "waiting": true
       }
     ],
     "honesty": {
@@ -166,7 +268,7 @@ const CASES = [
   },
   {
     "id": "frida",
-    "title": "Frida",
+    "title": "Frida · портрет женщины",
     "photoId": "8d88b2af-b252-4849-862b-5804ff4b4806",
     "before": "/eye-ba/frida/before.jpg",
     "models": [
@@ -184,6 +286,56 @@ const CASES = [
         "id": "color",
         "label": "color Banana2",
         "src": "/eye-ba/frida/color.jpg"
+      },
+      {
+        "id": "grok-edit",
+        "label": "1 · grok-edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-pro",
+        "label": "2 · FLUX.1 Kontext [pro]",
+        "waiting": true
+      },
+      {
+        "id": "flux-2-pro-edit",
+        "label": "3 · FLUX.2 [pro] Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-max",
+        "label": "4 · FLUX.1 Kontext [max]",
+        "waiting": true
+      },
+      {
+        "id": "gpt-image-edit",
+        "label": "5 · GPT Image 1.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-5-lite",
+        "label": "6 · Seedream 5.0 Lite Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-4-5",
+        "label": "7 · Seedream 4.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "firered-image-edit",
+        "label": "8 · FireRed Image Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-fill-pro",
+        "label": "9 · FLUX Fill Pro",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-multi",
+        "label": "10 · FLUX Kontext multi",
+        "waiting": true
       }
     ],
     "honesty": {
@@ -194,7 +346,7 @@ const CASES = [
   },
   {
     "id": "fedora",
-    "title": "Fedora",
+    "title": "Fedora · мужчина в шляпе",
     "photoId": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a",
     "before": "/eye-ba/fedora/before.jpg",
     "models": [
@@ -216,7 +368,7 @@ const CASES = [
       {
         "id": "pro_color",
         "label": "color Banana Pro",
-        "src": "/eye-ba/fedora/pro_color.jpg"
+        "waiting": true
       },
       {
         "id": "bake_banana2",
@@ -232,6 +384,56 @@ const CASES = [
         "id": "bake_gpt2",
         "label": "bake GPT2",
         "src": "/eye-ba/fedora/bake_gpt2.jpg"
+      },
+      {
+        "id": "grok-edit",
+        "label": "1 · grok-edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-pro",
+        "label": "2 · FLUX.1 Kontext [pro]",
+        "waiting": true
+      },
+      {
+        "id": "flux-2-pro-edit",
+        "label": "3 · FLUX.2 [pro] Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-max",
+        "label": "4 · FLUX.1 Kontext [max]",
+        "waiting": true
+      },
+      {
+        "id": "gpt-image-edit",
+        "label": "5 · GPT Image 1.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-5-lite",
+        "label": "6 · Seedream 5.0 Lite Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-4-5",
+        "label": "7 · Seedream 4.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "firered-image-edit",
+        "label": "8 · FireRed Image Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-fill-pro",
+        "label": "9 · FLUX Fill Pro",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-multi",
+        "label": "10 · FLUX Kontext multi",
+        "waiting": true
       }
     ],
     "honesty": {
@@ -242,7 +444,7 @@ const CASES = [
   },
   {
     "id": "couple",
-    "title": "Couple",
+    "title": "Couple · пара на улице",
     "photoId": "b856b364-c132-4df9-971b-9cb6bf340585",
     "before": "/eye-ba/couple/before.jpg",
     "models": [
@@ -265,6 +467,56 @@ const CASES = [
         "id": "pro_color",
         "label": "color Banana Pro",
         "src": "/eye-ba/couple/pro_color.jpg"
+      },
+      {
+        "id": "grok-edit",
+        "label": "1 · grok-edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-pro",
+        "label": "2 · FLUX.1 Kontext [pro]",
+        "waiting": true
+      },
+      {
+        "id": "flux-2-pro-edit",
+        "label": "3 · FLUX.2 [pro] Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-max",
+        "label": "4 · FLUX.1 Kontext [max]",
+        "waiting": true
+      },
+      {
+        "id": "gpt-image-edit",
+        "label": "5 · GPT Image 1.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-5-lite",
+        "label": "6 · Seedream 5.0 Lite Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-4-5",
+        "label": "7 · Seedream 4.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "firered-image-edit",
+        "label": "8 · FireRed Image Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-fill-pro",
+        "label": "9 · FLUX Fill Pro",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-multi",
+        "label": "10 · FLUX Kontext multi",
+        "waiting": true
       }
     ],
     "honesty": {
@@ -275,7 +527,7 @@ const CASES = [
   },
   {
     "id": "doorway",
-    "title": "Doorway",
+    "title": "Doorway · женщина + двое у двери",
     "photoId": "365f7cb5-9694-4f40-b43f-d39d47f064f2",
     "before": "/eye-ba/doorway/before.jpg",
     "models": [
@@ -298,6 +550,56 @@ const CASES = [
         "id": "pro_color",
         "label": "color Banana Pro",
         "src": "/eye-ba/doorway/pro_color.jpg"
+      },
+      {
+        "id": "grok-edit",
+        "label": "1 · grok-edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-pro",
+        "label": "2 · FLUX.1 Kontext [pro]",
+        "waiting": true
+      },
+      {
+        "id": "flux-2-pro-edit",
+        "label": "3 · FLUX.2 [pro] Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-max",
+        "label": "4 · FLUX.1 Kontext [max]",
+        "waiting": true
+      },
+      {
+        "id": "gpt-image-edit",
+        "label": "5 · GPT Image 1.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-5-lite",
+        "label": "6 · Seedream 5.0 Lite Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-4-5",
+        "label": "7 · Seedream 4.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "firered-image-edit",
+        "label": "8 · FireRed Image Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-fill-pro",
+        "label": "9 · FLUX Fill Pro",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-multi",
+        "label": "10 · FLUX Kontext multi",
+        "waiting": true
       }
     ],
     "honesty": {
@@ -308,7 +610,7 @@ const CASES = [
   },
   {
     "id": "wedding",
-    "title": "Wedding",
+    "title": "Wedding · свадебная группа",
     "photoId": "71c52fea-0a7c-42d7-8d11-d09c867f475d",
     "before": "/eye-ba/wedding/before.jpg",
     "models": [
@@ -331,6 +633,56 @@ const CASES = [
         "id": "pro_color",
         "label": "color Banana Pro",
         "src": "/eye-ba/wedding/pro_color.jpg"
+      },
+      {
+        "id": "grok-edit",
+        "label": "1 · grok-edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-pro",
+        "label": "2 · FLUX.1 Kontext [pro]",
+        "waiting": true
+      },
+      {
+        "id": "flux-2-pro-edit",
+        "label": "3 · FLUX.2 [pro] Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-max",
+        "label": "4 · FLUX.1 Kontext [max]",
+        "waiting": true
+      },
+      {
+        "id": "gpt-image-edit",
+        "label": "5 · GPT Image 1.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-5-lite",
+        "label": "6 · Seedream 5.0 Lite Edit",
+        "waiting": true
+      },
+      {
+        "id": "seedream-4-5",
+        "label": "7 · Seedream 4.5 Edit",
+        "waiting": true
+      },
+      {
+        "id": "firered-image-edit",
+        "label": "8 · FireRed Image Edit",
+        "waiting": true
+      },
+      {
+        "id": "flux-fill-pro",
+        "label": "9 · FLUX Fill Pro",
+        "waiting": true
+      },
+      {
+        "id": "flux-kontext-multi",
+        "label": "10 · FLUX Kontext multi",
+        "waiting": true
       }
     ],
     "honesty": {
@@ -375,8 +727,10 @@ function renderModelChips(c){
   root.innerHTML = '';
   c.models.forEach(m=>{
     const b = document.createElement('button');
-    b.type='button'; b.className='chip'+(m.id===state.modelId?' on':'');
-    b.textContent = m.label;
+    const wait = !m.src || m.waiting;
+    b.type='button'; b.className='chip'+(m.id===state.modelId?' on':'')+(wait?' wait':'');
+    b.textContent = wait ? (m.label+' · WAITING') : m.label;
+    b.title = wait ? 'нет AFTER файла · READY_DRY' : m.label;
     b.addEventListener('click', ()=>{
       state.modelId = m.id;
       state.region = null;
@@ -403,8 +757,21 @@ function render(){
     mark.hidden = true;
   }
   document.getElementById('beforeImg').src = c.before;
-  document.getElementById('afterImg').src = m.src;
-  document.getElementById('afterLab').textContent = 'AFTER · ' + m.label;
+  const afterImg = document.getElementById('afterImg');
+  const waitBox = document.getElementById('afterWaiting');
+  const wait = !m.src || m.waiting;
+  if(wait){
+    afterImg.removeAttribute('src');
+    afterImg.style.display = 'none';
+    waitBox.hidden = false;
+    waitBox.textContent = 'WAITING · ' + m.label + ' · нет AFTER';
+    document.getElementById('afterLab').textContent = 'AFTER · WAITING · ' + m.label;
+  } else {
+    afterImg.style.display = '';
+    afterImg.src = m.src;
+    waitBox.hidden = true;
+    document.getElementById('afterLab').textContent = 'AFTER · ' + m.label;
+  }
   updateRect();
 }
 
@@ -464,9 +831,10 @@ function buildPayload(){
   const m = currentModel(c);
   const note = (document.getElementById('note').value || '').trim();
   if(!note){ toast('Напиши текст правки'); return null; }
+  if(!m.src || m.waiting){ toast('Этот слот WAITING — нет AFTER файла'); return null; }
   if(!state.region){ toast('Сначала выдели область на AFTER'); return null; }
   return {
-    marker: 'nano-alt-eye-pro-refresh',
+    marker: 'nano-alt-eye-catalog-fix',
     page: 'https://savemyhistory.tech/eye-feedback.html',
     case: c.id,
     title: c.title,

@@ -1,231 +1,165 @@
 {
-  "family3": {
-    "id": "family3",
-    "title": "Family3",
-    "photo_id": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5",
-    "before": "before.jpg",
-    "afters": [
-      {
-        "id": "cf",
-        "label": "CF",
-        "file": "cf.jpg"
-      },
-      {
-        "id": "cf_nano",
-        "label": "CF→Nano authentic",
-        "file": "cf_nano.jpg"
-      },
-      {
-        "id": "color",
-        "label": "color Banana2",
-        "file": "color.jpg"
-      },
-      {
-        "id": "pro_color",
-        "label": "color Banana Pro",
-        "file": "pro_color.jpg"
+  "note": "eye-ba catalog · couple AFTER rebuilt from outbound 2026-08-10 · fedora pro_color WAITING (was bake dup) · top10 WAITING",
+  "top10": [
+    "grok-edit",
+    "flux-kontext-pro",
+    "flux-2-pro-edit",
+    "flux-kontext-max",
+    "gpt-image-edit",
+    "seedream-5-lite",
+    "seedream-4-5",
+    "firered-image-edit",
+    "flux-fill-pro",
+    "flux-kontext-multi"
+  ],
+  "cases": {
+    "family3": {
+      "before": "/eye-ba/family3/before.jpg",
+      "photo_id": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5",
+      "title": "Family3 · студия (м+ж+младенец)",
+      "models": {
+        "cf": "/eye-ba/family3/cf.jpg",
+        "cf_nano": "/eye-ba/family3/cf_nano.jpg",
+        "color": "/eye-ba/family3/color.jpg",
+        "pro_color": "/eye-ba/family3/pro_color.jpg",
+        "grok-edit": "WAITING",
+        "flux-kontext-pro": "WAITING",
+        "flux-2-pro-edit": "WAITING",
+        "flux-kontext-max": "WAITING",
+        "gpt-image-edit": "WAITING",
+        "seedream-5-lite": "WAITING",
+        "seedream-4-5": "WAITING",
+        "firered-image-edit": "WAITING",
+        "flux-fill-pro": "WAITING",
+        "flux-kontext-multi": "WAITING"
       }
-    ],
-    "note": "Pro color FACE_FAIL · Banana2 color FAIL identity/plastic",
-    "verdict": "FACE_FAIL",
-    "verdict_ru": "FACE_FAIL · лицо/глаза Pro color",
-    "verdict_en": "FACE_FAIL · Pro color face/eyes"
-  },
-  "folk3": {
-    "id": "folk3",
-    "title": "Folk3",
-    "photo_id": "3a64c1f9-1733-4611-b43d-7448862db76e",
-    "before": "before.jpg",
-    "afters": [
-      {
-        "id": "cf",
-        "label": "CF",
-        "file": "cf.jpg"
-      },
-      {
-        "id": "cf_nano",
-        "label": "CF→Nano authentic",
-        "file": "cf_nano.jpg"
-      },
-      {
-        "id": "color",
-        "label": "color Banana2",
-        "file": "color.jpg"
+    },
+    "folk3": {
+      "before": "/eye-ba/folk3/before.jpg",
+      "photo_id": "3a64c1f9-1733-4611-b43d-7448862db76e",
+      "title": "Folk3 · женщина + девочка",
+      "models": {
+        "cf": "/eye-ba/folk3/cf.jpg",
+        "cf_nano": "/eye-ba/folk3/cf_nano.jpg",
+        "color": "/eye-ba/folk3/color.jpg",
+        "grok-edit": "WAITING",
+        "flux-kontext-pro": "WAITING",
+        "flux-2-pro-edit": "WAITING",
+        "flux-kontext-max": "WAITING",
+        "gpt-image-edit": "WAITING",
+        "seedream-5-lite": "WAITING",
+        "seedream-4-5": "WAITING",
+        "firered-image-edit": "WAITING",
+        "flux-fill-pro": "WAITING",
+        "flux-kontext-multi": "WAITING"
       }
-    ],
-    "note": "color Banana2 PASS_CAVEAT · muted/grayish skin",
-    "verdict": "PASS_CAVEAT",
-    "verdict_ru": "PASS_CAVEAT · цвет ок, кожа сероватая",
-    "verdict_en": "PASS_CAVEAT · color ok, skin grayish"
-  },
-  "frida": {
-    "id": "frida",
-    "title": "Frida",
-    "photo_id": "8d88b2af-b252-4849-862b-5804ff4b4806",
-    "before": "before.jpg",
-    "afters": [
-      {
-        "id": "cf",
-        "label": "CF",
-        "file": "cf.jpg"
-      },
-      {
-        "id": "cf_nano",
-        "label": "CF→Nano authentic",
-        "file": "cf_nano.jpg"
-      },
-      {
-        "id": "color",
-        "label": "color Banana2",
-        "file": "color.jpg"
+    },
+    "frida": {
+      "before": "/eye-ba/frida/before.jpg",
+      "photo_id": "8d88b2af-b252-4849-862b-5804ff4b4806",
+      "title": "Frida · портрет женщины",
+      "models": {
+        "cf": "/eye-ba/frida/cf.jpg",
+        "cf_nano": "/eye-ba/frida/cf_nano.jpg",
+        "color": "/eye-ba/frida/color.jpg",
+        "grok-edit": "WAITING",
+        "flux-kontext-pro": "WAITING",
+        "flux-2-pro-edit": "WAITING",
+        "flux-kontext-max": "WAITING",
+        "gpt-image-edit": "WAITING",
+        "seedream-5-lite": "WAITING",
+        "seedream-4-5": "WAITING",
+        "firered-image-edit": "WAITING",
+        "flux-fill-pro": "WAITING",
+        "flux-kontext-multi": "WAITING"
       }
-    ],
-    "note": "color Banana2 PASS",
-    "verdict": "PASS",
-    "verdict_ru": "PASS · Banana2 color",
-    "verdict_en": "PASS · Banana2 color"
-  },
-  "fedora": {
-    "id": "fedora",
-    "title": "Fedora",
-    "photo_id": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a",
-    "before": "before.jpg",
-    "afters": [
-      {
-        "id": "cf",
-        "label": "CF",
-        "file": "cf.jpg"
-      },
-      {
-        "id": "cf_nano",
-        "label": "CF→Nano authentic",
-        "file": "cf_nano.jpg"
-      },
-      {
-        "id": "color",
-        "label": "color Banana2",
-        "file": "color.jpg"
-      },
-      {
-        "id": "pro_color",
-        "label": "color Banana Pro",
-        "file": "pro_color.jpg"
-      },
-      {
-        "id": "bake_banana2",
-        "label": "bake Banana2",
-        "file": "bake_banana2.jpg"
-      },
-      {
-        "id": "bake_banana_pro",
-        "label": "bake Banana Pro",
-        "file": "bake_banana_pro.jpg"
-      },
-      {
-        "id": "bake_gpt2",
-        "label": "bake GPT2",
-        "file": "bake_gpt2.jpg"
+    },
+    "fedora": {
+      "before": "/eye-ba/fedora/before.jpg",
+      "photo_id": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a",
+      "title": "Fedora · мужчина в шляпе",
+      "models": {
+        "cf": "/eye-ba/fedora/cf.jpg",
+        "cf_nano": "/eye-ba/fedora/cf_nano.jpg",
+        "color": "/eye-ba/fedora/color.jpg",
+        "pro_color": "WAITING",
+        "bake_banana2": "/eye-ba/fedora/bake_banana2.jpg",
+        "bake_banana_pro": "/eye-ba/fedora/bake_banana_pro.jpg",
+        "bake_gpt2": "/eye-ba/fedora/bake_gpt2.jpg",
+        "grok-edit": "WAITING",
+        "flux-kontext-pro": "WAITING",
+        "flux-2-pro-edit": "WAITING",
+        "flux-kontext-max": "WAITING",
+        "gpt-image-edit": "WAITING",
+        "seedream-5-lite": "WAITING",
+        "seedream-4-5": "WAITING",
+        "firered-image-edit": "WAITING",
+        "flux-fill-pro": "WAITING",
+        "flux-kontext-multi": "WAITING"
       }
-    ],
-    "note": "color Banana2 PASS · bake Banana Pro available",
-    "verdict": "PASS",
-    "verdict_ru": "PASS · Banana2 color",
-    "verdict_en": "PASS · Banana2 color"
-  },
-  "couple": {
-    "id": "couple",
-    "title": "Couple",
-    "photo_id": "b856b364-c132-4df9-971b-9cb6bf340585",
-    "before": "before.jpg",
-    "afters": [
-      {
-        "id": "cf",
-        "label": "CF",
-        "file": "cf.jpg"
-      },
-      {
-        "id": "cf_nano",
-        "label": "CF→Nano authentic",
-        "file": "cf_nano.jpg"
-      },
-      {
-        "id": "color",
-        "label": "color Banana2",
-        "file": "color.jpg"
-      },
-      {
-        "id": "pro_color",
-        "label": "color Banana Pro",
-        "file": "pro_color.jpg"
+    },
+    "couple": {
+      "before": "/eye-ba/couple/before.jpg",
+      "photo_id": "b856b364-c132-4df9-971b-9cb6bf340585",
+      "title": "Couple · пара на улице",
+      "models": {
+        "cf": "/eye-ba/couple/cf.jpg",
+        "cf_nano": "/eye-ba/couple/cf_nano.jpg",
+        "color": "/eye-ba/couple/color.jpg",
+        "pro_color": "/eye-ba/couple/pro_color.jpg",
+        "grok-edit": "WAITING",
+        "flux-kontext-pro": "WAITING",
+        "flux-2-pro-edit": "WAITING",
+        "flux-kontext-max": "WAITING",
+        "gpt-image-edit": "WAITING",
+        "seedream-5-lite": "WAITING",
+        "seedream-4-5": "WAITING",
+        "firered-image-edit": "WAITING",
+        "flux-fill-pro": "WAITING",
+        "flux-kontext-multi": "WAITING"
       }
-    ],
-    "note": "Pro color PASS",
-    "verdict": "PASS",
-    "verdict_ru": "PASS · Banana Pro color",
-    "verdict_en": "PASS · Banana Pro color"
-  },
-  "doorway": {
-    "id": "doorway",
-    "title": "Doorway",
-    "photo_id": "365f7cb5-9694-4f40-b43f-d39d47f064f2",
-    "before": "before.jpg",
-    "afters": [
-      {
-        "id": "cf",
-        "label": "CF",
-        "file": "cf.jpg"
-      },
-      {
-        "id": "cf_nano",
-        "label": "CF→Nano authentic",
-        "file": "cf_nano.jpg"
-      },
-      {
-        "id": "color",
-        "label": "color Banana2",
-        "file": "color.jpg"
-      },
-      {
-        "id": "pro_color",
-        "label": "color Banana Pro",
-        "file": "pro_color.jpg"
+    },
+    "doorway": {
+      "before": "/eye-ba/doorway/before.jpg",
+      "photo_id": "365f7cb5-9694-4f40-b43f-d39d47f064f2",
+      "title": "Doorway · женщина + двое у двери",
+      "models": {
+        "cf": "/eye-ba/doorway/cf.jpg",
+        "cf_nano": "/eye-ba/doorway/cf_nano.jpg",
+        "color": "/eye-ba/doorway/color.jpg",
+        "pro_color": "/eye-ba/doorway/pro_color.jpg",
+        "grok-edit": "WAITING",
+        "flux-kontext-pro": "WAITING",
+        "flux-2-pro-edit": "WAITING",
+        "flux-kontext-max": "WAITING",
+        "gpt-image-edit": "WAITING",
+        "seedream-5-lite": "WAITING",
+        "seedream-4-5": "WAITING",
+        "firered-image-edit": "WAITING",
+        "flux-fill-pro": "WAITING",
+        "flux-kontext-multi": "WAITING"
       }
-    ],
-    "note": "Pro color FACE_FAIL",
-    "verdict": "FACE_FAIL",
-    "verdict_ru": "FACE_FAIL · Pro color лицо",
-    "verdict_en": "FACE_FAIL · Pro color face"
-  },
-  "wedding": {
-    "id": "wedding",
-    "title": "Wedding",
-    "photo_id": "71c52fea-0a7c-42d7-8d11-d09c867f475d",
-    "before": "before.jpg",
-    "afters": [
-      {
-        "id": "cf",
-        "label": "CF",
-        "file": "cf.jpg"
-      },
-      {
-        "id": "cf_nano",
-        "label": "CF→Nano authentic",
-        "file": "cf_nano.jpg"
-      },
-      {
-        "id": "color",
-        "label": "color Banana2",
-        "file": "color.jpg"
-      },
-      {
-        "id": "pro_color",
-        "label": "color Banana Pro",
-        "file": "pro_color.jpg"
+    },
+    "wedding": {
+      "before": "/eye-ba/wedding/before.jpg",
+      "photo_id": "71c52fea-0a7c-42d7-8d11-d09c867f475d",
+      "title": "Wedding · свадебная группа",
+      "models": {
+        "cf": "/eye-ba/wedding/cf.jpg",
+        "cf_nano": "/eye-ba/wedding/cf_nano.jpg",
+        "color": "/eye-ba/wedding/color.jpg",
+        "pro_color": "/eye-ba/wedding/pro_color.jpg",
+        "grok-edit": "WAITING",
+        "flux-kontext-pro": "WAITING",
+        "flux-2-pro-edit": "WAITING",
+        "flux-kontext-max": "WAITING",
+        "gpt-image-edit": "WAITING",
+        "seedream-5-lite": "WAITING",
+        "seedream-4-5": "WAITING",
+        "firered-image-edit": "WAITING",
+        "flux-fill-pro": "WAITING",
+        "flux-kontext-multi": "WAITING"
       }
-    ],
-    "note": "Pro color FACE_FAIL",
-    "verdict": "FACE_FAIL",
-    "verdict_ru": "FACE_FAIL · Pro color лицо",
-    "verdict_en": "FACE_FAIL · Pro color face"
+    }
   }
 }

@@ -1,11 +1,26 @@
 {
+  "note": "eye_review catalog · titles scene-locked · top10 WAITING (no alt AFTER assets)",
+  "top10": [
+    "grok-edit",
+    "flux-kontext-pro",
+    "flux-2-pro-edit",
+    "flux-kontext-max",
+    "gpt-image-edit",
+    "seedream-5-lite",
+    "seedream-4-5",
+    "firered-image-edit",
+    "flux-fill-pro",
+    "flux-kontext-multi"
+  ],
   "family3": {
     "before": "family3_before.jpg",
     "models": {
       "cf-nano-authentic": "family3_cf-nano-authentic.png",
-      "banana2-color": "family3_banana2-color.png"
+      "banana2-color": "family3_banana2-color.png",
+      "banana-pro-color": "family3_banana-pro-color.png"
     },
-    "photo_id": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5"
+    "photo_id": "e4d0cc93-f043-4c3d-99cf-0bbdcaf50ed5",
+    "title": "Family3 · студия (м+ж+младенец)"
   },
   "folk3": {
     "before": "folk3_before.jpg",
@@ -13,7 +28,8 @@
       "cf-nano-authentic": "folk3_cf-nano-authentic.png",
       "banana2-color": "folk3_banana2-color.png"
     },
-    "photo_id": "3a64c1f9-1733-4611-b43d-7448862db76e"
+    "photo_id": "3a64c1f9-1733-4611-b43d-7448862db76e",
+    "title": "Folk3 · женщина + девочка"
   },
   "frida": {
     "before": "frida_before.jpg",
@@ -21,7 +37,8 @@
       "cf-nano-authentic": "frida_cf-nano-authentic.png",
       "banana2-color": "frida_banana2-color.png"
     },
-    "photo_id": "8d88b2af-b252-4849-862b-5804ff4b4806"
+    "photo_id": "8d88b2af-b252-4849-862b-5804ff4b4806",
+    "title": "Frida · портрет женщины"
   },
   "fedora": {
     "before": "fedora_before.jpg",
@@ -31,7 +48,8 @@
       "bake-gpt2": "fedora_bake-gpt2.png",
       "bake-banana-pro": "fedora_bake-banana-pro.png"
     },
-    "photo_id": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a"
+    "photo_id": "64fd995d-6af2-4e4e-9b3e-d4dbecb1cd3a",
+    "title": "Fedora · мужчина в шляпе"
   },
   "couple": {
     "before": "couple_before.jpg",
@@ -40,7 +58,8 @@
       "banana2-color": "couple_banana2-color.png",
       "banana-pro-color": "couple_banana-pro-color.png"
     },
-    "photo_id": "b856b364-c132-4df9-971b-9cb6bf340585"
+    "photo_id": "b856b364-c132-4df9-971b-9cb6bf340585",
+    "title": "Couple · пара на улице"
   },
   "doorway": {
     "before": "doorway_before.jpg",
@@ -49,7 +68,8 @@
       "banana2-color": "doorway_banana2-color.png",
       "banana-pro-color": "doorway_banana-pro-color.png"
     },
-    "photo_id": "365f7cb5-9694-4f40-b43f-d39d47f064f2"
+    "photo_id": "365f7cb5-9694-4f40-b43f-d39d47f064f2",
+    "title": "Doorway · женщина + двое у двери"
   },
   "wedding": {
     "before": "wedding_before.jpg",
@@ -58,6 +78,7 @@
       "banana2-color": "wedding_banana2-color.png",
       "banana-pro-color": "wedding_banana-pro-color.png"
     },
-    "photo_id": "71c52fea-0a7c-42d7-8d11-d09c867f475d"
+    "photo_id": "71c52fea-0a7c-42d7-8d11-d09c867f475d",
+    "title": "Wedding · свадебная группа"
   }
 }
