@@ -39,7 +39,7 @@
   --smh-radius:6px;
   --smh-radius-btn:8px;
   --smh-ease:cubic-bezier(.22,.61,.36,1);
-  --reveal:18%;
+  --reveal:12%;
   --hero-exit:0;
   --album-in:0;
   --plane-in:0;
@@ -229,7 +229,7 @@ a{color:inherit}
 
 /* BA pin chapter — stage only sticky; caption below; no sideways clip */
 .pin-chapter{
-  position:relative;min-height:175vh;
+  position:relative;min-height:132vh;
   overflow-x:clip;overflow-x:hidden;
 }
 .pin-chapter__intro{
@@ -491,10 +491,11 @@ a{color:inherit}
   .hero{overflow:hidden}
   .hero__media video,.hero__media img{transform:none;object-position:center 42%}
   .hero__veil{transform:none}
-  .hero__copy{padding-top:18vh;padding-bottom:clamp(64px,16vh,120px)}
-  .brand{font-size:clamp(2.85rem,14vw,4.2rem)}
-  .hero h1{font-size:1.15rem;margin-top:14px}
-  .pin-chapter{min-height:155vh;overflow-x:hidden}
+  .hero__copy{padding-top:22vh;padding-bottom:clamp(64px,16vh,120px)}
+  .brand{font-size:clamp(2.1rem,10.5vw,3.2rem);opacity:.92}
+  .hero h1{font-size:clamp(1.35rem,5.2vw,1.65rem);margin-top:16px;color:rgba(243,238,230,.9);max-width:16ch}
+  .hero__lead{font-size:15px;color:rgba(243,238,230,.7)}
+  .pin-chapter{min-height:118vh;overflow-x:hidden}
   .pin-chapter__intro .section__lead{margin-bottom:0}
   .pin-chapter__stage{
     min-height:100svh;min-height:100vh;padding:10px 0;
@@ -506,6 +507,10 @@ a{color:inherit}
   .pin-chapter__after{padding-top:20px}
   .album__frame{aspect-ratio:5/4}
   .invite{max-width:100%}
+  .archive__hint{display:none}
+  .archive__story{display:none}
+  .archive__meta{margin-bottom:8px}
+  .archive__tap{margin-top:8px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -575,7 +580,7 @@ a{color:inherit}
   <div class="wrap pin-chapter__intro">
     <p class="section__eyebrow">Правда на бумаге</p>
     <h2 id="truth-title">Почти стёртое — и то же лицо, сбережённое.</h2>
-    <p class="section__lead">Один честный проход. Без «2&nbsp;мин», без чужого лица, без investor-theatre.</p>
+    <p class="section__lead">Один честный проход. Без «2&nbsp;мин», без чужого лица, без громкой сцены.</p>
   </div>
   <div class="pin-chapter__stage" data-pin-stage="1">
     <div class="wrap pin-chapter__plane" data-story-obj="ba">
@@ -584,7 +589,7 @@ a{color:inherit}
           <span><i class="dot"></i> Уходит</span>
           <span><i class="dot dot--after"></i> Сбережено</span>
         </div>
-        <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
+        <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="true">Было / Стало</button>
       </div>
       <div class="ba-shell" id="ba-shell">
         <div class="ba" id="ba" role="img" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
@@ -641,7 +646,37 @@ a{color:inherit}
           <img class="arch-after" src="/assets/case_c7_after.jpg" alt="То же лицо после бережной реставрации" width="1200" height="900" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
-        <p class="archive__hint">Лицо важнее красоты. Если узнавание ломается — это не наш путь.</p>
+        <p class="archive__hint">Пара, которую узнаёшь сразу. Лицо важнее красоты.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o15" aria-pressed="false">
+        <div class="archive__meta"><strong>Зимнее тепло семьи</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_o15_before.jpg" alt="Зимнее семейное фото до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_o15_after.jpg" alt="То же семейное фото сбережённое" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
+        </div>
+        <p class="archive__hint">Тихий цвет, живая история — без лишнего блеска.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_w150" aria-pressed="false">
+        <div class="archive__meta"><strong>Наряд и взгляд</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_w150_before.jpg" alt="Пара в народном костюме до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_w150_after.jpg" alt="Та же пара сбережённая" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
+        </div>
+        <p class="archive__hint">Ткань и лицо держатся вместе — страница, которую хочется перевернуть ещё раз.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c8" aria-pressed="false">
+        <div class="archive__meta"><strong>Мама и малыш</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_c8_before.jpg" alt="Мама с малышом до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c8_after.jpg" alt="Мама с малышом после" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
+        </div>
+        <p class="archive__hint">Близкий кадр рода — не ретушь «красивее», а возврат узнавания.</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
       <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c6" aria-pressed="false">
@@ -654,64 +689,34 @@ a{color:inherit}
         <p class="archive__hint">Бумага дышит, человек остаётся собой.</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c10" aria-pressed="false">
-        <div class="archive__meta"><strong>Почти стёртое</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
-        <div class="archive__pair">
-          <img class="arch-before" src="/assets/case_c10_before.jpg" alt="Выцветающее фото до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c10_after.jpg" alt="То же фото сбережённое" width="1000" height="800" loading="lazy" decoding="async">
-          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
-        </div>
-        <p class="archive__hint">FADING PAST — повод начать сейчас, не «потом».</p>
-        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
-      </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c8" aria-pressed="false">
-        <div class="archive__meta"><strong>Семейный кадр</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
-        <div class="archive__pair">
-          <img class="arch-before" src="/assets/case_c8_before.jpg" alt="Семейный кадр до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c8_after.jpg" alt="Семейный кадр после" width="1000" height="800" loading="lazy" decoding="async">
-          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
-        </div>
-        <p class="archive__hint">Не ретушь «красивее» — возврат узнавания.</p>
-        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
-      </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c9s" aria-pressed="false">
-        <div class="archive__meta"><strong>Мягкий свет лица</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
-        <div class="archive__pair">
-          <img class="arch-before" src="/assets/case_c9s_before.jpg" alt="Портрет до бережной реставрации" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c9s_after.jpg" alt="Тот же портрет сбережён" width="1000" height="800" loading="lazy" decoding="async">
-          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
-        </div>
-        <p class="archive__hint">Лёгкая пара: бумага не кричит, лицо остаётся своим.</p>
-        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
-      </article>
       <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o110" aria-pressed="false">
-        <div class="archive__meta"><strong>Архивная тишина</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+        <div class="archive__meta"><strong>Трое зимой</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
-          <img class="arch-before" src="/assets/case_o110_before.jpg" alt="Архивный снимок до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_o110_after.jpg" alt="Архивный снимок после" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-before" src="/assets/case_o110_before.jpg" alt="Зимний снимок троих до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_o110_after.jpg" alt="Зимний снимок троих после" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
-        <p class="archive__hint">Средний вес, честный проход — сервис на фото, не в слогане.</p>
+        <p class="archive__hint">Тихий проход — сервис виден на лицах, не в громких словах.</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c9g" aria-pressed="false">
-        <div class="archive__meta"><strong>Глаза как ворота</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c10" aria-pressed="false">
+        <div class="archive__meta"><strong>У дома рода</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
-          <img class="arch-before" src="/assets/case_c9g_before.jpg" alt="Портрет с уходящим взглядом" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c9g_after.jpg" alt="Тот же взгляд сбережён" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-before" src="/assets/case_c10_before.jpg" alt="Семья у дома до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c10_after.jpg" alt="Семья у дома сбережённая" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
-        <p class="archive__hint">EYE / GAZE: живой взгляд — или отказ.</p>
+        <p class="archive__hint">Почти стёртое — повод начать сейчас, не «потом».</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o15" aria-pressed="false">
-        <div class="archive__meta"><strong>Свет на бумаге</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o55" aria-pressed="false">
+        <div class="archive__meta"><strong>Праздник рода</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
-          <img class="arch-before" src="/assets/case_o15_before.jpg" alt="Архивный снимок до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_o15_after.jpg" alt="Архивный снимок после" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-before" src="/assets/case_o55_before.jpg" alt="Свадебная группа до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_o55_after.jpg" alt="Свадебная группа после" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
-        <p class="archive__hint">Сервис виден здесь: бережность, не эффект ради эффекта.</p>
+        <p class="archive__hint">День, где собрались вместе — взгляд и тепло остаются своими.</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
     </div>
@@ -726,14 +731,14 @@ a{color:inherit}
     <p class="section__lead">Сначала комната и правда. Сервис — мягко, через invite. Без холодного free restore.</p>
     <div class="invite-card">
       <h3>Есть код?</h3>
-      <p>Redeem открывает кабинет. Коды не раздаём с этой страницы — волна по приглашению.</p>
+      <p>Код открывает кабинет. С этой страницы коды не раздаём — только тихая волна по приглашению.</p>
       <label for="invite-code">Код приглашения</label>
       <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled>
       <div class="actions">
         <span class="btn btn--ink" aria-hidden="true">Активировать</span>
         <a class="invite-soft" href="/waitlist.html">Нет кода — тихий waitlist</a>
       </div>
-      <p class="hint">Soft-wave · коды не посеяны · без free restore</p>
+      <p class="hint">Тихая волна · коды ещё не посеяны · без холодного входа</p>
     </div>
   </div>
 </section>
@@ -746,7 +751,7 @@ a{color:inherit}
       <a href="/waitlist.html">Waitlist</a>
       <a href="/gallery.html">Галерея</a>
     </nav>
-    <p>SaveMyHistory · facade-lab · дверь A · лампа над альбомом · Cold Path B · не продакшен</p>
+    <p>SaveMyHistory · дверь A · лампа над альбомом · тихая комната для хранителя</p>
   </div>
 </footer>
 
@@ -766,7 +771,7 @@ a{color:inherit}
   var invite = document.getElementById('invite');
   var toggleBtn = document.getElementById('ba-toggle');
   var dragging = false;
-  var showingAfter = true;
+  var showingAfter = false;
   var baScrubbed = false;
   var ticking = false;
 
@@ -849,8 +854,8 @@ a{color:inherit}
     root.style.setProperty('--ba-exit', String(baExit));
 
     if(baShell && ba && !baScrubbed && !dragging){
-      var wipeT = clamp((pinP - 0.16) / 0.52, 0, 1);
-      setReveal(16 + easeOut(wipeT) * 58);
+      var wipeT = clamp((pinP - 0.12) / 0.48, 0, 1);
+      setReveal(12 + easeOut(wipeT) * 62);
     }
 
     root.style.setProperty('--honest-in', String(enterProgress(honesty, 0.86, 0.5)));
@@ -881,7 +886,7 @@ a{color:inherit}
   if(reduce){
     bus();
   } else {
-    setReveal(16);
+    setReveal(12);
     bus();
     window.addEventListener('scroll', requestBus, {passive:true});
     window.addEventListener('resize', requestBus, {passive:true});
