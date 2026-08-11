@@ -23,7 +23,7 @@
   --smh-amber:#B07A3A;
   --smh-amber-deep:#8C5E28;
   --smh-amber-soft:rgba(176,122,58,.16);
-  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.08) 0%,rgba(28,25,21,.28) 48%,rgba(28,25,21,.72) 100%);
+  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.04) 0%,rgba(28,25,21,.18) 42%,rgba(28,25,21,.62) 100%);
   --smh-ok:#3E6B4F;
   --smh-fail:#7A3B2E;
   --smh-space-4:24px;
@@ -106,38 +106,39 @@ a{color:inherit}
   display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
   min-height:100svh;min-height:100vh;
   padding:clamp(24px,4vw,48px);
-  padding-bottom:clamp(56px,12vh,110px);
+  padding-bottom:clamp(72px,14vh,128px);
   max-width:720px;
 }
 .brand{
   font-family:var(--smh-font-display);
   font-weight:600;
-  font-size:clamp(2.7rem,8vw,5.2rem);
-  line-height:.92;letter-spacing:-.025em;
-  color:#F3EEE6;margin-bottom:18px;
-  opacity:0;animation:heroFade .7s var(--smh-ease) .22s forwards;
+  font-size:clamp(3rem,9vw,5.6rem);
+  line-height:.9;letter-spacing:-.03em;
+  color:#F3EEE6;margin-bottom:0;
+  opacity:0;animation:heroFade .85s var(--smh-ease) .18s forwards;
+  text-shadow:0 10px 40px rgba(28,25,21,.28);
 }
 .brand .mark{color:#E2B87A}
 .hero h1{
   font-family:var(--smh-font-display);
   font-weight:500;
-  font-size:var(--smh-fs-hero);
-  line-height:1.2;letter-spacing:-.02em;
-  color:#F3EEE6;max-width:16ch;margin-bottom:14px;
-  opacity:0;animation:heroFade .7s var(--smh-ease) .4s forwards;
+  font-size:clamp(1.2rem,2.2vw,1.55rem);
+  line-height:1.25;letter-spacing:-.015em;
+  color:rgba(243,238,230,.78);max-width:18ch;margin:18px 0 0;
+  opacity:0;animation:heroFade .8s var(--smh-ease) 1.15s forwards;
 }
 .hero__lead{
-  font-size:clamp(15px,1.6vw,17px);
-  color:rgba(243,238,230,.84);
-  max-width:28ch;
-  opacity:0;animation:heroFade .7s var(--smh-ease) .55s forwards;
+  font-size:clamp(14px,1.45vw,16px);
+  color:rgba(243,238,230,.62);
+  max-width:26ch;margin-top:10px;
+  opacity:0;animation:heroFade .8s var(--smh-ease) 1.55s forwards;
 }
 .scroll-cue{
-  position:absolute;z-index:5;left:50%;bottom:22px;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  color:rgba(243,238,230,.58);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  font-weight:600;pointer-events:none;
-  opacity:0;animation:heroFade .7s var(--smh-ease) .85s forwards;
+  position:absolute;z-index:5;left:50%;bottom:18px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:rgba(243,238,230,.38);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:500;pointer-events:none;
+  opacity:0;animation:heroFade .9s var(--smh-ease) 2.2s forwards;
 }
 .scroll-cue i{
   width:1px;height:28px;background:linear-gradient(180deg,rgba(226,184,122,.05),rgba(226,184,122,.75));
@@ -217,40 +218,55 @@ a{color:inherit}
 }
 .step p{color:var(--smh-ink-soft);font-size:.95rem;max-width:36ch}
 
-/* BA pin chapter */
-.pin-chapter{position:relative;min-height:175vh}
-.pin-chapter__intro{padding-bottom:clamp(20px,3vh,36px)}
+/* BA pin chapter — stage only sticky; caption below; no sideways clip */
+.pin-chapter{
+  position:relative;min-height:175vh;
+  overflow-x:clip;overflow-x:hidden;
+}
+.pin-chapter__intro{
+  position:relative;z-index:1;
+  padding-bottom:clamp(16px,2.5vh,28px);
+}
 .pin-chapter__stage{
   position:sticky;top:0;
   min-height:100svh;min-height:100vh;
   display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(18px,3.5vh,36px) 0;z-index:2;
+  padding:clamp(12px,2.5vh,28px) 0;z-index:2;
+  overflow:hidden;isolation:isolate;
+  width:100%;max-width:100vw;
 }
 .pin-chapter__plane{
+  width:100%;max-width:100%;
   opacity:calc(var(--plane-in) * (1 - var(--plane-out) * .9) * (1 - var(--ba-exit) * .8));
   transform:translate3d(0, calc((1 - var(--plane-in)) * 14px + var(--plane-out) * -10px), 0);
   will-change:opacity,transform;
 }
 .pin-chapter__after{
-  padding-top:clamp(10px,2.5vh,24px);
+  position:relative;z-index:1;
+  padding:clamp(18px,3vh,32px) 0 var(--smh-space-5);
   opacity:calc(var(--plane-in) * (1 - var(--ba-exit) * .65));
 }
 .proof-meta{
-  display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;
-  justify-content:space-between;margin-bottom:16px;
+  display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;
+  justify-content:space-between;margin-bottom:12px;
+  width:100%;max-width:100%;
 }
-.proof-labels{display:flex;gap:16px;font-size:13px;color:var(--smh-mute);font-weight:500}
+.proof-labels{display:flex;gap:14px;font-size:12px;color:var(--smh-mute);font-weight:500}
 .proof-labels span{display:inline-flex;align-items:center;gap:6px}
-.proof-labels .dot{width:8px;height:8px;border-radius:2px;background:var(--smh-mute)}
+.proof-labels .dot{width:8px;height:8px;border-radius:2px;background:var(--smh-mute);flex:0 0 auto}
 .proof-labels .dot--after{background:var(--smh-amber)}
 .ba-shell{
   position:relative;border-radius:var(--smh-radius);overflow:hidden;
-  background:var(--smh-ink);aspect-ratio:4/5;max-height:min(70vh,720px);
-  margin-inline:auto;border:1px solid rgba(28,25,21,.1);
+  background:var(--smh-ink);aspect-ratio:4/5;max-height:min(62vh,640px);
+  width:100%;max-width:min(100%,920px);margin-inline:auto;
+  border:1px solid rgba(28,25,21,.1);
   box-shadow:0 1px 0 rgba(28,25,21,.04),0 26px 56px -36px rgba(28,25,21,.34);
 }
-@media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(66vh,620px)}}
-.ba{position:absolute;inset:0;cursor:ew-resize;touch-action:none;user-select:none}
+@media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(64vh,600px)}}
+.ba{
+  position:absolute;inset:0;cursor:ew-resize;touch-action:none;user-select:none;
+  overflow:hidden;contain:paint;
+}
 .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;pointer-events:none}
 .ba .before{z-index:1}
 .ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
@@ -267,7 +283,7 @@ a{color:inherit}
   background:var(--smh-amber);color:var(--smh-ink);
   display:grid;place-items:center;font-size:15px;font-weight:700;z-index:4;pointer-events:none;
 }
-.ba-caption{color:var(--smh-ink-soft);font-size:.95rem;margin-top:16px;max-width:48ch}
+.ba-caption{color:var(--smh-ink-soft);font-size:.95rem;max-width:48ch}
 
 /* Honesty */
 .honest{
@@ -293,39 +309,34 @@ a{color:inherit}
 }
 .gate p{color:var(--smh-ink-soft);font-size:.92rem;max-width:40ch}
 
-/* Invite soft COLD_PATH_B */
+/* Invite soft COLD_PATH_B — one quiet CTA; waitlist soft link only */
 .invite{
-  display:grid;gap:var(--smh-space-5);align-items:start;
+  display:grid;gap:var(--smh-space-4);align-items:start;max-width:560px;
   opacity:calc(.35 + var(--invite-in) * .65);
   transform:translate3d(0, calc((1 - var(--invite-in)) * 14px), 0);
 }
-@media (min-width:800px){.invite{grid-template-columns:1.15fr .85fr}}
 .invite-card{
-  padding:var(--smh-space-4);
-  border:1px solid var(--smh-line);
+  padding:clamp(22px,3vw,28px);
+  border:1px solid rgba(28,25,21,.1);
   border-radius:var(--smh-radius);
-  background:rgba(232,226,216,.55);
+  background:rgba(232,226,216,.42);
 }
-.invite-card h3{font-family:var(--smh-font-display);font-size:1.25rem;margin-bottom:8px}
-.invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:16px;max-width:40ch}
-.invite-card .actions{display:flex;flex-wrap:wrap;gap:10px}
-.invite-card .hint{margin-top:12px;font-size:13px;color:var(--smh-mute)}
-.wait{padding:var(--smh-space-4);border:1px solid var(--smh-line);border-radius:var(--smh-radius);background:var(--smh-paper)}
-.wait label{font-size:13px;font-weight:600;color:var(--smh-ink-soft)}
-.wait input{
-  width:100%;min-height:44px;padding:12px 14px;margin-top:6px;margin-bottom:12px;
+.invite-card h3{font-family:var(--smh-font-display);font-size:1.2rem;margin-bottom:8px;font-weight:600}
+.invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:14px;max-width:40ch}
+.invite-card label{display:block;font-size:13px;font-weight:600;color:var(--smh-ink-soft);margin:4px 0 6px}
+.invite-card input[type="text"]{
+  width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;
   border:1px solid var(--smh-line);border-radius:var(--smh-radius);
-  background:var(--smh-paper-deep);color:var(--smh-ink);font:inherit;
+  background:var(--smh-paper);color:var(--smh-ink);font:inherit;
 }
-.wait input:focus{outline:2px solid var(--smh-amber);outline-offset:2px;border-color:transparent}
-.wait .hint{font-size:13px;color:var(--smh-mute)}
-.wait .ok-msg,.wait .err-msg{display:none;font-size:14px;font-weight:600}
-.wait .ok-msg{color:var(--smh-ok)}
-.wait .err-msg{color:var(--smh-fail)}
-.wait.is-done .ok-msg{display:block}
-.wait.is-done form{display:none}
-.wait.is-error .err-msg{display:block}
-.wait.is-loading .btn--ink{opacity:.72;pointer-events:none;cursor:wait}
+.invite-card .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
+.invite-card .hint{margin-top:12px;font-size:13px;color:var(--smh-mute)}
+.invite-soft{
+  display:inline;font-size:14px;font-weight:500;color:var(--smh-mute);
+  text-decoration:none;border-bottom:1px solid rgba(110,102,83,.35);
+  transition:color .2s var(--smh-ease),border-color .2s var(--smh-ease);
+}
+.invite-soft:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.45)}
 
 .foot{
   padding:var(--smh-space-5) 0;
@@ -341,18 +352,29 @@ a{color:inherit}
 .foot a:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.35)}
 
 @media (max-width:720px){
-  .hero__copy{padding-top:16vh}
-  .pin-chapter{min-height:150vh}
-  .pin-chapter__stage{min-height:92svh;padding:14px 0}
+  .hero__copy{padding-top:18vh;padding-bottom:clamp(64px,16vh,120px)}
+  .brand{font-size:clamp(2.85rem,14vw,4.2rem)}
+  .hero h1{font-size:1.15rem;margin-top:14px}
+  .pin-chapter{min-height:155vh;overflow-x:hidden}
+  .pin-chapter__intro .section__lead{margin-bottom:0}
+  .pin-chapter__stage{
+    min-height:100svh;min-height:100vh;padding:10px 0;
+    overflow:hidden;
+  }
+  .proof-meta{margin-bottom:10px;gap:8px 12px}
+  .ba-shell{max-height:min(58svh,520px);aspect-ratio:3/4;width:100%}
+  .ba .knob{width:40px;height:40px}
+  .pin-chapter__after{padding-top:20px}
   .album__frame{aspect-ratio:5/4}
+  .invite{max-width:100%}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .brand,.hero h1,.hero__lead,.scroll-cue,.hero__plane img{animation:none!important;opacity:1;transform:none}
   .hero__plane img{transform:scale(1.02)}
   .hero,.album,.pin-chapter__plane,.pin-chapter__after,.honest,.invite{opacity:1!important;transform:none!important;filter:none!important}
-  .pin-chapter{min-height:0!important}
-  .pin-chapter__stage{position:relative!important;min-height:0!important}
+  .pin-chapter{min-height:0!important;overflow:visible!important}
+  .pin-chapter__stage{position:relative!important;min-height:0!important;overflow:visible!important}
   .scroll-cue i{animation:none}
   :root{--reveal:48%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--invite-in:1;--pin-p:.5;--dust:1}
 }
@@ -371,9 +393,9 @@ a{color:inherit}
   <div class="hero__copy" id="lab-copy">
     <p class="brand">Save<span class="mark">My</span>History</p>
     <h1>Лампа над альбомом.</h1>
-    <p class="hero__lead">Тихая комната. Тёплый свет. Один закрытый альбом — и желание открыть.</p>
+    <p class="hero__lead">Тихая комната. Тёплый свет. Закрытый альбом.</p>
   </div>
-  <div class="scroll-cue" aria-hidden="true"><span>листайте</span><i></i></div>
+  <div class="scroll-cue" aria-hidden="true"><span>дальше</span><i></i></div>
 </header>
 
 <div class="bridge" aria-hidden="true"></div>
@@ -461,40 +483,19 @@ a{color:inherit}
 
 <section class="section section--deep" id="invite" data-soft-wave="1" data-cold-path-b="1" data-story-obj="invite" aria-labelledby="invite-title">
   <div class="wrap invite">
-    <div>
-      <p class="section__eyebrow">Тихое приглашение · Cold Path B</p>
-      <h2 id="invite-title">Когда готовы — войдите по коду.</h2>
-      <p class="section__lead">Сначала комната и правда. Сервис — мягко, через invite. Без холодного free restore.</p>
-      <div class="invite-card">
-        <h3>Есть код?</h3>
-        <p>Redeem открывает кабинет. Коды не раздаём с этой страницы — волна по приглашению. Нет кода — честный waitlist рядом.</p>
-        <label for="invite-code" style="display:block;font-size:13px;font-weight:600;color:var(--smh-ink-soft);margin:14px 0 6px">Код приглашения</label>
-        <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled style="width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;border:1px solid var(--smh-line);border-radius:var(--smh-radius);background:var(--smh-paper);color:var(--smh-ink);font:inherit">
-        <div class="actions">
-          <span class="btn btn--ink" aria-hidden="true">Активировать</span>
-          <a class="btn btn--line" href="#waitlist">Нет кода — waitlist</a>
-        </div>
-        <p class="hint">Soft-wave · коды не посеяны · без free restore</p>
+    <p class="section__eyebrow">Тихое приглашение · Cold Path B</p>
+    <h2 id="invite-title">Когда готовы — войдите по коду.</h2>
+    <p class="section__lead">Сначала комната и правда. Сервис — мягко, через invite. Без холодного free restore.</p>
+    <div class="invite-card">
+      <h3>Есть код?</h3>
+      <p>Redeem открывает кабинет. Коды не раздаём с этой страницы — волна по приглашению.</p>
+      <label for="invite-code">Код приглашения</label>
+      <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled>
+      <div class="actions">
+        <span class="btn btn--ink" aria-hidden="true">Активировать</span>
+        <a class="invite-soft" href="/waitlist.html">Нет кода — тихий waitlist</a>
       </div>
-    </div>
-    <div class="wait" id="wait-box">
-      <p class="section__eyebrow" id="waitlist">Waitlist · вторичный</p>
-      <h2 style="font-family:var(--smh-font-display);font-size:1.35rem;margin-bottom:8px">Оставьте контакт</h2>
-      <p class="section__lead" style="margin-bottom:16px">Waitlist ловит интерес, но не открывает restore сам.</p>
-      <p class="ok-msg" role="status">Вы в списке. Напишем, когда откроем.</p>
-      <form id="wait-form" action="#" method="post" novalidate>
-        <div>
-          <label for="wait-email">Email</label>
-          <input id="wait-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
-        </div>
-        <div>
-          <label for="wait-name">Имя <span style="font-weight:400;color:var(--smh-mute)">(необязательно)</span></label>
-          <input id="wait-name" name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться">
-        </div>
-        <p class="err-msg" id="wait-err" role="alert">Не удалось отправить — попробуйте ещё раз.</p>
-        <button class="btn btn--ink" type="submit" id="wait-submit">Встать в waitlist</button>
-        <p class="hint">Лабораторная форма. Боевой путь — /waitlist.html</p>
-      </form>
+      <p class="hint">Soft-wave · коды не посеяны · без free restore</p>
     </div>
   </div>
 </section>
@@ -649,28 +650,6 @@ a{color:inherit}
     });
   }
 
-  var form = document.getElementById('wait-form');
-  var box = document.getElementById('wait-box');
-  var submitBtn = document.getElementById('wait-submit');
-  if(form && box){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var email = document.getElementById('wait-email');
-      box.classList.remove('is-error');
-      if(!email || !email.value || !email.checkValidity()){
-        box.classList.add('is-error');
-        if(email) email.focus();
-        return;
-      }
-      box.classList.add('is-loading');
-      if(submitBtn) submitBtn.textContent = 'Отправляем…';
-      window.setTimeout(function(){
-        box.classList.remove('is-loading');
-        box.classList.add('is-done');
-        if(submitBtn) submitBtn.textContent = 'Встать в waitlist';
-      }, 700);
-    });
-  }
 })();
 </script>
 </body>

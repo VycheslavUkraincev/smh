@@ -1,5 +1,15 @@
 [
   {
+    "id": "door-a-lamp-deepen",
+    "at": "2026-08-11T18:10:00Z",
+    "date": "2026-08-11",
+    "stage": "facade",
+    "title": "Дверь A · Лампа · deepen",
+    "status": "READY",
+    "text": "facade-lab deepen in place: один quiet Cold Path B CTA (invite primary, waitlist soft-link), quieter first 3s brand-led, sticky BA mobile overflow/clip fix, PRM kept. spend_E=0.",
+    "note": "Door A LOCKED · CONTEST_DIRECTION_OFF · data-door-a-lamp kept · dual waitlist panel killed"
+  },
+  {
     "id": "door-a-lamp-intensive",
     "at": "2026-08-11T17:06:00Z",
     "date": "2026-08-11",
