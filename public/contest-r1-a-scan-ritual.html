@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ru" data-contest-r1-a="1" class="contest-r1-a nano-alt-contest-r1-a craft-study">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — ритуал скана</title>
+<meta name="description" content="Фото как объект в 3D: поворот на скролле, царапины и отслоение бумаги, скан реставратора → извлечение → живое AFTER.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0E0C09">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/hero_before.jpg" fetchpriority="high">
+<!--
+  Contest R1 Team A · SCAN RITUAL 3D
+  Markers: nano-alt-contest-r1-a · data-contest-r1-a="1" · contest-r1-a-scan-ritual
+  CSS 3D scroll scrub · scratches + peel · scan → extract → living AFTER
+  spend_E=0 · allowlist BA only · HARD BAN pd_02 / 6fe4644f
+  COLD_PATH_B · CREATIVE_BRIDGE · STOP_ALL_RESTORES
+-->
+<style>
+:root{
+  --paper:#E8E2D8;
+  --paper-deep:#D9D1C4;
+  --ink:#1C1915;
+  --ink-soft:#3F3A33;
+  --mute:#6E665C;
+  --line:rgba(232,226,216,.14);
+  --amber:#B07A3A;
+  --amber-soft:#E2B87A;
+  --amber-deep:#8C5E28;
+  --stage:#0E0C09;
+  --hud:rgba(226,184,122,.85);
+  --font-d:"Literata","Source Serif 4","PT Serif",serif;
+  --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --scrub:0;
+  --scan:0;
+  --extract:0;
+  --life:0;
+  --line-progress:0;
+  --obj-in:0;
+  --beat:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-u);
+  font-size:1.0625rem;
+  line-height:1.55;
+  color:var(--paper);
+  background:var(--stage);
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.contest-r1-a{--cr1a:1}
+.nano-alt-contest-r1-a{--ncr1a:1}
+.craft-study{--cs:1}
+.skip{position:absolute;left:-9999px}
+.skip:focus{
+  position:fixed;left:12px;top:12px;z-index:90;
+  background:var(--paper);color:var(--ink);
+  padding:10px 14px;border-radius:8px;font-weight:600;
+}
+.wrap{width:min(920px,100% - 40px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(920px,100% - 28px)}}
+
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:calc(var(--line-progress) * 100%);
+  background:linear-gradient(90deg,var(--amber-deep),var(--amber-soft));
+  z-index:80;pointer-events:none;opacity:.85;
+}
+
+.top{
+  position:relative;z-index:5;
+  padding:28px 0 8px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.brand{font-family:var(--font-d);font-size:1.2rem;font-weight:700;letter-spacing:.01em}
+.brand span{color:var(--amber-soft)}
+.tag{
+  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(232,226,216,.55);font-weight:600;
+}
+
+.hero{
+  min-height:88vh;display:grid;align-content:center;gap:18px;
+  padding:48px 0 72px;position:relative;z-index:2;
+}
+.hero .eyebrow{
+  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;
+}
+.hero h1{
+  font-family:var(--font-d);
+  font-size:clamp(2.2rem,5.4vw,3.6rem);
+  line-height:1.05;max-width:14ch;font-weight:700;
+}
+.hero .lead{
+  color:rgba(232,226,216,.72);max-width:38ch;font-size:1.05rem;
+}
+.hero .hint{
+  margin-top:18px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(232,226,216,.42);
+}
+
+/* ===== PINNED 3D RITUAL ===== */
+.ritual{
+  position:relative;
+  height:340vh;
+}
+.ritual__pin{
+  position:sticky;top:0;height:100vh;
+  display:grid;place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(176,122,58,.14), transparent 62%),
+    radial-gradient(ellipse 90% 80% at 50% 100%, rgba(14,12,9,.95), transparent 55%),
+    var(--stage);
+}
+.ritual__copy{
+  position:absolute;inset:auto 0 7vh;z-index:6;text-align:center;
+  padding:0 20px;pointer-events:none;
+}
+.ritual__copy .phase{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;margin-bottom:8px;
+  opacity:calc(.35 + var(--scrub) * .65);
+}
+.ritual__copy h2{
+  font-family:var(--font-d);font-size:clamp(1.35rem,3vw,1.9rem);
+  font-weight:600;max-width:22ch;margin:0 auto;
+}
+.ritual__copy p{
+  margin-top:8px;color:rgba(232,226,216,.62);font-size:.95rem;max-width:40ch;margin-inline:auto;
+}
+
+.stage3d{
+  perspective:1400px;perspective-origin:50% 45%;
+  width:min(420px,78vw);aspect-ratio:4/5;
+  position:relative;z-index:3;
+}
+.photo-object{
+  width:100%;height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transform:
+    rotateY(calc(-34deg + var(--scrub) * 68deg))
+    rotateX(calc(10deg - var(--scrub) * 16deg))
+    translateZ(calc(var(--scrub) * 28px))
+    scale(calc(.92 + var(--life) * .06));
+  will-change:transform;
+  filter:drop-shadow(0 28px 48px rgba(0,0,0,.55));
+}
+.photo-face{
+  position:absolute;inset:0;
+  border-radius:3px;
+  overflow:hidden;
+  background:#2a241c;
+  transform:translateZ(1px);
+  box-shadow:
+    inset 0 0 0 1px rgba(232,226,216,.12),
+    0 0 0 1px rgba(0,0,0,.35);
+}
+.photo-face img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.photo-face .before{z-index:1;opacity:calc(1 - var(--life));}
+.photo-face .after{
+  z-index:2;
+  opacity:var(--life);
+  filter:saturate(calc(.85 + var(--life) * .2));
+}
+.photo-back{
+  position:absolute;inset:0;
+  border-radius:3px;
+  background:
+    linear-gradient(135deg,#cfc4b2 0%,#b8ab96 40%,#a69882 100%);
+  transform:rotateY(180deg) translateZ(1px);
+  box-shadow:inset 0 0 40px rgba(28,25,21,.18);
+}
+.photo-back::after{
+  content:"";position:absolute;inset:12%;
+  border:1px solid rgba(28,25,21,.12);
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 22px,rgba(28,25,21,.05) 23px);
+}
+
+/* paper edge / thickness */
+.photo-edge{
+  position:absolute;top:0;right:-3px;width:3px;height:100%;
+  background:linear-gradient(180deg,#d8d0c2,#9a8f7c);
+  transform:rotateY(90deg) translateZ(1.5px);transform-origin:left center;
+}
+
+/* scratches overlay */
+.scratches{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  opacity:calc(.72 - var(--life) * .55);
+  mix-blend-mode:soft-light;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.35' stroke-width='.7'%3E%3Cpath d='M20 40c40 10 60-20 110-8M140 90l80 12M210 70c30 40 10 90-20 120M40 200c70-10 120 30 180 10M300 160l40 90M80 320c50 20 90-10 140 20M250 380c40-30 70 10 110-20M30 450l90-30'/%3E%3C/g%3E%3Cg fill='%23000' fill-opacity='.18'%3E%3Ccircle cx='310' cy='120' r='18'/%3E%3Ccircle cx='90' cy='260' r='28'/%3E%3Ccircle cx='220' cy='410' r='22'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat;
+}
+.stain{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  opacity:calc(.55 - var(--life) * .5);
+  background:
+    radial-gradient(ellipse 40% 28% at 18% 22%, rgba(90,70,40,.45), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 78% 70%, rgba(60,50,35,.4), transparent 72%),
+    linear-gradient(160deg, rgba(40,30,20,.15), transparent 50%);
+}
+
+/* peeling paper corner */
+.peel{
+  position:absolute;right:-2%;top:-1%;width:34%;height:28%;z-index:5;
+  transform-origin:100% 0;
+  transform:
+    perspective(400px)
+    rotateZ(calc(-2deg - var(--scrub) * 4deg))
+    rotateX(calc(-8deg - var(--scrub) * 18deg))
+    translateY(calc(var(--scrub) * -6px));
+  pointer-events:none;
+  opacity:calc(.95 - var(--life) * .85);
+}
+.peel__sheet{
+  width:100%;height:100%;
+  background:
+    linear-gradient(135deg, rgba(246,241,232,.96) 0%, rgba(220,210,192,.92) 55%, rgba(190,175,150,.88) 100%);
+  clip-path:polygon(28% 0,100% 0,100% 100%,0 72%);
+  box-shadow:
+    -6px 10px 18px rgba(0,0,0,.28),
+    inset 2px -2px 0 rgba(255,255,255,.25);
+}
+.peel__sheet::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(225deg, transparent 40%, rgba(176,122,58,.18) 100%);
+}
+
+/* scan beam */
+.scan-beam{
+  position:absolute;left:-4%;right:-4%;height:18%;
+  top:calc(var(--scan) * 88%);
+  z-index:7;pointer-events:none;
+  opacity:calc(var(--scan) * (1 - var(--life)) * .95);
+  background:linear-gradient(180deg,
+    transparent 0%,
+    rgba(226,184,122,.05) 30%,
+    rgba(226,184,122,.55) 48%,
+    rgba(255,240,210,.85) 50%,
+    rgba(226,184,122,.45) 52%,
+    rgba(226,184,122,.05) 70%,
+    transparent 100%);
+  mix-blend-mode:screen;
+  filter:blur(.2px);
+  box-shadow:0 0 24px rgba(226,184,122,.35);
+}
+.scan-grid{
+  position:absolute;inset:0;z-index:6;pointer-events:none;
+  opacity:calc(var(--scan) * .35 * (1 - var(--life) * .7));
+  background:
+    repeating-linear-gradient(0deg, transparent 0 11px, rgba(226,184,122,.08) 11px 12px),
+    repeating-linear-gradient(90deg, transparent 0 11px, rgba(226,184,122,.05) 11px 12px);
+  mask-image:linear-gradient(180deg, transparent, #000 20%, #000 80%, transparent);
+}
+
+/* HUD extract chips */
+.hud{
+  position:absolute;inset:8% auto auto 104%;
+  width:min(180px,34vw);z-index:8;
+  display:grid;gap:8px;
+  opacity:var(--extract);
+  transform:translate3d(calc((1 - var(--extract)) * 16px),0,0);
+  pointer-events:none;
+}
+@media (max-width:820px){
+  .hud{
+    inset:auto 0 -2%;left:50%;width:min(320px,90vw);
+    transform:translateX(-50%) translateY(calc((1 - var(--extract)) * 12px));
+    grid-template-columns:1fr 1fr;gap:6px;
+  }
+}
+.hud__chip{
+  border:1px solid rgba(226,184,122,.28);
+  background:rgba(14,12,9,.72);
+  backdrop-filter:blur(8px);
+  padding:8px 10px;border-radius:4px;
+  font-size:.68rem;letter-spacing:.04em;
+  color:rgba(246,241,232,.88);
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+.hud__chip b{
+  display:block;font-family:var(--font-d);font-size:.78rem;
+  color:var(--amber-soft);font-weight:600;margin-bottom:2px;
+}
+.hud__chip:nth-child(1){opacity:calc(clamp(0, (var(--extract) - .05) / .25, 1))}
+.hud__chip:nth-child(2){opacity:calc(clamp(0, (var(--extract) - .25) / .25, 1))}
+.hud__chip:nth-child(3){opacity:calc(clamp(0, (var(--extract) - .45) / .25, 1))}
+.hud__chip:nth-child(4){opacity:calc(clamp(0, (var(--extract) - .65) / .25, 1))}
+
+.floor-glow{
+  position:absolute;bottom:12%;left:50%;transform:translateX(-50%);
+  width:min(360px,70vw);height:40px;border-radius:50%;
+  background:radial-gradient(ellipse, rgba(226,184,122,.22), transparent 70%);
+  filter:blur(8px);z-index:1;
+  opacity:calc(.25 + var(--life) * .55);
+}
+
+/* ===== EXTRACT PROOF STRIP ===== */
+.proof{
+  padding:100px 0 72px;
+  background:linear-gradient(180deg, var(--stage) 0%, #15120e 40%, #1a1611 100%);
+  border-top:1px solid var(--line);
+}
+.proof .eyebrow{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;margin-bottom:12px;
+}
+.proof h2{
+  font-family:var(--font-d);font-size:clamp(1.6rem,3.2vw,2.3rem);
+  max-width:16ch;margin-bottom:12px;
+}
+.proof .lead{color:rgba(232,226,216,.68);max-width:42ch;margin-bottom:36px}
+.pair-grid{
+  display:grid;gap:22px;
+}
+@media (min-width:780px){.pair-grid{grid-template-columns:1fr 1fr}}
+.pair{
+  opacity:calc(.25 + var(--obj-in) * .75);
+  transform:translate3d(0, calc((1 - var(--obj-in)) * 18px), 0);
+}
+.pair figure{
+  position:relative;border-radius:6px;overflow:hidden;
+  background:rgba(232,226,216,.04);
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
+  aspect-ratio:4/5;
+}
+.pair img{width:100%;height:100%;object-fit:cover}
+.pair .cap{
+  margin-top:12px;display:flex;justify-content:space-between;gap:12px;
+  font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(232,226,216,.5);
+}
+.pair .cap strong{color:var(--amber-soft);font-weight:600}
+
+/* ===== LIVING AFTER ===== */
+.living{
+  padding:88px 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(176,122,58,.12), transparent 60%),
+    #16130f;
+}
+.living-card{
+  display:grid;gap:28px;align-items:center;
+  opacity:calc(.2 + var(--beat) * .8);
+  transform:translate3d(0, calc((1 - var(--beat)) * 20px), 0);
+}
+@media (min-width:860px){.living-card{grid-template-columns:1.05fr .95fr}}
+.living h2{
+  font-family:var(--font-d);font-size:clamp(1.7rem,3.4vw,2.4rem);
+  max-width:12ch;margin:10px 0 14px;
+}
+.living p{color:rgba(232,226,216,.7);max-width:36ch}
+.ba-shell{
+  position:relative;border-radius:6px;overflow:hidden;
+  box-shadow:0 22px 50px rgba(0,0,0,.4);
+  background:rgba(232,226,216,.05);
+}
+.ba{
+  position:relative;aspect-ratio:4/5;max-height:min(68vh,640px);
+  user-select:none;touch-action:none;cursor:ew-resize;
+}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal,28%)) 0 0)}
+.ba .rail{
+  position:absolute;top:0;bottom:0;left:var(--reveal,28%);width:2px;
+  background:rgba(246,241,232,.88);z-index:3;transform:translateX(-50%);
+  box-shadow:0 0 0 1px rgba(28,25,21,.2);
+}
+.ba .knob{
+  position:absolute;top:50%;left:var(--reveal,28%);z-index:4;
+  transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;
+  background:var(--paper);color:var(--ink);display:grid;place-items:center;
+  font-size:14px;box-shadow:0 2px 10px rgba(0,0,0,.35);pointer-events:none;
+}
+
+/* soft invite */
+.invite{
+  padding:96px 0 80px;text-align:center;
+  background:linear-gradient(180deg,#1a1611 0%, #E8E2D8 72%);
+  color:var(--ink);
+}
+.invite .eyebrow{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-deep);font-weight:600;margin-bottom:14px;
+}
+.invite h2{
+  font-family:var(--font-d);font-size:clamp(1.7rem,3.2vw,2.35rem);
+  max-width:16ch;margin:0 auto 12px;
+}
+.invite p{color:var(--ink-soft);max-width:40ch;margin:0 auto 26px}
+.dual{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.btn{
+  display:inline-flex;min-height:44px;padding:0 18px;align-items:center;
+  border-radius:8px;font-weight:600;font-size:.95rem;
+}
+.btn--p{background:var(--ink);color:var(--paper)}
+.btn--g{border:1px solid rgba(28,25,21,.18);color:var(--ink-soft);background:rgba(255,255,255,.35)}
+.foot{
+  padding:22px 0 36px;background:var(--paper);color:var(--mute);
+  font-size:13px;text-align:center;
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ritual{height:auto}
+  .ritual__pin{position:relative;height:auto;min-height:100vh;padding:48px 0 80px}
+  .photo-object{
+    transform:rotateY(-8deg) rotateX(4deg) !important;
+  }
+  .scan-beam,.scan-grid{opacity:0 !important}
+  .hud{opacity:1 !important;transform:none !important}
+  .hud__chip{opacity:1 !important}
+  .photo-face .before{opacity:0 !important}
+  .photo-face .after{opacity:1 !important}
+  .scratches,.stain,.peel{opacity:.2 !important}
+  .pair,.living-card{opacity:1 !important;transform:none !important}
+  :root{--scrub:.55;--scan:0;--extract:1;--life:1;--obj-in:1;--beat:1}
+}
+</style>
+</head>
+<body class="nano-alt-contest-r1-a contest-r1-a craft-study" data-contest-r1-a="1">
+<a class="skip" href="#ritual">К ритуалу скана</a>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="wrap top">
+  <p class="brand">Save<span>My</span>History</p>
+  <p class="tag">Contest R1 · Team A · Scan Ritual 3D</p>
+</header>
+
+<section class="hero wrap">
+  <p class="eyebrow">Ритуал скана</p>
+  <h1>Фото поворачивается. Правда извлекается.</h1>
+  <p class="lead">Не слайдер-демо. Объект из бумаги: царапины, отслоенный угол, луч реставратора. Скролл крутит плоскость, скан читает всё, что ещё живо, и возвращает лицо.</p>
+  <p class="hint">Листайте вниз · 3D scrub</p>
+</section>
+
+<section class="ritual" id="ritual" data-ritual-pin="1" aria-label="Трёхмерный ритуал скана">
+  <div class="ritual__pin">
+    <div class="floor-glow" aria-hidden="true"></div>
+    <div class="stage3d">
+      <div class="photo-object" id="photoObject">
+        <div class="photo-back" aria-hidden="true"></div>
+        <div class="photo-edge" aria-hidden="true"></div>
+        <div class="photo-face">
+          <img class="before" src="/assets/hero_before.jpg" alt="До — выцветающее семейное фото" width="1200" height="1600" decoding="async" fetchpriority="high">
+          <img class="after" src="/assets/hero_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+          <div class="stain" aria-hidden="true"></div>
+          <div class="scratches" aria-hidden="true"></div>
+          <div class="scan-grid" aria-hidden="true"></div>
+          <div class="scan-beam" aria-hidden="true"></div>
+          <div class="peel" aria-hidden="true"><div class="peel__sheet"></div></div>
+        </div>
+        <aside class="hud" aria-hidden="true">
+          <div class="hud__chip"><b>зерно</b>эмульсия · 1930–50</div>
+          <div class="hud__chip"><b>взгляд</b>лицо сохранено</div>
+          <div class="hud__chip"><b>бумага</b>отслой · край</div>
+          <div class="hud__chip"><b>свет</b>восстановлен</div>
+        </aside>
+      </div>
+    </div>
+    <div class="ritual__copy">
+      <p class="phase" id="phaseLabel">01 · объект</p>
+      <h2 id="phaseTitle">Поверните снимок как вещь в руках</h2>
+      <p id="phaseText">Царапины и отслоение бумаги видны в объёме. Это не фильтр — это тело фотографии.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <p class="eyebrow">Извлечено из бумаги</p>
+    <h2>Два доказательства из архива</h2>
+    <p class="lead">Тот же ритуал на других снимках: сначала правда повреждения, потом живое AFTER. Identity &gt; beauty.</p>
+    <div class="pair-grid">
+      <article class="pair" data-story-obj="p1">
+        <figure>
+          <img src="/assets/case_c8_before.jpg" alt="До — повреждённый снимок" width="1200" height="1600" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c8</span><strong>до скана</strong></div>
+      </article>
+      <article class="pair" data-story-obj="p2">
+        <figure>
+          <img src="/assets/case_c8_after.jpg" alt="После — восстановленный снимок" width="1200" height="1600" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c8</span><strong>после ритуала</strong></div>
+      </article>
+      <article class="pair" data-story-obj="p3">
+        <figure>
+          <img src="/assets/case_o15_before.jpg" alt="До — выцветающий портрет" width="1200" height="1600" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · o15</span><strong>до скана</strong></div>
+      </article>
+      <article class="pair" data-story-obj="p4">
+        <figure>
+          <img src="/assets/case_o15_after.jpg" alt="После — живой портрет" width="1200" height="1600" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · o15</span><strong>после ритуала</strong></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="living" data-beat="1">
+  <div class="wrap living-card">
+    <div>
+      <p class="eyebrow" style="color:var(--amber-soft);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600">Живое AFTER</p>
+      <h2>Не ретушь. Возвращение.</h2>
+      <p>Реставратор снимает слой за слоем шум и пятна, но оставляет характер взгляда. Потяните линию — и увидите, откуда пришла жизнь.</p>
+    </div>
+    <div class="ba-shell" data-ba="hero">
+      <div class="ba" id="ba-live" role="img" aria-label="До и после: семейное фото" style="--reveal:28%">
+        <img class="before" src="/assets/hero_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+        <img class="after" src="/assets/hero_after.jpg" alt="После — сбережённый снимок" width="1200" height="1600" decoding="async" loading="lazy">
+        <div class="rail" aria-hidden="true"></div>
+        <div class="knob" aria-hidden="true">⇄</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="invite" id="invite" data-beat="1">
+  <p class="eyebrow">Два тихих пути</p>
+  <h2>Сберечь сейчас, пока бумага ещё отвечает.</h2>
+  <p>FADING PAST → save NOW. Для семьи и для тех, кто хранит многих. Без витрины товаров.</p>
+  <div class="dual">
+    <a class="btn btn--p" href="/waitlist.html">Для себя / семьи</a>
+    <a class="btn btn--g" href="/waitlist.html">Для хранителей архива</a>
+  </div>
+</section>
+
+<footer class="foot">SaveMyHistory · contest-r1-a-scan-ritual · Team A · spend_E=0 · craft study</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){return 1 - Math.pow(1 - clamp(t,0,1), 2.2);}
+  function lerp(a,b,t){return a + (b-a)*t;}
+
+  var phases = [
+    {at:0,   label:'01 · объект', title:'Поверните снимок как вещь в руках', text:'Царапины и отслоение бумаги видны в объёме. Это не фильтр — это тело фотографии.'},
+    {at:.28, label:'02 · скан', title:'Луч реставратора читает бумагу', text:'Сетка и луч проходят по эмульсии. Техника служит взгляду, не витрине.'},
+    {at:.55, label:'03 · извлечение', title:'Всё, что ещё можно спасти', text:'Зерно, взгляд, край, свет — данные выходят из снимка до того, как он станет живым.'},
+    {at:.78, label:'04 · жизнь', title:'AFTER возвращается в комнату', text:'Пятна отпускают. Лицо остаётся собой. Healing ≠ retouch.'}
+  ];
+  var phaseLabel = document.getElementById('phaseLabel');
+  var phaseTitle = document.getElementById('phaseTitle');
+  var phaseText = document.getElementById('phaseText');
+
+  function setPhase(p){
+    var cur = phases[0];
+    for (var i=0;i<phases.length;i++){ if(p >= phases[i].at) cur = phases[i]; }
+    if(phaseLabel) phaseLabel.textContent = cur.label;
+    if(phaseTitle) phaseTitle.textContent = cur.title;
+    if(phaseText) phaseText.textContent = cur.text;
+  }
+
+  function bindBa(el){
+    if(!el) return;
+    var dragging=false;
+    function setFromX(clientX){
+      var r=el.getBoundingClientRect();
+      var p=clamp(((clientX-r.left)/r.width)*100,8,92);
+      el.style.setProperty('--reveal', p+'%');
+    }
+    el.addEventListener('pointerdown',function(e){dragging=true;el.setPointerCapture(e.pointerId);setFromX(e.clientX);});
+    el.addEventListener('pointermove',function(e){if(dragging)setFromX(e.clientX);});
+    el.addEventListener('pointerup',function(){dragging=false;});
+    el.addEventListener('pointercancel',function(){dragging=false;});
+  }
+  document.querySelectorAll('.ba').forEach(bindBa);
+
+  var ritual = document.querySelector('[data-ritual-pin]');
+  var root = document.documentElement;
+  var ticking=false;
+
+  function bus(){
+    ticking=false;
+    var vh = window.innerHeight || 1;
+    var max = Math.max(1, document.documentElement.scrollHeight - vh);
+    var lp = reduce ? 1 : clamp(window.scrollY / max, 0, 1);
+    root.style.setProperty('--line-progress', lp);
+
+    if(ritual){
+      if(reduce){
+        root.style.setProperty('--scrub','.55');
+        root.style.setProperty('--scan','0');
+        root.style.setProperty('--extract','1');
+        root.style.setProperty('--life','1');
+        setPhase(.9);
+      } else {
+        var r = ritual.getBoundingClientRect();
+        var h = ritual.offsetHeight || 1;
+        var p = clamp((-r.top) / (h - vh), 0, 1);
+        var scrub = ease(clamp(p / .42, 0, 1));
+        var scan = ease(clamp((p - .22) / .28, 0, 1));
+        var extract = ease(clamp((p - .42) / .22, 0, 1));
+        var life = ease(clamp((p - .68) / .26, 0, 1));
+        root.style.setProperty('--scrub', scrub.toFixed(4));
+        root.style.setProperty('--scan', scan.toFixed(4));
+        root.style.setProperty('--extract', extract.toFixed(4));
+        root.style.setProperty('--life', life.toFixed(4));
+        setPhase(p);
+      }
+    }
+
+    document.querySelectorAll('[data-story-obj]').forEach(function(obj){
+      if(reduce){ obj.style.setProperty('--obj-in','1'); return; }
+      var r=obj.getBoundingClientRect();
+      var mid=r.top + r.height*0.35;
+      var inn = clamp(1 - (mid - vh*0.2)/(vh*0.7), 0, 1);
+      obj.style.setProperty('--obj-in', ease(inn));
+    });
+    document.querySelectorAll('[data-beat]').forEach(function(sec){
+      if(reduce){ sec.style.setProperty('--beat','1'); return; }
+      var r=sec.getBoundingClientRect();
+      var p=clamp((vh*0.75 - r.top)/(vh*0.55),0,1);
+      sec.style.setProperty('--beat', ease(p));
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+})();
+</script>
+</body>
+</html>
