@@ -1,5 +1,33 @@
 [
   {
+    "id": "wow-mock-freeform-max-craft",
+    "at": "2026-08-11T14:40:00Z",
+    "date": "2026-08-11",
+    "stage": "design-lab",
+    "title": "Freeform max-craft · Last Warm Print",
+    "status": "READY",
+    "text": "Sibling /wow-mock-freeform.html: lamp-desk interior (not Act C forest), crack-heal A4 line, pinned BA A2, chapter crossfade A7. New stills+mood video under assets/wow-mock/. Allowlist BA case_o15.",
+    "note": "nano-alt-wow-mock · data-wow-mock=1 · story-freeform-max · spend_E=14 · CHARGE stills 2×2E + video 10E · COLD_PATH_B · CREATIVE_BRIDGE · STOP_ALL_RESTORES",
+    "page": "wow-mock-freeform.html",
+    "markers": [
+      "nano-alt-wow-mock",
+      "data-wow-mock=1",
+      "story-freeform-max"
+    ],
+    "spend_E": 14,
+    "motions": [
+      "A7",
+      "A2",
+      "A4"
+    ],
+    "locks": [
+      "STOP_ALL_RESTORES",
+      "PRIORITY_API_FIRST",
+      "COLD_PATH_B",
+      "CREATIVE_BRIDGE"
+    ]
+  },
+  {
     "id": "story-ba-concepts-wave",
     "at": "2026-08-11T13:40:00Z",
     "date": "2026-08-11",

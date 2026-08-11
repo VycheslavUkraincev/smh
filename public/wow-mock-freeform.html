@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru" data-wow-mock="1" class="wow-mock nano-alt-wow-mock story-freeform-max">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — последний тёплый отпечаток</title>
+<meta name="description" content="Свободный max-craft макет: лампа, бумага, трещина на снимке, честный before→after. Не продакшен.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E8E2D8">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/wow-mock/lamp-desk-hero.jpg" fetchpriority="high">
+<style>
+:root{
+  --paper:#E8E2D8; --paper-deep:#D9D1C4; --ink:#1C1915; --ink-soft:#3F3A33; --mute:#6E665C;
+  --line:rgba(28,25,21,.12); --amber:#B07A3A; --amber-deep:#8C5E28; --amber-soft:#E2B87A;
+  --ok:#3E6B4F; --fail:#7A3B2E;
+  --font-d:"Literata","Source Serif 4","PT Serif",serif;
+  --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --reveal:16%; --thread-p:0; --hero-exit:0; --ba-exit:0; --keeper-exit:0;
+  --plane-in:0; --plane-out:0; --pin-p:0; --invite-in:0; --crack-heal:0;
+  --thread-op:.82; --grain-op:.05; --hero-p:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-u);font-size:1.0625rem;line-height:1.55;color:var(--ink);background:var(--paper);overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.skip{position:absolute;left:-9999px}
+.skip:focus{position:fixed;left:12px;top:12px;z-index:60;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600}
+.wrap{width:min(1040px,100% - 44px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(1040px,100% - 28px)}}
+
+/* Thread = photograph crack that heals (not forest guide) */
+.thread{
+  position:fixed;top:0;left:50%;transform:translateX(-50%);
+  width:min(120px,20vw);height:100vh;z-index:9;pointer-events:none;
+  opacity:var(--thread-op); transition:opacity .35s var(--ease);
+}
+.thread svg{width:100%;height:100%;overflow:visible}
+.thread path{
+  fill:none;stroke:var(--amber);stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;opacity:.8;
+  stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--thread-p));
+  filter:drop-shadow(0 0 .5px rgba(28,25,21,.28));
+}
+.thread path.ghost{
+  stroke:rgba(232,226,216,.32);stroke-width:2.2;opacity:calc(.18 + var(--thread-p)*.4);
+  stroke-dashoffset:0;filter:none;
+}
+
+/* HERO — lamp desk place (not forest) */
+.hero{
+  position:relative;min-height:100svh;min-height:100vh;display:grid;isolation:isolate;overflow:hidden;
+  opacity:calc(1 - var(--hero-exit)*.93);
+  filter:brightness(calc(1 - var(--hero-exit)*.14));
+  transform:translate3d(0, calc(var(--hero-exit)*-16px), 0);
+  will-change:opacity,transform;
+}
+.hero__media{position:absolute;inset:0;z-index:0;background:var(--paper-deep);overflow:hidden}
+.hero__media video,.hero__media img{
+  width:100%;height:100%;object-fit:cover;object-position:center 48%;
+  transform:translate3d(0, calc(var(--hero-p)*14px), 0) scale(1.03);
+}
+.hero__media video{position:absolute;inset:0}
+.hero__media img{position:absolute;inset:0;opacity:.0}
+.hero__media.is-still img{opacity:1}
+.hero__media.is-still video{opacity:0}
+.hero__veil{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(28,25,21,.12) 0%,rgba(28,25,21,.36) 46%,rgba(28,25,21,.86) 100%);
+  transform:translate3d(0, calc(var(--hero-p)*8px), 0);
+}
+.hero__grain{
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:var(--grain-op);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero__copy{
+  position:relative;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:100svh;min-height:100vh;padding:clamp(24px,4vw,48px);padding-bottom:clamp(52px,11vh,100px);max-width:720px;
+}
+.mark{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,226,216,.55);margin-bottom:16px;
+  opacity:0;animation:rise .55s var(--ease) .1s forwards}
+.brand{font-family:var(--font-d);font-weight:600;font-size:clamp(2.7rem,8vw,5.4rem);line-height:.92;letter-spacing:-.025em;color:#F3EEE6;margin-bottom:18px;
+  opacity:0;animation:rise .6s var(--ease) .18s forwards}
+.brand i{font-style:normal;color:var(--amber-soft)}
+.hero h1{font-family:var(--font-d);font-weight:500;font-size:clamp(1.75rem,3.8vw,2.55rem);line-height:1.18;letter-spacing:-.02em;color:#F3EEE6;max-width:16ch;margin-bottom:14px;
+  opacity:0;animation:rise .6s var(--ease) .32s forwards}
+.hero__lead{font-size:clamp(15px,1.7vw,18px);color:rgba(243,238,230,.86);max-width:30ch;margin-bottom:26px;
+  opacity:0;animation:rise .6s var(--ease) .44s forwards}
+.cta{display:flex;flex-wrap:wrap;gap:12px;opacity:0;animation:rise .6s var(--ease) .56s forwards}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:600;font-size:15px;border-radius:8px;padding:13px 22px;min-height:44px;border:1.5px solid transparent;cursor:pointer;font-family:var(--font-u);transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}
+.btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.btn--amber{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.btn--amber:hover{background:var(--amber-deep);color:#F3EEE6;border-color:var(--amber-deep)}
+.btn--ghost{background:transparent;color:#F3EEE6;border-color:rgba(243,238,230,.45)}
+.btn--ghost:hover{border-color:rgba(243,238,230,.9);background:rgba(243,238,230,.08)}
+.btn--line{background:transparent;color:var(--ink);border-color:rgba(28,25,21,.22)}
+.btn--line:hover{border-color:var(--ink);background:rgba(28,25,21,.03)}
+.btn--sm{padding:10px 16px;font-size:14px;min-height:40px;font-weight:500}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.bridge{position:relative;z-index:4;height:clamp(68px,13vh,128px);margin-top:-1px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(28,25,21,.86) 0%,rgba(28,25,21,.28) 40%,var(--paper) 100%)}
+.bridge span{position:absolute;left:50%;bottom:18%;transform:translateX(-50%);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:600;white-space:nowrap}
+
+.section{padding:96px 0;position:relative}
+.section--paper{background:var(--paper);padding-top:clamp(40px,7vh,80px)}
+.section--deep{background:var(--paper-deep)}
+.section--keeper{
+  background:linear-gradient(180deg,#1C1915 0%,#241F18 55%,#1C1915 100%);color:#F3EEE6;
+  opacity:calc(1 - var(--keeper-exit)*.72);
+  transform:translate3d(0, calc(var(--keeper-exit)*-12px), 0);
+}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:12px;font-weight:600}
+.section--keeper .eyebrow{color:rgba(232,226,216,.55)}
+.section h2{font-family:var(--font-d);font-weight:600;font-size:clamp(1.5rem,2.5vw,2rem);line-height:1.2;letter-spacing:-.02em;margin-bottom:12px;max-width:22ch}
+.lead{color:var(--ink-soft);max-width:44ch;margin-bottom:40px}
+.section--keeper .lead{color:rgba(243,238,230,.78)}
+
+/* A2 pin BA */
+.pin{position:relative;min-height:205vh}
+.pin__intro{padding-bottom:clamp(20px,3vh,36px)}
+.pin__stage{position:sticky;top:0;min-height:100svh;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(18px,3.5vh,36px) 0;z-index:2}
+.pin__plane{
+  opacity:calc(var(--plane-in)*(1 - var(--plane-out)*.9)*(1 - var(--ba-exit)*.85));
+  transform:translate3d(0, calc((1 - var(--plane-in))*18px + var(--plane-out)*-12px + var(--ba-exit)*-18px), 0) scale(calc(1.03 - var(--plane-in)*.03));
+  will-change:opacity,transform;
+}
+.pin__after{padding-top:clamp(12px,3vh,26px);opacity:calc(var(--plane-in)*(1 - var(--ba-exit)*.7))}
+.meta{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.labels{display:flex;gap:16px;font-size:13px;color:var(--mute);font-weight:500}
+.labels span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:2px;background:var(--mute)}
+.dot--a{background:var(--amber)}
+.ba-shell{
+  position:relative;border-radius:6px;overflow:hidden;background:var(--ink);aspect-ratio:4/5;max-height:min(72vh,740px);margin-inline:auto;
+  border:1px solid rgba(28,25,21,.1);
+  box-shadow:0 1px 0 rgba(28,25,21,.04),0 28px 60px -36px rgba(28,25,21,.35);
+}
+@media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(68vh,620px)}}
+.ba{position:absolute;inset:0;cursor:ew-resize;touch-action:none;user-select:none}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;pointer-events:none}
+.ba .before{z-index:1}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
+/* A3 soft diagonal ritual edge via paper hairline on rail */
+.ba .rail{position:absolute;top:0;bottom:0;left:var(--reveal);width:2px;transform:translateX(-50%);background:rgba(232,226,216,.95);z-index:3;pointer-events:none;box-shadow:0 0 0 1px rgba(28,25,21,.2), -1px 0 0 rgba(28,25,21,.18)}
+.ba .knob{position:absolute;top:50%;left:var(--reveal);transform:translate(-50%,-50%);width:44px;height:44px;border-radius:8px;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-size:15px;font-weight:700;z-index:4;pointer-events:none}
+.caption{color:var(--ink-soft);font-size:.95rem;margin-top:14px;max-width:48ch}
+.gates{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:16px;font-size:13px;color:var(--mute);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.gates span{display:inline-flex;align-items:center;gap:8px}
+.gates i{width:6px;height:6px;border-radius:1px;background:var(--amber);display:inline-block}
+
+/* Keeper — ink motif as healed crack→lineage mark (not oak tree) */
+.keeper{display:grid;gap:40px;align-items:center}
+@media (min-width:860px){.keeper{grid-template-columns:1.05fr 1fr;gap:56px}}
+.keeper__visual{
+  position:relative;border-radius:6px;overflow:hidden;min-height:min(52vh,470px);
+  background:radial-gradient(ellipse 70% 55% at 48% 40%,rgba(176,122,58,.14) 0%,transparent 62%),linear-gradient(180deg,#241F18 0%,#1C1915 100%);
+  border:1px solid rgba(243,238,230,.08);
+}
+.keeper__visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:calc(.22 + var(--crack-heal)*.18);mix-blend-mode:luminosity}
+.keeper__frame{position:absolute;inset:16% 13% 14%;border:1px solid rgba(232,226,216,.08);background:rgba(232,226,216,.03);pointer-events:none}
+.keeper__motif{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:28px 20px 36px;pointer-events:none}
+.keeper__motif svg{width:min(280px,62%);height:auto}
+.crack{fill:none;stroke:var(--amber-soft);stroke-width:1.5;stroke-linecap:round;opacity:.85;
+  stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--crack-heal))}
+.crack--soft{stroke-width:1.15;opacity:.5}
+.heal-dot{fill:var(--amber-soft);opacity:calc(.2 + var(--crack-heal)*.55)}
+.beats{display:grid;gap:20px}
+.beat{padding-top:14px;border-top:1px solid rgba(243,238,230,.14);
+  opacity:calc(clamp(0,1,(var(--crack-heal) - var(--d,0)) / .22));
+  transform:translateY(calc((1 - clamp(0,1,(var(--crack-heal) - var(--d,0)) / .22))*10px));
+}
+.beat strong{display:block;font-family:var(--font-d);font-size:1.12rem;font-weight:600;margin-bottom:6px;color:#F3EEE6}
+.beat p{color:rgba(243,238,230,.72);font-size:.95rem;max-width:36ch}
+
+.invite{display:grid;gap:40px;align-items:start;opacity:calc(.35 + var(--invite-in)*.65);transform:translate3d(0, calc((1 - var(--invite-in))*16px), 0)}
+@media (min-width:800px){.invite{grid-template-columns:1.15fr .85fr}}
+.card{padding:24px;border:1px solid var(--line);border-radius:6px;background:rgba(232,226,216,.55)}
+.card h3{font-family:var(--font-d);font-size:1.25rem;margin-bottom:8px}
+.card p{color:var(--ink-soft);font-size:.95rem;margin-bottom:14px;max-width:40ch}
+.card .actions{display:flex;flex-wrap:wrap;gap:10px}
+.detail{margin-top:18px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.detail img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.wait{padding:24px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+.wait label{font-size:13px;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:6px}
+.wait input{width:100%;min-height:44px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--paper-deep);color:var(--ink);font:inherit;margin-bottom:12px}
+.wait input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:transparent}
+.wait .hint{font-size:13px;color:var(--mute)}
+.wait .ok,.wait .err{display:none;font-size:14px;font-weight:600}
+.wait .ok{color:var(--ok)}.wait .err{color:var(--fail)}
+.wait.is-done .ok{display:block}.wait.is-done form{display:none}.wait.is-error .err{display:block}
+.wait.is-loading .btn--amber{opacity:.72;pointer-events:none}
+
+.foot{padding:40px 0;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+.foot nav{display:flex;flex-wrap:wrap;gap:14px 22px;margin-bottom:10px}
+.foot a{text-decoration:none;color:var(--ink-soft);font-weight:500;border-bottom:1px solid transparent}
+.foot a:hover{color:var(--amber-deep);border-bottom-color:rgba(176,122,58,.35)}
+
+@media (max-width:720px){
+  .hero__copy{padding-top:16vh}
+  .cta .btn{flex:1 1 100%;text-align:center}
+  .pin{min-height:155vh}
+  .pin__stage{min-height:92svh;padding:14px 0}
+  .keeper__visual{min-height:min(44vh,360px)}
+  .bridge span{font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .mark,.brand,.hero h1,.hero__lead,.cta{animation:none!important;opacity:1;transform:none}
+  .hero,.section--keeper,.invite,.pin__plane,.pin__after,.beat{opacity:1!important;transform:none!important;filter:none!important}
+  .pin{min-height:0!important}.pin__stage{position:relative!important;min-height:0!important}
+  .thread path{stroke-dashoffset:0}.crack{stroke-dashoffset:0}
+  :root{--reveal:48%;--thread-p:1;--hero-exit:0;--ba-exit:0;--keeper-exit:0;--plane-in:1;--plane-out:0;--invite-in:1;--crack-heal:1;--pin-p:.5;--thread-op:.78;--hero-p:0}
+}
+</style>
+</head>
+<body class="nano-alt-wow-mock story-freeform-max" data-wow-mock="1">
+<a class="skip" href="#copy">К тексту</a>
+
+<div class="thread" aria-hidden="true" data-story-thread="1">
+  <svg viewBox="0 0 40 100" preserveAspectRatio="none">
+    <path class="ghost" pathLength="1" d="M20 0 C18 14 12 22 14 34 C16 48 28 52 26 66 C24 78 14 84 16 94 C17 98 20 100 20 100"/>
+    <path pathLength="1" d="M20 0 C18 14 12 22 14 34 C16 48 28 52 26 66 C24 78 14 84 16 94 C17 98 20 100 20 100"/>
+  </svg>
+</div>
+
+<header class="hero" id="top" data-story-obj="hero">
+  <div class="hero__media" id="hero-media" aria-hidden="true">
+    <video id="hero-video" autoplay muted loop playsinline poster="/assets/wow-mock/lamp-desk-hero.jpg">
+      <source src="/assets/wow-mock/lamp-desk-mood.mp4" type="video/mp4">
+    </video>
+    <img src="/assets/wow-mock/lamp-desk-hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+  <div class="hero__copy" id="copy">
+    <p class="mark">Свободный макет · последний тёплый отпечаток</p>
+    <p class="brand">Save<i>My</i>History</p>
+    <h1>Под лампой ещё лежит снимок, который почти ушёл.</h1>
+    <p class="hero__lead">Не лес. Стол. Бумага. Трещина на отпечатке — и тихий путь вниз к лицу, которое можно сберечь сейчас.</p>
+    <div class="cta">
+      <a class="btn btn--amber" href="#invite">Войти по приглашению</a>
+      <a class="btn btn--ghost" href="#truth">Спуститься по трещине</a>
+    </div>
+  </div>
+</header>
+
+<div class="bridge" aria-hidden="true"><span>трещина · лампа → бумага</span></div>
+
+<main>
+<section class="section section--paper pin" id="truth" data-pin-chapter="1" data-a2="1" aria-labelledby="truth-title">
+  <div class="wrap pin__intro">
+    <p class="eyebrow">Правда · FADING PAST</p>
+    <h2 id="truth-title">Фотографии стираются. Их можно сберечь сейчас.</h2>
+    <p class="lead">Один честный проход: почти потерянное → сохранённое. Без «2&nbsp;мин». FACE и EYE остаются воротами.</p>
+  </div>
+  <div class="pin__stage">
+    <div class="wrap pin__plane" data-story-obj="ba">
+      <div class="meta">
+        <div class="labels" aria-hidden="true">
+          <span><i class="dot"></i> Уходит</span>
+          <span><i class="dot dot--a"></i> Сбережено</span>
+        </div>
+        <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
+      </div>
+      <div class="ba-shell" id="ba-shell">
+        <div class="ba" id="ba" role="img" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
+          <img class="before" src="/assets/wow-mock/ba_before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="1600" decoding="async">
+          <img class="after" src="/assets/wow-mock/ba_after.jpg" alt="То же фото после бережной реставрации" width="1200" height="1600" decoding="async">
+          <div class="rail" aria-hidden="true"></div>
+          <div class="knob" aria-hidden="true">⇄</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap pin__after">
+    <p class="caption">То же лицо. Тот же взгляд. Лицо важнее эффекта — если проверка не проходит, скажем честно.</p>
+    <div class="gates" aria-label="Ворота честности">
+      <span><i></i> FACE</span>
+      <span><i></i> EYE / GAZE</span>
+    </div>
+  </div>
+</section>
+
+<section class="section section--keeper" id="keeper" data-a4="1" data-story-obj="keeper" aria-labelledby="keeper-title">
+  <div class="wrap keeper">
+    <div class="keeper__visual" aria-hidden="true">
+      <img src="/assets/wow-mock/gaze.jpg" alt="" width="800" height="1000" loading="lazy">
+      <div class="keeper__frame"></div>
+      <div class="keeper__motif">
+        <svg viewBox="0 0 140 220" xmlns="http://www.w3.org/2000/svg">
+          <path class="crack crack--soft" pathLength="1" d="M70 18 C58 40 48 62 52 88 C56 114 70 128 70 150"/>
+          <path class="crack" pathLength="1" d="M70 18 C82 42 94 66 88 92 C82 118 70 132 70 150"/>
+          <path class="crack" pathLength="1" d="M70 150 C56 168 40 184 28 204"/>
+          <path class="crack" pathLength="1" d="M70 150 C70 174 72 192 74 210"/>
+          <path class="crack" pathLength="1" d="M70 150 C86 168 104 184 118 204"/>
+          <circle class="heal-dot" cx="70" cy="18" r="2.2"/>
+          <circle class="heal-dot" cx="28" cy="204" r="1.5"/>
+          <circle class="heal-dot" cx="74" cy="210" r="1.5"/>
+          <circle class="heal-dot" cx="118" cy="204" r="1.5"/>
+        </svg>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">Хранитель · заживление трещины</p>
+      <h2 id="keeper-title">Трещина → линия рода</h2>
+      <p class="lead">Не второй лес. Не усадьба. Царапина на отпечатке становится нитью: от лампы к лицу, от лица к корням имён.</p>
+      <div class="beats">
+        <article class="beat" style="--d:0">
+          <strong>Царапина</strong>
+          <p>То, что почти стёрлось на бумаге — правда времени, не костюм.</p>
+        </article>
+        <article class="beat" style="--d:.18">
+          <strong>Хранитель</strong>
+          <p>Ведёт одну линию: снимок → взгляд → честный просмотр. Без чуда напоказ.</p>
+        </article>
+        <article class="beat" style="--d:.36">
+          <strong>Корни</strong>
+          <p>Имена и глаза внизу страницы. То, что держит семью, пока снимок ещё тёплый.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--deep" id="invite" data-soft-wave="1" data-story-obj="invite" aria-labelledby="invite-title">
+  <div class="wrap invite">
+    <div>
+      <p class="eyebrow">После истории · soft-wave</p>
+      <h2 id="invite-title">Войти по приглашению</h2>
+      <p class="lead">Сначала место и правда. Сервис — тихо, через invite. Без холодного free restore.</p>
+      <div class="card">
+        <h3>Есть код?</h3>
+        <p>Redeem открывает кабинет. Коды не раздаём здесь — волна по приглашению.</p>
+        <div class="actions">
+          <span class="btn btn--amber" aria-hidden="true">Активировать</span>
+          <a class="btn btn--line" href="#waitlist">Нет кода — waitlist</a>
+        </div>
+        <p class="hint" style="margin-top:12px;font-size:13px;color:var(--mute)">Макет soft-wave · без free restore</p>
+      </div>
+      <figure class="detail">
+        <img src="/assets/wow-mock/warm-print-detail.jpg" alt="Деталь тёплого отпечатка под лампой" width="1600" height="1000" loading="lazy">
+      </figure>
+    </div>
+    <div class="wait" id="wait-box">
+      <p class="eyebrow" id="waitlist">Waitlist · вторичный</p>
+      <h2 style="font-family:var(--font-d);font-size:1.35rem;margin-bottom:8px">Оставьте контакт</h2>
+      <p class="lead" style="margin-bottom:14px">Waitlist ловит интерес, но не открывает restore сам.</p>
+      <p class="ok" role="status">Вы в списке. Напишем, когда откроем.</p>
+      <form id="wait-form" action="#" method="post" novalidate>
+        <label for="wait-email">Email</label>
+        <input id="wait-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        <label for="wait-name">Имя <span style="font-weight:400;color:var(--mute)">(необязательно)</span></label>
+        <input id="wait-name" name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться">
+        <p class="err" role="alert">Не удалось отправить — попробуйте ещё раз.</p>
+        <button class="btn btn--amber" type="submit" id="wait-submit">Встать в waitlist</button>
+        <p class="hint">Лабораторная форма. Боевой путь — /waitlist.html</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav aria-label="Подвал">
+      <a href="/privacy.html">Конфиденциальность</a>
+      <a href="/waitlist.html">Waitlist</a>
+      <a href="/gallery.html">Галерея</a>
+    </nav>
+    <p>SaveMyHistory · wow-mock-freeform · Last Warm Print · Cold Path B · не продакшен</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var ba = document.getElementById('ba');
+  var baShell = document.getElementById('ba-shell');
+  var pinChapter = document.getElementById('truth');
+  var keeper = document.getElementById('keeper');
+  var invite = document.getElementById('invite');
+  var hero = document.getElementById('top');
+  var heroMedia = document.getElementById('hero-media');
+  var heroVideo = document.getElementById('hero-video');
+  var toggleBtn = document.getElementById('ba-toggle');
+  var dragging = false, showingAfter = true, baScrubbed = false, ticking = false;
+
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  function easeOut(t){ return 1 - Math.pow(1 - t, 2.2); }
+  function setReveal(p){ if(!ba) return; ba.style.setProperty('--reveal', clamp(p,6,94) + '%'); }
+  function setRevealFromX(x){ var r = ba.getBoundingClientRect(); setReveal(((x - r.left) / r.width) * 100); }
+
+  if(heroVideo){
+    var p = heroVideo.play();
+    if(p && p.catch) p.catch(function(){ if(heroMedia) heroMedia.classList.add('is-still'); });
+    heroVideo.addEventListener('error', function(){ if(heroMedia) heroMedia.classList.add('is-still'); });
+  } else if(heroMedia){ heroMedia.classList.add('is-still'); }
+
+  function bus(){
+    ticking = false;
+    var vh = window.innerHeight || 1;
+    var max = Math.max(1, document.documentElement.scrollHeight - vh);
+    var globalP = clamp(window.scrollY / max, 0, 1);
+
+    if(reduce){
+      root.style.setProperty('--thread-p','1');
+      root.style.setProperty('--hero-exit','0');
+      root.style.setProperty('--ba-exit','0');
+      root.style.setProperty('--keeper-exit','0');
+      root.style.setProperty('--plane-in','1');
+      root.style.setProperty('--plane-out','0');
+      root.style.setProperty('--invite-in','1');
+      root.style.setProperty('--crack-heal','1');
+      root.style.setProperty('--pin-p','.5');
+      root.style.setProperty('--thread-op','.78');
+      root.style.setProperty('--hero-p','0');
+      setReveal(48);
+      return;
+    }
+
+    root.style.setProperty('--thread-p', String(globalP));
+
+    var heroP = 0;
+    if(hero){
+      var hr = hero.getBoundingClientRect();
+      heroP = clamp(-hr.top / Math.max(1, hr.height), 0, 1);
+    }
+    root.style.setProperty('--hero-p', String(heroP));
+
+    var heroExit = 0;
+    if(pinChapter){
+      var tr = pinChapter.getBoundingClientRect();
+      heroExit = easeOut(clamp((vh*0.92 - tr.top) / (vh*0.55), 0, 1));
+    }
+    root.style.setProperty('--hero-exit', String(heroExit));
+
+    var baExit = 0;
+    if(keeper){
+      var kr = keeper.getBoundingClientRect();
+      baExit = easeOut(clamp((vh*0.88 - kr.top) / (vh*0.5), 0, 1));
+    }
+    root.style.setProperty('--ba-exit', String(baExit));
+
+    var keeperExit = 0, inviteIn = 0;
+    if(invite){
+      var ir = invite.getBoundingClientRect();
+      keeperExit = easeOut(clamp((vh*0.9 - ir.top) / (vh*0.45), 0, 1));
+      inviteIn = easeOut(clamp((vh*0.85 - ir.top) / (vh*0.55), 0, 1));
+    }
+    root.style.setProperty('--keeper-exit', String(keeperExit));
+    root.style.setProperty('--invite-in', String(inviteIn || 1));
+
+    var pinP = 0;
+    if(pinChapter){
+      var pr = pinChapter.getBoundingClientRect();
+      var top = window.scrollY + pr.top;
+      var travel = Math.max(1, pinChapter.offsetHeight - vh);
+      pinP = clamp((window.scrollY - top) / travel, 0, 1);
+    }
+    root.style.setProperty('--pin-p', String(pinP));
+    var planeIn = easeOut(clamp(pinP / 0.22, 0, 1));
+    var planeOut = Math.max(easeOut(clamp((pinP - 0.78) / 0.22, 0, 1)), baExit * 0.85);
+    root.style.setProperty('--plane-in', String(planeIn));
+    root.style.setProperty('--plane-out', String(planeOut));
+
+    if(baShell && ba && !baScrubbed && !dragging){
+      var wipeT = clamp((pinP - 0.18) / 0.5, 0, 1);
+      setReveal(16 + easeOut(wipeT) * 58);
+    }
+
+    var crack = 0;
+    if(keeper){
+      var krr = keeper.getBoundingClientRect();
+      crack = clamp((vh*0.85 - krr.top) / (vh*0.85 + krr.height*0.35), 0, 1);
+    }
+    root.style.setProperty('--crack-heal', String(easeOut(crack)));
+
+    var threadOp = 0.82;
+    if(crack > 0.08) threadOp = 0.82 - clamp((crack - 0.08) / 0.35, 0, 1) * 0.55;
+    if(keeperExit > 0.2) threadOp = Math.min(threadOp + keeperExit * 0.18, 0.5);
+    root.style.setProperty('--thread-op', String(threadOp));
+
+    var grain = 0.05 + (1 - (parseFloat(getComputedStyle(ba||root).getPropertyValue('--reveal'))||48)/100) * 0.03;
+    root.style.setProperty('--grain-op', String(clamp(grain, 0.03, 0.08)));
+  }
+
+  function requestBus(){ if(!ticking){ ticking=true; requestAnimationFrame(bus); } }
+
+  if(reduce){ bus(); }
+  else {
+    setReveal(16); bus();
+    window.addEventListener('scroll', requestBus, {passive:true});
+    window.addEventListener('resize', requestBus, {passive:true});
+  }
+
+  if(ba){
+    ba.addEventListener('pointerdown', function(e){ dragging=true; baScrubbed=true; if(ba.setPointerCapture) ba.setPointerCapture(e.pointerId); setRevealFromX(e.clientX); });
+    ba.addEventListener('pointermove', function(e){ if(dragging) setRevealFromX(e.clientX); });
+    ba.addEventListener('pointerup', function(){ dragging=false; });
+    ba.addEventListener('pointercancel', function(){ dragging=false; });
+    ba.addEventListener('touchstart', function(e){ dragging=true; baScrubbed=true; setRevealFromX(e.touches[0].clientX); }, {passive:true});
+    ba.addEventListener('touchmove', function(e){ if(!dragging) return; if(e.cancelable) e.preventDefault(); setRevealFromX(e.touches[0].clientX); }, {passive:false});
+    ba.addEventListener('touchend', function(){ dragging=false; });
+  }
+  if(toggleBtn && ba){
+    toggleBtn.addEventListener('click', function(){
+      baScrubbed=true; showingAfter=!showingAfter;
+      toggleBtn.setAttribute('aria-pressed', showingAfter?'false':'true');
+      setReveal(showingAfter?72:12);
+    });
+  }
+
+  var form=document.getElementById('wait-form'), box=document.getElementById('wait-box'), submitBtn=document.getElementById('wait-submit');
+  if(form && box){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email=document.getElementById('wait-email');
+      box.classList.remove('is-error');
+      if(!email || !email.value || !email.checkValidity()){ box.classList.add('is-error'); if(email) email.focus(); return; }
+      box.classList.add('is-loading');
+      if(submitBtn) submitBtn.textContent='Отправляем…';
+      setTimeout(function(){ box.classList.remove('is-loading'); box.classList.add('is-done'); if(submitBtn) submitBtn.textContent='Встать в waitlist'; }, 700);
+    });
+  }
+})();
+</script>
+</body>
+</html>
