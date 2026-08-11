@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ru" class="nano-alt-contest-r3-h" data-contest-r3-h="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — нить имён · contest R3 H</title>
+<meta name="description" content="Thread of Names: чернильная линия становится нитью поколений. Главы лиц вдоль нити, 3D-реликвия, тихий пригласительный жест.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E8E2D8">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8E2D8; --ink:#1A1713; --soft:#3C372F; --mute:#6A6358;
+  --amber:#B07A3A; --amber-deep:#8A5C28; --amber-soft:#E2B87A;
+  --line:rgba(26,23,19,.12);
+  --font-d:"Literata",serif; --font-u:"Manrope",sans-serif;
+  --grain:.04;
+  --thread:0; --name-ink:0; --hero-exit:0;
+  --film:0; --chap:0;
+  --pin:0; --pin-reveal:18%;
+  --ry:-28deg; --rx:10deg; --rz:-1deg;
+  --scan:0; --extract:0; --live:0; --peel:0;
+  --ritual-exit:0; --invite:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-u); color:var(--ink);
+  background:
+    radial-gradient(80% 50% at 70% 0%, rgba(176,122,58,.1), transparent 55%),
+    linear-gradient(180deg,#F0EBE2 0%, var(--paper) 38%, #DDD5C8 100%);
+  overflow-x:hidden; line-height:1.55; min-height:100%;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:80; opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+img{max-width:100%;display:block;user-select:none;-webkit-user-drag:none}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(720px,100% - 36px);margin-inline:auto}
+.eyebrow{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber-deep);font-weight:600;margin-bottom:1rem}
+.brand{font-family:var(--font-d);font-size:clamp(2.5rem,6.4vw,3.85rem);font-weight:700;letter-spacing:-.025em;line-height:.95;margin-bottom:.8rem}
+.brand i{font-style:normal;color:var(--amber)}
+.lead{color:var(--soft);max-width:30ch;font-size:1.05rem;margin-inline:auto;line-height:1.5}
+
+/* fixed thread rail — not sticky, never clipped */
+.thread-rail{
+  position:fixed; left:max(10px, calc(50% - 360px)); top:10vh; bottom:14vh;
+  width:28px; z-index:30; pointer-events:none;
+  opacity:calc(.18 + var(--thread)*.55);
+}
+.thread-rail svg{width:100%;height:100%;display:block;overflow:visible}
+.thread-rail path{
+  fill:none; stroke:var(--amber); stroke-width:1.55; stroke-linecap:round;
+  stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--thread));
+}
+.thread-rail path.ghost{stroke:var(--amber-soft); opacity:.28; stroke-dashoffset:0; stroke-width:1}
+@media (max-width:720px){
+  .thread-rail{left:4px;width:18px}
+}
+
+/* HERO — one composition, brand first */
+.hero{
+  min-height:100svh; display:grid; place-items:center; text-align:center;
+  padding:9vh 0 8vh; position:relative;
+  opacity:calc(1 - var(--hero-exit)*.92);
+  transform:translate3d(0, calc(var(--hero-exit) * -16px), 0);
+}
+.hero__ink{
+  width:min(420px,86vw); aspect-ratio:5/3; margin:0 auto 1.5rem; position:relative;
+}
+.hero__ink svg{width:100%;height:100%;display:block;overflow:visible}
+.hero__ink path{
+  fill:none; stroke:var(--amber-deep); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--name-ink));
+}
+.hero__ink .dot{
+  fill:var(--amber); opacity:calc(.25 + var(--name-ink)*.75);
+}
+.hero__names{
+  position:absolute; inset:8% 6% 10%; display:flex; flex-direction:column; justify-content:space-between;
+  pointer-events:none; font-family:var(--font-d); font-size:clamp(.78rem,2.2vw,.95rem); color:var(--mute);
+  letter-spacing:.04em;
+}
+.hero__names span{
+  opacity:calc(var(--name-ink) * var(--n, .4));
+  transform:translateX(calc((1 - var(--name-ink)) * 10px));
+}
+.hero__names span:nth-child(1){--n:.55; align-self:flex-start}
+.hero__names span:nth-child(2){--n:.8; align-self:center}
+.hero__names span:nth-child(3){--n:1; align-self:flex-end}
+.hero h1{
+  font-family:var(--font-d); font-weight:600;
+  font-size:clamp(1.35rem,3.2vw,1.75rem); line-height:1.25;
+  max-width:18ch; margin:0 auto .7rem;
+}
+.breath{width:1px;height:28px;margin:1.4rem auto 0;background:linear-gradient(180deg,var(--amber),transparent);opacity:.55}
+
+/* A4 — names bloom along drawn thread */
+.names{
+  position:relative; padding:0; /* no overflow clip on pin parent */
+}
+.names__stage{
+  position:sticky; top:0; min-height:100svh;
+  display:grid; place-items:center; padding:7vh 0 6vh;
+}
+.names__card{
+  width:min(520px,92vw); aspect-ratio:4/5; position:relative;
+  background:linear-gradient(180deg,#F3EEE4,#E0D7C8);
+  border:1px solid var(--line); border-radius:2px;
+  box-shadow:0 28px 64px rgba(26,23,19,.14);
+}
+.names__card svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.names__card path{
+  fill:none; stroke:var(--amber); stroke-width:1.6; stroke-linecap:round;
+  stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--name-ink));
+}
+.names__list{
+  position:absolute; inset:12% 10% 14%; display:flex; flex-direction:column; gap:clamp(10px,3vh,22px);
+  font-family:var(--font-d); font-size:clamp(.95rem,2.6vw,1.15rem);
+}
+.names__list b{
+  font-weight:600; color:var(--ink);
+  opacity:calc(.12 + var(--name-ink) * var(--on, .5));
+  transform:translateY(calc((1 - var(--name-ink)) * 8px));
+  display:block;
+}
+.names__list b:nth-child(1){--on:.45}
+.names__list b:nth-child(2){--on:.65}
+.names__list b:nth-child(3){--on:.85}
+.names__list b:nth-child(4){--on:1}
+.names__list b i{font-style:normal; color:var(--amber-deep); font-size:.72em; letter-spacing:.12em; margin-left:.45rem; text-transform:uppercase}
+.names__copy{text-align:center; margin-top:1.25rem; max-width:34ch; margin-inline:auto}
+.names__copy h2{font-family:var(--font-d);font-size:clamp(1.35rem,2.8vw,1.7rem);font-weight:600;margin-bottom:.4rem}
+.names__copy p{color:var(--soft);font-size:.98rem}
+.names__scrub{height:160vh}
+@media (max-width:720px){.names__scrub{height:130vh}}
+
+/* A7 — chapter film along thread (sticky stage, parent NOT overflow:hidden) */
+.film{position:relative; background:transparent}
+.film__stage{
+  position:sticky; top:0; min-height:100svh;
+  display:grid; place-items:center; padding:5vh 0 6vh;
+}
+.film__frame{
+  width:min(420px,86vw); aspect-ratio:3/4; position:relative;
+  border-radius:2px; box-shadow:0 30px 70px rgba(26,23,19,.22);
+  background:#d8d0c4;
+}
+.film__frame .shot{
+  position:absolute; inset:0; border-radius:2px;
+  opacity:0; transform:scale(1.03);
+}
+.film__frame .shot.is-on{opacity:1; transform:scale(1)}
+.film__frame .shot img{width:100%;height:100%;object-fit:cover; border-radius:2px}
+/* overflow only on inner media, not sticky parent */
+.film__frame .shot{overflow:hidden}
+.film__meta{
+  position:absolute; left:0; right:0; bottom:-3.2rem; text-align:center;
+  font-family:var(--font-d); font-size:.95rem;
+}
+.film__meta .gen{color:var(--amber-deep); letter-spacing:.16em; text-transform:uppercase; font-size:.68rem; display:block; margin-bottom:.25rem}
+.film__rail{
+  width:min(420px,86vw); height:3px; margin:3.8rem auto 0; background:rgba(26,23,19,.08); border-radius:99px; overflow:hidden;
+}
+.film__rail i{display:block;height:100%;width:calc((var(--chap) + .001)/3 * 100%);background:linear-gradient(90deg,var(--amber-deep),var(--amber-soft))}
+.film__copy{text-align:center; margin-top:1.1rem}
+.film__copy h2{font-family:var(--font-d);font-size:clamp(1.3rem,2.6vw,1.6rem);font-weight:600;margin-bottom:.35rem}
+.film__copy p{color:var(--soft);max-width:32ch;margin:0 auto;font-size:.96rem}
+.film__scrub{height:280vh}
+@media (max-width:720px){.film__scrub{height:220vh}}
+
+/* A2 — multi-BA chapters pinned along thread */
+.pins{position:relative; padding:4vh 0 2vh}
+.pin{
+  position:relative;
+  min-height:100svh;
+  display:grid; align-content:center;
+  padding:6vh 0;
+}
+.pin__row{
+  display:grid; grid-template-columns:1fr; gap:1.1rem; align-items:center;
+}
+@media (min-width:760px){
+  .pin__row{grid-template-columns:1fr 1.05fr; gap:2rem}
+  .pin:nth-child(even) .pin__row{direction:rtl}
+  .pin:nth-child(even) .pin__row > *{direction:ltr}
+}
+.pin__copy h2{font-family:var(--font-d);font-size:clamp(1.25rem,2.4vw,1.55rem);font-weight:600;margin-bottom:.4rem}
+.pin__copy p{color:var(--soft);max-width:28ch;font-size:.98rem}
+.pin__tag{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-deep);font-weight:600;margin-bottom:.55rem}
+.ba{
+  --reveal:var(--pin-reveal);
+  width:min(360px,84vw); aspect-ratio:3/4; position:relative; margin:0 auto;
+  border-radius:2px; overflow:hidden; touch-action:none; cursor:ew-resize;
+  box-shadow:0 22px 54px rgba(26,23,19,.16), 0 0 40px rgba(176,122,58,.06);
+  opacity:calc(.2 + var(--pin)*.8);
+  transform:translateY(calc((1 - var(--pin))*14px));
+}
+.ba img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.ba .after{clip-path:inset(0 0 0 var(--reveal))}
+.ba .rail{
+  position:absolute; top:0; bottom:0; left:var(--reveal); width:2px;
+  background:rgba(246,241,232,.85); box-shadow:0 0 0 1px rgba(26,23,19,.15);
+  transform:translateX(-1px);
+}
+.ba .hint{
+  position:absolute; left:50%; bottom:10px; transform:translateX(-50%);
+  font-size:.62rem; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(246,241,232,.75); text-shadow:0 1px 6px rgba(0,0,0,.45);
+}
+
+/* ONE 3D perspective stage — mid-act heirloom */
+.ritual{position:relative}
+.ritual__stage{
+  position:sticky; top:0; min-height:100svh;
+  display:grid; place-items:center; padding:5vh 0 6vh;
+  /* perspective ONLY here */
+  perspective:1600px; perspective-origin:50% 42%;
+  opacity:calc(1 - var(--ritual-exit)*.9);
+  transform:translate3d(0, calc(var(--ritual-exit) * -12px), 0);
+}
+.ritual__label{text-align:center; margin-bottom:1.1rem}
+.ritual__label h2{font-family:var(--font-d);font-size:clamp(1.35rem,2.7vw,1.7rem);font-weight:600;margin-bottom:.35rem}
+.ritual__label p{color:var(--soft);max-width:34ch;margin:0 auto;font-size:.96rem}
+.stage3d{width:min(340px,78vw); aspect-ratio:3/4; position:relative; margin:0 auto}
+.photo3d{
+  width:100%; height:100%; position:relative;
+  transform-style:preserve-3d;
+  transform:rotateY(var(--ry)) rotateX(var(--rx)) rotateZ(var(--rz));
+  will-change:transform;
+}
+.photo3d__edge{
+  position:absolute; inset:0; border-radius:3px;
+  transform:translateZ(-4px) scale(1.01);
+  background:linear-gradient(90deg,#C9BBA6,#E8E2D8 45%,#B8A890);
+  box-shadow:0 28px 60px rgba(26,23,19,.28);
+}
+.photo3d__plane{
+  position:absolute; inset:0; border-radius:3px; overflow:hidden; background:#d8d0c4;
+  box-shadow:0 28px 58px rgba(26,23,19,.2), 0 2px 0 rgba(255,255,255,.28) inset;
+  transform:translateZ(2px);
+}
+.photo3d__plane img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.photo3d__after{opacity:var(--live)}
+.scratches{
+  position:absolute; inset:0; pointer-events:none;
+  opacity:calc(.55 - var(--live)*.4); mix-blend-mode:screen;
+  background:
+    linear-gradient(112deg,transparent 46%,rgba(255,255,255,.18) 46.3%,transparent 46.7%),
+    linear-gradient(78deg,transparent 61%,rgba(255,255,255,.12) 61.2%,transparent 61.6%),
+    radial-gradient(120% 80% at 20% 15%,transparent 40%,rgba(0,0,0,.22) 100%);
+}
+.peel{
+  position:absolute; right:-2%; top:8%; width:24%; height:36%;
+  background:linear-gradient(135deg,#F3EEE4 0%,#C9BBA6 52%,transparent 53%);
+  transform:skewY(-8deg) rotate(4deg) scale(calc(.6 + var(--peel)*.5));
+  transform-origin:100% 0; opacity:calc(.5 + var(--peel)*.45);
+  box-shadow:-8px 10px 18px rgba(0,0,0,.22); pointer-events:none;
+}
+.scanline{
+  position:absolute; left:-3%; right:-3%; height:12%;
+  top:calc(var(--scan) * 88%);
+  background:linear-gradient(180deg,transparent,rgba(226,184,122,.55),transparent);
+  opacity:calc(var(--scan) * .95); pointer-events:none; mix-blend-mode:screen;
+}
+.extract{
+  margin-top:1rem; text-align:center;
+  font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--amber-deep);
+  opacity:calc(var(--extract) * (1 - var(--live)*.35) + var(--live)*.85);
+}
+.live-note{
+  position:absolute; top:-1.6rem; left:50%; transform:translateX(-50%);
+  font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--amber);
+  opacity:var(--live); white-space:nowrap;
+}
+.ritual__scrub{height:220vh}
+@media (max-width:720px){.ritual__scrub{height:180vh}}
+
+/* soft invite — COLD_PATH_B */
+.invite{
+  padding:11vh 0 15vh; text-align:center;
+  opacity:calc(.28 + var(--invite)*.72);
+  transform:translateY(calc((1 - var(--invite))*12px));
+}
+.invite h2{font-family:var(--font-d);font-size:clamp(1.4rem,2.5vw,1.7rem);font-weight:500;margin-bottom:.55rem}
+.invite p{color:var(--soft);max-width:28ch;margin:0 auto 1.3rem;font-size:1rem}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; padding:11px 20px; border-radius:4px;
+  background:var(--amber); color:var(--ink); font:600 .92rem/1 var(--font-u);
+  border:1px solid var(--amber);
+}
+.btn:hover{background:var(--amber-deep);color:#F6F1E8}
+.btn:focus-visible{outline:2px solid var(--amber-soft);outline-offset:3px}
+.foot{padding:0 0 2.5rem; text-align:center; font-size:.7rem; color:var(--mute); letter-spacing:.04em}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  :root{
+    --thread:1; --name-ink:1; --hero-exit:0;
+    --film:1; --chap:2;
+    --pin:1; --pin-reveal:48%;
+    --ry:-12deg; --rx:4deg; --rz:0deg;
+    --scan:.5; --extract:1; --live:.78; --peel:.55;
+    --ritual-exit:0; --invite:1;
+  }
+  .hero,.names__stage,.film__stage,.pin .ba,.ritual__stage,.invite{
+    opacity:1!important; transform:none!important;
+  }
+  .breath,.film__rail i{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<aside class="thread-rail" aria-hidden="true" data-a4="1">
+  <svg viewBox="0 0 28 1000" preserveAspectRatio="none">
+    <path class="ghost" pathLength="1" d="M14 0 C18 120 8 240 14 360 C20 480 6 600 14 720 C22 840 10 920 14 1000"/>
+    <path pathLength="1" d="M14 0 C18 120 8 240 14 360 C20 480 6 600 14 720 C22 840 10 920 14 1000"/>
+  </svg>
+</aside>
+
+<header class="hero" data-chapter="hero" id="top">
+  <div class="wrap">
+    <div class="hero__ink" aria-hidden="true">
+      <svg viewBox="0 0 420 252" fill="none">
+        <path pathLength="1" d="M28 210 C90 160 140 70 210 86 C280 102 310 170 392 120"/>
+        <circle class="dot" cx="28" cy="210" r="3.2"/>
+        <circle class="dot" cx="210" cy="86" r="2.6"/>
+        <circle class="dot" cx="392" cy="120" r="3"/>
+      </svg>
+      <div class="hero__names">
+        <span>Анна · 1894</span>
+        <span>Иван · 1921</span>
+        <span>Мария · 1956</span>
+      </div>
+    </div>
+    <p class="eyebrow">Нить имён</p>
+    <p class="brand">Save<i>My</i>History</p>
+    <h1>Чернила становятся родом.</h1>
+    <p class="lead">Одна линия. Имена поколений. Лица, которые держат нить.</p>
+    <div class="breath" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="names" data-chapter="names" data-a4-ink="1" id="names">
+  <div class="names__stage">
+    <div class="wrap">
+      <div class="names__card">
+        <svg viewBox="0 0 400 500" aria-hidden="true">
+          <path pathLength="1" d="M48 40 C70 110 40 180 62 250 C84 320 50 390 78 460"/>
+        </svg>
+        <div class="names__list">
+          <b>Анна Петровна <i>прабабушка</i></b>
+          <b>Иван Сергеевич <i>дедушка</i></b>
+          <b>Мария Ивановна <i>мать</i></b>
+          <b>Вы <i>хранитель</i></b>
+        </div>
+      </div>
+      <div class="names__copy">
+        <h2>Линия пишет имена</h2>
+        <p>Не дерево ради красоты. Нить, по которой можно пройти лицом к лицу.</p>
+      </div>
+    </div>
+  </div>
+  <div class="names__scrub" aria-hidden="true"></div>
+</section>
+
+<section class="film" data-chapter="film" data-a7="1" id="film">
+  <div class="film__stage">
+    <div class="wrap" style="text-align:center">
+      <div class="film__frame" data-film>
+        <div class="shot is-on" data-i="0"><img src="/assets/case_c7_after.jpg" alt="Поколение — лицо после бережного восстановления" width="840" height="1120" decoding="async"></div>
+        <div class="shot" data-i="1"><img src="/assets/case_c8_after.jpg" alt="Следующее имя на нити" width="840" height="1120" decoding="async"></div>
+        <div class="shot" data-i="2"><img src="/assets/case_c10_after.jpg" alt="Ещё одно лицо рода" width="840" height="1120" decoding="async"></div>
+        <div class="shot" data-i="3"><img src="/assets/hero_after.jpg" alt="Живой взгляд на нити" width="840" height="1120" decoding="async"></div>
+        <div class="film__meta">
+          <span class="gen" data-film-gen>Глава I</span>
+          <span data-film-name>Анна</span>
+        </div>
+      </div>
+      <div class="film__rail" aria-hidden="true"><i></i></div>
+      <div class="film__copy">
+        <h2>Главы вдоль нити</h2>
+        <p>Каждое имя — кадр. Не витрина, а перелистывание рода.</p>
+      </div>
+    </div>
+  </div>
+  <div class="film__scrub" aria-hidden="true"></div>
+</section>
+
+<section class="pins" data-chapter="pins" data-a2="1" id="pins">
+  <article class="pin" data-pin="0">
+    <div class="wrap pin__row">
+      <div class="pin__copy">
+        <p class="pin__tag">Узел 1 · взгляд</p>
+        <h2>Глаза держат имя</h2>
+        <p>Лицо важнее фона. Если взгляд теряется — скажем прямо.</p>
+      </div>
+      <div class="ba" data-ba style="--reveal:16%">
+        <img src="/assets/case_c7_before.jpg" alt="До" width="800" height="1066" loading="lazy">
+        <img class="after" src="/assets/case_c7_after.jpg" alt="После" width="800" height="1066" loading="lazy">
+        <div class="rail" aria-hidden="true"></div>
+        <span class="hint">медленно</span>
+      </div>
+    </div>
+  </article>
+  <article class="pin" data-pin="1">
+    <div class="wrap pin__row">
+      <div class="pin__copy">
+        <p class="pin__tag">Узел 2 · бумага</p>
+        <h2>Бумага помнит тепло</h2>
+        <p>Царапины не стыдно. Они — часть имени, не ошибка файла.</p>
+      </div>
+      <div class="ba" data-ba style="--reveal:20%">
+        <img src="/assets/case_c8_before.jpg" alt="До" width="800" height="1066" loading="lazy">
+        <img class="after" src="/assets/case_c8_after.jpg" alt="После" width="800" height="1066" loading="lazy">
+        <div class="rail" aria-hidden="true"></div>
+        <span class="hint">медленно</span>
+      </div>
+    </div>
+  </article>
+  <article class="pin" data-pin="2">
+    <div class="wrap pin__row">
+      <div class="pin__copy">
+        <p class="pin__tag">Узел 3 · присутствие</p>
+        <h2>Имя становится живым</h2>
+        <p>Не ретушь ради красоты. Присутствие — чтобы внуки узнали.</p>
+      </div>
+      <div class="ba" data-ba style="--reveal:18%">
+        <img src="/assets/case_c10_before.jpg" alt="До" width="800" height="1066" loading="lazy">
+        <img class="after" src="/assets/case_c10_after.jpg" alt="После" width="800" height="1066" loading="lazy">
+        <div class="rail" aria-hidden="true"></div>
+        <span class="hint">медленно</span>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="ritual" data-chapter="ritual" data-pin-ritual id="ritual">
+  <div class="ritual__stage">
+    <div class="wrap">
+      <div class="ritual__label">
+        <h2>Реликвия на нити</h2>
+        <p>Поверните снимок. Прочтите царапины. Тихий скан — и живое присутствие.</p>
+      </div>
+      <div class="stage3d">
+        <div class="live-note">живой снимок</div>
+        <div class="photo3d" data-photo3d>
+          <div class="photo3d__edge" aria-hidden="true"></div>
+          <div class="photo3d__plane">
+            <img class="photo3d__before" src="/assets/case_c6_before.jpg" alt="Старый снимок-реликвия" width="900" height="1200" decoding="async">
+            <img class="photo3d__after" src="/assets/case_c6_after.jpg" alt="Живое воссоздание реликвии" width="900" height="1200" decoding="async">
+            <div class="scratches" aria-hidden="true"></div>
+            <div class="scanline" aria-hidden="true"></div>
+            <div class="peel" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+      <p class="extract"><span>скан · извлечение · присутствие</span></p>
+    </div>
+  </div>
+  <div class="ritual__scrub" aria-hidden="true"></div>
+</section>
+
+<section class="invite" data-chapter="invite" data-cold-path-b="1" id="invite">
+  <div class="wrap">
+    <p class="eyebrow">Мягкая волна</p>
+    <h2>Если вы держите нить</h2>
+    <p>Войдите тихо. Как к именам в семейной книге, не к витрине.</p>
+    <a class="btn" href="/waitlist.html">К списку ожидания</a>
+  </div>
+</section>
+
+<footer class="foot">SaveMyHistory · contest-r3-h-thread-names · Thread of Names</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var userReveal = {};
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){t=clamp(t,0,1); return 1 - Math.pow(1 - t, 2.35);}
+  function seg(p,a,b){return clamp((p-a)/Math.max(0.0001,b-a),0,1);}
+  function chapterP(el,vh){
+    var r = el.getBoundingClientRect();
+    return clamp((-r.top)/Math.max(1, el.offsetHeight - vh), 0, 1);
+  }
+  function exitAsNextEnters(next, vh){
+    if(!next) return 0;
+    var nr = next.getBoundingClientRect();
+    return ease(clamp((vh*0.72 - nr.top)/(vh*0.55), 0, 1));
+  }
+  var bas = document.querySelectorAll('[data-ba]');
+  bas.forEach(function(portrait, idx){
+    if(reduce) return;
+    var drag=false;
+    function setX(x){
+      var r=portrait.getBoundingClientRect();
+      portrait.style.setProperty('--reveal', clamp(((x-r.left)/r.width)*100,8,92)+'%');
+      userReveal[idx]=true;
+    }
+    portrait.addEventListener('pointerdown',function(e){drag=true;portrait.setPointerCapture(e.pointerId);setX(e.clientX);});
+    portrait.addEventListener('pointermove',function(e){if(drag)setX(e.clientX);});
+    portrait.addEventListener('pointerup',function(){drag=false;});
+    portrait.addEventListener('pointercancel',function(){drag=false;});
+  });
+
+  var hero = document.querySelector('[data-chapter="hero"]');
+  var names = document.querySelector('[data-chapter="names"]');
+  var film = document.querySelector('[data-chapter="film"]');
+  var ritual = document.querySelector('[data-pin-ritual]');
+  var invite = document.querySelector('[data-chapter="invite"]');
+  var pins = document.querySelectorAll('[data-pin]');
+  var shots = document.querySelectorAll('[data-film] .shot');
+  var filmGen = document.querySelector('[data-film-gen]');
+  var filmName = document.querySelector('[data-film-name]');
+  var gens = ['Глава I','Глава II','Глава III','Глава IV'];
+  var nms = ['Анна','Иван','Мария','Вы'];
+  var ticking=false;
+
+  function setFilm(i){
+    i = clamp(Math.round(i), 0, shots.length-1);
+    shots.forEach(function(s,k){ s.classList.toggle('is-on', k===i); });
+    if(filmGen) filmGen.textContent = gens[i] || '';
+    if(filmName) filmName.textContent = nms[i] || '';
+    root.style.setProperty('--chap', String(i));
+  }
+
+  function bus(){
+    ticking=false;
+    var vh = window.innerHeight || 1;
+    var docH = Math.max(1, document.documentElement.scrollHeight - vh);
+    var globalP = clamp(window.scrollY / docH, 0, 1);
+
+    if(reduce){
+      root.style.setProperty('--thread','1');
+      root.style.setProperty('--name-ink','1');
+      root.style.setProperty('--hero-exit','0');
+      root.style.setProperty('--film','1');
+      setFilm(2);
+      root.style.setProperty('--pin','1');
+      root.style.setProperty('--pin-reveal','48%');
+      bas.forEach(function(b){ b.style.setProperty('--reveal','48%'); b.style.setProperty('--pin','1'); });
+      root.style.setProperty('--ry','-12deg');
+      root.style.setProperty('--rx','4deg');
+      root.style.setProperty('--rz','0deg');
+      root.style.setProperty('--peel','.55');
+      root.style.setProperty('--scan','.5');
+      root.style.setProperty('--extract','1');
+      root.style.setProperty('--live','.78');
+      root.style.setProperty('--ritual-exit','0');
+      if(invite) invite.style.setProperty('--invite','1');
+      return;
+    }
+
+    root.style.setProperty('--thread', ease(globalP).toFixed(4));
+    root.style.setProperty('--hero-exit', exitAsNextEnters(names, vh).toFixed(4));
+
+    if(names){
+      var np = chapterP(names, vh);
+      root.style.setProperty('--name-ink', ease(seg(np, 0.02, 0.78)).toFixed(4));
+    }
+
+    if(film){
+      var fp = chapterP(film, vh);
+      root.style.setProperty('--film', ease(fp).toFixed(4));
+      var fi = ease(seg(fp, 0.05, 0.92)) * (shots.length - 1);
+      setFilm(fi);
+    }
+
+    pins.forEach(function(pin, idx){
+      var pr = pin.getBoundingClientRect();
+      var pp = ease(clamp((vh*0.78 - pr.top)/(vh*0.65), 0, 1));
+      var ba = pin.querySelector('[data-ba]');
+      if(ba){
+        ba.style.setProperty('--pin', pp.toFixed(4));
+        if(!userReveal[idx]){
+          ba.style.setProperty('--reveal', (14 + ease(seg(pp, 0.15, 0.9))*58) + '%');
+        }
+      }
+    });
+
+    root.style.setProperty('--ritual-exit', exitAsNextEnters(invite, vh).toFixed(4));
+    if(ritual){
+      var p = chapterP(ritual, vh);
+      var turn = ease(seg(p, 0.0, 0.34));
+      root.style.setProperty('--ry', (-36 + turn * 56).toFixed(2)+'deg');
+      root.style.setProperty('--rx', (12 - turn * 17).toFixed(2)+'deg');
+      root.style.setProperty('--rz', (-2.2 + turn * 2.2).toFixed(2)+'deg');
+      root.style.setProperty('--peel', ease(seg(p, 0.05, 0.3)).toFixed(4));
+      root.style.setProperty('--scan', ease(seg(p, 0.3, 0.55)).toFixed(4));
+      root.style.setProperty('--extract', ease(seg(p, 0.45, 0.65)).toFixed(4));
+      root.style.setProperty('--live', ease(seg(p, 0.58, 0.85)).toFixed(4));
+      if(p > 0.85){
+        var settle = ease(seg(p, 0.85, 1));
+        root.style.setProperty('--ry', (20 - settle*20).toFixed(2)+'deg');
+        root.style.setProperty('--rx', (-4.5 + settle*4.5).toFixed(2)+'deg');
+        root.style.setProperty('--rz', '0deg');
+      }
+    }
+
+    if(invite){
+      var ir = invite.getBoundingClientRect();
+      invite.style.setProperty('--invite', ease(clamp((vh*0.8 - ir.top)/(vh*0.5), 0, 1)).toFixed(4));
+    }
+  }
+
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+})();
+</script>
+</body>
+</html>
