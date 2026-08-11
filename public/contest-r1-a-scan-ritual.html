@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-contest-r1-a="1" class="contest-r1-a nano-alt-contest-r1-a craft-study">
+<html lang="ru" data-contest-r1-a="1" data-craft-raise="1" class="contest-r1-a nano-alt-contest-r1-a craft-raise-r1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,42 +13,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/assets/hero_before.jpg" fetchpriority="high">
 <!--
-  Contest R1 Team A · SCAN RITUAL 3D
-  Markers: nano-alt-contest-r1-a · data-contest-r1-a="1" · contest-r1-a-scan-ritual
-  CSS 3D scroll scrub · scratches + peel · scan → extract → living AFTER
-  spend_E=0 · allowlist BA only · HARD BAN pd_02 / 6fe4644f
-  COLD_PATH_B · CREATIVE_BRIDGE · STOP_ALL_RESTORES
+  Contest R1 Craft Raise · Team A · SCAN RITUAL 3D
+  Markers: nano-alt-contest-r1-a · data-contest-r1-a="1" · data-craft-raise="1"
+  One composition film · CSS 3D scrub · scratches/peel · scan→extract→life
+  A2 pin · A7 crossfade · A4 ink guide · spend_E=0 · HARD BAN pd_02/6fe4644f
+  COLD_PATH_B single CTA · CREATIVE_BRIDGE · STOP_ALL_RESTORES
 -->
 <style>
 :root{
   --paper:#E8E2D8;
-  --paper-deep:#D9D1C4;
   --ink:#1C1915;
   --ink-soft:#3F3A33;
   --mute:#6E665C;
-  --line:rgba(232,226,216,.14);
+  --line:rgba(232,226,216,.12);
   --amber:#B07A3A;
   --amber-soft:#E2B87A;
   --amber-deep:#8C5E28;
   --stage:#0E0C09;
-  --hud:rgba(226,184,122,.85);
   --font-d:"Literata","Source Serif 4","PT Serif",serif;
   --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
-  --ease:cubic-bezier(.22,.61,.36,1);
-  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease:cubic-bezier(.16,1,.3,1);
   --scrub:0;
   --scan:0;
   --extract:0;
   --life:0;
   --line-progress:0;
-  --obj-in:0;
-  --beat:0;
+  --ritual-exit:0;
+  --living-in:0;
+  --invite-in:0;
+  --wake:0;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   font-family:var(--font-u);
-  font-size:1.0625rem;
+  font-size:1.05rem;
   line-height:1.55;
   color:var(--paper);
   background:var(--stage);
@@ -58,406 +57,451 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 .contest-r1-a{--cr1a:1}
 .nano-alt-contest-r1-a{--ncr1a:1}
-.craft-study{--cs:1}
+.craft-raise-r1{--crr1:1}
 .skip{position:absolute;left:-9999px}
 .skip:focus{
   position:fixed;left:12px;top:12px;z-index:90;
   background:var(--paper);color:var(--ink);
   padding:10px 14px;border-radius:8px;font-weight:600;
 }
-.wrap{width:min(920px,100% - 40px);margin-inline:auto}
-@media (max-width:720px){.wrap{width:min(920px,100% - 28px)}}
+.wrap{width:min(880px,100% - 36px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(880px,100% - 24px)}}
 
 .progress{
-  position:fixed;top:0;left:0;height:2px;width:calc(var(--line-progress) * 100%);
+  position:fixed;top:0;left:0;height:1.5px;width:calc(var(--line-progress) * 100%);
   background:linear-gradient(90deg,var(--amber-deep),var(--amber-soft));
-  z-index:80;pointer-events:none;opacity:.85;
+  z-index:80;pointer-events:none;opacity:.8;
 }
+.ink-guide{
+  position:fixed;left:50%;top:0;bottom:0;width:1px;z-index:4;pointer-events:none;
+  transform:translateX(-50%);
+  background:linear-gradient(180deg,
+    transparent 0%,
+    rgba(226,184,122,.18) 12%,
+    rgba(226,184,122,.28) calc(var(--line-progress) * 100%),
+    transparent calc(var(--line-progress) * 100% + 1%));
+  opacity:calc(.35 + var(--life) * .25);
+}
+@media (max-width:720px){.ink-guide{opacity:.18}}
 
-.top{
-  position:relative;z-index:5;
-  padding:28px 0 8px;
-  display:flex;justify-content:space-between;align-items:center;gap:16px;
-}
-.brand{font-family:var(--font-d);font-size:1.2rem;font-weight:700;letter-spacing:.01em}
-.brand span{color:var(--amber-soft)}
-.tag{
-  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(232,226,216,.55);font-weight:600;
-}
-
-.hero{
-  min-height:88vh;display:grid;align-content:center;gap:18px;
-  padding:48px 0 72px;position:relative;z-index:2;
-}
-.hero .eyebrow{
-  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--amber-soft);font-weight:600;
-}
-.hero h1{
-  font-family:var(--font-d);
-  font-size:clamp(2.2rem,5.4vw,3.6rem);
-  line-height:1.05;max-width:14ch;font-weight:700;
-}
-.hero .lead{
-  color:rgba(232,226,216,.72);max-width:38ch;font-size:1.05rem;
-}
-.hero .hint{
-  margin-top:18px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(232,226,216,.42);
-}
-
-/* ===== PINNED 3D RITUAL ===== */
-.ritual{
+/* ===== ONE COMPOSITION: pinned ritual film ===== */
+.film{
   position:relative;
-  height:340vh;
+  height:420vh;
 }
-.ritual__pin{
-  position:sticky;top:0;height:100vh;
+@media (max-width:720px){.film{height:360vh}}
+.film__pin{
+  position:sticky;top:0;height:100vh;min-height:100svh;
   display:grid;place-items:center;
   overflow:hidden;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(176,122,58,.14), transparent 62%),
-    radial-gradient(ellipse 90% 80% at 50% 100%, rgba(14,12,9,.95), transparent 55%),
+    radial-gradient(ellipse 62% 48% at 50% 40%, rgba(176,122,58,calc(.08 + var(--life) * .1)), transparent 64%),
+    radial-gradient(ellipse 100% 70% at 50% 110%, rgba(14,12,9,.98), transparent 50%),
     var(--stage);
+  opacity:calc(1 - var(--ritual-exit) * .92);
+  transform:translate3d(0, calc(var(--ritual-exit) * -18px), 0);
+  filter:brightness(calc(1 - var(--ritual-exit) * .12));
 }
-.ritual__copy{
-  position:absolute;inset:auto 0 7vh;z-index:6;text-align:center;
-  padding:0 20px;pointer-events:none;
+.brand-slot{
+  position:absolute;top:0;left:0;right:0;z-index:6;
+  padding:22px 0 0;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  opacity:calc(.55 + var(--wake) * .45);
+  transform:translate3d(0, calc((1 - var(--wake)) * 8px), 0);
 }
-.ritual__copy .phase{
-  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+.brand{font-family:var(--font-d);font-size:1.12rem;font-weight:700;letter-spacing:.01em}
+.brand span{color:var(--amber-soft)}
+.tag{
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(232,226,216,.42);font-weight:600;
+}
+
+.open{
+  position:absolute;inset:auto 0 11vh;z-index:6;text-align:center;
+  padding:0 18px;pointer-events:none;
+  opacity:calc((1 - var(--scrub) * 1.35) * (1 - var(--ritual-exit)));
+  transform:translate3d(0, calc(var(--scrub) * -10px), 0);
+}
+.open .eyebrow{
+  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;margin-bottom:10px;
+}
+.open h1{
+  font-family:var(--font-d);
+  font-size:clamp(1.85rem,4.6vw,3rem);
+  line-height:1.06;font-weight:700;max-width:14ch;margin:0 auto;
+}
+.open .lead{
+  margin:12px auto 0;color:rgba(232,226,216,.62);
+  max-width:34ch;font-size:.98rem;
+}
+.open .hint{
+  margin-top:16px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(232,226,216,.34);
+}
+
+.phase{
+  position:absolute;inset:auto 0 8vh;z-index:6;text-align:center;
+  padding:0 18px;pointer-events:none;
+  opacity:calc(clamp(0, (var(--scrub) - .12) / .18, 1) * (1 - var(--ritual-exit)));
+  transform:translate3d(0, calc((1 - clamp(0, (var(--scrub) - .12) / .18, 1)) * 14px), 0);
+}
+.phase .label{
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--amber-soft);font-weight:600;margin-bottom:8px;
-  opacity:calc(.35 + var(--scrub) * .65);
 }
-.ritual__copy h2{
-  font-family:var(--font-d);font-size:clamp(1.35rem,3vw,1.9rem);
+.phase h2{
+  font-family:var(--font-d);font-size:clamp(1.25rem,2.8vw,1.75rem);
   font-weight:600;max-width:22ch;margin:0 auto;
 }
-.ritual__copy p{
-  margin-top:8px;color:rgba(232,226,216,.62);font-size:.95rem;max-width:40ch;margin-inline:auto;
+.phase p{
+  margin-top:8px;color:rgba(232,226,216,.58);font-size:.92rem;
+  max-width:38ch;margin-inline:auto;
 }
 
 .stage3d{
-  perspective:1400px;perspective-origin:50% 45%;
-  width:min(420px,78vw);aspect-ratio:4/5;
+  perspective:1500px;perspective-origin:50% 42%;
+  width:min(400px,74vw);aspect-ratio:4/5;
   position:relative;z-index:3;
+  margin-top:-4vh;
+  opacity:calc(.35 + var(--wake) * .65);
+  transform:scale(calc(.94 + var(--wake) * .06));
 }
 .photo-object{
   width:100%;height:100%;
   position:relative;
   transform-style:preserve-3d;
   transform:
-    rotateY(calc(-34deg + var(--scrub) * 68deg))
-    rotateX(calc(10deg - var(--scrub) * 16deg))
-    translateZ(calc(var(--scrub) * 28px))
-    scale(calc(.92 + var(--life) * .06));
+    rotateY(calc(-38deg + var(--scrub) * 76deg))
+    rotateX(calc(12deg - var(--scrub) * 18deg))
+    translateZ(calc(var(--scrub) * 36px))
+    scale(calc(.9 + var(--life) * .08));
   will-change:transform;
-  filter:drop-shadow(0 28px 48px rgba(0,0,0,.55));
+  filter:
+    drop-shadow(0 30px 50px rgba(0,0,0,.58))
+    drop-shadow(0 0 calc(var(--life) * 28px) rgba(226,184,122,.18));
 }
 .photo-face{
   position:absolute;inset:0;
-  border-radius:3px;
+  border-radius:2px;
   overflow:hidden;
   background:#2a241c;
-  transform:translateZ(1px);
+  transform:translateZ(2px);
   box-shadow:
-    inset 0 0 0 1px rgba(232,226,216,.12),
-    0 0 0 1px rgba(0,0,0,.35);
+    inset 0 0 0 1px rgba(232,226,216,.1),
+    0 0 0 1px rgba(0,0,0,.4);
 }
 .photo-face img{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
-.photo-face .before{z-index:1;opacity:calc(1 - var(--life));}
+.photo-face .before{
+  z-index:1;
+  opacity:calc(1 - var(--life));
+  filter:saturate(calc(.9 - var(--scan) * .08));
+}
 .photo-face .after{
   z-index:2;
   opacity:var(--life);
-  filter:saturate(calc(.85 + var(--life) * .2));
+  filter:saturate(calc(.88 + var(--life) * .18));
+  clip-path:inset(0 0 calc((1 - var(--life)) * 12%) 0);
 }
 .photo-back{
   position:absolute;inset:0;
-  border-radius:3px;
+  border-radius:2px;
   background:
-    linear-gradient(135deg,#cfc4b2 0%,#b8ab96 40%,#a69882 100%);
-  transform:rotateY(180deg) translateZ(1px);
-  box-shadow:inset 0 0 40px rgba(28,25,21,.18);
+    linear-gradient(145deg,#d4c8b4 0%,#b9ab95 42%,#9e917c 100%);
+  transform:rotateY(180deg) translateZ(2px);
+  box-shadow:inset 0 0 42px rgba(28,25,21,.2);
 }
 .photo-back::after{
-  content:"";position:absolute;inset:12%;
-  border:1px solid rgba(28,25,21,.12);
+  content:"";position:absolute;inset:10%;
+  border:1px solid rgba(28,25,21,.1);
   background:
-    repeating-linear-gradient(0deg,transparent,transparent 22px,rgba(28,25,21,.05) 23px);
+    repeating-linear-gradient(0deg,transparent,transparent 20px,rgba(28,25,21,.045) 21px);
 }
-
-/* paper edge / thickness */
 .photo-edge{
-  position:absolute;top:0;right:-3px;width:3px;height:100%;
-  background:linear-gradient(180deg,#d8d0c2,#9a8f7c);
-  transform:rotateY(90deg) translateZ(1.5px);transform-origin:left center;
+  position:absolute;top:0;right:-4px;width:4px;height:100%;
+  background:linear-gradient(180deg,#e0d6c6,#a89882 55%,#8a7c68);
+  transform:rotateY(90deg) translateZ(2px);transform-origin:left center;
+}
+.photo-edge-b{
+  position:absolute;left:0;bottom:-3px;width:100%;height:3px;
+  background:linear-gradient(90deg,#cfc3b0,#a8967e);
+  transform:rotateX(-90deg) translateZ(1.5px);transform-origin:center top;
 }
 
-/* scratches overlay */
+.grain{
+  position:absolute;inset:0;z-index:5;pointer-events:none;
+  opacity:calc(.14 - var(--life) * .1);
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  background-size:180px;
+}
 .scratches{
   position:absolute;inset:0;z-index:4;pointer-events:none;
-  opacity:calc(.72 - var(--life) * .55);
+  opacity:calc(.78 - var(--life) * .62);
   mix-blend-mode:soft-light;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.35' stroke-width='.7'%3E%3Cpath d='M20 40c40 10 60-20 110-8M140 90l80 12M210 70c30 40 10 90-20 120M40 200c70-10 120 30 180 10M300 160l40 90M80 320c50 20 90-10 140 20M250 380c40-30 70 10 110-20M30 450l90-30'/%3E%3C/g%3E%3Cg fill='%23000' fill-opacity='.18'%3E%3Ccircle cx='310' cy='120' r='18'/%3E%3Ccircle cx='90' cy='260' r='28'/%3E%3Ccircle cx='220' cy='410' r='22'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.38' stroke-width='.75'%3E%3Cpath d='M20 40c40 10 60-20 110-8M140 90l80 12M210 70c30 40 10 90-20 120M40 200c70-10 120 30 180 10M300 160l40 90M80 320c50 20 90-10 140 20M250 380c40-30 70 10 110-20M30 450l90-30M160 240c40 30 20 80-10 110'/%3E%3C/g%3E%3Cg fill='%23000' fill-opacity='.2'%3E%3Ccircle cx='310' cy='120' r='18'/%3E%3Ccircle cx='90' cy='260' r='28'/%3E%3Ccircle cx='220' cy='410' r='22'/%3E%3Ccircle cx='160' cy='150' r='12'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat;
 }
 .stain{
   position:absolute;inset:0;z-index:3;pointer-events:none;
-  opacity:calc(.55 - var(--life) * .5);
+  opacity:calc(.58 - var(--life) * .52);
   background:
-    radial-gradient(ellipse 40% 28% at 18% 22%, rgba(90,70,40,.45), transparent 70%),
-    radial-gradient(ellipse 35% 30% at 78% 70%, rgba(60,50,35,.4), transparent 72%),
-    linear-gradient(160deg, rgba(40,30,20,.15), transparent 50%);
+    radial-gradient(ellipse 42% 30% at 16% 20%, rgba(90,70,40,.48), transparent 70%),
+    radial-gradient(ellipse 36% 32% at 80% 72%, rgba(60,50,35,.42), transparent 72%),
+    linear-gradient(155deg, rgba(40,30,20,.18), transparent 52%);
 }
 
-/* peeling paper corner */
 .peel{
-  position:absolute;right:-2%;top:-1%;width:34%;height:28%;z-index:5;
+  position:absolute;right:-3%;top:-2%;width:36%;height:30%;z-index:6;
   transform-origin:100% 0;
   transform:
-    perspective(400px)
-    rotateZ(calc(-2deg - var(--scrub) * 4deg))
-    rotateX(calc(-8deg - var(--scrub) * 18deg))
-    translateY(calc(var(--scrub) * -6px));
+    perspective(420px)
+    rotateZ(calc(-3deg - var(--scrub) * 5deg))
+    rotateX(calc(-10deg - var(--scrub) * 22deg))
+    translate3d(calc(var(--scrub) * 4px), calc(var(--scrub) * -10px), calc(var(--scrub) * 8px));
   pointer-events:none;
-  opacity:calc(.95 - var(--life) * .85);
+  opacity:calc(.98 - var(--life) * .9);
 }
 .peel__sheet{
   width:100%;height:100%;
   background:
-    linear-gradient(135deg, rgba(246,241,232,.96) 0%, rgba(220,210,192,.92) 55%, rgba(190,175,150,.88) 100%);
-  clip-path:polygon(28% 0,100% 0,100% 100%,0 72%);
+    linear-gradient(135deg, rgba(248,243,234,.98) 0%, rgba(222,212,194,.94) 52%, rgba(188,172,148,.9) 100%);
+  clip-path:polygon(30% 0,100% 0,100% 100%,0 70%);
   box-shadow:
-    -6px 10px 18px rgba(0,0,0,.28),
-    inset 2px -2px 0 rgba(255,255,255,.25);
+    -8px 12px 22px rgba(0,0,0,.32),
+    inset 2px -2px 0 rgba(255,255,255,.28);
+}
+.peel__sheet::before{
+  content:"";position:absolute;left:8%;top:8%;width:42%;height:2px;
+  background:rgba(28,25,21,.08);transform:rotate(-28deg);
 }
 .peel__sheet::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(225deg, transparent 40%, rgba(176,122,58,.18) 100%);
+  background:linear-gradient(225deg, transparent 36%, rgba(176,122,58,.2) 100%);
 }
 
-/* scan beam */
 .scan-beam{
-  position:absolute;left:-4%;right:-4%;height:18%;
-  top:calc(var(--scan) * 88%);
+  position:absolute;left:-5%;right:-5%;height:16%;
+  top:calc(-8% + var(--scan) * 100%);
   z-index:7;pointer-events:none;
-  opacity:calc(var(--scan) * (1 - var(--life)) * .95);
+  opacity:calc(var(--scan) * (1 - var(--life)) * .98);
   background:linear-gradient(180deg,
     transparent 0%,
-    rgba(226,184,122,.05) 30%,
-    rgba(226,184,122,.55) 48%,
-    rgba(255,240,210,.85) 50%,
-    rgba(226,184,122,.45) 52%,
-    rgba(226,184,122,.05) 70%,
+    rgba(226,184,122,.04) 28%,
+    rgba(226,184,122,.5) 46%,
+    rgba(255,244,220,.92) 50%,
+    rgba(226,184,122,.42) 54%,
+    rgba(226,184,122,.04) 72%,
     transparent 100%);
   mix-blend-mode:screen;
-  filter:blur(.2px);
-  box-shadow:0 0 24px rgba(226,184,122,.35);
+  box-shadow:0 0 28px rgba(226,184,122,.4);
 }
 .scan-grid{
   position:absolute;inset:0;z-index:6;pointer-events:none;
-  opacity:calc(var(--scan) * .35 * (1 - var(--life) * .7));
+  opacity:calc(var(--scan) * .4 * (1 - var(--life) * .75));
   background:
-    repeating-linear-gradient(0deg, transparent 0 11px, rgba(226,184,122,.08) 11px 12px),
-    repeating-linear-gradient(90deg, transparent 0 11px, rgba(226,184,122,.05) 11px 12px);
-  mask-image:linear-gradient(180deg, transparent, #000 20%, #000 80%, transparent);
+    repeating-linear-gradient(0deg, transparent 0 10px, rgba(226,184,122,.09) 10px 11px),
+    repeating-linear-gradient(90deg, transparent 0 10px, rgba(226,184,122,.05) 10px 11px);
+  mask-image:linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+.scan-read{
+  position:absolute;inset:0;z-index:5;pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(226,184,122,.08) 0%,
+    transparent calc(var(--scan) * 100%),
+    transparent 100%);
+  opacity:calc(var(--scan) * .55 * (1 - var(--life)));
+  mix-blend-mode:soft-light;
 }
 
-/* HUD extract chips */
 .hud{
-  position:absolute;inset:8% auto auto 104%;
-  width:min(180px,34vw);z-index:8;
-  display:grid;gap:8px;
+  position:absolute;inset:10% auto auto 106%;
+  width:min(168px,32vw);z-index:8;
+  display:grid;gap:7px;
   opacity:var(--extract);
-  transform:translate3d(calc((1 - var(--extract)) * 16px),0,0);
+  transform:translate3d(calc((1 - var(--extract)) * 18px),0,0);
   pointer-events:none;
 }
 @media (max-width:820px){
   .hud{
-    inset:auto 0 -2%;left:50%;width:min(320px,90vw);
-    transform:translateX(-50%) translateY(calc((1 - var(--extract)) * 12px));
+    inset:auto 0 18%;left:50%;width:min(300px,88vw);
+    transform:translateX(-50%) translateY(calc((1 - var(--extract)) * 14px));
     grid-template-columns:1fr 1fr;gap:6px;
   }
+  .open{bottom:14vh}
+  .phase{bottom:10vh}
+  .stage3d{width:min(340px,78vw);margin-top:-8vh}
 }
 .hud__chip{
-  border:1px solid rgba(226,184,122,.28);
-  background:rgba(14,12,9,.72);
+  border:1px solid rgba(226,184,122,.26);
+  background:rgba(14,12,9,.74);
   backdrop-filter:blur(8px);
-  padding:8px 10px;border-radius:4px;
-  font-size:.68rem;letter-spacing:.04em;
-  color:rgba(246,241,232,.88);
-  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  padding:7px 9px;border-radius:3px;
+  font-size:.64rem;letter-spacing:.04em;
+  color:rgba(246,241,232,.86);
+  box-shadow:0 8px 18px rgba(0,0,0,.28);
 }
 .hud__chip b{
-  display:block;font-family:var(--font-d);font-size:.78rem;
-  color:var(--amber-soft);font-weight:600;margin-bottom:2px;
+  display:block;font-family:var(--font-d);font-size:.74rem;
+  color:var(--amber-soft);font-weight:600;margin-bottom:1px;
 }
-.hud__chip:nth-child(1){opacity:calc(clamp(0, (var(--extract) - .05) / .25, 1))}
-.hud__chip:nth-child(2){opacity:calc(clamp(0, (var(--extract) - .25) / .25, 1))}
-.hud__chip:nth-child(3){opacity:calc(clamp(0, (var(--extract) - .45) / .25, 1))}
-.hud__chip:nth-child(4){opacity:calc(clamp(0, (var(--extract) - .65) / .25, 1))}
+.hud__chip:nth-child(1){opacity:calc(clamp(0, (var(--extract) - .02) / .2, 1))}
+.hud__chip:nth-child(2){opacity:calc(clamp(0, (var(--extract) - .2) / .2, 1))}
+.hud__chip:nth-child(3){opacity:calc(clamp(0, (var(--extract) - .4) / .2, 1))}
+.hud__chip:nth-child(4){opacity:calc(clamp(0, (var(--extract) - .6) / .22, 1))}
 
 .floor-glow{
-  position:absolute;bottom:12%;left:50%;transform:translateX(-50%);
-  width:min(360px,70vw);height:40px;border-radius:50%;
-  background:radial-gradient(ellipse, rgba(226,184,122,.22), transparent 70%);
-  filter:blur(8px);z-index:1;
-  opacity:calc(.25 + var(--life) * .55);
+  position:absolute;bottom:14%;left:50%;transform:translateX(-50%);
+  width:min(340px,68vw);height:36px;border-radius:50%;
+  background:radial-gradient(ellipse, rgba(226,184,122,.24), transparent 70%);
+  filter:blur(10px);z-index:1;
+  opacity:calc(.2 + var(--life) * .6);
 }
 
-/* ===== EXTRACT PROOF STRIP ===== */
-.proof{
-  padding:100px 0 72px;
-  background:linear-gradient(180deg, var(--stage) 0%, #15120e 40%, #1a1611 100%);
-  border-top:1px solid var(--line);
-}
-.proof .eyebrow{
-  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--amber-soft);font-weight:600;margin-bottom:12px;
-}
-.proof h2{
-  font-family:var(--font-d);font-size:clamp(1.6rem,3.2vw,2.3rem);
-  max-width:16ch;margin-bottom:12px;
-}
-.proof .lead{color:rgba(232,226,216,.68);max-width:42ch;margin-bottom:36px}
-.pair-grid{
-  display:grid;gap:22px;
-}
-@media (min-width:780px){.pair-grid{grid-template-columns:1fr 1fr}}
-.pair{
-  opacity:calc(.25 + var(--obj-in) * .75);
-  transform:translate3d(0, calc((1 - var(--obj-in)) * 18px), 0);
-}
-.pair figure{
-  position:relative;border-radius:6px;overflow:hidden;
-  background:rgba(232,226,216,.04);
-  box-shadow:0 18px 40px rgba(0,0,0,.35);
-  aspect-ratio:4/5;
-}
-.pair img{width:100%;height:100%;object-fit:cover}
-.pair .cap{
-  margin-top:12px;display:flex;justify-content:space-between;gap:12px;
-  font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(232,226,216,.5);
-}
-.pair .cap strong{color:var(--amber-soft);font-weight:600}
-
-/* ===== LIVING AFTER ===== */
+/* ===== LIVING AFTER (chapter crossfade in) ===== */
 .living{
-  padding:88px 0;
+  position:relative;z-index:2;
+  padding:20vh 0 10vh;
+  margin-top:-18vh;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(176,122,58,.12), transparent 60%),
-    #16130f;
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(176,122,58,.1), transparent 58%),
+    linear-gradient(180deg, transparent 0%, #15120e 18%, #17140f 100%);
+  opacity:calc(.15 + var(--living-in) * .85);
+  transform:translate3d(0, calc((1 - var(--living-in)) * 28px), 0);
 }
 .living-card{
-  display:grid;gap:28px;align-items:center;
-  opacity:calc(.2 + var(--beat) * .8);
-  transform:translate3d(0, calc((1 - var(--beat)) * 20px), 0);
+  display:grid;gap:32px;align-items:center;
 }
-@media (min-width:860px){.living-card{grid-template-columns:1.05fr .95fr}}
+@media (min-width:860px){.living-card{grid-template-columns:.95fr 1.05fr;gap:40px}}
+.living .eyebrow{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;
+}
 .living h2{
-  font-family:var(--font-d);font-size:clamp(1.7rem,3.4vw,2.4rem);
-  max-width:12ch;margin:10px 0 14px;
+  font-family:var(--font-d);font-size:clamp(1.65rem,3.2vw,2.3rem);
+  max-width:11ch;margin:10px 0 12px;
 }
-.living p{color:rgba(232,226,216,.7);max-width:36ch}
+.living p{color:rgba(232,226,216,.68);max-width:34ch}
 .ba-shell{
-  position:relative;border-radius:6px;overflow:hidden;
-  box-shadow:0 22px 50px rgba(0,0,0,.4);
-  background:rgba(232,226,216,.05);
+  position:relative;border-radius:4px;overflow:hidden;
+  box-shadow:0 24px 54px rgba(0,0,0,.42);
+  background:rgba(232,226,216,.04);
 }
 .ba{
-  position:relative;aspect-ratio:4/5;max-height:min(68vh,640px);
+  position:relative;aspect-ratio:4/5;max-height:min(66vh,620px);
   user-select:none;touch-action:none;cursor:ew-resize;
 }
 .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal,28%)) 0 0)}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal,32%)) 0 0)}
 .ba .rail{
-  position:absolute;top:0;bottom:0;left:var(--reveal,28%);width:2px;
-  background:rgba(246,241,232,.88);z-index:3;transform:translateX(-50%);
-  box-shadow:0 0 0 1px rgba(28,25,21,.2);
+  position:absolute;top:0;bottom:0;left:var(--reveal,32%);width:2px;
+  background:rgba(246,241,232,.9);z-index:3;transform:translateX(-50%);
+  box-shadow:0 0 0 1px rgba(28,25,21,.18);
 }
 .ba .knob{
-  position:absolute;top:50%;left:var(--reveal,28%);z-index:4;
-  transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;
+  position:absolute;top:50%;left:var(--reveal,32%);z-index:4;
+  transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
   background:var(--paper);color:var(--ink);display:grid;place-items:center;
-  font-size:14px;box-shadow:0 2px 10px rgba(0,0,0,.35);pointer-events:none;
+  font-size:13px;box-shadow:0 2px 10px rgba(0,0,0,.35);pointer-events:none;
 }
 
-/* soft invite */
+.echo{
+  padding:48px 0 20px;
+  opacity:calc(.1 + var(--living-in) * .9);
+}
+.echo .row{
+  display:grid;gap:14px;
+}
+@media (min-width:720px){.echo .row{grid-template-columns:1fr 1fr;gap:18px}}
+.echo figure{
+  position:relative;border-radius:4px;overflow:hidden;
+  aspect-ratio:5/4;background:rgba(232,226,216,.03);
+  box-shadow:0 14px 32px rgba(0,0,0,.3);
+}
+.echo img{width:100%;height:100%;object-fit:cover}
+.echo .cap{
+  margin-top:10px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(232,226,216,.42);display:flex;justify-content:space-between;
+}
+.echo .cap strong{color:var(--amber-soft);font-weight:600}
+
+/* ===== single quiet CTA ===== */
 .invite{
-  padding:96px 0 80px;text-align:center;
-  background:linear-gradient(180deg,#1a1611 0%, #E8E2D8 72%);
+  padding:88px 0 72px;text-align:center;
+  background:linear-gradient(180deg,#17140f 0%, #E8E2D8 68%);
   color:var(--ink);
+  opacity:calc(.2 + var(--invite-in) * .8);
+  transform:translate3d(0, calc((1 - var(--invite-in)) * 16px), 0);
 }
 .invite .eyebrow{
-  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--amber-deep);font-weight:600;margin-bottom:14px;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-deep);font-weight:600;margin-bottom:12px;
 }
 .invite h2{
-  font-family:var(--font-d);font-size:clamp(1.7rem,3.2vw,2.35rem);
-  max-width:16ch;margin:0 auto 12px;
+  font-family:var(--font-d);font-size:clamp(1.6rem,3vw,2.2rem);
+  max-width:15ch;margin:0 auto 12px;
 }
-.invite p{color:var(--ink-soft);max-width:40ch;margin:0 auto 26px}
-.dual{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.invite p{color:var(--ink-soft);max-width:36ch;margin:0 auto 24px}
 .btn{
-  display:inline-flex;min-height:44px;padding:0 18px;align-items:center;
+  display:inline-flex;min-height:46px;padding:0 22px;align-items:center;
   border-radius:8px;font-weight:600;font-size:.95rem;
+  background:var(--ink);color:var(--paper);
+  transition:transform .25s var(--ease), opacity .25s var(--ease);
 }
-.btn--p{background:var(--ink);color:var(--paper)}
-.btn--g{border:1px solid rgba(28,25,21,.18);color:var(--ink-soft);background:rgba(255,255,255,.35)}
+.btn:hover{transform:translateY(-1px);opacity:.92}
 .foot{
-  padding:22px 0 36px;background:var(--paper);color:var(--mute);
-  font-size:13px;text-align:center;
+  padding:20px 0 32px;background:var(--paper);color:var(--mute);
+  font-size:12px;text-align:center;
 }
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .ritual{height:auto}
-  .ritual__pin{position:relative;height:auto;min-height:100vh;padding:48px 0 80px}
-  .photo-object{
-    transform:rotateY(-8deg) rotateX(4deg) !important;
-  }
-  .scan-beam,.scan-grid{opacity:0 !important}
+  .film{height:auto}
+  .film__pin{position:relative;height:auto;min-height:100vh;padding:56px 0 96px;opacity:1;transform:none;filter:none}
+  .photo-object{transform:rotateY(-6deg) rotateX(3deg) !important;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
+  .scan-beam,.scan-grid,.scan-read{opacity:0 !important}
   .hud{opacity:1 !important;transform:none !important}
   .hud__chip{opacity:1 !important}
   .photo-face .before{opacity:0 !important}
-  .photo-face .after{opacity:1 !important}
-  .scratches,.stain,.peel{opacity:.2 !important}
-  .pair,.living-card{opacity:1 !important;transform:none !important}
-  :root{--scrub:.55;--scan:0;--extract:1;--life:1;--obj-in:1;--beat:1}
+  .photo-face .after{opacity:1 !important;clip-path:none !important}
+  .scratches,.stain,.peel,.grain{opacity:.18 !important}
+  .open{opacity:0 !important}
+  .phase{opacity:1 !important;transform:none !important;position:relative;inset:auto;margin-top:28px}
+  .living,.invite,.echo{opacity:1 !important;transform:none !important}
+  .living{margin-top:0;padding-top:72px}
+  .brand-slot,.stage3d{opacity:1 !important;transform:none !important}
+  :root{--scrub:.6;--scan:0;--extract:1;--life:1;--wake:1;--ritual-exit:0;--living-in:1;--invite-in:1}
 }
 </style>
 </head>
-<body class="nano-alt-contest-r1-a contest-r1-a craft-study" data-contest-r1-a="1">
+<body class="nano-alt-contest-r1-a contest-r1-a craft-raise-r1" data-contest-r1-a="1" data-craft-raise="1">
 <a class="skip" href="#ritual">К ритуалу скана</a>
 <div class="progress" aria-hidden="true"></div>
+<div class="ink-guide" aria-hidden="true"></div>
 
-<header class="wrap top">
-  <p class="brand">Save<span>My</span>History</p>
-  <p class="tag">Contest R1 · Team A · Scan Ritual 3D</p>
-</header>
+<section class="film" id="ritual" data-ritual-pin="1" aria-label="Трёхмерный ритуал скана">
+  <div class="film__pin">
+    <div class="wrap brand-slot">
+      <p class="brand">Save<span>My</span>History</p>
+      <p class="tag">Scan Ritual · Craft Raise</p>
+    </div>
 
-<section class="hero wrap">
-  <p class="eyebrow">Ритуал скана</p>
-  <h1>Фото поворачивается. Правда извлекается.</h1>
-  <p class="lead">Не слайдер-демо. Объект из бумаги: царапины, отслоенный угол, луч реставратора. Скролл крутит плоскость, скан читает всё, что ещё живо, и возвращает лицо.</p>
-  <p class="hint">Листайте вниз · 3D scrub</p>
-</section>
-
-<section class="ritual" id="ritual" data-ritual-pin="1" aria-label="Трёхмерный ритуал скана">
-  <div class="ritual__pin">
     <div class="floor-glow" aria-hidden="true"></div>
+
     <div class="stage3d">
       <div class="photo-object" id="photoObject">
         <div class="photo-back" aria-hidden="true"></div>
         <div class="photo-edge" aria-hidden="true"></div>
+        <div class="photo-edge-b" aria-hidden="true"></div>
         <div class="photo-face">
           <img class="before" src="/assets/hero_before.jpg" alt="До — выцветающее семейное фото" width="1200" height="1600" decoding="async" fetchpriority="high">
           <img class="after" src="/assets/hero_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
           <div class="stain" aria-hidden="true"></div>
           <div class="scratches" aria-hidden="true"></div>
+          <div class="grain" aria-hidden="true"></div>
+          <div class="scan-read" aria-hidden="true"></div>
           <div class="scan-grid" aria-hidden="true"></div>
           <div class="scan-beam" aria-hidden="true"></div>
           <div class="peel" aria-hidden="true"><div class="peel__sheet"></div></div>
@@ -470,57 +514,31 @@ a{color:inherit;text-decoration:none}
         </aside>
       </div>
     </div>
-    <div class="ritual__copy">
-      <p class="phase" id="phaseLabel">01 · объект</p>
+
+    <div class="open">
+      <p class="eyebrow">Ритуал скана</p>
+      <h1>Фото поворачивается. Правда извлекается.</h1>
+      <p class="lead">Объект из бумаги: царапины, отслоенный угол, луч реставратора. Один скролл — один фильм.</p>
+      <p class="hint">Листайте · 3D scrub</p>
+    </div>
+
+    <div class="phase">
+      <p class="label" id="phaseLabel">01 · объект</p>
       <h2 id="phaseTitle">Поверните снимок как вещь в руках</h2>
       <p id="phaseText">Царапины и отслоение бумаги видны в объёме. Это не фильтр — это тело фотографии.</p>
     </div>
   </div>
 </section>
 
-<section class="proof">
-  <div class="wrap">
-    <p class="eyebrow">Извлечено из бумаги</p>
-    <h2>Два доказательства из архива</h2>
-    <p class="lead">Тот же ритуал на других снимках: сначала правда повреждения, потом живое AFTER. Identity &gt; beauty.</p>
-    <div class="pair-grid">
-      <article class="pair" data-story-obj="p1">
-        <figure>
-          <img src="/assets/case_c8_before.jpg" alt="До — повреждённый снимок" width="1200" height="1600" loading="lazy" decoding="async">
-        </figure>
-        <div class="cap"><span>case · c8</span><strong>до скана</strong></div>
-      </article>
-      <article class="pair" data-story-obj="p2">
-        <figure>
-          <img src="/assets/case_c8_after.jpg" alt="После — восстановленный снимок" width="1200" height="1600" loading="lazy" decoding="async">
-        </figure>
-        <div class="cap"><span>case · c8</span><strong>после ритуала</strong></div>
-      </article>
-      <article class="pair" data-story-obj="p3">
-        <figure>
-          <img src="/assets/case_o15_before.jpg" alt="До — выцветающий портрет" width="1200" height="1600" loading="lazy" decoding="async">
-        </figure>
-        <div class="cap"><span>case · o15</span><strong>до скана</strong></div>
-      </article>
-      <article class="pair" data-story-obj="p4">
-        <figure>
-          <img src="/assets/case_o15_after.jpg" alt="После — живой портрет" width="1200" height="1600" loading="lazy" decoding="async">
-        </figure>
-        <div class="cap"><span>case · o15</span><strong>после ритуала</strong></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="living" data-beat="1">
+<section class="living" data-chapter="living" aria-label="Живое AFTER">
   <div class="wrap living-card">
     <div>
-      <p class="eyebrow" style="color:var(--amber-soft);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600">Живое AFTER</p>
+      <p class="eyebrow">Живое AFTER</p>
       <h2>Не ретушь. Возвращение.</h2>
-      <p>Реставратор снимает слой за слоем шум и пятна, но оставляет характер взгляда. Потяните линию — и увидите, откуда пришла жизнь.</p>
+      <p>Скан прочитал бумагу. Пятна отпустили. Взгляд остался собой. Потяните линию — увидите, откуда пришла жизнь.</p>
     </div>
-    <div class="ba-shell" data-ba="hero">
-      <div class="ba" id="ba-live" role="img" aria-label="До и после: семейное фото" style="--reveal:28%">
+    <div class="ba-shell">
+      <div class="ba" id="ba-live" role="img" aria-label="До и после: семейное фото" style="--reveal:32%">
         <img class="before" src="/assets/hero_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
         <img class="after" src="/assets/hero_after.jpg" alt="После — сбережённый снимок" width="1200" height="1600" decoding="async" loading="lazy">
         <div class="rail" aria-hidden="true"></div>
@@ -528,40 +546,57 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
   </div>
-</section>
 
-<section class="invite" id="invite" data-beat="1">
-  <p class="eyebrow">Два тихих пути</p>
-  <h2>Сберечь сейчас, пока бумага ещё отвечает.</h2>
-  <p>FADING PAST → save NOW. Для семьи и для тех, кто хранит многих. Без витрины товаров.</p>
-  <div class="dual">
-    <a class="btn btn--p" href="/waitlist.html">Для себя / семьи</a>
-    <a class="btn btn--g" href="/waitlist.html">Для хранителей архива</a>
+  <div class="wrap echo" aria-label="Эхо архива">
+    <div class="row">
+      <article data-story-obj="e1">
+        <figure>
+          <img src="/assets/case_c8_before.jpg" alt="До — повреждённый снимок" width="1200" height="960" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c8</span><strong>до</strong></div>
+      </article>
+      <article data-story-obj="e2">
+        <figure>
+          <img src="/assets/case_c8_after.jpg" alt="После — восстановленный снимок" width="1200" height="960" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c8</span><strong>после</strong></div>
+      </article>
+    </div>
   </div>
 </section>
 
-<footer class="foot">SaveMyHistory · contest-r1-a-scan-ritual · Team A · spend_E=0 · craft study</footer>
+<section class="invite" id="invite" data-chapter="invite">
+  <p class="eyebrow">Тихий путь</p>
+  <h2>Сберечь сейчас, пока бумага ещё отвечает.</h2>
+  <p>FADING PAST → save NOW. Без витрины. Один шаг к листу ожидания.</p>
+  <a class="btn" href="/waitlist.html">Оставить фото на сбережение</a>
+</section>
+
+<footer class="foot">SaveMyHistory · contest-r1-a-scan-ritual · Craft Raise · spend_E=0</footer>
 
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
-  function ease(t){return 1 - Math.pow(1 - clamp(t,0,1), 2.2);}
-  function lerp(a,b,t){return a + (b-a)*t;}
+  function ease(t){return 1 - Math.pow(1 - clamp(t,0,1), 2.4);}
+  function easeIn(t){t=clamp(t,0,1); return t*t;}
 
   var phases = [
-    {at:0,   label:'01 · объект', title:'Поверните снимок как вещь в руках', text:'Царапины и отслоение бумаги видны в объёме. Это не фильтр — это тело фотографии.'},
-    {at:.28, label:'02 · скан', title:'Луч реставратора читает бумагу', text:'Сетка и луч проходят по эмульсии. Техника служит взгляду, не витрине.'},
-    {at:.55, label:'03 · извлечение', title:'Всё, что ещё можно спасти', text:'Зерно, взгляд, край, свет — данные выходят из снимка до того, как он станет живым.'},
-    {at:.78, label:'04 · жизнь', title:'AFTER возвращается в комнату', text:'Пятна отпускают. Лицо остаётся собой. Healing ≠ retouch.'}
+    {at:0,    label:'01 · объект', title:'Поверните снимок как вещь в руках', text:'Царапины и отслоение бумаги видны в объёме. Это не фильтр — это тело фотографии.'},
+    {at:.26,  label:'02 · скан', title:'Луч реставратора читает бумагу', text:'Сетка и луч проходят по эмульсии. Техника служит взгляду, не витрине.'},
+    {at:.52,  label:'03 · извлечение', title:'Всё, что ещё можно спасти', text:'Зерно, взгляд, край, свет — данные выходят из снимка до того, как он станет живым.'},
+    {at:.76,  label:'04 · жизнь', title:'AFTER возвращается в комнату', text:'Пятна отпускают. Лицо остаётся собой. Healing ≠ retouch.'}
   ];
   var phaseLabel = document.getElementById('phaseLabel');
   var phaseTitle = document.getElementById('phaseTitle');
   var phaseText = document.getElementById('phaseText');
+  var lastPhase = '';
 
   function setPhase(p){
     var cur = phases[0];
     for (var i=0;i<phases.length;i++){ if(p >= phases[i].at) cur = phases[i]; }
+    if(cur.label === lastPhase) return;
+    lastPhase = cur.label;
     if(phaseLabel) phaseLabel.textContent = cur.label;
     if(phaseTitle) phaseTitle.textContent = cur.title;
     if(phaseText) phaseText.textContent = cur.text;
@@ -583,6 +618,8 @@ a{color:inherit;text-decoration:none}
   document.querySelectorAll('.ba').forEach(bindBa);
 
   var ritual = document.querySelector('[data-ritual-pin]');
+  var living = document.querySelector('[data-chapter="living"]');
+  var invite = document.querySelector('[data-chapter="invite"]');
   var root = document.documentElement;
   var ticking=false;
 
@@ -591,48 +628,69 @@ a{color:inherit;text-decoration:none}
     var vh = window.innerHeight || 1;
     var max = Math.max(1, document.documentElement.scrollHeight - vh);
     var lp = reduce ? 1 : clamp(window.scrollY / max, 0, 1);
-    root.style.setProperty('--line-progress', lp);
+    root.style.setProperty('--line-progress', lp.toFixed(4));
 
-    if(ritual){
-      if(reduce){
-        root.style.setProperty('--scrub','.55');
-        root.style.setProperty('--scan','0');
-        root.style.setProperty('--extract','1');
-        root.style.setProperty('--life','1');
-        setPhase(.9);
-      } else {
-        var r = ritual.getBoundingClientRect();
-        var h = ritual.offsetHeight || 1;
-        var p = clamp((-r.top) / (h - vh), 0, 1);
-        var scrub = ease(clamp(p / .42, 0, 1));
-        var scan = ease(clamp((p - .22) / .28, 0, 1));
-        var extract = ease(clamp((p - .42) / .22, 0, 1));
-        var life = ease(clamp((p - .68) / .26, 0, 1));
-        root.style.setProperty('--scrub', scrub.toFixed(4));
-        root.style.setProperty('--scan', scan.toFixed(4));
-        root.style.setProperty('--extract', extract.toFixed(4));
-        root.style.setProperty('--life', life.toFixed(4));
-        setPhase(p);
-      }
+    if(reduce){
+      root.style.setProperty('--wake','1');
+      root.style.setProperty('--scrub','.6');
+      root.style.setProperty('--scan','0');
+      root.style.setProperty('--extract','1');
+      root.style.setProperty('--life','1');
+      root.style.setProperty('--ritual-exit','0');
+      root.style.setProperty('--living-in','1');
+      root.style.setProperty('--invite-in','1');
+      setPhase(.9);
+      return;
     }
 
-    document.querySelectorAll('[data-story-obj]').forEach(function(obj){
-      if(reduce){ obj.style.setProperty('--obj-in','1'); return; }
-      var r=obj.getBoundingClientRect();
-      var mid=r.top + r.height*0.35;
-      var inn = clamp(1 - (mid - vh*0.2)/(vh*0.7), 0, 1);
-      obj.style.setProperty('--obj-in', ease(inn));
-    });
-    document.querySelectorAll('[data-beat]').forEach(function(sec){
-      if(reduce){ sec.style.setProperty('--beat','1'); return; }
-      var r=sec.getBoundingClientRect();
-      var p=clamp((vh*0.75 - r.top)/(vh*0.55),0,1);
-      sec.style.setProperty('--beat', ease(p));
-    });
+    /* wake in first moments */
+    var wake = ease(clamp(window.scrollY / (vh * 0.35), 0, 1));
+    if(window.scrollY < 8) wake = Math.max(wake, 0.55);
+    else wake = Math.max(wake, 0.85);
+    root.style.setProperty('--wake', wake.toFixed(4));
+
+    if(ritual){
+      var rr = ritual.getBoundingClientRect();
+      var rh = ritual.offsetHeight || 1;
+      var p = clamp((-rr.top) / Math.max(1, rh - vh), 0, 1);
+
+      /* film timing: object → scan → extract → life (held, not demo-rushed) */
+      var scrub = ease(clamp(p / .38, 0, 1));
+      var scan = ease(clamp((p - .20) / .30, 0, 1));
+      var extract = ease(clamp((p - .46) / .20, 0, 1));
+      var life = ease(clamp((p - .68) / .24, 0, 1));
+
+      /* soft exit as living chapter owns the viewport (A7) */
+      var ritualExit = 0;
+      if(living){
+        var lr = living.getBoundingClientRect();
+        ritualExit = ease(clamp((vh * 0.55 - lr.top) / (vh * 0.45), 0, 1));
+      }
+
+      root.style.setProperty('--scrub', scrub.toFixed(4));
+      root.style.setProperty('--scan', scan.toFixed(4));
+      root.style.setProperty('--extract', extract.toFixed(4));
+      root.style.setProperty('--life', life.toFixed(4));
+      root.style.setProperty('--ritual-exit', ritualExit.toFixed(4));
+      setPhase(p);
+    }
+
+    if(living){
+      var lrr = living.getBoundingClientRect();
+      var lin = ease(clamp((vh * 0.82 - lrr.top) / (vh * 0.55), 0, 1));
+      root.style.setProperty('--living-in', lin.toFixed(4));
+    }
+    if(invite){
+      var ir = invite.getBoundingClientRect();
+      var iin = ease(clamp((vh * 0.78 - ir.top) / (vh * 0.5), 0, 1));
+      root.style.setProperty('--invite-in', iin.toFixed(4));
+    }
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
+  /* initial wake so first paint is not empty */
+  root.style.setProperty('--wake','0.6');
   bus();
 })();
 </script>
