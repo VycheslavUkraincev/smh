@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru" data-story-concept="wild" class="story-concept nano-alt-story-concept-wild">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — ночной архив (wild)</title>
+<meta name="description" content="Wild craft-study: charcoal/gold sanctuary cousin with multi-BA vault ritual.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0E0D0B">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E0D0B; --ink:#F2EDE3; --ink-soft:rgba(242,237,227,.72); --mute:rgba(242,237,227,.45);
+  --gold:#C4A46A; --gold-deep:#A8844A; --line:rgba(196,164,106,.22);
+  --font-d:"Cormorant Garamond",serif; --font-u:"Manrope",sans-serif; --ease:cubic-bezier(.22,.61,.36,1);
+  --obj-in:0; --obj-out:0; --line-progress:0; --pin-p:0; --plane-op:1; --paper:#F2EDE3; --ink-ui:#0E0D0B;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-u);color:var(--ink);background:var(--bg);overflow-x:hidden;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block} a{color:inherit;text-decoration:none}
+.atmosphere{position:fixed;inset:0;pointer-events:none;z-index:0;background:
+  radial-gradient(ellipse 70% 50% at 50% 30%, rgba(50,40,26,.55), transparent 70%), var(--bg)}
+.page{position:relative;z-index:1}
+.wrap{width:min(1040px,100% - 36px);margin-inline:auto}
+.hero{min-height:100svh;display:grid;align-content:end;padding:0 0 12vh}
+.eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px}
+.brand{font-family:var(--font-d);font-size:clamp(2.4rem,6vw,4rem);font-weight:600;color:var(--gold);margin-bottom:14px}
+.hero h1{font-family:var(--font-d);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:500;max-width:16ch;margin-bottom:14px}
+.lead{color:var(--ink-soft);max-width:36ch}
+.vault{position:relative;min-height:180vh}
+.vault__stage{position:sticky;top:0;min-height:100svh;display:grid;place-items:center;padding:28px 0;opacity:var(--plane-op)}
+.vault__stage h2{font-family:var(--font-d);font-size:clamp(1.5rem,3vw,2.1rem);text-align:center;margin-bottom:8px;color:var(--ink)}
+.vault__stage .sub{text-align:center;color:var(--mute);margin-bottom:18px;font-size:.95rem}
+.rail-grid{display:grid;gap:18px;padding:40px 0 100px}
+@media(min-width:800px){.rail-grid{grid-template-columns:1fr 1fr 1fr}}
+.cell{opacity:calc(var(--obj-in)*(1 - var(--obj-out)));transform:translate3d(0,calc((1 - var(--obj-in))*14px),0)}
+.cell h3{font-family:var(--font-d);font-size:1.25rem;color:var(--gold);margin:12px 0 6px}
+.cell p{color:var(--ink-soft);font-size:.92rem}
+.invite{padding:40px 0 110px;text-align:center;border-top:1px solid var(--line)}
+.btn{display:inline-flex;min-height:44px;padding:0 20px;align-items:center;border-radius:4px;font-weight:600;background:var(--gold);color:var(--bg);margin-top:16px}
+.foot{padding:24px 0;color:var(--mute);font-size:13px;text-align:center}
+.ba-shell{position:relative;border-radius:4px;overflow:hidden;background:#141210;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.ba{position:relative;aspect-ratio:4/5;max-height:min(70vh,680px);user-select:none;touch-action:none;cursor:ew-resize;margin:0 auto;width:min(480px,100%)}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal,22%)) 0 0)}
+.ba .rail{position:absolute;top:0;bottom:0;left:var(--reveal,22%);width:2px;background:rgba(196,164,106,.85);z-index:3;transform:translateX(-50%)}
+.ba .knob{position:absolute;top:50%;left:var(--reveal,22%);z-index:4;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--bg);display:grid;place-items:center;font-size:14px;pointer-events:none}
+.cell .ba{max-height:min(42vh,360px);width:100%}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .vault{min-height:0}
+  .vault__stage{position:relative;min-height:0;opacity:1}
+  .cell{opacity:1!important;transform:none!important}
+  :root{--plane-op:1;--obj-in:1;--obj-out:0;--pin-p:.5}
+}
+</style>
+</head>
+<body class="nano-alt-story-concept-wild" data-story-concept="wild">
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="page">
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Wild · night vault</p>
+    <p class="brand">SaveMyHistory</p>
+    <h1>Ночной архив, где лица не гаснут.</h1>
+    <p class="lead">Sanctuary-cousin эксперимент: уголь и золото, не бумага. Дух тот же — хранитель рода.</p>
+  </div>
+</header>
+<section class="vault" data-pin="1" id="vault">
+  <div class="vault__stage">
+    <div class="wrap">
+      <h2>Главный снимок в темноте</h2>
+      <p class="sub">Тяните линию — FADING PAST уступает месту сбережённому</p>
+      
+<div class="ba-shell" data-ba="case_o15">
+  <div class="ba" id="ba-wild" role="img" aria-label="До и после: семейное фото" style="--reveal:22%">
+    <img class="before" src="/assets/story-concepts/case_o15_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="after" src="/assets/story-concepts/case_o15_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+    <div class="rail" aria-hidden="true"></div>
+    <div class="knob" aria-hidden="true">⇄</div>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+<section class="wrap rail-grid" id="cells">
+  <article class="cell" data-story-obj="w1">
+    
+<div class="ba-shell" data-ba="case_c10">
+  <div class="ba" id="ba-w1" role="img" aria-label="До и после: семейное фото" style="--reveal:22%">
+    <img class="before" src="/assets/story-concepts/case_c10_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="after" src="/assets/story-concepts/case_c10_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+    <div class="rail" aria-hidden="true"></div>
+    <div class="knob" aria-hidden="true">⇄</div>
+  </div>
+</div>
+    <h3>Ячейка I</h3>
+    <p>Лицо из пыли полки — без витринного блеска.</p>
+  </article>
+  <article class="cell" data-story-obj="w2">
+    
+<div class="ba-shell" data-ba="case_c8">
+  <div class="ba" id="ba-w2" role="img" aria-label="До и после: семейное фото" style="--reveal:22%">
+    <img class="before" src="/assets/story-concepts/case_c8_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="after" src="/assets/story-concepts/case_c8_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+    <div class="rail" aria-hidden="true"></div>
+    <div class="knob" aria-hidden="true">⇄</div>
+  </div>
+</div>
+    <h3>Ячейка II</h3>
+    <p>Золото только как свет лампы, не как костюм.</p>
+  </article>
+  <article class="cell" data-story-obj="w3">
+    
+<div class="ba-shell" data-ba="hero">
+  <div class="ba" id="ba-w3" role="img" aria-label="До и после: семейное фото" style="--reveal:22%">
+    <img class="before" src="/assets/story-concepts/hero_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="after" src="/assets/story-concepts/hero_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+    <div class="rail" aria-hidden="true"></div>
+    <div class="knob" aria-hidden="true">⇄</div>
+  </div>
+</div>
+    <h3>Ячейка III</h3>
+    <p>Тот же род, другая температура комнаты.</p>
+  </article>
+</section>
+<section class="invite" id="invite">
+  <div class="wrap">
+    <p class="eyebrow">Мягкий вход</p>
+    <h2 style="font-family:var(--font-d);font-size:1.8rem;margin-bottom:8px">Если ночь вам ближе бумаги</h2>
+    <p class="lead" style="margin:0 auto">Этот sibling — лаборатория настроения. Продуктовый тон остаётся у бумажной линии.</p>
+    <a class="btn" href="/waitlist.html">Список ожидания</a>
+  </div>
+</section>
+<footer class="foot">SaveMyHistory · story-concept-wild · charcoal/gold craft study</footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){return 1 - Math.pow(1 - t, 2.2);}
+  function bindBa(el){
+    if(!el) return;
+    var dragging=false;
+    function setFromX(clientX){
+      var r=el.getBoundingClientRect();
+      var p=clamp(((clientX-r.left)/r.width)*100,8,92);
+      el.style.setProperty('--reveal', p+'%');
+    }
+    el.addEventListener('pointerdown',function(e){dragging=true;el.setPointerCapture(e.pointerId);setFromX(e.clientX);});
+    el.addEventListener('pointermove',function(e){if(dragging)setFromX(e.clientX);});
+    el.addEventListener('pointerup',function(){dragging=false;});
+    el.addEventListener('pointercancel',function(){dragging=false;});
+  }
+  document.querySelectorAll('.ba').forEach(bindBa);
+  var ticking=false;
+  function bus(){
+    ticking=false;
+    var root=document.documentElement;
+    var vh=window.innerHeight||1;
+    var max=Math.max(1, document.documentElement.scrollHeight - vh);
+    var lp = reduce ? 1 : clamp(window.scrollY / max, 0, 1);
+    root.style.setProperty('--line-progress', lp);
+    document.querySelectorAll('[data-pin]').forEach(function(ch){
+      if(reduce){ ch.style.setProperty('--pin-p','.5'); ch.style.setProperty('--reveal','48%'); return; }
+      var r=ch.getBoundingClientRect();
+      var h=ch.offsetHeight||1;
+      var p=clamp((-r.top)/(h-vh),0,1);
+      var e=ease(p);
+      ch.style.setProperty('--pin-p', e);
+      var reveal = 16 + e*58;
+      var plane = ch.querySelector('.ba');
+      if(plane) plane.style.setProperty('--reveal', reveal+'%');
+      var op = p<.2 ? p/.2 : (p>.78 ? 1-((p-.78)/.22) : 1);
+      ch.style.setProperty('--plane-op', clamp(op,0,1));
+    });
+    document.querySelectorAll('[data-story-obj]').forEach(function(obj){
+      if(reduce){ obj.style.setProperty('--obj-in','1'); obj.style.setProperty('--obj-out','0'); return; }
+      var r=obj.getBoundingClientRect();
+      var mid=r.top + r.height*0.35;
+      var inn = clamp(1 - (mid - vh*0.15)/(vh*0.7), 0, 1);
+      var out = clamp((vh*0.15 - r.bottom)/(vh*0.35), 0, 1);
+      obj.style.setProperty('--obj-in', ease(inn));
+      obj.style.setProperty('--obj-out', ease(out));
+    });
+    document.querySelectorAll('[data-ink]').forEach(function(sec){
+      if(reduce){
+        sec.style.setProperty('--ink-trunk','1');
+        sec.style.setProperty('--ink-roots','1');
+        return;
+      }
+      var r=sec.getBoundingClientRect();
+      var p=clamp((vh*0.85 - r.top)/(vh*0.85 + r.height*0.35),0,1);
+      sec.style.setProperty('--ink-trunk', p<.45 ? p/.45 : 1);
+      sec.style.setProperty('--ink-roots', p<.45 ? 0 : (p-.45)/.55);
+    });
+    document.querySelectorAll('[data-beat]').forEach(function(sec){
+      if(reduce){ sec.style.setProperty('--beat','1'); return; }
+      var r=sec.getBoundingClientRect();
+      var p=clamp((vh*0.75 - r.top)/(vh*0.55),0,1);
+      sec.style.setProperty('--beat', ease(p));
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+})();
+</script>
+
+</body></html>

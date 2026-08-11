@@ -1,5 +1,33 @@
 [
   {
+    "id": "story-ba-concepts-wave",
+    "at": "2026-08-11T13:40:00Z",
+    "date": "2026-08-11",
+    "title": "Story BA concepts wave (5 siblings)",
+    "summary": "Five distinct storytelling concept pages using allowlist BA only; spend_E=0; facade-lab untouched.",
+    "pages": [
+      "story-concept-tree.html",
+      "story-concept-witness.html",
+      "story-concept-chest.html",
+      "story-concept-heritage.html",
+      "story-concept-wild.html"
+    ],
+    "markers": [
+      "nano-alt-story-concept-tree",
+      "nano-alt-story-concept-witness",
+      "nano-alt-story-concept-chest",
+      "nano-alt-story-concept-heritage",
+      "nano-alt-story-concept-wild"
+    ],
+    "spend_E": 0,
+    "locks": [
+      "STOP_ALL_RESTORES",
+      "PRIORITY_API_FIRST",
+      "COLD_PATH_B",
+      "CREATIVE_BRIDGE"
+    ]
+  },
+  {
     "id": "facade-virtuoso-raise",
     "at": "2026-08-11T13:20:00Z",
     "date": "2026-08-11",

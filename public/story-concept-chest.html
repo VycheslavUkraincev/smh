@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru" data-story-concept="chest" class="story-concept nano-alt-story-concept-chest">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — шкатулка памяти</title>
+<meta name="description" content="Концепт: шкатулка памяти. Альбомный ритуал с несколькими before→after.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E8E2D8">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDE7DC; --paper-deep:#E0D6C8; --ink:#1C1915; --ink-soft:#3F3A33; --mute:#6E665C; --amber:#B07A3A; --line:rgba(28,25,21,.12);
+  --font-d:"Literata",serif; --font-u:"Manrope",sans-serif; --ease:cubic-bezier(.22,.61,.36,1);
+  --obj-in:0; --obj-out:0; --line-progress:0; --lid:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-u);color:var(--ink);background:
+  radial-gradient(ellipse 60% 40% at 70% 10%, rgba(176,122,58,.1), transparent 60%),
+  var(--paper);overflow-x:hidden;line-height:1.55}
+img{max-width:100%;display:block} a{color:inherit;text-decoration:none}
+.wrap{width:min(980px,100% - 36px);margin-inline:auto}
+.hero{min-height:92svh;display:grid;align-content:center;padding:8vh 0}
+.eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:14px}
+.brand{font-family:var(--font-d);font-size:clamp(2rem,4.8vw,3rem);font-weight:700;margin-bottom:14px}
+.brand b{color:var(--amber);font-weight:700}
+.hero h1{font-family:var(--font-d);font-size:clamp(1.55rem,3.2vw,2.2rem);max-width:16ch;margin-bottom:14px}
+.lead{color:var(--ink-soft);max-width:36ch}
+.chest{margin:40px auto 0;width:min(420px,92%);perspective:900px}
+.chest__box{position:relative;background:linear-gradient(160deg,#C4A574,#8C5E28 55%,#6A4520);border-radius:10px 10px 14px 14px;padding:18px 18px 22px;box-shadow:0 24px 60px rgba(28,25,21,.22)}
+.chest__lid{height:18px;margin:-18px -18px 14px;border-radius:10px 10px 0 0;background:linear-gradient(180deg,#D2B48A,#A8844A);transform-origin:top center;transform:rotateX(calc(var(--lid) * -28deg));transition:transform .01s linear}
+.chest__inner{background:var(--paper);border-radius:6px;padding:14px;min-height:120px;display:grid;place-items:center;text-align:center}
+.chest__inner p{font-family:var(--font-d);font-size:1.1rem}
+.ritual{padding:80px 0}
+.leaf{display:grid;gap:22px;margin-bottom:72px;opacity:calc(var(--obj-in)*(1 - var(--obj-out)));transform:translate3d(0,calc((1 - var(--obj-in))*14px),0)}
+@media(min-width:800px){.leaf{grid-template-columns:1fr 1fr;align-items:center}}
+.leaf:nth-child(even) .copy{order:-1}
+.leaf .num{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.leaf h2{font-family:var(--font-d);font-size:1.45rem;margin-bottom:8px}
+.leaf p{color:var(--ink-soft);max-width:34ch}
+.invite{padding:40px 0 100px;text-align:center}
+.btn{display:inline-flex;min-height:44px;padding:0 18px;align-items:center;border-radius:8px;font-weight:600;background:var(--ink);color:var(--paper)}
+.foot{padding:24px 0;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+
+.ba-shell{position:relative;border-radius:6px;overflow:hidden;background:rgba(28,25,21,.06);box-shadow:0 18px 50px rgba(28,25,21,.12)}
+.ba{position:relative;aspect-ratio:4/5;max-height:min(72vh,720px);user-select:none;touch-action:none;cursor:ew-resize}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal,22%)) 0 0)}
+.ba .rail{position:absolute;top:0;bottom:0;left:var(--reveal,22%);width:2px;background:rgba(232,226,216,.85);z-index:3;transform:translateX(-50%);box-shadow:0 0 0 1px rgba(28,25,21,.15)}
+.ba .knob{position:absolute;top:50%;left:var(--reveal,22%);z-index:4;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--paper,#E8E2D8);color:var(--ink,#1C1915);display:grid;place-items:center;font-size:14px;box-shadow:0 2px 10px rgba(28,25,21,.25);pointer-events:none}
+
+.ba{aspect-ratio:1/1;max-height:min(52vh,480px)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .leaf{opacity:1!important;transform:none!important}
+  .chest__lid{transform:none}
+  :root{--obj-in:1;--obj-out:0;--lid:1}
+}
+</style>
+</head>
+<body class="nano-alt-story-concept-chest" data-story-concept="chest">
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Концепт · шкатулка памяти</p>
+    <p class="brand">Save<b>My</b>History</p>
+    <h1>Откройте альбом, как шкатулку.</h1>
+    <p class="lead">Три слоя. Три лица. Один ритуал: почти стёртое → сбережённое. Лампа, бумага, тишина.</p>
+    <div class="chest" id="chest" data-story-obj="chest">
+      <div class="chest__box">
+        <div class="chest__lid" aria-hidden="true"></div>
+        <div class="chest__inner"><p>Память ждёт прикосновения</p></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="ritual" id="ritual">
+  <div class="wrap">
+    <article class="leaf" data-story-obj="l1">
+      <div>
+<div class="ba-shell" data-ba="case_c8">
+  <div class="ba" id="ba-c8" role="img" aria-label="До и после: семейное фото" style="--reveal:22%">
+    <img class="before" src="/assets/story-concepts/case_c8_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="after" src="/assets/story-concepts/case_c8_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+    <div class="rail" aria-hidden="true"></div>
+    <div class="knob" aria-hidden="true">⇄</div>
+  </div>
+</div></div>
+      <div class="copy">
+        <p class="num">Слой 01 · верхний</p>
+        <h2>То, что лежит ближе всего</h2>
+        <p>Первый снимок из шкатулки — тот, к которому тянется рука. Честный проход без витрины.</p>
+      </div>
+    </article>
+    <article class="leaf" data-story-obj="l2">
+      <div>
+<div class="ba-shell" data-ba="case_c9g">
+  <div class="ba" id="ba-c9g" role="img" aria-label="До и после: семейное фото" style="--reveal:22%">
+    <img class="before" src="/assets/story-concepts/case_c9g_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="after" src="/assets/story-concepts/case_c9g_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+    <div class="rail" aria-hidden="true"></div>
+    <div class="knob" aria-hidden="true">⇄</div>
+  </div>
+</div></div>
+      <div class="copy">
+        <p class="num">Слой 02 · средний</p>
+        <h2>Под бумагой — ещё одно лицо</h2>
+        <p>Альбом не полка товаров. Каждый следующий кадр — отдельный вздох рода.</p>
+      </div>
+    </article>
+    <article class="leaf" data-story-obj="l3">
+      <div>
+<div class="ba-shell" data-ba="case_o110">
+  <div class="ba" id="ba-o110" role="img" aria-label="До и после: семейное фото" style="--reveal:22%">
+    <img class="before" src="/assets/story-concepts/case_o110_before.jpg" alt="До — уходящее фото" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="after" src="/assets/story-concepts/case_o110_after.jpg" alt="После — сбережённое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+    <div class="rail" aria-hidden="true"></div>
+    <div class="knob" aria-hidden="true">⇄</div>
+  </div>
+</div></div>
+      <div class="copy">
+        <p class="num">Слой 03 · дно</p>
+        <h2>На дне — то, что берегли дольше всех</h2>
+        <p>FADING PAST здесь слышнее. Сберечь сейчас, пока чернила на обороте ещё читаются.</p>
+      </div>
+    </article>
+  </div>
+</main>
+<section class="invite" id="invite">
+  <div class="wrap">
+    <p class="eyebrow">Мягкий путь</p>
+    <h2 style="font-family:var(--font-d);font-size:1.55rem;margin:8px 0 12px">Закрыть шкатулку уже нельзя</h2>
+    <p class="lead" style="margin:0 auto 20px">Но можно войти хранителем и продолжить линию.</p>
+    <a class="btn" href="/waitlist.html">Список ожидания</a>
+  </div>
+</section>
+<footer class="foot"><div class="wrap">SaveMyHistory · story-concept-chest · craft study</div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){return 1 - Math.pow(1 - t, 2.2);}
+  function bindBa(el){
+    if(!el) return;
+    var dragging=false;
+    function setFromX(clientX){
+      var r=el.getBoundingClientRect();
+      var p=clamp(((clientX-r.left)/r.width)*100,8,92);
+      el.style.setProperty('--reveal', p+'%');
+    }
+    el.addEventListener('pointerdown',function(e){dragging=true;el.setPointerCapture(e.pointerId);setFromX(e.clientX);});
+    el.addEventListener('pointermove',function(e){if(dragging)setFromX(e.clientX);});
+    el.addEventListener('pointerup',function(){dragging=false;});
+    el.addEventListener('pointercancel',function(){dragging=false;});
+  }
+  document.querySelectorAll('.ba').forEach(bindBa);
+  var ticking=false;
+  function bus(){
+    ticking=false;
+    var root=document.documentElement;
+    var vh=window.innerHeight||1;
+    var max=Math.max(1, document.documentElement.scrollHeight - vh);
+    var lp = reduce ? 1 : clamp(window.scrollY / max, 0, 1);
+    root.style.setProperty('--line-progress', lp);
+    document.querySelectorAll('[data-pin]').forEach(function(ch){
+      if(reduce){ ch.style.setProperty('--pin-p','.5'); ch.style.setProperty('--reveal','48%'); return; }
+      var r=ch.getBoundingClientRect();
+      var h=ch.offsetHeight||1;
+      var p=clamp((-r.top)/(h-vh),0,1);
+      var e=ease(p);
+      ch.style.setProperty('--pin-p', e);
+      var reveal = 16 + e*58;
+      var plane = ch.querySelector('.ba');
+      if(plane) plane.style.setProperty('--reveal', reveal+'%');
+      var op = p<.2 ? p/.2 : (p>.78 ? 1-((p-.78)/.22) : 1);
+      ch.style.setProperty('--plane-op', clamp(op,0,1));
+    });
+    document.querySelectorAll('[data-story-obj]').forEach(function(obj){
+      if(reduce){ obj.style.setProperty('--obj-in','1'); obj.style.setProperty('--obj-out','0'); return; }
+      var r=obj.getBoundingClientRect();
+      var mid=r.top + r.height*0.35;
+      var inn = clamp(1 - (mid - vh*0.15)/(vh*0.7), 0, 1);
+      var out = clamp((vh*0.15 - r.bottom)/(vh*0.35), 0, 1);
+      obj.style.setProperty('--obj-in', ease(inn));
+      obj.style.setProperty('--obj-out', ease(out));
+    });
+    document.querySelectorAll('[data-ink]').forEach(function(sec){
+      if(reduce){
+        sec.style.setProperty('--ink-trunk','1');
+        sec.style.setProperty('--ink-roots','1');
+        return;
+      }
+      var r=sec.getBoundingClientRect();
+      var p=clamp((vh*0.85 - r.top)/(vh*0.85 + r.height*0.35),0,1);
+      sec.style.setProperty('--ink-trunk', p<.45 ? p/.45 : 1);
+      sec.style.setProperty('--ink-roots', p<.45 ? 0 : (p-.45)/.55);
+    });
+    document.querySelectorAll('[data-beat]').forEach(function(sec){
+      if(reduce){ sec.style.setProperty('--beat','1'); return; }
+      var r=sec.getBoundingClientRect();
+      var p=clamp((vh*0.75 - r.top)/(vh*0.55),0,1);
+      sec.style.setProperty('--beat', ease(p));
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+})();
+</script>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var chest=document.getElementById('chest');
+  if(!chest) return;
+  function tick(){
+    if(reduce){document.documentElement.style.setProperty('--lid','1');return;}
+    var r=chest.getBoundingClientRect(); var vh=window.innerHeight||1;
+    var p=Math.max(0,Math.min(1,(vh*0.65-r.top)/(vh*0.5)));
+    document.documentElement.style.setProperty('--lid', String(p));
+  }
+  window.addEventListener('scroll',function(){requestAnimationFrame(tick);},{passive:true});
+  tick();
+})();
+</script>
+</body></html>
