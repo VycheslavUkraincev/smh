@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru" data-contest-r2-e="1" class="contest-r2-e nano-alt-contest-r2-e">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory · Lineage Continuum · Contest R2 E</title>
+<meta name="description" content="Contest R2 Team E — lineage continuum: forest, drawn line, chapter crossfade, 3D heirloom, multi-BA, ink roots, soft invite. Cold Path B.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8E2D8; --paper-deep:#D9D0C2; --ink:#1C1915; --ink-soft:#3F3A33;
+  --mute:#6E665C; --amber:#B07A3A; --amber-deep:#8C5E28; --amber-soft:#E2B87A;
+  --line:rgba(28,25,21,.14);
+  --font-d:"Literata","Source Serif 4","PT Serif",serif;
+  --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --line-progress:0; --forest-t:0; --draw:0; --chap-i:0;
+  --heir-ry:0deg; --heir-rx:10deg; --heir-scan:0; --heir-live:0; --heir-peel:0;
+  --pin-reveal:16%; --ink-draw:0; --root-scrub:0;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-u);font-weight:500;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:99}
+.skip:focus{left:8px;top:8px}
+.wrap{width:min(1100px,100% - 40px);margin:0 auto}
+.eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin:0 0 12px;color:var(--amber)}
+.brand{font-family:var(--font-d);font-size:clamp(2rem,5vw,3.1rem);font-weight:700;margin:0 0 12px;letter-spacing:.01em;line-height:1.05}
+.brand .mark{color:var(--amber)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 18px;border-radius:4px;border:1px solid transparent;font:600 .92rem/1 var(--font-u);cursor:pointer;transition:background .2s var(--ease),color .2s,border-color .2s}
+.btn:focus-visible{outline:2px solid var(--amber-soft);outline-offset:3px}
+.btn--amber{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.btn--amber:hover{background:var(--amber-deep);color:#F6F1E8}
+.btn--line{background:transparent;border-color:var(--line);color:var(--ink-soft)}
+.btn--line:hover{border-color:var(--amber);color:var(--amber-deep)}
+.btn--sm{min-height:36px;padding:8px 12px;font-size:.82rem}
+.spine{position:fixed;left:14px;top:0;bottom:0;width:34px;z-index:50;pointer-events:none}
+.spine svg{width:100%;height:100%;display:block}
+.spine path{fill:none;stroke:var(--amber);stroke-width:1.7;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--line-progress));opacity:.88}
+.spine path.ghost{stroke:var(--amber-soft);opacity:.22;stroke-dashoffset:0;stroke-width:1.2}
+@media(max-width:720px){.spine{left:6px;width:22px}}
+.forest{position:relative;min-height:100vh;isolation:isolate;overflow:hidden;background:#14110E;color:#F6F1E8}
+.forest__bg{position:absolute;inset:0}
+.forest__bg img{width:100%;height:100%;object-fit:cover;filter:saturate(.7) contrast(1.08) brightness(.72);transform:scale(calc(1.08 - var(--forest-t)*0.04));transform-origin:50% 40%}
+.forest__mist{position:absolute;inset:0;pointer-events:none;background:radial-gradient(80% 60% at 50% 18%,rgba(226,184,122,.16),transparent 55%),linear-gradient(180deg,rgba(20,16,12,.2),rgba(20,16,12,.35) 42%,rgba(20,16,12,.88))}
+.forest__faces{position:absolute;inset:12% 8% 28%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.2%;align-items:end;pointer-events:none}
+.forest__faces figure{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:2px;opacity:calc(.25 + var(--forest-t)*.7);transform:translate3d(0,calc((1 - var(--forest-t))*28px),0) scale(.96);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.forest__faces figure:nth-child(2){transform:translate3d(0,calc((1 - var(--forest-t))*12px),0) scale(1)}
+.forest__faces img{width:100%;height:100%;object-fit:cover;filter:saturate(.78)}
+.forest__faces figcaption{position:absolute;left:8px;bottom:8px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,241,232,.7);text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.forest__copy{position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:18vh 0 11vh}
+.forest h1{font-family:var(--font-d);font-weight:700;line-height:1.1;font-size:clamp(1.9rem,4.6vw,3.25rem);margin:0 0 14px;max-width:15ch}
+.forest .lead{max-width:38ch;color:rgba(246,241,232,.82);margin:0 0 20px;font-size:1.05rem}
+.scroll-hint{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(246,241,232,.55)}
+.scroll-hint i{display:block;width:1px;height:28px;background:linear-gradient(180deg,var(--amber-soft),transparent);animation:pulse 2.2s var(--ease) infinite}
+@keyframes pulse{0%,100%{opacity:.35;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
+@media(max-width:720px){.forest__faces{grid-template-columns:1fr 1fr;inset:16% 6% 36%;gap:3%}.forest__faces figure:nth-child(3){display:none}}
+.drawn{position:relative;background:linear-gradient(180deg,#1A1713 0%,#2A241C 40%,var(--paper) 100%);color:var(--ink);overflow:clip}
+.drawn__pin{position:sticky;top:0;min-height:100vh;display:grid;place-items:center;padding:90px 20px 48px}
+.drawn__copy{text-align:center;max-width:42ch;margin:0 auto 28px;color:#F6F1E8}
+.drawn__copy h2{font-family:var(--font-d);font-size:clamp(1.55rem,3.2vw,2.3rem);margin:8px 0 10px}
+.drawn__copy p{margin:0;color:rgba(246,241,232,.78)}
+.drawn__stage{width:min(520px,92vw);aspect-ratio:5/6;position:relative;background:radial-gradient(120% 80% at 50% 0%,rgba(243,238,228,.12),transparent 55%),linear-gradient(180deg,#241F18,#1A1713);border:1px solid rgba(226,184,122,.18);border-radius:2px;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden}
+.drawn__stage svg{width:100%;height:100%;display:block}
+.drawn__stage path{fill:none;stroke:var(--amber-soft);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--draw))}
+.drawn__stage .canopy{stroke-width:1.25;opacity:.72}
+.drawn__stage .trunk{stroke-width:2.1;opacity:.95}
+.drawn__stage .branch{stroke-width:1.35;opacity:.8}
+.drawn__stage .seed{fill:var(--amber);opacity:calc(.3 + var(--draw)*.7)}
+.drawn__scrub{height:170vh}
+.drawn-phase{position:absolute;bottom:8vh;left:0;right:0;text-align:center;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-soft)}
+.chapfilm{position:relative;background:#14110E;color:#F6F1E8}
+.chapfilm__pin{position:sticky;top:0;min-height:100vh;overflow:hidden}
+.chapfilm__stack{position:absolute;inset:0}
+.chap-frame{position:absolute;inset:0;opacity:0;transform:scale(1.05);will-change:opacity,transform}
+.chap-frame.is-on{opacity:1;transform:scale(1)}
+.chap-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.06)}
+.chap-frame .veil{position:absolute;inset:0;background:linear-gradient(105deg,rgba(20,16,12,.82) 0%,rgba(20,16,12,.35) 48%,rgba(20,16,12,.7))}
+.chapfilm__copy{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:24vh 0 12vh}
+.chapfilm__copy h2{font-family:var(--font-d);font-size:clamp(1.7rem,3.8vw,2.7rem);margin:0 0 12px;max-width:14ch;line-height:1.12}
+.chapfilm__copy p{max-width:36ch;color:rgba(246,241,232,.8);margin:0}
+.chap-index{position:absolute;top:26px;right:22px;z-index:3;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(246,241,232,.55)}
+.chap-rail{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(246,241,232,.08);z-index:3}
+.chap-rail span{display:block;height:100%;width:calc((var(--chap-i) + 0.001) / 4 * 100%);background:linear-gradient(90deg,var(--amber-deep),var(--amber-soft))}
+.chapfilm__scrub{height:320vh}
+.heirloom{position:relative;background:linear-gradient(180deg,#14110E 0%,#2A241C 45%,var(--paper) 100%);color:#F6F1E8;overflow:clip}
+.heirloom__pin{position:sticky;top:0;min-height:100vh;display:grid;place-items:center;padding:84px 20px 40px}
+.heirloom__copy{position:absolute;left:0;right:0;top:7vh;text-align:center;z-index:2;pointer-events:none}
+.heirloom__copy h2{font-family:var(--font-d);font-size:clamp(1.5rem,3vw,2.2rem);margin:8px auto 8px;max-width:18ch}
+.heirloom__copy p{margin:0 auto;max-width:40ch;color:rgba(246,241,232,.78);font-size:.98rem}
+.heirloom__stage{perspective:1500px;width:min(400px,84vw);aspect-ratio:3/4;position:relative;z-index:1}
+.heir-card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transform:rotateY(var(--heir-ry)) rotateX(var(--heir-rx));will-change:transform;border-radius:3px}
+.heir-face{position:absolute;inset:0;border-radius:3px;overflow:hidden;backface-visibility:hidden;background:#2a241c;box-shadow:0 34px 90px rgba(0,0,0,.48)}
+.heir-face--front{transform:rotateY(0deg)}
+.heir-face--back{transform:rotateY(180deg)}
+.heir-face img{width:100%;height:100%;object-fit:cover}
+.heir-face .thickness{position:absolute;right:-3px;top:2%;bottom:2%;width:5px;background:linear-gradient(90deg,#C9BBA6,#E8E2D8 40%,#B8A890);opacity:.9}
+.heir-face .paper-edge{position:absolute;right:-3%;top:7%;width:22%;height:38%;background:linear-gradient(135deg,#F3EEE4 0%,#C9BBA6 52%,transparent 53%);transform:skewY(-9deg) rotate(5deg) scale(calc(.65 + var(--heir-peel)*.45));transform-origin:100% 0;opacity:calc(.55 + var(--heir-peel)*.4);box-shadow:-8px 10px 18px rgba(0,0,0,.28);pointer-events:none}
+.heir-face .scratches{position:absolute;inset:0;pointer-events:none;opacity:calc(.62 - var(--heir-live)*.45);mix-blend-mode:screen;background:linear-gradient(112deg,transparent 46%,rgba(255,255,255,.2) 46.3%,transparent 46.7%),linear-gradient(78deg,transparent 61%,rgba(255,255,255,.13) 61.2%,transparent 61.6%),linear-gradient(160deg,transparent 33%,rgba(0,0,0,.2) 33.2%,transparent 33.5%),radial-gradient(120% 80% at 20% 15%,transparent 40%,rgba(0,0,0,.25) 100%)}
+.heir-face .stain{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 30% at 72% 78%,rgba(120,80,40,.3),transparent 70%),radial-gradient(28% 20% at 16% 28%,rgba(60,40,20,.22),transparent 70%);mix-blend-mode:multiply;opacity:calc(.75 - var(--heir-live)*.5)}
+.scan-beam{position:absolute;left:-4%;right:-4%;height:13%;top:calc(var(--heir-scan) * 87%);background:linear-gradient(180deg,transparent,rgba(226,184,122,.58),transparent);opacity:calc(var(--heir-scan) * .95);pointer-events:none;mix-blend-mode:screen;box-shadow:0 0 32px rgba(226,184,122,.38)}
+.extract{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;opacity:calc(var(--heir-scan) * (1 - var(--heir-live)));z-index:3;pointer-events:none}
+.extract span{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border:1px solid rgba(226,184,122,.45);border-radius:999px;background:rgba(28,25,21,.48);color:var(--amber-soft);backdrop-filter:blur(6px)}
+.live-glow{position:absolute;inset:-2%;border-radius:6px;pointer-events:none;box-shadow:0 0 0 1px rgba(226,184,122,calc(var(--heir-live)*.38)),0 0 64px rgba(226,184,122,calc(var(--heir-live)*.24));opacity:var(--heir-live)}
+.heirloom__scrub{height:240vh}
+.phase-label{position:absolute;bottom:6.5vh;left:0;right:0;text-align:center;z-index:2;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-soft)}
+.ritual{background:var(--paper);color:var(--ink)}
+.ritual__pin{position:sticky;top:0;min-height:100vh;display:grid;align-content:center;padding:68px 0 36px}
+.ritual h2{font-family:var(--font-d);font-size:clamp(1.5rem,2.8vw,2.15rem);margin:6px 0 10px}
+.ritual .lead{color:var(--ink-soft);max-width:42ch;margin:0}
+.proof-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 12px}
+.proof-labels{display:flex;gap:16px;font-size:.8rem;color:var(--mute)}
+.proof-labels .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mute);margin-right:6px;vertical-align:middle}
+.proof-labels .dot--after{background:var(--amber);box-shadow:0 0 10px rgba(176,122,58,.4)}
+.ba-shell{max-width:540px;margin:0 auto}
+.ba{--reveal:var(--pin-reveal);position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:2px;box-shadow:0 18px 50px rgba(28,25,21,.14);touch-action:none;cursor:ew-resize;user-select:none}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{clip-path:inset(0 0 0 var(--reveal))}
+.ba .rail{position:absolute;top:0;bottom:0;left:var(--reveal);width:2px;background:var(--amber);transform:translateX(-1px);z-index:2}
+.ba .knob{position:absolute;top:50%;left:var(--reveal);transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--amber);color:var(--ink);display:grid;place-items:center;font-size:14px;z-index:3;box-shadow:0 4px 14px rgba(28,25,21,.25)}
+.ba-caption{text-align:center;color:var(--mute);font-size:.9rem;margin:14px auto 0;max-width:42ch}
+.gates{display:flex;gap:14px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.gates span{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.gates i{width:6px;height:6px;background:var(--amber);display:inline-block;border-radius:1px}
+.pair-dots{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.pair-dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--amber);background:transparent;padding:0;cursor:pointer}
+.pair-dots button[aria-current="true"]{background:var(--amber)}
+.pair-slot{display:none}.pair-slot.is-on{display:block}
+.ritual__scrub{height:280vh}
+.chap-tag{display:inline-block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-deep);border:1px solid rgba(176,122,58,.35);padding:5px 10px;border-radius:999px;margin-bottom:10px}
+.roots{background:linear-gradient(180deg,var(--paper),#D5CBB8);padding:0;border-top:1px solid var(--line);overflow:clip}
+.roots__pin{position:sticky;top:0;min-height:100vh;display:grid;align-content:center;padding:72px 0 40px}
+.roots .grid{display:grid;gap:32px}
+@media(min-width:860px){.roots .grid{grid-template-columns:1.05fr .95fr;align-items:center}}
+.roots__paper{position:relative;aspect-ratio:5/6;border-radius:2px;background:radial-gradient(120% 80% at 50% 0%,#F3EEE4,transparent 55%),linear-gradient(180deg,#EDE6DA,#D8CFBF);box-shadow:0 16px 40px rgba(28,25,21,.1);overflow:hidden}
+.roots__paper svg{width:100%;height:100%;display:block}
+.roots__paper path,.roots__paper line{fill:none;stroke:var(--amber-soft);stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--ink-draw))}
+.roots__paper .ink-canopy{stroke-width:1.3;opacity:.68}
+.roots__paper .ink-trunk{stroke-width:2;opacity:.92}
+.roots__paper .ink-root{stroke-width:1.45;opacity:.82}
+.roots__paper .ink-root.deep{stroke-width:1.15;opacity:calc(.35 + var(--root-scrub)*.5)}
+.roots__paper .ink-dot{fill:var(--amber);opacity:.85}
+.roots__paper .material{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(176,122,58,calc(var(--root-scrub)*.08)));mix-blend-mode:multiply}
+.roots h2{font-family:var(--font-d);font-size:clamp(1.5rem,2.8vw,2.1rem);margin:6px 0 10px}
+.roots .lead{color:var(--ink-soft);max-width:36ch}
+.beats{display:grid;gap:11px;margin-top:18px}
+.beat{padding:13px 15px;border-left:2px solid rgba(176,122,58,.45);background:rgba(255,255,255,.28)}
+.beat strong{display:block;font-family:var(--font-d);font-size:1.02rem;margin-bottom:3px}
+.beat p{margin:0;color:var(--ink-soft);font-size:.93rem}
+.roots__scrub{height:160vh}
+.invite{background:#1C1915;color:#F6F1E8;padding:100px 0 84px}
+.invite .eyebrow{color:var(--amber-soft)}
+.invite h2{font-family:var(--font-d);font-size:clamp(1.55rem,2.9vw,2.2rem);margin:6px 0 12px;max-width:16ch}
+.invite .lead{color:rgba(246,241,232,.78);max-width:40ch;margin:0 0 22px}
+.invite-card{max-width:420px;background:rgba(246,241,232,.05);border:1px solid rgba(246,241,232,.12);border-radius:4px;padding:24px}
+.invite-card h3{font-family:var(--font-d);margin:0 0 8px;font-size:1.18rem}
+.invite-card p{color:rgba(246,241,232,.72);margin:0 0 14px;font-size:.95rem}
+.invite-card label{display:block;font-size:13px;font-weight:600;color:rgba(246,241,232,.7);margin:0 0 6px}
+.invite-card input{width:100%;min-height:44px;padding:12px 14px;margin-bottom:14px;border:1px solid rgba(246,241,232,.18);border-radius:4px;background:rgba(246,241,232,.06);color:#F6F1E8;font:inherit}
+.invite-card input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:transparent}
+.hint{font-size:12px;color:rgba(246,241,232,.45)!important;margin:12px 0 0!important}
+.foot{background:#15130F;color:rgba(246,241,232,.55);padding:28px 0 40px;font-size:.85rem}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;gap:16px;flex-wrap:wrap}
+.foot a:hover{color:var(--amber-soft)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .scroll-hint i{animation:none}
+  .forest__bg img,.forest__faces figure{transform:none!important;opacity:1!important}
+  .chap-frame{opacity:0;transform:none}
+  .chap-frame.is-on,.chap-frame:first-child{opacity:1!important}
+  .heir-card{transform:rotateY(-16deg) rotateX(6deg)!important}
+  .scan-beam,.extract{opacity:0!important}
+  .live-glow{opacity:.55!important}
+  .spine path,.drawn__stage path,.roots__paper path,.roots__paper line{stroke-dashoffset:0}
+  :root{--line-progress:1;--forest-t:1;--draw:1;--heir-live:1;--heir-peel:.8;--pin-reveal:48%;--ink-draw:1;--root-scrub:1;--chap-i:0}
+}
+</style>
+</head>
+<body class="contest-r2-e nano-alt-contest-r2-e" data-contest-r2-e="1">
+<a class="skip" href="#open">К тексту</a>
+<div class="spine" aria-hidden="true"><svg viewBox="0 0 40 100" preserveAspectRatio="none"><path class="ghost" pathLength="1" d="M20 0 C18 10 10 18 12 32 C14 48 30 52 28 68 C26 82 14 88 16 100"/><path pathLength="1" d="M20 0 C18 10 10 18 12 32 C14 48 30 52 28 68 C26 82 14 88 16 100"/></svg></div>
+<header class="forest" id="top" data-forest="1" aria-labelledby="open-title">
+  <div class="forest__bg" aria-hidden="true"><img src="/assets/case_c8_before.jpg" alt="" width="1600" height="2000" fetchpriority="high" decoding="async"></div>
+  <div class="forest__mist" aria-hidden="true"></div>
+  <div class="forest__faces" aria-hidden="true">
+    <figure><img src="/assets/case_c7_before.jpg" alt="" width="800" height="1000" loading="lazy" decoding="async"><figcaption>род</figcaption></figure>
+    <figure><img src="/assets/hero_before.jpg" alt="" width="800" height="1000" loading="lazy" decoding="async"><figcaption>взгляд</figcaption></figure>
+    <figure><img src="/assets/case_c10_before.jpg" alt="" width="800" height="1000" loading="lazy" decoding="async"><figcaption>линия</figcaption></figure>
+  </div>
+  <div class="forest__copy wrap" id="open">
+    <p class="eyebrow" style="color:var(--amber-soft)">Contest R2 · Team E · Lineage Continuum</p>
+    <p class="brand">Save<span class="mark">My</span>History</p>
+    <h1 id="open-title">Лес рода не обрывается — линия тянется сквозь кадры.</h1>
+    <p class="lead">Один непрерывный фильм: крона, нарисованный ствол, главы лиц, реликвия в 3D, чернильные корни. Identity важнее красоты.</p>
+    <p class="scroll-hint"><i aria-hidden="true"></i> листайте плёнку</p>
+  </div>
+</header>
+<main>
+<section class="drawn" id="drawn" data-drawn-line="1" aria-labelledby="drawn-title">
+  <div class="drawn__pin">
+    <div class="drawn__copy">
+      <p class="eyebrow" style="color:var(--amber-soft)">Акт I · линия</p>
+      <h2 id="drawn-title">Сначала рисуется нить — потом появляются имена.</h2>
+      <p>Не меню глав. Одна линия, которая держит лес, ствол и корни вместе.</p>
+    </div>
+    <div class="drawn__stage" aria-hidden="true">
+      <svg viewBox="0 0 140 168" xmlns="http://www.w3.org/2000/svg">
+        <path class="canopy" pathLength="1" d="M70 18 C52 28 40 44 46 62 C34 68 30 84 40 96 C28 108 34 126 52 132"/>
+        <path class="canopy" pathLength="1" d="M70 18 C88 28 100 44 94 62 C106 68 110 84 100 96 C112 108 106 126 88 132"/>
+        <path class="branch" pathLength="1" d="M70 48 C58 56 50 70 48 84"/>
+        <path class="branch" pathLength="1" d="M70 48 C82 56 90 70 92 84"/>
+        <path class="trunk" pathLength="1" d="M70 18 C70 70 70 110 70 148"/>
+        <circle class="seed" cx="70" cy="18" r="2.4"/><circle class="seed" cx="48" cy="84" r="1.5"/><circle class="seed" cx="92" cy="84" r="1.5"/><circle class="seed" cx="70" cy="148" r="1.8"/>
+      </svg>
+    </div>
+    <p class="drawn-phase" id="draw-phase">чернила · крона</p>
+  </div>
+  <div class="drawn__scrub" aria-hidden="true"></div>
+</section>
+<section class="chapfilm" id="chapters" data-chap-film="1" aria-labelledby="chap-title">
+  <div class="chapfilm__pin">
+    <div class="chapfilm__stack" aria-hidden="true">
+      <div class="chap-frame is-on" data-cframe="0"><img src="/assets/case_c8_after.jpg" alt="" width="1400" height="1800" loading="lazy" decoding="async"><div class="veil"></div></div>
+      <div class="chap-frame" data-cframe="1"><img src="/assets/case_c7_before.jpg" alt="" width="1400" height="1800" loading="lazy" decoding="async"><div class="veil"></div></div>
+      <div class="chap-frame" data-cframe="2"><img src="/assets/hero_before.jpg" alt="" width="1400" height="1800" loading="lazy" decoding="async"><div class="veil"></div></div>
+      <div class="chap-frame" data-cframe="3"><img src="/assets/case_c10_after.jpg" alt="" width="1400" height="1800" loading="lazy" decoding="async"><div class="veil"></div></div>
+      <div class="chap-frame" data-cframe="4"><img src="/assets/case_o15_after.jpg" alt="" width="1400" height="1800" loading="lazy" decoding="async"><div class="veil"></div></div>
+    </div>
+    <p class="chap-index" id="chap-cue">глава 01 · крона</p>
+    <div class="chapfilm__copy wrap">
+      <p class="eyebrow" style="color:var(--amber-soft)">Акт II · плёнка глав</p>
+      <h2 id="chap-title">Кадры сменяют друг друга, как поколения за одним столом.</h2>
+      <p id="chap-lead">Лес помнит тишину. Бумага помнит тепло рук. Лицо важнее ретуши.</p>
+    </div>
+    <div class="chap-rail" aria-hidden="true"><span></span></div>
+  </div>
+  <div class="chapfilm__scrub" aria-hidden="true"></div>
+</section>
+<section class="heirloom" id="heirloom" data-heirloom="1" aria-labelledby="heir-title">
+  <div class="heirloom__pin">
+    <div class="heirloom__copy">
+      <p class="eyebrow" style="color:var(--amber-soft)">Акт III · реликвия рода</p>
+      <h2 id="heir-title">Поверните снимок — услышите, как отходит край бумаги.</h2>
+      <p>Царапины. Толщина. Скан вытягивает взгляд — и после остаётся живой кадр, не маска.</p>
+    </div>
+    <div class="heirloom__stage">
+      <div class="heir-card" id="heir-card">
+        <div class="heir-face heir-face--front">
+          <img src="/assets/case_c6_before.jpg" alt="Старое семейное фото до — бумага с царапинами" width="1200" height="1600" loading="lazy" decoding="async">
+          <div class="thickness" aria-hidden="true"></div><div class="scratches" aria-hidden="true"></div><div class="stain" aria-hidden="true"></div><div class="paper-edge" aria-hidden="true"></div><div class="scan-beam" aria-hidden="true"></div>
+        </div>
+        <div class="heir-face heir-face--back">
+          <img src="/assets/case_c6_after.jpg" alt="Тот же снимок после бережного восстановления" width="1200" height="1600" loading="lazy" decoding="async">
+        </div>
+        <div class="live-glow" aria-hidden="true"></div>
+      </div>
+      <div class="extract" aria-hidden="true"><span>scan</span><span>edges</span><span>gaze</span><span>grain</span></div>
+    </div>
+    <p class="phase-label" id="heir-phase">поворот · бумага</p>
+  </div>
+  <div class="heirloom__scrub" aria-hidden="true"></div>
+</section>
+<section class="ritual" id="ritual" data-ba-ritual="1" aria-labelledby="ritual-title">
+  <div class="ritual__pin">
+    <div class="wrap" style="width:min(640px,100% - 40px)">
+      <p class="eyebrow">Акт IV · главы на полоске</p>
+      <p class="chap-tag" id="pair-tag">глава A · hero</p>
+      <h2 id="ritual-title">Несколько правд рода — одна закреплённая плёнка.</h2>
+      <p class="lead">Пока кадр держится, главы меняют пары. Тяните полоску. FACE и EYE остаются воротами.</p>
+      <div class="proof-meta">
+        <div class="proof-labels" aria-hidden="true"><span><i class="dot"></i> Уходит</span><span><i class="dot dot--after"></i> Сберечь</span></div>
+        <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
+      </div>
+      <div class="pair-slot is-on" data-pair="0"><div class="ba-shell"><div class="ba" data-ba="0" role="img" aria-label="Сравнение hero. Тяните полоску."><img class="before" src="/assets/hero_before.jpg" alt="Семейное фото до" width="1200" height="1600" loading="lazy" decoding="async"><img class="after" src="/assets/hero_after.jpg" alt="Семейное фото после" width="1200" height="1600" loading="lazy" decoding="async"><div class="rail" aria-hidden="true"></div><div class="knob" aria-hidden="true">⇄</div></div></div></div>
+      <div class="pair-slot" data-pair="1"><div class="ba-shell"><div class="ba" data-ba="1" role="img" aria-label="Сравнение case c10."><img class="before" src="/assets/case_c10_before.jpg" alt="Портрет до" width="1200" height="1600" loading="lazy" decoding="async"><img class="after" src="/assets/case_c10_after.jpg" alt="Портрет после" width="1200" height="1600" loading="lazy" decoding="async"><div class="rail" aria-hidden="true"></div><div class="knob" aria-hidden="true">⇄</div></div></div></div>
+      <div class="pair-slot" data-pair="2"><div class="ba-shell"><div class="ba" data-ba="2" role="img" aria-label="Сравнение case c7."><img class="before" src="/assets/case_c7_before.jpg" alt="Кадр до" width="1200" height="1600" loading="lazy" decoding="async"><img class="after" src="/assets/case_c7_after.jpg" alt="Кадр после" width="1200" height="1600" loading="lazy" decoding="async"><div class="rail" aria-hidden="true"></div><div class="knob" aria-hidden="true">⇄</div></div></div></div>
+      <div class="pair-slot" data-pair="3"><div class="ba-shell"><div class="ba" data-ba="3" role="img" aria-label="Сравнение case o15."><img class="before" src="/assets/case_o15_before.jpg" alt="Семейный кадр до" width="1200" height="1600" loading="lazy" decoding="async"><img class="after" src="/assets/case_o15_after.jpg" alt="Семейный кадр после" width="1200" height="1600" loading="lazy" decoding="async"><div class="rail" aria-hidden="true"></div><div class="knob" aria-hidden="true">⇄</div></div></div></div>
+      <p class="ba-caption">То же лицо. Тот же взгляд. Если проверка не проходит — скажем честно.</p>
+      <div class="gates" aria-label="Ворота честности"><span><i></i> FACE</span><span><i></i> EYE / GAZE</span></div>
+      <div class="pair-dots" role="tablist" aria-label="Главы BA">
+        <button type="button" aria-current="true" data-jump="0" aria-label="Глава A"></button>
+        <button type="button" data-jump="1" aria-label="Глава B"></button>
+        <button type="button" data-jump="2" aria-label="Глава C"></button>
+        <button type="button" data-jump="3" aria-label="Глава D"></button>
+      </div>
+    </div>
+  </div>
+  <div class="ritual__scrub" aria-hidden="true"></div>
+</section>
+<section class="roots" id="roots" data-ink-roots="1" aria-labelledby="roots-title">
+  <div class="roots__pin">
+    <div class="wrap grid">
+      <div class="roots__paper" id="ink-paper" aria-hidden="true">
+        <svg viewBox="0 0 120 230" xmlns="http://www.w3.org/2000/svg">
+          <path class="ink-canopy" pathLength="1" d="M60 20 C42 30 34 46 40 62 C28 68 24 84 34 96 C22 108 28 126 44 134"/>
+          <path class="ink-canopy" pathLength="1" d="M60 20 C78 30 86 46 80 62 C92 68 96 84 86 96 C98 108 92 126 76 134"/>
+          <path class="ink-canopy" pathLength="1" d="M40 74 C50 66 70 66 80 74"/>
+          <line class="ink-trunk" pathLength="1" x1="60" y1="20" x2="60" y2="150"/>
+          <circle class="ink-dot" cx="60" cy="20" r="2.2"/>
+          <path class="ink-root" pathLength="1" d="M60 150 C50 168 34 184 16 206"/>
+          <path class="ink-root" pathLength="1" d="M60 150 C58 174 54 192 48 216"/>
+          <path class="ink-root" pathLength="1" d="M60 150 C72 170 88 186 104 206"/>
+          <path class="ink-root deep" pathLength="1" d="M16 206 C12 214 10 220 8 226"/>
+          <path class="ink-root deep" pathLength="1" d="M48 216 C46 222 44 226 42 230"/>
+          <path class="ink-root deep" pathLength="1" d="M104 206 C110 214 114 220 116 226"/>
+          <path class="ink-root deep" pathLength="1" d="M60 150 C64 178 70 198 78 220"/>
+          <circle class="ink-dot" cx="16" cy="206" r="1.5"/><circle class="ink-dot" cx="48" cy="216" r="1.5"/><circle class="ink-dot" cx="104" cy="206" r="1.5"/>
+        </svg>
+        <div class="material" aria-hidden="true"></div>
+      </div>
+      <div>
+        <p class="eyebrow">Акт V · чернильные корни</p>
+        <h2 id="roots-title">Линия уходит вниз — туда, где держат имена.</h2>
+        <p class="lead">После реликвии и глав — не второй лес. Корни как след чернил: то, что почти стёрлось, но ещё читается.</p>
+        <div class="beats">
+          <article class="beat"><strong>Крона</strong><p>Вход был в лесу. Здесь остаётся только след линии.</p></article>
+          <article class="beat"><strong>Ствол</strong><p>Хранитель рода ведёт одну нить: снимок → лицо → честный взгляд.</p></article>
+          <article class="beat"><strong>Корни</strong><p>То, что держит семью под землёй слов: взгляды, имена, тепло бумаги.</p></article>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="roots__scrub" aria-hidden="true"></div>
+</section>
+<section class="invite" id="invite" data-soft-invite="1" aria-labelledby="invite-title">
+  <div class="wrap">
+    <p class="eyebrow">После фильма</p>
+    <h2 id="invite-title">Войти по приглашению</h2>
+    <p class="lead">Сначала линия и правда лиц. Сервис — тихо, одним мягким шагом. Без громких обещаний и таймеров.</p>
+    <div class="invite-card">
+      <h3>Есть код?</h3>
+      <p>Redeem открывает кабинет. Коды не раздаём на этой плёнке — волна по приглашению.</p>
+      <label for="invite-code">Код приглашения</label>
+      <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled>
+      <a class="btn btn--amber" href="/waitlist.html">Попросить приглашение</a>
+      <p class="hint">Макет Cold Path B · один soft CTA · коды не посеяны</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="foot"><div class="wrap"><nav aria-label="Подвал"><a href="/privacy.html">Конфиденциальность</a><a href="/waitlist.html">Waitlist</a><a href="/gallery.html">Галерея</a></nav><p>SaveMyHistory · contest-r2-e-lineage-film · Cold Path B · не продакшен</p></div></footer>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var forest = document.querySelector('[data-forest]');
+  var drawn = document.getElementById('drawn');
+  var drawPhase = document.getElementById('draw-phase');
+  var drawPhases = ['чернила · крона','ствол · нить','семена · имена'];
+  var chapFrames = Array.prototype.slice.call(document.querySelectorAll('[data-cframe]'));
+  var chapCue = document.getElementById('chap-cue');
+  var chapLead = document.getElementById('chap-lead');
+  var chapCues = ['глава 01 · крона','глава 02 · выцветание','глава 03 · почти стёртое','глава 04 · сберечь','глава 05 · взгляд'];
+  var chapLeads = [
+    'Лес помнит тишину. Бумага помнит тепло рук. Лицо важнее ретуши.',
+    'Прошлое выцветает без драмы. Сберечь — пока взгляд ещё читается.',
+    'Почти стёртое не значит потерянное. Identity важнее красоты.',
+    'Сберечь сейчас — не про эффект. Про то же лицо, тот же взгляд.',
+    'FACE и EYE — ворота. Если проверка не проходит, скажем честно.'
+  ];
+  var heir = document.getElementById('heirloom');
+  var heirPhase = document.getElementById('heir-phase');
+  var phases = ['поворот · бумага','скан · извлечение','живой кадр'];
+  var ritual = document.getElementById('ritual');
+  var slots = Array.prototype.slice.call(document.querySelectorAll('.pair-slot'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.pair-dots button'));
+  var bas = Array.prototype.slice.call(document.querySelectorAll('.ba'));
+  var toggleBtn = document.getElementById('ba-toggle');
+  var pairTag = document.getElementById('pair-tag');
+  var pairTags = ['глава A · hero','глава B · c10','глава C · c7','глава D · o15'];
+  var roots = document.getElementById('roots');
+  var activePair = 0, pairLocked = false, scrubbed = {}, dragging = null, showingAfter = true;
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function progressThrough(el, startMul, endMul){
+    if(!el) return 0;
+    var r = el.getBoundingClientRect(), vh = window.innerHeight || 1;
+    return clamp((vh * startMul - r.top) / ((vh * startMul - vh * endMul) || 1), 0, 1);
+  }
+  function pinProgress(el){
+    if(!el) return 0;
+    var r = el.getBoundingClientRect();
+    return clamp((-r.top) / Math.max(1, el.offsetHeight - window.innerHeight), 0, 1);
+  }
+  function updateForest(){
+    if(!forest) return;
+    root.style.setProperty('--forest-t', reduce ? '1' : String(progressThrough(forest, 0.95, 0.2)));
+  }
+  function updateDrawn(){
+    if(!drawn) return;
+    if(reduce){ root.style.setProperty('--draw','1'); if(drawPhase) drawPhase.textContent = drawPhases[2]; return; }
+    var p = pinProgress(drawn);
+    root.style.setProperty('--draw', String(p));
+    if(drawPhase) drawPhase.textContent = drawPhases[p < 0.35 ? 0 : (p < 0.7 ? 1 : 2)];
+  }
+  function setChap(t){
+    if(!chapFrames.length) return;
+    var i = Math.floor(t * (chapFrames.length - 0.0001));
+    chapFrames.forEach(function(f, idx){ f.classList.toggle('is-on', idx === i); });
+    root.style.setProperty('--chap-i', String(i));
+    if(chapCue) chapCue.textContent = chapCues[i] || chapCues[0];
+    if(chapLead) chapLead.textContent = chapLeads[i] || chapLeads[0];
+  }
+  function updateChapFilm(){
+    var stage = document.querySelector('[data-chap-film]');
+    if(!stage) return;
+    setChap(reduce ? 0 : pinProgress(stage));
+  }
+  function updateHeir(){
+    if(!heir) return;
+    if(reduce){
+      root.style.setProperty('--heir-ry','-16deg'); root.style.setProperty('--heir-rx','6deg');
+      root.style.setProperty('--heir-scan','0'); root.style.setProperty('--heir-live','1'); root.style.setProperty('--heir-peel','.8');
+      if(heirPhase) heirPhase.textContent = phases[2]; return;
+    }
+    var p = pinProgress(heir), ry, rx, scan, live, peel, phase;
+    if(p < 0.4){ var t = p / 0.4; ry = -48 + t * 96; rx = 14 - t * 12; peel = t; scan = 0; live = 0; phase = 0; }
+    else if(p < 0.72){ var t2 = (p - 0.4) / 0.32; ry = 48 - t2 * 48; rx = 2; peel = 1; scan = t2; live = 0; phase = 1; }
+    else { var t3 = (p - 0.72) / 0.28; ry = t3 * 180; rx = 2 - t3 * 2; peel = 1 - t3 * 0.35; scan = 1; live = t3; phase = 2; }
+    root.style.setProperty('--heir-ry', ry.toFixed(2) + 'deg');
+    root.style.setProperty('--heir-rx', rx.toFixed(2) + 'deg');
+    root.style.setProperty('--heir-scan', String(clamp(scan,0,1)));
+    root.style.setProperty('--heir-live', String(clamp(live,0,1)));
+    root.style.setProperty('--heir-peel', String(clamp(peel,0,1)));
+    if(heirPhase) heirPhase.textContent = phases[phase];
+  }
+  function setPair(i){
+    activePair = clamp(i, 0, slots.length - 1);
+    slots.forEach(function(s, idx){ s.classList.toggle('is-on', idx === activePair); });
+    dots.forEach(function(d, idx){ d.setAttribute('aria-current', idx === activePair ? 'true' : 'false'); });
+    if(pairTag) pairTag.textContent = pairTags[activePair] || pairTags[0];
+  }
+  function setReveal(ba, p){ if(ba) ba.style.setProperty('--reveal', clamp(p, 6, 94) + '%'); }
+  function updateRitual(){
+    if(!ritual) return;
+    if(reduce){ root.style.setProperty('--pin-reveal','48%'); setPair(0); bas.forEach(function(b){ setReveal(b, 48); }); return; }
+    var p = pinProgress(ritual);
+    if(!pairLocked){ var idx = Math.min(slots.length - 1, Math.floor(p * slots.length)); if(idx !== activePair) setPair(idx); }
+    var ba = bas[activePair];
+    if(ba && !scrubbed[activePair] && dragging !== activePair){
+      var local = (p * slots.length) % 1;
+      setReveal(ba, 12 + (1 - Math.pow(1 - local, 2.2)) * 66);
+    }
+  }
+  function updateRoots(){
+    if(!roots) return;
+    if(reduce){ root.style.setProperty('--ink-draw','1'); root.style.setProperty('--root-scrub','1'); return; }
+    var p = pinProgress(roots);
+    root.style.setProperty('--ink-draw', String(clamp(p * 1.15, 0, 1)));
+    root.style.setProperty('--root-scrub', String(clamp((p - 0.35) / 0.65, 0, 1)));
+  }
+  function updateLine(){
+    if(reduce){ root.style.setProperty('--line-progress','1'); return; }
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    root.style.setProperty('--line-progress', String(clamp(window.scrollY / max, 0, 1)));
+  }
+  function onScroll(){ updateLine(); updateForest(); updateDrawn(); updateChapFilm(); updateHeir(); updateRitual(); updateRoots(); }
+  onScroll();
+  if(!reduce){ window.addEventListener('scroll', onScroll, {passive:true}); window.addEventListener('resize', onScroll, {passive:true}); }
+  bas.forEach(function(ba, idx){
+    function fromX(clientX){ var r = ba.getBoundingClientRect(); setReveal(ba, ((clientX - r.left) / r.width) * 100); }
+    ba.addEventListener('pointerdown', function(e){ dragging = idx; scrubbed[idx] = true; pairLocked = true; if(ba.setPointerCapture) ba.setPointerCapture(e.pointerId); fromX(e.clientX); });
+    ba.addEventListener('pointermove', function(e){ if(dragging === idx) fromX(e.clientX); });
+    ba.addEventListener('pointerup', function(){ dragging = null; });
+    ba.addEventListener('pointercancel', function(){ dragging = null; });
+  });
+  if(toggleBtn){ toggleBtn.addEventListener('click', function(){ scrubbed[activePair] = true; pairLocked = true; showingAfter = !showingAfter; toggleBtn.setAttribute('aria-pressed', showingAfter ? 'false' : 'true'); setReveal(bas[activePair], showingAfter ? 78 : 10); }); }
+  dots.forEach(function(d){ d.addEventListener('click', function(){ pairLocked = true; setPair(parseInt(d.getAttribute('data-jump'), 10) || 0); }); });
+})();
+</script>
+</body>
+</html>
