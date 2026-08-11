@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,6 +47,7 @@
   --ba-exit:0;
   --honest-in:0;
   --invite-in:0;
+  --gallery-in:0;
   --pin-p:0;
   --dust:0;
 }
@@ -285,6 +286,86 @@ a{color:inherit}
 }
 .ba-caption{color:var(--smh-ink-soft);font-size:.95rem;max-width:48ch}
 
+/* —— Archive gallery: lamp-room album leaves, not SaaS grid —— */
+.archive{
+  opacity:calc(.28 + var(--gallery-in) * .72);
+  transform:translate3d(0, calc((1 - var(--gallery-in)) * 16px), 0);
+}
+.archive__head{max-width:46ch;margin-bottom:var(--smh-space-5)}
+.archive__head .section__lead{margin-bottom:0}
+.archive__shelf{
+  display:grid;gap:clamp(22px,3.2vw,34px);
+  grid-template-columns:1fr;
+}
+@media (min-width:760px){
+  .archive__shelf{grid-template-columns:1fr 1fr}
+  .archive__leaf--wide{grid-column:1 / -1}
+}
+.archive__leaf{
+  position:relative;
+  border:1px solid rgba(28,25,21,.1);
+  border-radius:var(--smh-radius);
+  background:
+    linear-gradient(180deg,rgba(243,238,230,.55),rgba(232,226,216,.35)),
+    #EDE6DB;
+  box-shadow:0 18px 40px -32px rgba(28,25,21,.35);
+  padding:14px 14px 16px;
+  overflow:hidden;
+}
+.archive__leaf::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(135deg,rgba(226,184,122,.08),transparent 40%);
+}
+.archive__meta{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  margin-bottom:10px;position:relative;z-index:1;
+}
+.archive__meta strong{
+  font-family:var(--smh-font-display);font-weight:600;font-size:1.05rem;
+}
+.archive__meta span{font-size:12px;color:var(--smh-mute);font-weight:500;letter-spacing:.04em}
+.archive__pair{
+  position:relative;aspect-ratio:5/4;border-radius:4px;overflow:hidden;
+  background:var(--smh-ink);isolation:isolate;
+  border:1px solid rgba(28,25,21,.08);
+}
+.archive__leaf--wide .archive__pair{aspect-ratio:16/10}
+.archive__pair img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 28%;
+  transition:opacity .7s var(--smh-ease);
+}
+.archive__pair .arch-before{opacity:1;z-index:1}
+.archive__pair .arch-after{opacity:0;z-index:2}
+.archive__leaf.is-revealed .archive__pair .arch-before,
+.archive__leaf:hover .archive__pair .arch-before,
+.archive__leaf:focus-within .archive__pair .arch-before{opacity:0}
+.archive__leaf.is-revealed .archive__pair .arch-after,
+.archive__leaf:hover .archive__pair .arch-after,
+.archive__leaf:focus-within .archive__pair .arch-after{opacity:1}
+.archive__hint{
+  margin-top:10px;font-size:13px;color:var(--smh-ink-soft);max-width:42ch;
+  position:relative;z-index:1;
+}
+.archive__note{
+  margin-top:var(--smh-space-5);font-size:14px;color:var(--smh-mute);max-width:48ch;
+}
+@media (max-width:720px){
+  .archive__shelf{gap:18px}
+  .archive__leaf{padding:12px}
+  .archive__pair{aspect-ratio:4/5}
+  .archive__leaf--wide .archive__pair{aspect-ratio:4/5}
+}
+@media (prefers-reduced-motion:reduce){
+  .archive{opacity:1!important;transform:none!important}
+  .archive__pair img{transition:none!important}
+  .archive__leaf .archive__pair .arch-before{opacity:1!important}
+  .archive__leaf .archive__pair .arch-after{opacity:0!important}
+  .archive__leaf.is-revealed .archive__pair .arch-before{opacity:0!important}
+  .archive__leaf.is-revealed .archive__pair .arch-after{opacity:1!important}
+  :root{--gallery-in:1}
+}
+
 /* Honesty */
 .honest{
   display:grid;gap:var(--smh-space-5);align-items:center;
@@ -372,15 +453,15 @@ a{color:inherit}
   html{scroll-behavior:auto}
   .brand,.hero h1,.hero__lead,.scroll-cue,.hero__plane img{animation:none!important;opacity:1;transform:none}
   .hero__plane img{transform:scale(1.02)}
-  .hero,.album,.pin-chapter__plane,.pin-chapter__after,.honest,.invite{opacity:1!important;transform:none!important;filter:none!important}
+  .hero,.album,.pin-chapter__plane,.pin-chapter__after,.honest,.archive,.invite{opacity:1!important;transform:none!important;filter:none!important}
   .pin-chapter{min-height:0!important;overflow:visible!important}
   .pin-chapter__stage{position:relative!important;min-height:0!important;overflow:visible!important}
   .scroll-cue i{animation:none}
-  :root{--reveal:48%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--invite-in:1;--pin-p:.5;--dust:1}
+  :root{--reveal:48%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--gallery-in:1;--invite-in:1;--pin-p:.5;--dust:1}
 }
 </style>
 </head>
-<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1">
+<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1">
 <a class="skip" href="#lab-copy">К тексту</a>
 
 <header class="hero facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-act="1" id="top">
@@ -481,6 +562,68 @@ a{color:inherit}
   </div>
 </section>
 
+
+<section class="section section--warm" id="archive" data-act="4b" data-door-a-gallery="1" aria-labelledby="archive-title">
+  <div class="wrap archive" data-story-obj="archive">
+    <div class="archive__head">
+      <p class="section__eyebrow">Архив под лампой · живые доказательства</p>
+      <h2 id="archive-title">Страницы альбома, где сервис виден на фото.</h2>
+      <p class="section__lead">Не витрина кейсов. Шесть честных пар «уходит → сбережено»: то же лицо, тот же взгляд. Наведите или коснитесь листа — бумага открывает сбережённое.</p>
+    </div>
+    <div class="archive__shelf" role="list">
+      <article class="archive__leaf archive__leaf--wide" role="listitem" tabindex="0" data-ba="case_c7">
+        <div class="archive__meta"><strong>Взгляд, который держали</strong><span>Уходит → сбережено</span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_c7_before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="900" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c7_after.jpg" alt="То же лицо после бережной реставрации" width="1200" height="900" loading="lazy" decoding="async">
+        </div>
+        <p class="archive__hint">Лицо важнее красоты. Если узнавание ломается — это не наш путь.</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c6">
+        <div class="archive__meta"><strong>Тихий портрет</strong><span>Уходит → сбережено</span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_c6_before.jpg" alt="Портрет до реставрации" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c6_after.jpg" alt="Портрет после бережной реставрации" width="1000" height="800" loading="lazy" decoding="async">
+        </div>
+        <p class="archive__hint">Бумага дышит, человек остаётся собой.</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c10">
+        <div class="archive__meta"><strong>Почти стёртое</strong><span>Уходит → сбережено</span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_c10_before.jpg" alt="Выцветающее фото до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c10_after.jpg" alt="То же фото сбережённое" width="1000" height="800" loading="lazy" decoding="async">
+        </div>
+        <p class="archive__hint">FADING PAST — повод начать сейчас, не «потом».</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c8">
+        <div class="archive__meta"><strong>Семейный кадр</strong><span>Уходит → сбережено</span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_c8_before.jpg" alt="Семейный кадр до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c8_after.jpg" alt="Семейный кадр после" width="1000" height="800" loading="lazy" decoding="async">
+        </div>
+        <p class="archive__hint">Не ретушь «красивее» — возврат узнавания.</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c9g">
+        <div class="archive__meta"><strong>Глаза как ворота</strong><span>Уходит → сбережено</span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_c9g_before.jpg" alt="Портрет с уходящим взглядом" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c9g_after.jpg" alt="Тот же взгляд сбережён" width="1000" height="800" loading="lazy" decoding="async">
+        </div>
+        <p class="archive__hint">EYE / GAZE: живой взгляд — или отказ.</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o15">
+        <div class="archive__meta"><strong>Свет на бумаге</strong><span>Уходит → сбережено</span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_o15_before.jpg" alt="Архивный снимок до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_o15_after.jpg" alt="Архивный снимок после" width="1000" height="800" loading="lazy" decoding="async">
+        </div>
+        <p class="archive__hint">Сервис виден здесь: бережность, не эффект ради эффекта.</p>
+      </article>
+    </div>
+    <p class="archive__note">Ещё один честный проход выше — в главе «Правда на бумаге». Здесь — полка архива под той же лампой. Без процентов и без чужого лица.</p>
+  </div>
+</section>
+
 <section class="section section--deep" id="invite" data-soft-wave="1" data-cold-path-b="1" data-story-obj="invite" aria-labelledby="invite-title">
   <div class="wrap invite">
     <p class="section__eyebrow">Тихое приглашение · Cold Path B</p>
@@ -521,6 +664,7 @@ a{color:inherit}
   var pinChapter = document.getElementById('truth');
   var album = document.getElementById('album');
   var honesty = document.getElementById('honesty');
+  var archive = document.getElementById('archive');
   var invite = document.getElementById('invite');
   var toggleBtn = document.getElementById('ba-toggle');
   var dragging = false;
@@ -561,6 +705,7 @@ a{color:inherit}
       root.style.setProperty('--plane-out', '0');
       root.style.setProperty('--ba-exit', '0');
       root.style.setProperty('--honest-in', '1');
+      root.style.setProperty('--gallery-in', '1');
       root.style.setProperty('--invite-in', '1');
       root.style.setProperty('--pin-p', '.5');
       root.style.setProperty('--dust', '1');
@@ -601,6 +746,7 @@ a{color:inherit}
     }
 
     root.style.setProperty('--honest-in', String(enterProgress(honesty, 0.86, 0.5)));
+    root.style.setProperty('--gallery-in', String(enterProgress(archive, 0.88, 0.52)));
     root.style.setProperty('--invite-in', String(enterProgress(invite, 0.86, 0.52)));
   }
 
@@ -640,6 +786,24 @@ a{color:inherit}
     }, {passive:false});
     ba.addEventListener('touchend', function(){ dragging = false; });
   }
+
+
+  var leaves = document.querySelectorAll('.archive__leaf');
+  function toggleLeaf(leaf){
+    if(!leaf) return;
+    var on = leaf.classList.toggle('is-revealed');
+    leaf.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  Array.prototype.forEach.call(leaves, function(leaf){
+    leaf.setAttribute('aria-pressed', 'false');
+    leaf.addEventListener('click', function(){ toggleLeaf(leaf); });
+    leaf.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggleLeaf(leaf);
+      }
+    });
+  });
 
   if(toggleBtn && ba){
     toggleBtn.addEventListener('click', function(){

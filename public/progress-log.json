@@ -1,5 +1,31 @@
 [
   {
+    "id": "door-a-gallery-ba",
+    "at": "2026-08-11T18:20:00Z",
+    "date": "2026-08-11",
+    "stage": "facade",
+    "title": "Дверь A · Галерея BA кейсов",
+    "status": "READY",
+    "text": "facade-lab: album-archive gallery под лампой — 6 честных BA (c7,c6,c10,c8,c9g,o15) + hero pin; soft crossfade; PRM; один Cold Path B CTA. spend_E=0.",
+    "note": "Door A LOCKED · CONTEST_DIRECTION_OFF · data-door-a-gallery=1 · deepen CTA kept · BAN pd_02/6fe4644f",
+    "page": "facade-lab.html",
+    "markers": [
+      "nano-alt-facade-lab",
+      "data-facade-lab=1",
+      "data-door-a-lamp=1",
+      "data-door-a-gallery=1"
+    ],
+    "n_BA_pairs": 7,
+    "spend_E": 0,
+    "locks": [
+      "STOP_ALL_RESTORES",
+      "PRIORITY_API_FIRST",
+      "COLD_PATH_B",
+      "CREATIVE_AGENCY",
+      "CONTEST_DIRECTION_OFF"
+    ]
+  },
+  {
     "id": "door-a-lamp-deepen",
     "at": "2026-08-11T18:10:00Z",
     "date": "2026-08-11",
