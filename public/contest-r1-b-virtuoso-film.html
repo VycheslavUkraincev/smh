@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru" data-contest-r1-b="1" class="contest-r1-b nano-alt-contest-r1-b craft-study">
+<html lang="ru" data-contest-r1-b="1" class="contest-r1-b nano-alt-contest-r1-b craft-study craft-raise">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SaveMyHistory · Virtuoso Film · Contest R1 B</title>
-<meta name="description" content="Contest R1 Team B — virtuoso film: chapter crossfade, 3D heirloom mid-act, pinned multi-BA, ink lineage. Cold Path B.">
+<meta name="description" content="Contest R1 Team B craft-raise — continuous virtuoso film: chapter crossfade, 3D heirloom, pinned multi-BA, ink lineage. Cold Path B.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,8 +17,11 @@
   --font-d:"Literata","Source Serif 4","PT Serif",serif;
   --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
-  --line-progress:0; --film-t:0; --heir-ry:0deg; --heir-rx:8deg; --heir-scan:0; --heir-live:0;
-  --pin-reveal:18%; --pin-pair:0;
+  --line-progress:0; --line-guide-opacity:.9; --film-t:0;
+  --hero-exit:0; --hero-copy:1;
+  --heir-ry:0deg; --heir-rx:10deg; --heir-scan:0; --heir-live:0; --heir-peel:0; --heir-scratch:.55;
+  --pin-reveal:18%; --plane-in:0; --plane-out:0; --ba-exit:0;
+  --ink-canopy:0; --ink-trunk:0; --ink-roots:0; --ink-exit:0; --invite-in:0;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -295,29 +298,6 @@ a{color:inherit;text-decoration:none}
 .invite .eyebrow{color:var(--amber-soft)}
 .invite h2{font-family:var(--font-d);font-size:clamp(1.5rem,2.8vw,2.15rem);margin:6px 0 10px}
 .invite .lead{color:rgba(246,241,232,.78)}
-.invite-grid{display:grid;gap:28px}
-@media(min-width:860px){.invite-grid{grid-template-columns:1.1fr .9fr}}
-.invite-card,.wait{
-  background:rgba(246,241,232,.05); border:1px solid rgba(246,241,232,.12);
-  border-radius:4px; padding:22px;
-}
-.invite-card h3{font-family:var(--font-d);margin:0 0 8px;font-size:1.2rem}
-.invite-card p,.wait p{color:rgba(246,241,232,.72);margin:0 0 10px;font-size:.95rem}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-.hint{font-size:12px;color:rgba(246,241,232,.45)!important;margin-top:12px!important}
-.wait label{display:block;font-size:13px;font-weight:600;color:rgba(246,241,232,.7);margin:0 0 6px}
-.wait input{
-  width:100%; min-height:44px; padding:12px 14px; margin-bottom:12px;
-  border:1px solid rgba(246,241,232,.18); border-radius:4px;
-  background:rgba(246,241,232,.06); color:#F6F1E8; font:inherit;
-}
-.wait input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:transparent}
-.ok-msg,.err-msg{display:none;font-size:.92rem}
-.wait.is-done .ok-msg{display:block;color:var(--amber-soft)}
-.wait.is-done form{display:none}
-.wait.is-error .err-msg{display:block;color:#E2A07A}
-.wait.is-loading button{opacity:.7}
-
 .foot{
   background:#15130F; color:rgba(246,241,232,.55); padding:28px 0 40px; font-size:.85rem;
 }
@@ -325,6 +305,61 @@ a{color:inherit;text-decoration:none}
 .foot nav{display:flex;gap:16px;flex-wrap:wrap}
 .foot a:hover{color:var(--amber-soft)}
 
+
+/* CRAFT RAISE B */
+.film-line{opacity:var(--line-guide-opacity)}
+.film-stage{min-height:165vh;background:#14110e}
+.film-stage__pin{position:sticky;top:0;min-height:100vh;min-height:100svh;overflow:hidden}
+.film-frame{opacity:0;transform:scale(calc(1.045 - var(--f-on,0)*.045));transition:none}
+.film-frame.is-on{opacity:1;transform:scale(1)}
+.film-stage__copy{
+  opacity:calc(var(--hero-copy)*(1 - var(--hero-exit)*.95));
+  transform:translate3d(0,calc(var(--hero-exit)*-22px),0);
+  filter:brightness(calc(1 - var(--hero-exit)*.12));
+}
+.brand{font-size:clamp(2.35rem,6.2vw,3.8rem)!important;margin:0 0 18px!important;line-height:1.02}
+.film-stage h1{font-size:clamp(1.25rem,2.6vw,1.7rem)!important;font-weight:600!important;max-width:22ch}
+.cta-quiet{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.link-soft{font-size:.82rem;letter-spacing:.06em;color:rgba(246,241,232,.55);border-bottom:1px solid rgba(246,241,232,.22);padding-bottom:2px}
+.link-soft:hover{color:var(--amber-soft);border-color:var(--amber-soft)}
+.chap-cue{opacity:calc(1 - var(--hero-exit))}
+.chapter{opacity:calc(var(--obj-in,0)*(1 - var(--obj-out,0)));transform:translate3d(0,calc((1 - var(--obj-in,0))*22px - var(--obj-out,0)*14px),0)}
+.heir-face .paper-edge{
+  width:calc(14% + var(--heir-peel)*10%);height:calc(30% + var(--heir-peel)*8%);
+  transform:skewY(calc(-10deg + var(--heir-peel)*-4deg)) rotate(calc(3deg + var(--heir-peel)*6deg));
+  opacity:calc(.55 + var(--heir-peel)*.4);
+  clip-path:polygon(18% 0,100% 0,100% 100%,0 86%);
+}
+.heir-face .scratches{opacity:calc(var(--heir-scratch)*(1 - var(--heir-live)*.85))}
+.heir-face .stain{opacity:calc(.75*(1 - var(--heir-live)*.7))}
+.scan-beam{
+  top:calc(var(--heir-scan)*88%);
+  opacity:calc(var(--heir-scan)*(1 - var(--heir-live))*.98);
+}
+.extract{opacity:calc(var(--heir-scan)*(1 - var(--heir-live))*.95)}
+.extract span{border-radius:2px}
+.heirloom__scrub{height:240vh}
+.ritual__inner{
+  width:min(640px,100% - 40px);margin:0 auto;
+  opacity:calc(var(--plane-in)*(1 - var(--plane-out)*.9)*(1 - var(--ba-exit)*.85));
+  transform:translate3d(0,calc((1 - var(--plane-in))*20px + var(--plane-out)*-14px),0) scale(calc(1.025 - var(--plane-in)*.025));
+}
+.ritual__scrub{height:250vh}
+.lineage{opacity:calc(1 - var(--ink-exit)*.55)}
+.lineage__paper path.ink-canopy,.lineage__paper .ink-canopy{stroke-dashoffset:calc(1 - var(--ink-canopy))!important}
+.lineage__paper path.ink-trunk,.lineage__paper line.ink-trunk,.lineage__paper .ink-trunk{stroke-dashoffset:calc(1 - var(--ink-trunk))!important}
+.lineage__paper path.ink-root,.lineage__paper .ink-root{stroke-dashoffset:calc(1 - var(--ink-roots))!important}
+.lineage__paper .ink-dot{opacity:calc(.2 + var(--ink-trunk)*.65)}
+.beat{opacity:calc(.25 + var(--beat-on,0)*.75);transform:translate3d(0,calc((1 - var(--beat-on,0))*8px),0)}
+.invite{opacity:calc(.35 + var(--invite-in)*.65);transform:translate3d(0,calc((1 - var(--invite-in))*16px),0)}
+.invite-panel{margin-top:28px;max-width:420px;border-top:1px solid rgba(246,241,232,.12);padding-top:22px}
+.invite-panel p{color:rgba(246,241,232,.68);margin:0 0 16px;font-size:.94rem}
+@media (max-width:720px){
+  .film-stage{min-height:145vh}
+  .heirloom__scrub{height:190vh}
+  .ritual__scrub{height:190vh}
+  .film-line{left:8px;width:18px}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .film-frame{opacity:0;transform:none}
@@ -335,11 +370,19 @@ a{color:inherit;text-decoration:none}
   .live-glow{opacity:.5!important}
   .film-line path{stroke-dashoffset:0}
   .lineage__paper path,.lineage__paper line{stroke-dashoffset:0}
-  :root{--line-progress:1;--heir-live:1;--pin-reveal:48%;--ink-draw:1}
+  :root{
+    --line-progress:1;--hero-exit:0;--hero-copy:1;
+    --heir-live:1;--heir-scan:0;--heir-peel:.6;--heir-scratch:.25;
+    --pin-reveal:48%;--plane-in:1;--plane-out:0;--ba-exit:0;
+    --ink-canopy:1;--ink-trunk:1;--ink-roots:1;--ink-exit:0;--invite-in:1;
+  }
+  .heirloom__scrub,.ritual__scrub{height:0!important}
+  .film-stage{min-height:100vh}
+  .ritual__inner,.invite,.beat{opacity:1!important;transform:none!important}
 }
 </style>
 </head>
-<body class="contest-r1-b nano-alt-contest-r1-b craft-study" data-contest-r1-b="1">
+<body class="contest-r1-b nano-alt-contest-r1-b craft-study craft-raise" data-contest-r1-b="1" data-a2="1" data-a4="1" data-a7="1">
 <a class="skip" href="#open">К тексту</a>
 
 <div class="film-line" aria-hidden="true">
@@ -351,6 +394,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- ACT 0 · film open / chapter crossfade -->
 <header class="film-stage" id="top" data-film-stage="1" aria-labelledby="open-title">
+  <div class="film-stage__pin">
   <div class="film-stage__stack" aria-hidden="true">
     <div class="film-frame is-on" data-frame="0"><img src="/assets/case_c8_before.jpg" alt="" width="1200" height="1600" fetchpriority="high" decoding="async"><div class="veil"></div></div>
     <div class="film-frame" data-frame="1"><img src="/assets/case_c7_before.jpg" alt="" width="1200" height="1600" loading="lazy" decoding="async"><div class="veil"></div></div>
@@ -359,14 +403,14 @@ a{color:inherit;text-decoration:none}
   </div>
   <p class="chap-cue" id="film-cue">кадр 01 · крона памяти</p>
   <div class="film-stage__copy wrap" id="open">
-    <p class="eyebrow">Contest R1 · Team B · Virtuoso Film</p>
     <p class="brand">Save<span class="mark">My</span>History</p>
-    <h1 id="open-title">Плёнка рода: кадр за кадром, пока лица ещё держатся.</h1>
-    <p class="lead">Не презентация сервиса — короткий фильм. Главы кроссфейдом. В середине — реликвия в 3D. Потом правда на бумаге и чернильный ствол.</p>
-    <div class="cta">
+    <h1 id="open-title">Плёнка рода — кадр за кадром.</h1>
+    <p class="lead">Короткий фильм памяти: главы кроссфейдом, реликвия в 3D, правда на бумаге, чернильный ствол.</p>
+    <div class="cta-quiet">
       <a class="btn btn--primary" href="#invite">Войти по приглашению</a>
-      <a class="btn btn--ghost" href="#chapters">Смотреть плёнку</a>
+      <a class="link-soft" href="#chapters">смотреть плёнку</a>
     </div>
+  </div>
   </div>
 </header>
 
@@ -442,7 +486,7 @@ a{color:inherit;text-decoration:none}
 <!-- ACT III · pinned multi-BA -->
 <section class="ritual" id="ritual" data-ba-ritual="1" aria-labelledby="ritual-title">
   <div class="ritual__pin">
-    <div class="wrap" style="width:min(640px,100% - 40px)">
+    <div class="ritual__inner">
       <p class="eyebrow" style="color:var(--amber)">Акт III · pinned ritual</p>
       <h2 id="ritual-title">Несколько правд на одной полоске.</h2>
       <p class="lead">Пока кадр закреплён — плёнка меняет пары. Тяните полоску. То же лицо. Тот же взгляд.</p>
@@ -523,51 +567,27 @@ a{color:inherit;text-decoration:none}
       <h2 id="lineage-title">Лес → ствол → корни</h2>
       <p class="lead">После плёнки и реликвии — не второй лес. Семейное дерево как след чернил: от места памяти к именам внизу.</p>
       <div class="beats">
-        <article class="beat"><strong>Лес</strong><p>Вход тишины — уже был в кроне кадров. Здесь остаётся только след.</p></article>
-        <article class="beat"><strong>Ствол</strong><p>Хранитель рода ведёт одну линию: снимок → лицо → честный просмотр.</p></article>
-        <article class="beat"><strong>Корни</strong><p>То, что держит семью: взгляды, имена, то, что почти забыли.</p></article>
+        <article class="beat" data-beat="0"><strong>Лес</strong><p>Вход тишины уже был в кроне кадров. Здесь остаётся след.</p></article>
+        <article class="beat" data-beat="1"><strong>Ствол</strong><p>Хранитель рода ведёт одну линию: снимок → лицо → честный просмотр.</p></article>
+        <article class="beat" data-beat="2"><strong>Корни</strong><p>То, что держит семью: взгляды, имена, то, что почти забыли.</p></article>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ACT V · soft invite -->
-<section class="invite" id="invite" data-soft-wave="1" aria-labelledby="invite-title">
-  <div class="wrap invite-grid">
-    <div>
-      <p class="eyebrow">После фильма · soft-wave</p>
-      <h2 id="invite-title">Войти по приглашению</h2>
-      <p class="lead">Сначала место и правда. Сервис — тихо, через invite. Без громких обещаний и таймеров.</p>
-      <div class="invite-card">
-        <h3>Есть код?</h3>
-        <p>Redeem открывает кабинет. Коды не раздаём здесь — волна по приглашению. Нет кода — честный waitlist рядом.</p>
-        <label for="invite-code" style="display:block;font-size:13px;font-weight:600;color:rgba(246,241,232,.7);margin:14px 0 6px">Код приглашения</label>
-        <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled style="width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;border:1px solid rgba(246,241,232,.18);border-radius:4px;background:rgba(246,241,232,.06);color:#F6F1E8;font:inherit">
-        <div class="actions">
-          <span class="btn btn--ink" aria-hidden="true">Активировать</span>
-          <a class="btn btn--ghost" href="#waitlist">Нет кода — waitlist</a>
-        </div>
-        <p class="hint">Макет soft-wave · коды не посеяны · Cold Path B</p>
+<section class="invite" id="invite" data-soft-wave="1" data-cold-path-b="1" aria-labelledby="invite-title">
+  <div class="wrap">
+    <p class="eyebrow">После фильма</p>
+    <h2 id="invite-title">Войти по приглашению</h2>
+    <p class="lead">Сначала место и правда. Сервис — тихо, через invite. Без громких обещаний.</p>
+    <div class="invite-panel">
+      <p>Есть код — откройте кабинет. Нет кода — честный waitlist, без давления.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="/waitlist.html">Оставить контакт</a>
+        <a class="link-soft" href="/waitlist.html" style="color:rgba(246,241,232,.5);border-color:rgba(246,241,232,.2)">узнать про invite</a>
       </div>
-    </div>
-    <div class="wait" id="wait-box">
-      <p class="eyebrow" id="waitlist">Waitlist · вторичный</p>
-      <h2 style="font-family:var(--font-d);font-size:1.3rem;margin:6px 0 8px">Оставьте контакт</h2>
-      <p class="lead" style="margin-bottom:12px">Waitlist ловит интерес, но не открывает restore сам.</p>
-      <p class="ok-msg" role="status">Вы в списке. Напишем, когда откроем.</p>
-      <form id="wait-form" action="#" method="post" novalidate>
-        <div>
-          <label for="wait-email">Email</label>
-          <input id="wait-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
-        </div>
-        <div>
-          <label for="wait-name">Имя <span style="font-weight:400;color:rgba(246,241,232,.4)">(необязательно)</span></label>
-          <input id="wait-name" name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться">
-        </div>
-        <p class="err-msg" id="wait-err" role="alert">Не удалось отправить — попробуйте ещё раз.</p>
-        <button class="btn btn--ink" type="submit" id="wait-submit">Встать в waitlist</button>
-        <p class="hint">Лабораторная форма. Боевой путь — /waitlist.html</p>
-      </form>
+      <p class="hint">Cold Path B · soft-wave · коды не посеяны · не продакшен</p>
     </div>
   </div>
 </section>
@@ -580,7 +600,7 @@ a{color:inherit;text-decoration:none}
       <a href="/waitlist.html">Waitlist</a>
       <a href="/gallery.html">Галерея</a>
     </nav>
-    <p>SaveMyHistory · contest-r1-b-virtuoso-film · craft-study · Cold Path B · не продакшен</p>
+    <p>SaveMyHistory · contest-r1-b-virtuoso-film · craft-raise · Cold Path B</p>
   </div>
 </footer>
 
@@ -592,55 +612,63 @@ a{color:inherit;text-decoration:none}
   var cue = document.getElementById('film-cue');
   var cues = ['кадр 01 · крона памяти','кадр 02 · выцветание','кадр 03 · почти стёртое','кадр 04 · сберечь сейчас'];
   var objs = Array.prototype.slice.call(document.querySelectorAll('[data-story-obj]'));
+  var beats = Array.prototype.slice.call(document.querySelectorAll('[data-beat]'));
   var heir = document.getElementById('heirloom');
   var heirPhase = document.getElementById('heir-phase');
-  var phases = ['поворот · бумага','скан · извлечение','живой кадр'];
+  var phases = ['поворот · бумага','край · peel','скан · извлечение','живой кадр'];
   var ritual = document.getElementById('ritual');
+  var lineage = document.getElementById('lineage');
+  var invite = document.getElementById('invite');
+  var stage = document.querySelector('[data-film-stage]');
   var slots = Array.prototype.slice.call(document.querySelectorAll('.pair-slot'));
   var dots = Array.prototype.slice.call(document.querySelectorAll('.pair-dots button'));
   var bas = Array.prototype.slice.call(document.querySelectorAll('.ba'));
   var toggleBtn = document.getElementById('ba-toggle');
-  var inkPaper = document.getElementById('ink-paper');
-  var activePair = 0;
-  var pairLocked = false;
-  var scrubbed = {};
-  var dragging = null;
-  var showingAfter = true;
+  var activePair = 0, pairLocked = false, scrubbed = {}, dragging = null, showingAfter = true, ticking = false;
 
   function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function easeOut(t){ return 1 - Math.pow(1 - clamp(t,0,1), 2.2); }
   function progressThrough(el, startMul, endMul){
     if(!el) return 0;
     var r = el.getBoundingClientRect();
     var vh = window.innerHeight || 1;
-    var start = vh * startMul;
-    var end = vh * endMul;
-    return clamp((start - r.top) / (start - end), 0, 1);
+    var start = vh * startMul, end = vh * endMul;
+    return clamp((start - r.top) / Math.max(0.0001, start - end), 0, 1);
+  }
+  function localProgress(el){
+    if(!el) return 0;
+    var r = el.getBoundingClientRect();
+    var total = Math.max(1, el.offsetHeight - window.innerHeight);
+    return clamp((-r.top) / total, 0, 1);
   }
 
   function setFilm(t){
     if(!frames.length) return;
     var n = frames.length;
-    var x = t * (n - 0.0001);
+    var x = t * (n - 1);
     var i = Math.floor(x);
-    frames.forEach(function(f, idx){
-      if(idx === i) f.classList.add('is-on'); else f.classList.remove('is-on');
+    var f = x - i;
+    frames.forEach(function(el, idx){
+      var on = 0;
+      if(idx === i) on = 1 - f;
+      else if(idx === i + 1) on = f;
+      if(idx === n - 1 && t >= 0.999) on = 1;
+      el.style.setProperty('--f-on', on.toFixed(4));
+      el.style.opacity = String(on);
+      el.classList.toggle('is-on', on > 0.5);
     });
-    if(cue) cue.textContent = cues[i] || cues[0];
+    if(cue) cue.textContent = cues[clamp(Math.round(x), 0, cues.length - 1)];
   }
 
   function updateObjects(){
     var vh = window.innerHeight || 1;
     objs.forEach(function(el){
-      if(reduce){
-        el.style.setProperty('--obj-in','1');
-        el.style.setProperty('--obj-out','0');
-        return;
-      }
+      if(reduce){ el.style.setProperty('--obj-in','1'); el.style.setProperty('--obj-out','0'); return; }
       var r = el.getBoundingClientRect();
-      var inn = clamp((vh * 0.9 - r.top) / (vh * 0.35), 0, 1);
-      var out = clamp((vh * 0.15 - r.top) / (vh * 0.25), 0, 1);
+      var inn = easeOut(clamp((vh * 0.92 - r.top) / (vh * 0.38), 0, 1));
+      var out = clamp((vh * 0.12 - r.top) / (vh * 0.28), 0, 1);
       el.style.setProperty('--obj-in', String(inn));
-      el.style.setProperty('--obj-out', String(out * 0.85));
+      el.style.setProperty('--obj-out', String(out * 0.9));
     });
   }
 
@@ -651,34 +679,36 @@ a{color:inherit;text-decoration:none}
       root.style.setProperty('--heir-rx','6deg');
       root.style.setProperty('--heir-scan','0');
       root.style.setProperty('--heir-live','1');
-      if(heirPhase) heirPhase.textContent = phases[2];
+      root.style.setProperty('--heir-peel','.6');
+      root.style.setProperty('--heir-scratch','.25');
+      if(heirPhase) heirPhase.textContent = phases[3];
       return;
     }
-    var r = heir.getBoundingClientRect();
-    var total = Math.max(1, heir.offsetHeight - window.innerHeight);
-    var p = clamp((-r.top) / total, 0, 1);
-    /* 0-.45 rotate/tilt, .45-.75 scan, .75-1 flip to living */
-    var ry, rx, scan, live, phase;
-    if(p < 0.45){
-      var t = p / 0.45;
-      ry = -42 + t * 84; /* -42 -> 42 */
-      rx = 12 - t * 10;
-      scan = 0; live = 0; phase = 0;
-    } else if(p < 0.75){
-      var t2 = (p - 0.45) / 0.3;
-      ry = 42 - t2 * 42; /* settle toward 0 */
-      rx = 2;
-      scan = t2; live = 0; phase = 1;
+    var p = localProgress(heir);
+    var ry, rx, scan, live, peel, scratch, phase;
+    if(p < 0.28){
+      var t0 = p / 0.28;
+      ry = -48 + easeOut(t0) * 78; rx = 14 - t0 * 10;
+      scan = 0; live = 0; peel = t0 * 0.35; scratch = 0.7; phase = 0;
+    } else if(p < 0.42){
+      var t1 = (p - 0.28) / 0.14;
+      ry = 30 - t1 * 18; rx = 4;
+      scan = 0; live = 0; peel = 0.35 + t1 * 0.65; scratch = 0.7 - t1 * 0.1; phase = 1;
+    } else if(p < 0.72){
+      var t2 = (p - 0.42) / 0.3;
+      ry = 12 - t2 * 12; rx = 3;
+      scan = easeOut(t2); live = 0; peel = 1; scratch = 0.55 - t2 * 0.2; phase = 2;
     } else {
-      var t3 = (p - 0.75) / 0.25;
-      ry = 0 + t3 * 180; /* flip to after */
-      rx = 2 - t3 * 2;
-      scan = 1; live = t3; phase = 2;
+      var t3 = easeOut((p - 0.72) / 0.28);
+      ry = t3 * 180; rx = 3 - t3 * 3;
+      scan = 1; live = t3; peel = 1 - t3 * 0.4; scratch = 0.35 * (1 - t3); phase = 3;
     }
     root.style.setProperty('--heir-ry', ry.toFixed(2) + 'deg');
     root.style.setProperty('--heir-rx', rx.toFixed(2) + 'deg');
     root.style.setProperty('--heir-scan', String(clamp(scan,0,1)));
     root.style.setProperty('--heir-live', String(clamp(live,0,1)));
+    root.style.setProperty('--heir-peel', String(clamp(peel,0,1)));
+    root.style.setProperty('--heir-scratch', String(clamp(scratch,0,1)));
     if(heirPhase) heirPhase.textContent = phases[phase];
   }
 
@@ -687,79 +717,112 @@ a{color:inherit;text-decoration:none}
     slots.forEach(function(s, idx){ s.classList.toggle('is-on', idx === activePair); });
     dots.forEach(function(d, idx){ d.setAttribute('aria-current', idx === activePair ? 'true' : 'false'); });
   }
-
-  function setReveal(ba, p){
+  function setReveal(ba, pct){
     if(!ba) return;
-    p = clamp(p, 6, 94);
-    ba.style.setProperty('--reveal', p + '%');
+    pct = clamp(pct, 6, 94);
+    ba.style.setProperty('--reveal', pct + '%');
   }
 
   function updateRitual(){
     if(!ritual) return;
     if(reduce){
       root.style.setProperty('--pin-reveal','48%');
-      setPair(0);
-      bas.forEach(function(b){ setReveal(b, 48); });
+      root.style.setProperty('--plane-in','1');
+      root.style.setProperty('--plane-out','0');
+      setPair(0); bas.forEach(function(b){ setReveal(b, 48); });
       return;
     }
-    var r = ritual.getBoundingClientRect();
-    var total = Math.max(1, ritual.offsetHeight - window.innerHeight);
-    var p = clamp((-r.top) / total, 0, 1);
+    var p = localProgress(ritual);
+    root.style.setProperty('--plane-in', String(easeOut(clamp(p / 0.12, 0, 1))));
+    root.style.setProperty('--plane-out', String(easeOut(clamp((p - 0.86) / 0.14, 0, 1))));
     if(!pairLocked){
-      var idx = Math.min(slots.length - 1, Math.floor(p * slots.length));
+      var mid = clamp((p - 0.12) / 0.74, 0, 0.999);
+      var idx = Math.min(slots.length - 1, Math.floor(mid * slots.length));
       if(idx !== activePair) setPair(idx);
     }
     var ba = bas[activePair];
     if(ba && !scrubbed[activePair] && dragging !== activePair){
-      var local = (p * slots.length) % 1;
-      var e = 1 - Math.pow(1 - local, 2.2);
-      setReveal(ba, 14 + e * 62);
+      var mid2 = clamp((p - 0.12) / 0.74, 0, 0.999);
+      var local = (mid2 * slots.length) % 1;
+      var reveal = 14 + easeOut(local) * 62;
+      root.style.setProperty('--pin-reveal', reveal.toFixed(2) + '%');
+      setReveal(ba, reveal);
     }
   }
 
   function updateInk(){
-    if(!inkPaper) return;
-    if(reduce){ root.style.setProperty('--ink-draw','1'); return; }
-    var t = progressThrough(inkPaper, 0.85, 0.25);
-    root.style.setProperty('--ink-draw', String(t));
+    if(!lineage) return;
+    if(reduce){
+      root.style.setProperty('--ink-canopy','1');
+      root.style.setProperty('--ink-trunk','1');
+      root.style.setProperty('--ink-roots','1');
+      beats.forEach(function(b){ b.style.setProperty('--beat-on','1'); });
+      return;
+    }
+    var p = progressThrough(lineage, 0.9, 0.15);
+    var canopy = clamp(p / 0.32, 0, 1);
+    var trunk = p < 0.28 ? 0 : clamp((p - 0.28) / 0.28, 0, 1);
+    var roots = p < 0.52 ? 0 : clamp((p - 0.52) / 0.48, 0, 1);
+    root.style.setProperty('--ink-canopy', String(easeOut(canopy)));
+    root.style.setProperty('--ink-trunk', String(easeOut(trunk)));
+    root.style.setProperty('--ink-roots', String(easeOut(roots)));
+    root.style.setProperty('--ink-draw', String(easeOut(p)));
+    beats.forEach(function(b, i){
+      var thr = 0.2 + i * 0.22;
+      b.style.setProperty('--beat-on', String(easeOut(clamp((p - thr) / 0.18, 0, 1))));
+    });
+    root.style.setProperty('--line-guide-opacity', String(0.9 - clamp((p - 0.1) / 0.35, 0, 1) * 0.55));
+  }
+
+  function updateCrossfade(){
+    if(reduce){
+      root.style.setProperty('--hero-exit','0');
+      root.style.setProperty('--hero-copy','1');
+      root.style.setProperty('--ba-exit','0');
+      root.style.setProperty('--ink-exit','0');
+      root.style.setProperty('--invite-in','1');
+      return;
+    }
+    var heroExit = objs[0] ? progressThrough(objs[0], 1.05, 0.35) : 0;
+    root.style.setProperty('--hero-exit', String(heroExit));
+    root.style.setProperty('--hero-copy', String(1 - heroExit * 0.15));
+    root.style.setProperty('--ba-exit', String(lineage ? progressThrough(lineage, 1.0, 0.45) : 0));
+    root.style.setProperty('--ink-exit', String((invite ? progressThrough(invite, 1.05, 0.55) : 0) * 0.65));
+    root.style.setProperty('--invite-in', String(easeOut(invite ? progressThrough(invite, 0.95, 0.4) : 0)));
   }
 
   function updateLine(){
     if(reduce){ root.style.setProperty('--line-progress','1'); return; }
-    var doc = document.documentElement;
-    var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     root.style.setProperty('--line-progress', String(clamp(window.scrollY / max, 0, 1)));
   }
 
   function updateFilmStage(){
-    var stage = document.querySelector('[data-film-stage]');
     if(!stage) return;
     if(reduce){ setFilm(0); return; }
-    var t = progressThrough(stage, 1.0, 0.05);
-    setFilm(t);
+    var filmT = clamp((localProgress(stage) - 0.08) / 0.84, 0, 1);
+    setFilm(filmT);
+    root.style.setProperty('--film-t', String(filmT));
   }
 
-  function onScroll(){
-    updateLine();
-    updateFilmStage();
-    updateObjects();
-    updateHeir();
-    updateRitual();
-    updateInk();
+  function bus(){
+    ticking = false;
+    updateLine(); updateFilmStage(); updateObjects(); updateHeir(); updateRitual(); updateInk(); updateCrossfade();
   }
+  function requestBus(){ if(!ticking){ ticking = true; requestAnimationFrame(bus); } }
 
-  if(reduce){
-    onScroll();
-  } else {
-    onScroll();
-    window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+  if(!reduce){
+    window.addEventListener('scroll', requestBus, {passive:true});
+    window.addEventListener('resize', requestBus, {passive:true});
   }
 
   bas.forEach(function(ba, idx){
     function fromX(clientX){
       var r = ba.getBoundingClientRect();
-      setReveal(ba, ((clientX - r.left) / r.width) * 100);
+      var pct = ((clientX - r.left) / r.width) * 100;
+      setReveal(ba, pct);
+      root.style.setProperty('--pin-reveal', clamp(pct,6,94).toFixed(2) + '%');
     }
     ba.addEventListener('pointerdown', function(e){
       dragging = idx; scrubbed[idx] = true; pairLocked = true;
@@ -779,36 +842,12 @@ a{color:inherit;text-decoration:none}
       setReveal(bas[activePair], showingAfter ? 76 : 10);
     });
   }
-
   dots.forEach(function(d){
     d.addEventListener('click', function(){
       pairLocked = true;
       setPair(parseInt(d.getAttribute('data-jump'), 10) || 0);
     });
   });
-
-  var form = document.getElementById('wait-form');
-  var box = document.getElementById('wait-box');
-  var submitBtn = document.getElementById('wait-submit');
-  if(form && box){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var email = document.getElementById('wait-email');
-      box.classList.remove('is-error');
-      if(!email || !email.value || !email.checkValidity()){
-        box.classList.add('is-error');
-        if(email) email.focus();
-        return;
-      }
-      box.classList.add('is-loading');
-      if(submitBtn) submitBtn.textContent = 'Отправляем…';
-      window.setTimeout(function(){
-        box.classList.remove('is-loading');
-        box.classList.add('is-done');
-        if(submitBtn) submitBtn.textContent = 'Встать в waitlist';
-      }, 700);
-    });
-  }
 })();
 </script>
 </body>
