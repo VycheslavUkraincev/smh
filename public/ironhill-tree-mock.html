@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ru" data-ironhill-mock="1" data-ironhill-tree-mock="1" class="ironhill-mock ironhill-tree-mock nano-alt-ironhill-mock nano-alt-ironhill-tree-mock craft-study">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — craft study · forest tree mock</title>
+<meta name="description" content="Craft-study sibling: лес с тем же деревом-героем, линия, бумага, честный before→after. Не продакшен. Не чужой бренд.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E8E2D8">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/ironhill-mock/hero.webp" fetchpriority="high">
+<!--
+  CRAFT-STUDY MOCK — SaveMyHistory sibling page.
+  Hero forest/tree webp copied from a public reference site mirror for craft study ONLY
+  (same tree silhouette / forest hero). Not third-party brand costume. Not production brand fonts
+  from that site. Brand on this page: SaveMyHistory (Literata + Manrope).
+  Markers: nano-alt-ironhill-mock · data-ironhill-mock="1" · ironhill-mock · craft-study
+-->
+<style>
+:root{
+  --smh-paper:#E8E2D8;
+  --smh-paper-deep:#D9D1C4;
+  --smh-ink:#1C1915;
+  --smh-ink-soft:#3F3A33;
+  --smh-mute:#6E665C;
+  --smh-line:rgba(28,25,21,.12);
+  --smh-amber:#B07A3A;
+  --smh-amber-deep:#8C5E28;
+  --smh-amber-glow:rgba(176,122,58,.18);
+  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.22) 0%,rgba(28,25,21,.48) 44%,rgba(28,25,21,.86) 100%);
+  --smh-ok:#3E6B4F;
+  --smh-fail:#7A3B2E;
+  --smh-space-3:16px;
+  --smh-space-4:24px;
+  --smh-space-5:40px;
+  --smh-space-6:64px;
+  --smh-space-7:96px;
+  --smh-font-display:"Literata","Source Serif 4","PT Serif",serif;
+  --smh-font-ui:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --smh-fs-hero:clamp(1.85rem,4vw,2.75rem);
+  --smh-fs-h2:clamp(1.5rem,2.5vw,2rem);
+  --smh-fs-body:1.0625rem;
+  --smh-lh-body:1.55;
+  --smh-radius:6px;
+  --smh-radius-btn:8px;
+  --smh-ease:cubic-bezier(.22,.61,.36,1);
+  --reveal:18%;
+  --line-progress:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--smh-font-ui);
+  font-size:var(--smh-fs-body);
+  line-height:var(--smh-lh-body);
+  color:var(--smh-ink);
+  background:var(--smh-paper);
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.ironhill-mock{--ihm:1}
+.ironhill-tree-mock{--iht:1}
+.craft-study{--craft:1}
+.skip{position:absolute;left:-9999px}
+.skip:focus{
+  position:fixed;left:12px;top:12px;z-index:50;
+  background:var(--smh-ink);color:var(--smh-paper);
+  padding:10px 14px;border-radius:var(--smh-radius-btn);
+  text-decoration:none;font-weight:600;
+}
+.wrap{width:min(1080px,100% - 48px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(1080px,100% - 32px)}}
+
+.story-line{
+  position:fixed;top:0;left:50%;transform:translateX(-50%);
+  width:min(140px,22vw);height:100vh;z-index:8;pointer-events:none;
+}
+.story-line svg{width:100%;height:100%;overflow:visible}
+.story-line path{
+  fill:none;
+  stroke:var(--smh-amber);
+  stroke-width:1.55;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.78;
+  stroke-dasharray:1;
+  stroke-dashoffset:calc(1 - var(--line-progress));
+  filter:drop-shadow(0 0 0.6px rgba(28,25,21,.25));
+}
+.story-line path.story-line__ghost{
+  stroke:rgba(232,226,216,.35);
+  stroke-width:2.4;
+  opacity:calc(.2 + var(--line-progress) * .35);
+  stroke-dashoffset:0;
+  filter:none;
+}
+
+.hero{
+  position:relative;
+  min-height:100svh;min-height:100vh;
+  display:grid;isolation:isolate;overflow:hidden;
+}
+.hero__plane{position:absolute;inset:0;z-index:0;background:var(--smh-paper-deep)}
+.hero__plane picture,
+.hero__plane img{
+  width:100%;height:100%;display:block;
+}
+.hero__plane img{
+  object-fit:cover;object-position:center 40%;
+  transform:scale(1.04);
+  opacity:0;animation:heroPlane .9s var(--smh-ease) .05s forwards;
+}
+.hero__veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--smh-hero-veil)}
+.hero__grain{
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero__copy{
+  position:relative;z-index:3;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  min-height:100svh;min-height:100vh;
+  padding:clamp(24px,4vw,48px);
+  padding-bottom:clamp(48px,10vh,96px);
+  max-width:760px;
+}
+.lab-mark{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(232,226,216,.55);margin-bottom:18px;
+  opacity:0;animation:heroFade .55s var(--smh-ease) .12s forwards;
+}
+.brand{
+  font-family:var(--smh-font-display);
+  font-weight:600;
+  font-size:clamp(2.9rem,8.5vw,5.75rem);
+  line-height:.92;letter-spacing:-.025em;
+  color:#F3EEE6;margin-bottom:20px;
+  opacity:0;animation:heroFade .6s var(--smh-ease) .2s forwards;
+}
+.brand .mark{color:#E2B87A}
+.hero h1{
+  font-family:var(--smh-font-display);
+  font-weight:500;
+  font-size:var(--smh-fs-hero);
+  line-height:1.18;letter-spacing:-.02em;
+  color:#F3EEE6;max-width:18ch;margin-bottom:16px;
+  opacity:0;animation:heroFade .6s var(--smh-ease) .34s forwards;
+}
+.hero__lead{
+  font-size:clamp(15px,1.7vw,18px);
+  color:rgba(243,238,230,.86);
+  max-width:34ch;margin-bottom:28px;
+  opacity:0;animation:heroFade .6s var(--smh-ease) .46s forwards;
+}
+.cta{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  opacity:0;animation:heroFade .6s var(--smh-ease) .58s forwards;
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;font-weight:600;font-size:15px;
+  border-radius:var(--smh-radius-btn);
+  padding:13px 22px;min-height:44px;
+  border:1.5px solid transparent;
+  transition:background .25s var(--smh-ease),color .25s var(--smh-ease),border-color .25s var(--smh-ease);
+  cursor:pointer;font-family:var(--smh-font-ui);
+}
+.btn:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px}
+.btn--primary{background:var(--smh-amber);color:var(--smh-ink);border-color:var(--smh-amber)}
+.btn--primary:hover{background:var(--smh-amber-deep);border-color:var(--smh-amber-deep);color:#F3EEE6}
+.btn--ghost{background:transparent;color:#F3EEE6;border-color:rgba(243,238,230,.45)}
+.btn--ghost:hover{border-color:rgba(243,238,230,.9);background:rgba(243,238,230,.08)}
+.btn--ink{background:var(--smh-amber);color:var(--smh-ink);border-color:var(--smh-amber)}
+.btn--ink:hover{background:var(--smh-amber-deep);color:#F3EEE6}
+.btn--line{background:transparent;color:var(--smh-ink);border-color:rgba(28,25,21,.28)}
+.btn--line:hover{border-color:var(--smh-ink);background:rgba(28,25,21,.04)}
+.btn--sm{padding:10px 16px;font-size:14px;min-height:40px}
+@keyframes heroFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes heroPlane{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1.02)}}
+
+.act-bridge{
+  position:relative;z-index:4;
+  height:clamp(72px,14vh,140px);
+  margin-top:-1px;
+  background:linear-gradient(180deg,rgba(28,25,21,.86) 0%,rgba(28,25,21,.35) 38%,var(--smh-paper) 100%);
+  pointer-events:none;
+}
+.act-bridge__cue{
+  position:absolute;left:50%;bottom:18%;
+  transform:translateX(-50%);
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--smh-mute);font-weight:600;white-space:nowrap;
+}
+
+.section{padding:var(--smh-space-7) 0;position:relative}
+.section--paper{
+  background:var(--smh-paper);
+  padding-top:clamp(48px,8vh,88px);
+}
+.section--deep{background:var(--smh-paper-deep)}
+.section--ink{
+  background:linear-gradient(180deg,#1C1915 0%,#241F18 55%,#1C1915 100%);
+  color:#F3EEE6;
+}
+.section__eyebrow{
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--smh-mute);margin-bottom:12px;font-weight:600;
+}
+.section--ink .section__eyebrow{color:rgba(232,226,216,.55)}
+.section h2{
+  font-family:var(--smh-font-display);
+  font-weight:600;
+  font-size:var(--smh-fs-h2);
+  line-height:1.2;letter-spacing:-.02em;
+  margin-bottom:12px;max-width:22ch;
+}
+.section__lead{
+  color:var(--smh-ink-soft);
+  max-width:44ch;
+  margin-bottom:var(--smh-space-5);
+}
+.section--ink .section__lead{color:rgba(243,238,230,.78)}
+
+.proof-meta{
+  display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;
+  justify-content:space-between;margin-bottom:18px;
+}
+.proof-labels{display:flex;gap:16px;font-size:13px;color:var(--smh-mute);font-weight:500}
+.proof-labels span{display:inline-flex;align-items:center;gap:6px}
+.proof-labels .dot{width:8px;height:8px;border-radius:2px;background:var(--smh-mute)}
+.proof-labels .dot--after{background:var(--smh-amber)}
+.ba-shell{
+  position:relative;
+  border-radius:var(--smh-radius);
+  overflow:hidden;
+  background:var(--smh-ink);
+  aspect-ratio:4/5;
+  max-height:min(72vh,760px);
+  margin-inline:auto;
+  border:1px solid rgba(28,25,21,.1);
+  box-shadow:
+    0 1px 0 rgba(28,25,21,.04),
+    0 28px 60px -36px rgba(28,25,21,.35),
+    inset 0 0 0 1px rgba(243,238,230,.04);
+}
+@media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(68vh,640px)}}
+.ba{
+  position:absolute;inset:0;
+  cursor:ew-resize;touch-action:none;user-select:none;
+}
+.ba img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 28%;pointer-events:none;
+}
+.ba .before{z-index:1}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
+.ba .rail{
+  position:absolute;top:0;bottom:0;left:var(--reveal);
+  width:2px;transform:translateX(-50%);
+  background:rgba(232,226,216,.95);z-index:3;pointer-events:none;
+  box-shadow:0 0 0 1px rgba(28,25,21,.2);
+}
+.ba .knob{
+  position:absolute;top:50%;left:var(--reveal);
+  transform:translate(-50%,-50%);
+  width:44px;height:44px;border-radius:var(--smh-radius-btn);
+  background:var(--smh-amber);color:var(--smh-ink);
+  display:grid;place-items:center;
+  font-size:15px;font-weight:700;z-index:4;pointer-events:none;
+}
+.ba-caption{color:var(--smh-ink-soft);font-size:.95rem;margin-top:16px;max-width:48ch}
+.gates-inline{
+  display:flex;flex-wrap:wrap;gap:10px 18px;
+  margin-top:18px;font-size:13px;color:var(--smh-mute);font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.gates-inline span{display:inline-flex;align-items:center;gap:8px}
+.gates-inline i{
+  width:6px;height:6px;border-radius:1px;background:var(--smh-amber);
+  display:inline-block;
+}
+
+.lineage{
+  display:grid;gap:var(--smh-space-5);
+  align-items:center;
+}
+@media (min-width:860px){
+  .lineage{grid-template-columns:1fr 1.05fr;gap:var(--smh-space-6)}
+}
+.lineage__visual{
+  position:relative;
+  border-radius:var(--smh-radius);
+  overflow:hidden;
+  min-height:min(52vh,480px);
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 38%,rgba(176,122,58,.12) 0%,transparent 62%),
+    linear-gradient(180deg,#241F18 0%,#1C1915 100%);
+  border:1px solid rgba(243,238,230,.08);
+}
+.lineage__paper{
+  position:absolute;inset:18% 14% 14%;
+  border:1px solid rgba(232,226,216,.08);
+  background:rgba(232,226,216,.03);
+  pointer-events:none;
+}
+.lineage__tree{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  display:grid;place-items:center;
+  padding:28px 20px 36px;
+}
+.lineage__tree svg{width:min(260px,58%);height:auto}
+.lineage__tree .ink-canopy{
+  fill:none;stroke:#E2B87A;stroke-width:1.35;stroke-linecap:round;opacity:.55;
+}
+.lineage__tree .ink-trunk{
+  fill:none;stroke:#E2B87A;stroke-width:1.7;stroke-linecap:round;opacity:.9;
+}
+.lineage__tree .ink-root{
+  fill:none;stroke:#E2B87A;stroke-width:1.4;stroke-linecap:round;opacity:.75;
+}
+.lineage__tree .ink-dot{
+  fill:#E2B87A;opacity:.7;
+}
+.lineage__beats{display:grid;gap:22px}
+.beat{padding-top:14px;border-top:1px solid rgba(243,238,230,.14)}
+.beat strong{
+  display:block;font-family:var(--smh-font-display);
+  font-size:1.15rem;font-weight:600;margin-bottom:6px;color:#F3EEE6;
+}
+.beat p{color:rgba(243,238,230,.72);font-size:.95rem;max-width:36ch}
+
+.invite{
+  display:grid;gap:var(--smh-space-5);
+  align-items:start;
+}
+@media (min-width:800px){.invite{grid-template-columns:1.15fr .85fr}}
+.invite-card{
+  padding:var(--smh-space-4);
+  border:1px solid var(--smh-line);
+  border-radius:var(--smh-radius);
+  background:rgba(232,226,216,.55);
+}
+.invite-card h3{
+  font-family:var(--smh-font-display);
+  font-size:1.25rem;margin-bottom:8px;
+}
+.invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:16px;max-width:40ch}
+.invite-card .actions{display:flex;flex-wrap:wrap;gap:10px}
+.waitform,
+.wait{
+  display:grid;gap:12px;
+  padding:var(--smh-space-4);
+  border:1px solid var(--smh-line);
+  border-radius:var(--smh-radius);
+  background:var(--smh-paper);
+}
+.wait label{font-size:13px;font-weight:600;color:var(--smh-ink-soft)}
+.wait input{
+  width:100%;min-height:44px;padding:12px 14px;
+  border:1px solid var(--smh-line);border-radius:var(--smh-radius);
+  background:var(--smh-paper-deep);color:var(--smh-ink);font:inherit;
+}
+.wait input:focus{outline:2px solid var(--smh-amber);outline-offset:2px;border-color:transparent}
+.wait .hint{font-size:13px;color:var(--smh-mute)}
+.wait .ok-msg,.wait .err-msg{display:none;font-size:14px;font-weight:600}
+.wait .ok-msg{color:var(--smh-ok)}
+.wait .err-msg{color:var(--smh-fail)}
+.wait.is-done .ok-msg{display:block}
+.wait.is-done form{display:none}
+.wait.is-error .err-msg{display:block}
+.wait.is-loading .btn--ink{opacity:.72;pointer-events:none;cursor:wait}
+
+.foot{
+  padding:var(--smh-space-5) 0;
+  border-top:1px solid var(--smh-line);
+  color:var(--smh-mute);font-size:13px;
+}
+.foot nav{display:flex;flex-wrap:wrap;gap:14px 20px;margin-bottom:10px}
+.foot a{text-decoration:none;color:var(--smh-ink-soft)}
+.foot a:hover{color:var(--smh-amber-deep)}
+
+@media (max-width:720px){
+  .hero__copy{padding-top:18vh}
+  .cta .btn{flex:1 1 100%;text-align:center}
+  .story-line{opacity:.5;width:min(96px,20vw)}
+  .act-bridge__cue{font-size:10px}
+  .lineage__visual{min-height:min(44vh,380px)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .lab-mark,.brand,.hero h1,.hero__lead,.cta,.hero__plane img{
+    animation:none!important;opacity:1;transform:none;
+  }
+  .hero__plane img{transform:scale(1.02)}
+  .story-line path{stroke-dashoffset:0}
+  .story-line path.story-line__ghost{opacity:.45}
+  :root{--reveal:48%;--line-progress:1}
+}
+</style>
+</head>
+<body class="ironhill-mock ironhill-tree-mock nano-alt-ironhill-mock nano-alt-ironhill-tree-mock craft-study" data-ironhill-mock="1" data-ironhill-tree-mock="1">
+<a class="skip" href="#study-copy">К тексту</a>
+
+<div class="story-line" aria-hidden="true" data-story-line="1">
+  <svg viewBox="0 0 40 100" preserveAspectRatio="none">
+    <path class="story-line__ghost" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 44 26 56 C26 68 16 74 16 84 C16 92 20 96 20 100"/>
+    <path id="story-path" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 44 26 56 C26 68 16 74 16 84 C16 92 20 96 20 100"/>
+  </svg>
+</div>
+
+<!-- ACT I — Iron Hill forest/tree hero (craft study asset; SMH brand) -->
+<header class="hero ironhill-mock craft-study" data-ironhill-mock="1" data-act="1" id="top">
+  <div class="hero__plane" aria-hidden="true">
+    <picture>
+      <source media="(max-width:720px)" srcset="/assets/ironhill-mock/hero-mobile.webp" type="image/webp">
+      <img src="/assets/ironhill-mock/hero.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+  <div class="hero__copy" id="study-copy">
+    <p class="lab-mark">Craft study · акт I · то же дерево</p>
+    <p class="brand">Save<span class="mark">My</span>History</p>
+    <h1>Лес держит дерево. Род держит снимок.</h1>
+    <p class="hero__lead">Тихий вход в место памяти. Линия спустит вниз — из леса к бумаге, к лицу, которое почти стёрлось.</p>
+    <div class="cta">
+      <a class="btn btn--primary" href="#invite">Войти по приглашению</a>
+      <a class="btn btn--ghost" href="#truth">Спуститься по линии</a>
+    </div>
+  </div>
+</header>
+
+<div class="act-bridge" aria-hidden="true" data-act-bridge="1">
+  <span class="act-bridge__cue">линия · лес → бумага</span>
+</div>
+
+<main>
+<section class="section section--paper" id="truth" data-act="2" aria-labelledby="truth-title">
+  <div class="wrap">
+    <p class="section__eyebrow">Акт II · бумага · правда</p>
+    <h2 id="truth-title">Фотографии стираются. Их можно сберечь сейчас.</h2>
+    <p class="section__lead">Один честный проход на бумаге: почти потерянное → сохранённое. Без «2&nbsp;мин», без чужого лица. FACE и EYE остаются воротами.</p>
+    <div class="proof-meta">
+      <div class="proof-labels" aria-hidden="true">
+        <span><i class="dot"></i> Уходит</span>
+        <span><i class="dot dot--after"></i> Сбережено</span>
+      </div>
+      <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
+    </div>
+    <div class="ba-shell" id="ba-shell">
+      <div class="ba" id="ba" role="img" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
+        <img class="before" src="/assets/hero_before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="1600" decoding="async">
+        <img class="after" src="/assets/hero_after.jpg" alt="То же фото после бережной реставрации" width="1200" height="1600" decoding="async">
+        <div class="rail" aria-hidden="true"></div>
+        <div class="knob" aria-hidden="true">⇄</div>
+      </div>
+    </div>
+    <p class="ba-caption">То же лицо. Тот же взгляд. Лицо важнее эффекта — если проверка не проходит, скажем честно.</p>
+    <div class="gates-inline" aria-label="Ворота честности">
+      <span><i></i> FACE</span>
+      <span><i></i> EYE / GAZE</span>
+    </div>
+  </div>
+</section>
+
+<section class="section section--ink" id="lineage" data-lineage-ink="1" aria-labelledby="lineage-title">
+  <div class="wrap lineage">
+    <div class="lineage__visual" aria-hidden="true">
+      <div class="lineage__paper"></div>
+      <div class="lineage__tree">
+        <svg viewBox="0 0 120 230" xmlns="http://www.w3.org/2000/svg">
+          <path class="ink-canopy" d="M60 22 C44 30 36 44 40 60 C30 64 26 76 32 88 C24 98 28 114 42 120"/>
+          <path class="ink-canopy" d="M60 22 C76 30 84 44 80 60 C90 64 94 76 88 88 C96 98 92 114 78 120"/>
+          <path class="ink-canopy" d="M42 72 C50 66 70 66 78 72"/>
+          <line class="ink-trunk" x1="60" y1="22" x2="60" y2="152"/>
+          <circle class="ink-dot" cx="60" cy="22" r="2.2"/>
+          <path class="ink-root" d="M60 152 C52 172 36 186 20 204"/>
+          <path class="ink-root" d="M60 152 C60 176 58 192 54 214"/>
+          <path class="ink-root" d="M60 152 C68 172 84 186 100 204"/>
+          <circle class="ink-dot" cx="20" cy="204" r="1.6"/>
+          <circle class="ink-dot" cx="54" cy="214" r="1.6"/>
+          <circle class="ink-dot" cx="100" cy="204" r="1.6"/>
+        </svg>
+      </div>
+    </div>
+    <div>
+      <p class="section__eyebrow">Род · чернильный мотив</p>
+      <h2 id="lineage-title">Ствол → корни</h2>
+      <p class="section__lead">Дерево уже было вверху — живой лес. Здесь только чернильный след: ствол и корни рода, без второго oak-фото.</p>
+      <div class="lineage__beats">
+        <article class="beat">
+          <strong>Лес</strong>
+          <p>Место входа уже было в герое. Ниже — не второй лес, а линия рода.</p>
+        </article>
+        <article class="beat">
+          <strong>Ствол</strong>
+          <p>Хранитель ведёт одну линию: снимок → лицо → честный просмотр.</p>
+        </article>
+        <article class="beat">
+          <strong>Корни</strong>
+          <p>То, что держит семью внизу страницы: имена, взгляды, почти забытое.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--deep" id="invite" data-soft-wave="1" aria-labelledby="invite-title">
+  <div class="wrap invite">
+    <div>
+      <p class="section__eyebrow">После истории · soft-wave</p>
+      <h2 id="invite-title">Войти по приглашению</h2>
+      <p class="section__lead">Сначала место и правда. Сервис — тихо, через invite. Без холодного free restore.</p>
+      <div class="invite-card">
+        <h3>Есть код?</h3>
+        <p>Redeem открывает кабинет. Коды не раздаём здесь — волна по приглашению. Нет кода — честный waitlist рядом.</p>
+        <label for="invite-code" style="display:block;font-size:13px;font-weight:600;color:var(--smh-ink-soft);margin:14px 0 6px">Код приглашения</label>
+        <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled style="width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;border:1px solid var(--smh-line);border-radius:var(--smh-radius);background:var(--smh-paper);color:var(--smh-ink);font:inherit">
+        <div class="actions">
+          <span class="btn btn--ink" aria-hidden="true">Активировать</span>
+          <a class="btn btn--line" href="#waitlist">Нет кода — waitlist</a>
+        </div>
+        <p class="hint" style="margin-top:12px;font-size:13px;color:var(--smh-mute)">Макет soft-wave · коды не посеяны · без free restore</p>
+      </div>
+    </div>
+    <div class="wait" id="wait-box">
+      <p class="section__eyebrow" id="waitlist">Waitlist · вторичный</p>
+      <h2 style="font-family:var(--smh-font-display);font-size:1.35rem;margin-bottom:8px">Оставьте контакт</h2>
+      <p class="section__lead" style="margin-bottom:16px">Waitlist ловит интерес, но не открывает restore сам.</p>
+      <p class="ok-msg" role="status">Вы в списке. Напишем, когда откроем.</p>
+      <form id="wait-form" action="#" method="post" novalidate>
+        <div>
+          <label for="wait-email">Email</label>
+          <input id="wait-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        </div>
+        <div>
+          <label for="wait-name">Имя <span style="font-weight:400;color:var(--smh-mute)">(необязательно)</span></label>
+          <input id="wait-name" name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться">
+        </div>
+        <p class="err-msg" id="wait-err" role="alert">Не удалось отправить — попробуйте ещё раз.</p>
+        <button class="btn btn--ink" type="submit" id="wait-submit">Встать в waitlist</button>
+        <p class="hint">Учебный макет. Боевой путь — /waitlist.html</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav aria-label="Подвал">
+      <a href="/privacy.html">Конфиденциальность</a>
+      <a href="/waitlist.html">Waitlist</a>
+      <a href="/gallery.html">Галерея</a>
+    </nav>
+    <p>SaveMyHistory · ironhill-tree-mock · craft-study · Cold Path B · не продакшен · не чужой бренд</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var ba = document.getElementById('ba');
+  var baShell = document.getElementById('ba-shell');
+  var toggleBtn = document.getElementById('ba-toggle');
+  var dragging = false;
+  var showingAfter = true;
+  var baScrubbed = false;
+
+  function setReveal(p){
+    if(!ba) return;
+    if(p < 6) p = 6;
+    if(p > 94) p = 94;
+    ba.style.setProperty('--reveal', p + '%');
+  }
+  function setRevealFromX(clientX){
+    var r = ba.getBoundingClientRect();
+    setReveal(((clientX - r.left) / r.width) * 100);
+  }
+
+  function updateLine(){
+    if(reduce){
+      root.style.setProperty('--line-progress', '1');
+      return;
+    }
+    var doc = document.documentElement;
+    var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    var p = Math.min(1, Math.max(0, window.scrollY / max));
+    root.style.setProperty('--line-progress', String(p));
+  }
+
+  function updateBaWipe(){
+    if(!baShell || !ba || reduce || baScrubbed || dragging) return;
+    var r = baShell.getBoundingClientRect();
+    var vh = window.innerHeight || 1;
+    var start = vh * 0.78;
+    var end = vh * 0.22;
+    var t = (start - r.top) / (start - end);
+    if(t < 0) t = 0;
+    if(t > 1) t = 1;
+    setReveal(16 + t * 58);
+  }
+
+  function onScroll(){
+    updateLine();
+    updateBaWipe();
+  }
+
+  if(reduce){
+    root.style.setProperty('--line-progress', '1');
+    setReveal(48);
+  } else {
+    setReveal(16);
+    updateLine();
+    updateBaWipe();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+  }
+
+  if(ba){
+    ba.addEventListener('pointerdown', function(e){
+      dragging = true;
+      baScrubbed = true;
+      if(ba.setPointerCapture) ba.setPointerCapture(e.pointerId);
+      setRevealFromX(e.clientX);
+    });
+    ba.addEventListener('pointermove', function(e){
+      if(!dragging) return;
+      setRevealFromX(e.clientX);
+    });
+    ba.addEventListener('pointerup', function(){ dragging = false; });
+    ba.addEventListener('pointercancel', function(){ dragging = false; });
+    ba.addEventListener('touchstart', function(e){
+      dragging = true;
+      baScrubbed = true;
+      setRevealFromX(e.touches[0].clientX);
+    }, {passive:true});
+    ba.addEventListener('touchmove', function(e){
+      if(!dragging) return;
+      if(e.cancelable) e.preventDefault();
+      setRevealFromX(e.touches[0].clientX);
+    }, {passive:false});
+    ba.addEventListener('touchend', function(){ dragging = false; });
+  }
+
+  if(toggleBtn && ba){
+    toggleBtn.addEventListener('click', function(){
+      baScrubbed = true;
+      showingAfter = !showingAfter;
+      toggleBtn.setAttribute('aria-pressed', showingAfter ? 'false' : 'true');
+      setReveal(showingAfter ? 72 : 12);
+    });
+  }
+
+  var form = document.getElementById('wait-form');
+  var box = document.getElementById('wait-box');
+  var submitBtn = document.getElementById('wait-submit');
+  if(form && box){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = document.getElementById('wait-email');
+      box.classList.remove('is-error');
+      if(!email || !email.value || !email.checkValidity()){
+        box.classList.add('is-error');
+        if(email) email.focus();
+        return;
+      }
+      box.classList.add('is-loading');
+      if(submitBtn) submitBtn.textContent = 'Отправляем…';
+      window.setTimeout(function(){
+        box.classList.remove('is-loading');
+        box.classList.add('is-done');
+        if(submitBtn) submitBtn.textContent = 'Встать в waitlist';
+      }, 700);
+    });
+  }
+})();
+</script>
+</body>
+</html>
