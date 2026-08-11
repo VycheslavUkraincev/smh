@@ -1,5 +1,34 @@
 [
   {
+    "id": "forest-trunk-7",
+    "at": "2026-08-11T14:46:00Z",
+    "date": "2026-08-11",
+    "title": "Forest trunk 7-screen storytelling mock",
+    "summary": "Sibling scroll-story: 7 full-bleed photo chapters as one continuous trunk (canopy→roots) + 2 Omni i2v loops; COLD_PATH_B soft invite; allowlist BA heartwood.",
+    "pages": [
+      "forest-trunk-7.html"
+    ],
+    "markers": [
+      "nano-alt-forest-trunk-7",
+      "data-forest-trunk-7=1",
+      "forest-trunk-7"
+    ],
+    "spend_E": 34,
+    "spend_breakdown": {
+      "stills_7x2E": 14,
+      "video_01_canopy_i2v": 10,
+      "video_06_roots_i2v": 10
+    },
+    "locks": [
+      "STOP_ALL_RESTORES",
+      "PRIORITY_API_FIRST",
+      "COLD_PATH_B",
+      "CREATIVE_BRIDGE",
+      "CREATIVE_ENERGY_OPEN"
+    ],
+    "status": "READY"
+  },
+  {
     "id": "wow-mock-freeform-max-craft",
     "at": "2026-08-11T14:40:00Z",
     "date": "2026-08-11",

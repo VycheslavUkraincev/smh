@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ru" data-forest-trunk-7="1" class="forest-trunk-7 nano-alt-forest-trunk-7 craft-study">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — ствол рода</title>
+<meta name="description" content="Семь экранов одного ствола: крона → линия → правда → хранитель → поколения → корни → тихое приглашение.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0C0A08">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/forest-trunk-7/01-canopy.jpg" fetchpriority="high">
+<!--
+  Craft-study sibling · markers: nano-alt-forest-trunk-7 · data-forest-trunk-7="1" · forest-trunk-7
+  Continuous trunk storytelling · 7 full-bleed photo/video BGs · Axis C soft-ok · COLD_PATH_B
+  Brand: SaveMyHistory · хранитель рода · NOT whiskey / Iron Hill pixel-copy
+-->
+<style>
+:root{
+  --paper:#E8E2D8;
+  --paper-deep:#D9D1C4;
+  --ink:#1C1915;
+  --ink-soft:#3F3A33;
+  --mute:#6E665C;
+  --line:rgba(28,25,21,.12);
+  --amber:#B07A3A;
+  --amber-deep:#8C5E28;
+  --amber-soft:#E2B87A;
+  --veil:linear-gradient(180deg,rgba(12,10,8,.18) 0%,rgba(12,10,8,.42) 45%,rgba(12,10,8,.78) 100%);
+  --ok:#3E6B4F;
+  --fail:#7A3B2E;
+  --font-d:"Literata","Source Serif 4","PT Serif",serif;
+  --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --line-progress:0;
+  --reveal:18%;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-u);
+  font-size:1.0625rem;
+  line-height:1.55;
+  color:#F6F1E8;
+  background:#0C0A08;
+  overflow-x:hidden;
+}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.forest-trunk-7{--ft7:1}
+.nano-alt-forest-trunk-7{--nft7:1}
+.craft-study{--cs:1}
+.skip{position:absolute;left:-9999px}
+.skip:focus{
+  position:fixed;left:12px;top:12px;z-index:80;
+  background:var(--ink);color:var(--paper);
+  padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600;
+}
+.wrap{width:min(720px,100% - 40px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(720px,100% - 28px)}}
+
+/* Motion 1: scroll-drawn amber trunk line */
+.trunk-line{
+  position:fixed;top:0;left:50%;transform:translateX(-50%);
+  width:min(140px,26vw);height:100vh;z-index:20;pointer-events:none;
+  opacity:calc(.28 + var(--line-progress) * .55);
+}
+.trunk-line svg{width:100%;height:100%;overflow:visible}
+.trunk-line path{
+  fill:none;stroke:var(--amber-soft);stroke-width:1.65;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--line-progress));
+  filter:drop-shadow(0 0 5px rgba(226,184,122,.3));
+}
+.trunk-line path.ghost{
+  stroke:rgba(232,226,216,.14);stroke-width:2.6;
+  opacity:calc(.12 + var(--line-progress) * .35);
+  stroke-dashoffset:0;filter:none;
+}
+
+/* 7 screens — each own full-bleed BG */
+.screen{
+  position:relative;
+  min-height:100svh;min-height:100vh;
+  display:grid;isolation:isolate;overflow:hidden;
+  background:#0C0A08;
+}
+.screen__bg{position:absolute;inset:0;z-index:0}
+.screen__bg img,
+.screen__bg video{
+  width:100%;height:100%;object-fit:cover;object-position:center center;
+}
+.screen__bg video{
+  object-position:center 35%;
+}
+.screen--1 .screen__bg img,
+.screen--1 .screen__bg video{object-position:center 28%}
+.screen--2 .screen__bg img{object-position:center 45%}
+.screen--3 .screen__bg img{object-position:center 50%}
+.screen--4 .screen__bg img{object-position:center 42%}
+.screen--5 .screen__bg img{object-position:center 48%}
+.screen--6 .screen__bg img,
+.screen--6 .screen__bg video{object-position:center 70%}
+.screen--7 .screen__bg img{object-position:center 55%}
+.screen__veil{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:var(--veil);
+}
+.screen--7 .screen__veil{
+  background:linear-gradient(180deg,rgba(12,10,8,.35) 0%,rgba(28,25,21,.55) 40%,rgba(232,226,216,.92) 100%);
+}
+.screen__grain{
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.05;
+  mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.screen__copy{
+  position:relative;z-index:3;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:100svh;min-height:100vh;
+  padding:clamp(28px,5vw,56px);
+  padding-bottom:clamp(48px,11vh,110px);
+}
+.screen--7 .screen__copy{justify-content:center;padding-bottom:clamp(40px,8vh,80px)}
+.eyebrow{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(226,184,122,.85);font-weight:600;margin-bottom:14px;
+}
+.screen--7 .eyebrow{color:var(--amber-deep)}
+.brand{
+  font-family:var(--font-d);font-weight:600;
+  font-size:clamp(2.8rem,9vw,5.6rem);
+  line-height:.92;letter-spacing:-.03em;
+  color:#F6F1E8;margin-bottom:22px;
+  text-shadow:0 2px 36px rgba(12,10,8,.5);
+}
+.brand .mark{color:var(--amber-soft)}
+.screen h1,.screen h2{
+  font-family:var(--font-d);font-weight:500;
+  font-size:clamp(1.45rem,3.4vw,2.2rem);
+  line-height:1.22;letter-spacing:-.02em;
+  color:rgba(246,241,232,.96);
+  max-width:16ch;margin-bottom:14px;
+}
+.screen--7 h2{color:var(--ink);max-width:18ch}
+.lead{
+  font-size:clamp(15px,1.55vw,17px);
+  color:rgba(246,241,232,.72);
+  max-width:30ch;font-weight:400;
+}
+.screen--7 .lead{color:var(--ink-soft)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;font-weight:600;font-size:15px;
+  border-radius:8px;padding:14px 22px;min-height:48px;
+  border:1.5px solid transparent;cursor:pointer;font-family:var(--font-u);
+  transition:background .28s var(--ease),color .28s var(--ease),border-color .28s var(--ease);
+}
+.btn:focus-visible{outline:2px solid var(--amber-soft);outline-offset:3px}
+.btn--primary{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.btn--primary:hover{background:var(--amber-deep);border-color:var(--amber-deep);color:#F6F1E8}
+.btn--ghost{background:transparent;color:#F6F1E8;border-color:rgba(246,241,232,.38)}
+.btn--ghost:hover{border-color:rgba(246,241,232,.85);background:rgba(246,241,232,.07)}
+.btn--ink{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.btn--ink:hover{background:var(--amber-deep);color:#F6F1E8}
+.btn--line{background:transparent;color:var(--ink);border-color:rgba(28,25,21,.28)}
+.btn--line:hover{border-color:var(--ink);background:rgba(28,25,21,.04)}
+.btn--sm{padding:10px 16px;font-size:14px;min-height:40px}
+
+/* Motion 2: soft enter on screen 1 */
+.screen--1 .brand,
+.screen--1 h1,
+.screen--1 .lead,
+.screen--1 .cta{
+  opacity:0;animation:riseIn 1.05s var(--ease-out) forwards;
+}
+.screen--1 .brand{animation-delay:.7s}
+.screen--1 h1{animation-delay:1.05s}
+.screen--1 .lead{animation-delay:1.3s}
+.screen--1 .cta{animation-delay:1.55s}
+.screen--1 .screen__bg video,
+.screen--1 .screen__bg img{
+  transform:scale(1.08);opacity:0;
+  animation:wakeBg 2.3s var(--ease-out) .1s forwards;
+}
+@keyframes riseIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+@keyframes wakeBg{
+  0%{opacity:0;transform:scale(1.1);filter:blur(2px)}
+  60%{opacity:1;filter:blur(0)}
+  100%{opacity:1;transform:scale(1.02);filter:none}
+}
+.breath{
+  position:absolute;left:50%;bottom:26px;z-index:4;
+  transform:translateX(-50%);
+  width:1px;height:40px;
+  background:linear-gradient(180deg,transparent,rgba(226,184,122,.75));
+  opacity:0;animation:fadeIn 1s var(--ease) 2s forwards, breath 2.8s ease-in-out 3s infinite;
+}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes breath{
+  0%,100%{opacity:.35;transform:translateX(-50%) scaleY(.85)}
+  50%{opacity:.9;transform:translateX(-50%) scaleY(1)}
+}
+
+/* Screen 4 — BA truth panel on heartwood */
+.ba-panel{
+  margin-top:28px;max-width:min(520px,100%);
+}
+.proof-meta{
+  display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;
+  justify-content:space-between;margin-bottom:12px;
+}
+.proof-labels{display:flex;gap:16px;font-size:12px;color:rgba(246,241,232,.65);font-weight:600;letter-spacing:.04em}
+.proof-labels span{display:inline-flex;align-items:center;gap:7px}
+.proof-labels .dot{width:7px;height:7px;border-radius:2px;background:rgba(246,241,232,.45)}
+.proof-labels .dot--after{background:var(--amber-soft);box-shadow:0 0 10px rgba(226,184,122,.4)}
+.ba-shell{
+  position:relative;border-radius:4px;overflow:hidden;
+  background:#0C0A08;aspect-ratio:4/5;max-height:min(52vh,480px);
+  border:1px solid rgba(246,241,232,.1);
+  box-shadow:0 28px 70px -36px rgba(12,10,8,.75);
+}
+@media (min-width:800px){.ba-shell{aspect-ratio:5/4;max-height:min(46vh,420px)}}
+.ba{
+  position:absolute;inset:0;cursor:ew-resize;touch-action:none;user-select:none;
+}
+.ba img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 28%;pointer-events:none;
+}
+.ba .before{z-index:1;filter:saturate(.85)}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
+.ba .rail{
+  position:absolute;top:0;bottom:0;left:var(--reveal);
+  width:2px;transform:translateX(-50%);
+  background:rgba(246,241,232,.95);z-index:3;pointer-events:none;
+  box-shadow:0 0 0 1px rgba(28,25,21,.25),0 0 18px rgba(226,184,122,.3);
+}
+.ba .knob{
+  position:absolute;top:50%;left:var(--reveal);
+  transform:translate(-50%,-50%);
+  width:42px;height:42px;border-radius:8px;
+  background:var(--amber);color:var(--ink);
+  display:grid;place-items:center;font-size:15px;font-weight:700;
+  z-index:4;pointer-events:none;
+  box-shadow:0 8px 24px -10px rgba(12,10,8,.55);
+}
+.ba-caption{
+  margin-top:14px;font-family:var(--font-d);font-weight:500;
+  font-size:.98rem;color:rgba(246,241,232,.78);max-width:36ch;line-height:1.45;
+}
+.gates{
+  display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:14px;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(246,241,232,.55);font-weight:700;
+}
+.gates span{display:inline-flex;align-items:center;gap:7px}
+.gates i{width:5px;height:5px;background:var(--amber-soft);display:inline-block}
+
+/* Screen 7 — soft invite on paper */
+.invite{
+  display:grid;gap:28px;color:var(--ink);
+}
+@media (min-width:800px){.invite{grid-template-columns:1.15fr .85fr;gap:36px;align-items:start}}
+.invite-card{
+  padding:22px;border:1px solid var(--line);border-radius:4px;
+  background:rgba(232,226,216,.72);
+}
+.invite-card h3{font-family:var(--font-d);font-size:1.25rem;margin-bottom:8px;color:var(--ink)}
+.invite-card p{color:var(--ink-soft);font-size:.95rem;margin-bottom:14px;max-width:38ch}
+.invite-card .actions{display:flex;flex-wrap:wrap;gap:10px}
+.invite-card .hint{margin-top:12px;font-size:13px;color:var(--mute)}
+.wait{
+  display:grid;gap:12px;padding:22px;
+  border:1px solid var(--line);border-radius:4px;background:var(--paper);
+}
+.wait label{font-size:13px;font-weight:600;color:var(--ink-soft)}
+.wait input{
+  width:100%;min-height:44px;padding:12px 14px;
+  border:1px solid var(--line);border-radius:4px;
+  background:var(--paper-deep);color:var(--ink);font:inherit;
+}
+.wait input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:transparent}
+.wait .hint{font-size:13px;color:var(--mute)}
+.wait .ok-msg,.wait .err-msg{display:none;font-size:14px;font-weight:600}
+.wait .ok-msg{color:var(--ok)}
+.wait .err-msg{color:var(--fail)}
+.wait.is-done .ok-msg{display:block}
+.wait.is-done form{display:none}
+.wait.is-error .err-msg{display:block}
+.wait.is-loading .btn--ink{opacity:.72;pointer-events:none}
+
+.foot{
+  padding:28px 0;border-top:1px solid var(--line);
+  color:var(--mute);font-size:13px;background:var(--paper);
+}
+.foot nav{display:flex;flex-wrap:wrap;gap:14px 20px;margin-bottom:10px}
+.foot a{text-decoration:none;color:var(--ink-soft)}
+.foot a:hover{color:var(--amber-deep)}
+
+@media (max-width:720px){
+  .screen__copy{padding-top:18vh}
+  .screen--7 .screen__copy{padding-top:10vh}
+  .cta .btn{flex:1 1 100%;text-align:center}
+  .trunk-line{width:min(96px,22vw);opacity:.4}
+  .brand{font-size:clamp(2.5rem,13vw,3.8rem)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .screen--1 .brand,
+  .screen--1 h1,
+  .screen--1 .lead,
+  .screen--1 .cta,
+  .screen--1 .screen__bg video,
+  .screen--1 .screen__bg img,
+  .breath{
+    animation:none!important;opacity:1;transform:none;filter:none;
+  }
+  .screen--1 .screen__bg video,
+  .screen--1 .screen__bg img{transform:scale(1.02)}
+  .breath{display:none}
+  .trunk-line path{stroke-dashoffset:0}
+  .trunk-line path.ghost{opacity:.35}
+  :root{--line-progress:1;--reveal:48%}
+  .screen__bg video{display:none}
+  .screen__bg img.poster-fallback{display:block!important}
+}
+</style>
+</head>
+<body class="forest-trunk-7 nano-alt-forest-trunk-7 craft-study" data-forest-trunk-7="1">
+<a class="skip" href="#open">К тексту</a>
+
+<div class="trunk-line" aria-hidden="true" data-trunk-line="1">
+  <svg viewBox="0 0 40 100" preserveAspectRatio="none">
+    <path class="ghost" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 46 26 58 C26 70 16 78 16 88 C16 94 20 97 20 100"/>
+    <path id="trunk-path" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 46 26 58 C26 70 16 78 16 88 C16 94 20 97 20 100"/>
+  </svg>
+</div>
+
+<!-- 1 · Canopy -->
+<section class="screen screen--1" id="top" data-screen="1" aria-labelledby="s1-title">
+  <div class="screen__bg" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="/assets/forest-trunk-7/01-canopy.jpg">
+      <source src="/assets/forest-trunk-7/01-canopy-loop.mp4" type="video/mp4">
+    </video>
+    <img class="poster-fallback" src="/assets/forest-trunk-7/01-canopy.jpg" alt="" width="1600" height="2400" fetchpriority="high" decoding="async" style="display:none">
+  </div>
+  <div class="screen__veil" aria-hidden="true"></div>
+  <div class="screen__grain" aria-hidden="true"></div>
+  <div class="screen__copy" id="open">
+    <p class="eyebrow">01 · крона</p>
+    <p class="brand">Save<span class="mark">My</span>History</p>
+    <h1 id="s1-title">Лес, где род ещё дышит в снимках.</h1>
+    <p class="lead">Войдите тише. Семь экранов — один ствол. Спустимся от крон к корням.</p>
+    <div class="cta">
+      <a class="btn btn--primary" href="#invite">Войти по приглашению</a>
+      <a class="btn btn--ghost" href="#line">По линии вниз</a>
+    </div>
+  </div>
+  <div class="breath" aria-hidden="true"></div>
+</section>
+
+<!-- 2 · Line into trunk -->
+<section class="screen screen--2" id="line" data-screen="2" aria-labelledby="s2-title">
+  <div class="screen__bg" aria-hidden="true">
+    <img src="/assets/forest-trunk-7/02-line-trunk.jpg" alt="" width="1600" height="2400" loading="lazy" decoding="async">
+  </div>
+  <div class="screen__veil" aria-hidden="true"></div>
+  <div class="screen__grain" aria-hidden="true"></div>
+  <div class="screen__copy wrap">
+    <p class="eyebrow">02 · линия</p>
+    <h2 id="s2-title">Линия входит в ствол.</h2>
+    <p class="lead">Не карта продукта. Одна нить — из кроны в сердцевину, куда ведёт хранитель рода.</p>
+  </div>
+</section>
+
+<!-- 3 · Fading past -->
+<section class="screen screen--3" id="fading" data-screen="3" aria-labelledby="s3-title">
+  <div class="screen__bg" aria-hidden="true">
+    <img src="/assets/forest-trunk-7/03-fading-bark.jpg" alt="" width="1600" height="2400" loading="lazy" decoding="async">
+  </div>
+  <div class="screen__veil" aria-hidden="true"></div>
+  <div class="screen__grain" aria-hidden="true"></div>
+  <div class="screen__copy wrap">
+    <p class="eyebrow">03 · уходящее</p>
+    <h2 id="s3-title">Прошлое выцветает на коре.</h2>
+    <p class="lead">Снимки стираются. FADING PAST — не драма, а факт. Сберечь можно сейчас.</p>
+  </div>
+</section>
+
+<!-- 4 · Heartwood BA -->
+<section class="screen screen--4" id="truth" data-screen="4" aria-labelledby="s4-title">
+  <div class="screen__bg" aria-hidden="true">
+    <img src="/assets/forest-trunk-7/04-heartwood.jpg" alt="" width="1600" height="2400" loading="lazy" decoding="async">
+  </div>
+  <div class="screen__veil" aria-hidden="true"></div>
+  <div class="screen__grain" aria-hidden="true"></div>
+  <div class="screen__copy wrap">
+    <p class="eyebrow">04 · сердцевина</p>
+    <h2 id="s4-title">Правда на бумаге: почти стёртое → сбережённое.</h2>
+    <p class="lead">Один честный проход. Лицо и взгляд — ворота. Без чужого лица.</p>
+    <div class="ba-panel">
+      <div class="proof-meta">
+        <div class="proof-labels" aria-hidden="true">
+          <span><i class="dot"></i> Уходит</span>
+          <span><i class="dot dot--after"></i> Сберечь сейчас</span>
+        </div>
+        <button type="button" class="btn btn--ghost btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
+      </div>
+      <div class="ba-shell" id="ba-shell">
+        <div class="ba" id="ba" role="img" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
+          <img class="before" src="/assets/forest-trunk-7/ba-before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="1600" decoding="async" loading="lazy">
+          <img class="after" src="/assets/forest-trunk-7/ba-after.jpg" alt="То же фото после бережной реставрации" width="1200" height="1600" decoding="async" loading="lazy">
+          <div class="rail" aria-hidden="true"></div>
+          <div class="knob" aria-hidden="true">⇄</div>
+        </div>
+      </div>
+      <p class="ba-caption">То же лицо. Тот же взгляд. Если проверка не проходит — скажем честно.</p>
+      <div class="gates" aria-label="Ворота честности">
+        <span><i></i> FACE</span>
+        <span><i></i> EYE / GAZE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Generations / grain -->
+<section class="screen screen--5" id="grain" data-screen="5" aria-labelledby="s5-title">
+  <div class="screen__bg" aria-hidden="true">
+    <img src="/assets/forest-trunk-7/05-lineage-grain.jpg" alt="" width="1600" height="2400" loading="lazy" decoding="async">
+  </div>
+  <div class="screen__veil" aria-hidden="true"></div>
+  <div class="screen__grain" aria-hidden="true"></div>
+  <div class="screen__copy wrap">
+    <p class="eyebrow">05 · поколения</p>
+    <h2 id="s5-title">Годы лежат кольцами в стволе.</h2>
+    <p class="lead">Каждое кольцо — чьё-то имя, чей-то взгляд. Хранитель рода ведёт одну линию сквозь поколения.</p>
+  </div>
+</section>
+
+<!-- 6 · Roots -->
+<section class="screen screen--6" id="roots" data-screen="6" aria-labelledby="s6-title">
+  <div class="screen__bg" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="/assets/forest-trunk-7/06-roots.jpg">
+      <source src="/assets/forest-trunk-7/06-roots-loop.mp4" type="video/mp4">
+    </video>
+    <img class="poster-fallback" src="/assets/forest-trunk-7/06-roots.jpg" alt="" width="1600" height="2400" loading="lazy" decoding="async" style="display:none">
+  </div>
+  <div class="screen__veil" aria-hidden="true"></div>
+  <div class="screen__grain" aria-hidden="true"></div>
+  <div class="screen__copy wrap">
+    <p class="eyebrow">06 · корни</p>
+    <h2 id="s6-title">Внизу — то, что держит семью.</h2>
+    <p class="lead">Корни архива: имена, взгляды, то, что почти забыли. Не второй лес — продолжение одного ствола.</p>
+  </div>
+</section>
+
+<!-- 7 · Quiet invite soft-wave -->
+<section class="screen screen--7" id="invite" data-screen="7" data-soft-wave="1" aria-labelledby="s7-title">
+  <div class="screen__bg" aria-hidden="true">
+    <img src="/assets/forest-trunk-7/07-soft-invite.jpg" alt="" width="1600" height="2400" loading="lazy" decoding="async">
+  </div>
+  <div class="screen__veil" aria-hidden="true"></div>
+  <div class="screen__grain" aria-hidden="true"></div>
+  <div class="screen__copy">
+    <div class="wrap invite">
+      <div>
+        <p class="eyebrow">07 · soft-wave</p>
+        <h2 id="s7-title">Войти по приглашению</h2>
+        <p class="lead">Сначала место и правда. Сервис — тихо, через invite. Без громких обещаний.</p>
+        <div class="invite-card">
+          <h3>Есть код?</h3>
+          <p>Redeem открывает кабинет. Коды не раздаём здесь — волна по приглашению. Нет кода — честный waitlist рядом.</p>
+          <label for="invite-code" style="display:block;font-size:13px;font-weight:600;color:var(--ink-soft);margin:12px 0 6px">Код приглашения</label>
+          <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled style="width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);font:inherit">
+          <div class="actions">
+            <span class="btn btn--ink" aria-hidden="true">Активировать</span>
+            <a class="btn btn--line" href="#waitlist">Нет кода — waitlist</a>
+          </div>
+          <p class="hint">Макет soft-wave · коды не посеяны</p>
+        </div>
+      </div>
+      <div class="wait" id="wait-box">
+        <p class="eyebrow" id="waitlist" style="margin-bottom:6px">Waitlist · вторичный</p>
+        <h2 style="font-family:var(--font-d);font-size:1.3rem;margin-bottom:8px;color:var(--ink)">Оставьте контакт</h2>
+        <p class="lead" style="margin-bottom:12px">Waitlist ловит интерес, но не открывает restore сам.</p>
+        <p class="ok-msg" role="status">Вы в списке. Напишем, когда откроем.</p>
+        <form id="wait-form" action="#" method="post" novalidate>
+          <div>
+            <label for="wait-email">Email</label>
+            <input id="wait-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div>
+            <label for="wait-name">Имя <span style="font-weight:400;color:var(--mute)">(необязательно)</span></label>
+            <input id="wait-name" name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться">
+          </div>
+          <p class="err-msg" id="wait-err" role="alert">Не удалось отправить — попробуйте ещё раз.</p>
+          <button class="btn btn--ink" type="submit" id="wait-submit">Встать в waitlist</button>
+          <p class="hint">Лабораторная форма. Боевой путь — /waitlist.html</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap" style="width:min(1040px,100% - 40px)">
+    <nav aria-label="Подвал">
+      <a href="/privacy.html">Конфиденциальность</a>
+      <a href="/waitlist.html">Waitlist</a>
+      <a href="/gallery.html">Галерея</a>
+    </nav>
+    <p>SaveMyHistory · forest-trunk-7 · craft-study · Cold Path B · не продакшен</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var ba = document.getElementById('ba');
+  var baShell = document.getElementById('ba-shell');
+  var toggleBtn = document.getElementById('ba-toggle');
+  var dragging = false;
+  var showingAfter = true;
+  var baScrubbed = false;
+
+  function setReveal(p){
+    if(!ba) return;
+    if(p < 6) p = 6;
+    if(p > 94) p = 94;
+    ba.style.setProperty('--reveal', p + '%');
+  }
+  function setRevealFromX(clientX){
+    var r = ba.getBoundingClientRect();
+    setReveal(((clientX - r.left) / r.width) * 100);
+  }
+
+  /* Motion 1: trunk line scrub */
+  function updateLine(){
+    if(reduce){
+      root.style.setProperty('--line-progress', '1');
+      return;
+    }
+    var doc = document.documentElement;
+    var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    var p = Math.min(1, Math.max(0, window.scrollY / max));
+    root.style.setProperty('--line-progress', String(p));
+  }
+
+  /* Motion 3: BA wipe on scroll into heartwood */
+  function updateBaWipe(){
+    if(!baShell || !ba || reduce || baScrubbed || dragging) return;
+    var r = baShell.getBoundingClientRect();
+    var vh = window.innerHeight || 1;
+    var start = vh * 0.85;
+    var end = vh * 0.2;
+    var t = (start - r.top) / (start - end);
+    if(t < 0) t = 0;
+    if(t > 1) t = 1;
+    var e = 1 - Math.pow(1 - t, 2.4);
+    setReveal(14 + e * 62);
+  }
+
+  function onScroll(){
+    updateLine();
+    updateBaWipe();
+  }
+
+  if(reduce){
+    root.style.setProperty('--line-progress', '1');
+    setReveal(48);
+    document.querySelectorAll('.screen__bg video').forEach(function(v){ v.removeAttribute('autoplay'); });
+    document.querySelectorAll('.poster-fallback').forEach(function(img){ img.style.display = 'block'; });
+  } else {
+    setReveal(14);
+    updateLine();
+    updateBaWipe();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+  }
+
+  if(ba){
+    ba.addEventListener('pointerdown', function(e){
+      dragging = true; baScrubbed = true;
+      if(ba.setPointerCapture) ba.setPointerCapture(e.pointerId);
+      setRevealFromX(e.clientX);
+    });
+    ba.addEventListener('pointermove', function(e){
+      if(!dragging) return;
+      setRevealFromX(e.clientX);
+    });
+    ba.addEventListener('pointerup', function(){ dragging = false; });
+    ba.addEventListener('pointercancel', function(){ dragging = false; });
+    ba.addEventListener('touchstart', function(e){
+      dragging = true; baScrubbed = true;
+      setRevealFromX(e.touches[0].clientX);
+    }, {passive:true});
+    ba.addEventListener('touchmove', function(e){
+      if(!dragging) return;
+      if(e.cancelable) e.preventDefault();
+      setRevealFromX(e.touches[0].clientX);
+    }, {passive:false});
+    ba.addEventListener('touchend', function(){ dragging = false; });
+  }
+
+  if(toggleBtn && ba){
+    toggleBtn.addEventListener('click', function(){
+      baScrubbed = true;
+      showingAfter = !showingAfter;
+      toggleBtn.setAttribute('aria-pressed', showingAfter ? 'false' : 'true');
+      setReveal(showingAfter ? 76 : 10);
+    });
+  }
+
+  var form = document.getElementById('wait-form');
+  var box = document.getElementById('wait-box');
+  var submitBtn = document.getElementById('wait-submit');
+  if(form && box){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = document.getElementById('wait-email');
+      box.classList.remove('is-error');
+      if(!email || !email.value || !email.checkValidity()){
+        box.classList.add('is-error');
+        if(email) email.focus();
+        return;
+      }
+      box.classList.add('is-loading');
+      if(submitBtn) submitBtn.textContent = 'Отправляем…';
+      window.setTimeout(function(){
+        box.classList.remove('is-loading');
+        box.classList.add('is-done');
+        if(submitBtn) submitBtn.textContent = 'Встать в waitlist';
+      }, 700);
+    });
+  }
+})();
+</script>
+</body>
+</html>
