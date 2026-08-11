@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ru" data-facade-lab="1" class="facade-lab nano-alt-facade-lab">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — facade lab</title>
+<meta name="description" content="Лабораторный фасад SaveMyHistory: бережная AI-реставрация семейных фото. Не продакшен.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E8E2D8">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/facade-lab/2026-08-11-hero-album-lamp.png" fetchpriority="high">
+<style>
+:root{
+  --smh-paper:#E8E2D8;
+  --smh-paper-deep:#D9D1C4;
+  --smh-ink:#1C1915;
+  --smh-ink-soft:#3F3A33;
+  --smh-mute:#6E665C;
+  --smh-line:rgba(28,25,21,.12);
+  --smh-amber:#B07A3A;
+  --smh-amber-deep:#8C5E28;
+  --smh-amber-glow:rgba(176,122,58,.18);
+  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.28) 0%,rgba(28,25,21,.55) 55%,rgba(28,25,21,.72) 100%);
+  --smh-ok:#3E6B4F;
+  --smh-warn:#8A6A2F;
+  --smh-fail:#7A3B2E;
+  --smh-space-1:4px;
+  --smh-space-2:8px;
+  --smh-space-3:16px;
+  --smh-space-4:24px;
+  --smh-space-5:40px;
+  --smh-space-6:64px;
+  --smh-space-7:96px;
+  --smh-font-display:"Literata","Source Serif 4","PT Serif",serif;
+  --smh-font-ui:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --smh-fs-hero:clamp(2.1rem,4.5vw,3.4rem);
+  --smh-fs-h2:clamp(1.5rem,2.5vw,2rem);
+  --smh-fs-body:1.0625rem;
+  --smh-lh-body:1.55;
+  --smh-lh-display:1.15;
+  --smh-radius:6px;
+  --smh-radius-btn:8px;
+  --smh-ease:cubic-bezier(.22,.61,.36,1);
+  --reveal:48%;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--smh-font-ui);
+  font-size:var(--smh-fs-body);
+  line-height:var(--smh-lh-body);
+  color:var(--smh-ink);
+  background:var(--smh-paper);
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.facade-lab{--lab:1}
+.skip{position:absolute;left:-9999px}
+.skip:focus{
+  position:fixed;left:12px;top:12px;z-index:50;
+  background:var(--smh-ink);color:var(--smh-paper);
+  padding:10px 14px;border-radius:var(--smh-radius-btn);
+  text-decoration:none;font-weight:600;
+}
+.wrap{width:min(1080px,100% - 48px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(1080px,100% - 32px)}}
+
+/* —— HERO —— */
+.hero{
+  position:relative;
+  min-height:100svh;
+  min-height:100vh;
+  display:grid;
+  isolation:isolate;
+  overflow:hidden;
+}
+.hero__plane{
+  position:absolute;inset:0;z-index:0;
+  background:var(--smh-paper-deep);
+}
+.hero__plane img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 28%;
+}
+.hero__veil{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:var(--smh-hero-veil);
+}
+.hero__grain{
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero__copy{
+  position:relative;z-index:3;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:100svh;min-height:100vh;
+  padding:clamp(24px,4vw,48px);
+  padding-bottom:clamp(40px,8vh,80px);
+  max-width:720px;
+}
+.lab-mark{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(232,226,216,.62);margin-bottom:18px;
+  opacity:0;animation:heroFade .5s var(--smh-ease) .05s forwards;
+}
+.brand{
+  font-family:var(--smh-font-display);
+  font-weight:600;
+  font-size:clamp(2.6rem,7.5vw,5.25rem);
+  line-height:.96;
+  letter-spacing:-.02em;
+  color:#F3EEE6;
+  margin-bottom:20px;
+  opacity:0;animation:heroFade .55s var(--smh-ease) .12s forwards;
+}
+.brand .mark{color:#E2B87A}
+.hero h1{
+  font-family:var(--smh-font-display);
+  font-weight:500;
+  font-size:var(--smh-fs-hero);
+  line-height:var(--smh-lh-display);
+  letter-spacing:-.02em;
+  color:#F3EEE6;
+  max-width:22ch;
+  margin-bottom:14px;
+  opacity:0;animation:heroFade .55s var(--smh-ease) .28s forwards;
+}
+.hero__lead{
+  font-size:clamp(15px,1.7vw,18px);
+  color:rgba(243,238,230,.86);
+  max-width:36ch;
+  margin-bottom:28px;
+  opacity:0;animation:heroFade .55s var(--smh-ease) .4s forwards;
+}
+.cta{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  opacity:0;animation:heroFade .55s var(--smh-ease) .52s forwards;
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;font-weight:600;font-size:15px;
+  border-radius:var(--smh-radius-btn);
+  padding:13px 22px;min-height:44px;
+  border:1.5px solid transparent;
+  transition:background .25s var(--smh-ease),color .25s var(--smh-ease),border-color .25s var(--smh-ease);
+  cursor:pointer;font-family:var(--smh-font-ui);
+}
+.btn:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px}
+.btn--primary{background:var(--smh-amber);color:var(--smh-ink);border-color:var(--smh-amber)}
+.btn--primary:hover{background:var(--smh-amber-deep);border-color:var(--smh-amber-deep);color:#F3EEE6}
+.btn--ghost{background:transparent;color:#F3EEE6;border-color:rgba(243,238,230,.45)}
+.btn--ghost:hover{border-color:rgba(243,238,230,.9);background:rgba(243,238,230,.08)}
+.btn--ink{background:var(--smh-amber);color:var(--smh-ink);border-color:var(--smh-amber)}
+.btn--ink:hover{background:var(--smh-amber-deep);color:#F3EEE6}
+.btn--line{background:transparent;color:var(--smh-ink);border-color:rgba(28,25,21,.28)}
+.btn--line:hover{border-color:var(--smh-ink);background:rgba(28,25,21,.04)}
+.btn--sm{padding:10px 16px;font-size:14px;min-height:40px}
+@keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* —— SECTIONS —— */
+.section{padding:var(--smh-space-7) 0}
+.section--deep{background:var(--smh-paper-deep)}
+.atm{margin:0 0 var(--smh-space-5);border-radius:var(--smh-radius);overflow:hidden;max-width:720px}
+.atm img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;opacity:.92}
+.atm--honesty{max-width:560px}
+.section__eyebrow{
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--smh-mute);margin-bottom:12px;font-weight:600;
+}
+.section h2{
+  font-family:var(--smh-font-display);
+  font-weight:600;
+  font-size:var(--smh-fs-h2);
+  line-height:1.2;
+  letter-spacing:-.02em;
+  margin-bottom:12px;
+  max-width:22ch;
+}
+.section__lead{
+  color:var(--smh-ink-soft);
+  max-width:48ch;
+  margin-bottom:var(--smh-space-5);
+}
+
+/* How */
+.steps{display:grid;gap:var(--smh-space-4);counter-reset:step}
+@media (min-width:720px){.steps{grid-template-columns:repeat(4,1fr);gap:var(--smh-space-3)}}
+.step{padding-top:var(--smh-space-3);border-top:1px solid var(--smh-line)}
+.step::before{
+  counter-increment:step;content:"0" counter(step);
+  display:block;font-size:12px;font-weight:600;letter-spacing:.08em;
+  color:var(--smh-amber);margin-bottom:10px;
+}
+.step h3{font-family:var(--smh-font-display);font-size:1.125rem;font-weight:600;margin-bottom:6px}
+.step p{color:var(--smh-ink-soft);font-size:.95rem}
+
+/* Proof BA */
+.proof-meta{
+  display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;
+  justify-content:space-between;margin-bottom:16px;
+}
+.proof-labels{display:flex;gap:16px;font-size:13px;color:var(--smh-mute);font-weight:500}
+.proof-labels span{display:inline-flex;align-items:center;gap:6px}
+.proof-labels .dot{width:8px;height:8px;border-radius:2px;background:var(--smh-mute)}
+.proof-labels .dot--after{background:var(--smh-amber)}
+.ba-shell{
+  position:relative;
+  border-radius:var(--smh-radius);
+  overflow:hidden;
+  background:var(--smh-ink);
+  aspect-ratio:4/5;
+  max-height:min(72vh,760px);
+  margin-inline:auto;
+  box-shadow:0 1px 0 rgba(28,25,21,.06);
+}
+@media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(68vh,640px)}}
+.ba{
+  position:absolute;inset:0;
+  cursor:ew-resize;touch-action:none;user-select:none;
+}
+.ba img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 28%;pointer-events:none;
+}
+.ba .before{z-index:1}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
+.ba .rail{
+  position:absolute;top:0;bottom:0;left:var(--reveal);
+  width:2px;transform:translateX(-50%);
+  background:rgba(232,226,216,.95);z-index:3;pointer-events:none;
+  box-shadow:0 0 0 1px rgba(28,25,21,.2);
+}
+.ba .knob{
+  position:absolute;top:50%;left:var(--reveal);
+  transform:translate(-50%,-50%);
+  width:44px;height:44px;border-radius:var(--smh-radius-btn);
+  background:var(--smh-amber);color:var(--smh-ink);
+  display:grid;place-items:center;
+  font-size:15px;font-weight:700;z-index:4;pointer-events:none;
+  box-shadow:0 1px 0 rgba(28,25,21,.06);
+}
+.ba-controls{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  margin-top:14px;
+}
+.ba-caption{color:var(--smh-ink-soft);font-size:.95rem;margin-top:14px}
+.ba-toggle[aria-pressed="true"]{background:var(--smh-amber-glow);border-color:var(--smh-amber)}
+
+/* Honesty */
+.gates{display:grid;gap:var(--smh-space-4)}
+@media (min-width:720px){.gates{grid-template-columns:1fr 1fr}}
+.gate{
+  padding:var(--smh-space-4);
+  border:1px solid var(--smh-line);
+  border-radius:var(--smh-radius);
+  background:rgba(232,226,216,.55);
+}
+.gate h3{font-family:var(--smh-font-display);font-size:1.2rem;margin-bottom:8px}
+.gate p{color:var(--smh-ink-soft);font-size:.95rem}
+.gate .tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:10px;
+  color:var(--smh-warn);
+}
+.gate--fail .tag{color:var(--smh-fail)}
+.trust{list-style:none;margin-top:var(--smh-space-5);display:grid;gap:10px}
+.trust li{
+  position:relative;padding-left:18px;color:var(--smh-ink-soft);font-size:.95rem;
+}
+.trust li::before{
+  content:"";position:absolute;left:0;top:.55em;
+  width:8px;height:2px;background:var(--smh-amber);
+}
+
+/* Waitlist */
+.wait{
+  display:grid;gap:var(--smh-space-5);
+  align-items:end;
+}
+@media (min-width:800px){.wait{grid-template-columns:1.2fr .8fr}}
+.wait form{
+  display:grid;gap:12px;
+  padding:var(--smh-space-4);
+  border:1px solid var(--smh-line);
+  border-radius:var(--smh-radius);
+  background:var(--smh-paper);
+}
+.wait label{font-size:13px;font-weight:600;color:var(--smh-ink-soft)}
+.wait input{
+  width:100%;min-height:44px;padding:12px 14px;
+  border:1px solid var(--smh-line);border-radius:var(--smh-radius);
+  background:var(--smh-paper-deep);color:var(--smh-ink);
+  font:inherit;
+}
+.wait input:focus{outline:2px solid var(--smh-amber);outline-offset:2px;border-color:transparent}
+.wait .hint{font-size:13px;color:var(--smh-mute)}
+.wait .ok-msg,.wait .err-msg{display:none;font-size:14px;font-weight:600}
+.wait .ok-msg{color:var(--smh-ok)}
+.wait .err-msg{color:var(--smh-fail);margin-top:4px}
+.wait.is-done .ok-msg{display:block}
+.wait.is-done form{display:none}
+.wait.is-error .err-msg{display:block}
+.wait.is-loading .btn--ink{
+  opacity:.72;pointer-events:none;cursor:wait;
+  background:var(--smh-amber);color:var(--smh-ink);
+}
+.wait .invite-escape{margin-top:14px;font-size:14px;color:var(--smh-ink-soft)}
+.wait .invite-escape a{color:var(--smh-amber-deep);font-weight:600;text-decoration:none}
+.wait .invite-escape a:hover{text-decoration:underline}
+
+/* Service mock */
+.service{margin-top:var(--smh-space-6);max-width:720px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tab{
+  border:1px solid var(--smh-line);background:transparent;
+  color:var(--smh-ink-soft);border-radius:var(--smh-radius);
+  padding:10px 14px;min-height:44px;font:inherit;font-weight:600;font-size:13px;
+  cursor:pointer;
+}
+.tab[aria-selected="true"]{background:var(--smh-ink);color:var(--smh-paper);border-color:var(--smh-ink)}
+.tab:focus-visible{outline:2px solid var(--smh-amber);outline-offset:2px}
+.panel{
+  display:none;
+  padding:var(--smh-space-4);
+  border:1px dashed var(--smh-line);
+  border-radius:var(--smh-radius);
+  background:rgba(217,209,196,.45);
+  min-height:180px;
+}
+.panel.is-active{display:block}
+.drop{
+  border:1.5px dashed rgba(28,25,21,.22);
+  border-radius:var(--smh-radius);
+  padding:var(--smh-space-5);
+  text-align:center;color:var(--smh-ink-soft);
+}
+.drop.is-drag{border-color:var(--smh-amber);background:var(--smh-amber-glow)}
+.drop strong{display:block;color:var(--smh-ink);margin-bottom:6px;font-size:1rem}
+.invite-gate h3{
+  font-family:var(--smh-font-display);font-size:1.25rem;margin-bottom:8px;
+}
+.invite-gate p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:14px;max-width:40ch}
+.invite-gate label{display:block;font-size:13px;font-weight:600;color:var(--smh-ink-soft);margin-bottom:6px}
+.invite-gate input{
+  width:100%;max-width:320px;min-height:44px;padding:12px 14px;margin-bottom:14px;
+  border:1px solid var(--smh-line);border-radius:var(--smh-radius);
+  background:var(--smh-paper);color:var(--smh-ink);font:inherit;
+}
+.invite-gate input:focus{outline:2px solid var(--smh-amber);outline-offset:2px;border-color:transparent}
+.invite-gate .gate-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.upload-file{font-weight:600;color:var(--smh-ink);margin-bottom:6px}
+.status-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:14px}
+.pulse{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:600;color:var(--smh-amber-deep);
+}
+.pulse::before{
+  content:"";width:8px;height:8px;border-radius:2px;background:var(--smh-amber);
+  animation:workPulse 1.8s ease-in-out infinite;
+}
+@keyframes workPulse{0%,100%{opacity:.55}50%{opacity:1}}
+.bar{height:3px;background:rgba(28,25,21,.08);border-radius:2px;overflow:hidden;margin:12px 0 4px}
+.bar > i{display:block;height:100%;width:40%;background:var(--smh-amber);border-radius:2px}
+.mute-line{color:var(--smh-mute);font-size:14px}
+.review-mini{
+  display:grid;grid-template-columns:80px 1fr;gap:14px;align-items:center;
+}
+.review-mini .thumb{
+  width:80px;height:80px;border-radius:var(--smh-radius);object-fit:cover;
+}
+.warn-line{color:var(--smh-warn);font-size:.9rem;margin-top:8px}
+.fail-line{color:var(--smh-fail);font-size:.95rem;font-weight:600;margin:8px 0}
+.ok-line{color:var(--smh-ok);font-weight:600}
+.eta{color:var(--smh-ink-soft);font-size:.95rem;margin-top:12px;max-width:44ch}
+
+/* Footer */
+.foot{
+  padding:var(--smh-space-5) 0;
+  border-top:1px solid var(--smh-line);
+  color:var(--smh-mute);font-size:13px;
+}
+.foot nav{display:flex;flex-wrap:wrap;gap:14px 20px;margin-bottom:10px}
+.foot a{text-decoration:none;color:var(--smh-ink-soft)}
+.foot a:hover{color:var(--smh-amber-deep)}
+
+@media (max-width:720px){
+  .hero__copy{padding-top:22vh}
+  .cta .btn{flex:1 1 100%;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .lab-mark,.brand,.hero h1,.hero__lead,.cta{animation:none!important;opacity:1;transform:none}
+  .pulse::before{animation:none;opacity:1}
+}
+</style>
+</head>
+<body class="facade-lab nano-alt-facade-lab" data-facade-lab="1">
+<a class="skip" href="#lab-copy">К тексту</a>
+
+<!-- HERO: one composition -->
+<header class="hero facade-lab" data-facade-lab="1" id="top">
+  <div class="hero__plane" aria-hidden="true">
+    <img src="/assets/facade-lab/2026-08-11-hero-album-lamp.png" alt="" width="1600" height="1200" fetchpriority="high" decoding="async">
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+  <div class="hero__copy" id="lab-copy">
+    <p class="lab-mark">facade-lab · nano-alt-facade-lab</p>
+    <p class="brand">Save<span class="mark">My</span>History</p>
+    <h1>Верни семейным фото жизнь — бережно или как будто снято сегодня.</h1>
+    <p class="hero__lead">То же лицо. Та же сцена. Без чужого человека.</p>
+    <div class="cta">
+      <a class="btn btn--primary" href="#waitlist">Встать в waitlist</a>
+      <a class="btn btn--ghost" href="#proof">Смотреть пример</a>
+    </div>
+  </div>
+</header>
+
+
+<main>
+<!-- HOW -->
+<section class="section" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <p class="section__eyebrow">Как это</p>
+    <h2 id="how-title">Бережный путь от снимка к лицу</h2>
+    <p class="section__lead">Четыре тихих шага. Без «магии за две минуты» и без конвейерных обещаний.</p>
+    <figure class="atm atm--how" aria-hidden="true">
+      <img src="/assets/facade-lab/2026-08-11-photo-corners-wait.png" alt="" width="1600" height="900" loading="lazy" decoding="async">
+    </figure>
+    <div class="steps">
+      <article class="step">
+        <h3>Загрузить</h3>
+        <p>Скан или фото бумаги. Ровно, без блика. До 20&nbsp;МБ.</p>
+      </article>
+      <article class="step">
+        <h3>Проверка лица и взгляда</h3>
+        <p>Сначала узнаваемость. Если лицо или взгляд не проходят — скажем честно.</p>
+      </article>
+      <article class="step">
+        <h3>Подлинный или современный</h3>
+        <p>Эпоха и бумага — или живой свет. Без soap-skin и beauty-фильтра.</p>
+      </article>
+      <article class="step">
+        <h3>Скачать или удалить</h3>
+        <p>Оригиналы можно стереть по кнопке. Мы не учимся на ваших фото.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="section section--deep" id="proof" aria-labelledby="proof-title">
+  <div class="wrap">
+    <p class="section__eyebrow">Пример</p>
+    <h2 id="proof-title">То же лицо — читаемее</h2>
+    <p class="section__lead">Один честный before → after. Тяните полоску или поставьте на паузу.</p>
+    <div class="proof-meta">
+      <div class="proof-labels" aria-hidden="true">
+        <span><i class="dot"></i> До</span>
+        <span><i class="dot dot--after"></i> После</span>
+      </div>
+      <div class="ba-controls">
+        <button type="button" class="btn btn--line btn--sm" id="ba-pause" aria-pressed="false">Пауза</button>
+        <button type="button" class="btn btn--line btn--sm ba-toggle" id="ba-toggle" aria-pressed="false">Было / Стало</button>
+      </div>
+    </div>
+    <div class="ba-shell">
+      <div class="ba" id="ba" role="img" aria-label="Сравнение до и после. Тяните, чтобы открыть результат.">
+        <img class="before" src="/assets/hero_before.jpg" alt="Семейное фото до реставрации" width="1200" height="1600" decoding="async">
+        <img class="after" src="/assets/hero_after.jpg" alt="То же фото после бережной реставрации" width="1200" height="1600" decoding="async">
+        <div class="rail" aria-hidden="true"></div>
+        <div class="knob" aria-hidden="true">⇄</div>
+      </div>
+    </div>
+    <p class="ba-caption">Взгляд сохранён. Лицо важнее эффекта.</p>
+  </div>
+</section>
+
+<!-- HONESTY -->
+<section class="section" id="honesty" aria-labelledby="honesty-title">
+  <div class="wrap">
+    <p class="section__eyebrow">Честность</p>
+    <h2 id="honesty-title">Лицо и взгляд — жёсткие ворота</h2>
+    <p class="section__lead">Если проверка не проходит, мы не прячем это за «красивым эффектом».</p>
+    <figure class="atm atm--honesty" aria-hidden="true">
+      <img src="/assets/facade-lab/2026-08-11-honesty-empty-mat.png" alt="" width="1600" height="900" loading="lazy" decoding="async">
+    </figure>
+    <div class="gates">
+      <article class="gate">
+        <span class="tag">FACE</span>
+        <h3>Проверка лица</h3>
+        <p>Узнаваемость важнее резкости. Слабый результат помечаем для вашего глаза. Провал — останавливаем и говорим прямо.</p>
+      </article>
+      <article class="gate gate--fail">
+        <span class="tag">EYE / GAZE</span>
+        <h3>Проверка взгляда</h3>
+        <p>Взгляд неуверенный — проверьте сами. Если взгляд или лицо не проходят проверку — скажем честно.</p>
+      </article>
+    </div>
+    <ul class="trust">
+      <li>Не учимся на ваших фото.</li>
+      <li>Оригиналы можно удалить по кнопке.</li>
+      <li>Лицо важнее эффекта.</li>
+      <li>Если взгляд или лицо не проходят проверку — скажем честно.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="section section--deep" id="waitlist" aria-labelledby="wait-title">
+  <div class="wrap wait" id="wait-box">
+    <div>
+      <p class="section__eyebrow">Доступ</p>
+      <h2 id="wait-title">Откроем доступ бережно</h2>
+      <p class="section__lead">Доступ по приглашению или waitlist. Когда откроем — напишем; удержание до ~48&nbsp;ч, не мгновенная реставрация.</p>
+      <p class="ok-msg" role="status">Вы в списке. Напишем, когда откроем.</p>
+      <p class="invite-escape">Уже есть код? <a href="#service">Войти</a></p>
+    </div>
+    <form id="wait-form" action="#" method="post" novalidate>
+      <div>
+        <label for="wait-email">Email</label>
+        <input id="wait-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+      </div>
+      <div>
+        <label for="wait-name">Имя <span style="font-weight:400;color:var(--smh-mute)">(необязательно)</span></label>
+        <input id="wait-name" name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться">
+      </div>
+      <p class="err-msg" id="wait-err" role="alert">Не удалось отправить — попробуйте ещё раз.</p>
+      <button class="btn btn--ink" type="submit" id="wait-submit">Встать в waitlist</button>
+      <p class="hint">Лабораторная форма: заявка не уходит на сервер. Боевой путь — /waitlist.html</p>
+    </form>
+  </div>
+</section>
+
+<!-- SERVICE UI MOCK (offline wire states) -->
+<section class="section" id="service" aria-labelledby="service-title">
+  <div class="wrap">
+    <p class="section__eyebrow">Сервис · макет</p>
+    <h2 id="service-title">Invite → загрузка → статус → проверка</h2>
+    <p class="section__lead">Офлайн wire-states UX. Не живой пайплайн. Сроки: к утру / до ~48&nbsp;ч — не «2&nbsp;мин».</p>
+    <div class="service">
+      <div class="tabs" role="tablist" aria-label="Состояния сервиса">
+        <button class="tab" role="tab" id="tab-invite" aria-controls="panel-invite" aria-selected="true" type="button">Invite</button>
+        <button class="tab" role="tab" id="tab-empty" aria-controls="panel-empty" aria-selected="false" type="button">Empty</button>
+        <button class="tab" role="tab" id="tab-loading" aria-controls="panel-loading" aria-selected="false" type="button">Loading</button>
+        <button class="tab" role="tab" id="tab-pulse" aria-controls="panel-pulse" aria-selected="false" type="button">В работе</button>
+        <button class="tab" role="tab" id="tab-fail" aria-controls="panel-fail" aria-selected="false" type="button">FACE_FAIL</button>
+        <button class="tab" role="tab" id="tab-wait" aria-controls="panel-wait" aria-selected="false" type="button">Waitlist</button>
+        <button class="tab" role="tab" id="tab-review" aria-controls="panel-review" aria-selected="false" type="button">Готово</button>
+      </div>
+
+      <div class="panel is-active" role="tabpanel" id="panel-invite" aria-labelledby="tab-invite">
+        <div class="invite-gate">
+          <h3>Сейчас — по приглашению</h3>
+          <p>Без кода загрузка закрыта. Нет кода — встаньте в waitlist.</p>
+          <label for="invite-code">Код приглашения</label>
+          <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled>
+          <div class="gate-actions">
+            <span class="btn btn--ink btn--sm" aria-hidden="true">Активировать</span>
+            <a class="btn btn--line btn--sm" href="#waitlist">Нет кода — в waitlist</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-empty" aria-labelledby="tab-empty" hidden>
+        <div class="drop">
+          <strong>Перетащи сюда или выбери с телефона</strong>
+          Скан ровно, без блика. До 20&nbsp;МБ.<br>
+          Режим: подлинный (по умолчанию) · современный
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-loading" aria-labelledby="tab-loading" hidden>
+        <p class="upload-file">semeynoye-1978.tif</p>
+        <div class="bar" aria-hidden="true"><i style="width:55%"></i></div>
+        <p class="mute-line">Загружаем… без театра процентов.</p>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-pulse" aria-labelledby="tab-pulse" hidden>
+        <div class="status-row">
+          <span class="pulse" id="work-pulse">В работе</span>
+          <span class="mute-line">2 из 5 · в очереди на ночь</span>
+        </div>
+        <div class="bar" aria-hidden="true"><i></i></div>
+        <p class="eta">Обычно к утру, иногда до ~48&nbsp;ч. На проверке лица и взгляда — без «2&nbsp;мин» и без magic-обещаний.</p>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-fail" aria-labelledby="tab-fail" hidden>
+        <p class="fail-line">Не можем отдать результат честно</p>
+        <p class="eta">Лицо или взгляд не прошли проверку. Скачивание закрыто. Можно удалить оригинал или дождаться политики пересмотра.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+          <span class="btn btn--line btn--sm" aria-hidden="true">Удалить оригинал</span>
+          <a class="btn btn--line btn--sm" href="#waitlist">Подождать в waitlist</a>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-wait" aria-labelledby="tab-wait" hidden>
+        <div class="invite-gate">
+          <h3>Сначала waitlist</h3>
+          <p>Холодный заход в сервис без приглашения. Восстановление не стартует — только честный лист ожидания.</p>
+          <div class="gate-actions">
+            <a class="btn btn--ink btn--sm" href="#waitlist">Встать в waitlist</a>
+            <span class="btn btn--line btn--sm" aria-hidden="true">Уже есть код?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-review" aria-labelledby="tab-review" hidden>
+        <p class="ok-line">Готово к просмотру</p>
+        <div class="review-mini" style="margin-top:14px">
+          <img class="thumb" src="/assets/hero_after.jpg" alt="" width="80" height="80" decoding="async">
+          <div>
+            <p style="font-weight:600;margin-bottom:4px">BA review · WEAK ok</p>
+            <p class="warn-line">Взгляд неуверенный — проверьте сами</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+              <span class="btn btn--ink btn--sm" aria-hidden="true">Принять</span>
+              <span class="btn btn--line btn--sm" aria-hidden="true">Попросить пересмотр</span>
+              <span class="btn btn--line btn--sm" aria-hidden="true">Удалить оригинал</span>
+            </div>
+            <p class="mute-line" style="margin-top:10px">Скачивание — после честного прохода лица и взгляда. Оригинал можно стереть; напоминание про ~48&nbsp;ч.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav aria-label="Подвал">
+      <a href="/privacy.html">Конфиденциальность</a>
+      <a href="/waitlist.html">Waitlist</a>
+      <a href="/gallery.html">Галерея</a>
+    </nav>
+    <p>SaveMyHistory · facade-lab · не продакшен · PUSH=N</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.getElementById('ba');
+  var pauseBtn = document.getElementById('ba-pause');
+  var toggleBtn = document.getElementById('ba-toggle');
+  var paused = false;
+  var dragging = false;
+  var raf = 0;
+  var showingAfter = true;
+
+  function setReveal(p){
+    if(!root) return;
+    if(p < 6) p = 6;
+    if(p > 94) p = 94;
+    root.style.setProperty('--reveal', p + '%');
+  }
+  function setRevealFromX(clientX){
+    var r = root.getBoundingClientRect();
+    setReveal(((clientX - r.left) / r.width) * 100);
+  }
+  function stopAuto(){
+    paused = true;
+    if(raf) cancelAnimationFrame(raf);
+    raf = 0;
+    if(pauseBtn){ pauseBtn.setAttribute('aria-pressed','true'); pauseBtn.textContent = 'Продолжить'; }
+  }
+  function onDown(e){
+    dragging = true;
+    stopAuto();
+    setRevealFromX(e.touches ? e.touches[0].clientX : e.clientX);
+  }
+  function onMove(e){
+    if(!dragging) return;
+    if(e.cancelable) e.preventDefault();
+    setRevealFromX(e.touches ? e.touches[0].clientX : e.clientX);
+  }
+  function onUp(){ dragging = false; }
+
+  if(root){
+    root.addEventListener('pointerdown', function(e){
+      if(root.setPointerCapture) root.setPointerCapture(e.pointerId);
+      onDown(e);
+    });
+    root.addEventListener('pointermove', onMove);
+    root.addEventListener('pointerup', onUp);
+    root.addEventListener('pointercancel', onUp);
+    root.addEventListener('touchstart', onDown, {passive:true});
+    root.addEventListener('touchmove', onMove, {passive:false});
+    root.addEventListener('touchend', onUp);
+
+    if(!reduce){
+      var start = performance.now();
+      var from = 18, mid = 48, to = 72;
+      function frame(t){
+        if(paused) return;
+        var u = Math.min(1, (t - start) / 1600);
+        var ease = u < 0.5 ? 2*u*u : 1 - Math.pow(-2*u+2, 2)/2;
+        var p = from + (to - from) * ease;
+        if(u > 0.7){
+          var b = (u - 0.7) / 0.3;
+          p = to + (mid - to) * (1 - Math.pow(1 - b, 2));
+        }
+        setReveal(p);
+        if(u < 1) raf = requestAnimationFrame(frame);
+      }
+      raf = requestAnimationFrame(frame);
+    } else {
+      setReveal(48);
+    }
+  }
+
+  if(pauseBtn){
+    pauseBtn.addEventListener('click', function(){
+      if(!paused){
+        stopAuto();
+      } else {
+        paused = false;
+        pauseBtn.setAttribute('aria-pressed','false');
+        pauseBtn.textContent = 'Пауза';
+      }
+    });
+  }
+
+  if(toggleBtn && root){
+    toggleBtn.addEventListener('click', function(){
+      stopAuto();
+      showingAfter = !showingAfter;
+      toggleBtn.setAttribute('aria-pressed', showingAfter ? 'false' : 'true');
+      setReveal(showingAfter ? 72 : 12);
+    });
+  }
+
+  var form = document.getElementById('wait-form');
+  var box = document.getElementById('wait-box');
+  var submitBtn = document.getElementById('wait-submit');
+  if(form && box){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = document.getElementById('wait-email');
+      box.classList.remove('is-error');
+      if(!email || !email.value || !email.checkValidity()){
+        box.classList.add('is-error');
+        if(email) email.focus();
+        return;
+      }
+      box.classList.add('is-loading');
+      if(submitBtn) submitBtn.textContent = 'Отправляем…';
+      window.setTimeout(function(){
+        box.classList.remove('is-loading');
+        box.classList.add('is-done');
+        if(submitBtn) submitBtn.textContent = 'Встать в waitlist';
+      }, 700);
+    });
+  }
+
+  var tabs = document.querySelectorAll('.tab');
+  var panels = {
+    'tab-invite': 'panel-invite',
+    'tab-empty': 'panel-empty',
+    'tab-loading': 'panel-loading',
+    'tab-pulse': 'panel-pulse',
+    'tab-fail': 'panel-fail',
+    'tab-wait': 'panel-wait',
+    'tab-review': 'panel-review'
+  };
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.setAttribute('aria-selected','false'); });
+      tab.setAttribute('aria-selected','true');
+      Object.keys(panels).forEach(function(id){
+        var p = document.getElementById(panels[id]);
+        if(!p) return;
+        var on = id === tab.id;
+        p.classList.toggle('is-active', on);
+        if(on) p.removeAttribute('hidden'); else p.setAttribute('hidden','');
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

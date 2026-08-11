@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru" data-facade-progress="1" class="facade-progress nano-alt-facade-progress">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — ход событий</title>
+<meta name="description" content="Живая хроника фасада SaveMyHistory: audit → concept → creative → art → UX → front → lab → bridge.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E8E2D8">
+<meta http-equiv="refresh" content="60">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8E2D8;
+  --ink:#1C1915;
+  --amber:#B07A3A;
+  --ink-soft:rgba(28,25,21,.72);
+  --line:rgba(28,25,21,.14);
+  --card:rgba(255,252,246,.55);
+  --ready:#3F6B4D;
+  --running:#B07A3A;
+  --open:#6B655C;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,sans-serif}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(1200px 600px at 12% -10%, rgba(176,122,58,.12), transparent 55%),
+    linear-gradient(180deg, #EDE7DD 0%, var(--paper) 40%, #E3DCD0 100%);
+}
+.wrap{width:min(920px,92vw);margin:0 auto;padding:2.4rem 0 4rem}
+.brand{
+  font-family:Literata,Georgia,serif;
+  font-weight:700;
+  font-size:clamp(1.8rem,4vw,2.4rem);
+  letter-spacing:.01em;
+  margin:0 0 .35rem;
+}
+.kicker{color:var(--ink-soft);font-size:.95rem;margin:0 0 1.6rem}
+.updated{
+  display:inline-flex;align-items:center;gap:.5rem;
+  border:1px solid var(--line);border-radius:999px;
+  padding:.35rem .8rem;font-size:.82rem;color:var(--ink-soft);
+  background:rgba(255,252,246,.45);
+}
+.updated strong{color:var(--ink);font-weight:600}
+.section{margin-top:2.2rem}
+.section h2{
+  font-family:Literata,Georgia,serif;
+  font-size:1.35rem;font-weight:600;margin:0 0 .8rem;
+}
+.now{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:18px;
+  padding:1.15rem 1.25rem;
+}
+.now p{margin:.35rem 0 0;line-height:1.55;color:var(--ink-soft)}
+.now .lead{color:var(--ink);font-weight:600;margin:0}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:.75rem}
+.timeline li{
+  display:grid;grid-template-columns:auto 1fr;gap:.85rem;
+  border:1px solid var(--line);border-radius:16px;
+  padding:.9rem 1rem;background:rgba(255,252,246,.4);
+}
+.badge{
+  align-self:start;font-size:.72rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;border-radius:999px;padding:.28rem .55rem;
+  border:1px solid transparent;white-space:nowrap;
+}
+.badge.ready{color:var(--ready);background:rgba(63,107,77,.1);border-color:rgba(63,107,77,.22)}
+.badge.running{color:var(--running);background:rgba(176,122,58,.12);border-color:rgba(176,122,58,.28)}
+.badge.open{color:var(--open);background:rgba(107,101,92,.1);border-color:rgba(107,101,92,.22)}
+.item h3{margin:0 0 .25rem;font-size:1.02rem;font-weight:650}
+.item .meta{margin:0;font-size:.82rem;color:var(--ink-soft)}
+.item p{margin:.4rem 0 0;line-height:1.5;color:var(--ink-soft);font-size:.95rem}
+.next p{margin:0;line-height:1.55;color:var(--ink-soft)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}
+.cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;border-radius:999px;padding:.7rem 1.1rem;
+  font-weight:600;font-size:.95rem;border:1px solid var(--line);
+}
+.cta.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cta.ghost{background:transparent;color:var(--ink)}
+.cta:hover{filter:brightness(1.05)}
+.events{margin-top:.9rem;display:grid;gap:.55rem}
+.event{
+  border-left:3px solid var(--amber);
+  padding:.35rem 0 .35rem .8rem;
+  color:var(--ink-soft);font-size:.92rem;line-height:1.45;
+}
+.event time{display:block;font-size:.78rem;color:rgba(28,25,21,.55);margin-bottom:.15rem}
+footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.85rem}
+</style>
+</head>
+<body class="facade-progress nano-alt-facade-progress" data-facade-progress="1">
+<main class="wrap">
+  <p class="updated">обновлено · <strong id="updated-stamp">—</strong></p>
+  <h1 class="brand">SaveMyHistory</h1>
+  <p class="kicker">Хроника фасада · wave 1 · публичная страница хода событий</p>
+
+  <section class="section now" aria-labelledby="now-title">
+    <h2 id="now-title">Сейчас</h2>
+    <p class="lead">Стартовала живая страница прогресса. Лаб-фасад уже собран локально и выходит в публичную ссылку рядом.</p>
+    <p>Creative-ассеты и UX-sync ещё в полёте — статусы честные: READY / RUNNING / OPEN. Продакшен-главная не тронута.</p>
+  </section>
+
+  <section class="section" aria-labelledby="wave-title">
+    <h2 id="wave-title">Таймлайн wave 1</h2>
+    <ol class="timeline" id="timeline">
+      <li>
+        <span class="badge ready">READY</span>
+        <div class="item">
+          <h3>Audit</h3>
+          <p class="meta">2026-08-11</p>
+          <p>Аудит текущего сайта и границ волны: что можно трогать, что остаётся нетронутым.</p>
+        </div>
+      </li>
+      <li>
+        <span class="badge ready">READY</span>
+        <div class="item">
+          <h3>Concept</h3>
+          <p class="meta">2026-08-11</p>
+          <p>Концепт фасада зафиксирован: тихая бумажная атмосфера, бренд SaveMyHistory в центре.</p>
+        </div>
+      </li>
+      <li>
+        <span class="badge running">RUNNING</span>
+        <div class="item">
+          <h3>Creative</h3>
+          <p class="meta">2026-08-11</p>
+          <p>Creative-ассеты ещё доезжают - атмосфера альбома и бумаги, без чужих лиц и без ban-кадров.</p>
+        </div>
+      </li>
+      <li>
+        <span class="badge ready">READY</span>
+        <div class="item">
+          <h3>Art</h3>
+          <p class="meta">2026-08-11</p>
+          <p>Art-lock: Literata + Manrope, бумага #E8E2D8, чернила #1C1915, янтарь #B07A3A.</p>
+        </div>
+      </li>
+      <li>
+        <span class="badge running">RUNNING</span>
+        <div class="item">
+          <h3>UX</h3>
+          <p class="meta">2026-08-11</p>
+          <p>UX-sync в работе: выравниваем ритм секций и честные точки входа (waitlist / lab).</p>
+        </div>
+      </li>
+      <li>
+        <span class="badge ready">READY</span>
+        <div class="item">
+          <h3>Front</h3>
+          <p class="meta">2026-08-11</p>
+          <p>Локальный каркас фронта волны готов; продакшен-index не заменяется этой страницей.</p>
+        </div>
+      </li>
+      <li>
+        <span class="badge ready">READY</span>
+        <div class="item">
+          <h3>Lab</h3>
+          <p class="meta">2026-08-11</p>
+          <p>Лабораторный фасад: <a href="/facade-lab.html">facade-lab.html</a> — черновик атмосферы, не продакшен.</p>
+        </div>
+      </li>
+      <li>
+        <span class="badge open">OPEN</span>
+        <div class="item">
+          <h3>Bridge</h3>
+          <p class="meta">2026-08-11</p>
+          <p>Мост к публичному запуску ещё открыт: сюда будут дописываться следующие шаги волны.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section next" aria-labelledby="next-title">
+    <h2 id="next-title">Дальше</h2>
+    <p>Дотянуть creative + UX-sync, держать лаб отдельно от LIVE-главной, обновлять эту хронику по мере шагов.</p>
+    <div class="cta-row">
+      <a class="cta primary" href="/facade-lab.html">Открыть facade lab</a>
+      <a class="cta ghost" href="/waitlist.html">Waitlist</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="log-title">
+    <h2 id="log-title">Лента событий</h2>
+    <div class="events" id="events"></div>
+  </section>
+
+  <footer>
+    SaveMyHistory · публичная хроника фасада · без статистики и без обещаний конвейера
+  </footer>
+</main>
+<script>
+(function () {
+  var stamp = document.getElementById('updated-stamp');
+  var eventsEl = document.getElementById('events');
+  function fmt(d) {
+    try {
+      return new Date(d).toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC');
+    } catch (e) {
+      return String(d || '');
+    }
+  }
+  stamp.textContent = fmt(new Date());
+  fetch('/progress-log.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (items) {
+      if (!Array.isArray(items) || !items.length) {
+        eventsEl.innerHTML = '<div class="event">Пока тихо — новые отметки появятся здесь.</div>';
+        return;
+      }
+      eventsEl.innerHTML = items.map(function (ev) {
+        var t = fmt(ev.at || ev.time || (ev.date ? ev.date + 'T12:00:00Z' : ''));
+        var text = ev.text || ((ev.title || '') + (ev.note ? ' - ' + ev.note : '') || '');
+        var status = ev.status ? ' [' + ev.status + ']' : '';
+        return '<div class="event"><time>' + t + status + '</time>' + text + '</div>';
+      }).join('');
+      var latest = items[0] && (items[0].at || items[0].time || items[0].date);
+      if (latest) stamp.textContent = fmt(latest.length === 10 ? latest + 'T12:00:00Z' : latest);
+    })
+    .catch(function () {
+      eventsEl.innerHTML = '<div class="event">Лог скоро подтянется. Страница обновляется сама.</div>';
+    });
+})();
+</script>
+</body>
+</html>
