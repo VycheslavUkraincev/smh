@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1" class="facade-lab nano-alt-facade-lab ironhill-lite act-c">
+<html lang="ru" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1" data-virtuoso="1" class="facade-lab nano-alt-facade-lab nano-alt-facade-virtuoso ironhill-lite act-c virtuoso">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SaveMyHistory — facade lab · ironhill-lite</title>
+<title>SaveMyHistory — facade lab · ironhill-lite · virtuoso</title>
 <meta name="description" content="Лабораторный scroll-story фасад SaveMyHistory: лес, линия, бумага и честный before→after. Не продакшен.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#E8E2D8">
@@ -42,6 +42,17 @@
   --smh-ease:cubic-bezier(.22,.61,.36,1);
   --reveal:18%;
   --line-progress:0;
+  --hero-exit:0;
+  --ba-exit:0;
+  --ink-exit:0;
+  --ink-canopy:0;
+  --ink-trunk:0;
+  --ink-roots:0;
+  --plane-in:0;
+  --plane-out:0;
+  --line-guide-opacity:.78;
+  --invite-in:0;
+  --pin-p:0;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -58,6 +69,8 @@ a{color:inherit}
 .facade-lab{--lab:1}
 .ironhill-lite{--ihl:1}
 .act-c{--act-c:1}
+.virtuoso{--virtuoso:1}
+.nano-alt-facade-virtuoso{--virtuoso-alt:1}
 .skip{position:absolute;left:-9999px}
 .skip:focus{
   position:fixed;left:12px;top:12px;z-index:50;
@@ -68,10 +81,12 @@ a{color:inherit}
 .wrap{width:min(1080px,100% - 48px);margin-inline:auto}
 @media (max-width:720px){.wrap{width:min(1080px,100% - 32px)}}
 
-/* Story guide line — Act I→II bridge */
+/* Story guide line — Act I→II bridge; muted in ink chapter */
 .story-line{
   position:fixed;top:0;left:50%;transform:translateX(-50%);
   width:min(140px,22vw);height:100vh;z-index:8;pointer-events:none;
+  opacity:var(--line-guide-opacity);
+  transition:opacity .35s var(--smh-ease);
 }
 .story-line svg{width:100%;height:100%;overflow:visible}
 .story-line path{
@@ -93,11 +108,15 @@ a{color:inherit}
   filter:none;
 }
 
-/* —— HERO Act I forest —— */
+/* —— HERO Act I forest + A7 exit —— */
 .hero{
   position:relative;
   min-height:100svh;min-height:100vh;
   display:grid;isolation:isolate;overflow:hidden;
+  opacity:calc(1 - var(--hero-exit) * .92);
+  filter:brightness(calc(1 - var(--hero-exit) * .15));
+  transform:translate3d(0, calc(var(--hero-exit) * -18px), 0);
+  will-change:opacity,transform;
 }
 .hero__plane{position:absolute;inset:0;z-index:0;background:var(--smh-paper-deep)}
 .hero__plane img{
@@ -156,7 +175,7 @@ a{color:inherit}
   border-radius:var(--smh-radius-btn);
   padding:13px 22px;min-height:44px;
   border:1.5px solid transparent;
-  transition:background .25s var(--smh-ease),color .25s var(--smh-ease),border-color .25s var(--smh-ease);
+  transition:background .25s var(--smh-ease),color .25s var(--smh-ease),border-color .25s var(--smh-ease),opacity .25s var(--smh-ease);
   cursor:pointer;font-family:var(--smh-font-ui);
 }
 .btn:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px}
@@ -166,9 +185,9 @@ a{color:inherit}
 .btn--ghost:hover{border-color:rgba(243,238,230,.9);background:rgba(243,238,230,.08)}
 .btn--ink{background:var(--smh-amber);color:var(--smh-ink);border-color:var(--smh-amber)}
 .btn--ink:hover{background:var(--smh-amber-deep);color:#F3EEE6}
-.btn--line{background:transparent;color:var(--smh-ink);border-color:rgba(28,25,21,.28)}
-.btn--line:hover{border-color:var(--smh-ink);background:rgba(28,25,21,.04)}
-.btn--sm{padding:10px 16px;font-size:14px;min-height:40px}
+.btn--line{background:transparent;color:var(--smh-ink);border-color:rgba(28,25,21,.22)}
+.btn--line:hover{border-color:var(--smh-ink);background:rgba(28,25,21,.03)}
+.btn--sm{padding:10px 16px;font-size:14px;min-height:40px;font-weight:500;letter-spacing:.01em}
 @keyframes heroFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes heroPlane{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1.02)}}
 
@@ -179,6 +198,7 @@ a{color:inherit}
   margin-top:-1px;
   background:linear-gradient(180deg,rgba(28,25,21,.82) 0%,rgba(28,25,21,.35) 38%,var(--smh-paper) 100%);
   pointer-events:none;
+  opacity:calc(1 - var(--hero-exit) * .55);
 }
 .act-bridge__cue{
   position:absolute;left:50%;bottom:18%;
@@ -197,6 +217,8 @@ a{color:inherit}
 .section--ink{
   background:linear-gradient(180deg,#1C1915 0%,#241F18 55%,#1C1915 100%);
   color:#F3EEE6;
+  opacity:calc(1 - var(--ink-exit) * .75);
+  transform:translate3d(0, calc(var(--ink-exit) * -14px), 0);
 }
 .section__eyebrow{
   font-size:12px;letter-spacing:.12em;text-transform:uppercase;
@@ -216,6 +238,33 @@ a{color:inherit}
   margin-bottom:var(--smh-space-5);
 }
 .section--ink .section__lead{color:rgba(243,238,230,.78)}
+
+/* A2 — Pinned BA chapter */
+.pin-chapter{
+  position:relative;
+  min-height:200vh;
+}
+.pin-chapter__intro{
+  padding-bottom:clamp(24px,4vh,40px);
+}
+.pin-chapter__stage{
+  position:sticky;top:0;
+  min-height:100svh;min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(20px,4vh,40px) 0;
+  z-index:2;
+}
+.pin-chapter__plane{
+  opacity:calc(var(--plane-in) * (1 - var(--plane-out) * .9) * (1 - var(--ba-exit) * .85));
+  transform:
+    translate3d(0, calc((1 - var(--plane-in)) * 18px + var(--plane-out) * -12px + var(--ba-exit) * -20px), 0)
+    scale(calc(1.03 - var(--plane-in) * .03));
+  will-change:opacity,transform;
+}
+.pin-chapter__after{
+  padding-top:clamp(12px,3vh,28px);
+  opacity:calc(var(--plane-in) * (1 - var(--ba-exit) * .7));
+}
 
 /* Truth / BA — Act II paper plane */
 .proof-meta{
@@ -277,7 +326,7 @@ a{color:inherit}
   display:inline-block;
 }
 
-/* Lineage — ink motif only (anti-double-oak) */
+/* Lineage — ink motif only (anti-double-oak) + A4 scrub */
 .lineage{
   display:grid;gap:var(--smh-space-5);
   align-items:center;
@@ -309,15 +358,24 @@ a{color:inherit}
 .lineage__tree svg{width:min(260px,58%);height:auto}
 .lineage__tree .ink-canopy{
   fill:none;stroke:#E2B87A;stroke-width:1.35;stroke-linecap:round;opacity:.55;
+  stroke-dasharray:1;
+  stroke-dashoffset:calc(1 - var(--ink-canopy));
 }
 .lineage__tree .ink-trunk{
   fill:none;stroke:#E2B87A;stroke-width:1.7;stroke-linecap:round;opacity:.9;
+  stroke-dasharray:1;
+  stroke-dashoffset:calc(1 - var(--ink-trunk));
 }
 .lineage__tree .ink-root{
   fill:none;stroke:#E2B87A;stroke-width:1.4;stroke-linecap:round;opacity:.75;
+  stroke-dasharray:1;
+  stroke-dashoffset:calc(1 - var(--ink-roots));
 }
 .lineage__tree .ink-dot{
-  fill:#E2B87A;opacity:.7;
+  fill:#E2B87A;opacity:calc(.25 + var(--ink-trunk) * .45);
+}
+.lineage__tree .ink-dot--root{
+  opacity:calc(.15 + var(--ink-roots) * .55);
 }
 .lineage__beats{display:grid;gap:22px}
 .beat{padding-top:14px;border-top:1px solid rgba(243,238,230,.14)}
@@ -327,10 +385,12 @@ a{color:inherit}
 }
 .beat p{color:rgba(243,238,230,.72);font-size:.95rem;max-width:36ch}
 
-/* Invite soft-wave */
+/* Invite soft-wave + A7 settle */
 .invite{
   display:grid;gap:var(--smh-space-5);
   align-items:start;
+  opacity:calc(.35 + var(--invite-in) * .65);
+  transform:translate3d(0, calc((1 - var(--invite-in)) * 16px), 0);
 }
 @media (min-width:800px){.invite{grid-template-columns:1.15fr .85fr}}
 .invite-card{
@@ -352,6 +412,7 @@ a{color:inherit}
   border-radius:var(--smh-radius);
   background:var(--smh-paper);
 }
+.wait{padding:var(--smh-space-4);border:1px solid var(--smh-line);border-radius:var(--smh-radius);background:var(--smh-paper)}
 .wait label{font-size:13px;font-weight:600;color:var(--smh-ink-soft)}
 .wait input{
   width:100%;min-height:44px;padding:12px 14px;
@@ -373,16 +434,24 @@ a{color:inherit}
   border-top:1px solid var(--smh-line);
   color:var(--smh-mute);font-size:13px;
 }
-.foot nav{display:flex;flex-wrap:wrap;gap:14px 20px;margin-bottom:10px}
-.foot a{text-decoration:none;color:var(--smh-ink-soft)}
-.foot a:hover{color:var(--smh-amber-deep)}
+.foot nav{display:flex;flex-wrap:wrap;gap:14px 22px;margin-bottom:10px}
+.foot a{
+  text-decoration:none;color:var(--smh-ink-soft);
+  font-weight:500;letter-spacing:.01em;
+  border-bottom:1px solid transparent;
+  transition:color .2s var(--smh-ease),border-color .2s var(--smh-ease);
+}
+.foot a:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.35)}
 
 @media (max-width:720px){
   .hero__copy{padding-top:18vh}
   .cta .btn{flex:1 1 100%;text-align:center}
-  .story-line{opacity:.5;width:min(96px,20vw)}
+  .story-line{width:min(96px,20vw)}
   .act-bridge__cue{font-size:10px}
   .lineage__visual{min-height:min(44vh,380px)}
+  /* A2 mobile: shorter pin so sticky does not feel like a scroll trap */
+  .pin-chapter{min-height:155vh}
+  .pin-chapter__stage{min-height:92svh;padding:16px 0}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -390,13 +459,36 @@ a{color:inherit}
     animation:none!important;opacity:1;transform:none;
   }
   .hero__plane img{transform:scale(1.02)}
+  .hero,.section--ink,.invite,.pin-chapter__plane,.pin-chapter__after{
+    opacity:1!important;transform:none!important;filter:none!important;
+  }
+  .pin-chapter{min-height:0!important}
+  .pin-chapter__stage{position:relative!important;min-height:0!important}
   .story-line path{stroke-dashoffset:0}
   .story-line path.story-line__ghost{opacity:.45}
-  :root{--reveal:48%;--line-progress:1}
+  .lineage__tree .ink-canopy,
+  .lineage__tree .ink-trunk,
+  .lineage__tree .ink-root{stroke-dashoffset:0}
+  .lineage__tree .ink-dot,.lineage__tree .ink-dot--root{opacity:.7}
+  :root{
+    --reveal:48%;
+    --line-progress:1;
+    --hero-exit:0;
+    --ba-exit:0;
+    --ink-exit:0;
+    --ink-canopy:1;
+    --ink-trunk:1;
+    --ink-roots:1;
+    --plane-in:1;
+    --plane-out:0;
+    --line-guide-opacity:.78;
+    --invite-in:1;
+    --pin-p:.5;
+  }
 }
 </style>
 </head>
-<body class="facade-lab nano-alt-facade-lab ironhill-lite act-c" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1">
+<body class="facade-lab nano-alt-facade-lab nano-alt-facade-virtuoso ironhill-lite act-c virtuoso" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1" data-virtuoso="1">
 <a class="skip" href="#lab-copy">К тексту</a>
 
 <!-- Scroll-drawn lineage guide — bridge Act I → II -->
@@ -408,7 +500,7 @@ a{color:inherit}
 </div>
 
 <!-- ACT I — Atmosphere-first forest -->
-<header class="hero facade-lab ironhill-lite" data-facade-lab="1" data-ironhill-lite="1" data-act="1" id="top">
+<header class="hero facade-lab ironhill-lite" data-facade-lab="1" data-ironhill-lite="1" data-act="1" data-story-obj="hero" id="top">
   <div class="hero__plane" aria-hidden="true">
     <img src="/assets/gen_oak_bukovyna.jpg" alt="" width="2752" height="1536" fetchpriority="high" decoding="async">
   </div>
@@ -431,27 +523,33 @@ a{color:inherit}
 </div>
 
 <main>
-<!-- ACT II — Paper BA truth -->
-<section class="section section--paper" id="truth" data-act="2" aria-labelledby="truth-title">
-  <div class="wrap">
+<!-- ACT II — Paper BA truth · A2 pinned chapter -->
+<section class="section section--paper pin-chapter" id="truth" data-act="2" data-pin-chapter="1" data-a2="1" aria-labelledby="truth-title">
+  <div class="wrap pin-chapter__intro">
     <p class="section__eyebrow">Акт II · бумага · правда</p>
     <h2 id="truth-title">Фотографии стираются. Их можно сберечь сейчас.</h2>
     <p class="section__lead">Один честный проход на бумаге: почти потерянное → сохранённое. Без «2&nbsp;мин», без чужого лица. FACE и EYE остаются воротами.</p>
-    <div class="proof-meta">
-      <div class="proof-labels" aria-hidden="true">
-        <span><i class="dot"></i> Уходит</span>
-        <span><i class="dot dot--after"></i> Сбережено</span>
+  </div>
+  <div class="pin-chapter__stage" data-pin-stage="1">
+    <div class="wrap pin-chapter__plane" data-story-obj="ba">
+      <div class="proof-meta">
+        <div class="proof-labels" aria-hidden="true">
+          <span><i class="dot"></i> Уходит</span>
+          <span><i class="dot dot--after"></i> Сбережено</span>
+        </div>
+        <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
       </div>
-      <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
-    </div>
-    <div class="ba-shell" id="ba-shell">
-      <div class="ba" id="ba" role="img" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
-        <img class="before" src="/assets/hero_before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="1600" decoding="async">
-        <img class="after" src="/assets/hero_after.jpg" alt="То же фото после бережной реставрации" width="1200" height="1600" decoding="async">
-        <div class="rail" aria-hidden="true"></div>
-        <div class="knob" aria-hidden="true">⇄</div>
+      <div class="ba-shell" id="ba-shell">
+        <div class="ba" id="ba" role="img" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
+          <img class="before" src="/assets/hero_before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="1600" decoding="async">
+          <img class="after" src="/assets/hero_after.jpg" alt="То же фото после бережной реставрации" width="1200" height="1600" decoding="async">
+          <div class="rail" aria-hidden="true"></div>
+          <div class="knob" aria-hidden="true">⇄</div>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="wrap pin-chapter__after">
     <p class="ba-caption">То же лицо. Тот же взгляд. Лицо важнее эффекта — если проверка не проходит, скажем честно.</p>
     <div class="gates-inline" aria-label="Ворота честности">
       <span><i></i> FACE</span>
@@ -460,27 +558,24 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- Lineage — ink motif (not second outdoor oak) -->
-<section class="section section--ink" id="lineage" data-lineage-ink="1" aria-labelledby="lineage-title">
+<!-- Lineage — ink motif (not second outdoor oak) · A4 scrub+reverse -->
+<section class="section section--ink" id="lineage" data-lineage-ink="1" data-a4="1" data-story-obj="ink" aria-labelledby="lineage-title">
   <div class="wrap lineage">
     <div class="lineage__visual" aria-hidden="true">
       <div class="lineage__paper"></div>
       <div class="lineage__tree">
         <svg viewBox="0 0 120 230" xmlns="http://www.w3.org/2000/svg">
-          <!-- canopy as ink gesture, not photo -->
-          <path class="ink-canopy" d="M60 22 C44 30 36 44 40 60 C30 64 26 76 32 88 C24 98 28 114 42 120"/>
-          <path class="ink-canopy" d="M60 22 C76 30 84 44 80 60 C90 64 94 76 88 88 C96 98 92 114 78 120"/>
-          <path class="ink-canopy" d="M42 72 C50 66 70 66 78 72"/>
-          <!-- trunk -->
-          <line class="ink-trunk" x1="60" y1="22" x2="60" y2="152"/>
+          <path class="ink-canopy" pathLength="1" d="M60 22 C44 30 36 44 40 60 C30 64 26 76 32 88 C24 98 28 114 42 120"/>
+          <path class="ink-canopy" pathLength="1" d="M60 22 C76 30 84 44 80 60 C90 64 94 76 88 88 C96 98 92 114 78 120"/>
+          <path class="ink-canopy" pathLength="1" d="M42 72 C50 66 70 66 78 72"/>
+          <line class="ink-trunk" pathLength="1" x1="60" y1="22" x2="60" y2="152"/>
           <circle class="ink-dot" cx="60" cy="22" r="2.2"/>
-          <!-- roots as род -->
-          <path class="ink-root" d="M60 152 C52 172 36 186 20 204"/>
-          <path class="ink-root" d="M60 152 C60 176 58 192 54 214"/>
-          <path class="ink-root" d="M60 152 C68 172 84 186 100 204"/>
-          <circle class="ink-dot" cx="20" cy="204" r="1.6"/>
-          <circle class="ink-dot" cx="54" cy="214" r="1.6"/>
-          <circle class="ink-dot" cx="100" cy="204" r="1.6"/>
+          <path class="ink-root" pathLength="1" d="M60 152 C52 172 36 186 20 204"/>
+          <path class="ink-root" pathLength="1" d="M60 152 C60 176 58 192 54 214"/>
+          <path class="ink-root" pathLength="1" d="M60 152 C68 172 84 186 100 204"/>
+          <circle class="ink-dot ink-dot--root" cx="20" cy="204" r="1.6"/>
+          <circle class="ink-dot ink-dot--root" cx="54" cy="214" r="1.6"/>
+          <circle class="ink-dot ink-dot--root" cx="100" cy="204" r="1.6"/>
         </svg>
       </div>
     </div>
@@ -507,7 +602,7 @@ a{color:inherit}
 </section>
 
 <!-- Quiet invite soft-wave -->
-<section class="section section--deep" id="invite" data-soft-wave="1" aria-labelledby="invite-title">
+<section class="section section--deep" id="invite" data-soft-wave="1" data-story-obj="invite" aria-labelledby="invite-title">
   <div class="wrap invite">
     <div>
       <p class="section__eyebrow">После истории · soft-wave</p>
@@ -555,7 +650,7 @@ a{color:inherit}
       <a href="/waitlist.html">Waitlist</a>
       <a href="/gallery.html">Галерея</a>
     </nav>
-    <p>SaveMyHistory · facade-lab · ironhill-lite · Cold Path B · не продакшен</p>
+    <p>SaveMyHistory · facade-lab · ironhill-lite · virtuoso · Cold Path B · не продакшен</p>
   </div>
 </footer>
 
@@ -565,61 +660,154 @@ a{color:inherit}
   var root = document.documentElement;
   var ba = document.getElementById('ba');
   var baShell = document.getElementById('ba-shell');
+  var pinChapter = document.getElementById('truth');
+  var lineage = document.getElementById('lineage');
+  var invite = document.getElementById('invite');
   var toggleBtn = document.getElementById('ba-toggle');
   var dragging = false;
   var showingAfter = true;
   var baScrubbed = false;
+  var ticking = false;
 
+  function clamp(v, a, b){
+    if(v < a) return a;
+    if(v > b) return b;
+    return v;
+  }
+  function easeOut(t){
+    return 1 - Math.pow(1 - t, 2.2);
+  }
   function setReveal(p){
     if(!ba) return;
-    if(p < 6) p = 6;
-    if(p > 94) p = 94;
+    p = clamp(p, 6, 94);
     ba.style.setProperty('--reveal', p + '%');
   }
   function setRevealFromX(clientX){
     var r = ba.getBoundingClientRect();
     setReveal(((clientX - r.left) / r.width) * 100);
   }
+  function overlapExit(el, startMul, endMul){
+    if(!el) return 0;
+    var vh = window.innerHeight || 1;
+    var r = el.getBoundingClientRect();
+    var start = vh * startMul;
+    var end = vh * endMul;
+    return clamp((start - r.top) / Math.max(1, start - end), 0, 1);
+  }
 
-  /* Motion 1: scroll-drawn SVG line as Act I→II bridge */
-  function updateLine(){
+  /* A9 — single rAF scroll bus feeds all story CSS vars */
+  function bus(){
+    ticking = false;
+    var vh = window.innerHeight || 1;
+    var doc = document.documentElement;
+    var max = Math.max(1, doc.scrollHeight - vh);
+    var globalP = clamp(window.scrollY / max, 0, 1);
+
     if(reduce){
       root.style.setProperty('--line-progress', '1');
+      root.style.setProperty('--hero-exit', '0');
+      root.style.setProperty('--ba-exit', '0');
+      root.style.setProperty('--ink-exit', '0');
+      root.style.setProperty('--ink-canopy', '1');
+      root.style.setProperty('--ink-trunk', '1');
+      root.style.setProperty('--ink-roots', '1');
+      root.style.setProperty('--plane-in', '1');
+      root.style.setProperty('--plane-out', '0');
+      root.style.setProperty('--line-guide-opacity', '.78');
+      root.style.setProperty('--invite-in', '1');
+      root.style.setProperty('--pin-p', '.5');
+      setReveal(48);
       return;
     }
-    var doc = document.documentElement;
-    var max = Math.max(1, doc.scrollHeight - window.innerHeight);
-    var p = Math.min(1, Math.max(0, window.scrollY / max));
-    root.style.setProperty('--line-progress', String(p));
+
+    root.style.setProperty('--line-progress', String(globalP));
+
+    /* A7 chapter crossfade ownership */
+    var heroExit = 0;
+    if(pinChapter){
+      var tr = pinChapter.getBoundingClientRect();
+      heroExit = easeOut(clamp((vh * 0.92 - tr.top) / (vh * 0.55), 0, 1));
+    }
+    root.style.setProperty('--hero-exit', String(heroExit));
+
+    var baExit = 0;
+    if(lineage){
+      var lr = lineage.getBoundingClientRect();
+      baExit = easeOut(clamp((vh * 0.88 - lr.top) / (vh * 0.5), 0, 1));
+    }
+    root.style.setProperty('--ba-exit', String(baExit));
+
+    var inkExit = 0;
+    if(invite){
+      var ir = invite.getBoundingClientRect();
+      inkExit = easeOut(clamp((vh * 0.9 - ir.top) / (vh * 0.45), 0, 1));
+      var inviteIn = easeOut(clamp((vh * 0.85 - ir.top) / (vh * 0.55), 0, 1));
+      root.style.setProperty('--invite-in', String(inviteIn));
+    } else {
+      root.style.setProperty('--invite-in', '1');
+    }
+    root.style.setProperty('--ink-exit', String(inkExit));
+
+    /* A2 pinned BA: appear → wipe → soft release */
+    var pinP = 0;
+    if(pinChapter){
+      var pr = pinChapter.getBoundingClientRect();
+      var chapterTop = window.scrollY + pr.top;
+      var travel = Math.max(1, pinChapter.offsetHeight - vh);
+      pinP = clamp((window.scrollY - chapterTop) / travel, 0, 1);
+    }
+    root.style.setProperty('--pin-p', String(pinP));
+
+    var planeIn = easeOut(clamp(pinP / 0.22, 0, 1));
+    var planeOut = easeOut(clamp((pinP - 0.78) / 0.22, 0, 1));
+    /* When lineage owns the screen, force soft release */
+    planeOut = Math.max(planeOut, baExit * 0.85);
+    root.style.setProperty('--plane-in', String(planeIn));
+    root.style.setProperty('--plane-out', String(planeOut));
+
+    if(baShell && ba && !baScrubbed && !dragging){
+      var wipeT = clamp((pinP - 0.18) / 0.5, 0, 1);
+      setReveal(16 + easeOut(wipeT) * 58);
+    }
+
+    /* A4 ink stroke scrub + reverse (local lineage progress) */
+    var inkP = 0;
+    if(lineage){
+      var lrr = lineage.getBoundingClientRect();
+      inkP = clamp((vh * 0.85 - lrr.top) / (vh * 0.85 + lrr.height * 0.35), 0, 1);
+    }
+    var canopy = inkP < 0.28 ? inkP / 0.28 : 1;
+    var trunk = inkP < 0.22 ? 0 : (inkP < 0.55 ? (inkP - 0.22) / 0.33 : 1);
+    var roots = inkP < 0.48 ? 0 : clamp((inkP - 0.48) / 0.42, 0, 1);
+    root.style.setProperty('--ink-canopy', String(clamp(canopy, 0, 1)));
+    root.style.setProperty('--ink-trunk', String(clamp(trunk, 0, 1)));
+    root.style.setProperty('--ink-roots', String(clamp(roots, 0, 1)));
+
+    /* Mute global story-line while ink chapter owns the beat */
+    var guideOp = 0.78;
+    if(inkP > 0.08){
+      guideOp = 0.78 - clamp((inkP - 0.08) / 0.35, 0, 1) * 0.53;
+    }
+    if(inkExit > 0.2){
+      guideOp = Math.min(guideOp + inkExit * 0.2, 0.55);
+    }
+    root.style.setProperty('--line-guide-opacity', String(guideOp));
   }
 
-  /* Motion 2: one BA wipe scrubbed while truth section is in view */
-  function updateBaWipe(){
-    if(!baShell || !ba || reduce || baScrubbed || dragging) return;
-    var r = baShell.getBoundingClientRect();
-    var vh = window.innerHeight || 1;
-    var start = vh * 0.78;
-    var end = vh * 0.22;
-    var t = (start - r.top) / (start - end);
-    if(t < 0) t = 0;
-    if(t > 1) t = 1;
-    setReveal(16 + t * 58);
-  }
-
-  function onScroll(){
-    updateLine();
-    updateBaWipe();
+  function requestBus(){
+    if(!ticking){
+      ticking = true;
+      requestAnimationFrame(bus);
+    }
   }
 
   if(reduce){
-    root.style.setProperty('--line-progress', '1');
-    setReveal(48);
+    bus();
   } else {
     setReveal(16);
-    updateLine();
-    updateBaWipe();
-    window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', onScroll, {passive:true});
+    bus();
+    window.addEventListener('scroll', requestBus, {passive:true});
+    window.addEventListener('resize', requestBus, {passive:true});
   }
 
   if(ba){
