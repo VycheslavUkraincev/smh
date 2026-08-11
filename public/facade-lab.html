@@ -415,8 +415,8 @@ a{color:inherit}
     <h1>Верни семейным фото жизнь — бережно или как будто снято сегодня.</h1>
     <p class="hero__lead">То же лицо. Та же сцена. Без чужого человека.</p>
     <div class="cta">
-      <a class="btn btn--primary" href="#waitlist">Встать в waitlist</a>
-      <a class="btn btn--ghost" href="#proof">Смотреть пример</a>
+      <a class="btn btn--primary" href="#service">Войти по приглашению</a>
+      <a class="btn btn--ghost" href="#waitlist">Waitlist</a>
     </div>
   </div>
 </header>
@@ -428,26 +428,26 @@ a{color:inherit}
   <div class="wrap">
     <p class="section__eyebrow">Как это</p>
     <h2 id="how-title">Бережный путь от снимка к лицу</h2>
-    <p class="section__lead">Четыре тихих шага. Без «магии за две минуты» и без конвейерных обещаний.</p>
+    <p class="section__lead">Публичная история открыта. Сервис — через soft-wave: invite → redeem → Upload → Status → BA review → Download только после FACE+EYE. Без «2&nbsp;мин».</p>
     <figure class="atm atm--how" aria-hidden="true">
       <img src="/assets/facade-lab/2026-08-11-photo-corners-wait.png" alt="" width="1600" height="900" loading="lazy" decoding="async">
     </figure>
     <div class="steps">
       <article class="step">
-        <h3>Загрузить</h3>
+        <h3>Invite / redeem</h3>
+        <p>Дружеский код открывает кабинет. Коды не «уже разданы» — волна по приглашению.</p>
+      </article>
+      <article class="step">
+        <h3>Upload</h3>
         <p>Скан или фото бумаги. Ровно, без блика. До 20&nbsp;МБ.</p>
       </article>
       <article class="step">
-        <h3>Проверка лица и взгляда</h3>
-        <p>Сначала узнаваемость. Если лицо или взгляд не проходят — скажем честно.</p>
+        <h3>Status · overnight</h3>
+        <p>Обычно к утру, иногда до ~48&nbsp;ч. Не мгновенная реставрация.</p>
       </article>
       <article class="step">
-        <h3>Подлинный или современный</h3>
-        <p>Эпоха и бумага — или живой свет. Без soap-skin и beauty-фильтра.</p>
-      </article>
-      <article class="step">
-        <h3>Скачать или удалить</h3>
-        <p>Оригиналы можно стереть по кнопке. Мы не учимся на ваших фото.</p>
+        <h3>BA → Download</h3>
+        <p>Сначала честный просмотр. Скачивание — только после FACE+EYE.</p>
       </article>
     </div>
   </div>
@@ -515,11 +515,11 @@ a{color:inherit}
 <section class="section section--deep" id="waitlist" aria-labelledby="wait-title">
   <div class="wrap wait" id="wait-box">
     <div>
-      <p class="section__eyebrow">Доступ</p>
-      <h2 id="wait-title">Откроем доступ бережно</h2>
-      <p class="section__lead">Доступ по приглашению или waitlist. Когда откроем — напишем; удержание до ~48&nbsp;ч, не мгновенная реставрация.</p>
+      <p class="section__eyebrow">Waitlist · вторичный путь</p>
+      <h2 id="wait-title">Нет кода — оставьте контакт</h2>
+      <p class="section__lead">Cold Path B: вход в сервис — по приглашению (soft-wave). Waitlist честно ловит интерес, но не открывает restore сам. Когда напишем — без обещания «2&nbsp;мин».</p>
       <p class="ok-msg" role="status">Вы в списке. Напишем, когда откроем.</p>
-      <p class="invite-escape">Уже есть код? <a href="#service">Войти</a></p>
+      <p class="invite-escape">Есть код приглашения? <a href="#service">Redeem → Upload</a></p>
     </div>
     <form id="wait-form" action="#" method="post" novalidate>
       <div>
@@ -540,9 +540,9 @@ a{color:inherit}
 <!-- SERVICE UI MOCK (offline wire states) -->
 <section class="section" id="service" aria-labelledby="service-title">
   <div class="wrap">
-    <p class="section__eyebrow">Сервис · макет</p>
-    <h2 id="service-title">Invite → загрузка → статус → проверка</h2>
-    <p class="section__lead">Офлайн wire-states UX. Не живой пайплайн. Сроки: к утру / до ~48&nbsp;ч — не «2&nbsp;мин».</p>
+    <p class="section__eyebrow">Сервис · soft-wave · макет</p>
+    <h2 id="service-title">Invite → redeem → Upload → Status → BA → Download</h2>
+    <p class="section__lead">Cold Path B wire: публичная история открыта; restore только через invite soft-wave. Офлайн-макет, не живой пайплайн. Сроки: overnight / до ~48&nbsp;ч — никогда «2&nbsp;мин». Коды ещё не посеяны.</p>
     <div class="service">
       <div class="tabs" role="tablist" aria-label="Состояния сервиса">
         <button class="tab" role="tab" id="tab-invite" aria-controls="panel-invite" aria-selected="true" type="button">Invite</button>
@@ -556,8 +556,8 @@ a{color:inherit}
 
       <div class="panel is-active" role="tabpanel" id="panel-invite" aria-labelledby="tab-invite">
         <div class="invite-gate">
-          <h3>Сейчас — по приглашению</h3>
-          <p>Без кода загрузка закрыта. Нет кода — встаньте в waitlist.</p>
+          <h3>Soft-wave: нужен код</h3>
+          <p>Без redeem загрузка закрыта. Коды не «готовы к раздаче» — это макет. Нет кода — честный waitlist рядом.</p>
           <label for="invite-code">Код приглашения</label>
           <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled>
           <div class="gate-actions">
@@ -601,8 +601,8 @@ a{color:inherit}
 
       <div class="panel" role="tabpanel" id="panel-wait" aria-labelledby="tab-wait" hidden>
         <div class="invite-gate">
-          <h3>Сначала waitlist</h3>
-          <p>Холодный заход в сервис без приглашения. Восстановление не стартует — только честный лист ожидания.</p>
+          <h3>Без кода — waitlist</h3>
+          <p>Вторичный cold-путь. Restore не стартует. Публичная история доступна; сервис — только после invite redeem.</p>
           <div class="gate-actions">
             <a class="btn btn--ink btn--sm" href="#waitlist">Встать в waitlist</a>
             <span class="btn btn--line btn--sm" aria-hidden="true">Уже есть код?</span>
@@ -638,7 +638,7 @@ a{color:inherit}
       <a href="/waitlist.html">Waitlist</a>
       <a href="/gallery.html">Галерея</a>
     </nav>
-    <p>SaveMyHistory · facade-lab · не продакшен · PUSH=N</p>
+    <p>SaveMyHistory · facade-lab · Cold Path B · invite soft-wave · не продакшен</p>
   </div>
 </footer>
 

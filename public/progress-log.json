@@ -1,5 +1,15 @@
 [
   {
+    "id": "cold-path-b-locked",
+    "at": "2026-08-11T09:05:00Z",
+    "date": "2026-08-11",
+    "stage": "ux",
+    "title": "COLD_PATH_B locked",
+    "status": "READY",
+    "text": "Cold Path B: публичная история + invite soft-wave (primary). Waitlist secondary. Коды не посеяны. LIVE index не заменён.",
+    "note": "invite soft-wave · overnight/48h honesty · FACE+EYE before download"
+  },
+  {
     "id": "progress-page-live",
     "at": "2026-08-11T08:44:00Z",
     "date": "2026-08-11",
