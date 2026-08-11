@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru" data-awwwards-notebook="1" class="awwwards-notebook nano-alt-awwwards-notebook">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — Эввардс · живая тетрадь</title>
+<meta name="description" content="Детская живая тетрадь SaveMyHistory: что для нас значит сайт уровня Awwwards, правила-наклейки и хроника волны.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E8E2D8">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8E2D8;
+  --paper-deep:#E3DCD0;
+  --cream:#FFFCF6;
+  --ink:#1C1915;
+  --amber:#B07A3A;
+  --ink-soft:rgba(28,25,21,.72);
+  --line:rgba(28,25,21,.14);
+  --sticker:#FFF8E8;
+  --sticker-pink:#F3E4DE;
+  --sticker-mint:#E4EDE6;
+  --ready:#3F6B4D;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,sans-serif}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(900px 480px at 8% -8%, rgba(176,122,58,.14), transparent 55%),
+    radial-gradient(700px 420px at 96% 12%, rgba(63,107,77,.08), transparent 50%),
+    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(28,25,21,.035) 28px),
+    linear-gradient(180deg, #EDE7DD 0%, var(--paper) 38%, var(--paper-deep) 100%);
+}
+.wrap{width:min(880px,92vw);margin:0 auto;padding:2.1rem 0 4.2rem}
+.brand{
+  font-family:Literata,Georgia,serif;
+  font-weight:700;
+  font-size:clamp(1.75rem,4.2vw,2.35rem);
+  letter-spacing:.01em;
+  margin:0 0 .2rem;
+  animation:inkIn .7s ease both;
+}
+.hero-title{
+  font-family:Literata,Georgia,serif;
+  font-weight:700;
+  font-size:clamp(1.55rem,3.8vw,2.05rem);
+  margin:.55rem 0 .45rem;
+  line-height:1.2;
+  animation:inkIn .85s .08s ease both;
+}
+.hero-lead{
+  margin:0 0 1.1rem;
+  max-width:34ch;
+  font-size:1.05rem;
+  line-height:1.5;
+  color:var(--ink-soft);
+  animation:inkIn .9s .14s ease both;
+}
+.kicker{color:var(--ink-soft);font-size:.92rem;margin:0 0 1.1rem}
+.updated{
+  display:inline-flex;align-items:center;gap:.45rem;
+  border:1px dashed rgba(28,25,21,.28);
+  border-radius:999px;
+  padding:.32rem .78rem;font-size:.8rem;color:var(--ink-soft);
+  background:rgba(255,252,246,.55);
+  transform:rotate(-1deg);
+}
+.updated strong{color:var(--ink);font-weight:600}
+.cover{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:1.2rem;
+  align-items:center;
+  margin-top:.4rem;
+}
+@media (max-width:720px){
+  .cover{grid-template-columns:1fr}
+  .hero-doodle{max-width:260px;margin:0 auto}
+}
+.hero-doodle{
+  width:100%;
+  max-width:300px;
+  justify-self:end;
+  filter:drop-shadow(0 10px 18px rgba(28,25,21,.08));
+  animation:floaty 5.5s ease-in-out infinite;
+}
+@keyframes floaty{
+  0%,100%{transform:translateY(0) rotate(-1.5deg)}
+  50%{transform:translateY(-7px) rotate(1deg)}
+}
+@keyframes inkIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(-2deg)}
+  50%{transform:rotate(2deg)}
+}
+.section{margin-top:2.35rem}
+.section h2{
+  font-family:Literata,Georgia,serif;
+  font-size:1.32rem;font-weight:600;margin:0 0 .75rem;
+}
+.section p{margin:.45rem 0 0;line-height:1.55;color:var(--ink-soft)}
+.paper-card{
+  border:1px solid var(--line);
+  background:rgba(255,252,246,.58);
+  border-radius:18px;
+  padding:1.15rem 1.2rem;
+  position:relative;
+}
+.paper-card::before{
+  content:"";
+  position:absolute;inset:8px auto auto 14px;
+  width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 40% 40%, #F2D7B0, #C99555 70%);
+  box-shadow:0 1px 0 rgba(28,25,21,.12);
+  opacity:.85;
+}
+.explain-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.8rem;
+}
+@media (max-width:640px){.explain-grid{grid-template-columns:1fr}}
+.tile{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:.95rem 1rem;
+  background:rgba(255,252,246,.5);
+}
+.tile h3{
+  margin:0 0 .35rem;
+  font-family:Literata,Georgia,serif;
+  font-size:1.05rem;
+  font-weight:600;
+}
+.tile p{margin:0;font-size:.95rem}
+.stickers{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.85rem;
+}
+@media (max-width:640px){.stickers{grid-template-columns:1fr}}
+.sticker{
+  position:relative;
+  border-radius:14px;
+  padding:.95rem 1rem .95rem 1.05rem;
+  border:1px dashed rgba(28,25,21,.28);
+  background:var(--sticker);
+  box-shadow:2px 3px 0 rgba(28,25,21,.06);
+  transform:rotate(-1.2deg);
+}
+.sticker:nth-child(2){background:var(--sticker-mint);transform:rotate(1.4deg)}
+.sticker:nth-child(3){background:var(--sticker-pink);transform:rotate(.8deg)}
+.sticker:nth-child(4){background:#F0E8D8;transform:rotate(-1.6deg)}
+.sticker:hover{animation:wiggle .45s ease}
+.sticker h3{
+  margin:0 0 .3rem;
+  font-size:1rem;
+  font-family:Literata,Georgia,serif;
+}
+.sticker p{margin:0;font-size:.92rem;color:var(--ink-soft)}
+.sticker .tape{
+  position:absolute;top:-8px;left:18px;
+  width:46px;height:14px;
+  background:rgba(176,122,58,.28);
+  border-radius:2px;
+  transform:rotate(-4deg);
+}
+.comic{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.7rem;
+}
+@media (max-width:760px){.comic{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.comic{grid-template-columns:1fr}}
+.panel{
+  border:2px solid rgba(28,25,21,.18);
+  border-radius:14px;
+  background:rgba(255,252,246,.62);
+  padding:.8rem .85rem .9rem;
+  min-height:150px;
+  display:flex;
+  flex-direction:column;
+  gap:.35rem;
+  position:relative;
+}
+.panel .num{
+  font-size:.72rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--amber);
+}
+.panel h3{margin:0;font-size:.98rem;font-family:Literata,Georgia,serif}
+.panel p{margin:0;font-size:.88rem;color:var(--ink-soft);flex:1}
+.panel svg{width:54px;height:54px;align-self:flex-end;opacity:.92}
+.panel a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.doors p{margin:.35rem 0 0}
+.cta-row{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}
+.cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;border-radius:999px;padding:.68rem 1.05rem;
+  font-weight:600;font-size:.93rem;border:1px solid var(--line);
+}
+.cta.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cta.ghost{background:transparent;color:var(--ink)}
+.cta:hover{filter:brightness(1.05)}
+.log{display:grid;gap:.65rem;margin-top:.85rem}
+.entry{
+  border-left:3px solid var(--amber);
+  padding:.4rem 0 .4rem .85rem;
+  background:rgba(255,252,246,.35);
+  border-radius:0 12px 12px 0;
+}
+.entry time{display:block;font-size:.76rem;color:rgba(28,25,21,.55);margin-bottom:.12rem}
+.entry h3{margin:0;font-size:1rem;font-family:Literata,Georgia,serif}
+.entry p{margin:.25rem 0 0;font-size:.92rem}
+.doodle-tag{
+  display:inline-block;margin-top:.35rem;
+  font-size:.72rem;font-weight:700;letter-spacing:.03em;
+  text-transform:uppercase;color:var(--ready);
+  border:1px solid rgba(63,107,77,.25);
+  background:rgba(63,107,77,.08);
+  border-radius:999px;padding:.15rem .45rem;
+}
+.word{
+  border-bottom:2px dotted rgba(176,122,58,.55);
+  font-weight:600;color:var(--ink);
+}
+footer{
+  margin-top:2.6rem;padding-top:1rem;
+  border-top:1px dashed rgba(28,25,21,.22);
+  color:var(--ink-soft);font-size:.85rem;
+}
+.arrow-note{
+  display:inline-flex;align-items:center;gap:.4rem;
+  margin-top:.8rem;font-size:.88rem;color:var(--ink-soft);
+  transform:rotate(-1deg);
+}
+</style>
+</head>
+<body class="awwwards-notebook nano-alt-awwwards-notebook" data-awwwards-notebook="1">
+<main class="wrap">
+  <p class="updated">тетрадь · обновлено · <strong id="updated-stamp">—</strong></p>
+
+  <section class="cover" aria-labelledby="cover-title">
+    <div>
+      <h1 class="brand">SaveMyHistory</h1>
+      <p class="kicker">живая тетрадь · «Эввардс» · sibling к progress и facade-lab</p>
+      <h2 class="hero-title" id="cover-title">Эввардс — что это за тетрадь?</h2>
+      <p class="hero-lead">Тут мы рисуем простыми словами, каким должен быть наш сайт, чтобы его хотелось <em>почувствовать</em>, а не только «посмотреть картинки».</p>
+      <p class="arrow-note">
+        <svg width="28" height="18" viewBox="0 0 28 18" aria-hidden="true"><path d="M2 14 C10 2, 18 2, 26 8" fill="none" stroke="#B07A3A" stroke-width="2" stroke-linecap="round"/><path d="M21 5 l5 3 -6 2" fill="none" stroke="#B07A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Awwwards — это как премия за сайты, которые трогают тело, не только глаза.
+      </p>
+    </div>
+    <div class="hero-doodle" aria-hidden="true">
+      <svg viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg">
+        <rect x="18" y="28" width="190" height="170" rx="10" fill="#FFFCF6" stroke="#1C1915" stroke-width="3"/>
+        <rect x="34" y="48" width="158" height="18" rx="4" fill="#E8E2D8"/>
+        <rect x="34" y="78" width="120" height="10" rx="3" fill="#D8D0C4"/>
+        <rect x="34" y="98" width="140" height="10" rx="3" fill="#D8D0C4"/>
+        <rect x="34" y="118" width="96" height="10" rx="3" fill="#D8D0C4"/>
+        <path d="M48 160 c18 -28 48 -28 66 0" fill="none" stroke="#B07A3A" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="68" cy="148" r="4" fill="#1C1915"/>
+        <circle cx="94" cy="148" r="4" fill="#1C1915"/>
+        <g transform="translate(168 18) rotate(8)">
+          <rect x="0" y="0" width="86" height="70" rx="8" fill="#FFF8E8" stroke="#1C1915" stroke-width="2.5"/>
+          <text x="12" y="28" font-family="Literata, Georgia, serif" font-size="13" fill="#1C1915">Эввардс</text>
+          <text x="12" y="48" font-family="Manrope, sans-serif" font-size="10" fill="#B07A3A">не блеск —</text>
+          <text x="12" y="62" font-family="Manrope, sans-serif" font-size="10" fill="#B07A3A">чувство</text>
+        </g>
+        <g transform="translate(200 120)">
+          <path d="M20 70 L20 38" stroke="#1C1915" stroke-width="3" stroke-linecap="round"/>
+          <path d="M8 38 Q20 8 32 38 Z" fill="#F2D7B0" stroke="#1C1915" stroke-width="2.5"/>
+          <ellipse cx="20" cy="74" rx="16" ry="5" fill="#1C1915" opacity=".18"/>
+        </g>
+        <path d="M12 210 C40 190, 90 220, 130 200" fill="none" stroke="#B07A3A" stroke-width="2" stroke-dasharray="4 5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="simple-title">
+    <h2 id="simple-title">Простыми словами: «сайт уровня Awwwards» для нас</h2>
+    <div class="paper-card">
+      <p>Для SaveMyHistory это не «налепить блеска и медальки». Это когда сайт узнаёшь сразу — как голос близкого человека.</p>
+      <p><span class="word">Awwwards</span> — премия за сайты с сильным ощущением. У нас цель не копировать чужие награды, а сделать свой craft: честно, тепло, по-своему.</p>
+    </div>
+    <div class="explain-grid" style="margin-top:.85rem">
+      <article class="tile">
+        <h3>Личность важнее красоты</h3>
+        <p>Сначала «это мы», потом «красиво». Если убрать логотип и страница станет «любым стартапом» — значит, мало души.</p>
+      </article>
+      <article class="tile">
+        <h3>Честность как свет</h3>
+        <p>Не обещаем чудес за две минуты. Говорим правду про ожидание, код и то, что ещё закрыто.</p>
+      </article>
+      <article class="tile">
+        <h3>Лампа над альбомом</h3>
+        <p>Главная картинка в голове: тихий стол, лампа, семейный альбом. Одна сцена, не витрина из десяти виджетов.</p>
+      </article>
+      <article class="tile">
+        <h3>Invite без обмана</h3>
+        <p><span class="word">Invite</span> — это мягкое приглашение. Публично — история. Restore и upload — за кодом, когда Роман скажет «да».</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="stickers-title">
+    <h2 id="stickers-title">Наши правила-наклейки</h2>
+    <div class="stickers">
+      <article class="sticker">
+        <span class="tape" aria-hidden="true"></span>
+        <h3>FACE / глаза честные</h3>
+        <p><span class="word">FACE</span> — лицо на фото. Глаза не «рисуем заново ради вау». Честный взгляд важнее эффекта.</p>
+      </article>
+      <article class="sticker">
+        <span class="tape" aria-hidden="true"></span>
+        <h3>Не врать «2 мин»</h3>
+        <p>Если работа длинная — так и говорим. Детям тоже не нравится, когда обещают «сейчас» и ждут вечность.</p>
+      </article>
+      <article class="sticker">
+        <span class="tape" aria-hidden="true"></span>
+        <h3>Бесплатный restore — только с кодом</h3>
+        <p>Без кода не обещаем «залей и получи». Это замок на двери, не злость — забота.</p>
+      </article>
+      <article class="sticker">
+        <span class="tape" aria-hidden="true"></span>
+        <h3>Ban-фото никогда</h3>
+        <p>Есть кадры, которые нельзя показывать. Точка. Публично — только безопасные истории.</p>
+      </article>
+    </div>
+    <p style="margin-top:.9rem">Холодный путь Б = публичная история + мягкая волна invite. Restore/upload живут за кодом.</p>
+  </section>
+
+  <section class="section" aria-labelledby="wave-title">
+    <h2 id="wave-title">История волны</h2>
+    <p>Как комикс в тетради: от аудита до этой страницы. Можно дописывать.</p>
+    <div class="comic" style="margin-top:.9rem">
+      <article class="panel">
+        <span class="num">01 · аудит</span>
+        <h3>Посмотрели дом</h3>
+        <p>Что можно трогать, что нельзя. LIVE-главную не ломаем.</p>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="18" fill="none" stroke="#1C1915" stroke-width="2.5"/><circle cx="32" cy="32" r="7" fill="#B07A3A"/><path d="M32 8 v6 M32 50 v6 M8 32 h6 M50 32 h6" stroke="#1C1915" stroke-width="2" stroke-linecap="round"/></svg>
+      </article>
+      <article class="panel">
+        <span class="num">02 · концепт</span>
+        <h3>Придумали чувство</h3>
+        <p>Бумага, лампа, альбом. Не фиолетовый «стартап-космос».</p>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10c10 0 18 8 18 18 0 14-18 28-18 28S14 42 14 28c0-10 8-18 18-18z" fill="#F2D7B0" stroke="#1C1915" stroke-width="2.5"/><circle cx="32" cy="28" r="5" fill="#1C1915"/></svg>
+      </article>
+      <article class="panel">
+        <span class="num">03 · креатив</span>
+        <h3>Нарисовали воздух</h3>
+        <p>Ассеты лампы и альбома. spend_E=20 уже было раньше — честно отмечаем.</p>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c10 8 14 16 14 24a14 14 0 1 1-28 0c0-8 4-16 14-24z" fill="#FFF8E8" stroke="#1C1915" stroke-width="2.5"/><rect x="26" y="48" width="12" height="8" rx="2" fill="#1C1915"/></svg>
+      </article>
+      <article class="panel">
+        <span class="num">04 · арт + UX</span>
+        <h3>Слова и ритм</h3>
+        <p>Literata + Manrope. Одна композиция. Без стены кнопок.</p>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="14" width="44" height="36" rx="6" fill="#FFFCF6" stroke="#1C1915" stroke-width="2.5"/><path d="M18 26h28 M18 34h20 M18 42h24" stroke="#B07A3A" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </article>
+      <article class="panel">
+        <span class="num">05 · фронт + lab</span>
+        <h3>Собрали черновик</h3>
+        <p>Лаб-фасад рядом с хроникой. Смотри <a href="https://savemyhistory.tech/facade-lab.html">facade-lab</a>.</p>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="18" width="48" height="32" rx="4" fill="#E4EDE6" stroke="#1C1915" stroke-width="2.5"/><path d="M8 28h48" stroke="#1C1915" stroke-width="2"/><circle cx="16" cy="23" r="2" fill="#B07A3A"/></svg>
+      </article>
+      <article class="panel">
+        <span class="num">06 · progress LIVE</span>
+        <h3>Хроника на улице</h3>
+        <p>Публичный ход событий: <a href="https://savemyhistory.tech/progress.html">progress</a>. tip 26447eb.</p>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 40c8-16 16-16 24 0s16 16 24 0" fill="none" stroke="#B07A3A" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="38" r="3" fill="#1C1915"/><circle cx="44" cy="38" r="3" fill="#1C1915"/></svg>
+      </article>
+      <article class="panel" style="grid-column:1/-1">
+        <span class="num">07 · выбор Романа → эта тетрадь</span>
+        <h3>Путь Б · invite soft-wave</h3>
+        <p>Роман выбрал мягкую публичную историю. Restore/upload не выносим на холод. А эта тетрадь — чтобы помнить, зачем мы так строим.</p>
+        <svg viewBox="0 0 64 64" aria-hidden="true" style="position:absolute;right:12px;bottom:10px"><rect x="14" y="12" width="36" height="40" rx="4" fill="#FFF8E8" stroke="#1C1915" stroke-width="2.5"/><path d="M22 24h20 M22 32h16 M22 40h18" stroke="#B07A3A" stroke-width="2" stroke-linecap="round"/></svg>
+      </article>
+    </div>
+  </section>
+
+  <section class="section doors" aria-labelledby="next-title">
+    <h2 id="next-title">Что дальше</h2>
+    <div class="paper-card">
+      <p>Двери открыты, не «список дел на тебя»:</p>
+      <p>Эта тетрадь растёт из разговоров с Романом — новые наклейки и кадры волны.</p>
+      <p>LIVE index не трогаем, пока не будет явного «да».</p>
+      <p>Коды не сеем, пока не будет явного «да» на mint.</p>
+      <div class="cta-row">
+        <a class="cta primary" href="https://savemyhistory.tech/progress.html">Хроника progress</a>
+        <a class="cta ghost" href="https://savemyhistory.tech/facade-lab.html">Facade lab</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="log-title">
+    <h2 id="log-title">Живой журнал</h2>
+    <p>Сюда дописываем короткие факты. Родитель может добавить запись в <code>awwwards-log.json</code>.</p>
+    <div class="log" id="log"></div>
+  </section>
+
+  <footer>
+    SaveMyHistory · тетрадь «Эввардс» · craft recognition, не awards-пастиш · HOLD: STOP_ALL_RESTORES · PRIORITY_API_FIRST · CREATIVE_BRIDGE · не продаваемый лендинг
+  </footer>
+</main>
+<script>
+(function () {
+  var stamp = document.getElementById('updated-stamp');
+  var logEl = document.getElementById('log');
+  function fmt(d) {
+    try {
+      return new Date(d).toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC');
+    } catch (e) {
+      return String(d || '');
+    }
+  }
+  function esc(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+  stamp.textContent = fmt(new Date());
+  fetch('/awwwards-log.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      var entries = data && Array.isArray(data.entries) ? data.entries : [];
+      if (!entries.length) {
+        logEl.innerHTML = '<div class="entry"><p>Пока пусто — первая запись появится после разговора с Романом.</p></div>';
+        return;
+      }
+      if (data.updated) stamp.textContent = fmt(data.updated);
+      logEl.innerHTML = entries.map(function (ev) {
+        var doodle = ev.doodle ? '<span class="doodle-tag">' + esc(ev.doodle) + '</span>' : '';
+        return '<article class="entry"><time>' + esc(fmt(ev.t)) + '</time><h3>' + esc(ev.title || '') + '</h3><p>' + esc(ev.body || '') + '</p>' + doodle + '</article>';
+      }).join('');
+    })
+    .catch(function () {
+      logEl.innerHTML = '<div class="entry"><p>Журнал скоро подтянется. Можно читать тетрадь и без него.</p></div>';
+    });
+})();
+</script>
+</body>
+</html>
