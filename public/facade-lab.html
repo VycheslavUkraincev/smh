@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -323,11 +323,23 @@ a{color:inherit}
 .archive__meta strong{
   font-family:var(--smh-font-display);font-weight:600;font-size:1.05rem;
 }
-.archive__meta span{font-size:12px;color:var(--smh-mute);font-weight:500;letter-spacing:.04em}
+.archive__story{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;color:var(--smh-mute);font-weight:500;letter-spacing:.04em;
+  white-space:nowrap;
+}
+.archive__story i{
+  font-style:normal;color:var(--smh-ink-soft);
+  transition:color .35s var(--smh-ease),opacity .35s var(--smh-ease);
+}
+.archive__story .story-arrow{opacity:.45;color:var(--smh-amber-deep)}
+.archive__leaf.is-revealed .archive__story .story-past{opacity:.45}
+.archive__leaf.is-revealed .archive__story .story-saved{color:var(--smh-amber-deep)}
 .archive__pair{
   position:relative;aspect-ratio:5/4;border-radius:4px;overflow:hidden;
   background:var(--smh-ink);isolation:isolate;
   border:1px solid rgba(28,25,21,.08);
+  cursor:pointer;
 }
 .archive__leaf--wide .archive__pair{aspect-ratio:16/10}
 .archive__pair img{
@@ -337,6 +349,21 @@ a{color:inherit}
 }
 .archive__pair .arch-before{opacity:1;z-index:1}
 .archive__pair .arch-after{opacity:0;z-index:2}
+.archive__badge{
+  position:absolute;left:10px;bottom:10px;z-index:3;
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(243,238,230,.88);
+  background:rgba(28,25,21,.42);
+  border:1px solid rgba(243,238,230,.18);
+  border-radius:4px;padding:5px 8px;
+  pointer-events:none;
+  transition:opacity .35s var(--smh-ease),background .35s var(--smh-ease);
+}
+.archive__leaf.is-revealed .archive__badge,
+.archive__leaf:hover .archive__badge,
+.archive__leaf:focus-within .archive__badge{
+  background:rgba(140,94,40,.55);
+}
 .archive__leaf.is-revealed .archive__pair .arch-before,
 .archive__leaf:hover .archive__pair .arch-before,
 .archive__leaf:focus-within .archive__pair .arch-before{opacity:0}
@@ -347,8 +374,26 @@ a{color:inherit}
   margin-top:10px;font-size:13px;color:var(--smh-ink-soft);max-width:42ch;
   position:relative;z-index:1;
 }
+.archive__tap{
+  margin-top:6px;font-size:12px;color:var(--smh-mute);
+  position:relative;z-index:1;
+}
+.archive__leaf.is-revealed .archive__tap{color:var(--smh-amber-deep)}
+.archive__how{
+  margin:0 0 var(--smh-space-5);
+  font-size:14px;color:var(--smh-ink-soft);max-width:48ch;
+  padding-top:2px;
+}
 .archive__note{
   margin-top:var(--smh-space-5);font-size:14px;color:var(--smh-mute);max-width:48ch;
+}
+@media (hover:none){
+  .archive__leaf:hover .archive__pair .arch-before{opacity:1}
+  .archive__leaf:hover .archive__pair .arch-after{opacity:0}
+  .archive__leaf:hover .archive__badge{background:rgba(28,25,21,.42)}
+  .archive__leaf.is-revealed .archive__pair .arch-before{opacity:0}
+  .archive__leaf.is-revealed .archive__pair .arch-after{opacity:1}
+  .archive__leaf.is-revealed .archive__badge{background:rgba(140,94,40,.55)}
 }
 @media (max-width:720px){
   .archive__shelf{gap:18px}
@@ -363,6 +408,8 @@ a{color:inherit}
   .archive__leaf .archive__pair .arch-after{opacity:0!important}
   .archive__leaf.is-revealed .archive__pair .arch-before{opacity:0!important}
   .archive__leaf.is-revealed .archive__pair .arch-after{opacity:1!important}
+  .archive__pair img{transition:none!important}
+  .archive__badge,.archive__story i{transition:none!important}
   :root{--gallery-in:1}
 }
 
@@ -461,7 +508,7 @@ a{color:inherit}
 }
 </style>
 </head>
-<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1">
+<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1">
 <a class="skip" href="#lab-copy">К тексту</a>
 
 <header class="hero facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-act="1" id="top">
@@ -563,61 +610,94 @@ a{color:inherit}
 </section>
 
 
-<section class="section section--warm" id="archive" data-act="4b" data-door-a-gallery="1" aria-labelledby="archive-title">
+<section class="section section--warm" id="archive" data-act="4b" data-door-a-gallery="1" data-door-a-gallery-raise="1" aria-labelledby="archive-title">
   <div class="wrap archive" data-story-obj="archive">
     <div class="archive__head">
       <p class="section__eyebrow">Архив под лампой · живые доказательства</p>
       <h2 id="archive-title">Страницы альбома, где сервис виден на фото.</h2>
-      <p class="section__lead">Не витрина кейсов. Шесть честных пар «уходит → сбережено»: то же лицо, тот же взгляд. Наведите или коснитесь листа — бумага открывает сбережённое.</p>
+      <p class="section__lead">Не витрина кейсов. Восемь честных пар «уходит → сбережено»: то же лицо, тот же взгляд. Коснитесь листа — бумага открывает сбережённое.</p>
+      <p class="archive__how">Как это устроено тихо: сканируем · бережно восстанавливаем · храним с семьёй.</p>
     </div>
     <div class="archive__shelf" role="list">
-      <article class="archive__leaf archive__leaf--wide" role="listitem" tabindex="0" data-ba="case_c7">
-        <div class="archive__meta"><strong>Взгляд, который держали</strong><span>Уходит → сбережено</span></div>
+      <article class="archive__leaf archive__leaf--wide" role="listitem" tabindex="0" data-ba="case_c7" aria-pressed="false">
+        <div class="archive__meta"><strong>Взгляд, который держали</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_c7_before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="900" loading="lazy" decoding="async">
           <img class="arch-after" src="/assets/case_c7_after.jpg" alt="То же лицо после бережной реставрации" width="1200" height="900" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Лицо важнее красоты. Если узнавание ломается — это не наш путь.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c6">
-        <div class="archive__meta"><strong>Тихий портрет</strong><span>Уходит → сбережено</span></div>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c6" aria-pressed="false">
+        <div class="archive__meta"><strong>Тихий портрет</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_c6_before.jpg" alt="Портрет до реставрации" width="1000" height="800" loading="lazy" decoding="async">
           <img class="arch-after" src="/assets/case_c6_after.jpg" alt="Портрет после бережной реставрации" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Бумага дышит, человек остаётся собой.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c10">
-        <div class="archive__meta"><strong>Почти стёртое</strong><span>Уходит → сбережено</span></div>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c10" aria-pressed="false">
+        <div class="archive__meta"><strong>Почти стёртое</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_c10_before.jpg" alt="Выцветающее фото до" width="1000" height="800" loading="lazy" decoding="async">
           <img class="arch-after" src="/assets/case_c10_after.jpg" alt="То же фото сбережённое" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">FADING PAST — повод начать сейчас, не «потом».</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c8">
-        <div class="archive__meta"><strong>Семейный кадр</strong><span>Уходит → сбережено</span></div>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c8" aria-pressed="false">
+        <div class="archive__meta"><strong>Семейный кадр</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_c8_before.jpg" alt="Семейный кадр до" width="1000" height="800" loading="lazy" decoding="async">
           <img class="arch-after" src="/assets/case_c8_after.jpg" alt="Семейный кадр после" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Не ретушь «красивее» — возврат узнавания.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c9g">
-        <div class="archive__meta"><strong>Глаза как ворота</strong><span>Уходит → сбережено</span></div>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c9s" aria-pressed="false">
+        <div class="archive__meta"><strong>Мягкий свет лица</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_c9s_before.jpg" alt="Портрет до бережной реставрации" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_c9s_after.jpg" alt="Тот же портрет сбережён" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
+        </div>
+        <p class="archive__hint">Лёгкая пара: бумага не кричит, лицо остаётся своим.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o110" aria-pressed="false">
+        <div class="archive__meta"><strong>Архивная тишина</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
+        <div class="archive__pair">
+          <img class="arch-before" src="/assets/case_o110_before.jpg" alt="Архивный снимок до" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" src="/assets/case_o110_after.jpg" alt="Архивный снимок после" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
+        </div>
+        <p class="archive__hint">Средний вес, честный проход — сервис на фото, не в слогане.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
+      </article>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c9g" aria-pressed="false">
+        <div class="archive__meta"><strong>Глаза как ворота</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_c9g_before.jpg" alt="Портрет с уходящим взглядом" width="1000" height="800" loading="lazy" decoding="async">
           <img class="arch-after" src="/assets/case_c9g_after.jpg" alt="Тот же взгляд сбережён" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">EYE / GAZE: живой взгляд — или отказ.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o15">
-        <div class="archive__meta"><strong>Свет на бумаге</strong><span>Уходит → сбережено</span></div>
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o15" aria-pressed="false">
+        <div class="archive__meta"><strong>Свет на бумаге</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_o15_before.jpg" alt="Архивный снимок до" width="1000" height="800" loading="lazy" decoding="async">
           <img class="arch-after" src="/assets/case_o15_after.jpg" alt="Архивный снимок после" width="1000" height="800" loading="lazy" decoding="async">
+          <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Сервис виден здесь: бережность, не эффект ради эффекта.</p>
+        <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
     </div>
     <p class="archive__note">Ещё один честный проход выше — в главе «Правда на бумаге». Здесь — полка архива под той же лампой. Без процентов и без чужого лица.</p>
@@ -789,13 +869,29 @@ a{color:inherit}
 
 
   var leaves = document.querySelectorAll('.archive__leaf');
+  function syncLeafUI(leaf, on){
+    if(!leaf) return;
+    leaf.setAttribute('aria-pressed', on ? 'true' : 'false');
+    var badge = leaf.querySelector('.archive__badge');
+    if(badge){
+      badge.textContent = on
+        ? (badge.getAttribute('data-badge-after') || 'Стало')
+        : (badge.getAttribute('data-badge-before') || 'Было');
+    }
+    var tap = leaf.querySelector('.archive__tap');
+    if(tap){
+      tap.textContent = on
+        ? (tap.getAttribute('data-tap-after') || 'Коснитесь — вернуть уходящее')
+        : (tap.getAttribute('data-tap-before') || 'Коснитесь — открыть сбережённое');
+    }
+  }
   function toggleLeaf(leaf){
     if(!leaf) return;
     var on = leaf.classList.toggle('is-revealed');
-    leaf.setAttribute('aria-pressed', on ? 'true' : 'false');
+    syncLeafUI(leaf, on);
   }
   Array.prototype.forEach.call(leaves, function(leaf){
-    leaf.setAttribute('aria-pressed', 'false');
+    syncLeafUI(leaf, false);
     leaf.addEventListener('click', function(){ toggleLeaf(leaf); });
     leaf.addEventListener('keydown', function(e){
       if(e.key === 'Enter' || e.key === ' '){
