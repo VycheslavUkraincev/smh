@@ -1,5 +1,15 @@
 [
   {
+    "id": "door-a-lamp-intensive",
+    "at": "2026-08-11T17:06:00Z",
+    "date": "2026-08-11",
+    "stage": "facade",
+    "title": "Дверь A · Лампа над альбомом",
+    "status": "READY",
+    "text": "facade-lab переписан в north-star комнату: лампа, закрытый альбом, почти без UI в герое, честный BA, FACE/EYE, soft Cold Path B. spend_E=0.",
+    "note": "Door A LOCKED · CONTEST_DIRECTION_OFF · markers data-door-a-lamp + nano-alt-facade-lab"
+  },
+  {
     "id": "forest-trunk-7",
     "at": "2026-08-11T14:46:00Z",
     "date": "2026-08-11",

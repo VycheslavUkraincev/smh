@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1" data-virtuoso="1" class="facade-lab nano-alt-facade-lab nano-alt-facade-virtuoso ironhill-lite act-c virtuoso">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SaveMyHistory — facade lab · ironhill-lite · virtuoso</title>
-<meta name="description" content="Лабораторный scroll-story фасад SaveMyHistory: лес, линия, бумага и честный before→after. Не продакшен.">
+<title>SaveMyHistory — Лампа над альбомом</title>
+<meta name="description" content="Тихая комната, тёплый свет, закрытый альбом. Комната, где хранитель рода наконец начинает.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#E8E2D8">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="/assets/gen_oak_bukovyna.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/facade-lab/2026-08-11-hero-album-lamp.png" fetchpriority="high">
 <style>
 :root{
   --smh-paper:#E8E2D8;
@@ -22,37 +22,33 @@
   --smh-line:rgba(28,25,21,.12);
   --smh-amber:#B07A3A;
   --smh-amber-deep:#8C5E28;
-  --smh-amber-glow:rgba(176,122,58,.18);
-  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.18) 0%,rgba(28,25,21,.42) 42%,rgba(28,25,21,.82) 100%);
+  --smh-amber-soft:rgba(176,122,58,.16);
+  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.08) 0%,rgba(28,25,21,.28) 48%,rgba(28,25,21,.72) 100%);
   --smh-ok:#3E6B4F;
   --smh-fail:#7A3B2E;
-  --smh-space-3:16px;
   --smh-space-4:24px;
   --smh-space-5:40px;
   --smh-space-6:64px;
   --smh-space-7:96px;
   --smh-font-display:"Literata","Source Serif 4","PT Serif",serif;
   --smh-font-ui:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
-  --smh-fs-hero:clamp(1.85rem,4vw,2.75rem);
-  --smh-fs-h2:clamp(1.5rem,2.5vw,2rem);
+  --smh-fs-hero:clamp(1.7rem,3.6vw,2.45rem);
+  --smh-fs-h2:clamp(1.45rem,2.4vw,1.95rem);
   --smh-fs-body:1.0625rem;
   --smh-lh-body:1.55;
   --smh-radius:6px;
   --smh-radius-btn:8px;
   --smh-ease:cubic-bezier(.22,.61,.36,1);
   --reveal:18%;
-  --line-progress:0;
   --hero-exit:0;
-  --ba-exit:0;
-  --ink-exit:0;
-  --ink-canopy:0;
-  --ink-trunk:0;
-  --ink-roots:0;
+  --album-in:0;
   --plane-in:0;
   --plane-out:0;
-  --line-guide-opacity:.78;
+  --ba-exit:0;
+  --honest-in:0;
   --invite-in:0;
   --pin-p:0;
+  --dust:0;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -67,10 +63,7 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit}
 .facade-lab{--lab:1}
-.ironhill-lite{--ihl:1}
-.act-c{--act-c:1}
-.virtuoso{--virtuoso:1}
-.nano-alt-facade-virtuoso{--virtuoso-alt:1}
+.door-a-lamp{--door-a:1}
 .skip{position:absolute;left:-9999px}
 .skip:focus{
   position:fixed;left:12px;top:12px;z-index:50;
@@ -78,97 +71,88 @@ a{color:inherit}
   padding:10px 14px;border-radius:var(--smh-radius-btn);
   text-decoration:none;font-weight:600;
 }
-.wrap{width:min(1080px,100% - 48px);margin-inline:auto}
-@media (max-width:720px){.wrap{width:min(1080px,100% - 32px)}}
+.wrap{width:min(1040px,100% - 48px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(1040px,100% - 32px)}}
 
-/* Story guide line — Act I→II bridge; muted in ink chapter */
-.story-line{
-  position:fixed;top:0;left:50%;transform:translateX(-50%);
-  width:min(140px,22vw);height:100vh;z-index:8;pointer-events:none;
-  opacity:var(--line-guide-opacity);
-  transition:opacity .35s var(--smh-ease);
-}
-.story-line svg{width:100%;height:100%;overflow:visible}
-.story-line path{
-  fill:none;
-  stroke:var(--smh-amber);
-  stroke-width:1.55;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  opacity:.78;
-  stroke-dasharray:1;
-  stroke-dashoffset:calc(1 - var(--line-progress));
-  filter:drop-shadow(0 0 0.6px rgba(28,25,21,.25));
-}
-.story-line path.story-line__ghost{
-  stroke:rgba(232,226,216,.35);
-  stroke-width:2.4;
-  opacity:calc(.2 + var(--line-progress) * .35);
-  stroke-dashoffset:0;
-  filter:none;
-}
-
-/* —— HERO Act I forest + A7 exit —— */
+/* —— HERO: lamp room, almost no UI —— */
 .hero{
   position:relative;
   min-height:100svh;min-height:100vh;
-  display:grid;isolation:isolate;overflow:hidden;
-  opacity:calc(1 - var(--hero-exit) * .92);
-  filter:brightness(calc(1 - var(--hero-exit) * .15));
-  transform:translate3d(0, calc(var(--hero-exit) * -18px), 0);
+  display:grid;isolation:isolate;
+  opacity:calc(1 - var(--hero-exit) * .88);
+  filter:brightness(calc(1 - var(--hero-exit) * .12));
+  transform:translate3d(0, calc(var(--hero-exit) * -14px), 0);
   will-change:opacity,transform;
 }
-.hero__plane{position:absolute;inset:0;z-index:0;background:var(--smh-paper-deep)}
+.hero__plane{position:absolute;inset:0;z-index:0;background:#2A2218}
 .hero__plane img{
-  width:100%;height:100%;object-fit:cover;object-position:center 42%;
-  transform:scale(1.04);
-  opacity:0;animation:heroPlane .9s var(--smh-ease) .05s forwards;
+  width:100%;height:100%;object-fit:cover;object-position:center 46%;
+  transform:scale(1.03);
+  opacity:0;animation:heroPlane 1.15s var(--smh-ease) .04s forwards;
 }
 .hero__veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--smh-hero-veil)}
-.hero__grain{
-  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.045;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+.hero__glow{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 55% 42% at 58% 38%,rgba(226,184,122,.22) 0%,transparent 62%);
+  opacity:calc(.55 + var(--dust) * .35);
+  mix-blend-mode:screen;
+}
+.hero__dust{
+  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:calc(.035 + var(--dust) * .03);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 .hero__copy{
-  position:relative;z-index:3;
+  position:relative;z-index:4;
   display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
   min-height:100svh;min-height:100vh;
   padding:clamp(24px,4vw,48px);
-  padding-bottom:clamp(48px,10vh,96px);
-  max-width:760px;
-}
-.lab-mark{
-  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(232,226,216,.55);margin-bottom:18px;
-  opacity:0;animation:heroFade .55s var(--smh-ease) .12s forwards;
+  padding-bottom:clamp(56px,12vh,110px);
+  max-width:720px;
 }
 .brand{
   font-family:var(--smh-font-display);
   font-weight:600;
-  font-size:clamp(2.9rem,8.5vw,5.75rem);
+  font-size:clamp(2.7rem,8vw,5.2rem);
   line-height:.92;letter-spacing:-.025em;
-  color:#F3EEE6;margin-bottom:20px;
-  opacity:0;animation:heroFade .6s var(--smh-ease) .2s forwards;
+  color:#F3EEE6;margin-bottom:18px;
+  opacity:0;animation:heroFade .7s var(--smh-ease) .22s forwards;
 }
 .brand .mark{color:#E2B87A}
 .hero h1{
   font-family:var(--smh-font-display);
   font-weight:500;
   font-size:var(--smh-fs-hero);
-  line-height:1.18;letter-spacing:-.02em;
-  color:#F3EEE6;max-width:18ch;margin-bottom:16px;
-  opacity:0;animation:heroFade .6s var(--smh-ease) .34s forwards;
+  line-height:1.2;letter-spacing:-.02em;
+  color:#F3EEE6;max-width:16ch;margin-bottom:14px;
+  opacity:0;animation:heroFade .7s var(--smh-ease) .4s forwards;
 }
 .hero__lead{
-  font-size:clamp(15px,1.7vw,18px);
-  color:rgba(243,238,230,.86);
-  max-width:32ch;margin-bottom:28px;
-  opacity:0;animation:heroFade .6s var(--smh-ease) .46s forwards;
+  font-size:clamp(15px,1.6vw,17px);
+  color:rgba(243,238,230,.84);
+  max-width:28ch;
+  opacity:0;animation:heroFade .7s var(--smh-ease) .55s forwards;
 }
-.cta{
-  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
-  opacity:0;animation:heroFade .6s var(--smh-ease) .58s forwards;
+.scroll-cue{
+  position:absolute;z-index:5;left:50%;bottom:22px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(243,238,230,.58);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;pointer-events:none;
+  opacity:0;animation:heroFade .7s var(--smh-ease) .85s forwards;
 }
+.scroll-cue i{
+  width:1px;height:28px;background:linear-gradient(180deg,rgba(226,184,122,.05),rgba(226,184,122,.75));
+  display:block;animation:cuePulse 2.2s var(--smh-ease) infinite;
+}
+@keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes heroPlane{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:scale(1.02)}}
+@keyframes cuePulse{0%,100%{opacity:.35;transform:scaleY(.85)}50%{opacity:1;transform:scaleY(1)}}
+
+.bridge{
+  position:relative;z-index:4;height:clamp(64px,12vh,120px);margin-top:-1px;
+  background:linear-gradient(180deg,rgba(28,25,21,.72) 0%,rgba(28,25,21,.28) 40%,var(--smh-paper) 100%);
+  pointer-events:none;
+}
+
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
   text-decoration:none;font-weight:600;font-size:15px;
@@ -179,52 +163,24 @@ a{color:inherit}
   cursor:pointer;font-family:var(--smh-font-ui);
 }
 .btn:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px}
-.btn--primary{background:var(--smh-amber);color:var(--smh-ink);border-color:var(--smh-amber)}
-.btn--primary:hover{background:var(--smh-amber-deep);border-color:var(--smh-amber-deep);color:#F3EEE6}
-.btn--ghost{background:transparent;color:#F3EEE6;border-color:rgba(243,238,230,.45)}
-.btn--ghost:hover{border-color:rgba(243,238,230,.9);background:rgba(243,238,230,.08)}
 .btn--ink{background:var(--smh-amber);color:var(--smh-ink);border-color:var(--smh-amber)}
 .btn--ink:hover{background:var(--smh-amber-deep);color:#F3EEE6}
 .btn--line{background:transparent;color:var(--smh-ink);border-color:rgba(28,25,21,.22)}
 .btn--line:hover{border-color:var(--smh-ink);background:rgba(28,25,21,.03)}
-.btn--sm{padding:10px 16px;font-size:14px;min-height:40px;font-weight:500;letter-spacing:.01em}
-@keyframes heroFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes heroPlane{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1.02)}}
+.btn--sm{padding:10px 16px;font-size:14px;min-height:40px;font-weight:500}
 
-/* Act I→II handoff: forest dissolves into paper */
-.act-bridge{
-  position:relative;z-index:4;
-  height:clamp(72px,14vh,140px);
-  margin-top:-1px;
-  background:linear-gradient(180deg,rgba(28,25,21,.82) 0%,rgba(28,25,21,.35) 38%,var(--smh-paper) 100%);
-  pointer-events:none;
-  opacity:calc(1 - var(--hero-exit) * .55);
-}
-.act-bridge__cue{
-  position:absolute;left:50%;bottom:18%;
-  transform:translateX(-50%);
-  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--smh-mute);font-weight:600;white-space:nowrap;
-}
-
-/* —— SECTIONS —— */
 .section{padding:var(--smh-space-7) 0;position:relative}
-.section--paper{
-  background:var(--smh-paper);
-  padding-top:clamp(48px,8vh,88px);
-}
+.section--paper{background:var(--smh-paper);padding-top:clamp(40px,7vh,80px)}
 .section--deep{background:var(--smh-paper-deep)}
-.section--ink{
-  background:linear-gradient(180deg,#1C1915 0%,#241F18 55%,#1C1915 100%);
-  color:#F3EEE6;
-  opacity:calc(1 - var(--ink-exit) * .75);
-  transform:translate3d(0, calc(var(--ink-exit) * -14px), 0);
+.section--warm{
+  background:
+    linear-gradient(180deg,rgba(232,226,216,.92),rgba(232,226,216,.96)),
+    url("/assets/facade-lab/2026-08-11-paper-grain-lamp.png") center/cover;
 }
 .section__eyebrow{
   font-size:12px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--smh-mute);margin-bottom:12px;font-weight:600;
 }
-.section--ink .section__eyebrow{color:rgba(232,226,216,.55)}
 .section h2{
   font-family:var(--smh-font-display);
   font-weight:600;
@@ -232,72 +188,70 @@ a{color:inherit}
   line-height:1.2;letter-spacing:-.02em;
   margin-bottom:12px;max-width:22ch;
 }
-.section__lead{
-  color:var(--smh-ink-soft);
-  max-width:44ch;
-  margin-bottom:var(--smh-space-5);
-}
-.section--ink .section__lead{color:rgba(243,238,230,.78)}
+.section__lead{color:var(--smh-ink-soft);max-width:44ch;margin-bottom:var(--smh-space-5)}
 
-/* A2 — Pinned BA chapter */
-.pin-chapter{
-  position:relative;
-  min-height:200vh;
+/* Album open */
+.album{
+  display:grid;gap:var(--smh-space-5);align-items:center;
+  opacity:calc(.28 + var(--album-in) * .72);
+  transform:translate3d(0, calc((1 - var(--album-in)) * 18px), 0);
 }
-.pin-chapter__intro{
-  padding-bottom:clamp(24px,4vh,40px);
+@media (min-width:860px){.album{grid-template-columns:1.08fr .92fr;gap:var(--smh-space-6)}}
+.album__frame{
+  position:relative;border-radius:var(--smh-radius);
+  overflow:hidden;background:var(--smh-ink);
+  border:1px solid rgba(28,25,21,.1);
+  box-shadow:0 24px 50px -34px rgba(28,25,21,.4);
+  aspect-ratio:4/3;
 }
+.album__frame img{width:100%;height:100%;object-fit:cover;object-position:center 48%}
+.album__frame::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(135deg,rgba(243,238,230,.08),transparent 42%);
+}
+.steps{display:grid;gap:18px;margin-top:8px}
+.step{padding-top:14px;border-top:1px solid var(--smh-line)}
+.step strong{
+  display:block;font-family:var(--smh-font-display);
+  font-size:1.12rem;font-weight:600;margin-bottom:6px;
+}
+.step p{color:var(--smh-ink-soft);font-size:.95rem;max-width:36ch}
+
+/* BA pin chapter */
+.pin-chapter{position:relative;min-height:175vh}
+.pin-chapter__intro{padding-bottom:clamp(20px,3vh,36px)}
 .pin-chapter__stage{
   position:sticky;top:0;
   min-height:100svh;min-height:100vh;
   display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(20px,4vh,40px) 0;
-  z-index:2;
+  padding:clamp(18px,3.5vh,36px) 0;z-index:2;
 }
 .pin-chapter__plane{
-  opacity:calc(var(--plane-in) * (1 - var(--plane-out) * .9) * (1 - var(--ba-exit) * .85));
-  transform:
-    translate3d(0, calc((1 - var(--plane-in)) * 18px + var(--plane-out) * -12px + var(--ba-exit) * -20px), 0)
-    scale(calc(1.03 - var(--plane-in) * .03));
+  opacity:calc(var(--plane-in) * (1 - var(--plane-out) * .9) * (1 - var(--ba-exit) * .8));
+  transform:translate3d(0, calc((1 - var(--plane-in)) * 14px + var(--plane-out) * -10px), 0);
   will-change:opacity,transform;
 }
 .pin-chapter__after{
-  padding-top:clamp(12px,3vh,28px);
-  opacity:calc(var(--plane-in) * (1 - var(--ba-exit) * .7));
+  padding-top:clamp(10px,2.5vh,24px);
+  opacity:calc(var(--plane-in) * (1 - var(--ba-exit) * .65));
 }
-
-/* Truth / BA — Act II paper plane */
 .proof-meta{
   display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;
-  justify-content:space-between;margin-bottom:18px;
+  justify-content:space-between;margin-bottom:16px;
 }
 .proof-labels{display:flex;gap:16px;font-size:13px;color:var(--smh-mute);font-weight:500}
 .proof-labels span{display:inline-flex;align-items:center;gap:6px}
 .proof-labels .dot{width:8px;height:8px;border-radius:2px;background:var(--smh-mute)}
 .proof-labels .dot--after{background:var(--smh-amber)}
 .ba-shell{
-  position:relative;
-  border-radius:var(--smh-radius);
-  overflow:hidden;
-  background:var(--smh-ink);
-  aspect-ratio:4/5;
-  max-height:min(72vh,760px);
-  margin-inline:auto;
-  border:1px solid rgba(28,25,21,.1);
-  box-shadow:
-    0 1px 0 rgba(28,25,21,.04),
-    0 28px 60px -36px rgba(28,25,21,.35),
-    inset 0 0 0 1px rgba(243,238,230,.04);
+  position:relative;border-radius:var(--smh-radius);overflow:hidden;
+  background:var(--smh-ink);aspect-ratio:4/5;max-height:min(70vh,720px);
+  margin-inline:auto;border:1px solid rgba(28,25,21,.1);
+  box-shadow:0 1px 0 rgba(28,25,21,.04),0 26px 56px -36px rgba(28,25,21,.34);
 }
-@media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(68vh,640px)}}
-.ba{
-  position:absolute;inset:0;
-  cursor:ew-resize;touch-action:none;user-select:none;
-}
-.ba img{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 28%;pointer-events:none;
-}
+@media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(66vh,620px)}}
+.ba{position:absolute;inset:0;cursor:ew-resize;touch-action:none;user-select:none}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;pointer-events:none}
 .ba .before{z-index:1}
 .ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
 .ba .rail{
@@ -311,86 +265,39 @@ a{color:inherit}
   transform:translate(-50%,-50%);
   width:44px;height:44px;border-radius:var(--smh-radius-btn);
   background:var(--smh-amber);color:var(--smh-ink);
-  display:grid;place-items:center;
-  font-size:15px;font-weight:700;z-index:4;pointer-events:none;
+  display:grid;place-items:center;font-size:15px;font-weight:700;z-index:4;pointer-events:none;
 }
 .ba-caption{color:var(--smh-ink-soft);font-size:.95rem;margin-top:16px;max-width:48ch}
-.gates-inline{
-  display:flex;flex-wrap:wrap;gap:10px 18px;
-  margin-top:18px;font-size:13px;color:var(--smh-mute);font-weight:600;
-  letter-spacing:.04em;text-transform:uppercase;
-}
-.gates-inline span{display:inline-flex;align-items:center;gap:8px}
-.gates-inline i{
-  width:6px;height:6px;border-radius:1px;background:var(--smh-amber);
-  display:inline-block;
-}
 
-/* Lineage — ink motif only (anti-double-oak) + A4 scrub */
-.lineage{
-  display:grid;gap:var(--smh-space-5);
-  align-items:center;
+/* Honesty */
+.honest{
+  display:grid;gap:var(--smh-space-5);align-items:center;
+  opacity:calc(.3 + var(--honest-in) * .7);
+  transform:translate3d(0, calc((1 - var(--honest-in)) * 14px), 0);
 }
-@media (min-width:860px){
-  .lineage{grid-template-columns:1fr 1.05fr;gap:var(--smh-space-6)}
+@media (min-width:860px){.honest{grid-template-columns:.9fr 1.1fr;gap:var(--smh-space-6)}}
+.honest__mat{
+  border-radius:var(--smh-radius);overflow:hidden;
+  border:1px solid var(--smh-line);background:var(--smh-paper);
+  aspect-ratio:5/4;
 }
-.lineage__visual{
-  position:relative;
-  border-radius:var(--smh-radius);
-  overflow:hidden;
-  min-height:min(52vh,480px);
-  background:
-    radial-gradient(ellipse 70% 55% at 50% 38%,rgba(176,122,58,.12) 0%,transparent 62%),
-    linear-gradient(180deg,#241F18 0%,#1C1915 100%);
-  border:1px solid rgba(243,238,230,.08);
+.honest__mat img{width:100%;height:100%;object-fit:cover;object-position:center}
+.gates{display:grid;gap:14px;margin-top:8px}
+.gate{
+  padding:14px 16px;border:1px solid var(--smh-line);border-radius:var(--smh-radius);
+  background:rgba(232,226,216,.45);
 }
-.lineage__paper{
-  position:absolute;inset:18% 14% 14%;
-  border:1px solid rgba(232,226,216,.08);
-  background:rgba(232,226,216,.03);
-  pointer-events:none;
-}
-.lineage__tree{
-  position:absolute;inset:0;z-index:2;pointer-events:none;
-  display:grid;place-items:center;
-  padding:28px 20px 36px;
-}
-.lineage__tree svg{width:min(260px,58%);height:auto}
-.lineage__tree .ink-canopy{
-  fill:none;stroke:#E2B87A;stroke-width:1.35;stroke-linecap:round;opacity:.55;
-  stroke-dasharray:1;
-  stroke-dashoffset:calc(1 - var(--ink-canopy));
-}
-.lineage__tree .ink-trunk{
-  fill:none;stroke:#E2B87A;stroke-width:1.7;stroke-linecap:round;opacity:.9;
-  stroke-dasharray:1;
-  stroke-dashoffset:calc(1 - var(--ink-trunk));
-}
-.lineage__tree .ink-root{
-  fill:none;stroke:#E2B87A;stroke-width:1.4;stroke-linecap:round;opacity:.75;
-  stroke-dasharray:1;
-  stroke-dashoffset:calc(1 - var(--ink-roots));
-}
-.lineage__tree .ink-dot{
-  fill:#E2B87A;opacity:calc(.25 + var(--ink-trunk) * .45);
-}
-.lineage__tree .ink-dot--root{
-  opacity:calc(.15 + var(--ink-roots) * .55);
-}
-.lineage__beats{display:grid;gap:22px}
-.beat{padding-top:14px;border-top:1px solid rgba(243,238,230,.14)}
-.beat strong{
+.gate strong{
   display:block;font-family:var(--smh-font-display);
-  font-size:1.15rem;font-weight:600;margin-bottom:6px;color:#F3EEE6;
+  font-size:1.05rem;margin-bottom:4px;
 }
-.beat p{color:rgba(243,238,230,.72);font-size:.95rem;max-width:36ch}
+.gate p{color:var(--smh-ink-soft);font-size:.92rem;max-width:40ch}
 
-/* Invite soft-wave + A7 settle */
+/* Invite soft COLD_PATH_B */
 .invite{
-  display:grid;gap:var(--smh-space-5);
-  align-items:start;
+  display:grid;gap:var(--smh-space-5);align-items:start;
   opacity:calc(.35 + var(--invite-in) * .65);
-  transform:translate3d(0, calc((1 - var(--invite-in)) * 16px), 0);
+  transform:translate3d(0, calc((1 - var(--invite-in)) * 14px), 0);
 }
 @media (min-width:800px){.invite{grid-template-columns:1.15fr .85fr}}
 .invite-card{
@@ -399,23 +306,14 @@ a{color:inherit}
   border-radius:var(--smh-radius);
   background:rgba(232,226,216,.55);
 }
-.invite-card h3{
-  font-family:var(--smh-font-display);
-  font-size:1.25rem;margin-bottom:8px;
-}
+.invite-card h3{font-family:var(--smh-font-display);font-size:1.25rem;margin-bottom:8px}
 .invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:16px;max-width:40ch}
 .invite-card .actions{display:flex;flex-wrap:wrap;gap:10px}
-.waitform{
-  display:grid;gap:12px;
-  padding:var(--smh-space-4);
-  border:1px solid var(--smh-line);
-  border-radius:var(--smh-radius);
-  background:var(--smh-paper);
-}
+.invite-card .hint{margin-top:12px;font-size:13px;color:var(--smh-mute)}
 .wait{padding:var(--smh-space-4);border:1px solid var(--smh-line);border-radius:var(--smh-radius);background:var(--smh-paper)}
 .wait label{font-size:13px;font-weight:600;color:var(--smh-ink-soft)}
 .wait input{
-  width:100%;min-height:44px;padding:12px 14px;
+  width:100%;min-height:44px;padding:12px 14px;margin-top:6px;margin-bottom:12px;
   border:1px solid var(--smh-line);border-radius:var(--smh-radius);
   background:var(--smh-paper-deep);color:var(--smh-ink);font:inherit;
 }
@@ -436,99 +334,83 @@ a{color:inherit}
 }
 .foot nav{display:flex;flex-wrap:wrap;gap:14px 22px;margin-bottom:10px}
 .foot a{
-  text-decoration:none;color:var(--smh-ink-soft);
-  font-weight:500;letter-spacing:.01em;
+  text-decoration:none;color:var(--smh-ink-soft);font-weight:500;
   border-bottom:1px solid transparent;
   transition:color .2s var(--smh-ease),border-color .2s var(--smh-ease);
 }
 .foot a:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.35)}
 
 @media (max-width:720px){
-  .hero__copy{padding-top:18vh}
-  .cta .btn{flex:1 1 100%;text-align:center}
-  .story-line{width:min(96px,20vw)}
-  .act-bridge__cue{font-size:10px}
-  .lineage__visual{min-height:min(44vh,380px)}
-  /* A2 mobile: shorter pin so sticky does not feel like a scroll trap */
-  .pin-chapter{min-height:155vh}
-  .pin-chapter__stage{min-height:92svh;padding:16px 0}
+  .hero__copy{padding-top:16vh}
+  .pin-chapter{min-height:150vh}
+  .pin-chapter__stage{min-height:92svh;padding:14px 0}
+  .album__frame{aspect-ratio:5/4}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .lab-mark,.brand,.hero h1,.hero__lead,.cta,.hero__plane img{
-    animation:none!important;opacity:1;transform:none;
-  }
+  .brand,.hero h1,.hero__lead,.scroll-cue,.hero__plane img{animation:none!important;opacity:1;transform:none}
   .hero__plane img{transform:scale(1.02)}
-  .hero,.section--ink,.invite,.pin-chapter__plane,.pin-chapter__after{
-    opacity:1!important;transform:none!important;filter:none!important;
-  }
+  .hero,.album,.pin-chapter__plane,.pin-chapter__after,.honest,.invite{opacity:1!important;transform:none!important;filter:none!important}
   .pin-chapter{min-height:0!important}
   .pin-chapter__stage{position:relative!important;min-height:0!important}
-  .story-line path{stroke-dashoffset:0}
-  .story-line path.story-line__ghost{opacity:.45}
-  .lineage__tree .ink-canopy,
-  .lineage__tree .ink-trunk,
-  .lineage__tree .ink-root{stroke-dashoffset:0}
-  .lineage__tree .ink-dot,.lineage__tree .ink-dot--root{opacity:.7}
-  :root{
-    --reveal:48%;
-    --line-progress:1;
-    --hero-exit:0;
-    --ba-exit:0;
-    --ink-exit:0;
-    --ink-canopy:1;
-    --ink-trunk:1;
-    --ink-roots:1;
-    --plane-in:1;
-    --plane-out:0;
-    --line-guide-opacity:.78;
-    --invite-in:1;
-    --pin-p:.5;
-  }
+  .scroll-cue i{animation:none}
+  :root{--reveal:48%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--invite-in:1;--pin-p:.5;--dust:1}
 }
 </style>
 </head>
-<body class="facade-lab nano-alt-facade-lab nano-alt-facade-virtuoso ironhill-lite act-c virtuoso" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1" data-virtuoso="1">
+<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1">
 <a class="skip" href="#lab-copy">К тексту</a>
 
-<!-- Scroll-drawn lineage guide — bridge Act I → II -->
-<div class="story-line" aria-hidden="true" data-story-line="1">
-  <svg viewBox="0 0 40 100" preserveAspectRatio="none">
-    <path class="story-line__ghost" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 44 26 56 C26 68 16 74 16 84 C16 92 20 96 20 100"/>
-    <path id="story-path" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 44 26 56 C26 68 16 74 16 84 C16 92 20 96 20 100"/>
-  </svg>
-</div>
-
-<!-- ACT I — Atmosphere-first forest -->
-<header class="hero facade-lab ironhill-lite" data-facade-lab="1" data-ironhill-lite="1" data-act="1" data-story-obj="hero" id="top">
+<header class="hero facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-act="1" id="top">
   <div class="hero__plane" aria-hidden="true">
-    <img src="/assets/gen_oak_bukovyna.jpg" alt="" width="2752" height="1536" fetchpriority="high" decoding="async">
+    <img src="/assets/facade-lab/2026-08-11-hero-album-lamp.png" alt="" width="2048" height="1152" fetchpriority="high" decoding="async">
   </div>
   <div class="hero__veil" aria-hidden="true"></div>
-  <div class="hero__grain" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__dust" aria-hidden="true"></div>
   <div class="hero__copy" id="lab-copy">
-    <p class="lab-mark">Акт I · место памяти</p>
     <p class="brand">Save<span class="mark">My</span>History</p>
-    <h1>Место, где род ещё держится в снимках.</h1>
-    <p class="hero__lead">Войдите тише. Линия проведёт вниз — из леса к бумаге, к лицу, которое почти стёрлось.</p>
-    <div class="cta">
-      <a class="btn btn--primary" href="#invite">Войти по приглашению</a>
-      <a class="btn btn--ghost" href="#truth">Спуститься по линии</a>
-    </div>
+    <h1>Лампа над альбомом.</h1>
+    <p class="hero__lead">Тихая комната. Тёплый свет. Один закрытый альбом — и желание открыть.</p>
   </div>
+  <div class="scroll-cue" aria-hidden="true"><span>листайте</span><i></i></div>
 </header>
 
-<div class="act-bridge" aria-hidden="true" data-act-bridge="1">
-  <span class="act-bridge__cue">линия · лес → бумага</span>
-</div>
+<div class="bridge" aria-hidden="true"></div>
 
 <main>
-<!-- ACT II — Paper BA truth · A2 pinned chapter -->
-<section class="section section--paper pin-chapter" id="truth" data-act="2" data-pin-chapter="1" data-a2="1" aria-labelledby="truth-title">
+<section class="section section--paper" id="album" data-act="2" aria-labelledby="album-title">
+  <div class="wrap album" data-story-obj="album">
+    <div class="album__frame" aria-hidden="true">
+      <img src="/assets/facade-lab/2026-08-11-album-spread-empty.png" alt="" width="1600" height="1200" loading="lazy" decoding="async">
+    </div>
+    <div>
+      <p class="section__eyebrow">Открыть · как начинается</p>
+      <h2 id="album-title">Комната, где хранитель наконец начинает.</h2>
+      <p class="section__lead">Не жюри и не конвейер. Тот, кто собирает пыльные альбомы и боится, что «потом» не наступит — уже здесь, в этом свете.</p>
+      <div class="steps">
+        <article class="step">
+          <strong>Свет</strong>
+          <p>Сначала интерес до слов: тепло, тишина, трепет. Потом — одна страница рода.</p>
+        </article>
+        <article class="step">
+          <strong>Альбом</strong>
+          <p>Открываем бережно. Не ради эффекта — ради лица, которое почти ушло.</p>
+        </article>
+        <article class="step">
+          <strong>Правда</strong>
+          <p>Сберечь можно только то, что остаётся собой. Лицо и взгляд — ворота.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--warm pin-chapter" id="truth" data-act="3" data-pin-chapter="1" data-a2="1" aria-labelledby="truth-title">
   <div class="wrap pin-chapter__intro">
-    <p class="section__eyebrow">Акт II · бумага · правда</p>
-    <h2 id="truth-title">Фотографии стираются. Их можно сберечь сейчас.</h2>
-    <p class="section__lead">Один честный проход на бумаге: почти потерянное → сохранённое. Без «2&nbsp;мин», без чужого лица. FACE и EYE остаются воротами.</p>
+    <p class="section__eyebrow">Правда на бумаге</p>
+    <h2 id="truth-title">Почти стёртое — и то же лицо, сбережённое.</h2>
+    <p class="section__lead">Один честный проход. Без «2&nbsp;мин», без чужого лица, без investor-theatre.</p>
   </div>
   <div class="pin-chapter__stage" data-pin-stage="1">
     <div class="wrap pin-chapter__plane" data-story-obj="ba">
@@ -550,74 +432,49 @@ a{color:inherit}
     </div>
   </div>
   <div class="wrap pin-chapter__after">
-    <p class="ba-caption">То же лицо. Тот же взгляд. Лицо важнее эффекта — если проверка не проходит, скажем честно.</p>
-    <div class="gates-inline" aria-label="Ворота честности">
-      <span><i></i> FACE</span>
-      <span><i></i> EYE / GAZE</span>
-    </div>
+    <p class="ba-caption">То же лицо. Тот же взгляд. Если проверка не проходит — скажем честно, а не продадим красивую ложь.</p>
   </div>
 </section>
 
-<!-- Lineage — ink motif (not second outdoor oak) · A4 scrub+reverse -->
-<section class="section section--ink" id="lineage" data-lineage-ink="1" data-a4="1" data-story-obj="ink" aria-labelledby="lineage-title">
-  <div class="wrap lineage">
-    <div class="lineage__visual" aria-hidden="true">
-      <div class="lineage__paper"></div>
-      <div class="lineage__tree">
-        <svg viewBox="0 0 120 230" xmlns="http://www.w3.org/2000/svg">
-          <path class="ink-canopy" pathLength="1" d="M60 22 C44 30 36 44 40 60 C30 64 26 76 32 88 C24 98 28 114 42 120"/>
-          <path class="ink-canopy" pathLength="1" d="M60 22 C76 30 84 44 80 60 C90 64 94 76 88 88 C96 98 92 114 78 120"/>
-          <path class="ink-canopy" pathLength="1" d="M42 72 C50 66 70 66 78 72"/>
-          <line class="ink-trunk" pathLength="1" x1="60" y1="22" x2="60" y2="152"/>
-          <circle class="ink-dot" cx="60" cy="22" r="2.2"/>
-          <path class="ink-root" pathLength="1" d="M60 152 C52 172 36 186 20 204"/>
-          <path class="ink-root" pathLength="1" d="M60 152 C60 176 58 192 54 214"/>
-          <path class="ink-root" pathLength="1" d="M60 152 C68 172 84 186 100 204"/>
-          <circle class="ink-dot ink-dot--root" cx="20" cy="204" r="1.6"/>
-          <circle class="ink-dot ink-dot--root" cx="54" cy="214" r="1.6"/>
-          <circle class="ink-dot ink-dot--root" cx="100" cy="204" r="1.6"/>
-        </svg>
-      </div>
+<section class="section section--paper" id="honesty" data-act="4" aria-labelledby="honesty-title">
+  <div class="wrap honest" data-story-obj="honest">
+    <div class="honest__mat" aria-hidden="true">
+      <img src="/assets/facade-lab/2026-08-11-honesty-empty-mat.png" alt="" width="1400" height="1120" loading="lazy" decoding="async">
     </div>
     <div>
-      <p class="section__eyebrow">Род · чернильный мотив</p>
-      <h2 id="lineage-title">Лес → ствол → корни</h2>
-      <p class="section__lead">Ниже по линии — не второй лес и не усадьба. Семейное дерево как след чернил: от места памяти к корням рода.</p>
-      <div class="lineage__beats">
-        <article class="beat">
-          <strong>Лес</strong>
-          <p>Место, куда входят тихо — уже было вверху. Здесь остаётся только след.</p>
+      <p class="section__eyebrow">Честность · FACE / EYE</p>
+      <h2 id="honesty-title">Лицо важнее эффекта.</h2>
+      <p class="section__lead">Мы не выдумываем род. Память с семьёй — или тишина. Без громкого «бессмертия».</p>
+      <div class="gates" aria-label="Ворота честности">
+        <article class="gate">
+          <strong>FACE</strong>
+          <p>Лицо должно остаться тем же человеком. Красота без узнавания — отказ.</p>
         </article>
-        <article class="beat">
-          <strong>Ствол</strong>
-          <p>Хранитель рода ведёт одну линию: снимок → лицо → честный просмотр.</p>
-        </article>
-        <article class="beat">
-          <strong>Корни</strong>
-          <p>То, что держит семью внизу страницы: имена, взгляды, то, что почти забыли.</p>
+        <article class="gate">
+          <strong>EYE / GAZE</strong>
+          <p>Взгляд живой и направленный. Мёртвые глаза не проходят ворота.</p>
         </article>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Quiet invite soft-wave -->
-<section class="section section--deep" id="invite" data-soft-wave="1" data-story-obj="invite" aria-labelledby="invite-title">
+<section class="section section--deep" id="invite" data-soft-wave="1" data-cold-path-b="1" data-story-obj="invite" aria-labelledby="invite-title">
   <div class="wrap invite">
     <div>
-      <p class="section__eyebrow">После истории · soft-wave</p>
-      <h2 id="invite-title">Войти по приглашению</h2>
-      <p class="section__lead">Сначала место и правда. Сервис — тихо, через invite. Без холодного free restore.</p>
+      <p class="section__eyebrow">Тихое приглашение · Cold Path B</p>
+      <h2 id="invite-title">Когда готовы — войдите по коду.</h2>
+      <p class="section__lead">Сначала комната и правда. Сервис — мягко, через invite. Без холодного free restore.</p>
       <div class="invite-card">
         <h3>Есть код?</h3>
-        <p>Redeem открывает кабинет. Коды не раздаём здесь — волна по приглашению. Нет кода — честный waitlist рядом.</p>
+        <p>Redeem открывает кабинет. Коды не раздаём с этой страницы — волна по приглашению. Нет кода — честный waitlist рядом.</p>
         <label for="invite-code" style="display:block;font-size:13px;font-weight:600;color:var(--smh-ink-soft);margin:14px 0 6px">Код приглашения</label>
         <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled style="width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;border:1px solid var(--smh-line);border-radius:var(--smh-radius);background:var(--smh-paper);color:var(--smh-ink);font:inherit">
         <div class="actions">
           <span class="btn btn--ink" aria-hidden="true">Активировать</span>
           <a class="btn btn--line" href="#waitlist">Нет кода — waitlist</a>
         </div>
-        <p class="hint" style="margin-top:12px;font-size:13px;color:var(--smh-mute)">Макет soft-wave · коды не посеяны · без free restore</p>
+        <p class="hint">Soft-wave · коды не посеяны · без free restore</p>
       </div>
     </div>
     <div class="wait" id="wait-box">
@@ -650,7 +507,7 @@ a{color:inherit}
       <a href="/waitlist.html">Waitlist</a>
       <a href="/gallery.html">Галерея</a>
     </nav>
-    <p>SaveMyHistory · facade-lab · ironhill-lite · virtuoso · Cold Path B · не продакшен</p>
+    <p>SaveMyHistory · facade-lab · дверь A · лампа над альбомом · Cold Path B · не продакшен</p>
   </div>
 </footer>
 
@@ -661,7 +518,8 @@ a{color:inherit}
   var ba = document.getElementById('ba');
   var baShell = document.getElementById('ba-shell');
   var pinChapter = document.getElementById('truth');
-  var lineage = document.getElementById('lineage');
+  var album = document.getElementById('album');
+  var honesty = document.getElementById('honesty');
   var invite = document.getElementById('invite');
   var toggleBtn = document.getElementById('ba-toggle');
   var dragging = false;
@@ -674,9 +532,7 @@ a{color:inherit}
     if(v > b) return b;
     return v;
   }
-  function easeOut(t){
-    return 1 - Math.pow(1 - t, 2.2);
-  }
+  function easeOut(t){ return 1 - Math.pow(1 - t, 2.2); }
   function setReveal(p){
     if(!ba) return;
     p = clamp(p, 6, 94);
@@ -686,69 +542,41 @@ a{color:inherit}
     var r = ba.getBoundingClientRect();
     setReveal(((clientX - r.left) / r.width) * 100);
   }
-  function overlapExit(el, startMul, endMul){
+  function enterProgress(el, startMul, spanMul){
     if(!el) return 0;
     var vh = window.innerHeight || 1;
     var r = el.getBoundingClientRect();
-    var start = vh * startMul;
-    var end = vh * endMul;
-    return clamp((start - r.top) / Math.max(1, start - end), 0, 1);
+    return easeOut(clamp((vh * startMul - r.top) / (vh * spanMul), 0, 1));
   }
 
-  /* A9 — single rAF scroll bus feeds all story CSS vars */
   function bus(){
     ticking = false;
     var vh = window.innerHeight || 1;
-    var doc = document.documentElement;
-    var max = Math.max(1, doc.scrollHeight - vh);
-    var globalP = clamp(window.scrollY / max, 0, 1);
 
     if(reduce){
-      root.style.setProperty('--line-progress', '1');
       root.style.setProperty('--hero-exit', '0');
-      root.style.setProperty('--ba-exit', '0');
-      root.style.setProperty('--ink-exit', '0');
-      root.style.setProperty('--ink-canopy', '1');
-      root.style.setProperty('--ink-trunk', '1');
-      root.style.setProperty('--ink-roots', '1');
+      root.style.setProperty('--album-in', '1');
       root.style.setProperty('--plane-in', '1');
       root.style.setProperty('--plane-out', '0');
-      root.style.setProperty('--line-guide-opacity', '.78');
+      root.style.setProperty('--ba-exit', '0');
+      root.style.setProperty('--honest-in', '1');
       root.style.setProperty('--invite-in', '1');
       root.style.setProperty('--pin-p', '.5');
+      root.style.setProperty('--dust', '1');
       setReveal(48);
       return;
     }
 
-    root.style.setProperty('--line-progress', String(globalP));
+    root.style.setProperty('--dust', String(clamp(window.scrollY / (vh * 0.8), 0, 1)));
 
-    /* A7 chapter crossfade ownership */
     var heroExit = 0;
-    if(pinChapter){
-      var tr = pinChapter.getBoundingClientRect();
-      heroExit = easeOut(clamp((vh * 0.92 - tr.top) / (vh * 0.55), 0, 1));
+    if(album){
+      var ar = album.getBoundingClientRect();
+      heroExit = easeOut(clamp((vh * 0.9 - ar.top) / (vh * 0.5), 0, 1));
     }
     root.style.setProperty('--hero-exit', String(heroExit));
+    root.style.setProperty('--album-in', String(enterProgress(album, 0.88, 0.55)));
 
-    var baExit = 0;
-    if(lineage){
-      var lr = lineage.getBoundingClientRect();
-      baExit = easeOut(clamp((vh * 0.88 - lr.top) / (vh * 0.5), 0, 1));
-    }
-    root.style.setProperty('--ba-exit', String(baExit));
-
-    var inkExit = 0;
-    if(invite){
-      var ir = invite.getBoundingClientRect();
-      inkExit = easeOut(clamp((vh * 0.9 - ir.top) / (vh * 0.45), 0, 1));
-      var inviteIn = easeOut(clamp((vh * 0.85 - ir.top) / (vh * 0.55), 0, 1));
-      root.style.setProperty('--invite-in', String(inviteIn));
-    } else {
-      root.style.setProperty('--invite-in', '1');
-    }
-    root.style.setProperty('--ink-exit', String(inkExit));
-
-    /* A2 pinned BA: appear → wipe → soft release */
     var pinP = 0;
     if(pinChapter){
       var pr = pinChapter.getBoundingClientRect();
@@ -758,40 +586,21 @@ a{color:inherit}
     }
     root.style.setProperty('--pin-p', String(pinP));
 
-    var planeIn = easeOut(clamp(pinP / 0.22, 0, 1));
-    var planeOut = easeOut(clamp((pinP - 0.78) / 0.22, 0, 1));
-    /* When lineage owns the screen, force soft release */
-    planeOut = Math.max(planeOut, baExit * 0.85);
+    var planeIn = easeOut(clamp(pinP / 0.2, 0, 1));
+    var planeOut = easeOut(clamp((pinP - 0.8) / 0.2, 0, 1));
+    var baExit = enterProgress(honesty, 0.88, 0.48);
+    planeOut = Math.max(planeOut, baExit * 0.8);
     root.style.setProperty('--plane-in', String(planeIn));
     root.style.setProperty('--plane-out', String(planeOut));
+    root.style.setProperty('--ba-exit', String(baExit));
 
     if(baShell && ba && !baScrubbed && !dragging){
-      var wipeT = clamp((pinP - 0.18) / 0.5, 0, 1);
+      var wipeT = clamp((pinP - 0.16) / 0.52, 0, 1);
       setReveal(16 + easeOut(wipeT) * 58);
     }
 
-    /* A4 ink stroke scrub + reverse (local lineage progress) */
-    var inkP = 0;
-    if(lineage){
-      var lrr = lineage.getBoundingClientRect();
-      inkP = clamp((vh * 0.85 - lrr.top) / (vh * 0.85 + lrr.height * 0.35), 0, 1);
-    }
-    var canopy = inkP < 0.28 ? inkP / 0.28 : 1;
-    var trunk = inkP < 0.22 ? 0 : (inkP < 0.55 ? (inkP - 0.22) / 0.33 : 1);
-    var roots = inkP < 0.48 ? 0 : clamp((inkP - 0.48) / 0.42, 0, 1);
-    root.style.setProperty('--ink-canopy', String(clamp(canopy, 0, 1)));
-    root.style.setProperty('--ink-trunk', String(clamp(trunk, 0, 1)));
-    root.style.setProperty('--ink-roots', String(clamp(roots, 0, 1)));
-
-    /* Mute global story-line while ink chapter owns the beat */
-    var guideOp = 0.78;
-    if(inkP > 0.08){
-      guideOp = 0.78 - clamp((inkP - 0.08) / 0.35, 0, 1) * 0.53;
-    }
-    if(inkExit > 0.2){
-      guideOp = Math.min(guideOp + inkExit * 0.2, 0.55);
-    }
-    root.style.setProperty('--line-guide-opacity', String(guideOp));
+    root.style.setProperty('--honest-in', String(enterProgress(honesty, 0.86, 0.5)));
+    root.style.setProperty('--invite-in', String(enterProgress(invite, 0.86, 0.52)));
   }
 
   function requestBus(){
@@ -812,20 +621,15 @@ a{color:inherit}
 
   if(ba){
     ba.addEventListener('pointerdown', function(e){
-      dragging = true;
-      baScrubbed = true;
+      dragging = true; baScrubbed = true;
       if(ba.setPointerCapture) ba.setPointerCapture(e.pointerId);
       setRevealFromX(e.clientX);
     });
-    ba.addEventListener('pointermove', function(e){
-      if(!dragging) return;
-      setRevealFromX(e.clientX);
-    });
+    ba.addEventListener('pointermove', function(e){ if(dragging) setRevealFromX(e.clientX); });
     ba.addEventListener('pointerup', function(){ dragging = false; });
     ba.addEventListener('pointercancel', function(){ dragging = false; });
     ba.addEventListener('touchstart', function(e){
-      dragging = true;
-      baScrubbed = true;
+      dragging = true; baScrubbed = true;
       setRevealFromX(e.touches[0].clientX);
     }, {passive:true});
     ba.addEventListener('touchmove', function(e){
