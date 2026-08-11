@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -122,11 +122,11 @@ a{color:inherit}
 .brand{
   font-family:var(--smh-font-display);
   font-weight:600;
-  font-size:clamp(2.15rem,5.2vw,3.35rem);
-  line-height:.92;letter-spacing:-.025em;
-  color:rgba(243,238,230,.78);margin-bottom:0;
-  opacity:0;animation:heroFade .9s var(--smh-ease) .35s forwards;
-  text-shadow:0 8px 32px rgba(28,25,21,.18);
+  font-size:clamp(1.72rem,3.8vw,2.55rem);
+  line-height:.92;letter-spacing:-.02em;
+  color:rgba(243,238,230,.62);margin-bottom:0;
+  opacity:0;animation:heroFade 1s var(--smh-ease) .55s forwards;
+  text-shadow:0 6px 24px rgba(28,25,21,.12);
 }
 .brand .mark{color:#E2B87A}
 .hero h1{
@@ -134,14 +134,14 @@ a{color:inherit}
   font-weight:500;
   font-size:clamp(1.35rem,2.55vw,1.78rem);
   line-height:1.22;letter-spacing:-.015em;
-  color:rgba(243,238,230,.92);max-width:16ch;margin:14px 0 0;
-  opacity:0;animation:heroFade .8s var(--smh-ease) .72s forwards;
+  color:rgba(243,238,230,.94);max-width:16ch;margin:14px 0 0;
+  opacity:0;animation:heroFade .8s var(--smh-ease) .48s forwards;
 }
 .hero__lead{
   font-size:clamp(14px,1.5vw,17px);
-  color:rgba(243,238,230,.72);
+  color:rgba(243,238,230,.76);
   max-width:26ch;margin-top:10px;
-  opacity:0;animation:heroFade .8s var(--smh-ease) 1.05s forwards;
+  opacity:0;animation:heroFade .8s var(--smh-ease) .82s forwards;
 }
 .scroll-cue{
   position:absolute;z-index:5;left:50%;bottom:18px;transform:translateX(-50%);
@@ -235,7 +235,7 @@ a{color:inherit}
 
 /* BA pin chapter — stage only sticky; caption below; no sideways clip */
 .pin-chapter{
-  position:relative;min-height:96vh;
+  position:relative;min-height:88vh;
   overflow-x:clip;overflow-x:hidden;
 }
 .pin-chapter__intro{
@@ -503,17 +503,17 @@ a{color:inherit}
 }
 .invite-card{
   padding:clamp(22px,3vw,28px);
-  border:1px solid rgba(28,25,21,.1);
+  border:1px solid rgba(28,25,21,.07);
   border-radius:var(--smh-radius);
-  background:rgba(232,226,216,.42);
+  background:rgba(232,226,216,.28);
 }
-.invite-card h3{font-family:var(--smh-font-display);font-size:1.2rem;margin-bottom:8px;font-weight:600}
+.invite-card h3{font-family:var(--smh-font-display);font-size:1.15rem;margin-bottom:8px;font-weight:600}
 .invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:14px;max-width:40ch}
-.invite-card label{display:block;font-size:13px;font-weight:600;color:var(--smh-ink-soft);margin:4px 0 6px}
+.invite-card label{display:block;font-size:12px;font-weight:500;color:var(--smh-mute);margin:4px 0 6px}
 .invite-card input[type="text"]{
   width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;
-  border:1px solid var(--smh-line);border-radius:var(--smh-radius);
-  background:var(--smh-paper);color:var(--smh-ink);font:inherit;
+  border:1px dashed rgba(28,25,21,.14);border-radius:var(--smh-radius);
+  background:rgba(243,238,230,.35);color:var(--smh-mute);font:inherit;
 }
 .invite-card .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
 .invite-card .hint{margin-top:12px;font-size:13px;color:var(--smh-mute)}
@@ -546,11 +546,11 @@ a{color:inherit}
   }
   .hero__glow{opacity:calc(.55 + var(--dust) * .25);background:radial-gradient(ellipse 70% 48% at 55% 36%,rgba(226,184,122,.26) 0%,transparent 64%)}
   .hero__copy{padding-top:18vh;padding-bottom:clamp(56px,14vh,110px)}
-  .brand{font-size:clamp(1.95rem,9.2vw,2.9rem);opacity:.9}
+  .brand{font-size:clamp(1.55rem,7.4vw,2.2rem);opacity:.72}
   .hero h1{font-size:clamp(1.42rem,5.6vw,1.75rem);margin-top:14px;color:rgba(243,238,230,.94);max-width:15ch}
-  .hero__lead{font-size:15px;color:rgba(243,238,230,.74);max-width:24ch}
+  .hero__lead{font-size:15px;color:rgba(243,238,230,.76);max-width:24ch}
   .scroll-cue{bottom:14px;color:rgba(243,238,230,.42)}
-  .pin-chapter{min-height:92vh;overflow-x:hidden}
+  .pin-chapter{min-height:84vh;overflow-x:hidden}
   .pin-chapter__intro .section__lead{margin-bottom:0}
   .pin-chapter__stage{
     min-height:100svh;min-height:100vh;padding:8px 0;
@@ -579,7 +579,7 @@ a{color:inherit}
 }
 @media (max-width:430px){
   .hero__copy{padding-top:16vh}
-  .brand{font-size:clamp(1.85rem,9vw,2.55rem)}
+  .brand{font-size:clamp(1.45rem,7vw,2rem)}
   .hero h1{font-size:clamp(1.38rem,5.8vw,1.62rem)}
   .ba-shell{max-height:min(64svh,540px)}
   .archive__pair,.archive__leaf--wide .archive__pair{aspect-ratio:3/4}
@@ -624,7 +624,7 @@ a{color:inherit}
 <section class="section section--paper" id="album" data-act="2" aria-labelledby="album-title">
   <div class="wrap album" data-story-obj="album">
     <div class="album__frame" aria-hidden="true">
-      <img src="/assets/facade-lab/2026-08-11-album-spread-empty.png" alt="" width="1600" height="1200" loading="lazy" decoding="async">
+      <img src="/assets/facade-lab/2026-08-11-album-spread-empty.jpg" alt="" width="1400" height="781" loading="lazy" decoding="async">
     </div>
     <div>
       <p class="section__eyebrow">Открыть · как начинается</p>
@@ -758,7 +758,7 @@ a{color:inherit}
         <div class="archive__meta"><strong>Мама и малыш</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" data-src="/assets/case_c8_before.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Мама с малышом до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c8_after.jpg" alt="Мама с малышом после" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_c8_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Мама с малышом после" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Близкий кадр рода — не ретушь «красивее», а возврат узнавания.</p>
@@ -768,7 +768,7 @@ a{color:inherit}
         <div class="archive__meta"><strong>Тихий портрет</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" data-src="/assets/case_c6_before.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Портрет до реставрации" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c6_after.jpg" alt="Портрет после бережной реставрации" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_c6_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Портрет после бережной реставрации" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Бумага дышит, человек остаётся собой.</p>
@@ -778,7 +778,7 @@ a{color:inherit}
         <div class="archive__meta"><strong>Трое зимой</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" data-src="/assets/case_o110_before.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Зимний снимок троих до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_o110_after.jpg" alt="Зимний снимок троих после" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_o110_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Зимний снимок троих после" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Тихий проход — сервис виден на лицах, не в громких словах.</p>
@@ -798,7 +798,7 @@ a{color:inherit}
         <div class="archive__meta"><strong>Праздник рода</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" data-src="/assets/case_o55_before.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Свадебная группа до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_o55_after.jpg" alt="Свадебная группа после" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_o55_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Свадебная группа после" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">День, где собрались вместе — взгляд и тепло остаются своими.</p>
@@ -813,17 +813,17 @@ a{color:inherit}
   <div class="wrap invite">
     <p class="section__eyebrow">Тихое приглашение</p>
     <h2 id="invite-title">Когда придёт код — войдёте тихо.</h2>
-    <p class="section__lead">Сначала комната и правда. Вход по приглашению, без холодной сцены «восстановить сейчас».</p>
+    <p class="section__lead">Сначала комната и правда. Код придёт отдельно — здесь только тихий знак, без сцены «восстановить сейчас».</p>
     <div class="invite-card">
-      <h3>Код позже</h3>
-      <p>Поле здесь только как знак. Коды с этой страницы не раздаём — только тихая волна, когда придёт время.</p>
-      <label for="invite-code">Код приглашения</label>
-      <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Пока закрыто" disabled aria-disabled="true">
+      <h3>Хранитель ждёт кода</h3>
+      <p>Это не форма входа. Когда код придёт — вы уже будете знать свет этой комнаты.</p>
+      <label for="invite-code">Место для кода</label>
+      <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="ещё не открыто" disabled aria-disabled="true" tabindex="-1">
       <div class="actions">
-        <span class="btn btn--ink btn--inert" aria-disabled="true">Войти по коду</span>
-        <a class="invite-soft" href="/waitlist.html">Нет кода — тихий лист ожидания</a>
+        <span class="btn btn--ink btn--inert" aria-disabled="true">Код позже</span>
+        <a class="invite-soft" href="/waitlist.html">Пока — тихий лист ожидания</a>
       </div>
-      <p class="hint">Без холодного restore · только приглашение</p>
+      <p class="hint">Без холодного restore · только хранитель и лампа</p>
     </div>
   </div>
 </section>
@@ -868,10 +868,10 @@ a{color:inherit}
   function easeOut(t){ return 1 - Math.pow(1 - t, 2.2); }
   function syncAriaReveal(p){
     if(!toggleBtn) return;
-    // aria-pressed=true means «Было» dominant (wipe near 12%)
-    var was = p < 40;
-    toggleBtn.setAttribute('aria-pressed', was ? 'false' : 'true');
-    showingAfter = !was;
+    // aria-pressed=true means «Стало» revealed (wipe past ~40%); start wipe 12% = Было → pressed=false
+    var afterShown = p >= 40;
+    toggleBtn.setAttribute('aria-pressed', afterShown ? 'true' : 'false');
+    showingAfter = afterShown;
   }
   function setReveal(p){
     if(!ba) return;
@@ -1074,7 +1074,7 @@ a{color:inherit}
       var vh = window.innerHeight || 1;
       if(r.top < vh * 1.35 && r.bottom > -vh * 0.2){
         hydrateLeafBefore(leaf);
-        if(leaf.getAttribute('data-heavy') === '1') hydrateLeafAfter(leaf);
+        hydrateLeafAfter(leaf);
       }
     });
   }
