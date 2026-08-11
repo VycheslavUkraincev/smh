@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="/assets/facade-lab/2026-08-11-hero-album-lamp.png" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/wow-mock/lamp-desk-hero.jpg" fetchpriority="high">
 <style>
 :root{
   --smh-paper:#E8E2D8;
@@ -50,6 +50,8 @@
   --gallery-in:0;
   --pin-p:0;
   --dust:0;
+  --hero-p:0;
+  --grain-op:.05;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -61,7 +63,7 @@ body{
   background:var(--smh-paper);
   overflow-x:hidden;
 }
-img{max-width:100%;display:block}
+img,video{max-width:100%;display:block}
 a{color:inherit}
 .facade-lab{--lab:1}
 .door-a-lamp{--door-a:1}
@@ -75,32 +77,39 @@ a{color:inherit}
 .wrap{width:min(1040px,100% - 48px);margin-inline:auto}
 @media (max-width:720px){.wrap{width:min(1040px,100% - 32px)}}
 
-/* —— HERO: lamp room, almost no UI —— */
+/* —— HERO: freeform lamp-desk video, almost no UI —— */
 .hero{
   position:relative;
   min-height:100svh;min-height:100vh;
-  display:grid;isolation:isolate;
+  display:grid;isolation:isolate;overflow:hidden;
   opacity:calc(1 - var(--hero-exit) * .88);
   filter:brightness(calc(1 - var(--hero-exit) * .12));
   transform:translate3d(0, calc(var(--hero-exit) * -14px), 0);
   will-change:opacity,transform;
 }
-.hero__plane{position:absolute;inset:0;z-index:0;background:#2A2218}
-.hero__plane img{
-  width:100%;height:100%;object-fit:cover;object-position:center 46%;
-  transform:scale(1.03);
-  opacity:0;animation:heroPlane 1.15s var(--smh-ease) .04s forwards;
+.hero__media{position:absolute;inset:0;z-index:0;background:#2A2218;overflow:hidden}
+.hero__media video,.hero__media img{
+  width:100%;height:100%;object-fit:cover;object-position:center 48%;
+  transform:translate3d(0, calc(var(--hero-p) * 14px), 0) scale(1.03);
 }
-.hero__veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--smh-hero-veil)}
+.hero__media video{position:absolute;inset:0}
+.hero__media img{position:absolute;inset:0;opacity:0}
+.hero__media.is-still img{opacity:1}
+.hero__media.is-still video{opacity:0}
+.hero__veil{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(28,25,21,.12) 0%,rgba(28,25,21,.36) 46%,rgba(28,25,21,.78) 100%);
+  transform:translate3d(0, calc(var(--hero-p) * 8px), 0);
+}
+.hero__grain{
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:var(--grain-op);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 .hero__glow{
   position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:radial-gradient(ellipse 55% 42% at 58% 38%,rgba(226,184,122,.22) 0%,transparent 62%);
-  opacity:calc(.55 + var(--dust) * .35);
+  background:radial-gradient(ellipse 55% 42% at 58% 38%,rgba(226,184,122,.18) 0%,transparent 62%);
+  opacity:calc(.4 + var(--dust) * .3);
   mix-blend-mode:screen;
-}
-.hero__dust{
-  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:calc(.035 + var(--dust) * .03);
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 .hero__copy{
   position:relative;z-index:4;
@@ -146,7 +155,6 @@ a{color:inherit}
   display:block;animation:cuePulse 2.2s var(--smh-ease) infinite;
 }
 @keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes heroPlane{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:scale(1.02)}}
 @keyframes cuePulse{0%,100%{opacity:.35;transform:scaleY(.85)}50%{opacity:1;transform:scaleY(1)}}
 
 .bridge{
@@ -480,6 +488,9 @@ a{color:inherit}
 .foot a:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.35)}
 
 @media (max-width:720px){
+  .hero{overflow:hidden}
+  .hero__media video,.hero__media img{transform:none;object-position:center 42%}
+  .hero__veil{transform:none}
   .hero__copy{padding-top:18vh;padding-bottom:clamp(64px,16vh,120px)}
   .brand{font-size:clamp(2.85rem,14vw,4.2rem)}
   .hero h1{font-size:1.15rem;margin-top:14px}
@@ -498,26 +509,30 @@ a{color:inherit}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .brand,.hero h1,.hero__lead,.scroll-cue,.hero__plane img{animation:none!important;opacity:1;transform:none}
-  .hero__plane img{transform:scale(1.02)}
+  .brand,.hero h1,.hero__lead,.scroll-cue{animation:none!important;opacity:1;transform:none}
+  .hero__media video{display:none!important}
+  .hero__media img,.hero__media.is-still img{opacity:1!important;transform:scale(1.02)}
   .hero,.album,.pin-chapter__plane,.pin-chapter__after,.honest,.archive,.invite{opacity:1!important;transform:none!important;filter:none!important}
   .pin-chapter{min-height:0!important;overflow:visible!important}
   .pin-chapter__stage{position:relative!important;min-height:0!important;overflow:visible!important}
   .scroll-cue i{animation:none}
-  :root{--reveal:48%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--gallery-in:1;--invite-in:1;--pin-p:.5;--dust:1}
+  :root{--reveal:48%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--gallery-in:1;--invite-in:1;--pin-p:.5;--dust:1;--hero-p:0;--grain-op:.04}
 }
 </style>
 </head>
-<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1">
+<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1">
 <a class="skip" href="#lab-copy">К тексту</a>
 
-<header class="hero facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-act="1" id="top">
-  <div class="hero__plane" aria-hidden="true">
-    <img src="/assets/facade-lab/2026-08-11-hero-album-lamp.png" alt="" width="2048" height="1152" fetchpriority="high" decoding="async">
+<header class="hero facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-freeform-hero="1" data-act="1" id="top">
+  <div class="hero__media" id="hero-media" aria-hidden="true">
+    <video id="hero-video" autoplay muted loop playsinline poster="/assets/wow-mock/lamp-desk-hero.jpg">
+      <source src="/assets/wow-mock/lamp-desk-mood.mp4" type="video/mp4">
+    </video>
+    <img src="/assets/wow-mock/lamp-desk-hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
   </div>
   <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
   <div class="hero__glow" aria-hidden="true"></div>
-  <div class="hero__dust" aria-hidden="true"></div>
   <div class="hero__copy" id="lab-copy">
     <p class="brand">Save<span class="mark">My</span>History</p>
     <h1>Лампа над альбомом.</h1>
@@ -739,6 +754,9 @@ a{color:inherit}
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var root = document.documentElement;
+  var hero = document.getElementById('top');
+  var heroMedia = document.getElementById('hero-media');
+  var heroVideo = document.getElementById('hero-video');
   var ba = document.getElementById('ba');
   var baShell = document.getElementById('ba-shell');
   var pinChapter = document.getElementById('truth');
@@ -789,11 +807,21 @@ a{color:inherit}
       root.style.setProperty('--invite-in', '1');
       root.style.setProperty('--pin-p', '.5');
       root.style.setProperty('--dust', '1');
+      root.style.setProperty('--hero-p', '0');
+      if(heroMedia) heroMedia.classList.add('is-still');
+      if(heroVideo){ try{ heroVideo.pause(); }catch(e){} }
       setReveal(48);
       return;
     }
 
     root.style.setProperty('--dust', String(clamp(window.scrollY / (vh * 0.8), 0, 1)));
+
+    var heroP = 0;
+    if(hero){
+      var hr = hero.getBoundingClientRect();
+      heroP = clamp(-hr.top / Math.max(1, hr.height), 0, 1);
+    }
+    root.style.setProperty('--hero-p', String(heroP));
 
     var heroExit = 0;
     if(album){
@@ -835,6 +863,19 @@ a{color:inherit}
       ticking = true;
       requestAnimationFrame(bus);
     }
+  }
+
+  if(heroVideo){
+    if(reduce){
+      if(heroMedia) heroMedia.classList.add('is-still');
+      try{ heroVideo.pause(); }catch(e){}
+    } else {
+      var playP = heroVideo.play();
+      if(playP && playP.catch) playP.catch(function(){ if(heroMedia) heroMedia.classList.add('is-still'); });
+      heroVideo.addEventListener('error', function(){ if(heroMedia) heroMedia.classList.add('is-still'); });
+    }
+  } else if(heroMedia){
+    heroMedia.classList.add('is-still');
   }
 
   if(reduce){
