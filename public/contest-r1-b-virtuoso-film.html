@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ru" data-contest-r1-b="1" class="contest-r1-b nano-alt-contest-r1-b craft-study">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory · Virtuoso Film · Contest R1 B</title>
+<meta name="description" content="Contest R1 Team B — virtuoso film: chapter crossfade, 3D heirloom mid-act, pinned multi-BA, ink lineage. Cold Path B.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8E2D8; --paper-deep:#D9D0C2; --ink:#1C1915; --ink-soft:#3F3A33;
+  --mute:#6E665C; --amber:#B07A3A; --amber-deep:#8C5E28; --amber-soft:#E2B87A;
+  --line:rgba(28,25,21,.14); --veil:rgba(28,25,21,.42);
+  --font-d:"Literata","Source Serif 4","PT Serif",serif;
+  --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --line-progress:0; --film-t:0; --heir-ry:0deg; --heir-rx:8deg; --heir-scan:0; --heir-live:0;
+  --pin-reveal:18%; --pin-pair:0;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-u); font-weight:500; line-height:1.55;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:99}
+.skip:focus{left:8px;top:8px}
+.wrap{width:min(1080px,100% - 40px);margin:0 auto}
+
+/* amber story thread */
+.film-line{position:fixed;left:18px;top:0;bottom:0;width:28px;z-index:40;pointer-events:none}
+.film-line svg{width:100%;height:100%;display:block}
+.film-line path{fill:none;stroke:var(--amber-soft);stroke-width:1.55;stroke-linecap:round;
+  stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--line-progress));opacity:.9}
+.film-line path.ghost{opacity:.28;stroke-dashoffset:0}
+
+/* CHAPTER FILM — stacked crossfade */
+.film-stage{
+  position:relative; min-height:100vh; isolation:isolate;
+  background:#1a1713; color:#F6F1E8;
+}
+.film-stage__stack{position:absolute;inset:0;overflow:hidden}
+.film-frame{
+  position:absolute;inset:0; opacity:0; transform:scale(1.04);
+  transition:opacity .05s linear, transform .05s linear; will-change:opacity,transform;
+}
+.film-frame img,.film-frame .frame-bg{
+  width:100%;height:100%;object-fit:cover; filter:saturate(.82) contrast(1.05);
+}
+.film-frame .veil{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(20,16,12,.55),rgba(20,16,12,.28) 40%,rgba(20,16,12,.72));
+}
+.film-frame.is-on{opacity:1; transform:scale(1)}
+.film-stage__copy{
+  position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column;
+  justify-content:flex-end; padding:28vh 0 12vh;
+}
+.eyebrow{
+  font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--amber-soft); font-weight:600; margin:0 0 14px;
+}
+.brand{font-family:var(--font-d);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;margin:0 0 10px;letter-spacing:.01em}
+.brand .mark{color:var(--amber-soft)}
+.film-stage h1{
+  font-family:var(--font-d); font-weight:700; line-height:1.12;
+  font-size:clamp(1.85rem,4.4vw,3.1rem); margin:0 0 14px; max-width:16ch;
+}
+.lead{max-width:38ch; color:rgba(246,241,232,.82); margin:0 0 22px; font-size:1.02rem}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center; min-height:44px;
+  padding:11px 18px; border-radius:4px; border:1px solid transparent;
+  font:600 .92rem/1 var(--font-u); cursor:pointer; transition:background .2s var(--ease),color .2s,border-color .2s;
+}
+.btn:focus-visible{outline:2px solid var(--amber-soft);outline-offset:3px}
+.btn--primary{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.btn--primary:hover{background:var(--amber-deep);border-color:var(--amber-deep);color:#F6F1E8}
+.btn--ghost{background:transparent;color:#F6F1E8;border-color:rgba(246,241,232,.35)}
+.btn--ghost:hover{border-color:var(--amber-soft);color:var(--amber-soft)}
+.btn--ink{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.btn--ink:hover{background:var(--amber-deep);color:#F6F1E8}
+.btn--line{background:transparent;border-color:var(--line);color:var(--ink-soft)}
+.btn--line:hover{border-color:var(--amber);color:var(--amber-deep)}
+.btn--sm{min-height:36px;padding:8px 12px;font-size:.82rem}
+.chap-cue{
+  position:absolute; top:28px; right:24px; z-index:3;
+  font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(246,241,232,.55);
+}
+
+/* CHAPTER CARDS — appear/disappear */
+.chapters{position:relative; background:var(--paper)}
+.chapter{
+  min-height:88vh; display:grid; align-items:center; padding:72px 0;
+  border-top:1px solid var(--line);
+  opacity:calc(var(--obj-in,0) * (1 - var(--obj-out,0)));
+  transform:translate3d(0, calc((1 - var(--obj-in,0)) * 18px), 0);
+}
+.chapter .grid{display:grid;gap:28px}
+@media(min-width:860px){
+  .chapter .grid{grid-template-columns:.95fr 1.05fr;align-items:center}
+  .chapter--flip .grid{grid-template-columns:1.05fr .95fr}
+  .chapter--flip .copy{order:2}
+}
+.chapter .num{
+  font-family:var(--font-d); font-size:clamp(2.6rem,6vw,4rem); line-height:1;
+  color:rgba(176,122,58,.32); font-weight:700; margin:0;
+}
+.chapter h2{
+  font-family:var(--font-d); font-size:clamp(1.45rem,2.6vw,2rem);
+  margin:6px 0 10px; line-height:1.2;
+}
+.chapter p{color:var(--ink-soft); max-width:36ch; margin:0}
+.still{
+  position:relative; border-radius:2px; overflow:hidden;
+  box-shadow:0 18px 50px rgba(28,25,21,.14);
+  aspect-ratio:4/5; background:var(--paper-deep);
+}
+.still img{width:100%;height:100%;object-fit:cover}
+.still::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,transparent 55%,rgba(28,25,21,.18)),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply; opacity:.55;
+}
+
+/* MID-ACT · 3D HEIRLOOM */
+.heirloom{
+  position:relative; background:linear-gradient(180deg,#1C1915 0%,#2A241C 48%,#E8E2D8 100%);
+  color:#F6F1E8; padding:0; overflow:clip;
+}
+.heirloom__pin{
+  position:sticky; top:0; min-height:100vh; display:grid; place-items:center;
+  padding:80px 20px 40px;
+}
+.heirloom__copy{
+  position:absolute; left:0; right:0; top:8vh; text-align:center; z-index:2; pointer-events:none;
+}
+.heirloom__copy h2{
+  font-family:var(--font-d); font-size:clamp(1.5rem,3vw,2.2rem); margin:8px auto 8px; max-width:18ch;
+}
+.heirloom__copy p{margin:0 auto; max-width:40ch; color:rgba(246,241,232,.78); font-size:.98rem}
+.heirloom__stage{
+  perspective:1400px; width:min(420px,86vw); aspect-ratio:3/4; position:relative; z-index:1;
+}
+.heir-card{
+  width:100%; height:100%; position:relative; transform-style:preserve-3d;
+  transform:rotateY(var(--heir-ry)) rotateX(var(--heir-rx));
+  will-change:transform; border-radius:3px;
+}
+.heir-face{
+  position:absolute; inset:0; border-radius:3px; overflow:hidden;
+  backface-visibility:hidden; background:#2a241c;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+.heir-face--front{transform:rotateY(0deg)}
+.heir-face--back{transform:rotateY(180deg)}
+.heir-face img{width:100%;height:100%;object-fit:cover}
+.heir-face .paper-edge{
+  position:absolute; right:-2%; top:8%; width:18%; height:34%;
+  background:linear-gradient(135deg,#E8E2D8 0%,#C9BBA6 55%,transparent 56%);
+  transform:skewY(-8deg) rotate(4deg); opacity:.92; mix-blend-mode:normal;
+  box-shadow:-6px 8px 16px rgba(0,0,0,.25); pointer-events:none;
+}
+.heir-face .scratches{
+  position:absolute; inset:0; pointer-events:none; opacity:.55; mix-blend-mode:screen;
+  background:
+    linear-gradient(112deg,transparent 46%,rgba(255,255,255,.18) 46.3%,transparent 46.7%),
+    linear-gradient(78deg,transparent 61%,rgba(255,255,255,.12) 61.2%,transparent 61.6%),
+    linear-gradient(160deg,transparent 33%,rgba(0,0,0,.18) 33.2%,transparent 33.5%),
+    radial-gradient(120% 80% at 20% 15%,transparent 40%,rgba(0,0,0,.22) 100%);
+}
+.heir-face .stain{
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(40% 30% at 70% 78%,rgba(120,80,40,.28),transparent 70%),
+    radial-gradient(30% 22% at 18% 30%,rgba(60,40,20,.2),transparent 70%);
+  mix-blend-mode:multiply; opacity:.7;
+}
+.scan-beam{
+  position:absolute; left:-4%; right:-4%; height:14%;
+  top:calc(var(--heir-scan) * 86%);
+  background:linear-gradient(180deg,transparent,rgba(226,184,122,.55),transparent);
+  opacity:calc(var(--heir-scan) * .95); pointer-events:none; mix-blend-mode:screen;
+  box-shadow:0 0 30px rgba(226,184,122,.35);
+}
+.extract{
+  position:absolute; left:50%; bottom:10%; transform:translateX(-50%);
+  display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
+  opacity:calc(var(--heir-scan) * (1 - var(--heir-live)));
+  transition:opacity .2s linear; z-index:3; pointer-events:none;
+}
+.extract span{
+  font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+  padding:6px 10px; border:1px solid rgba(226,184,122,.45); border-radius:999px;
+  background:rgba(28,25,21,.45); color:var(--amber-soft); backdrop-filter:blur(6px);
+}
+.live-glow{
+  position:absolute; inset:-2%; border-radius:6px; pointer-events:none;
+  box-shadow:0 0 0 1px rgba(226,184,122,calc(var(--heir-live)*.35)),
+    0 0 60px rgba(226,184,122,calc(var(--heir-live)*.22));
+  opacity:var(--heir-live);
+}
+.heirloom__scrub{height:220vh}
+.phase-label{
+  position:absolute; bottom:7vh; left:0; right:0; text-align:center; z-index:2;
+  font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--amber-soft);
+}
+
+/* PINNED MULTI-BA RITUAL */
+.ritual{background:var(--paper); color:var(--ink)}
+.ritual__pin{
+  position:sticky; top:0; min-height:100vh; display:grid; align-content:center;
+  padding:72px 0 40px;
+}
+.ritual h2{
+  font-family:var(--font-d); font-size:clamp(1.5rem,2.8vw,2.15rem); margin:6px 0 10px;
+}
+.ritual .lead{color:var(--ink-soft)}
+.proof-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 12px}
+.proof-labels{display:flex;gap:16px;font-size:.8rem;color:var(--mute)}
+.proof-labels .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mute);margin-right:6px;vertical-align:middle}
+.proof-labels .dot--after{background:var(--amber);box-shadow:0 0 10px rgba(176,122,58,.4)}
+.ba-shell{max-width:560px;margin:0 auto}
+.ba{
+  --reveal:var(--pin-reveal);
+  position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:2px;
+  box-shadow:0 18px 50px rgba(28,25,21,.14); touch-action:none; cursor:ew-resize; user-select:none;
+}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{clip-path:inset(0 0 0 var(--reveal))}
+.ba .rail{position:absolute;top:0;bottom:0;left:var(--reveal);width:2px;background:var(--amber);transform:translateX(-1px);z-index:2}
+.ba .knob{
+  position:absolute; top:50%; left:var(--reveal); transform:translate(-50%,-50%);
+  width:36px;height:36px;border-radius:50%; background:var(--amber); color:var(--ink);
+  display:grid;place-items:center; font-size:14px; z-index:3; box-shadow:0 4px 14px rgba(28,25,21,.25);
+}
+.ba-caption{text-align:center;color:var(--mute);font-size:.9rem;margin:14px auto 0;max-width:42ch}
+.gates{display:flex;gap:14px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.gates span{
+  display:inline-flex;align-items:center;gap:7px; font-size:.72rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft);
+}
+.gates i{width:6px;height:6px;background:var(--amber);display:inline-block;border-radius:1px}
+.pair-dots{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.pair-dots button{
+  width:9px;height:9px;border-radius:50%;border:1px solid var(--amber); background:transparent; padding:0; cursor:pointer;
+}
+.pair-dots button[aria-current="true"]{background:var(--amber)}
+.ritual__scrub{height:260vh}
+.pair-slot{display:none}
+.pair-slot.is-on{display:block}
+
+/* INK LINEAGE */
+.lineage{
+  background:linear-gradient(180deg,var(--paper),#DCD3C4);
+  padding:96px 0 80px; border-top:1px solid var(--line);
+}
+.lineage .grid{display:grid;gap:36px}
+@media(min-width:860px){.lineage .grid{grid-template-columns:1fr 1.1fr;align-items:center}}
+.lineage__paper{
+  position:relative; aspect-ratio:5/6; border-radius:2px;
+  background:
+    radial-gradient(120% 80% at 50% 0%,#F3EEE4,transparent 55%),
+    linear-gradient(180deg,#EDE6DA,#D8CFBF);
+  box-shadow:0 16px 40px rgba(28,25,21,.1); overflow:hidden;
+}
+.lineage__paper svg{width:100%;height:100%;display:block}
+.lineage__paper path,.lineage__paper line{
+  fill:none; stroke:var(--amber-soft); stroke-linecap:round;
+  stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--ink-draw,0));
+}
+.lineage__paper .ink-canopy{stroke-width:1.35; opacity:.7}
+.lineage__paper .ink-trunk{stroke-width:1.9; opacity:.92}
+.lineage__paper .ink-root{stroke-width:1.4; opacity:.78}
+.lineage__paper .ink-dot{fill:var(--amber-soft); opacity:.8}
+.lineage h2{font-family:var(--font-d);font-size:clamp(1.5rem,2.8vw,2.1rem);margin:6px 0 10px}
+.lineage .lead{color:var(--ink-soft)}
+.beats{display:grid;gap:12px;margin-top:18px}
+.beat{
+  padding:14px 16px; border-left:2px solid rgba(176,122,58,.45); background:rgba(255,255,255,.28);
+}
+.beat strong{display:block;font-family:var(--font-d);font-size:1.05rem;margin-bottom:4px}
+.beat p{margin:0;color:var(--ink-soft);font-size:.94rem}
+
+/* SOFT INVITE */
+.invite{
+  background:#1C1915; color:#F6F1E8; padding:96px 0 72px;
+}
+.invite .eyebrow{color:var(--amber-soft)}
+.invite h2{font-family:var(--font-d);font-size:clamp(1.5rem,2.8vw,2.15rem);margin:6px 0 10px}
+.invite .lead{color:rgba(246,241,232,.78)}
+.invite-grid{display:grid;gap:28px}
+@media(min-width:860px){.invite-grid{grid-template-columns:1.1fr .9fr}}
+.invite-card,.wait{
+  background:rgba(246,241,232,.05); border:1px solid rgba(246,241,232,.12);
+  border-radius:4px; padding:22px;
+}
+.invite-card h3{font-family:var(--font-d);margin:0 0 8px;font-size:1.2rem}
+.invite-card p,.wait p{color:rgba(246,241,232,.72);margin:0 0 10px;font-size:.95rem}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.hint{font-size:12px;color:rgba(246,241,232,.45)!important;margin-top:12px!important}
+.wait label{display:block;font-size:13px;font-weight:600;color:rgba(246,241,232,.7);margin:0 0 6px}
+.wait input{
+  width:100%; min-height:44px; padding:12px 14px; margin-bottom:12px;
+  border:1px solid rgba(246,241,232,.18); border-radius:4px;
+  background:rgba(246,241,232,.06); color:#F6F1E8; font:inherit;
+}
+.wait input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:transparent}
+.ok-msg,.err-msg{display:none;font-size:.92rem}
+.wait.is-done .ok-msg{display:block;color:var(--amber-soft)}
+.wait.is-done form{display:none}
+.wait.is-error .err-msg{display:block;color:#E2A07A}
+.wait.is-loading button{opacity:.7}
+
+.foot{
+  background:#15130F; color:rgba(246,241,232,.55); padding:28px 0 40px; font-size:.85rem;
+}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;gap:16px;flex-wrap:wrap}
+.foot a:hover{color:var(--amber-soft)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .film-frame{opacity:0;transform:none}
+  .film-frame.is-on,.film-frame:first-child{opacity:1!important}
+  .chapter{opacity:1!important;transform:none!important}
+  .heir-card{transform:rotateY(-18deg) rotateX(6deg)!important}
+  .scan-beam,.extract{opacity:0!important}
+  .live-glow{opacity:.5!important}
+  .film-line path{stroke-dashoffset:0}
+  .lineage__paper path,.lineage__paper line{stroke-dashoffset:0}
+  :root{--line-progress:1;--heir-live:1;--pin-reveal:48%;--ink-draw:1}
+}
+</style>
+</head>
+<body class="contest-r1-b nano-alt-contest-r1-b craft-study" data-contest-r1-b="1">
+<a class="skip" href="#open">К тексту</a>
+
+<div class="film-line" aria-hidden="true">
+  <svg viewBox="0 0 40 100" preserveAspectRatio="none">
+    <path class="ghost" pathLength="1" d="M20 0 C20 12 12 20 12 34 C12 48 28 54 28 68 C28 80 14 86 14 94 C14 97 20 98 20 100"/>
+    <path id="film-path" pathLength="1" d="M20 0 C20 12 12 20 12 34 C12 48 28 54 28 68 C28 80 14 86 14 94 C14 97 20 98 20 100"/>
+  </svg>
+</div>
+
+<!-- ACT 0 · film open / chapter crossfade -->
+<header class="film-stage" id="top" data-film-stage="1" aria-labelledby="open-title">
+  <div class="film-stage__stack" aria-hidden="true">
+    <div class="film-frame is-on" data-frame="0"><img src="/assets/case_c8_before.jpg" alt="" width="1200" height="1600" fetchpriority="high" decoding="async"><div class="veil"></div></div>
+    <div class="film-frame" data-frame="1"><img src="/assets/case_c7_before.jpg" alt="" width="1200" height="1600" loading="lazy" decoding="async"><div class="veil"></div></div>
+    <div class="film-frame" data-frame="2"><img src="/assets/hero_before.jpg" alt="" width="1200" height="1600" loading="lazy" decoding="async"><div class="veil"></div></div>
+    <div class="film-frame" data-frame="3"><img src="/assets/case_c10_after.jpg" alt="" width="1200" height="1600" loading="lazy" decoding="async"><div class="veil"></div></div>
+  </div>
+  <p class="chap-cue" id="film-cue">кадр 01 · крона памяти</p>
+  <div class="film-stage__copy wrap" id="open">
+    <p class="eyebrow">Contest R1 · Team B · Virtuoso Film</p>
+    <p class="brand">Save<span class="mark">My</span>History</p>
+    <h1 id="open-title">Плёнка рода: кадр за кадром, пока лица ещё держатся.</h1>
+    <p class="lead">Не презентация сервиса — короткий фильм. Главы кроссфейдом. В середине — реликвия в 3D. Потом правда на бумаге и чернильный ствол.</p>
+    <div class="cta">
+      <a class="btn btn--primary" href="#invite">Войти по приглашению</a>
+      <a class="btn btn--ghost" href="#chapters">Смотреть плёнку</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ACT I · chapter beads -->
+<section class="chapters" id="chapters" aria-label="Главы плёнки">
+  <article class="chapter wrap" data-story-obj="c01">
+    <div class="grid">
+      <div class="copy">
+        <p class="num">01</p>
+        <p class="eyebrow" style="color:var(--amber)">лес · вход</p>
+        <h2>Входят тише, чем говорят.</h2>
+        <p>Первый кадр — не продукт. Место, где ещё можно услышать, как бумага держит дыхание семьи.</p>
+      </div>
+      <figure class="still"><img src="/assets/case_c8_after.jpg" alt="Семейный кадр после бережного сохранения" width="1200" height="1600" loading="lazy" decoding="async"></figure>
+    </div>
+  </article>
+  <article class="chapter chapter--flip wrap" data-story-obj="c02">
+    <div class="grid">
+      <div class="copy">
+        <p class="num">02</p>
+        <p class="eyebrow" style="color:var(--amber)">FADING PAST</p>
+        <h2>Прошлое выцветает. Сберечь — сейчас.</h2>
+        <p>Identity важнее красоты. Если взгляд не тот — честно скажем. FACE и EYE остаются воротами.</p>
+      </div>
+      <figure class="still"><img src="/assets/case_c7_before.jpg" alt="Выцветающий семейный снимок до восстановления" width="1200" height="1600" loading="lazy" decoding="async"></figure>
+    </div>
+  </article>
+  <article class="chapter wrap" data-story-obj="c03">
+    <div class="grid">
+      <div class="copy">
+        <p class="num">03</p>
+        <p class="eyebrow" style="color:var(--amber)">хранитель рода</p>
+        <h2>Одна линия сквозь поколения.</h2>
+        <p>Не галерея эффектов. Кадры, которые держат имена — и человека, кто решил не дать им стереться.</p>
+      </div>
+      <figure class="still"><img src="/assets/case_c10_before.jpg" alt="Семейный портрет до — следы времени" width="1200" height="1600" loading="lazy" decoding="async"></figure>
+    </div>
+  </article>
+</section>
+
+<!-- ACT II · Roman 3D heirloom mid-act -->
+<section class="heirloom" id="heirloom" data-heirloom="1" aria-labelledby="heir-title">
+  <div class="heirloom__pin">
+    <div class="heirloom__copy">
+      <p class="eyebrow">Акт II · реликвия</p>
+      <h2 id="heir-title">Фото как предмет: поверните — и услышьте бумагу.</h2>
+      <p>Царапины. Край, что отходит. Скан вытягивает всё, что ещё читается — и возвращает живой кадр.</p>
+    </div>
+    <div class="heirloom__stage" id="heir-stage">
+      <div class="heir-card" id="heir-card">
+        <div class="heir-face heir-face--front">
+          <img src="/assets/case_c6_before.jpg" alt="Старое фото до — бумага с царапинами" width="1200" height="1600" loading="lazy" decoding="async">
+          <div class="scratches" aria-hidden="true"></div>
+          <div class="stain" aria-hidden="true"></div>
+          <div class="paper-edge" aria-hidden="true"></div>
+          <div class="scan-beam" aria-hidden="true"></div>
+        </div>
+        <div class="heir-face heir-face--back">
+          <img src="/assets/case_c6_after.jpg" alt="Тот же снимок после бережного восстановления" width="1200" height="1600" loading="lazy" decoding="async">
+        </div>
+        <div class="live-glow" aria-hidden="true"></div>
+      </div>
+      <div class="extract" aria-hidden="true">
+        <span>scan</span><span>edges</span><span>gaze</span><span>grain</span>
+      </div>
+    </div>
+    <p class="phase-label" id="heir-phase">поворот · бумага</p>
+  </div>
+  <div class="heirloom__scrub" aria-hidden="true"></div>
+</section>
+
+<!-- ACT III · pinned multi-BA -->
+<section class="ritual" id="ritual" data-ba-ritual="1" aria-labelledby="ritual-title">
+  <div class="ritual__pin">
+    <div class="wrap" style="width:min(640px,100% - 40px)">
+      <p class="eyebrow" style="color:var(--amber)">Акт III · pinned ritual</p>
+      <h2 id="ritual-title">Несколько правд на одной полоске.</h2>
+      <p class="lead">Пока кадр закреплён — плёнка меняет пары. Тяните полоску. То же лицо. Тот же взгляд.</p>
+      <div class="proof-meta">
+        <div class="proof-labels" aria-hidden="true">
+          <span><i class="dot"></i> Уходит</span>
+          <span><i class="dot dot--after"></i> Сберечь сейчас</span>
+        </div>
+        <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
+      </div>
+
+      <div class="pair-slot is-on" data-pair="0" id="pair-0">
+        <div class="ba-shell">
+          <div class="ba" data-ba="0" role="img" aria-label="Сравнение hero: уходящее и сбережённое. Тяните полоску.">
+            <img class="before" src="/assets/hero_before.jpg" alt="Семейное фото до" width="1200" height="1600" loading="lazy" decoding="async">
+            <img class="after" src="/assets/hero_after.jpg" alt="Семейное фото после" width="1200" height="1600" loading="lazy" decoding="async">
+            <div class="rail" aria-hidden="true"></div>
+            <div class="knob" aria-hidden="true">⇄</div>
+          </div>
+        </div>
+      </div>
+      <div class="pair-slot" data-pair="1" id="pair-1">
+        <div class="ba-shell">
+          <div class="ba" data-ba="1" role="img" aria-label="Сравнение case c10. Тяните полоску.">
+            <img class="before" src="/assets/case_c10_before.jpg" alt="Портрет до" width="1200" height="1600" loading="lazy" decoding="async">
+            <img class="after" src="/assets/case_c10_after.jpg" alt="Портрет после" width="1200" height="1600" loading="lazy" decoding="async">
+            <div class="rail" aria-hidden="true"></div>
+            <div class="knob" aria-hidden="true">⇄</div>
+          </div>
+        </div>
+      </div>
+      <div class="pair-slot" data-pair="2" id="pair-2">
+        <div class="ba-shell">
+          <div class="ba" data-ba="2" role="img" aria-label="Сравнение case c7. Тяните полоску.">
+            <img class="before" src="/assets/case_c7_before.jpg" alt="Кадр до" width="1200" height="1600" loading="lazy" decoding="async">
+            <img class="after" src="/assets/case_c7_after.jpg" alt="Кадр после" width="1200" height="1600" loading="lazy" decoding="async">
+            <div class="rail" aria-hidden="true"></div>
+            <div class="knob" aria-hidden="true">⇄</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="ba-caption">То же лицо. Тот же взгляд. Лицо важнее эффекта — если проверка не проходит, скажем честно.</p>
+      <div class="gates" aria-label="Ворота честности">
+        <span><i></i> FACE</span>
+        <span><i></i> EYE / GAZE</span>
+      </div>
+      <div class="pair-dots" role="tablist" aria-label="Пары BA">
+        <button type="button" aria-current="true" data-jump="0" aria-label="Пара 1"></button>
+        <button type="button" data-jump="1" aria-label="Пара 2"></button>
+        <button type="button" data-jump="2" aria-label="Пара 3"></button>
+      </div>
+    </div>
+  </div>
+  <div class="ritual__scrub" aria-hidden="true"></div>
+</section>
+
+<!-- ACT IV · ink lineage -->
+<section class="lineage" id="lineage" data-lineage-ink="1" aria-labelledby="lineage-title">
+  <div class="wrap grid">
+    <div class="lineage__paper" id="ink-paper" aria-hidden="true">
+      <svg viewBox="0 0 120 230" xmlns="http://www.w3.org/2000/svg">
+        <path class="ink-canopy" pathLength="1" d="M60 22 C44 30 36 44 40 60 C30 64 26 76 32 88 C24 98 28 114 42 120"/>
+        <path class="ink-canopy" pathLength="1" d="M60 22 C76 30 84 44 80 60 C90 64 94 76 88 88 C96 98 92 114 78 120"/>
+        <path class="ink-canopy" pathLength="1" d="M42 72 C50 66 70 66 78 72"/>
+        <line class="ink-trunk" pathLength="1" x1="60" y1="22" x2="60" y2="152"/>
+        <circle class="ink-dot" cx="60" cy="22" r="2.2"/>
+        <path class="ink-root" pathLength="1" d="M60 152 C52 172 36 186 20 204"/>
+        <path class="ink-root" pathLength="1" d="M60 152 C60 176 58 192 54 214"/>
+        <path class="ink-root" pathLength="1" d="M60 152 C68 172 84 186 100 204"/>
+        <circle class="ink-dot" cx="20" cy="204" r="1.6"/>
+        <circle class="ink-dot" cx="54" cy="214" r="1.6"/>
+        <circle class="ink-dot" cx="100" cy="204" r="1.6"/>
+      </svg>
+    </div>
+    <div>
+      <p class="eyebrow" style="color:var(--amber)">Акт IV · чернильный род</p>
+      <h2 id="lineage-title">Лес → ствол → корни</h2>
+      <p class="lead">После плёнки и реликвии — не второй лес. Семейное дерево как след чернил: от места памяти к именам внизу.</p>
+      <div class="beats">
+        <article class="beat"><strong>Лес</strong><p>Вход тишины — уже был в кроне кадров. Здесь остаётся только след.</p></article>
+        <article class="beat"><strong>Ствол</strong><p>Хранитель рода ведёт одну линию: снимок → лицо → честный просмотр.</p></article>
+        <article class="beat"><strong>Корни</strong><p>То, что держит семью: взгляды, имена, то, что почти забыли.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT V · soft invite -->
+<section class="invite" id="invite" data-soft-wave="1" aria-labelledby="invite-title">
+  <div class="wrap invite-grid">
+    <div>
+      <p class="eyebrow">После фильма · soft-wave</p>
+      <h2 id="invite-title">Войти по приглашению</h2>
+      <p class="lead">Сначала место и правда. Сервис — тихо, через invite. Без громких обещаний и таймеров.</p>
+      <div class="invite-card">
+        <h3>Есть код?</h3>
+        <p>Redeem открывает кабинет. Коды не раздаём здесь — волна по приглашению. Нет кода — честный waitlist рядом.</p>
+        <label for="invite-code" style="display:block;font-size:13px;font-weight:600;color:rgba(246,241,232,.7);margin:14px 0 6px">Код приглашения</label>
+        <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled style="width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;border:1px solid rgba(246,241,232,.18);border-radius:4px;background:rgba(246,241,232,.06);color:#F6F1E8;font:inherit">
+        <div class="actions">
+          <span class="btn btn--ink" aria-hidden="true">Активировать</span>
+          <a class="btn btn--ghost" href="#waitlist">Нет кода — waitlist</a>
+        </div>
+        <p class="hint">Макет soft-wave · коды не посеяны · Cold Path B</p>
+      </div>
+    </div>
+    <div class="wait" id="wait-box">
+      <p class="eyebrow" id="waitlist">Waitlist · вторичный</p>
+      <h2 style="font-family:var(--font-d);font-size:1.3rem;margin:6px 0 8px">Оставьте контакт</h2>
+      <p class="lead" style="margin-bottom:12px">Waitlist ловит интерес, но не открывает restore сам.</p>
+      <p class="ok-msg" role="status">Вы в списке. Напишем, когда откроем.</p>
+      <form id="wait-form" action="#" method="post" novalidate>
+        <div>
+          <label for="wait-email">Email</label>
+          <input id="wait-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        </div>
+        <div>
+          <label for="wait-name">Имя <span style="font-weight:400;color:rgba(246,241,232,.4)">(необязательно)</span></label>
+          <input id="wait-name" name="name" type="text" autocomplete="given-name" placeholder="Как к вам обращаться">
+        </div>
+        <p class="err-msg" id="wait-err" role="alert">Не удалось отправить — попробуйте ещё раз.</p>
+        <button class="btn btn--ink" type="submit" id="wait-submit">Встать в waitlist</button>
+        <p class="hint">Лабораторная форма. Боевой путь — /waitlist.html</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav aria-label="Подвал">
+      <a href="/privacy.html">Конфиденциальность</a>
+      <a href="/waitlist.html">Waitlist</a>
+      <a href="/gallery.html">Галерея</a>
+    </nav>
+    <p>SaveMyHistory · contest-r1-b-virtuoso-film · craft-study · Cold Path B · не продакшен</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var frames = Array.prototype.slice.call(document.querySelectorAll('[data-frame]'));
+  var cue = document.getElementById('film-cue');
+  var cues = ['кадр 01 · крона памяти','кадр 02 · выцветание','кадр 03 · почти стёртое','кадр 04 · сберечь сейчас'];
+  var objs = Array.prototype.slice.call(document.querySelectorAll('[data-story-obj]'));
+  var heir = document.getElementById('heirloom');
+  var heirPhase = document.getElementById('heir-phase');
+  var phases = ['поворот · бумага','скан · извлечение','живой кадр'];
+  var ritual = document.getElementById('ritual');
+  var slots = Array.prototype.slice.call(document.querySelectorAll('.pair-slot'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.pair-dots button'));
+  var bas = Array.prototype.slice.call(document.querySelectorAll('.ba'));
+  var toggleBtn = document.getElementById('ba-toggle');
+  var inkPaper = document.getElementById('ink-paper');
+  var activePair = 0;
+  var pairLocked = false;
+  var scrubbed = {};
+  var dragging = null;
+  var showingAfter = true;
+
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function progressThrough(el, startMul, endMul){
+    if(!el) return 0;
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight || 1;
+    var start = vh * startMul;
+    var end = vh * endMul;
+    return clamp((start - r.top) / (start - end), 0, 1);
+  }
+
+  function setFilm(t){
+    if(!frames.length) return;
+    var n = frames.length;
+    var x = t * (n - 0.0001);
+    var i = Math.floor(x);
+    frames.forEach(function(f, idx){
+      if(idx === i) f.classList.add('is-on'); else f.classList.remove('is-on');
+    });
+    if(cue) cue.textContent = cues[i] || cues[0];
+  }
+
+  function updateObjects(){
+    var vh = window.innerHeight || 1;
+    objs.forEach(function(el){
+      if(reduce){
+        el.style.setProperty('--obj-in','1');
+        el.style.setProperty('--obj-out','0');
+        return;
+      }
+      var r = el.getBoundingClientRect();
+      var inn = clamp((vh * 0.9 - r.top) / (vh * 0.35), 0, 1);
+      var out = clamp((vh * 0.15 - r.top) / (vh * 0.25), 0, 1);
+      el.style.setProperty('--obj-in', String(inn));
+      el.style.setProperty('--obj-out', String(out * 0.85));
+    });
+  }
+
+  function updateHeir(){
+    if(!heir) return;
+    if(reduce){
+      root.style.setProperty('--heir-ry','-18deg');
+      root.style.setProperty('--heir-rx','6deg');
+      root.style.setProperty('--heir-scan','0');
+      root.style.setProperty('--heir-live','1');
+      if(heirPhase) heirPhase.textContent = phases[2];
+      return;
+    }
+    var r = heir.getBoundingClientRect();
+    var total = Math.max(1, heir.offsetHeight - window.innerHeight);
+    var p = clamp((-r.top) / total, 0, 1);
+    /* 0-.45 rotate/tilt, .45-.75 scan, .75-1 flip to living */
+    var ry, rx, scan, live, phase;
+    if(p < 0.45){
+      var t = p / 0.45;
+      ry = -42 + t * 84; /* -42 -> 42 */
+      rx = 12 - t * 10;
+      scan = 0; live = 0; phase = 0;
+    } else if(p < 0.75){
+      var t2 = (p - 0.45) / 0.3;
+      ry = 42 - t2 * 42; /* settle toward 0 */
+      rx = 2;
+      scan = t2; live = 0; phase = 1;
+    } else {
+      var t3 = (p - 0.75) / 0.25;
+      ry = 0 + t3 * 180; /* flip to after */
+      rx = 2 - t3 * 2;
+      scan = 1; live = t3; phase = 2;
+    }
+    root.style.setProperty('--heir-ry', ry.toFixed(2) + 'deg');
+    root.style.setProperty('--heir-rx', rx.toFixed(2) + 'deg');
+    root.style.setProperty('--heir-scan', String(clamp(scan,0,1)));
+    root.style.setProperty('--heir-live', String(clamp(live,0,1)));
+    if(heirPhase) heirPhase.textContent = phases[phase];
+  }
+
+  function setPair(i){
+    activePair = clamp(i, 0, slots.length - 1);
+    slots.forEach(function(s, idx){ s.classList.toggle('is-on', idx === activePair); });
+    dots.forEach(function(d, idx){ d.setAttribute('aria-current', idx === activePair ? 'true' : 'false'); });
+  }
+
+  function setReveal(ba, p){
+    if(!ba) return;
+    p = clamp(p, 6, 94);
+    ba.style.setProperty('--reveal', p + '%');
+  }
+
+  function updateRitual(){
+    if(!ritual) return;
+    if(reduce){
+      root.style.setProperty('--pin-reveal','48%');
+      setPair(0);
+      bas.forEach(function(b){ setReveal(b, 48); });
+      return;
+    }
+    var r = ritual.getBoundingClientRect();
+    var total = Math.max(1, ritual.offsetHeight - window.innerHeight);
+    var p = clamp((-r.top) / total, 0, 1);
+    if(!pairLocked){
+      var idx = Math.min(slots.length - 1, Math.floor(p * slots.length));
+      if(idx !== activePair) setPair(idx);
+    }
+    var ba = bas[activePair];
+    if(ba && !scrubbed[activePair] && dragging !== activePair){
+      var local = (p * slots.length) % 1;
+      var e = 1 - Math.pow(1 - local, 2.2);
+      setReveal(ba, 14 + e * 62);
+    }
+  }
+
+  function updateInk(){
+    if(!inkPaper) return;
+    if(reduce){ root.style.setProperty('--ink-draw','1'); return; }
+    var t = progressThrough(inkPaper, 0.85, 0.25);
+    root.style.setProperty('--ink-draw', String(t));
+  }
+
+  function updateLine(){
+    if(reduce){ root.style.setProperty('--line-progress','1'); return; }
+    var doc = document.documentElement;
+    var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    root.style.setProperty('--line-progress', String(clamp(window.scrollY / max, 0, 1)));
+  }
+
+  function updateFilmStage(){
+    var stage = document.querySelector('[data-film-stage]');
+    if(!stage) return;
+    if(reduce){ setFilm(0); return; }
+    var t = progressThrough(stage, 1.0, 0.05);
+    setFilm(t);
+  }
+
+  function onScroll(){
+    updateLine();
+    updateFilmStage();
+    updateObjects();
+    updateHeir();
+    updateRitual();
+    updateInk();
+  }
+
+  if(reduce){
+    onScroll();
+  } else {
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+  }
+
+  bas.forEach(function(ba, idx){
+    function fromX(clientX){
+      var r = ba.getBoundingClientRect();
+      setReveal(ba, ((clientX - r.left) / r.width) * 100);
+    }
+    ba.addEventListener('pointerdown', function(e){
+      dragging = idx; scrubbed[idx] = true; pairLocked = true;
+      if(ba.setPointerCapture) ba.setPointerCapture(e.pointerId);
+      fromX(e.clientX);
+    });
+    ba.addEventListener('pointermove', function(e){ if(dragging === idx) fromX(e.clientX); });
+    ba.addEventListener('pointerup', function(){ dragging = null; });
+    ba.addEventListener('pointercancel', function(){ dragging = null; });
+  });
+
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', function(){
+      scrubbed[activePair] = true; pairLocked = true;
+      showingAfter = !showingAfter;
+      toggleBtn.setAttribute('aria-pressed', showingAfter ? 'false' : 'true');
+      setReveal(bas[activePair], showingAfter ? 76 : 10);
+    });
+  }
+
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){
+      pairLocked = true;
+      setPair(parseInt(d.getAttribute('data-jump'), 10) || 0);
+    });
+  });
+
+  var form = document.getElementById('wait-form');
+  var box = document.getElementById('wait-box');
+  var submitBtn = document.getElementById('wait-submit');
+  if(form && box){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = document.getElementById('wait-email');
+      box.classList.remove('is-error');
+      if(!email || !email.value || !email.checkValidity()){
+        box.classList.add('is-error');
+        if(email) email.focus();
+        return;
+      }
+      box.classList.add('is-loading');
+      if(submitBtn) submitBtn.textContent = 'Отправляем…';
+      window.setTimeout(function(){
+        box.classList.remove('is-loading');
+        box.classList.add('is-done');
+        if(submitBtn) submitBtn.textContent = 'Встать в waitlist';
+      }, 700);
+    });
+  }
+})();
+</script>
+</body>
+</html>
