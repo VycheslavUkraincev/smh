@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru" class="nano-alt-contest-r2-f" data-contest-r2-f="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — хранитель лампы · contest R2 F</title>
+<meta name="description" content="Lamp Keeper: тёплая лампа над альбомом, взгляд, тихий 3D-ритуал. Исцеление — не ретушь.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E6E0D6">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E6E0D6; --ink:#1A1713; --soft:#3C372F; --mute:#6A6358;
+  --amber:#B07A3A; --amber-deep:#8A5C28; --line:rgba(26,23,19,.1);
+  --font-d:"Literata",serif; --font-u:"Manrope",sans-serif;
+  --lamp:.35; --glow:.4; --album-tilt:8deg;
+  --ry:-26deg; --rx:9deg; --rz:-1.2deg; --scan:0; --extract:0; --live:0; --peel:0;
+  --gaze:0; --plane-in:0; --plane-out:0; --beat:0; --invite:0;
+  --lamp-exit:0; --gaze-exit:0; --ritual-exit:0; --heal-exit:0;
+  --line-progress:0; --ink-line:0; --material:0; --grain:.045;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-u); color:var(--ink);
+  background:
+    radial-gradient(90% 55% at 72% 8%, rgba(176,122,58,calc(.14 + var(--glow)*.18)), transparent 55%),
+    radial-gradient(70% 50% at 28% 0%, rgba(176,122,58,.07), transparent 48%),
+    linear-gradient(180deg, #EDE7DC 0%, var(--paper) 40%, #DDD5C8 100%);
+  overflow-x:hidden; line-height:1.55; min-height:100%;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:90; opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+img{max-width:100%;display:block;user-select:none;-webkit-user-drag:none}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(700px,100% - 36px);margin-inline:auto}
+.story-line{
+  position:fixed; left:max(12px, calc(50% - 350px)); top:11vh; bottom:16vh; width:1px; z-index:40;
+  pointer-events:none; opacity:calc(.1 + var(--line-progress)*.3);
+}
+.story-line svg{width:100%;height:100%;display:block;overflow:visible}
+.story-line path{
+  fill:none; stroke:var(--amber); stroke-width:1.1; stroke-linecap:round;
+  stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--line-progress)); opacity:.88;
+}
+.eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--amber-deep);font-weight:600;margin-bottom:1.1rem}
+.brand{font-family:var(--font-d);font-size:clamp(2.55rem,6.6vw,3.9rem);font-weight:700;letter-spacing:-.025em;line-height:.95;margin-bottom:.85rem}
+.brand i{font-style:normal;color:var(--amber)}
+.lead{color:var(--soft);max-width:28ch;font-size:1.05rem;margin-inline:auto;line-height:1.5}
+
+.lamp{
+  min-height:100svh; display:grid; place-items:center; text-align:center;
+  padding:8vh 0 7vh; position:relative;
+  opacity:calc(1 - var(--lamp-exit)*.9);
+  transform:translate3d(0, calc(var(--lamp-exit) * -18px), 0);
+  filter:brightness(calc(1 - var(--lamp-exit)*.1));
+}
+.lamp__stage{position:relative; width:min(520px,92vw); margin:0 auto 1.6rem; perspective:1400px}
+.lamp__glow{
+  position:absolute; left:50%; top:-6%; width:70%; height:55%; transform:translateX(-50%);
+  background:radial-gradient(ellipse at 50% 30%, rgba(176,122,58,calc(.55*var(--lamp))), rgba(176,122,58,calc(.12*var(--lamp))) 42%, transparent 70%);
+  filter:blur(2px); pointer-events:none; z-index:1; animation:lampPulse 5.2s ease-in-out infinite;
+}
+@keyframes lampPulse{0%,100%{opacity:.72; transform:translateX(-50%) scale(1)}50%{opacity:1; transform:translateX(-50%) scale(1.04)}}
+.lamp__fixture{position:relative; z-index:3; width:54px; height:78px; margin:0 auto -6px; opacity:calc(.55 + var(--lamp)*.45)}
+.lamp__fixture .shade{width:54px; height:34px; margin:0 auto; background:linear-gradient(180deg,#d8b07a,#b07a3a 55%,#8a5c28); clip-path:polygon(8% 100%, 92% 100%, 100% 0, 0 0); box-shadow:0 10px 28px rgba(176,122,58,.35)}
+.lamp__fixture .stem{width:3px; height:28px; margin:0 auto; background:linear-gradient(180deg,#8a5c28,#5c3d1c)}
+.lamp__fixture .base{width:22px; height:6px; margin:0 auto; border-radius:50%; background:radial-gradient(circle,#8a5c28,#4a3118)}
+.album{
+  position:relative; z-index:2; width:min(380px,78vw); aspect-ratio:5/4; margin:0 auto;
+  transform-style:preserve-3d; transform:rotateX(var(--album-tilt)) rotateY(-6deg);
+  border-radius:3px; overflow:hidden;
+  box-shadow:0 36px 70px rgba(26,23,19,.28), 0 0 0 1px rgba(26,23,19,.08), inset 0 1px 0 rgba(255,255,255,.25);
+  background:linear-gradient(135deg,#cfc4b2,#b9ae9b);
+}
+.album__page{position:absolute; inset:7% 8% 10% 10%; border-radius:2px; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(26,23,19,.06)}
+.album__page img{width:100%;height:100%;object-fit:cover;object-position:center 24%; filter:saturate(.92) contrast(1.03)}
+.album__crease{position:absolute; left:48%; top:6%; bottom:8%; width:2px; z-index:4; background:linear-gradient(180deg, transparent, rgba(26,23,19,.18), transparent)}
+.album__wash{position:absolute; inset:0; z-index:5; pointer-events:none; background:radial-gradient(80% 70% at 55% 18%, rgba(255,230,180,calc(.28*var(--glow))), transparent 55%), linear-gradient(180deg, rgba(26,23,19,.05), transparent 40%); mix-blend-mode:soft-light}
+.lamp h1{font-family:var(--font-d); font-weight:500; font-size:clamp(1.45rem,3.2vw,2.05rem); max-width:16ch; margin:0 auto .85rem; line-height:1.22}
+.lamp .breath{width:1px; height:48px; margin:1.8rem auto 0; background:linear-gradient(to bottom, transparent, var(--amber), transparent); opacity:.45; transform-origin:top; animation:breath 4.8s ease-in-out infinite}
+@keyframes breath{0%,100%{transform:scaleY(.45);opacity:.2}50%{transform:scaleY(1);opacity:.7}}
+
+.gaze{position:relative; min-height:220vh; --gaze:0; --plane-in:0; --plane-out:0}
+.gaze__stage{position:sticky; top:0; min-height:100svh; display:grid; place-items:center; padding:5vh 0 7vh; opacity:calc(1 - var(--gaze-exit)*.88); transform:translate3d(0, calc(var(--gaze-exit) * -16px), 0)}
+.gaze__copy{text-align:center; margin-bottom:1.4rem; opacity:calc(var(--plane-in) * (1 - var(--plane-out)*.85) * (.18 + var(--gaze)*.82)); transform:translateY(calc((1 - var(--plane-in))*14px + var(--plane-out)*-10px))}
+.gaze__copy h2{font-family:var(--font-d);font-size:clamp(1.35rem,2.7vw,1.8rem);font-weight:500;margin-bottom:.45rem}
+.gaze__copy p{color:var(--soft);font-size:.98rem;max-width:30ch;margin:0 auto}
+.portrait{width:min(390px,84vw); aspect-ratio:4/5; position:relative; margin:0 auto; border-radius:2px; overflow:hidden; touch-action:none; cursor:ew-resize; box-shadow:0 0 60px rgba(176,122,58,.12), 0 30px 70px rgba(26,23,19,.2), 0 1px 0 rgba(255,255,255,.28) inset; opacity:calc(var(--plane-in) * (1 - var(--plane-out)*.9)); transform:scale(calc(.96 + var(--plane-in)*.04)) translateY(calc(var(--plane-out)*-12px))}
+.portrait::before{content:""; position:absolute; inset:-20% -10% auto -10%; height:55%; z-index:4; pointer-events:none; background:radial-gradient(ellipse at 50% 0%, rgba(176,122,58,.22), transparent 70%); mix-blend-mode:soft-light}
+.portrait::after{content:""; position:absolute; inset:0; pointer-events:none; z-index:5; background:linear-gradient(135deg, rgba(255,255,255,.1), transparent 42%, rgba(26,23,19,.08)); mix-blend-mode:soft-light}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 26%}
+.portrait .after{clip-path:inset(0 calc(100% - var(--reveal,14%)) 0 0); z-index:2}
+.portrait .rail{position:absolute; inset:0 auto 0 var(--reveal,14%); width:1px; z-index:3; background:rgba(230,224,214,.8); transform:translateX(-50%); box-shadow:0 0 0 1px rgba(26,23,19,.1), -1px 0 14px rgba(176,122,58,.2)}
+.portrait .hint{position:absolute; left:50%; bottom:14px; transform:translateX(-50%); z-index:6; font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(230,224,214,.86); text-shadow:0 1px 10px rgba(26,23,19,.5); opacity:calc(.32 + (1 - var(--gaze))*.55)}
+
+.ritual{position:relative; min-height:380vh}
+.ritual__stage{position:sticky; top:0; min-height:100svh; display:grid; place-items:center; padding:4vh 0 6vh; perspective:1650px; perspective-origin:50% 40%; opacity:calc(1 - var(--ritual-exit)*.9); transform:translate3d(0, calc(var(--ritual-exit) * -14px), 0)}
+.ritual__stage::before{content:""; position:absolute; inset:8% 18% auto; height:42%; pointer-events:none; z-index:0; background:radial-gradient(ellipse at 50% 20%, rgba(176,122,58,.16), transparent 68%); opacity:calc(.35 + var(--scan)*.25 + var(--live)*.15)}
+.ritual__label{text-align:center; margin-bottom:1.2rem; position:relative; z-index:2; opacity:calc(.22 + (1 - var(--live))*.78); transform:translateY(calc(var(--live)*-6px))}
+.ritual__label h2{font-family:var(--font-d);font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:500;margin-bottom:.4rem}
+.ritual__label p{color:var(--soft);font-size:.95rem;max-width:32ch;margin:0 auto}
+.stage3d{width:min(430px,86vw); height:min(540px,106vw); position:relative; z-index:2; transform-style:preserve-3d; margin:0 auto}
+.photo3d{position:absolute; inset:0; transform-style:preserve-3d; transform:rotateY(var(--ry)) rotateX(var(--rx)) rotateZ(var(--rz)); will-change:transform}
+.photo3d__edge{position:absolute; inset:0; border-radius:3px; transform:translateZ(-3.5px) scale(.991); background:linear-gradient(180deg,#d0c6b6,#b6ac9b); box-shadow:0 42px 72px rgba(26,23,19,.24)}
+.photo3d__plane{position:absolute; inset:0; border-radius:3px; overflow:hidden; background:#d8d0c4; box-shadow:0 28px 58px rgba(26,23,19,.2), 0 2px 0 rgba(255,255,255,.28) inset, -1px 0 0 rgba(26,23,19,.08); transform:translateZ(2px)}
+.photo3d__plane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%}
+.photo3d__before{opacity:calc(1 - var(--live));filter:saturate(.88) contrast(1.05) sepia(.08)}
+.photo3d__after{opacity:var(--live); filter:saturate(calc(.93 + var(--live)*.07))}
+.fiber{position:absolute; inset:0; pointer-events:none; z-index:2; opacity:calc(.38 * (1 - var(--live)*.72)); background:radial-gradient(90% 70% at 70% 18%, rgba(255,255,255,.1), transparent 50%), radial-gradient(60% 50% at 18% 82%, rgba(26,23,19,.08), transparent 55%); mix-blend-mode:soft-light}
+.scratches{position:absolute; inset:0; pointer-events:none; z-index:3; opacity:calc(.64 * (1 - var(--live)*.9)); background:repeating-linear-gradient(118deg, transparent 0 9px, rgba(26,23,19,.055) 9px 10px), repeating-linear-gradient(22deg, transparent 0 14px, rgba(255,255,255,.035) 14px 15px), repeating-linear-gradient(70deg, transparent 0 22px, rgba(26,23,19,.03) 22px 23px), radial-gradient(110% 80% at 14% 16%, rgba(26,23,19,.12), transparent 40%), linear-gradient(160deg, transparent 38%, rgba(255,255,255,.09) 47%, transparent 56%); mix-blend-mode:multiply}
+.peel{position:absolute; right:-1.5%; top:7%; width:21%; height:25%; z-index:6; pointer-events:none; transform-origin:left center; transform-style:preserve-3d; transform:rotateY(calc(var(--peel) * -60deg)) rotateZ(calc(var(--peel) * -5deg)) translateZ(4px); opacity:calc(.08 + var(--peel)*.92)}
+.peel::before{content:""; position:absolute; inset:0; background:linear-gradient(135deg, #f2ebe0 0%, #ddd3c3 48%, #c4b8a6 100%); clip-path:polygon(0 0, 100% 7%, 90% 100%, 0 88%); box-shadow:-10px 12px 22px rgba(26,23,19,.22), 0 0 0 1px rgba(26,23,19,.06)}
+.peel::after{content:""; position:absolute; left:0; top:6%; bottom:8%; width:28%; background:linear-gradient(90deg, rgba(26,23,19,.18), transparent); opacity:calc(var(--peel)*.85)}
+.scanline{position:absolute; left:0; right:0; height:2px; top:calc(var(--scan) * 100%); background:linear-gradient(90deg, transparent, rgba(176,122,58,.85), transparent); box-shadow:0 0 24px rgba(176,122,58,.42); opacity:calc(var(--scan) * (1 - var(--live)) * 1.25); z-index:5; pointer-events:none}
+.scanveil{position:absolute; inset:0; z-index:4; pointer-events:none; background:linear-gradient(180deg, rgba(230,224,214,0), rgba(176,122,58,.12) 46%, rgba(230,224,214,0)); opacity:calc(var(--scan) * .62 * (1 - var(--live))); mix-blend-mode:soft-light; clip-path:inset(0 0 calc(100% - var(--scan)*100%) 0)}
+.extract{position:absolute; left:50%; bottom:-3.5rem; transform:translateX(-50%); width:min(340px,92%); text-align:center; opacity:calc(var(--extract) * (1 - var(--live)*.4)); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute)}
+.extract span{display:inline-block; padding:.38rem .78rem; border:1px solid var(--line); border-radius:999px; background:rgba(230,224,214,.72); backdrop-filter:blur(5px)}
+.live-note{position:absolute; left:50%; top:-2.75rem; transform:translateX(-50%); opacity:var(--live); font-family:var(--font-d); font-size:.98rem; color:var(--amber-deep); letter-spacing:.01em; white-space:nowrap}
+
+.heal{min-height:130svh; display:grid; place-items:center; padding:12vh 0; text-align:center; position:relative; opacity:calc(1 - var(--heal-exit)*.85)}
+.heal .ink{width:min(140px,34vw); height:78px; margin:0 auto 1.35rem; opacity:calc(.2 + var(--ink-line)*.8)}
+.heal .ink path{fill:none; stroke:var(--amber); stroke-width:1.25; stroke-linecap:round; stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--ink-line))}
+.heal .material{width:min(320px,72vw); height:10px; margin:0 auto 1.5rem; border-radius:999px; overflow:hidden; background:rgba(26,23,19,.06); position:relative; opacity:calc(.25 + var(--material)*.75)}
+.heal .material i{position:absolute; inset:0 auto 0 0; width:calc(var(--material)*100%); background:linear-gradient(90deg, rgba(176,122,58,.25), var(--amber)); border-radius:inherit; font-style:normal}
+.heal .pair{width:min(340px,74vw); margin:0 auto 1.6rem; aspect-ratio:4/5; position:relative; border-radius:2px; overflow:hidden; box-shadow:0 22px 54px rgba(26,23,19,.15), 0 0 40px rgba(176,122,58,.08); opacity:calc(.18 + var(--beat)*.82); transform:translateY(calc((1 - var(--beat))*16px))}
+.heal .pair img{width:100%;height:100%;object-fit:cover;object-position:center 24%}
+.heal h2{font-family:var(--font-d); font-weight:500; font-size:clamp(1.4rem,2.8vw,1.9rem); max-width:15ch; margin:0 auto .7rem; line-height:1.22; opacity:calc(.22 + var(--beat)*.78)}
+.heal p{color:var(--soft);max-width:28ch;margin:0 auto;opacity:calc(.18 + var(--beat)*.82)}
+.invite{padding:10vh 0 14vh; text-align:center; opacity:calc(.28 + var(--invite)*.72); transform:translateY(calc((1 - var(--invite))*12px))}
+.invite h2{font-family:var(--font-d);font-size:clamp(1.4rem,2.5vw,1.68rem);font-weight:500;margin-bottom:.55rem}
+.invite p{color:var(--soft);max-width:28ch;margin:0 auto;font-size:1rem}
+.btn{display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 1.4rem; margin-top:1.5rem; background:transparent; color:var(--ink); border:1px solid rgba(26,23,19,.22); border-radius:999px; font-weight:600; font-size:.92rem; letter-spacing:.01em; transition:border-color .25s ease, background .25s ease, transform .25s ease}
+.btn:hover{border-color:var(--amber); background:rgba(176,122,58,.08); transform:translateY(-1px)}
+.foot{padding:1.5rem 0 2.2rem;text-align:center;color:var(--mute);font-size:.76rem;border-top:1px solid var(--line)}
+@media (max-width:720px){
+  .story-line{left:10px; opacity:calc(.08 + var(--line-progress)*.22)}
+  .gaze{min-height:195vh}
+  .ritual{min-height:330vh}
+  .gaze__stage,.ritual__stage{min-height:100svh; padding-top:env(safe-area-inset-top,0px)}
+  .portrait{width:min(350px,88vw)}
+  .stage3d{width:min(370px,90vw); height:min(465px,112vw)}
+  .album{width:min(340px,84vw)}
+  .lamp__stage{width:min(420px,94vw)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .lamp .breath,.lamp__glow{animation:none!important}
+  .gaze,.ritual,.heal{min-height:auto!important}
+  .gaze__stage,.ritual__stage{position:relative!important;min-height:auto!important}
+  :root{
+    --lamp:.85; --glow:.75; --album-tilt:4deg;
+    --ry:-14deg; --rx:5deg; --rz:0deg; --scan:.5; --extract:1; --live:.78; --peel:.62;
+    --gaze:1; --plane-in:1; --plane-out:0; --beat:1; --invite:1;
+    --lamp-exit:0; --gaze-exit:0; --ritual-exit:0; --heal-exit:0;
+    --line-progress:1; --ink-line:1; --material:1;
+  }
+  .lamp,.gaze__stage,.ritual__stage,.heal,.portrait,.gaze__copy,.heal .pair,.heal h2,.heal p,.invite{opacity:1!important; transform:none!important; filter:none!important}
+  .story-line path,.heal .ink path{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body class="nano-alt-contest-r2-f" data-contest-r2-f="1">
+
+<svg class="story-line" aria-hidden="true" data-a4="1"><path pathLength="1" d="M.5 0 V 1000"/></svg>
+
+<header class="lamp" data-chapter="lamp" id="top">
+  <div class="wrap">
+    <div class="lamp__stage">
+      <div class="lamp__glow" aria-hidden="true"></div>
+      <div class="lamp__fixture" aria-hidden="true"><div class="shade"></div><div class="stem"></div><div class="base"></div></div>
+      <div class="album" data-album>
+        <div class="album__page"><img src="/assets/case_c6_before.jpg" alt="Старый снимок в альбоме под лампой" width="900" height="720" decoding="async"></div>
+        <div class="album__crease" aria-hidden="true"></div>
+        <div class="album__wash" aria-hidden="true"></div>
+      </div>
+    </div>
+    <p class="brand">Save<i>My</i>History</p>
+    <h1>Лампа над альбомом. Тишина хранителя.</h1>
+    <p class="lead">Один свет. Одно лицо. Не витрина — бережный взгляд на род.</p>
+    <div class="breath" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="gaze" data-pin-gaze data-a2="1" data-chapter="gaze" id="gaze">
+  <div class="gaze__stage"><div class="wrap">
+    <div class="gaze__copy">
+      <h2>Взгляд, который держит род</h2>
+      <p>Не украшать. Не спорить с бумагой. Стоять рядом, пока глаза ещё отвечают.</p>
+    </div>
+    <div class="portrait" data-ba="gaze" style="--reveal:14%">
+      <img src="/assets/case_c8_before.jpg" alt="Лицо до" width="840" height="1050" decoding="async">
+      <img class="after" src="/assets/case_c8_after.jpg" alt="Лицо после бережного восстановления" width="840" height="1050" decoding="async">
+      <div class="rail" aria-hidden="true"></div>
+      <span class="hint">медленно</span>
+    </div>
+  </div></div>
+</section>
+
+<section class="ritual" data-pin-ritual data-chapter="ritual" id="ritual">
+  <div class="ritual__stage"><div class="wrap">
+    <div class="ritual__label">
+      <h2>Реликвия под тёплым светом</h2>
+      <p>Поверните снимок. Увидьте царапины. Тихое чтение. Затем — живое присутствие.</p>
+    </div>
+    <div class="stage3d">
+      <div class="live-note">живой снимок</div>
+      <div class="photo3d" data-photo3d>
+        <div class="photo3d__edge" aria-hidden="true"></div>
+        <div class="photo3d__plane">
+          <img class="photo3d__before" src="/assets/case_o110_before.jpg" alt="Старый снимок" width="920" height="1150" decoding="async">
+          <img class="photo3d__after" src="/assets/case_o110_after.jpg" alt="Живое воссоздание" width="920" height="1150" decoding="async">
+          <div class="fiber" aria-hidden="true"></div>
+          <div class="scratches" aria-hidden="true"></div>
+          <div class="scanveil" aria-hidden="true"></div>
+          <div class="scanline" aria-hidden="true"></div>
+          <div class="peel" aria-hidden="true"></div>
+        </div>
+      </div>
+      <p class="extract"><span>скан · извлечение · присутствие</span></p>
+    </div>
+  </div></div>
+</section>
+
+<section class="heal" data-chapter="heal" data-a4-ink="1" id="heal">
+  <div class="wrap">
+    <svg class="ink" viewBox="0 0 140 78" aria-hidden="true"><path pathLength="1" d="M6 62 C26 44 38 20 62 16 C86 12 98 34 134 22"/></svg>
+    <div class="material" aria-hidden="true"><i></i></div>
+    <figure class="pair"><img src="/assets/hero_after.jpg" alt="Лицо после бережного восстановления" width="900" height="1125" loading="lazy"></figure>
+    <h2>Исцеление — не ретушь</h2>
+    <p>Если взгляд не держится, скажем прямо. Красота без личности нам не нужна.</p>
+  </div>
+</section>
+
+<section class="invite" data-chapter="invite" data-cold-path-b="1" id="invite">
+  <div class="wrap">
+    <p class="eyebrow">Мягкая волна</p>
+    <h2>Если вы — хранитель</h2>
+    <p>Войдите тихо. Как к лампе над альбомом, не к витрине.</p>
+    <a class="btn" href="/waitlist.html">К списку ожидания</a>
+  </div>
+</section>
+
+<footer class="foot">SaveMyHistory · contest-r2-f-lamp-keeper · Lamp Keeper</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var userReveal = false;
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){t=clamp(t,0,1); return 1 - Math.pow(1 - t, 2.35);}
+  function seg(p,a,b){return clamp((p-a)/Math.max(0.0001,b-a),0,1);}
+  function chapterP(el,vh){
+    var r = el.getBoundingClientRect();
+    return clamp((-r.top)/Math.max(1, el.offsetHeight - vh), 0, 1);
+  }
+  function exitAsNextEnters(next, vh){
+    if(!next) return 0;
+    var nr = next.getBoundingClientRect();
+    return ease(clamp((vh*0.72 - nr.top)/(vh*0.55), 0, 1));
+  }
+  var portrait = document.querySelector('[data-ba="gaze"]');
+  if(portrait && !reduce){
+    var drag=false;
+    function setX(x){
+      var r=portrait.getBoundingClientRect();
+      portrait.style.setProperty('--reveal', clamp(((x-r.left)/r.width)*100,8,92)+'%');
+      userReveal=true;
+    }
+    portrait.addEventListener('pointerdown',function(e){drag=true;portrait.setPointerCapture(e.pointerId);setX(e.clientX);});
+    portrait.addEventListener('pointermove',function(e){if(drag)setX(e.clientX);});
+    portrait.addEventListener('pointerup',function(){drag=false;});
+    portrait.addEventListener('pointercancel',function(){drag=false;});
+  }
+  var lamp = document.querySelector('[data-chapter="lamp"]');
+  var gaze = document.querySelector('[data-pin-gaze]');
+  var ritual = document.querySelector('[data-pin-ritual]');
+  var heal = document.querySelector('[data-chapter="heal"]');
+  var invite = document.querySelector('[data-chapter="invite"]');
+  var ticking=false;
+  function bus(){
+    ticking=false;
+    var vh = window.innerHeight || 1;
+    var docH = Math.max(1, document.documentElement.scrollHeight - vh);
+    var globalP = clamp(window.scrollY / docH, 0, 1);
+    if(reduce){
+      root.style.setProperty('--line-progress','1');
+      root.style.setProperty('--ink-line','1');
+      root.style.setProperty('--material','1');
+      root.style.setProperty('--lamp','.85');
+      root.style.setProperty('--glow','.75');
+      root.style.setProperty('--album-tilt','4deg');
+      root.style.setProperty('--lamp-exit','0');
+      root.style.setProperty('--gaze-exit','0');
+      root.style.setProperty('--ritual-exit','0');
+      root.style.setProperty('--heal-exit','0');
+      if(gaze){ gaze.style.setProperty('--gaze','1'); gaze.style.setProperty('--plane-in','1'); gaze.style.setProperty('--plane-out','0'); }
+      if(portrait) portrait.style.setProperty('--reveal','48%');
+      root.style.setProperty('--ry','-14deg');
+      root.style.setProperty('--rx','5deg');
+      root.style.setProperty('--rz','0deg');
+      root.style.setProperty('--peel','.62');
+      root.style.setProperty('--scan','.5');
+      root.style.setProperty('--extract','1');
+      root.style.setProperty('--live','.78');
+      if(heal) heal.style.setProperty('--beat','1');
+      if(invite) invite.style.setProperty('--invite','1');
+      return;
+    }
+    root.style.setProperty('--line-progress', ease(globalP).toFixed(4));
+    if(lamp){
+      var lr = lamp.getBoundingClientRect();
+      var lp = ease(clamp(1 - Math.abs(lr.top)/(vh*0.85), 0, 1));
+      root.style.setProperty('--lamp', (0.35 + lp*0.55).toFixed(4));
+      root.style.setProperty('--glow', (0.35 + lp*0.5).toFixed(4));
+      root.style.setProperty('--album-tilt', (10 - lp*6).toFixed(2)+'deg');
+    }
+    root.style.setProperty('--lamp-exit', exitAsNextEnters(gaze, vh).toFixed(4));
+    root.style.setProperty('--gaze-exit', exitAsNextEnters(ritual, vh).toFixed(4));
+    root.style.setProperty('--ritual-exit', exitAsNextEnters(heal, vh).toFixed(4));
+    root.style.setProperty('--heal-exit', exitAsNextEnters(invite, vh).toFixed(4));
+    if(gaze){
+      var gp = chapterP(gaze, vh);
+      gaze.style.setProperty('--gaze', ease(gp).toFixed(4));
+      gaze.style.setProperty('--plane-in', ease(seg(gp, 0.02, 0.2)).toFixed(4));
+      gaze.style.setProperty('--plane-out', ease(seg(gp, 0.78, 1)).toFixed(4));
+      if(portrait && !userReveal){
+        portrait.style.setProperty('--reveal', (12 + ease(seg(gp, 0.16, 0.72)) * 62) + '%');
+      }
+    }
+    if(ritual){
+      var p = chapterP(ritual, vh);
+      var turn = ease(seg(p, 0.0, 0.34));
+      root.style.setProperty('--ry', (-36 + turn * 56).toFixed(2)+'deg');
+      root.style.setProperty('--rx', (12 - turn * 17).toFixed(2)+'deg');
+      root.style.setProperty('--rz', (-2.4 + turn * 2.4).toFixed(2)+'deg');
+      root.style.setProperty('--peel', ease(seg(p, 0.05, 0.3)).toFixed(4));
+      root.style.setProperty('--scan', ease(seg(p, 0.3, 0.55)).toFixed(4));
+      root.style.setProperty('--extract', ease(seg(p, 0.45, 0.65)).toFixed(4));
+      root.style.setProperty('--live', ease(seg(p, 0.58, 0.85)).toFixed(4));
+      if(p > 0.85){
+        var settle = ease(seg(p, 0.85, 1));
+        root.style.setProperty('--ry', (20 - settle*20).toFixed(2)+'deg');
+        root.style.setProperty('--rx', (-4.5 + settle*4.5).toFixed(2)+'deg');
+        root.style.setProperty('--rz', '0deg');
+      }
+    }
+    if(heal){
+      var hr = heal.getBoundingClientRect();
+      var hp = ease(clamp((vh*0.82 - hr.top)/(vh*0.7 + hr.height*0.25), 0, 1));
+      heal.style.setProperty('--beat', hp.toFixed(4));
+      root.style.setProperty('--ink-line', hp.toFixed(4));
+      root.style.setProperty('--material', ease(seg(hp, 0.05, 0.95)).toFixed(4));
+    }
+    if(invite){
+      var ir = invite.getBoundingClientRect();
+      invite.style.setProperty('--invite', ease(clamp((vh*0.8 - ir.top)/(vh*0.5), 0, 1)).toFixed(4));
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+})();
+</script>
+</body>
+</html>
