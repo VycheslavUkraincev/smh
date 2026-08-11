@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ru" class="nano-alt-contest-r3-i" data-contest-r3-i="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — закрытые глаза · contest R3 I</title>
+<meta name="description" content="Closed Eyes Honest: прищур остаётся прищуром. Один свидетель, 3D-печать, отказ от выдуманных открытых глаз. Доверие как ремесло.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E6E0D6">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<!--
+  Contest R3 · Team I · CLOSED EYES HONEST
+  Markers: nano-alt-contest-r3-i · data-contest-r3-i="1"
+  EYE_GAZE_LOCK spirit · intimate witness · one face ritual
+  3D print turns then refuses fake open-eye AFTER · trust as craft
+  A7 chapter crossfade · A2 pinned BA · A4 ink honesty · spend_E=0
+  DISPLAY SAFETY: sticky stages NOT nested in overflow:hidden/clip;
+  one perspective stage; transforms on inner card only; body overflow-x only
+  HARD BAN invent_eyes / open-from-closed AFTER · pd_02 / 6fe4644f
+  COLD_PATH_B · CREATIVE_BRIDGE · STOP_ALL_RESTORES · PRIORITY_API_FIRST
+-->
+<style>
+:root{
+  --paper:#E6E0D6; --ink:#1A1713; --soft:#3C372F; --mute:#6A6358;
+  --amber:#B07A3A; --amber-deep:#8A5C28; --amber-soft:#E2B87A;
+  --line:rgba(26,23,19,.12);
+  --font-d:"Literata",serif; --font-u:"Manrope",sans-serif;
+  --grain:.045;
+  --lid:.55; --witness:0; --hero-exit:0;
+  --gaze:0; --plane-in:0; --plane-out:0; --gaze-exit:0;
+  --ry:-30deg; --rx:11deg; --rz:-1.2deg;
+  --scan:0; --extract:0; --live:0; --peel:0; --refuse:0;
+  --ritual-exit:0;
+  --ink-line:0; --material:0; --beat:0; --heal-exit:0;
+  --invite:0; --line-progress:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-u); color:var(--ink);
+  background:
+    radial-gradient(90% 55% at 50% -6%, rgba(176,122,58,.09), transparent 52%),
+    linear-gradient(180deg,#EDE8DF 0%, var(--paper) 40%, #DDD5C8 100%);
+  overflow-x:hidden; line-height:1.55; min-height:100%;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:90; opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+img{max-width:100%;display:block;user-select:none;-webkit-user-drag:none}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(700px,100% - 36px);margin-inline:auto}
+.eyebrow{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber-deep);font-weight:600;margin-bottom:1rem}
+.brand{font-family:var(--font-d);font-size:clamp(2.55rem,6.6vw,3.9rem);font-weight:700;letter-spacing:-.025em;line-height:.95;margin-bottom:.85rem}
+.brand i{font-style:normal;color:var(--amber)}
+.lead{color:var(--soft);max-width:28ch;font-size:1.05rem;margin-inline:auto;line-height:1.5}
+
+/* fixed honesty rail — not sticky, never clipped */
+.honest-rail{
+  position:fixed; left:max(12px, calc(50% - 350px)); top:12vh; bottom:16vh;
+  width:1px; z-index:40; pointer-events:none;
+  opacity:calc(.1 + var(--line-progress)*.32);
+}
+.honest-rail svg{width:100%;height:100%;display:block;overflow:visible}
+.honest-rail path{
+  fill:none; stroke:var(--amber); stroke-width:1.15; stroke-linecap:round;
+  stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--line-progress)); opacity:.88;
+}
+@media (max-width:720px){.honest-rail{left:10px}}
+
+/* HERO — one composition, brand first, closed lids */
+.hero{
+  min-height:100svh; display:grid; place-items:center; text-align:center;
+  padding:8vh 0 7vh; position:relative;
+  opacity:calc(1 - var(--hero-exit)*.9);
+  /* DISPLAY SAFETY: no filter on sticky; hero is flow, not sticky */
+  transform:translate3d(0, calc(var(--hero-exit) * -14px), 0);
+}
+.hero__face{
+  position:relative; width:min(340px,78vw); aspect-ratio:4/5; margin:0 auto 1.55rem;
+  border-radius:2px;
+  box-shadow:0 28px 64px rgba(26,23,19,.18), 0 1px 0 rgba(255,255,255,.28) inset;
+}
+.hero__face .shot{
+  position:absolute; inset:0; border-radius:2px; overflow:hidden; background:#d4cdc2;
+}
+.hero__face img{
+  width:100%;height:100%;object-fit:cover;object-position:center 26%;
+  filter:saturate(.9) contrast(1.03);
+  transform:scale(calc(1.02 - var(--witness)*.02));
+}
+/* soft lid veil — metaphor, not invent_eyes */
+.hero__lids{
+  position:absolute; inset:0; z-index:3; pointer-events:none; border-radius:2px;
+  background:
+    linear-gradient(180deg, rgba(26,23,19,calc(.22 + var(--lid)*.18)) 0%, transparent 28%),
+    linear-gradient(0deg, rgba(26,23,19,calc(.18 + var(--lid)*.14)) 0%, transparent 34%);
+  mix-blend-mode:multiply;
+}
+.hero__seal{
+  position:absolute; left:50%; bottom:12px; transform:translateX(-50%);
+  z-index:4; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(230,224,214,.88); text-shadow:0 1px 10px rgba(26,23,19,.45);
+  white-space:nowrap; opacity:calc(.35 + var(--witness)*.55);
+}
+.hero h1{
+  font-family:var(--font-d); font-weight:500;
+  font-size:clamp(1.4rem,3.2vw,2rem); max-width:15ch; margin:0 auto .85rem; line-height:1.22;
+}
+.hero .breath{
+  width:1px; height:48px; margin:1.8rem auto 0;
+  background:linear-gradient(to bottom, transparent, var(--amber), transparent);
+  opacity:.45; transform-origin:top; animation:breath 4.8s ease-in-out infinite;
+}
+@keyframes breath{0%,100%{transform:scaleY(.45);opacity:.2}50%{transform:scaleY(1);opacity:.7}}
+
+/* A2 — pinned witness BA; sticky parent has NO overflow clip */
+.gaze{
+  position:relative; min-height:220vh;
+  --gaze:0; --plane-in:0; --plane-out:0;
+}
+.gaze__stage{
+  position:sticky; top:0; min-height:100svh;
+  display:grid; place-items:center; padding:5vh 0 7vh;
+  /* DISPLAY SAFETY: no overflow/transform/filter on sticky itself beyond exit */
+  opacity:calc(1 - var(--gaze-exit)*.88);
+  transform:translate3d(0, calc(var(--gaze-exit) * -14px), 0);
+}
+.gaze__copy{
+  text-align:center; margin-bottom:1.35rem;
+  opacity:calc(var(--plane-in) * (1 - var(--plane-out)*.85) * (.18 + var(--gaze)*.82));
+  transform:translateY(calc((1 - var(--plane-in))*12px + var(--plane-out)*-8px));
+}
+.gaze__copy h2{font-family:var(--font-d);font-size:clamp(1.35rem,2.7vw,1.8rem);font-weight:500;margin-bottom:.45rem}
+.gaze__copy p{color:var(--soft);font-size:.98rem;max-width:32ch;margin:0 auto}
+.lockchip{
+  display:inline-flex; align-items:center; gap:.45rem; margin-top:.85rem;
+  font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--amber-deep); border:1px solid rgba(176,122,58,.35);
+  border-radius:999px; padding:.35rem .7rem; background:rgba(230,224,214,.55);
+}
+.portrait{
+  width:min(380px,84vw); aspect-ratio:4/5; position:relative; margin:0 auto;
+  border-radius:2px; overflow:hidden; touch-action:none; cursor:ew-resize;
+  box-shadow:0 30px 70px rgba(26,23,19,.2), 0 1px 0 rgba(255,255,255,.28) inset;
+  opacity:calc(var(--plane-in) * (1 - var(--plane-out)*.9));
+  transform:scale(calc(.96 + var(--plane-in)*.04)) translateY(calc(var(--plane-out)*-10px));
+}
+.portrait::after{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:5;
+  background:linear-gradient(135deg, rgba(255,255,255,.1), transparent 42%, rgba(26,23,19,.08));
+  mix-blend-mode:soft-light;
+}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 26%}
+.portrait .after{clip-path:inset(0 calc(100% - var(--reveal,14%)) 0 0); z-index:2}
+.portrait .rail{
+  position:absolute; inset:0 auto 0 var(--reveal,14%); width:1px; z-index:3;
+  background:rgba(230,224,214,.8); transform:translateX(-50%);
+  box-shadow:0 0 0 1px rgba(26,23,19,.1), -1px 0 14px rgba(176,122,58,.2);
+}
+.portrait .hint{
+  position:absolute; left:50%; bottom:14px; transform:translateX(-50%); z-index:6;
+  font-size:.64rem; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(230,224,214,.86); text-shadow:0 1px 10px rgba(26,23,19,.5);
+  opacity:calc(.32 + (1 - var(--gaze))*.55);
+}
+
+/* ONE 3D perspective stage — refuse fake open-eye AFTER */
+.ritual{position:relative; min-height:380vh}
+.ritual__stage{
+  position:sticky; top:0; min-height:100svh;
+  display:grid; place-items:center; padding:4vh 0 6vh;
+  perspective:1600px; perspective-origin:50% 40%;
+  opacity:calc(1 - var(--ritual-exit)*.9);
+  transform:translate3d(0, calc(var(--ritual-exit) * -12px), 0);
+}
+.ritual__label{
+  text-align:center; margin-bottom:1.15rem; position:relative; z-index:2;
+  opacity:calc(.22 + (1 - var(--refuse)*.35) * (1 - var(--live)*.2) * .78);
+}
+.ritual__label h2{font-family:var(--font-d);font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:500;margin-bottom:.4rem}
+.ritual__label p{color:var(--soft);font-size:.95rem;max-width:34ch;margin:0 auto}
+.stage3d{
+  width:min(420px,86vw); height:min(525px,104vw);
+  position:relative; z-index:2; transform-style:preserve-3d; margin:0 auto;
+}
+.photo3d{
+  position:absolute; inset:0; transform-style:preserve-3d;
+  transform:rotateY(var(--ry)) rotateX(var(--rx)) rotateZ(var(--rz));
+  will-change:transform;
+}
+.photo3d__edge{
+  position:absolute; inset:0; border-radius:3px;
+  transform:translateZ(-3.5px) scale(.991);
+  background:linear-gradient(180deg,#d0c6b6,#b6ac9b);
+  box-shadow:0 42px 72px rgba(26,23,19,.24);
+}
+.photo3d__plane{
+  position:absolute; inset:0; border-radius:3px; overflow:hidden; background:#d8d0c4;
+  box-shadow:0 28px 58px rgba(26,23,19,.2), 0 2px 0 rgba(255,255,255,.28) inset;
+  transform:translateZ(2px);
+}
+.photo3d__plane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%}
+.photo3d__before{opacity:calc(1 - var(--live) * (1 - var(--refuse)));filter:saturate(.88) contrast(1.05) sepia(.08)}
+/* HARD BAN open-from-closed: AFTER never fully replaces when refuse rises */
+.photo3d__after{opacity:calc(var(--live) * (1 - var(--refuse) * .92)); filter:saturate(calc(.93 + var(--live)*.07))}
+.fiber{
+  position:absolute; inset:0; pointer-events:none; z-index:2;
+  opacity:calc(.38 * (1 - var(--live)*.5) * (1 - var(--refuse)*.2));
+  background:radial-gradient(90% 70% at 70% 18%, rgba(255,255,255,.1), transparent 50%),
+    radial-gradient(60% 50% at 18% 82%, rgba(26,23,19,.08), transparent 55%);
+  mix-blend-mode:soft-light;
+}
+.scratches{
+  position:absolute; inset:0; pointer-events:none; z-index:3;
+  opacity:calc(.64 * (1 - var(--live)*.7) * (1 - var(--refuse)*.15));
+  background:repeating-linear-gradient(118deg, transparent 0 9px, rgba(26,23,19,.055) 9px 10px),
+    repeating-linear-gradient(22deg, transparent 0 14px, rgba(255,255,255,.035) 14px 15px),
+    radial-gradient(110% 80% at 14% 16%, rgba(26,23,19,.12), transparent 40%);
+  mix-blend-mode:multiply;
+}
+.peel{
+  position:absolute; right:-1.5%; top:7%; width:21%; height:25%; z-index:6; pointer-events:none;
+  transform-origin:left center; transform-style:preserve-3d;
+  transform:rotateY(calc(var(--peel) * -58deg)) rotateZ(calc(var(--peel) * -5deg)) translateZ(4px);
+  opacity:calc(.08 + var(--peel)*.92);
+}
+.peel::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(135deg, #f2ebe0 0%, #ddd3c3 48%, #c4b8a6 100%);
+  clip-path:polygon(0 0, 100% 7%, 90% 100%, 0 88%);
+  box-shadow:-10px 12px 22px rgba(26,23,19,.22);
+}
+.scanline{
+  position:absolute; left:0; right:0; height:2px; top:calc(var(--scan) * 100%);
+  background:linear-gradient(90deg, transparent, rgba(176,122,58,.85), transparent);
+  box-shadow:0 0 24px rgba(176,122,58,.42);
+  opacity:calc(var(--scan) * (1 - var(--refuse)) * 1.2); z-index:5; pointer-events:none;
+}
+.scanveil{
+  position:absolute; inset:0; z-index:4; pointer-events:none;
+  background:linear-gradient(180deg, rgba(230,224,214,0), rgba(176,122,58,.12) 46%, rgba(230,224,214,0));
+  opacity:calc(var(--scan) * .55 * (1 - var(--refuse)));
+  mix-blend-mode:soft-light;
+  clip-path:inset(0 0 calc(100% - var(--scan)*100%) 0);
+}
+/* refuse veil — blocks fake open-eye AFTER */
+.refuse-veil{
+  position:absolute; inset:0; z-index:7; pointer-events:none;
+  display:grid; place-items:center; text-align:center; padding:1.2rem;
+  background:rgba(26,23,19, calc(var(--refuse) * .42));
+  opacity:var(--refuse);
+}
+.refuse-veil span{
+  font-family:var(--font-d); font-size:clamp(.95rem,2.4vw,1.15rem);
+  color:var(--paper); max-width:16ch; line-height:1.3;
+  text-shadow:0 2px 18px rgba(26,23,19,.55);
+}
+.refuse-veil small{
+  display:block; margin-top:.55rem; font-family:var(--font-u);
+  font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--amber-soft);
+}
+.extract{
+  position:absolute; left:50%; bottom:-3.5rem; transform:translateX(-50%);
+  width:min(340px,92%); text-align:center;
+  opacity:calc(var(--extract) * (1 - var(--refuse)*.85));
+  font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute);
+}
+.extract span{
+  display:inline-block; padding:.38rem .78rem; border:1px solid var(--line);
+  border-radius:999px; background:rgba(230,224,214,.72);
+}
+.live-note{
+  position:absolute; left:50%; top:-2.75rem; transform:translateX(-50%);
+  opacity:calc(var(--live) * (1 - var(--refuse)));
+  font-family:var(--font-d); font-size:.98rem; color:var(--amber-deep); white-space:nowrap;
+}
+.refuse-note{
+  position:absolute; left:50%; top:-2.9rem; transform:translateX(-50%);
+  opacity:var(--refuse);
+  font-family:var(--font-d); font-size:.98rem; color:var(--amber-deep); white-space:nowrap;
+}
+
+/* A4 — trust as craft */
+.trust{
+  min-height:130svh; display:grid; place-items:center; padding:12vh 0; text-align:center;
+  position:relative; opacity:calc(1 - var(--heal-exit)*.85);
+}
+.trust .ink{width:min(140px,34vw); height:78px; margin:0 auto 1.35rem; opacity:calc(.2 + var(--ink-line)*.8)}
+.trust .ink path{fill:none; stroke:var(--amber); stroke-width:1.25; stroke-linecap:round; stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--ink-line))}
+.trust .material{width:min(320px,72vw); height:10px; margin:0 auto 1.5rem; border-radius:999px; overflow:hidden; background:rgba(26,23,19,.06); position:relative; opacity:calc(.25 + var(--material)*.75)}
+.trust .material i{position:absolute; inset:0 auto 0 0; width:calc(var(--material)*100%); background:linear-gradient(90deg, rgba(176,122,58,.25), var(--amber)); border-radius:inherit; font-style:normal}
+.trust .pair{
+  width:min(320px,72vw); margin:0 auto 1.5rem; aspect-ratio:4/5; position:relative;
+  border-radius:2px; overflow:hidden;
+  box-shadow:0 22px 54px rgba(26,23,19,.15);
+  opacity:calc(.18 + var(--beat)*.82); transform:translateY(calc((1 - var(--beat))*14px));
+}
+.trust .pair img{width:100%;height:100%;object-fit:cover;object-position:center 24%}
+.trust h2{font-family:var(--font-d); font-weight:500; font-size:clamp(1.4rem,2.8vw,1.9rem); max-width:16ch; margin:0 auto .7rem; line-height:1.22; opacity:calc(.22 + var(--beat)*.78)}
+.trust p{color:var(--soft);max-width:30ch;margin:0 auto;opacity:calc(.18 + var(--beat)*.82)}
+
+.invite{
+  padding:10vh 0 14vh; text-align:center;
+  opacity:calc(.28 + var(--invite)*.72);
+  transform:translateY(calc((1 - var(--invite))*12px));
+}
+.invite h2{font-family:var(--font-d);font-size:clamp(1.4rem,2.5vw,1.68rem);font-weight:500;margin-bottom:.55rem}
+.invite p{color:var(--soft);max-width:30ch;margin:0 auto;font-size:1rem}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; padding:0 1.4rem; margin-top:1.5rem;
+  background:transparent; color:var(--ink); border:1px solid rgba(26,23,19,.22);
+  border-radius:999px; font-weight:600; font-size:.92rem;
+  transition:border-color .25s ease, background .25s ease, transform .25s ease;
+}
+.btn:hover{border-color:var(--amber); background:rgba(176,122,58,.08); transform:translateY(-1px)}
+.foot{padding:1.5rem 0 2.2rem;text-align:center;color:var(--mute);font-size:.76rem;border-top:1px solid var(--line)}
+
+@media (max-width:720px){
+  .gaze{min-height:195vh}
+  .ritual{min-height:330vh}
+  .gaze__stage,.ritual__stage{min-height:100svh; padding-top:env(safe-area-inset-top,0px)}
+  .portrait{width:min(340px,88vw)}
+  .stage3d{width:min(360px,90vw); height:min(450px,112vw)}
+  .hero__face{width:min(300px,82vw)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero .breath{animation:none!important}
+  .gaze,.ritual,.trust{min-height:auto!important}
+  .gaze__stage,.ritual__stage{position:relative!important;min-height:auto!important}
+  :root{
+    --lid:.4; --witness:1; --hero-exit:0;
+    --gaze:1; --plane-in:1; --plane-out:0; --gaze-exit:0;
+    --ry:-14deg; --rx:5deg; --rz:0deg;
+    --scan:.35; --extract:.7; --live:.25; --peel:.55; --refuse:.85;
+    --ritual-exit:0; --ink-line:1; --material:1; --beat:1; --heal-exit:0;
+    --invite:1; --line-progress:1;
+  }
+  .hero,.gaze__stage,.ritual__stage,.trust,.portrait,.gaze__copy,.trust .pair,.trust h2,.trust p,.invite{
+    opacity:1!important; transform:none!important;
+  }
+  .honest-rail path,.trust .ink path{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body class="nano-alt-contest-r3-i" data-contest-r3-i="1" data-eye-gaze-lock="1">
+
+<svg class="honest-rail" aria-hidden="true" data-a4="1"><path pathLength="1" d="M.5 0 V 1000"/></svg>
+
+<header class="hero" data-chapter="hero" id="top">
+  <div class="wrap">
+    <div class="hero__face" data-hero-face>
+      <div class="shot">
+        <img src="/assets/case_o15_before.jpg" alt="Лицо с закрытыми глазами — семейный снимок" width="900" height="1125" decoding="async" fetchpriority="high">
+      </div>
+      <div class="hero__lids" aria-hidden="true"></div>
+      <span class="hero__seal">глаза закрыты · так и останутся</span>
+    </div>
+    <p class="brand">Save<i>My</i>History</p>
+    <h1>Закрытые глаза. Честный свидетель.</h1>
+    <p class="lead">Не открываем прищур ради красоты. Личность важнее витрины.</p>
+    <div class="breath" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="gaze" data-pin-gaze data-a2="1" data-chapter="gaze" id="gaze">
+  <div class="gaze__stage"><div class="wrap">
+    <div class="gaze__copy">
+      <h2>Свидетель рядом, не режиссёр</h2>
+      <p>До и после — один и тот же взгляд. Если веки сомкнуты, мы не дорисовываем радужку.</p>
+      <div class="lockchip" data-eye-gaze-lock="1">EYE_GAZE_LOCK · invent_eyes = FACE_FAIL</div>
+    </div>
+    <div class="portrait" data-ba="gaze" style="--reveal:14%">
+      <img src="/assets/case_c9s_before.jpg" alt="Лицо до — прищур как есть" width="840" height="1050" decoding="async">
+      <img class="after" src="/assets/case_c9s_after.jpg" alt="После: бумага чище, глаза не выдуманы" width="840" height="1050" decoding="async">
+      <div class="rail" aria-hidden="true"></div>
+      <span class="hint">медленно</span>
+    </div>
+  </div></div>
+</section>
+
+<section class="ritual" data-pin-ritual data-chapter="ritual" id="ritual">
+  <div class="ritual__stage"><div class="wrap">
+    <div class="ritual__label">
+      <h2>Печать поворачивается — и отказывает</h2>
+      <p>Царапины. Скан. Извлечение. А открыть закрытые глаза — нет. Это не чудо витрины.</p>
+    </div>
+    <div class="stage3d">
+      <div class="live-note">почти живой…</div>
+      <div class="refuse-note">отказ: fake open-eye</div>
+      <div class="photo3d" data-photo3d>
+        <div class="photo3d__edge" aria-hidden="true"></div>
+        <div class="photo3d__plane">
+          <img class="photo3d__before" src="/assets/case_o15_before.jpg" alt="Старый снимок с закрытыми глазами" width="920" height="1150" decoding="async">
+          <img class="photo3d__after" src="/assets/case_o15_after.jpg" alt="Честное восстановление без выдуманных глаз" width="920" height="1150" decoding="async">
+          <div class="fiber" aria-hidden="true"></div>
+          <div class="scratches" aria-hidden="true"></div>
+          <div class="scanveil" aria-hidden="true"></div>
+          <div class="scanline" aria-hidden="true"></div>
+          <div class="peel" aria-hidden="true"></div>
+          <div class="refuse-veil" aria-hidden="true">
+            <span>Мы не открываем закрытые глаза<small>HARD BAN · open-from-closed</small></span>
+          </div>
+        </div>
+      </div>
+      <p class="extract"><span>поворот · скан · отказ от лжи</span></p>
+    </div>
+  </div></div>
+</section>
+
+<section class="trust" data-chapter="trust" data-a4-ink="1" id="trust">
+  <div class="wrap">
+    <svg class="ink" viewBox="0 0 140 78" aria-hidden="true"><path pathLength="1" d="M6 62 C26 44 38 20 62 16 C86 12 98 34 134 22"/></svg>
+    <div class="material" aria-hidden="true"><i></i></div>
+    <figure class="pair"><img src="/assets/case_c9g_after.jpg" alt="Доверие как ремесло — лицо без витринной правки" width="900" height="1125" loading="lazy"></figure>
+    <h2>Доверие — это ремесло</h2>
+    <p>Исцеление бумаги. Не переписывание взгляда. Если модель врёт глазами — стоп.</p>
+  </div>
+</section>
+
+<section class="invite" data-chapter="invite" data-cold-path-b="1" id="invite">
+  <div class="wrap">
+    <p class="eyebrow">Мягкая волна</p>
+    <h2>Если вам важна правда лица</h2>
+    <p>Войдите тихо. Мы храним прищур так же бережно, как улыбку.</p>
+    <a class="btn" href="/waitlist.html">К списку ожидания</a>
+  </div>
+</section>
+
+<footer class="foot">SaveMyHistory · contest-r3-i-closed-eyes · Closed Eyes Honest · spend_E=0</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var userReveal = false;
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){t=clamp(t,0,1); return 1 - Math.pow(1 - t, 2.35);}
+  function seg(p,a,b){return clamp((p-a)/Math.max(0.0001,b-a),0,1);}
+  function chapterP(el,vh){
+    var r = el.getBoundingClientRect();
+    return clamp((-r.top)/Math.max(1, el.offsetHeight - vh), 0, 1);
+  }
+  function exitAsNextEnters(next, vh){
+    if(!next) return 0;
+    var nr = next.getBoundingClientRect();
+    return ease(clamp((vh*0.72 - nr.top)/(vh*0.55), 0, 1));
+  }
+  var portrait = document.querySelector('[data-ba="gaze"]');
+  if(portrait && !reduce){
+    var drag=false;
+    function setX(x){
+      var r=portrait.getBoundingClientRect();
+      portrait.style.setProperty('--reveal', clamp(((x-r.left)/r.width)*100,8,92)+'%');
+      userReveal=true;
+    }
+    portrait.addEventListener('pointerdown',function(e){drag=true;portrait.setPointerCapture(e.pointerId);setX(e.clientX);});
+    portrait.addEventListener('pointermove',function(e){if(drag)setX(e.clientX);});
+    portrait.addEventListener('pointerup',function(){drag=false;});
+    portrait.addEventListener('pointercancel',function(){drag=false;});
+  }
+  var hero = document.querySelector('[data-chapter="hero"]');
+  var gaze = document.querySelector('[data-pin-gaze]');
+  var ritual = document.querySelector('[data-pin-ritual]');
+  var trust = document.querySelector('[data-chapter="trust"]');
+  var invite = document.querySelector('[data-chapter="invite"]');
+  var ticking=false;
+  function bus(){
+    ticking=false;
+    var vh = window.innerHeight || 1;
+    var docH = Math.max(1, document.documentElement.scrollHeight - vh);
+    var globalP = clamp(window.scrollY / docH, 0, 1);
+    if(reduce){
+      root.style.setProperty('--line-progress','1');
+      root.style.setProperty('--ink-line','1');
+      root.style.setProperty('--material','1');
+      root.style.setProperty('--lid','.4');
+      root.style.setProperty('--witness','1');
+      root.style.setProperty('--hero-exit','0');
+      root.style.setProperty('--gaze-exit','0');
+      root.style.setProperty('--ritual-exit','0');
+      root.style.setProperty('--heal-exit','0');
+      if(gaze){ gaze.style.setProperty('--gaze','1'); gaze.style.setProperty('--plane-in','1'); gaze.style.setProperty('--plane-out','0'); }
+      if(portrait) portrait.style.setProperty('--reveal','48%');
+      root.style.setProperty('--ry','-14deg');
+      root.style.setProperty('--rx','5deg');
+      root.style.setProperty('--rz','0deg');
+      root.style.setProperty('--peel','.55');
+      root.style.setProperty('--scan','.35');
+      root.style.setProperty('--extract','.7');
+      root.style.setProperty('--live','.25');
+      root.style.setProperty('--refuse','.85');
+      if(trust) trust.style.setProperty('--beat','1');
+      if(invite) invite.style.setProperty('--invite','1');
+      return;
+    }
+    root.style.setProperty('--line-progress', ease(globalP).toFixed(4));
+    if(hero){
+      var hr = hero.getBoundingClientRect();
+      var hp = ease(clamp(1 - Math.abs(hr.top)/(vh*0.85), 0, 1));
+      root.style.setProperty('--witness', hp.toFixed(4));
+      root.style.setProperty('--lid', (0.7 - hp*0.28).toFixed(4));
+    }
+    root.style.setProperty('--hero-exit', exitAsNextEnters(gaze, vh).toFixed(4));
+    root.style.setProperty('--gaze-exit', exitAsNextEnters(ritual, vh).toFixed(4));
+    root.style.setProperty('--ritual-exit', exitAsNextEnters(trust, vh).toFixed(4));
+    root.style.setProperty('--heal-exit', exitAsNextEnters(invite, vh).toFixed(4));
+    if(gaze){
+      var gp = chapterP(gaze, vh);
+      gaze.style.setProperty('--gaze', ease(gp).toFixed(4));
+      gaze.style.setProperty('--plane-in', ease(seg(gp, 0.02, 0.2)).toFixed(4));
+      gaze.style.setProperty('--plane-out', ease(seg(gp, 0.78, 1)).toFixed(4));
+      if(portrait && !userReveal){
+        portrait.style.setProperty('--reveal', (12 + ease(seg(gp, 0.16, 0.72)) * 62) + '%');
+      }
+    }
+    if(ritual){
+      var p = chapterP(ritual, vh);
+      var turn = ease(seg(p, 0.0, 0.32));
+      root.style.setProperty('--ry', (-38 + turn * 58).toFixed(2)+'deg');
+      root.style.setProperty('--rx', (12 - turn * 17).toFixed(2)+'deg');
+      root.style.setProperty('--rz', (-2.4 + turn * 2.4).toFixed(2)+'deg');
+      root.style.setProperty('--peel', ease(seg(p, 0.05, 0.28)).toFixed(4));
+      root.style.setProperty('--scan', ease(seg(p, 0.28, 0.5)).toFixed(4));
+      root.style.setProperty('--extract', ease(seg(p, 0.42, 0.58)).toFixed(4));
+      /* live rises briefly, then refuse clamps fake open-eye AFTER */
+      var liveTry = ease(seg(p, 0.52, 0.7));
+      var refuse = ease(seg(p, 0.68, 0.88));
+      root.style.setProperty('--live', (liveTry * (1 - refuse * 0.15)).toFixed(4));
+      root.style.setProperty('--refuse', refuse.toFixed(4));
+      if(p > 0.88){
+        var settle = ease(seg(p, 0.88, 1));
+        root.style.setProperty('--ry', (18 - settle*18).toFixed(2)+'deg');
+        root.style.setProperty('--rx', (-3.5 + settle*3.5).toFixed(2)+'deg');
+        root.style.setProperty('--rz', '0deg');
+      }
+    }
+    if(trust){
+      var tr = trust.getBoundingClientRect();
+      var tp = ease(clamp((vh*0.82 - tr.top)/(vh*0.7 + tr.height*0.25), 0, 1));
+      trust.style.setProperty('--beat', tp.toFixed(4));
+      root.style.setProperty('--ink-line', tp.toFixed(4));
+      root.style.setProperty('--material', ease(seg(tp, 0.05, 0.95)).toFixed(4));
+    }
+    if(invite){
+      var ir = invite.getBoundingClientRect();
+      invite.style.setProperty('--invite', ease(clamp((vh*0.8 - ir.top)/(vh*0.5), 0, 1)).toFixed(4));
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+})();
+</script>
+</body>
+</html>
