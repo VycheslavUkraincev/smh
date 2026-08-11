@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ru" data-contest-r3-g="1" class="contest-r3-g nano-alt-contest-r3-g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — свет чердака</title>
+<meta name="description" content="Пыльный альбом под лучом окна. Фото поднимается со страницы · скан · тихое живое AFTER.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#16120E">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/hero_before.jpg" fetchpriority="high">
+<!--
+  Contest R3 · Team G · ATTIC LIGHT
+  Markers: nano-alt-contest-r3-g · data-contest-r3-g="1"
+  Dusty attic album · window-light shaft · 3D photo lift · scan→living AFTER
+  A7 chapter crossfade · A2 pinned BA · A4 light/dust scrub · spend_E=0
+  DISPLAY SAFETY: sticky pin has NO overflow:hidden; one perspective stage;
+  transforms only on inner lift-card; outer layout = normal document flow
+  HARD BAN pd_02/6fe4644f · COLD_PATH_B · CREATIVE_BRIDGE · STOP_ALL_RESTORES
+-->
+<style>
+:root{
+  --paper:#E8E2D8;
+  --ink:#1C1915;
+  --ink-soft:#3F3A33;
+  --mute:#6E665C;
+  --amber:#B07A3A;
+  --amber-soft:#E2B87A;
+  --amber-deep:#8C5E28;
+  --attic:#16120E;
+  --font-d:"Literata","Source Serif 4","PT Serif",serif;
+  --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --scrub:0;
+  --lift:0;
+  --scan:0;
+  --life:0;
+  --dust:0;
+  --wake:0;
+  --line-progress:0;
+  --ritual-exit:0;
+  --living-in:0;
+  --invite-in:0;
+  --pin-ba:0;
+  --shaft:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-u);
+  font-size:1.05rem;
+  line-height:1.55;
+  color:var(--paper);
+  background:var(--attic);
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+.contest-r3-g{--cr3g:1}
+.nano-alt-contest-r3-g{--ncr3g:1}
+.skip{position:absolute;left:-9999px}
+.skip:focus{
+  position:fixed;left:12px;top:12px;z-index:90;
+  background:var(--paper);color:var(--ink);
+  padding:10px 14px;border-radius:8px;font-weight:600;
+}
+.wrap{width:min(880px,calc(100% - 36px));margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(880px,calc(100% - 24px))}}
+
+.progress{
+  position:fixed;top:0;left:0;height:1.5px;width:calc(var(--line-progress) * 100%);
+  background:linear-gradient(90deg,var(--amber-deep),var(--amber-soft));
+  z-index:80;pointer-events:none;opacity:.75;
+}
+
+/* ===== SCROLL FILM: tall flow · sticky pin WITHOUT overflow clip ===== */
+.film{
+  position:relative;
+  height:420vh;
+}
+@media (max-width:720px){.film{height:360vh}}
+
+/* DISPLAY SAFETY: no overflow:hidden on sticky; no transform/filter on sticky */
+.film__pin{
+  position:sticky;top:0;
+  height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:clamp(56px,10vh,88px) 0 clamp(100px,16vh,140px);
+  z-index:2;
+}
+.film__bg{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 40% 55% at 58% 8%, rgba(255,236,196,calc(.14 + var(--shaft) * .22)), transparent 62%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(10,8,6,.95), transparent 55%),
+    linear-gradient(180deg,#1a1611 0%, #120f0c 48%, #0e0c09 100%);
+  opacity:calc(1 - var(--ritual-exit) * .9);
+}
+
+/* single window-light shaft */
+.shaft{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  opacity:calc(.35 + var(--shaft) * .55);
+  background:
+    linear-gradient(168deg,
+      rgba(255,236,196,calc(.22 + var(--life) * .08)) 0%,
+      rgba(226,184,122,.08) 28%,
+      transparent 58%);
+  clip-path:polygon(48% 0, 72% 0, 86% 100%, 18% 100%);
+  mix-blend-mode:screen;
+}
+.dust{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  opacity:calc(.08 + var(--dust) * .5);
+  mix-blend-mode:screen;
+  background-image:
+    radial-gradient(1.2px 1.2px at 52% 18%,rgba(255,244,220,.8),transparent),
+    radial-gradient(1px 1px at 58% 34%,rgba(226,184,122,.65),transparent),
+    radial-gradient(1.4px 1.4px at 46% 42%,rgba(255,250,240,.7),transparent),
+    radial-gradient(.9px .9px at 62% 56%,rgba(226,184,122,.55),transparent),
+    radial-gradient(1.1px 1.1px at 40% 64%,rgba(255,244,220,.6),transparent),
+    radial-gradient(1px 1px at 70% 72%,rgba(226,184,122,.5),transparent);
+}
+@media (prefers-reduced-motion:no-preference){
+  .dust{animation:mote 22s linear infinite}
+}
+@keyframes mote{
+  0%{transform:translate3d(0,6px,0)}
+  50%{transform:translate3d(3px,-8px,0)}
+  100%{transform:translate3d(0,6px,0)}
+}
+
+.brand-slot{
+  position:absolute;top:0;left:0;right:0;z-index:6;
+  padding:20px 0 0;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  opacity:calc(.5 + var(--wake) * .5);
+}
+.brand{
+  font-family:var(--font-d);
+  font-size:clamp(1.2rem,2.5vw,1.55rem);
+  font-weight:700;letter-spacing:.01em;
+}
+.brand span{color:var(--amber-soft)}
+.tag{
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(232,226,216,.42);font-weight:600;
+}
+
+.open{
+  position:absolute;inset:auto 0 9vh;z-index:6;text-align:center;
+  padding:0 18px;pointer-events:none;
+  opacity:calc((1 - var(--scrub) * 1.4) * (1 - var(--ritual-exit)));
+}
+.open .eyebrow{
+  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;margin-bottom:10px;
+}
+.open h1{
+  font-family:var(--font-d);
+  font-size:clamp(1.85rem,4.6vw,3rem);
+  line-height:1.06;font-weight:700;max-width:14ch;margin:0 auto;
+}
+.open .lead{
+  margin:12px auto 0;color:rgba(232,226,216,.62);
+  max-width:34ch;font-size:.98rem;
+}
+.open .hint{
+  margin-top:16px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(232,226,216,.34);
+}
+
+.phase{
+  position:absolute;inset:auto 0 7vh;z-index:6;text-align:center;
+  padding:0 18px;pointer-events:none;
+  opacity:calc(clamp(0, (var(--scrub) - .1) / .2, 1) * (1 - var(--ritual-exit)));
+}
+.phase .label{
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;margin-bottom:8px;
+}
+.phase h2{
+  font-family:var(--font-d);font-size:clamp(1.2rem,2.6vw,1.7rem);
+  font-weight:600;max-width:22ch;margin:0 auto;
+}
+.phase p{
+  margin-top:8px;color:rgba(232,226,216,.58);font-size:.92rem;
+  max-width:38ch;margin-inline:auto;
+}
+
+/* ONE perspective stage — transforms only on inner card */
+.stage3d{
+  perspective:1400px;
+  perspective-origin:50% 40%;
+  width:min(520px,88vw);
+  aspect-ratio:5/4;
+  position:relative;z-index:3;
+  opacity:calc(.4 + var(--wake) * .6);
+}
+.album{
+  width:100%;height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+}
+.album__page{
+  position:absolute;top:8%;bottom:8%;
+  width:46%;
+  border-radius:2px 3px 3px 2px;
+  background:
+    linear-gradient(160deg,#d9cbb6 0%, #c4b49a 55%, #a8947c 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(28,25,21,.12),
+    0 18px 36px rgba(0,0,0,.35);
+}
+.album__page.left{
+  left:2%;
+  transform:rotateY(calc(8deg - var(--lift) * 4deg)) translateZ(-8px);
+  background:
+    linear-gradient(200deg,#cfc0a8, #b6a48a 60%, #9a876c);
+}
+.album__page.right{
+  right:2%;
+  transform:rotateY(calc(-6deg + var(--lift) * 3deg)) translateZ(-6px);
+}
+.album__spine{
+  position:absolute;left:48%;top:6%;bottom:6%;width:4%;
+  background:linear-gradient(90deg,#6a5640,#8a7054 45%,#5c4a36);
+  border-radius:2px;
+  transform:translateZ(-10px);
+  box-shadow:0 10px 24px rgba(0,0,0,.4);
+}
+.album__ghost{
+  position:absolute;left:54%;top:16%;width:36%;aspect-ratio:4/5;
+  border-radius:2px;
+  background:#2a241c;
+  opacity:calc(.55 * (1 - var(--lift)));
+  box-shadow:inset 0 0 0 1px rgba(232,226,216,.08);
+  transform:translateZ(2px);
+  overflow:hidden;
+}
+.album__ghost img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(.35) contrast(.92) brightness(.85);
+}
+
+/* lifted photo — the 3D ritual object */
+.lift-card{
+  position:absolute;
+  left:52%;
+  top:12%;
+  width:38%;
+  aspect-ratio:4/5;
+  transform-style:preserve-3d;
+  transform:
+    translate3d(
+      calc(var(--lift) * -6%),
+      calc(var(--lift) * -18%),
+      calc(12px + var(--lift) * 70px)
+    )
+    rotateY(calc(-18deg + var(--scrub) * 36deg))
+    rotateX(calc(10deg - var(--scrub) * 14deg))
+    scale(calc(.92 + var(--lift) * .18 + var(--life) * .06));
+  will-change:transform;
+  filter:
+    drop-shadow(0 22px 34px rgba(0,0,0,calc(.35 + var(--lift) * .25)))
+    drop-shadow(0 0 calc(var(--life) * 26px) rgba(226,184,122,.2));
+  z-index:4;
+}
+.lift-face{
+  position:absolute;inset:0;
+  border-radius:2px;
+  overflow:hidden;
+  background:#2a241c;
+  transform:translateZ(1px);
+  box-shadow:
+    inset 0 0 0 1px rgba(232,226,216,.1),
+    0 0 0 1px rgba(0,0,0,.35);
+}
+.lift-face img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.lift-face .before{
+  z-index:1;
+  opacity:calc(1 - var(--life));
+  filter:grayscale(calc(.25 * (1 - var(--life)))) contrast(.95);
+}
+.lift-face .after{
+  z-index:2;
+  opacity:var(--life);
+  clip-path:inset(0 0 calc((1 - var(--life)) * 100%) 0);
+}
+.lift-edge{
+  position:absolute;top:0;bottom:0;right:-3px;width:3px;
+  background:linear-gradient(180deg,#c4b49a,#8a7358);
+  transform:rotateY(90deg) translateZ(1px);
+  transform-origin:left center;
+}
+.scan-beam{
+  position:absolute;left:0;right:0;height:18%;
+  top:calc(var(--scan) * 82%);
+  z-index:5;pointer-events:none;
+  opacity:calc(var(--scan) * (1 - var(--life)) * .85);
+  background:linear-gradient(180deg,transparent,rgba(226,184,122,.45),transparent);
+  box-shadow:0 0 18px rgba(226,184,122,.35);
+}
+.scan-grid{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  opacity:calc(var(--scan) * .35 * (1 - var(--life)));
+  background:
+    repeating-linear-gradient(0deg,transparent 0 7px,rgba(226,184,122,.12) 7px 8px),
+    repeating-linear-gradient(90deg,transparent 0 9px,rgba(255,244,220,.06) 9px 10px);
+  mix-blend-mode:screen;
+}
+.grain{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  opacity:calc(.2 * (1 - var(--life) * .7));
+  background:radial-gradient(rgba(0,0,0,.15) 0.6px, transparent 0.7px);
+  background-size:3px 3px;
+}
+
+.living{
+  position:relative;z-index:3;
+  padding:72px 0 40px;
+  background:linear-gradient(180deg,rgba(14,12,9,0) 0%, #12100d 12%, #14110e 100%);
+  opacity:calc(.15 + var(--living-in) * .85);
+}
+.living-card{text-align:center;margin-bottom:28px}
+.living-card .eyebrow{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-soft);font-weight:600;margin-bottom:10px;
+}
+.living-card h2{
+  font-family:var(--font-d);font-size:clamp(1.5rem,3vw,2.1rem);
+  max-width:14ch;margin:0 auto 12px;
+}
+.living-card p{
+  color:rgba(232,226,216,.6);max-width:38ch;margin:0 auto;
+}
+
+/* A2 pinned BA — sticky without overflow parents */
+.pin-ba{
+  position:relative;
+  height:140vh;
+  margin-top:12px;
+}
+@media (max-width:720px){.pin-ba{height:120vh}}
+.pin-ba__sticky{
+  position:sticky;top:0;
+  height:100vh;min-height:100svh;
+  display:grid;place-items:center;
+  padding:24px 0;
+}
+.ba-frame{
+  width:min(480px,92vw);
+  opacity:calc(.35 + var(--pin-ba) * .65);
+}
+.ba-shell{
+  border-radius:4px;
+  background:rgba(232,226,216,.04);
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
+  padding:10px;
+}
+.ba{
+  position:relative;
+  aspect-ratio:4/5;
+  border-radius:3px;
+  overflow:hidden;
+  background:#2a241c;
+  touch-action:pan-y;
+  cursor:ew-resize;
+  --reveal:38%;
+}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal,38%)) 0 0)}
+.ba .rail{
+  position:absolute;top:0;bottom:0;left:var(--reveal,38%);width:2px;
+  background:rgba(246,241,232,.9);z-index:3;transform:translateX(-50%);
+  box-shadow:0 0 0 1px rgba(28,25,21,.18);
+}
+.ba .knob{
+  position:absolute;top:50%;left:var(--reveal,38%);z-index:4;
+  transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
+  background:var(--paper);color:var(--ink);display:grid;place-items:center;
+  font-size:13px;box-shadow:0 2px 10px rgba(0,0,0,.35);pointer-events:none;
+}
+.ba-cap{
+  margin-top:12px;text-align:center;
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(232,226,216,.42);
+}
+.ba-cap strong{color:var(--amber-soft);font-weight:600}
+
+.echo{padding:40px 0 24px}
+.echo .row{display:grid;gap:14px}
+@media (min-width:720px){.echo .row{grid-template-columns:1fr 1fr;gap:18px}}
+.echo figure{
+  position:relative;border-radius:4px;overflow:hidden;
+  aspect-ratio:5/4;background:rgba(232,226,216,.03);
+  box-shadow:0 14px 32px rgba(0,0,0,.3);
+}
+.echo img{width:100%;height:100%;object-fit:cover}
+.echo .cap{
+  margin-top:10px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(232,226,216,.42);display:flex;justify-content:space-between;
+}
+.echo .cap strong{color:var(--amber-soft);font-weight:600}
+
+.invite{
+  padding:88px 0 72px;text-align:center;
+  background:linear-gradient(180deg,#17140f 0%, #E8E2D8 68%);
+  color:var(--ink);
+  opacity:calc(.25 + var(--invite-in) * .75);
+}
+.invite .eyebrow{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--amber-deep);font-weight:600;margin-bottom:12px;
+}
+.invite h2{
+  font-family:var(--font-d);font-size:clamp(1.6rem,3vw,2.2rem);
+  max-width:15ch;margin:0 auto 12px;
+}
+.invite p{color:var(--ink-soft);max-width:36ch;margin:0 auto 24px}
+.btn{
+  display:inline-flex;min-height:46px;padding:0 22px;align-items:center;
+  border-radius:8px;font-weight:600;font-size:.95rem;
+  background:var(--ink);color:var(--paper);
+  transition:transform .25s var(--ease), opacity .25s var(--ease);
+}
+.btn:hover{transform:translateY(-1px);opacity:.92}
+.foot{
+  padding:20px 0 32px;background:var(--paper);color:var(--mute);
+  font-size:12px;text-align:center;
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .film{height:auto}
+  .film__pin{position:relative;height:auto;min-height:100vh;padding:56px 0 96px}
+  .film__bg,.shaft,.dust{opacity:.55 !important}
+  .dust{animation:none !important}
+  .lift-card{
+    transform:translate3d(-4%,-10%,40px) rotateY(-4deg) rotateX(2deg) scale(1.05) !important;
+    filter:drop-shadow(0 22px 34px rgba(0,0,0,.45));
+  }
+  .album__ghost{opacity:0 !important}
+  .scan-beam,.scan-grid{opacity:0 !important}
+  .lift-face .before{opacity:0 !important}
+  .lift-face .after{opacity:1 !important;clip-path:none !important}
+  .open{opacity:0 !important}
+  .phase{opacity:1 !important;position:relative;inset:auto;margin-top:28px}
+  .living,.invite,.echo,.ba-frame{opacity:1 !important}
+  .pin-ba{height:auto}
+  .pin-ba__sticky{position:relative;height:auto;min-height:0}
+  :root{
+    --scrub:.65;--lift:1;--scan:0;--life:1;--wake:1;--dust:.2;
+    --ritual-exit:0;--living-in:1;--invite-in:1;--pin-ba:1;--shaft:.7;
+  }
+}
+</style>
+</head>
+<body class="nano-alt-contest-r3-g contest-r3-g" data-contest-r3-g="1">
+<a class="skip" href="#attic">К альбому на чердаке</a>
+<div class="progress" aria-hidden="true"></div>
+
+<section class="film" id="attic" data-attic-pin="1" aria-label="Свет чердака · альбом">
+  <div class="film__pin">
+    <div class="film__bg" aria-hidden="true"></div>
+    <div class="shaft" aria-hidden="true"></div>
+    <div class="dust" aria-hidden="true"></div>
+
+    <div class="wrap brand-slot">
+      <p class="brand">Save<span>My</span>History</p>
+      <p class="tag">Attic Light</p>
+    </div>
+
+    <div class="stage3d" aria-hidden="false">
+      <div class="album" id="albumStage">
+        <div class="album__page left" aria-hidden="true"></div>
+        <div class="album__spine" aria-hidden="true"></div>
+        <div class="album__page right" aria-hidden="true"></div>
+        <div class="album__ghost" aria-hidden="true">
+          <img src="/assets/hero_before.jpg" alt="" width="800" height="1000" decoding="async">
+        </div>
+        <div class="lift-card" id="liftCard">
+          <div class="lift-edge" aria-hidden="true"></div>
+          <div class="lift-face">
+            <img class="before" src="/assets/hero_before.jpg" alt="До — снимок из пыльного альбома" width="1200" height="1600" decoding="async" fetchpriority="high">
+            <img class="after" src="/assets/hero_after.jpg" alt="После — тихое живое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+            <div class="grain" aria-hidden="true"></div>
+            <div class="scan-grid" aria-hidden="true"></div>
+            <div class="scan-beam" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="open">
+      <p class="eyebrow">Чердак · один луч</p>
+      <h1>Альбом под окном. Лицо поднимается.</h1>
+      <p class="lead">Пыль в столбе света. Страница открыта. Один скролл — снимок выходит из бумаги.</p>
+      <p class="hint">Листайте · поднимите фото</p>
+    </div>
+
+    <div class="phase">
+      <p class="label" id="phaseLabel">01 · чердак</p>
+      <h2 id="phaseTitle">Луч ложится на альбом</h2>
+      <p id="phaseText">Одно окно. Пыль в воздухе. Семейный альбом ждёт пальцев — не витрину.</p>
+    </div>
+  </div>
+</section>
+
+<section class="living" data-chapter="living" aria-label="Тихое чудо">
+  <div class="wrap living-card">
+    <p class="eyebrow">Тихое чудо</p>
+    <h2>AFTER встаёт в луч</h2>
+    <p>Скан прошёл по эмульсии. Пыль осталась на чердаке. Healing ≠ retouch — взгляд остаётся собой.</p>
+  </div>
+
+  <div class="pin-ba" data-pin-ba="1" aria-label="Закреплённое сравнение до и после">
+    <div class="pin-ba__sticky">
+      <div class="ba-frame">
+        <div class="ba-shell">
+          <div class="ba" id="ba-attic" role="img" aria-label="До и после: снимок из альбома" style="--reveal:38%">
+            <img class="before" src="/assets/hero_before.jpg" alt="До — уходящая бумага" width="1200" height="1600" decoding="async" loading="lazy">
+            <img class="after" src="/assets/hero_after.jpg" alt="После — живое лицо" width="1200" height="1600" decoding="async" loading="lazy">
+            <div class="rail" aria-hidden="true"></div>
+            <div class="knob" aria-hidden="true">⇄</div>
+          </div>
+        </div>
+        <p class="ba-cap"><span>hero</span> · <strong>потяните линию света</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap echo" aria-label="Страницы альбома">
+    <div class="row">
+      <article>
+        <figure>
+          <img src="/assets/case_c6_before.jpg" alt="До — повреждённый снимок" width="1200" height="960" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c6</span><strong>до</strong></div>
+      </article>
+      <article>
+        <figure>
+          <img src="/assets/case_c6_after.jpg" alt="После — восстановленный снимок" width="1200" height="960" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c6</span><strong>после</strong></div>
+      </article>
+      <article>
+        <figure>
+          <img src="/assets/case_c8_before.jpg" alt="До — выцветающий архив" width="1200" height="960" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c8</span><strong>до</strong></div>
+      </article>
+      <article>
+        <figure>
+          <img src="/assets/case_c8_after.jpg" alt="После — возвращённый архив" width="1200" height="960" loading="lazy" decoding="async">
+        </figure>
+        <div class="cap"><span>case · c8</span><strong>после</strong></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="invite" id="invite" data-chapter="invite">
+  <p class="eyebrow">Тихий путь</p>
+  <h2>Сберечь снимок, пока луч ещё находит бумагу.</h2>
+  <p>Один мягкий шаг. Без витрины — только лист ожидания.</p>
+  <a class="btn" href="/waitlist.html">Оставить фото на сбережение</a>
+</section>
+
+<footer class="foot">SaveMyHistory · contest-r3-g-attic-light · Attic Light · spend_E=0</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){return 1 - Math.pow(1 - clamp(t,0,1), 2.4);}
+
+  var phases = [
+    {at:0,   label:'01 · чердак', title:'Луч ложится на альбом', text:'Одно окно. Пыль в воздухе. Семейный альбом ждёт пальцев — не витрину.'},
+    {at:.18, label:'02 · страница', title:'Фото отделяется от бумаги', text:'Край поднимается. Альбом остаётся внизу. Снимок становится вещью в луче.'},
+    {at:.4,  label:'03 · скан', title:'Луч читает эмульсию', text:'Сетка проходит по лицу. Техника служит взгляду, не красоте.'},
+    {at:.62, label:'04 · чудо', title:'AFTER тихо встаёт', text:'Пыль остаётся на чердаке. Лицо выходит в свет. Healing ≠ retouch.'},
+    {at:.82, label:'05 · память', title:'Альбом помнит иначе', text:'Страница пустеет. Живое остаётся. Один мягкий путь дальше.'}
+  ];
+  var phaseLabel = document.getElementById('phaseLabel');
+  var phaseTitle = document.getElementById('phaseTitle');
+  var phaseText = document.getElementById('phaseText');
+  var lastPhase = '';
+
+  function setPhase(p){
+    var cur = phases[0];
+    for (var i=0;i<phases.length;i++){ if(p >= phases[i].at) cur = phases[i]; }
+    if(cur.label === lastPhase) return;
+    lastPhase = cur.label;
+    if(phaseLabel) phaseLabel.textContent = cur.label;
+    if(phaseTitle) phaseTitle.textContent = cur.title;
+    if(phaseText) phaseText.textContent = cur.text;
+  }
+
+  function bindBa(el){
+    if(!el) return;
+    var dragging=false;
+    function setFromX(clientX){
+      var r=el.getBoundingClientRect();
+      var p=clamp(((clientX-r.left)/Math.max(1,r.width))*100,8,92);
+      el.style.setProperty('--reveal', p+'%');
+    }
+    el.addEventListener('pointerdown',function(e){dragging=true;el.setPointerCapture(e.pointerId);setFromX(e.clientX);});
+    el.addEventListener('pointermove',function(e){if(dragging)setFromX(e.clientX);});
+    el.addEventListener('pointerup',function(){dragging=false;});
+    el.addEventListener('pointercancel',function(){dragging=false;});
+  }
+  document.querySelectorAll('.ba').forEach(bindBa);
+
+  var ritual = document.querySelector('[data-attic-pin]');
+  var living = document.querySelector('[data-chapter="living"]');
+  var pinBa = document.querySelector('[data-pin-ba]');
+  var invite = document.querySelector('[data-chapter="invite"]');
+  var root = document.documentElement;
+  var ticking=false;
+
+  function bus(){
+    ticking=false;
+    var vh = window.innerHeight || 1;
+    var max = Math.max(1, document.documentElement.scrollHeight - vh);
+    var lp = reduce ? 1 : clamp(window.scrollY / max, 0, 1);
+    root.style.setProperty('--line-progress', lp.toFixed(4));
+
+    if(reduce){
+      root.style.setProperty('--wake','1');
+      root.style.setProperty('--scrub','.65');
+      root.style.setProperty('--lift','1');
+      root.style.setProperty('--scan','0');
+      root.style.setProperty('--life','1');
+      root.style.setProperty('--dust','.2');
+      root.style.setProperty('--shaft','.7');
+      root.style.setProperty('--ritual-exit','0');
+      root.style.setProperty('--living-in','1');
+      root.style.setProperty('--invite-in','1');
+      root.style.setProperty('--pin-ba','1');
+      setPhase(.9);
+      return;
+    }
+
+    var wake = ease(clamp(window.scrollY / (vh * 0.3), 0, 1));
+    if(window.scrollY < 8) wake = Math.max(wake, 0.55);
+    else wake = Math.max(wake, 0.85);
+    root.style.setProperty('--wake', wake.toFixed(4));
+
+    if(ritual){
+      var rr = ritual.getBoundingClientRect();
+      var rh = ritual.offsetHeight || 1;
+      var p = clamp((-rr.top) / Math.max(1, rh - vh), 0, 1);
+
+      var scrub = ease(clamp(p / .32, 0, 1));
+      var lift = ease(clamp((p - .08) / .36, 0, 1));
+      var shaft = ease(clamp(p / .45, 0, 1));
+      var scan = ease(clamp((p - .34) / .26, 0, 1));
+      var life = ease(clamp((p - .62) / .24, 0, 1));
+      var dust = ease(clamp(p / .4, 0, 1)) * (1 - life * .45);
+
+      var ritualExit = 0;
+      if(living){
+        var lr = living.getBoundingClientRect();
+        ritualExit = ease(clamp((vh * 0.55 - lr.top) / (vh * 0.45), 0, 1));
+      }
+
+      root.style.setProperty('--scrub', scrub.toFixed(4));
+      root.style.setProperty('--lift', lift.toFixed(4));
+      root.style.setProperty('--shaft', shaft.toFixed(4));
+      root.style.setProperty('--scan', scan.toFixed(4));
+      root.style.setProperty('--life', life.toFixed(4));
+      root.style.setProperty('--dust', dust.toFixed(4));
+      root.style.setProperty('--ritual-exit', ritualExit.toFixed(4));
+      setPhase(p);
+    }
+
+    if(living){
+      var lrr = living.getBoundingClientRect();
+      var lin = ease(clamp((vh * 0.82 - lrr.top) / (vh * 0.55), 0, 1));
+      root.style.setProperty('--living-in', lin.toFixed(4));
+    }
+    if(pinBa){
+      var pr = pinBa.getBoundingClientRect();
+      var ph = pinBa.offsetHeight || 1;
+      var pp = clamp((-pr.top) / Math.max(1, ph - vh), 0, 1);
+      var pinIn = ease(clamp(pp / .35, 0, 1));
+      if(pr.top < vh * 0.75) pinIn = Math.max(pinIn, ease(clamp((vh * 0.75 - pr.top) / (vh * 0.4), 0, 1)));
+      root.style.setProperty('--pin-ba', pinIn.toFixed(4));
+    }
+    if(invite){
+      var ir = invite.getBoundingClientRect();
+      var iin = ease(clamp((vh * 0.78 - ir.top) / (vh * 0.5), 0, 1));
+      root.style.setProperty('--invite-in', iin.toFixed(4));
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  root.style.setProperty('--wake','0.6');
+  bus();
+})();
+</script>
+</body>
+</html>
