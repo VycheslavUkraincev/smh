@@ -1,5 +1,15 @@
 [
   {
+    "id": "ironhill-lite-facade",
+    "at": "2026-08-11T12:05:00Z",
+    "date": "2026-08-11",
+    "stage": "design-lab",
+    "title": "Iron Hill lite scroll-story",
+    "status": "READY",
+    "text": "facade-lab вырос в ironhill-lite: лес-герой, линия по скроллу, BA wipe, ствол→корни, invite soft-wave. Index не трогали.",
+    "note": "markers: nano-alt-facade-lab · data-ironhill-lite=1 · spend_E=0 · Path B"
+  },
+  {
     "id": "mockup-drafts-ideas-wave2",
     "at": "2026-08-11T11:10:00Z",
     "date": "2026-08-11",
