@@ -1,5 +1,25 @@
 [
   {
+    "id": "mockup-drafts-ideas-full10",
+    "at": "2026-08-11T10:27:00Z",
+    "date": "2026-08-11",
+    "stage": "bridge",
+    "title": "Идеи из макетов · полный разбор 10",
+    "status": "READY",
+    "text": "Полный разбор 10 черновиков (+2 prior): шкатулка, лента света, FADING PAST, Minimal/Cinematic, книга-портал, лес-святилище. Секция в тетради awwwards обновлена. LIVE index не трогали.",
+    "note": "MOCKUP_DRAFTS_IDEAS_FULL10 · n_seen=12 · spend_E=0 · COLD_PATH_B"
+  },
+  {
+    "id": "mockup-drafts-ideas",
+    "at": "2026-08-11T09:50:00Z",
+    "date": "2026-08-11",
+    "stage": "bridge",
+    "title": "Идеи из черновиков макетов",
+    "status": "SUPERSEDED",
+    "text": "Разбор 2 кадров из альбома Романа (остальные не пришли): телефон-реликвия, корни/древо, ИИ-Хранитель, Invisible UI, Sanctuary как sibling. В тетрадь awwwards добавлена секция. LIVE index не трогали. → superseded by full10.",
+    "note": "MOCKUP_DRAFTS_IDEAS · n_seen=2 · n_missing≈9 · spend_E=0"
+  },
+  {
     "id": "awwwards-interview-q3",
     "at": "2026-08-11T09:38:00Z",
     "date": "2026-08-11",
