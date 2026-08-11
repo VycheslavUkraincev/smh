@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -184,8 +184,8 @@ a{color:inherit}
 .section--deep{background:var(--smh-paper-deep)}
 .section--warm{
   background:
-    linear-gradient(180deg,rgba(232,226,216,.92),rgba(232,226,216,.96)),
-    url("/assets/facade-lab/2026-08-11-paper-grain-lamp.png") center/cover;
+    linear-gradient(180deg,rgba(232,226,216,.94),rgba(217,209,196,.55) 48%,rgba(232,226,216,.97)),
+    radial-gradient(ellipse 90% 60% at 50% 0%,rgba(226,184,122,.07),transparent 62%);
 }
 .section__eyebrow{
   font-size:12px;letter-spacing:.12em;text-transform:uppercase;
@@ -229,7 +229,7 @@ a{color:inherit}
 
 /* BA pin chapter — stage only sticky; caption below; no sideways clip */
 .pin-chapter{
-  position:relative;min-height:132vh;
+  position:relative;min-height:120vh;
   overflow-x:clip;overflow-x:hidden;
 }
 .pin-chapter__intro{
@@ -421,7 +421,7 @@ a{color:inherit}
   :root{--gallery-in:1}
 }
 
-/* Honesty */
+/* Honesty + quiet FACE/EYE visual bridge into archive shelf */
 .honest{
   display:grid;gap:var(--smh-space-5);align-items:center;
   opacity:calc(.3 + var(--honest-in) * .7);
@@ -432,8 +432,20 @@ a{color:inherit}
   border-radius:var(--smh-radius);overflow:hidden;
   border:1px solid var(--smh-line);background:var(--smh-paper);
   aspect-ratio:5/4;
+  position:relative;
 }
-.honest__mat img{width:100%;height:100%;object-fit:cover;object-position:center}
+.honest__mat img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.honest__gaze{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 42% 36% at 48% 34%,rgba(226,184,122,.22) 0%,transparent 58%),
+    linear-gradient(180deg,transparent 48%,rgba(28,25,21,.42) 100%);
+}
+.honest__gaze-caption{
+  position:absolute;left:12px;bottom:12px;z-index:2;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(243,238,230,.82);
+}
 .gates{display:grid;gap:14px;margin-top:8px}
 .gate{
   padding:14px 16px;border:1px solid var(--smh-line);border-radius:var(--smh-radius);
@@ -444,6 +456,28 @@ a{color:inherit}
   font-size:1.05rem;margin-bottom:4px;
 }
 .gate p{color:var(--smh-ink-soft);font-size:.92rem;max-width:40ch}
+.face-bridge{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;
+}
+.face-bridge__chip{
+  position:relative;aspect-ratio:5/4;border-radius:4px;overflow:hidden;
+  border:1px solid rgba(28,25,21,.1);background:var(--smh-ink);
+}
+.face-bridge__chip img{
+  width:100%;height:100%;object-fit:cover;object-position:center 24%;
+  opacity:.92;
+}
+.face-bridge__chip span{
+  position:absolute;left:8px;bottom:8px;
+  font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(243,238,230,.86);
+  background:rgba(28,25,21,.4);border-radius:3px;padding:4px 7px;
+}
+.archive-bridge{
+  height:clamp(28px,5vh,48px);margin:-8px 0 0;
+  background:linear-gradient(180deg,var(--smh-paper) 0%,rgba(232,226,216,.55) 55%,transparent 100%);
+  pointer-events:none;
+}
 
 /* Invite soft COLD_PATH_B — one quiet CTA; waitlist soft link only */
 .invite{
@@ -489,28 +523,50 @@ a{color:inherit}
 
 @media (max-width:720px){
   .hero{overflow:hidden}
-  .hero__media video,.hero__media img{transform:none;object-position:center 42%}
-  .hero__veil{transform:none}
-  .hero__copy{padding-top:22vh;padding-bottom:clamp(64px,16vh,120px)}
-  .brand{font-size:clamp(2.1rem,10.5vw,3.2rem);opacity:.92}
-  .hero h1{font-size:clamp(1.35rem,5.2vw,1.65rem);margin-top:16px;color:rgba(243,238,230,.9);max-width:16ch}
-  .hero__lead{font-size:15px;color:rgba(243,238,230,.7)}
-  .pin-chapter{min-height:118vh;overflow-x:hidden}
+  .hero__media video,.hero__media img{transform:none;object-position:center 40%}
+  .hero__veil{
+    transform:none;
+    background:linear-gradient(180deg,rgba(28,25,21,.08) 0%,rgba(28,25,21,.28) 42%,rgba(28,25,21,.74) 100%);
+  }
+  .hero__glow{opacity:calc(.55 + var(--dust) * .25);background:radial-gradient(ellipse 70% 48% at 55% 36%,rgba(226,184,122,.26) 0%,transparent 64%)}
+  .hero__copy{padding-top:18vh;padding-bottom:clamp(56px,14vh,110px)}
+  .brand{font-size:clamp(1.95rem,9.2vw,2.9rem);opacity:.9}
+  .hero h1{font-size:clamp(1.42rem,5.6vw,1.75rem);margin-top:14px;color:rgba(243,238,230,.94);max-width:15ch}
+  .hero__lead{font-size:15px;color:rgba(243,238,230,.74);max-width:24ch}
+  .scroll-cue{bottom:14px;color:rgba(243,238,230,.42)}
+  .pin-chapter{min-height:108vh;overflow-x:hidden}
   .pin-chapter__intro .section__lead{margin-bottom:0}
   .pin-chapter__stage{
-    min-height:100svh;min-height:100vh;padding:10px 0;
+    min-height:100svh;min-height:100vh;padding:8px 0;
     overflow:hidden;
   }
   .proof-meta{margin-bottom:10px;gap:8px 12px}
-  .ba-shell{max-height:min(58svh,520px);aspect-ratio:3/4;width:100%}
+  .ba-shell{max-height:min(62svh,560px);aspect-ratio:3/4;width:100%}
   .ba .knob{width:40px;height:40px}
-  .pin-chapter__after{padding-top:20px}
-  .album__frame{aspect-ratio:5/4}
+  .pin-chapter__after{padding-top:16px}
+  .album__frame{aspect-ratio:5/4;box-shadow:0 22px 48px -28px rgba(28,25,21,.45)}
+  .section--paper .section__lead,.archive__head .section__lead{font-size:.98rem}
+  .archive__how{font-size:13px;margin-bottom:var(--smh-space-4)}
+  .archive__note{font-size:13px}
   .invite{max-width:100%}
+  .face-bridge{gap:8px;margin-top:12px}
+  .face-bridge__chip span{font-size:9px;padding:3px 6px}
+  .gate{padding:12px 14px}
+  .gate p{font-size:.88rem}
   .archive__hint{display:none}
   .archive__story{display:none}
-  .archive__meta{margin-bottom:8px}
-  .archive__tap{margin-top:8px}
+  .archive__meta{margin-bottom:6px}
+  .archive__meta strong{font-size:.98rem}
+  .archive__tap{margin-top:6px;font-size:11px}
+  .archive__leaf{padding:10px}
+  .archive__shelf{gap:14px}
+}
+@media (max-width:430px){
+  .hero__copy{padding-top:16vh}
+  .brand{font-size:clamp(1.85rem,9vw,2.55rem)}
+  .hero h1{font-size:clamp(1.38rem,5.8vw,1.62rem)}
+  .ba-shell{max-height:min(64svh,540px)}
+  .archive__pair,.archive__leaf--wide .archive__pair{aspect-ratio:3/4}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -521,17 +577,17 @@ a{color:inherit}
   .pin-chapter{min-height:0!important;overflow:visible!important}
   .pin-chapter__stage{position:relative!important;min-height:0!important;overflow:visible!important}
   .scroll-cue i{animation:none}
-  :root{--reveal:48%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--gallery-in:1;--invite-in:1;--pin-p:.5;--dust:1;--hero-p:0;--grain-op:.04}
+  :root{--reveal:12%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--gallery-in:1;--invite-in:1;--pin-p:.5;--dust:1;--hero-p:0;--grain-op:.04}
 }
 </style>
 </head>
-<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1">
+<body class="facade-lab nano-alt-facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1">
 <a class="skip" href="#lab-copy">К тексту</a>
 
 <header class="hero facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-freeform-hero="1" data-act="1" id="top">
-  <div class="hero__media" id="hero-media" aria-hidden="true">
-    <video id="hero-video" autoplay muted loop playsinline poster="/assets/wow-mock/lamp-desk-hero.jpg">
-      <source src="/assets/wow-mock/lamp-desk-mood.mp4" type="video/mp4">
+  <div class="hero__media is-still" id="hero-media" aria-hidden="true">
+    <video id="hero-video" muted loop playsinline preload="none" poster="/assets/wow-mock/lamp-desk-hero.jpg">
+      <source data-src="/assets/wow-mock/lamp-desk-mood.mp4" type="video/mp4">
     </video>
     <img src="/assets/wow-mock/lamp-desk-hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
   </div>
@@ -609,26 +665,39 @@ a{color:inherit}
 <section class="section section--paper" id="honesty" data-act="4" aria-labelledby="honesty-title">
   <div class="wrap honest" data-story-obj="honest">
     <div class="honest__mat" aria-hidden="true">
-      <img src="/assets/facade-lab/2026-08-11-honesty-empty-mat.png" alt="" width="1400" height="1120" loading="lazy" decoding="async">
+      <img src="/assets/case_c6_after.jpg" alt="" width="1400" height="1120" loading="lazy" decoding="async">
+      <span class="honest__gaze"></span>
+      <span class="honest__gaze-caption">Взгляд · ворота</span>
     </div>
     <div>
-      <p class="section__eyebrow">Честность · FACE / EYE</p>
+      <p class="section__eyebrow">Честность · лицо и взгляд</p>
       <h2 id="honesty-title">Лицо важнее эффекта.</h2>
       <p class="section__lead">Мы не выдумываем род. Память с семьёй — или тишина. Без громкого «бессмертия».</p>
       <div class="gates" aria-label="Ворота честности">
         <article class="gate">
-          <strong>FACE</strong>
+          <strong>Лицо</strong>
           <p>Лицо должно остаться тем же человеком. Красота без узнавания — отказ.</p>
         </article>
         <article class="gate">
-          <strong>EYE / GAZE</strong>
+          <strong>Взгляд</strong>
           <p>Взгляд живой и направленный. Мёртвые глаза не проходят ворота.</p>
         </article>
+      </div>
+      <div class="face-bridge" aria-hidden="true">
+        <div class="face-bridge__chip">
+          <img src="/assets/case_c7_before.jpg" alt="" width="640" height="512" loading="lazy" decoding="async">
+          <span>Уходит</span>
+        </div>
+        <div class="face-bridge__chip">
+          <img src="/assets/case_c7_after.jpg" alt="" width="640" height="512" loading="lazy" decoding="async">
+          <span>Сбережено</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="archive-bridge" aria-hidden="true"></div>
 
 <section class="section section--warm" id="archive" data-act="4b" data-door-a-gallery="1" data-door-a-gallery-raise="1" aria-labelledby="archive-title">
   <div class="wrap archive" data-story-obj="archive">
@@ -649,21 +718,21 @@ a{color:inherit}
         <p class="archive__hint">Пара, которую узнаёшь сразу. Лицо важнее красоты.</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o15" aria-pressed="false">
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_o15" data-heavy="1" aria-pressed="false">
         <div class="archive__meta"><strong>Зимнее тепло семьи</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_o15_before.jpg" alt="Зимнее семейное фото до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_o15_after.jpg" alt="То же семейное фото сбережённое" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_o15_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="То же семейное фото сбережённое" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Тихий цвет, живая история — без лишнего блеска.</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_w150" aria-pressed="false">
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_w150" data-heavy="1" aria-pressed="false">
         <div class="archive__meta"><strong>Наряд и взгляд</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_w150_before.jpg" alt="Пара в народном костюме до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_w150_after.jpg" alt="Та же пара сбережённая" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_w150_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Та же пара сбережённая" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Ткань и лицо держатся вместе — страница, которую хочется перевернуть ещё раз.</p>
@@ -699,11 +768,11 @@ a{color:inherit}
         <p class="archive__hint">Тихий проход — сервис виден на лицах, не в громких словах.</p>
         <p class="archive__tap" data-tap-before="Коснитесь — открыть сбережённое" data-tap-after="Коснитесь — вернуть уходящее">Коснитесь — открыть сбережённое</p>
       </article>
-      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c10" aria-pressed="false">
+      <article class="archive__leaf" role="listitem" tabindex="0" data-ba="case_c10" data-heavy="1" aria-pressed="false">
         <div class="archive__meta"><strong>У дома рода</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
           <img class="arch-before" src="/assets/case_c10_before.jpg" alt="Семья у дома до" width="1000" height="800" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c10_after.jpg" alt="Семья у дома сбережённая" width="1000" height="800" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_c10_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Семья у дома сбережённая" width="1000" height="800" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Почти стёртое — повод начать сейчас, не «потом».</p>
@@ -726,17 +795,17 @@ a{color:inherit}
 
 <section class="section section--deep" id="invite" data-soft-wave="1" data-cold-path-b="1" data-story-obj="invite" aria-labelledby="invite-title">
   <div class="wrap invite">
-    <p class="section__eyebrow">Тихое приглашение · Cold Path B</p>
+    <p class="section__eyebrow">Тихое приглашение</p>
     <h2 id="invite-title">Когда готовы — войдите по коду.</h2>
-    <p class="section__lead">Сначала комната и правда. Сервис — мягко, через invite. Без холодного free restore.</p>
+    <p class="section__lead">Сначала комната и правда. Сервис — мягко, по приглашению. Без холодного входа «просто так».</p>
     <div class="invite-card">
       <h3>Есть код?</h3>
       <p>Код открывает кабинет. С этой страницы коды не раздаём — только тихая волна по приглашению.</p>
       <label for="invite-code">Код приглашения</label>
       <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="Введите код" disabled>
       <div class="actions">
-        <span class="btn btn--ink" aria-hidden="true">Активировать</span>
-        <a class="invite-soft" href="/waitlist.html">Нет кода — тихий waitlist</a>
+        <span class="btn btn--ink" aria-hidden="true">Войти по коду</span>
+        <a class="invite-soft" href="/waitlist.html">Нет кода — тихий лист ожидания</a>
       </div>
       <p class="hint">Тихая волна · коды ещё не посеяны · без холодного входа</p>
     </div>
@@ -748,7 +817,7 @@ a{color:inherit}
   <div class="wrap">
     <nav aria-label="Подвал">
       <a href="/privacy.html">Конфиденциальность</a>
-      <a href="/waitlist.html">Waitlist</a>
+      <a href="/waitlist.html">Лист ожидания</a>
       <a href="/gallery.html">Галерея</a>
     </nav>
     <p>SaveMyHistory · дверь A · лампа над альбомом · тихая комната для хранителя</p>
@@ -815,7 +884,7 @@ a{color:inherit}
       root.style.setProperty('--hero-p', '0');
       if(heroMedia) heroMedia.classList.add('is-still');
       if(heroVideo){ try{ heroVideo.pause(); }catch(e){} }
-      setReveal(48);
+      setReveal(12);
       return;
     }
 
@@ -870,14 +939,37 @@ a{color:inherit}
     }
   }
 
+  function tryPlayHero(){
+    if(!heroVideo || reduce) return;
+    var playP = heroVideo.play();
+    if(playP && playP.catch) playP.catch(function(){ if(heroMedia) heroMedia.classList.add('is-still'); });
+  }
   if(heroVideo){
     if(reduce){
       if(heroMedia) heroMedia.classList.add('is-still');
       try{ heroVideo.pause(); }catch(e){}
     } else {
-      var playP = heroVideo.play();
-      if(playP && playP.catch) playP.catch(function(){ if(heroMedia) heroMedia.classList.add('is-still'); });
+      var narrow = false;
+      try{ narrow = window.matchMedia('(max-width:720px)').matches; }catch(e){}
+      var saveData = false;
+      try{ saveData = !!(navigator.connection && navigator.connection.saveData); }catch(e){}
       heroVideo.addEventListener('error', function(){ if(heroMedia) heroMedia.classList.add('is-still'); });
+      if(narrow || saveData){
+        if(heroMedia) heroMedia.classList.add('is-still');
+        try{ heroVideo.pause(); }catch(e){}
+        var armed = false;
+        function armHero(){
+          if(armed) return;
+          armed = true;
+          if(heroMedia) heroMedia.classList.remove('is-still');
+          tryPlayHero();
+        }
+        window.addEventListener('scroll', armHero, {passive:true, once:true});
+        window.addEventListener('pointerdown', armHero, {passive:true, once:true});
+        setTimeout(armHero, 1800);
+      } else {
+        tryPlayHero();
+      }
     }
   } else if(heroMedia){
     heroMedia.classList.add('is-still');
@@ -936,16 +1028,37 @@ a{color:inherit}
     var on = leaf.classList.toggle('is-revealed');
     syncLeafUI(leaf, on);
   }
+  function hydrateLeafAfter(leaf){
+    if(!leaf) return;
+    var img = leaf.querySelector('.arch-after[data-src]');
+    if(!img) return;
+    var src = img.getAttribute('data-src');
+    if(!src) return;
+    img.removeAttribute('data-src');
+    img.setAttribute('src', src);
+  }
+  function hydrateVisibleHeavies(){
+    Array.prototype.forEach.call(leaves, function(leaf){
+      if(!leaf || leaf.getAttribute('data-heavy') !== '1') return;
+      var r = leaf.getBoundingClientRect();
+      var vh = window.innerHeight || 1;
+      if(r.top < vh * 1.35 && r.bottom > -vh * 0.2) hydrateLeafAfter(leaf);
+    });
+  }
   Array.prototype.forEach.call(leaves, function(leaf){
     syncLeafUI(leaf, false);
-    leaf.addEventListener('click', function(){ toggleLeaf(leaf); });
+    leaf.addEventListener('click', function(){ hydrateLeafAfter(leaf); toggleLeaf(leaf); });
     leaf.addEventListener('keydown', function(e){
       if(e.key === 'Enter' || e.key === ' '){
         e.preventDefault();
+        hydrateLeafAfter(leaf);
         toggleLeaf(leaf);
       }
     });
   });
+  hydrateVisibleHeavies();
+  window.addEventListener('scroll', function(){ hydrateVisibleHeavies(); }, {passive:true});
+  window.addEventListener('resize', function(){ hydrateVisibleHeavies(); }, {passive:true});
 
   if(toggleBtn && ba){
     toggleBtn.addEventListener('click', function(){
