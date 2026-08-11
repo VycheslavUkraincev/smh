@@ -19,7 +19,7 @@
   --ease:cubic-bezier(.22,.61,.36,1);
   --line-progress:0; --line-guide-opacity:.9; --film-t:0;
   --hero-exit:0; --hero-copy:1;
-  --heir-ry:0deg; --heir-rx:10deg; --heir-scan:0; --heir-live:0; --heir-peel:0; --heir-scratch:.55;
+  --heir-ry:0deg; --heir-rx:3deg; --heir-scan:0; --heir-live:0; --heir-peel:0; --heir-scratch:.55;
   --pin-reveal:18%; --plane-in:0; --plane-out:0; --ba-exit:0;
   --ink-canopy:0; --ink-trunk:0; --ink-roots:0; --ink-exit:0; --invite-in:0;
 }
@@ -688,19 +688,19 @@ a{color:inherit;text-decoration:none}
     var ry, rx, scan, live, peel, scratch, phase;
     if(p < 0.28){
       var t0 = p / 0.28;
-      ry = -48 + easeOut(t0) * 78; rx = 14 - t0 * 10;
+      ry = -10 + easeOut(t0) * 34; rx = 4 - t0 * 3;
       scan = 0; live = 0; peel = t0 * 0.35; scratch = 0.7; phase = 0;
     } else if(p < 0.42){
       var t1 = (p - 0.28) / 0.14;
-      ry = 30 - t1 * 18; rx = 4;
+      ry = 24 - t1 * 12; rx = 1;
       scan = 0; live = 0; peel = 0.35 + t1 * 0.65; scratch = 0.7 - t1 * 0.1; phase = 1;
     } else if(p < 0.72){
       var t2 = (p - 0.42) / 0.3;
-      ry = 12 - t2 * 12; rx = 3;
+      ry = 12 - t2 * 12; rx = 1;
       scan = easeOut(t2); live = 0; peel = 1; scratch = 0.55 - t2 * 0.2; phase = 2;
     } else {
       var t3 = easeOut((p - 0.72) / 0.28);
-      ry = t3 * 180; rx = 3 - t3 * 3;
+      ry = t3 * 180; rx = 1 - t3 * 1;
       scan = 1; live = t3; peel = 1 - t3 * 0.4; scratch = 0.35 * (1 - t3); phase = 3;
     }
     root.style.setProperty('--heir-ry', ry.toFixed(2) + 'deg');

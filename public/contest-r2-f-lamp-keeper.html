@@ -17,7 +17,7 @@
   --amber:#B07A3A; --amber-deep:#8A5C28; --line:rgba(26,23,19,.1);
   --font-d:"Literata",serif; --font-u:"Manrope",sans-serif;
   --lamp:.35; --glow:.4; --album-tilt:8deg;
-  --ry:-26deg; --rx:9deg; --rz:-1.2deg; --scan:0; --extract:0; --live:0; --peel:0;
+  --ry:-6deg; --rx:3deg; --rz:0deg; --scan:0; --extract:0; --live:0; --peel:0;
   --gaze:0; --plane-in:0; --plane-out:0; --beat:0; --invite:0;
   --lamp-exit:0; --gaze-exit:0; --ritual-exit:0; --heal-exit:0;
   --line-progress:0; --ink-line:0; --material:0; --grain:.045;
@@ -338,9 +338,9 @@ a{color:inherit;text-decoration:none}
     if(ritual){
       var p = chapterP(ritual, vh);
       var turn = ease(seg(p, 0.0, 0.34));
-      root.style.setProperty('--ry', (-36 + turn * 56).toFixed(2)+'deg');
-      root.style.setProperty('--rx', (12 - turn * 17).toFixed(2)+'deg');
-      root.style.setProperty('--rz', (-2.4 + turn * 2.4).toFixed(2)+'deg');
+      root.style.setProperty('--ry', (-8 + turn * 28).toFixed(2)+'deg');
+      root.style.setProperty('--rx', (4 - turn * 7).toFixed(2)+'deg');
+      root.style.setProperty('--rz', (-0.8 + turn * 0.8).toFixed(2)+'deg');
       root.style.setProperty('--peel', ease(seg(p, 0.05, 0.3)).toFixed(4));
       root.style.setProperty('--scan', ease(seg(p, 0.3, 0.55)).toFixed(4));
       root.style.setProperty('--extract', ease(seg(p, 0.45, 0.65)).toFixed(4));

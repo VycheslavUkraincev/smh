@@ -94,6 +94,8 @@ a{color:inherit;text-decoration:none}
   position:sticky;top:0;height:100vh;min-height:100svh;
   display:grid;place-items:center;
   overflow:hidden;
+  overflow-x:clip;
+  contain:paint;
   background:
     radial-gradient(ellipse 62% 48% at 50% 40%, rgba(176,122,58,calc(.08 + var(--life) * .1)), transparent 64%),
     radial-gradient(ellipse 100% 70% at 50% 110%, rgba(14,12,9,.98), transparent 50%),
@@ -117,10 +119,12 @@ a{color:inherit;text-decoration:none}
 }
 
 .open{
-  position:absolute;inset:auto 0 11vh;z-index:6;text-align:center;
+  position:absolute;inset:auto 0 4vh;z-index:6;text-align:center;
   padding:0 18px;pointer-events:none;
   opacity:calc((1 - var(--scrub) * 1.35) * (1 - var(--ritual-exit)));
-  transform:translate3d(0, calc(var(--scrub) * -10px), 0);
+  transform:translate3d(0, calc(var(--scrub) * -8px), 0);
+  background:linear-gradient(180deg, transparent, rgba(16,14,11,.72) 28%, rgba(16,14,11,.88));
+  padding-top:28px;padding-bottom:8px;
 }
 .open .eyebrow{
   font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
@@ -128,8 +132,8 @@ a{color:inherit;text-decoration:none}
 }
 .open h1{
   font-family:var(--font-d);
-  font-size:clamp(1.85rem,4.6vw,3rem);
-  line-height:1.06;font-weight:700;max-width:14ch;margin:0 auto;
+  font-size:clamp(1.35rem,3.2vw,2.05rem);
+  line-height:1.12;font-weight:700;max-width:18ch;margin:0 auto;
 }
 .open .lead{
   margin:12px auto 0;color:rgba(232,226,216,.62);
@@ -161,21 +165,22 @@ a{color:inherit;text-decoration:none}
 
 .stage3d{
   perspective:1500px;perspective-origin:50% 42%;
-  width:min(400px,74vw);aspect-ratio:4/5;
+  width:min(360px,68vw);aspect-ratio:4/5;
   position:relative;z-index:3;
-  margin-top:-4vh;
-  opacity:calc(.35 + var(--wake) * .65);
-  transform:scale(calc(.94 + var(--wake) * .06));
+  margin-top:-12vh;
+  margin-bottom:22vh;
+  opacity:calc(.55 + var(--wake) * .45);
+  transform:scale(calc(.96 + var(--wake) * .04));
 }
 .photo-object{
   width:100%;height:100%;
   position:relative;
   transform-style:preserve-3d;
   transform:
-    rotateY(calc(-38deg + var(--scrub) * 76deg))
-    rotateX(calc(12deg - var(--scrub) * 18deg))
-    translateZ(calc(var(--scrub) * 36px))
-    scale(calc(.9 + var(--life) * .08));
+    rotateY(calc(-6deg + var(--scrub) * 44deg))
+    rotateX(calc(4deg - var(--scrub) * 8deg))
+    translateZ(calc(var(--scrub) * 22px))
+    scale(calc(.94 + var(--life) * .06));
   will-change:transform;
   filter:
     drop-shadow(0 30px 50px rgba(0,0,0,.58))
@@ -330,9 +335,11 @@ a{color:inherit;text-decoration:none}
     transform:translateX(-50%) translateY(calc((1 - var(--extract)) * 14px));
     grid-template-columns:1fr 1fr;gap:6px;
   }
-  .open{bottom:14vh}
-  .phase{bottom:10vh}
-  .stage3d{width:min(340px,78vw);margin-top:-8vh}
+  .open{bottom:2vh;padding-top:22px}
+  .phase{bottom:8vh}
+  .stage3d{width:min(300px,72vw);margin-top:-10vh;margin-bottom:26vh}
+  .open h1{font-size:clamp(1.2rem,6.2vw,1.55rem)}
+  .open .lead{font-size:.9rem;max-width:30ch}
 }
 .hud__chip{
   border:1px solid rgba(226,184,122,.26);

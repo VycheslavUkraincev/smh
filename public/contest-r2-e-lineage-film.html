@@ -18,7 +18,7 @@
   --font-u:"Manrope","IBM Plex Sans","Source Sans 3",sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
   --line-progress:0; --forest-t:0; --draw:0; --chap-i:0;
-  --heir-ry:0deg; --heir-rx:10deg; --heir-scan:0; --heir-live:0; --heir-peel:0;
+  --heir-ry:0deg; --heir-rx:3deg; --heir-scan:0; --heir-live:0; --heir-peel:0;
   --pin-reveal:16%; --ink-draw:0; --root-scrub:0;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -419,8 +419,8 @@ a{color:inherit;text-decoration:none}
       if(heirPhase) heirPhase.textContent = phases[2]; return;
     }
     var p = pinProgress(heir), ry, rx, scan, live, peel, phase;
-    if(p < 0.4){ var t = p / 0.4; ry = -48 + t * 96; rx = 14 - t * 12; peel = t; scan = 0; live = 0; phase = 0; }
-    else if(p < 0.72){ var t2 = (p - 0.4) / 0.32; ry = 48 - t2 * 48; rx = 2; peel = 1; scan = t2; live = 0; phase = 1; }
+    if(p < 0.4){ var t = p / 0.4; ry = -10 + t * 34; rx = 4 - t * 2; peel = t; scan = 0; live = 0; phase = 0; }
+    else if(p < 0.72){ var t2 = (p - 0.4) / 0.32; ry = 24 - t2 * 24; rx = 2; peel = 1; scan = t2; live = 0; phase = 1; }
     else { var t3 = (p - 0.72) / 0.28; ry = t3 * 180; rx = 2 - t3 * 2; peel = 1 - t3 * 0.35; scan = 1; live = t3; phase = 2; }
     root.style.setProperty('--heir-ry', ry.toFixed(2) + 'deg');
     root.style.setProperty('--heir-rx', rx.toFixed(2) + 'deg');
