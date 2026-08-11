@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="/assets/wow-mock/lamp-desk-hero.jpg" fetchpriority="high">
 <style>
 :root{
   --smh-paper:#E8E2D8;
@@ -122,11 +121,11 @@ a{color:inherit}
 .brand{
   font-family:var(--smh-font-display);
   font-weight:600;
-  font-size:clamp(1.72rem,3.8vw,2.55rem);
+  font-size:clamp(1.38rem,2.6vw,1.95rem);
   line-height:.92;letter-spacing:-.02em;
-  color:rgba(243,238,230,.62);margin-bottom:0;
-  opacity:0;animation:heroFade 1s var(--smh-ease) .55s forwards;
-  text-shadow:0 6px 24px rgba(28,25,21,.12);
+  color:rgba(243,238,230,.42);margin-bottom:0;
+  opacity:0;animation:heroFade 1.05s var(--smh-ease) 1.05s forwards;
+  text-shadow:0 4px 18px rgba(28,25,21,.1);
 }
 .brand .mark{color:#E2B87A}
 .hero h1{
@@ -235,18 +234,18 @@ a{color:inherit}
 
 /* BA pin chapter — stage only sticky; caption below; no sideways clip */
 .pin-chapter{
-  position:relative;min-height:88vh;
+  position:relative;min-height:72vh;
   overflow-x:clip;overflow-x:hidden;
 }
 .pin-chapter__intro{
   position:relative;z-index:1;
-  padding-bottom:clamp(16px,2.5vh,28px);
+  padding-bottom:clamp(12px,2vh,22px);
 }
 .pin-chapter__stage{
   position:sticky;top:0;
-  min-height:100svh;min-height:100vh;
+  min-height:86svh;min-height:86vh;
   display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(12px,2.5vh,28px) 0;z-index:2;
+  padding:clamp(10px,2vh,22px) 0;z-index:2;
   overflow:hidden;isolation:isolate;
   width:100%;max-width:100vw;
 }
@@ -502,18 +501,17 @@ a{color:inherit}
   transform:translate3d(0, calc((1 - var(--invite-in)) * 14px), 0);
 }
 .invite-card{
-  padding:clamp(22px,3vw,28px);
-  border:1px solid rgba(28,25,21,.07);
-  border-radius:var(--smh-radius);
-  background:rgba(232,226,216,.28);
+  padding:clamp(18px,2.6vw,24px) 0 0;
+  border:none;
+  border-radius:0;
+  background:transparent;
+  border-top:1px solid rgba(28,25,21,.08);
 }
-.invite-card h3{font-family:var(--smh-font-display);font-size:1.15rem;margin-bottom:8px;font-weight:600}
-.invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:14px;max-width:40ch}
-.invite-card label{display:block;font-size:12px;font-weight:500;color:var(--smh-mute);margin:4px 0 6px}
-.invite-card input[type="text"]{
-  width:100%;max-width:280px;min-height:44px;padding:12px 14px;margin-bottom:14px;
-  border:1px dashed rgba(28,25,21,.14);border-radius:var(--smh-radius);
-  background:rgba(243,238,230,.35);color:var(--smh-mute);font:inherit;
+.invite-card h3{font-family:var(--smh-font-display);font-size:1.08rem;margin-bottom:8px;font-weight:600}
+.invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:12px;max-width:40ch}
+.invite-card .invite-note{
+  display:block;font-size:13px;font-weight:500;color:var(--smh-mute);
+  margin:2px 0 14px;max-width:36ch;line-height:1.45;
 }
 .invite-card .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
 .invite-card .hint{margin-top:12px;font-size:13px;color:var(--smh-mute)}
@@ -546,14 +544,14 @@ a{color:inherit}
   }
   .hero__glow{opacity:calc(.55 + var(--dust) * .25);background:radial-gradient(ellipse 70% 48% at 55% 36%,rgba(226,184,122,.26) 0%,transparent 64%)}
   .hero__copy{padding-top:18vh;padding-bottom:clamp(56px,14vh,110px)}
-  .brand{font-size:clamp(1.55rem,7.4vw,2.2rem);opacity:.72}
+  .brand{font-size:clamp(1.28rem,5.8vw,1.75rem);opacity:.55;color:rgba(243,238,230,.38)}
   .hero h1{font-size:clamp(1.42rem,5.6vw,1.75rem);margin-top:14px;color:rgba(243,238,230,.94);max-width:15ch}
   .hero__lead{font-size:15px;color:rgba(243,238,230,.76);max-width:24ch}
   .scroll-cue{bottom:14px;color:rgba(243,238,230,.42)}
-  .pin-chapter{min-height:84vh;overflow-x:hidden}
+  .pin-chapter{min-height:68vh;overflow-x:hidden}
   .pin-chapter__intro .section__lead{margin-bottom:0}
   .pin-chapter__stage{
-    min-height:100svh;min-height:100vh;padding:8px 0;
+    min-height:84svh;min-height:84vh;padding:8px 0;
     overflow:hidden;
   }
   .proof-meta{margin-bottom:10px;gap:8px 12px}
@@ -579,7 +577,7 @@ a{color:inherit}
 }
 @media (max-width:430px){
   .hero__copy{padding-top:16vh}
-  .brand{font-size:clamp(1.45rem,7vw,2rem)}
+  .brand{font-size:clamp(1.2rem,5.4vw,1.55rem);opacity:.52}
   .hero h1{font-size:clamp(1.38rem,5.8vw,1.62rem)}
   .ba-shell{max-height:min(64svh,540px)}
   .archive__pair,.archive__leaf--wide .archive__pair{aspect-ratio:3/4}
@@ -602,7 +600,7 @@ a{color:inherit}
 
 <header class="hero facade-lab door-a-lamp" data-facade-lab="1" data-door-a-lamp="1" data-door-a-freeform-hero="1" data-act="1" id="top">
   <div class="hero__media is-still" id="hero-media" aria-hidden="true">
-    <video id="hero-video" muted loop playsinline preload="none" poster="/assets/wow-mock/lamp-desk-hero.jpg">
+    <video id="hero-video" muted loop playsinline preload="none" poster="/assets/wow-mock/lamp-desk-hero-poster.jpg">
       <source data-src="/assets/wow-mock/lamp-desk-mood.mp4" type="video/mp4">
     </video>
     <img src="/assets/wow-mock/lamp-desk-hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
@@ -704,9 +702,8 @@ a{color:inherit}
           <img src="/assets/case_c7_before.jpg" alt="" width="640" height="512" loading="lazy" decoding="async">
           <span>Уходит</span>
         </div>
-        <div class="face-bridge__chip face-bridge__chip--gaze">
-          <img src="/assets/case_c6_after.jpg" alt="" width="640" height="512" loading="lazy" decoding="async">
-          <span>Взгляд</span>
+        <div class="face-bridge__chip face-bridge__chip--gaze face-bridge__chip--text">
+          <span>Взгляд · тот же</span>
         </div>
       </div>
     </div>
@@ -727,8 +724,8 @@ a{color:inherit}
       <article class="archive__leaf archive__leaf--wide" role="listitem" tabindex="0" data-ba="case_c7" aria-pressed="false">
         <div class="archive__meta"><strong>Взгляд, который держали</strong><span class="archive__story" aria-hidden="true"><i class="story-past">Уходит</i><i class="story-arrow">→</i><i class="story-saved">сбережено</i></span></div>
         <div class="archive__pair">
-          <img class="arch-before" src="/assets/case_c7_before.jpg" alt="Семейное фото до — почти стёртое" width="1200" height="900" loading="lazy" decoding="async">
-          <img class="arch-after" src="/assets/case_c7_after.jpg" alt="То же лицо после бережной реставрации" width="1200" height="900" loading="lazy" decoding="async">
+          <img class="arch-before" data-src="/assets/case_c7_before.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Семейное фото до — почти стёртое" width="1200" height="900" loading="lazy" decoding="async">
+          <img class="arch-after" data-src="/assets/case_c7_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="То же лицо после бережной реставрации" width="1200" height="900" loading="lazy" decoding="async">
           <span class="archive__badge" data-badge-before="Было" data-badge-after="Стало">Было</span>
         </div>
         <p class="archive__hint">Пара, которую узнаёшь сразу. Лицо важнее красоты.</p>
@@ -815,15 +812,13 @@ a{color:inherit}
     <h2 id="invite-title">Когда придёт код — войдёте тихо.</h2>
     <p class="section__lead">Сначала комната и правда. Код придёт отдельно — здесь только тихий знак, без сцены «восстановить сейчас».</p>
     <div class="invite-card">
-      <h3>Хранитель ждёт кода</h3>
-      <p>Это не форма входа. Когда код придёт — вы уже будете знать свет этой комнаты.</p>
-      <label for="invite-code">Место для кода</label>
-      <input id="invite-code" name="invite" type="text" autocomplete="off" placeholder="ещё не открыто" disabled aria-disabled="true" tabindex="-1">
+      <h3>Хранитель держит место</h3>
+      <p>Когда код придёт — войдёте тихо, уже зная свет этой комнаты. Здесь нет сцены «восстановить сейчас».</p>
+      <p class="invite-note">Место для кода ещё закрыто. Хранитель просто ждёт.</p>
       <div class="actions">
-        <span class="btn btn--ink btn--inert" aria-disabled="true">Код позже</span>
         <a class="invite-soft" href="/waitlist.html">Пока — тихий лист ожидания</a>
       </div>
-      <p class="hint">Без холодного restore · только хранитель и лампа</p>
+      <p class="hint">Один мягкий шаг · лампа и хранитель</p>
     </div>
   </div>
 </section>
