@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-ironhill-lite="1" class="facade-lab nano-alt-facade-lab ironhill-lite">
+<html lang="ru" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1" class="facade-lab nano-alt-facade-lab ironhill-lite act-c">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SaveMyHistory — facade lab · ironhill-lite</title>
-<meta name="description" content="Лабораторный scroll-story фасад SaveMyHistory: место памяти, линия рода, честный before→after. Не продакшен.">
+<meta name="description" content="Лабораторный scroll-story фасад SaveMyHistory: лес, линия, бумага и честный before→after. Не продакшен.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#E8E2D8">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +23,7 @@
   --smh-amber:#B07A3A;
   --smh-amber-deep:#8C5E28;
   --smh-amber-glow:rgba(176,122,58,.18);
-  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.22) 0%,rgba(28,25,21,.48) 48%,rgba(28,25,21,.78) 100%);
+  --smh-hero-veil:linear-gradient(180deg,rgba(28,25,21,.18) 0%,rgba(28,25,21,.42) 42%,rgba(28,25,21,.82) 100%);
   --smh-ok:#3E6B4F;
   --smh-fail:#7A3B2E;
   --smh-space-3:16px;
@@ -57,6 +57,7 @@ img{max-width:100%;display:block}
 a{color:inherit}
 .facade-lab{--lab:1}
 .ironhill-lite{--ihl:1}
+.act-c{--act-c:1}
 .skip{position:absolute;left:-9999px}
 .skip:focus{
   position:fixed;left:12px;top:12px;z-index:50;
@@ -67,24 +68,32 @@ a{color:inherit}
 .wrap{width:min(1080px,100% - 48px);margin-inline:auto}
 @media (max-width:720px){.wrap{width:min(1080px,100% - 32px)}}
 
-/* Story guide line (fixed SVG scrubbed to scroll) */
+/* Story guide line — Act I→II bridge */
 .story-line{
   position:fixed;top:0;left:50%;transform:translateX(-50%);
-  width:min(120px,18vw);height:100vh;z-index:8;pointer-events:none;
+  width:min(140px,22vw);height:100vh;z-index:8;pointer-events:none;
 }
 .story-line svg{width:100%;height:100%;overflow:visible}
 .story-line path{
   fill:none;
   stroke:var(--smh-amber);
-  stroke-width:1.35;
+  stroke-width:1.55;
   stroke-linecap:round;
   stroke-linejoin:round;
-  opacity:.72;
+  opacity:.78;
   stroke-dasharray:1;
   stroke-dashoffset:calc(1 - var(--line-progress));
+  filter:drop-shadow(0 0 0.6px rgba(28,25,21,.25));
+}
+.story-line path.story-line__ghost{
+  stroke:rgba(232,226,216,.35);
+  stroke-width:2.4;
+  opacity:calc(.2 + var(--line-progress) * .35);
+  stroke-dashoffset:0;
+  filter:none;
 }
 
-/* —— HERO —— */
+/* —— HERO Act I forest —— */
 .hero{
   position:relative;
   min-height:100svh;min-height:100vh;
@@ -106,20 +115,20 @@ a{color:inherit}
   display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
   min-height:100svh;min-height:100vh;
   padding:clamp(24px,4vw,48px);
-  padding-bottom:clamp(44px,9vh,88px);
+  padding-bottom:clamp(48px,10vh,96px);
   max-width:760px;
 }
 .lab-mark{
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(232,226,216,.58);margin-bottom:18px;
+  color:rgba(232,226,216,.55);margin-bottom:18px;
   opacity:0;animation:heroFade .55s var(--smh-ease) .12s forwards;
 }
 .brand{
   font-family:var(--smh-font-display);
   font-weight:600;
-  font-size:clamp(2.75rem,8vw,5.5rem);
-  line-height:.94;letter-spacing:-.02em;
-  color:#F3EEE6;margin-bottom:22px;
+  font-size:clamp(2.9rem,8.5vw,5.75rem);
+  line-height:.92;letter-spacing:-.025em;
+  color:#F3EEE6;margin-bottom:20px;
   opacity:0;animation:heroFade .6s var(--smh-ease) .2s forwards;
 }
 .brand .mark{color:#E2B87A}
@@ -128,13 +137,13 @@ a{color:inherit}
   font-weight:500;
   font-size:var(--smh-fs-hero);
   line-height:1.18;letter-spacing:-.02em;
-  color:#F3EEE6;max-width:20ch;margin-bottom:18px;
+  color:#F3EEE6;max-width:18ch;margin-bottom:16px;
   opacity:0;animation:heroFade .6s var(--smh-ease) .34s forwards;
 }
 .hero__lead{
   font-size:clamp(15px,1.7vw,18px);
   color:rgba(243,238,230,.86);
-  max-width:34ch;margin-bottom:28px;
+  max-width:32ch;margin-bottom:28px;
   opacity:0;animation:heroFade .6s var(--smh-ease) .46s forwards;
 }
 .cta{
@@ -163,11 +172,30 @@ a{color:inherit}
 @keyframes heroFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes heroPlane{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1.02)}}
 
+/* Act I→II handoff: forest dissolves into paper */
+.act-bridge{
+  position:relative;z-index:4;
+  height:clamp(72px,14vh,140px);
+  margin-top:-1px;
+  background:linear-gradient(180deg,rgba(28,25,21,.82) 0%,rgba(28,25,21,.35) 38%,var(--smh-paper) 100%);
+  pointer-events:none;
+}
+.act-bridge__cue{
+  position:absolute;left:50%;bottom:18%;
+  transform:translateX(-50%);
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--smh-mute);font-weight:600;white-space:nowrap;
+}
+
 /* —— SECTIONS —— */
 .section{padding:var(--smh-space-7) 0;position:relative}
+.section--paper{
+  background:var(--smh-paper);
+  padding-top:clamp(48px,8vh,88px);
+}
 .section--deep{background:var(--smh-paper-deep)}
 .section--ink{
-  background:linear-gradient(180deg,#1C1915 0%,#2A241C 100%);
+  background:linear-gradient(180deg,#1C1915 0%,#241F18 55%,#1C1915 100%);
   color:#F3EEE6;
 }
 .section__eyebrow{
@@ -189,10 +217,10 @@ a{color:inherit}
 }
 .section--ink .section__lead{color:rgba(243,238,230,.78)}
 
-/* Truth / BA */
+/* Truth / BA — Act II paper plane */
 .proof-meta{
   display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;
-  justify-content:space-between;margin-bottom:16px;
+  justify-content:space-between;margin-bottom:18px;
 }
 .proof-labels{display:flex;gap:16px;font-size:13px;color:var(--smh-mute);font-weight:500}
 .proof-labels span{display:inline-flex;align-items:center;gap:6px}
@@ -206,7 +234,11 @@ a{color:inherit}
   aspect-ratio:4/5;
   max-height:min(72vh,760px);
   margin-inline:auto;
-  box-shadow:0 1px 0 rgba(28,25,21,.06);
+  border:1px solid rgba(28,25,21,.1);
+  box-shadow:
+    0 1px 0 rgba(28,25,21,.04),
+    0 28px 60px -36px rgba(28,25,21,.35),
+    inset 0 0 0 1px rgba(243,238,230,.04);
 }
 @media (min-width:800px){.ba-shell{aspect-ratio:16/10;max-height:min(68vh,640px)}}
 .ba{
@@ -233,7 +265,7 @@ a{color:inherit}
   display:grid;place-items:center;
   font-size:15px;font-weight:700;z-index:4;pointer-events:none;
 }
-.ba-caption{color:var(--smh-ink-soft);font-size:.95rem;margin-top:14px;max-width:48ch}
+.ba-caption{color:var(--smh-ink-soft);font-size:.95rem;margin-top:16px;max-width:48ch}
 .gates-inline{
   display:flex;flex-wrap:wrap;gap:10px 18px;
   margin-top:18px;font-size:13px;color:var(--smh-mute);font-weight:600;
@@ -245,37 +277,47 @@ a{color:inherit}
   display:inline-block;
 }
 
-/* Lineage / tree */
+/* Lineage — ink motif only (anti-double-oak) */
 .lineage{
   display:grid;gap:var(--smh-space-5);
   align-items:center;
 }
 @media (min-width:860px){
-  .lineage{grid-template-columns:1.05fr .95fr;gap:var(--smh-space-6)}
+  .lineage{grid-template-columns:1fr 1.05fr;gap:var(--smh-space-6)}
 }
 .lineage__visual{
   position:relative;
   border-radius:var(--smh-radius);
   overflow:hidden;
-  min-height:min(58vh,520px);
-  background:#241F18;
+  min-height:min(52vh,480px);
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 38%,rgba(176,122,58,.12) 0%,transparent 62%),
+    linear-gradient(180deg,#241F18 0%,#1C1915 100%);
+  border:1px solid rgba(243,238,230,.08);
 }
-.lineage__visual img{
-  width:100%;height:100%;min-height:min(58vh,520px);
-  object-fit:cover;object-position:center 55%;opacity:.88;
-}
-.lineage__veil{
-  position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(28,25,21,.15) 0%,rgba(28,25,21,.55) 70%,rgba(28,25,21,.82) 100%);
+.lineage__paper{
+  position:absolute;inset:18% 14% 14%;
+  border:1px solid rgba(232,226,216,.08);
+  background:rgba(232,226,216,.03);
+  pointer-events:none;
 }
 .lineage__tree{
   position:absolute;inset:0;z-index:2;pointer-events:none;
   display:grid;place-items:center;
-  padding:24px;
+  padding:28px 20px 36px;
 }
-.lineage__tree svg{width:min(220px,46%);height:auto;opacity:.9}
-.lineage__tree path,.lineage__tree line{
-  fill:none;stroke:#E2B87A;stroke-width:1.5;stroke-linecap:round;opacity:.85;
+.lineage__tree svg{width:min(260px,58%);height:auto}
+.lineage__tree .ink-canopy{
+  fill:none;stroke:#E2B87A;stroke-width:1.35;stroke-linecap:round;opacity:.55;
+}
+.lineage__tree .ink-trunk{
+  fill:none;stroke:#E2B87A;stroke-width:1.7;stroke-linecap:round;opacity:.9;
+}
+.lineage__tree .ink-root{
+  fill:none;stroke:#E2B87A;stroke-width:1.4;stroke-linecap:round;opacity:.75;
+}
+.lineage__tree .ink-dot{
+  fill:#E2B87A;opacity:.7;
 }
 .lineage__beats{display:grid;gap:22px}
 .beat{padding-top:14px;border-top:1px solid rgba(243,238,230,.14)}
@@ -303,7 +345,7 @@ a{color:inherit}
 }
 .invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:16px;max-width:40ch}
 .invite-card .actions{display:flex;flex-wrap:wrap;gap:10px}
-.wait form{
+.waitform{
   display:grid;gap:12px;
   padding:var(--smh-space-4);
   border:1px solid var(--smh-line);
@@ -336,9 +378,11 @@ a{color:inherit}
 .foot a:hover{color:var(--smh-amber-deep)}
 
 @media (max-width:720px){
-  .hero__copy{padding-top:20vh}
+  .hero__copy{padding-top:18vh}
   .cta .btn{flex:1 1 100%;text-align:center}
-  .story-line{opacity:.55}
+  .story-line{opacity:.5;width:min(96px,20vw)}
+  .act-bridge__cue{font-size:10px}
+  .lineage__visual{min-height:min(44vh,380px)}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -347,46 +391,52 @@ a{color:inherit}
   }
   .hero__plane img{transform:scale(1.02)}
   .story-line path{stroke-dashoffset:0}
+  .story-line path.story-line__ghost{opacity:.45}
   :root{--reveal:48%;--line-progress:1}
 }
 </style>
 </head>
-<body class="facade-lab nano-alt-facade-lab ironhill-lite" data-facade-lab="1" data-ironhill-lite="1">
+<body class="facade-lab nano-alt-facade-lab ironhill-lite act-c" data-facade-lab="1" data-ironhill-lite="1" data-act-c="1">
 <a class="skip" href="#lab-copy">К тексту</a>
 
-<!-- Scroll-drawn lineage guide -->
-<div class="story-line" aria-hidden="true">
+<!-- Scroll-drawn lineage guide — bridge Act I → II -->
+<div class="story-line" aria-hidden="true" data-story-line="1">
   <svg viewBox="0 0 40 100" preserveAspectRatio="none">
+    <path class="story-line__ghost" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 44 26 56 C26 68 16 74 16 84 C16 92 20 96 20 100"/>
     <path id="story-path" pathLength="1" d="M20 0 C20 12 14 18 14 28 C14 40 26 44 26 56 C26 68 16 74 16 84 C16 92 20 96 20 100"/>
   </svg>
 </div>
 
-<!-- 1) Atmosphere-first hero -->
-<header class="hero facade-lab ironhill-lite" data-facade-lab="1" data-ironhill-lite="1" id="top">
+<!-- ACT I — Atmosphere-first forest -->
+<header class="hero facade-lab ironhill-lite" data-facade-lab="1" data-ironhill-lite="1" data-act="1" id="top">
   <div class="hero__plane" aria-hidden="true">
     <img src="/assets/gen_oak_bukovyna.jpg" alt="" width="2752" height="1536" fetchpriority="high" decoding="async">
   </div>
   <div class="hero__veil" aria-hidden="true"></div>
   <div class="hero__grain" aria-hidden="true"></div>
   <div class="hero__copy" id="lab-copy">
-    <p class="lab-mark">facade-lab · ironhill-lite · nano-alt-facade-lab</p>
+    <p class="lab-mark">Акт I · место памяти</p>
     <p class="brand">Save<span class="mark">My</span>History</p>
     <h1>Место, где род ещё держится в снимках.</h1>
-    <p class="hero__lead">Войдите тише. Линия проведёт вниз — к лицу, которое почти стёрлось.</p>
+    <p class="hero__lead">Войдите тише. Линия проведёт вниз — из леса к бумаге, к лицу, которое почти стёрлось.</p>
     <div class="cta">
       <a class="btn btn--primary" href="#invite">Войти по приглашению</a>
-      <a class="btn btn--ghost" href="#truth">Смотреть историю</a>
+      <a class="btn btn--ghost" href="#truth">Спуститься по линии</a>
     </div>
   </div>
 </header>
 
+<div class="act-bridge" aria-hidden="true" data-act-bridge="1">
+  <span class="act-bridge__cue">линия · лес → бумага</span>
+</div>
+
 <main>
-<!-- 3) BA truth chapter -->
-<section class="section" id="truth" aria-labelledby="truth-title">
+<!-- ACT II — Paper BA truth -->
+<section class="section section--paper" id="truth" data-act="2" aria-labelledby="truth-title">
   <div class="wrap">
-    <p class="section__eyebrow">Правда · FADING PAST</p>
+    <p class="section__eyebrow">Акт II · бумага · правда</p>
     <h2 id="truth-title">Фотографии стираются. Их можно сберечь сейчас.</h2>
-    <p class="section__lead">Один честный проход: почти потерянное → сохранённое. Без «2&nbsp;мин», без чужого лица. FACE и EYE остаются воротами.</p>
+    <p class="section__lead">Один честный проход на бумаге: почти потерянное → сохранённое. Без «2&nbsp;мин», без чужого лица. FACE и EYE остаются воротами.</p>
     <div class="proof-meta">
       <div class="proof-labels" aria-hidden="true">
         <span><i class="dot"></i> Уходит</span>
@@ -410,34 +460,38 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- 4) Tree-of-lineage -->
-<section class="section section--ink" id="lineage" aria-labelledby="lineage-title">
+<!-- Lineage — ink motif (not second outdoor oak) -->
+<section class="section section--ink" id="lineage" data-lineage-ink="1" aria-labelledby="lineage-title">
   <div class="wrap lineage">
     <div class="lineage__visual" aria-hidden="true">
-      <img src="/assets/gen_oak_bukovyna.jpg" alt="" width="2752" height="1536" loading="lazy" decoding="async">
-      <div class="lineage__veil"></div>
+      <div class="lineage__paper"></div>
       <div class="lineage__tree">
-        <svg viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
-          <!-- canopy hint -->
-          <path d="M60 18 C42 28 34 42 38 58 C28 62 24 74 30 86 C22 96 26 112 40 118"/>
-          <path d="M60 18 C78 28 86 42 82 58 C92 62 96 74 90 86 C98 96 94 112 80 118"/>
+        <svg viewBox="0 0 120 230" xmlns="http://www.w3.org/2000/svg">
+          <!-- canopy as ink gesture, not photo -->
+          <path class="ink-canopy" d="M60 22 C44 30 36 44 40 60 C30 64 26 76 32 88 C24 98 28 114 42 120"/>
+          <path class="ink-canopy" d="M60 22 C76 30 84 44 80 60 C90 64 94 76 88 88 C96 98 92 114 78 120"/>
+          <path class="ink-canopy" d="M42 72 C50 66 70 66 78 72"/>
           <!-- trunk -->
-          <line x1="60" y1="18" x2="60" y2="148"/>
+          <line class="ink-trunk" x1="60" y1="22" x2="60" y2="152"/>
+          <circle class="ink-dot" cx="60" cy="22" r="2.2"/>
           <!-- roots as род -->
-          <path d="M60 148 C52 168 36 182 22 198"/>
-          <path d="M60 148 C60 172 58 188 54 206"/>
-          <path d="M60 148 C68 168 84 182 98 198"/>
+          <path class="ink-root" d="M60 152 C52 172 36 186 20 204"/>
+          <path class="ink-root" d="M60 152 C60 176 58 192 54 214"/>
+          <path class="ink-root" d="M60 152 C68 172 84 186 100 204"/>
+          <circle class="ink-dot" cx="20" cy="204" r="1.6"/>
+          <circle class="ink-dot" cx="54" cy="214" r="1.6"/>
+          <circle class="ink-dot" cx="100" cy="204" r="1.6"/>
         </svg>
       </div>
     </div>
     <div>
-      <p class="section__eyebrow">Род · дерево</p>
+      <p class="section__eyebrow">Род · чернильный мотив</p>
       <h2 id="lineage-title">Лес → ствол → корни</h2>
-      <p class="section__lead">Спуститесь ниже по линии. Не усадьба и не миф — семейное дерево: от места памяти к корням рода.</p>
+      <p class="section__lead">Ниже по линии — не второй лес и не усадьба. Семейное дерево как след чернил: от места памяти к корням рода.</p>
       <div class="lineage__beats">
         <article class="beat">
           <strong>Лес</strong>
-          <p>Место, куда входят тихо — альбом, бумага, тёплый свет. Не витрина сервиса.</p>
+          <p>Место, куда входят тихо — уже было вверху. Здесь остаётся только след.</p>
         </article>
         <article class="beat">
           <strong>Ствол</strong>
@@ -452,13 +506,13 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- 5) Quiet invite soft-wave -->
-<section class="section section--deep" id="invite" aria-labelledby="invite-title">
+<!-- Quiet invite soft-wave -->
+<section class="section section--deep" id="invite" data-soft-wave="1" aria-labelledby="invite-title">
   <div class="wrap invite">
     <div>
-      <p class="section__eyebrow">Cold Path B · soft-wave</p>
+      <p class="section__eyebrow">После истории · soft-wave</p>
       <h2 id="invite-title">Войти по приглашению</h2>
-      <p class="section__lead">Публичная история открыта. Сервис — через invite soft-wave. Без холодного free restore.</p>
+      <p class="section__lead">Сначала место и правда. Сервис — тихо, через invite. Без холодного free restore.</p>
       <div class="invite-card">
         <h3>Есть код?</h3>
         <p>Redeem открывает кабинет. Коды не раздаём здесь — волна по приглашению. Нет кода — честный waitlist рядом.</p>
@@ -527,7 +581,7 @@ a{color:inherit}
     setReveal(((clientX - r.left) / r.width) * 100);
   }
 
-  /* Motion 1: scroll-drawn SVG line */
+  /* Motion 1: scroll-drawn SVG line as Act I→II bridge */
   function updateLine(){
     if(reduce){
       root.style.setProperty('--line-progress', '1');
@@ -544,12 +598,12 @@ a{color:inherit}
     if(!baShell || !ba || reduce || baScrubbed || dragging) return;
     var r = baShell.getBoundingClientRect();
     var vh = window.innerHeight || 1;
-    var start = vh * 0.75;
-    var end = vh * 0.25;
+    var start = vh * 0.78;
+    var end = vh * 0.22;
     var t = (start - r.top) / (start - end);
     if(t < 0) t = 0;
     if(t > 1) t = 1;
-    setReveal(18 + t * 54);
+    setReveal(16 + t * 58);
   }
 
   function onScroll(){
@@ -561,7 +615,7 @@ a{color:inherit}
     root.style.setProperty('--line-progress', '1');
     setReveal(48);
   } else {
-    setReveal(18);
+    setReveal(16);
     updateLine();
     updateBaWipe();
     window.addEventListener('scroll', onScroll, {passive:true});
