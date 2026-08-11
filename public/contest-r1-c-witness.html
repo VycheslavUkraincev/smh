@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru" class="nano-alt-contest-r1-c" data-contest-r1-c="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — тихий свидетель · contest R1 C</title>
+<meta name="description" content="Quiet Witness Extreme: взгляд, трепет, 3D фото-ритуал. Исцеление — не ретушь.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#E6E0D6">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600;7..72,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E6E0D6; --ink:#1A1713; --soft:#3C372F; --mute:#6A6358;
+  --amber:#A87636; --amber-deep:#825820; --line:rgba(26,23,19,.1);
+  --font-d:"Literata",serif; --font-u:"Manrope",sans-serif;
+  --ry:0deg; --rx:0deg; --rz:0deg; --scan:0; --extract:0; --live:0; --peel:0; --gaze:0; --beat:0; --invite:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-u); color:var(--ink); background:
+    radial-gradient(120% 80% at 50% -10%, rgba(168,118,54,.07), transparent 55%),
+    linear-gradient(180deg, #EDE8DF 0%, var(--paper) 38%, #E2DCD2 100%);
+  overflow-x:hidden; line-height:1.55; min-height:100%;
+}
+img{max-width:100%;display:block;user-select:none}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(720px,100% - 40px);margin-inline:auto}
+.eyebrow{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber-deep);font-weight:600;margin-bottom:1.1rem}
+.brand{font-family:var(--font-d);font-size:clamp(2.4rem,6vw,3.8rem);font-weight:700;letter-spacing:-.02em;line-height:1;margin-bottom:1.4rem}
+.brand i{font-style:normal;color:var(--amber)}
+.lead{color:var(--soft);max-width:28ch;font-size:1.05rem}
+.silence{min-height:100svh;display:grid;place-items:center;text-align:center;padding:12vh 0 8vh}
+.silence h1{font-family:var(--font-d);font-weight:500;font-size:clamp(1.45rem,3.2vw,2rem);max-width:16ch;margin:0 auto 1rem;line-height:1.22}
+.silence .breath{width:1px;height:48px;margin:2.2rem auto 0;background:linear-gradient(to bottom, transparent, var(--amber), transparent);opacity:.55;transform-origin:top;animation:breath 4.2s ease-in-out infinite}
+@keyframes breath{0%,100%{transform:scaleY(.55);opacity:.25}50%{transform:scaleY(1);opacity:.7}}
+.gaze{min-height:160vh;position:relative}
+.gaze__stage{position:sticky;top:0;min-height:100svh;display:grid;place-items:center;padding:6vh 0}
+.gaze__copy{text-align:center;margin-bottom:1.4rem;opacity:calc(.25 + var(--gaze)*.75);transform:translateY(calc((1 - var(--gaze))*12px))}
+.gaze__copy h2{font-family:var(--font-d);font-size:clamp(1.35rem,2.6vw,1.75rem);font-weight:500;margin-bottom:.45rem}
+.gaze__copy p{color:var(--soft);font-size:.98rem;max-width:32ch;margin:0 auto}
+.portrait{
+  width:min(420px,86vw); aspect-ratio:4/5; position:relative; margin:0 auto;
+  border-radius:2px; overflow:hidden;
+  box-shadow:0 28px 70px rgba(26,23,19,.16);
+  opacity:calc(.2 + var(--gaze)*.8);
+  transform:scale(calc(.97 + var(--gaze)*.03));
+}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%}
+.portrait .after{clip-path:inset(0 calc(100% - var(--reveal,18%)) 0 0)}
+.portrait .rail{position:absolute;inset:0 auto 0 var(--reveal,18%);width:1px;background:rgba(230,224,214,.75);transform:translateX(-50%);z-index:3;box-shadow:0 0 0 1px rgba(26,23,19,.08)}
+.portrait .hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:4;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(230,224,214,.82);text-shadow:0 1px 8px rgba(26,23,19,.45)}
+.ritual{position:relative;min-height:320vh}
+.ritual__stage{position:sticky;top:0;min-height:100svh;display:grid;place-items:center;padding:5vh 0;perspective:1400px}
+.ritual__label{text-align:center;margin-bottom:1.1rem;opacity:calc(.3 + (1 - var(--live))*.7)}
+.ritual__label h2{font-family:var(--font-d);font-size:clamp(1.3rem,2.5vw,1.7rem);font-weight:500;margin-bottom:.4rem}
+.ritual__label p{color:var(--soft);font-size:.95rem;max-width:34ch;margin:0 auto}
+.stage3d{width:min(460px,88vw);height:min(575px,108vw);position:relative;transform-style:preserve-3d;margin:0 auto}
+.photo3d{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(var(--ry)) rotateX(var(--rx)) rotateZ(var(--rz));will-change:transform}
+.photo3d__plane{
+  position:absolute;inset:0;border-radius:3px;overflow:hidden;background:#d8d0c4;
+  box-shadow:0 30px 60px rgba(26,23,19,.18), 0 2px 0 rgba(255,255,255,.25) inset;
+  transform:translateZ(1px);
+}
+.photo3d__plane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.photo3d__before{opacity:calc(1 - var(--live));filter:saturate(.92) contrast(1.02)}
+.photo3d__after{opacity:var(--live)}
+.scratches{
+  position:absolute;inset:0;pointer-events:none;z-index:3;opacity:calc(.55 * (1 - var(--live)*.85));
+  background:
+    repeating-linear-gradient(118deg, transparent 0 11px, rgba(26,23,19,.045) 11px 12px),
+    repeating-linear-gradient(16deg, transparent 0 17px, rgba(255,255,255,.03) 17px 18px),
+    radial-gradient(120% 80% at 18% 22%, rgba(26,23,19,.08), transparent 42%),
+    linear-gradient(155deg, transparent 40%, rgba(255,255,255,.07) 48%, transparent 56%);
+  mix-blend-mode:multiply;
+}
+.peel{
+  position:absolute; right:-2%; top:8%; width:18%; height:22%; z-index:4; pointer-events:none;
+  transform-origin:left center;
+  transform:rotateY(calc(var(--peel) * -42deg)) rotateZ(calc(var(--peel) * -4deg));
+  opacity:calc(.15 + var(--peel)*.85);
+}
+.peel::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(135deg, #efe8dc 0%, #d9d0c2 55%, #c9bfb0 100%);
+  clip-path:polygon(0 0, 100% 8%, 92% 100%, 0 86%);
+  box-shadow:-6px 8px 18px rgba(26,23,19,.18);
+}
+.scanline{
+  position:absolute; left:0; right:0; height:2px; top:calc(var(--scan) * 100%);
+  background:linear-gradient(90deg, transparent, rgba(168,118,54,.75), transparent);
+  box-shadow:0 0 18px rgba(168,118,54,.35);
+  opacity:calc(var(--scan) * (1 - var(--live)) * 1.2);
+  z-index:5; pointer-events:none;
+}
+.scanveil{
+  position:absolute; inset:0; z-index:4; pointer-events:none;
+  background:linear-gradient(180deg, rgba(230,224,214,0), rgba(168,118,54,.08) 45%, rgba(230,224,214,0));
+  opacity:calc(var(--scan) * .55 * (1 - var(--live)));
+  mix-blend-mode:soft-light;
+}
+.extract{
+  position:absolute; left:50%; bottom:-3.2rem; transform:translateX(-50%);
+  width:min(340px,90%); text-align:center;
+  opacity:calc(var(--extract) * (1 - var(--live)*.35));
+  font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute);
+}
+.extract span{display:inline-block; padding:.35rem .7rem; border:1px solid var(--line); border-radius:999px; background:rgba(230,224,214,.65); backdrop-filter:blur(4px)}
+.live-note{
+  position:absolute; left:50%; top:-2.6rem; transform:translateX(-50%);
+  opacity:var(--live); font-family:var(--font-d); font-size:.95rem; color:var(--amber-deep); white-space:nowrap;
+}
+.heal{min-height:100svh;display:grid;place-items:center;padding:10vh 0;text-align:center}
+.heal .pair{width:min(360px,78vw);margin:0 auto 1.6rem;aspect-ratio:4/5;position:relative;border-radius:2px;overflow:hidden;box-shadow:0 20px 50px rgba(26,23,19,.14);opacity:calc(.25 + var(--beat)*.75);transform:translateY(calc((1 - var(--beat))*14px))}
+.heal .pair img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.heal h2{font-family:var(--font-d);font-weight:500;font-size:clamp(1.4rem,2.8vw,1.85rem);max-width:16ch;margin:0 auto .7rem;line-height:1.25;opacity:calc(.3 + var(--beat)*.7)}
+.heal p{color:var(--soft);max-width:30ch;margin:0 auto;opacity:calc(.25 + var(--beat)*.75)}
+.invite{padding:8vh 0 12vh;text-align:center;opacity:calc(.35 + var(--invite)*.65);transform:translateY(calc((1 - var(--invite))*10px))}
+.invite h2{font-family:var(--font-d);font-size:1.55rem;font-weight:500;margin-bottom:.55rem}
+.invite p{color:var(--soft);max-width:30ch;margin:0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 1.35rem;margin-top:1.4rem;background:var(--ink);color:var(--paper);border-radius:8px;font-weight:600;font-size:.95rem;transition:transform .25s ease, background .25s ease}
+.btn:hover{transform:translateY(-1px);background:#0f0d0b}
+.foot{padding:1.4rem 0 2rem;text-align:center;color:var(--mute);font-size:.78rem;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .silence .breath{animation:none;opacity:.45}
+  .gaze,.ritual{min-height:auto}
+  .gaze__stage,.ritual__stage{position:relative;min-height:auto}
+  :root{--ry:-18deg;--rx:6deg;--rz:0deg;--scan:.55;--extract:1;--live:.72;--peel:.7;--gaze:1;--beat:1;--invite:1}
+  .portrait,.gaze__copy,.heal .pair,.heal h2,.heal p,.invite{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body class="nano-alt-contest-r1-c" data-contest-r1-c="1">
+
+<header class="silence" data-beat-sec="silence">
+  <div class="wrap">
+    <p class="eyebrow">Contest R1 · Quiet Witness</p>
+    <p class="brand">Save<i>My</i>History</p>
+    <h1>Сначала тишина. Потом — взгляд.</h1>
+    <p class="lead">Одно лицо. Один трепет. Никакой витрины между вами и памятью.</p>
+    <div class="breath" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="gaze" data-pin-gaze id="gaze">
+  <div class="gaze__stage">
+    <div class="wrap">
+      <div class="gaze__copy">
+        <h2>Держать взгляд</h2>
+        <p>Не украшать. Не спорить с временем. Просто быть рядом, пока бумага ещё отвечает.</p>
+      </div>
+      <div class="portrait" data-ba="gaze" style="--reveal:18%">
+        <img src="/assets/case_c9s_before.jpg" alt="Взгляд до" width="840" height="1050" decoding="async">
+        <img class="after" src="/assets/case_c9s_after.jpg" alt="Взгляд после" width="840" height="1050" decoding="async">
+        <div class="rail" aria-hidden="true"></div>
+        <span class="hint">медленно</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ritual" data-pin-ritual id="ritual">
+  <div class="ritual__stage">
+    <div class="wrap">
+      <div class="ritual__label">
+        <h2>Фото как предмет</h2>
+        <p>Поверните бумагу. Увидьте царапины. Затем — тихое чтение. Потом — живое присутствие.</p>
+      </div>
+      <div class="stage3d">
+        <div class="live-note">живой снимок</div>
+        <div class="photo3d" data-photo3d>
+          <div class="photo3d__plane">
+            <img class="photo3d__before" src="/assets/case_c7_before.jpg" alt="Старый снимок" width="920" height="1150" decoding="async">
+            <img class="photo3d__after" src="/assets/case_c7_after.jpg" alt="Живое воссоздание" width="920" height="1150" decoding="async">
+            <div class="scratches" aria-hidden="true"></div>
+            <div class="scanveil" aria-hidden="true"></div>
+            <div class="scanline" aria-hidden="true"></div>
+            <div class="peel" aria-hidden="true"></div>
+          </div>
+        </div>
+        <p class="extract"><span>скан · извлечение · присутствие</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="heal" data-beat-sec="heal" id="heal">
+  <div class="wrap">
+    <figure class="pair">
+      <img src="/assets/hero_after.jpg" alt="Лицо после бережного восстановления" width="900" height="1125" loading="lazy">
+    </figure>
+    <h2>Исцеление — не ретушь</h2>
+    <p>Если взгляд не держится, мы скажем прямо. Красота без личности нам не нужна.</p>
+  </div>
+</section>
+
+<section class="invite" data-beat-sec="invite" id="invite">
+  <div class="wrap">
+    <p class="eyebrow">Мягкая волна</p>
+    <h2>Если этот тон — ваш</h2>
+    <p>Войдите тихо. Без спешки. Как хранитель, а не клиент витрины.</p>
+    <a class="btn" href="/waitlist.html">К списку ожидания</a>
+  </div>
+</section>
+
+<footer class="foot">SaveMyHistory · contest-r1-c-witness · Quiet Witness Extreme</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+  function ease(t){t=clamp(t,0,1); return 1 - Math.pow(1 - t, 2.4);}
+  function seg(p,a,b){return clamp((p-a)/Math.max(0.0001,b-a),0,1);}
+
+  var portrait = document.querySelector('[data-ba="gaze"]');
+  if(portrait && !reduce){
+    var drag=false;
+    function setX(x){
+      var r=portrait.getBoundingClientRect();
+      portrait.style.setProperty('--reveal', clamp(((x-r.left)/r.width)*100,10,90)+'%');
+    }
+    portrait.addEventListener('pointerdown',function(e){drag=true;portrait.setPointerCapture(e.pointerId);setX(e.clientX);});
+    portrait.addEventListener('pointermove',function(e){if(drag)setX(e.clientX);});
+    portrait.addEventListener('pointerup',function(){drag=false;});
+    portrait.addEventListener('pointercancel',function(){drag=false;});
+  }
+
+  var ticking=false;
+  function bus(){
+    ticking=false;
+    var vh = window.innerHeight || 1;
+
+    var gaze = document.querySelector('[data-pin-gaze]');
+    if(gaze){
+      if(reduce){
+        gaze.style.setProperty('--gaze','1');
+        if(portrait) portrait.style.setProperty('--reveal','48%');
+      } else {
+        var gr=gaze.getBoundingClientRect();
+        var gp=clamp((-gr.top)/Math.max(1,gaze.offsetHeight-vh),0,1);
+        var ge=ease(gp);
+        gaze.style.setProperty('--gaze', ge);
+        if(portrait) portrait.style.setProperty('--reveal', (14 + ge*62)+'%');
+      }
+    }
+
+    var ritual = document.querySelector('[data-pin-ritual]');
+    if(ritual){
+      if(reduce){
+        root.style.setProperty('--ry','-18deg');
+        root.style.setProperty('--rx','6deg');
+        root.style.setProperty('--rz','0deg');
+        root.style.setProperty('--peel','.7');
+        root.style.setProperty('--scan','.55');
+        root.style.setProperty('--extract','1');
+        root.style.setProperty('--live','.72');
+      } else {
+        var rr=ritual.getBoundingClientRect();
+        var p=clamp((-rr.top)/Math.max(1,ritual.offsetHeight-vh),0,1);
+        var turn = ease(seg(p,0.02,0.38));
+        var ry = -34 + turn*52;
+        var rx = 10 - turn*14;
+        var rz = (1-turn)* -2;
+        root.style.setProperty('--ry', ry+'deg');
+        root.style.setProperty('--rx', rx+'deg');
+        root.style.setProperty('--rz', rz+'deg');
+        root.style.setProperty('--peel', ease(seg(p,0.08,0.32)).toFixed(4));
+        var scan = ease(seg(p,0.34,0.58));
+        root.style.setProperty('--scan', scan.toFixed(4));
+        root.style.setProperty('--extract', ease(seg(p,0.48,0.68)).toFixed(4));
+        root.style.setProperty('--live', ease(seg(p,0.62,0.88)).toFixed(4));
+        if(p>0.88){
+          var settle = ease(seg(p,0.88,1));
+          root.style.setProperty('--ry', (18 - settle*18)+'deg');
+          root.style.setProperty('--rx', (-4 + settle*4)+'deg');
+        }
+      }
+    }
+
+    document.querySelectorAll('[data-beat-sec]').forEach(function(sec){
+      if(reduce){
+        if(sec.classList.contains('heal')) sec.style.setProperty('--beat','1');
+        if(sec.classList.contains('invite')) sec.style.setProperty('--invite','1');
+        return;
+      }
+      var r=sec.getBoundingClientRect();
+      var v=ease(clamp((vh*0.78 - r.top)/(vh*0.55),0,1));
+      if(sec.classList.contains('heal')) sec.style.setProperty('--beat', v);
+      if(sec.classList.contains('invite')) sec.style.setProperty('--invite', v);
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(bus);} }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  bus();
+})();
+</script>
+</body>
+</html>
