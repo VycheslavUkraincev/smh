@@ -381,14 +381,14 @@
   },
   {
     "id": "door-a-continue-improve",
-    "at": "2026-08-11T21:25:00Z",
+    "at": "2026-08-11T21:35:00Z",
     "date": "2026-08-11",
     "stage": "craft",
     "title": "Door A · continue improve after TOP wire",
-    "status": "READY",
-    "text": "Continue improve: FACE/EYE visual bridge, mobile parity raise, heavy leaf defer (o15/w150/c10), PASS2 fold (grain CSS, EN crumbs, hero poster-first, sticky shorter, reduced-motion wipe). tip pending push.",
-    "note": "Continue improve: FACE/EYE visual bridge, mobile parity raise, heavy leaf defer (o15/w150/c10), PASS2 fold (grain CSS, EN crumbs, hero poster-first, sticky shorter, reduced-motion wipe). tip pending push.",
-    "tip": "",
+    "status": "LIVE",
+    "text": "Continue improve LIVE tip 3e2262a · 53682 bytes. FACE/EYE bridge · mobile parity · heavy defer · PASS2 fold.",
+    "note": "Continue improve LIVE tip 3e2262a · 53682 bytes. FACE/EYE bridge · mobile parity · heavy defer · PASS2 fold.",
+    "tip": "3e2262a",
     "url": "https://savemyhistory.tech/facade-lab.html"
   }
 ]
