@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ru" data-digital-sanctuary="1" class="digital-sanctuary nano-alt-digital-sanctuary">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Sanctuary — SaveMyHistory concept</title>
+<meta name="description" content="Digital Sanctuary — концепт-исследование SaveMyHistory: бережный архив и восстановление семейных фото.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0E0D0B">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/hero_before.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/hero_after.jpg" fetchpriority="high">
+<style>
+:root{
+  --bg:#0E0D0B;
+  --bg-elev:#141210;
+  --ink:#F2EDE3;
+  --ink-soft:rgba(242,237,227,.72);
+  --mute:rgba(242,237,227,.48);
+  --gold:#C4A46A;
+  --gold-deep:#A8844A;
+  --gold-line:rgba(196,164,106,.55);
+  --gold-faint:rgba(196,164,106,.18);
+  --btn-light:#E8E4DC;
+  --btn-ink:#1A1712;
+  --grid:rgba(196,164,106,.055);
+  --font-display:"Cormorant Garamond","Playfair Display",Georgia,serif;
+  --font-ui:"Manrope","IBM Plex Sans",sans-serif;
+  --font-hand:"Caveat","Segoe Script",cursive;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --reveal:50%;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100svh;
+  font-family:var(--font-ui);
+  color:var(--ink);
+  background:var(--bg);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.skip{position:absolute;left:-9999px}
+.skip:focus{position:fixed;left:12px;top:12px;z-index:80;background:var(--gold);color:var(--bg);padding:10px 14px;font-weight:600}
+
+/* atmosphere */
+.atmosphere{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 35%, rgba(40,32,22,.55) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 12% 70%, rgba(80,55,30,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 35% at 88% 25%, rgba(70,50,28,.1) 0%, transparent 55%),
+    var(--bg);
+}
+.atmosphere::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 90% 80% at 50% 40%, #000 20%, transparent 85%);
+}
+.atmosphere::after{
+  content:"";position:absolute;inset:0;opacity:.09;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600' fill='none'%3E%3Cpath d='M40 420C120 300 180 260 280 240C380 220 420 180 480 120C540 60 620 40 760 80' stroke='%23C4A46A' stroke-width='1.2'/%3E%3Cpath d='M20 500C100 400 200 360 300 340C420 315 500 280 560 210C620 140 700 110 790 150' stroke='%23C4A46A' stroke-width='.9'/%3E%3Cpath d='M60 200C140 160 220 170 300 210C380 250 460 250 540 200C620 150 700 140 780 180' stroke='%23C4A46A' stroke-width='.7'/%3E%3Cpath d='M10 100C90 140 150 200 200 280C250 360 320 420 420 450C520 480 620 470 760 420' stroke='%23C4A46A' stroke-width='.8'/%3E%3C/svg%3E") center/cover no-repeat;
+}
+
+.page{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column}
+.wrap{width:min(1180px,100% - 48px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(1180px,100% - 28px)}}
+
+/* header */
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;padding:22px 0 8px;
+}
+.brand{
+  display:flex;align-items:center;gap:12px;flex-shrink:0;
+  color:var(--gold);
+}
+.brand-mark{
+  width:36px;height:36px;flex-shrink:0;
+  filter:drop-shadow(0 0 10px rgba(196,164,106,.2));
+}
+.brand-text{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:.78rem;
+  letter-spacing:.18em;
+  line-height:1.15;
+  text-transform:uppercase;
+}
+.nav{
+  display:flex;align-items:center;gap:clamp(18px,3vw,36px);
+  font-size:.92rem;font-weight:500;color:var(--ink-soft);
+}
+.nav a{transition:color .25s var(--ease)}
+.nav a:hover{color:var(--gold)}
+.btn-signin{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:38px;padding:0 18px;
+  background:var(--btn-light);color:var(--btn-ink);
+  font-size:.88rem;font-weight:600;
+  border-radius:4px;
+  box-shadow:0 2px 10px rgba(0,0,0,.35);
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.btn-signin:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+
+/* hero stage */
+.stage{
+  flex:1;
+  display:grid;
+  grid-template-columns:minmax(160px,1fr) minmax(280px,540px) minmax(160px,1fr);
+  align-items:center;
+  gap:clamp(16px,3vw,40px);
+  padding:28px 0 40px;
+  min-height:calc(100svh - 110px);
+}
+
+.col{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.col-right{align-items:flex-start;text-align:left;padding-top:12px}
+
+.icon-cam{
+  width:42px;height:42px;color:var(--gold);
+  filter:drop-shadow(0 0 12px rgba(196,164,106,.25));
+}
+.col-title{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(1.55rem,2.2vw,1.95rem);
+  line-height:1.15;
+  color:var(--ink);
+}
+.col-copy{
+  font-size:.9rem;line-height:1.55;color:var(--mute);max-width:220px;
+}
+.col-copy .browse{
+  color:var(--ink-soft);
+  border-bottom:1px solid rgba(242,237,227,.35);
+  cursor:pointer;
+}
+.col-copy .browse:hover{color:var(--gold);border-color:var(--gold)}
+.formats{font-size:.78rem;color:var(--mute);line-height:1.5;max-width:220px}
+.formats strong{display:block;font-weight:600;color:var(--ink-soft);margin-bottom:2px}
+.ghost-label{
+  margin-top:18px;font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(242,237,227,.18);
+}
+
+.google-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  min-height:42px;padding:0 16px 0 12px;
+  background:var(--btn-light);color:var(--btn-ink);
+  border-radius:6px;font-size:.9rem;font-weight:600;
+  box-shadow:0 2px 12px rgba(0,0,0,.35);
+  transition:transform .2s var(--ease);
+}
+.google-btn:hover{transform:translateY(-1px)}
+.google-btn svg{width:18px;height:18px;flex-shrink:0}
+
+/* BA card */
+.hero-card-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:22px;
+  position:relative;
+}
+.ba-card{
+  width:100%;
+  border:1px solid var(--gold-line);
+  border-radius:10px;
+  padding:10px;
+  background:linear-gradient(180deg, rgba(28,24,18,.85), rgba(16,14,12,.92));
+  box-shadow:
+    0 0 0 1px rgba(196,164,106,.08),
+    0 24px 60px rgba(0,0,0,.55),
+    0 0 80px rgba(196,164,106,.06);
+  animation:cardIn .9s var(--ease) both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(18px) scale(.985)}
+  to{opacity:1;transform:none}
+}
+.ba{
+  position:relative;
+  aspect-ratio:4/3;
+  border-radius:6px;
+  overflow:hidden;
+  cursor:ew-resize;
+  user-select:none;
+  touch-action:none;
+  border:1px solid rgba(196,164,106,.2);
+}
+.ba img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.ba-after{z-index:1}
+.ba-before{
+  z-index:2;
+  clip-path:inset(0 calc(100% - var(--reveal)) 0 0);
+}
+.ba-divider{
+  position:absolute;top:0;bottom:0;left:var(--reveal);
+  width:2px;margin-left:-1px;z-index:3;
+  background:linear-gradient(180deg, transparent, var(--gold), transparent);
+  box-shadow:0 0 12px rgba(196,164,106,.45);
+  pointer-events:none;
+}
+.ba-knob{
+  position:absolute;top:50%;left:var(--reveal);
+  z-index:4;width:28px;height:28px;margin:-14px 0 0 -14px;
+  border-radius:50%;
+  border:1.5px solid var(--gold);
+  background:rgba(14,13,11,.75);
+  display:grid;place-items:center;
+  box-shadow:0 0 16px rgba(196,164,106,.35);
+  pointer-events:none;
+}
+.ba-knob::before,.ba-knob::after{
+  content:"";width:0;height:0;
+  border-top:4px solid transparent;border-bottom:4px solid transparent;
+}
+.ba-knob::before{border-right:5px solid var(--gold);margin-right:3px}
+.ba-knob::after{border-left:5px solid var(--gold);margin-left:3px}
+.ba-tag{
+  position:absolute;bottom:10px;z-index:3;
+  font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 8px;border-radius:3px;
+  background:rgba(14,13,11,.55);color:var(--ink-soft);
+  backdrop-filter:blur(4px);
+}
+.ba-tag-before{left:10px}
+.ba-tag-after{right:10px}
+
+.cta-restore{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:48px;padding:0 34px;
+  border:1.5px solid var(--gold);
+  border-radius:999px;
+  color:var(--gold);
+  font-family:var(--font-display);
+  font-size:1.05rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  background:rgba(14,13,11,.55);
+  box-shadow:0 0 0 1px rgba(196,164,106,.08), 0 8px 28px rgba(0,0,0,.35);
+  transition:background .25s var(--ease), color .25s var(--ease), transform .2s var(--ease);
+  animation:ctaPulse 3.6s ease-in-out infinite;
+}
+.cta-restore:hover{
+  background:rgba(196,164,106,.12);
+  transform:translateY(-1px);
+  animation:none;
+}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(196,164,106,.08), 0 8px 28px rgba(0,0,0,.35)}
+  50%{box-shadow:0 0 0 1px rgba(196,164,106,.2), 0 8px 36px rgba(196,164,106,.12)}
+}
+
+.drag-hint{
+  position:absolute;
+  left:8%;
+  bottom:-6px;
+  display:flex;align-items:center;gap:8px;
+  color:var(--gold);
+  pointer-events:none;
+  animation:hintIn 1.1s .4s var(--ease) both;
+}
+@keyframes hintIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+.drag-hint span{
+  font-family:var(--font-hand);
+  font-size:1.35rem;
+  letter-spacing:.02em;
+}
+.drag-hint svg{
+  width:54px;height:40px;
+  transform:rotate(-18deg);
+  opacity:.85;
+}
+
+.sparkle{
+  position:fixed;right:28px;bottom:28px;z-index:2;
+  width:18px;height:18px;color:var(--gold);
+  opacity:.75;
+  animation:spark 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes spark{
+  0%,100%{opacity:.45;transform:scale(.92) rotate(0)}
+  50%{opacity:.9;transform:scale(1.08) rotate(12deg)}
+}
+
+.footer-note{
+  text-align:center;
+  padding:8px 16px 28px;
+  font-size:.75rem;
+  color:rgba(242,237,227,.28);
+  letter-spacing:.04em;
+}
+.footer-note a{color:rgba(196,164,106,.55);border-bottom:1px solid transparent}
+.footer-note a:hover{border-color:rgba(196,164,106,.45);color:var(--gold)}
+
+.soft-note{
+  margin-top:10px;
+  font-size:.78rem;
+  line-height:1.45;
+  color:var(--mute);
+  max-width:240px;
+}
+
+/* dropzone visual */
+.dropzone{
+  width:100%;max-width:220px;
+  border:1px dashed rgba(196,164,106,.35);
+  border-radius:8px;
+  padding:14px 12px;
+  transition:border-color .2s var(--ease), background .2s var(--ease);
+}
+.dropzone.is-hover{
+  border-color:var(--gold);
+  background:rgba(196,164,106,.06);
+}
+.dropzone input{display:none}
+
+@media (max-width:960px){
+  .nav{display:none}
+  .stage{
+    grid-template-columns:1fr;
+    gap:36px;
+    padding:20px 0 48px;
+    min-height:auto;
+  }
+  .col,.col-right{align-items:center;text-align:center;order:2}
+  .hero-card-wrap{order:1}
+  .col-right{order:3}
+  .drag-hint{left:50%;transform:translateX(-50%);bottom:-18px}
+  .soft-note{max-width:280px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержимому</a>
+<div class="atmosphere" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="header wrap">
+    <a class="brand" href="/digital-sanctuary.html" aria-label="Digital Sanctuary">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M24 6c2.2 4.8 3.4 8.2 3.4 11.2 0 3.4-1.6 5.8-3.4 7.2-1.8-1.4-3.4-3.8-3.4-7.2C20.6 14.2 21.8 10.8 24 6Z" fill="currentColor" opacity=".95"/>
+        <path d="M12 16c5.2 1.6 8.6 3.4 10.6 5.8 2 2.4 2.8 5 2.8 7.6-2.6-.2-5.2-1.6-7.4-3.8C15.8 23.4 13.6 20 12 16Z" fill="currentColor" opacity=".75"/>
+        <path d="M36 16c-5.2 1.6-8.6 3.4-10.6 5.8-2 2.4-2.8 5-2.8 7.6 2.6-.2 5.2-1.6 7.4-3.8C32.2 23.4 34.4 20 36 16Z" fill="currentColor" opacity=".75"/>
+        <path d="M24 28c1.4 2.8 3.8 5.2 7 6.8-2.2 1.4-4.6 2.4-7 2.8-2.4-.4-4.8-1.4-7-2.8 3.2-1.6 5.6-4 7-6.8Z" fill="currentColor" opacity=".85"/>
+        <path d="M18 38.5c2 .8 4 1.3 6 1.5 2-.2 4-.7 6-1.5-1.8 2.2-3.8 3.5-6 3.5s-4.2-1.3-6-3.5Z" fill="currentColor" opacity=".55"/>
+      </svg>
+      <span class="brand-text">Digital<br>Sanctuary</span>
+    </a>
+
+    <nav class="nav" aria-label="Разделы">
+      <a href="#how">Как это</a>
+      <a href="#pricing">Цены</a>
+      <a href="#about">О нас</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <a class="btn-signin" href="/cabinet.html" title="Вход в кабинет (если есть доступ)">Войти</a>
+  </header>
+
+  <main id="main" class="stage wrap">
+    <aside class="col col-left" id="how">
+      <svg class="icon-cam" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect x="6" y="14" width="36" height="26" rx="4" stroke="currentColor" stroke-width="2"/>
+        <circle cx="24" cy="27" r="8" stroke="currentColor" stroke-width="2"/>
+        <circle cx="24" cy="27" r="3.5" fill="currentColor"/>
+        <path d="M16 14l3-5h10l3 5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="36" cy="20" r="1.6" fill="currentColor"/>
+      </svg>
+      <h2 class="col-title">Загрузи своё<br>наследие</h2>
+      <label class="dropzone" id="dropzone">
+        <input type="file" accept=".jpg,.jpeg,.png,.tif,.tiff,image/jpeg,image/png,image/tiff" id="fileInput">
+        <p class="col-copy">
+          Drag &amp; Drop или<br>
+          <span class="browse" id="browseLink">[Обзор файлов]</span>
+        </p>
+      </label>
+      <p class="formats">
+        <strong>Форматы:</strong>
+        JPG, PNG, TIFF (до 50&nbsp;MB)
+      </p>
+      <p class="soft-note">Макет зоны загрузки. Реальный restore для новых гостей не открыт — доступ по приглашению.</p>
+      <p class="ghost-label" aria-hidden="true">Invisible UI</p>
+    </aside>
+
+    <section class="hero-card-wrap" aria-label="Пример восстановления">
+      <div class="ba-card">
+        <div class="ba" id="ba" role="img" aria-label="Сравнение: слева повреждённое фото, справа восстановленное">
+          <img class="ba-after" src="/assets/hero_after.jpg" alt="Восстановленный семейный портрет" width="960" height="720" decoding="async">
+          <img class="ba-before" src="/assets/hero_before.jpg" alt="Исходный повреждённый портрет" width="960" height="720" decoding="async">
+          <div class="ba-divider" aria-hidden="true"></div>
+          <div class="ba-knob" aria-hidden="true"></div>
+          <span class="ba-tag ba-tag-before">До</span>
+          <span class="ba-tag ba-tag-after">После</span>
+        </div>
+      </div>
+
+      <a class="cta-restore" href="/waitlist.html" title="Лист ожидания / приглашение">Восстановить это фото</a>
+
+      <div class="drag-hint" aria-hidden="true">
+        <span>Drag &amp; Drop</span>
+        <svg viewBox="0 0 64 48" fill="none">
+          <path d="M8 36C18 36 22 28 28 18C32 11 38 8 50 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M44 6l8 4-6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <aside class="col col-right" id="about">
+      <h2 class="col-title">Войди в архив</h2>
+      <p class="col-copy" style="max-width:240px">Надёжно храни и восстанавливай исторические моменты семьи.</p>
+      <a class="google-btn" href="/cabinet.html" title="Вход (UI-макет; OAuth здесь не подключён)">
+        <svg viewBox="0 0 18 18" aria-hidden="true">
+          <path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z"/>
+          <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.02-3.71H.96v2.33A9 9 0 0 0 9 18Z"/>
+          <path fill="#FBBC05" d="M3.98 10.71A5.41 5.41 0 0 1 3.7 9c0-.59.1-1.17.28-1.71V4.96H.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04l3.02-2.33Z"/>
+          <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58A8.96 8.96 0 0 0 9 0 9 9 0 0 0 .96 4.96l3.02 2.33C4.68 5.16 6.66 3.58 9 3.58Z"/>
+        </svg>
+        Войти через Google
+      </a>
+      <p class="soft-note" id="pricing">Концепт-лицо Digital Sanctuary. SaveMyHistory открывается мягкой волной приглашений — не мгновенный публичный conveyor.</p>
+    </aside>
+  </main>
+
+  <footer class="footer-note" id="faq">
+    Digital Sanctuary — design-lab sibling для SaveMyHistory ·
+    <a href="/">на основной сайт</a> ·
+    <a href="/progress.html">хроника</a>
+  </footer>
+</div>
+
+<svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <path d="M12 0l1.8 8.2L22 12l-8.2 1.8L12 22l-1.8-8.2L2 12l8.2-1.8L12 0z"/>
+</svg>
+
+<script>
+(function () {
+  var root = document.getElementById('ba');
+  if (!root) return;
+  var dragging = false;
+  function setReveal(clientX) {
+    var rect = root.getBoundingClientRect();
+    var x = (clientX - rect.left) / rect.width;
+    x = Math.max(0.08, Math.min(0.92, x));
+    root.style.setProperty('--reveal', (x * 100).toFixed(2) + '%');
+  }
+  root.addEventListener('pointerdown', function (e) {
+    dragging = true;
+    root.setPointerCapture(e.pointerId);
+    setReveal(e.clientX);
+  });
+  root.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    setReveal(e.clientX);
+  });
+  function endDrag(e) {
+    dragging = false;
+    try { root.releasePointerCapture(e.pointerId); } catch (_) {}
+  }
+  root.addEventListener('pointerup', endDrag);
+  root.addEventListener('pointercancel', endDrag);
+
+  var dz = document.getElementById('dropzone');
+  var input = document.getElementById('fileInput');
+  var browse = document.getElementById('browseLink');
+  if (browse && input) {
+    browse.addEventListener('click', function (e) {
+      e.preventDefault();
+      input.click();
+    });
+  }
+  if (dz) {
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      dz.addEventListener(ev, function (e) {
+        e.preventDefault();
+        dz.classList.add('is-hover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      dz.addEventListener(ev, function (e) {
+        e.preventDefault();
+        dz.classList.remove('is-hover');
+        if (ev === 'drop') {
+          /* UI mock only — no upload backend */
+        }
+      });
+    });
+  }
+  if (input) {
+    input.addEventListener('change', function () {
+      /* UI mock: clear selection, no processing */
+      input.value = '';
+    });
+  }
+})();
+</script>
+</body>
+</html>
