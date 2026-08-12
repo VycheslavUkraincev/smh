@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" data-door-a-creative-raise-2="1" data-door-a-creative-raise-3="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" data-door-a-creative-raise-2="1" data-door-a-creative-raise-3="1" data-door-a-creative-raise-4="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,6 +51,7 @@
   --dust:0;
   --hero-p:0;
   --grain-op:.05;
+  --end-hold:0;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -336,7 +337,13 @@ a{color:inherit}
   background:var(--smh-amber);color:var(--smh-ink);
   display:grid;place-items:center;font-size:15px;font-weight:700;z-index:4;pointer-events:none;
 }
-.ba-caption{color:var(--smh-ink-soft);font-size:.95rem;max-width:48ch}
+.ba-caption{
+  color:var(--smh-ink-soft);font-size:.95rem;max-width:48ch;
+  font-weight:500;
+  letter-spacing:calc(-.012em + var(--pin-p) * .02em);
+  opacity:calc(.52 + var(--pin-p) * .48);
+}
+/* Creative raise 4 · pin truth ink breath — caption tracks wipe settle */
 
 /* —— Archive gallery: lamp-room album leaves, not SaaS grid —— */
 .archive{
@@ -527,7 +534,7 @@ a{color:inherit}
 /* Honesty + quiet FACE/EYE visual bridge into archive shelf */
 .honest{
   display:grid;gap:var(--smh-space-5);align-items:center;
-  opacity:calc(.3 + var(--honest-in) * .7);
+  opacity:calc(.2 + var(--honest-in) * .8);
   transform:translate3d(0, calc((1 - var(--honest-in)) * 14px), 0);
 }
 @media (min-width:860px){.honest{grid-template-columns:.9fr 1.1fr;gap:var(--smh-space-6)}}
@@ -540,15 +547,18 @@ a{color:inherit}
 .honest__mat img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
 .honest__gaze{
   position:absolute;inset:0;pointer-events:none;
+  opacity:calc(.5 + var(--honest-in) * .5);
   background:
-    radial-gradient(ellipse 34% 26% at 48% 33%,rgba(226,184,122,.045) 0%,transparent 68%),
-    linear-gradient(180deg,transparent 72%,rgba(28,25,21,.12) 100%);
+    radial-gradient(ellipse 34% 26% at 48% 33%,rgba(226,184,122,calc(.028 + var(--honest-in) * .035)) 0%,transparent 70%),
+    linear-gradient(180deg,transparent calc(70% - var(--honest-in) * 4%),rgba(28,25,21,calc(.08 + var(--honest-in) * .1)) 100%);
 }
 .honest__gaze-caption{
   position:absolute;left:12px;bottom:12px;z-index:2;
-  font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(243,238,230,.48);
+  font-size:10px;font-weight:500;letter-spacing:calc(.08em + var(--honest-in) * .045em);text-transform:uppercase;
+  color:rgba(243,238,230,calc(.32 + var(--honest-in) * .28));
+  opacity:calc(.38 + var(--honest-in) * .62);
 }
+/* Creative raise 4 · keeper gaze rest — witness veil holds longer */
 .gates{display:grid;gap:14px;margin-top:8px}
 .gate{
   padding:14px 16px;border:1px solid var(--smh-line);border-radius:var(--smh-radius);
@@ -602,8 +612,9 @@ a{color:inherit}
 /* Invite soft COLD_PATH_B — h2 + soft only; Pass11 micro residual cleared */
 .invite{
   display:grid;gap:var(--smh-space-3);align-items:start;max-width:520px;
-  opacity:calc(.35 + var(--invite-in) * .65);
+  opacity:calc(.35 + var(--invite-in) * .65 - var(--end-hold) * .08);
   transform:translate3d(0, calc((1 - var(--invite-in)) * 10px), 0);
+  letter-spacing:calc(0em + var(--end-hold) * .01em);
 }
 .invite-card{
   padding:0;
@@ -616,7 +627,8 @@ a{color:inherit}
   font-family:var(--smh-font-display);
   font-size:15px;font-weight:500;line-height:1.45;
   color:var(--smh-mute);
-  opacity:calc(.55 + var(--invite-in) * .45);
+  opacity:calc(.55 + var(--invite-in) * .45 - var(--end-hold) * .12);
+  letter-spacing:calc(-.005em + var(--end-hold) * .018em);
 }
 
 .invite-soft{
@@ -631,6 +643,8 @@ a{color:inherit}
   padding:var(--smh-space-5) 0;
   border-top:1px solid var(--smh-line);
   color:var(--smh-mute);font-size:13px;
+  opacity:calc(1 - var(--end-hold) * .1);
+  letter-spacing:calc(0em + var(--end-hold) * .012em);
 }
 .foot nav{display:flex;flex-wrap:wrap;gap:14px 22px;margin-bottom:10px}
 .foot a{
@@ -644,9 +658,9 @@ a{color:inherit}
   margin:14px 0 0;max-width:42ch;
   font-family:var(--smh-font-display);
   font-size:13px;font-weight:500;line-height:1.45;
-  letter-spacing:-.01em;
+  letter-spacing:calc(-.01em + var(--end-hold) * .022em);
   color:rgba(110,102,83,.72);
-  opacity:calc(.42 + var(--invite-in) * .48);
+  opacity:calc(.42 + var(--invite-in) * .48 - var(--end-hold) * .14);
 }
 
 @media (max-width:720px){
@@ -722,7 +736,7 @@ a{color:inherit}
   .pin-chapter{min-height:0!important;overflow:visible!important}
   .pin-chapter__stage{position:relative!important;min-height:0!important;overflow:visible!important}
   .scroll-cue i{animation:none}
-  :root{--reveal:12%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--gallery-in:1;--invite-in:1;--pin-p:.5;--dust:1;--hero-p:0;--grain-op:.04}
+  :root{--reveal:12%;--hero-exit:0;--album-in:1;--plane-in:1;--plane-out:0;--ba-exit:0;--honest-in:1;--gallery-in:1;--invite-in:1;--pin-p:.5;--dust:1;--hero-p:0;--grain-op:.04;--end-hold:0}
   .hero__falloff,.act-hush{opacity:1!important}
   .foot__lineage{opacity:.7!important}
 }
@@ -730,6 +744,18 @@ a{color:inherit}
 /* Creative raise 3 · paper grain + falloff held under reduce */
 @media (prefers-reduced-motion:reduce){
   .hero__grain{mix-blend-mode:soft-light}
+}
+
+/* Creative raise 4 · end-scroll hush hold + gaze/ink reduce */
+@media (prefers-reduced-motion:reduce){
+  :root{--end-hold:0}
+  .honest__gaze,.honest__gaze-caption{opacity:1!important}
+  .ba-caption{opacity:.9!important;letter-spacing:0!important}
+  .foot,.invite,.invite-breath,.foot__lineage{letter-spacing:normal}
+  .foot{opacity:1!important}
+  .invite{opacity:1!important}
+  .invite-breath{opacity:.9!important}
+  .foot__lineage{opacity:.7!important}
 }
 </style>
 </head>
@@ -1038,6 +1064,7 @@ a{color:inherit}
       root.style.setProperty('--pin-p', '.5');
       root.style.setProperty('--dust', '1');
       root.style.setProperty('--hero-p', '0');
+      root.style.setProperty('--end-hold', '0');
       if(heroMedia) heroMedia.classList.add('is-still');
       if(heroVideo){ try{ heroVideo.pause(); }catch(e){} }
       setReveal(12);
@@ -1085,9 +1112,15 @@ a{color:inherit}
       setReveal(12 + easeOut(wipeT) * 66);
     }
 
-    root.style.setProperty('--honest-in', String(enterProgress(honesty, 0.9, 0.58)));
+    /* Creative raise 4 · keeper gaze rest — slightly longer honesty settle */
+    root.style.setProperty('--honest-in', String(enterProgress(honesty, 0.9, 0.68)));
     root.style.setProperty('--gallery-in', String(enterProgress(archive, 0.92, 0.62)));
     root.style.setProperty('--invite-in', String(enterProgress(invite, 0.9, 0.58)));
+    /* Creative raise 4 · end-scroll hush hold — last ~15% softens foot/invite */
+    var docH = Math.max(1, (document.documentElement.scrollHeight || 1) - vh);
+    var scrollP = clamp(window.scrollY / docH, 0, 1);
+    var endHold = easeOut(clamp((scrollP - 0.85) / 0.15, 0, 1));
+    root.style.setProperty('--end-hold', String(endHold));
   }
 
   function requestBus(){
