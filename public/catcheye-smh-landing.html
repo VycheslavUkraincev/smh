@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<!-- CATCHEYE_SMH_LANDING_PORT Creative Bridge sibling · assets /assets/catcheye-landing · source catcheye smh-landing · 2026-08-12 -->
+<html lang="ru" data-catcheye-smh-landing-port="1" data-catcheye-smh-landing="1">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save My History — Восстановим ваши семейные фото</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#faf6f2;color:#1a1513;overflow-x:hidden;line-height:1.6}
+
+/* ── Progress Bar ── */
+.progress{position:fixed;top:0;left:0;width:0;height:2px;background:#b8863c;z-index:999;transition:width .1s}
+
+/* ── Typography ── */
+h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400}
+h2{font-size:clamp(1.8rem,4vw,3rem);text-align:center;line-height:1.2}
+.section-label{font-size:.7rem;letter-spacing:2.5px;text-transform:uppercase;color:#b8863c;margin-bottom:.75rem;text-align:center;font-weight:600}
+
+section{padding:7rem 1.5rem;display:flex;flex-direction:column;align-items:center;position:relative}
+.container{max-width:1100px;width:100%}
+
+/* ── Hero ── */
+.hero{min-height:100vh;padding:0;background:#1a1513;color:#faf6f2;justify-content:center;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;max-width:1100px;width:100%;gap:4rem;padding:2rem 1.5rem;align-items:center}
+.hero-text{z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(184,134,60,.12);border:1px solid rgba(184,134,60,.2);padding:.4rem 1rem;font-size:.75rem;letter-spacing:1px;text-transform:uppercase;color:#b8863c;margin-bottom:1.5rem;border-radius:2px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.15;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;color:#b8863c}
+.hero p{font-size:1.05rem;color:rgba(250,246,242,.6);max-width:480px;line-height:1.8;margin-bottom:2.5rem}
+.hero-stats{display:flex;gap:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.hero-stats div{text-align:left}
+.hero-stats .num{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#b8863c}
+.hero-stats .label{font-size:.75rem;color:rgba(250,246,242,.4);text-transform:uppercase;letter-spacing:1px}
+.btn-primary{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 2rem;background:#b8863c;color:#1a1513;text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:.5px;border:none;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif}
+.btn-primary:hover{background:#d4a04a;transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 2rem;border:1px solid rgba(250,246,242,.15);color:#faf6f2;text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.5px;transition:all .3s;background:transparent;font-family:'Inter',sans-serif}
+.btn-secondary:hover{border-color:#b8863c;color:#b8863c}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+
+/* Hero Visual */
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-frame{position:relative;width:100%;max-width:460px;aspect-ratio:3/4;overflow:hidden;background:#2a241f;border:1px solid rgba(184,134,60,.15)}
+.hero-frame .before,.hero-frame .after{position:absolute;inset:0;background-size:cover;background-position:center}
+.hero-frame .before{background:url('/assets/catcheye-landing/photo-hero-b3a1844c.jpg') center/cover;filter:grayscale(1) sepia(.6) brightness(.7);opacity:1;transition:opacity 1.5s cubic-bezier(.22,1,.36,1),filter 2s cubic-bezier(.22,1,.36,1)}
+.hero-frame .after{background:url('/assets/catcheye-landing/photo-hero-b3a1844c.jpg') center/cover;opacity:0;transition:opacity 1.5s cubic-bezier(.22,1,.36,1) .5s}
+.hero-frame.loaded .before{opacity:0;filter:grayscale(1) sepia(.6) brightness(.7)}
+.hero-frame.loaded .after{opacity:1}
+.hero-frame .badge{position:absolute;bottom:1rem;left:1rem;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,246,242,.4);background:rgba(26,21,19,.7);padding:.3rem .7rem;backdrop-filter:blur(4px);z-index:3}
+.hero-frame .badge-was{right:1rem;left:auto}
+
+/* ── How It Works ── */
+.how{background:#faf6f2}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;width:100%}
+.how-step{text-align:center;padding:2rem}
+.how-step .icon{width:48px;height:48px;border-radius:50%;background:#1a1513;color:#faf6f2;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.2rem}
+.how-step h3{font-size:1.15rem;margin-bottom:.5rem}
+.how-step p{font-size:.85rem;color:rgba(26,21,19,.5);line-height:1.7;max-width:280px;margin:0 auto}
+.how-step .time{font-size:.75rem;color:#b8863c;margin-top:.75rem;font-weight:500}
+
+/* ── Before / After Grid ── */
+.showcase{background:#f4efe9}
+.showcase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;width:100%}
+.showcase-card{position:relative;aspect-ratio:4/3;overflow:hidden;background:#2a241f;cursor:pointer;border:1px solid rgba(26,21,19,.06)}
+.showcase-card .pair{position:absolute;inset:0;display:flex;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.showcase-card .pair img{width:100%;height:100%;object-fit:cover;flex-shrink:0}
+.showcase-card .pair{transform:translateX(0)}
+.showcase-card:hover .pair{transform:translateX(-50%)}
+.showcase-card .label{position:absolute;bottom:.75rem;font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,246,242,.5);background:rgba(26,21,19,.6);padding:.25rem .6rem;backdrop-filter:blur(4px);z-index:2;pointer-events:none}
+.showcase-card .label-before{left:.75rem}
+.showcase-card .label-after{right:.75rem}
+.showcase-card .hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.7rem;color:rgba(250,246,242,.4);letter-spacing:1px;z-index:1;pointer-events:none;opacity:0;transition:opacity .4s}
+.showcase-card:hover .hint{opacity:1}
+
+/* ── Why Us ── */
+.why{background:#1a1513;color:#faf6f2}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem;width:100%}
+.why-card{padding:2rem;border-left:2px solid rgba(184,134,60,.3)}
+.why-card h3{font-size:1.1rem;margin-bottom:.5rem}
+.why-card p{font-size:.85rem;color:rgba(250,246,242,.5);line-height:1.7}
+.why-card .emoji{font-size:1.5rem;margin-bottom:.75rem;display:block}
+
+/* ── Process details ── */
+.process{background:#faf6f2}
+.process-steps{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem;width:100%;max-width:600px}
+.process-step{display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border:1px solid rgba(26,21,19,.06);transition:border-color .3s}
+.process-step:hover{border-color:#b8863c}
+.process-step .num{font-family:'DM Serif Display',serif;font-size:1.5rem;color:#b8863c;min-width:2rem;line-height:1}
+.process-step .text{flex:1}
+.process-step .text h4{font-size:.9rem;margin-bottom:.15rem}
+.process-step .text p{font-size:.8rem;color:rgba(26,21,19,.5);line-height:1.5}
+
+/* ── CTA ── */
+.cta{background:linear-gradient(180deg,#faf6f2,#f4efe9);min-height:70vh;padding-bottom:5rem}
+.cta-box{background:#1a1513;padding:4rem 3rem;text-align:center;width:100%;max-width:700px;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(184,134,60,.08),transparent 60%)}
+.cta-box h2{color:#faf6f2;position:relative;z-index:2}
+.cta-box p{color:rgba(250,246,242,.5);margin:1rem auto 2rem;position:relative;z-index:2;font-size:.9rem;max-width:400px}
+.cta-form{display:flex;gap:.75rem;max-width:420px;margin:0 auto;position:relative;z-index:2}
+.cta-form input{flex:1;padding:.9rem 1.25rem;background:rgba(250,246,242,.06);border:1px solid rgba(250,246,242,.1);color:#faf6f2;font-family:'Inter',sans-serif;font-size:.85rem;outline:none;transition:border-color .3s}
+.cta-form input:focus{border-color:#b8863c}
+.cta-form input::placeholder{color:rgba(250,246,242,.2)}
+.cta-form button{padding:.9rem 1.75rem;background:#b8863c;color:#1a1513;border:none;cursor:pointer;font-weight:600;font-size:.8rem;letter-spacing:.5px;transition:all .3s;font-family:'Inter',sans-serif}
+.cta-form button:hover{background:#d4a04a}
+.cta-note{font-size:.7rem;color:rgba(250,246,242,.2);margin-top:1rem;position:relative;z-index:2}
+
+/* ── Footer ── */
+footer{padding:3rem 1.5rem;text-align:center;background:#f4efe9;border-top:1px solid rgba(26,21,19,.04)}
+footer .counter{font-size:.8rem;color:rgba(26,21,19,.3);margin-bottom:.5rem}
+footer .counter em{color:#b8863c;font-style:normal}
+footer nav{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:1rem}
+footer nav a{color:rgba(26,21,19,.4);text-decoration:none;font-size:.8rem;transition:color .3s}
+footer nav a:hover{color:#b8863c}
+
+/* ── Fade Up ── */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s cubic-bezier(.22,1,.36,1)}
+.fade-up.in-view{opacity:1;transform:translateY(0)}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;gap:2rem}
+  .hero-visual{order:-1;max-width:320px;margin:0 auto}
+  .hero h1{font-size:2rem}
+  .how-grid{grid-template-columns:1fr;gap:1rem}
+  .showcase-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .cta-form{flex-direction:column}
+  .cta-box{padding:3rem 1.5rem}
+  .hero-actions{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progressBar"></div>
+
+<!-- ─── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-inner container">
+    <div class="hero-text">
+      <div class="hero-badge">✦ Честная реставрация</div>
+      <h1>Ваши семейные фото <em>заслуживают второй жизни</em></h1>
+      <p>Мы восстанавливаем старые фотографии бережно и без искажений. Никакого омоложения, никаких «улучшений» — только подлинные лица ваших близких, какими они были.</p>
+      <div class="hero-stats">
+        <div><div class="num">283</div><div class="label">Фото восстановлено</div></div>
+        <div><div class="num">~20с</div><div class="label">На одно фото</div></div>
+        <div><div class="num">99%</div><div class="label">Сохраняем лица</div></div>
+      </div>
+      <div class="hero-actions">
+        <a href="#try" class="btn-primary">Попробовать →</a>
+        <a href="#how" class="btn-secondary">Как работает</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-frame" id="heroFrame">
+        <div class="before"></div>
+        <div class="after"></div>
+        <div class="badge">После</div>
+        <div class="badge badge-was">До</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ── -->
+<section class="how" id="how">
+  <div class="container" style="text-align:center">
+    <div class="section-label">✦ Просто и быстро ✦</div>
+    <h2>Три шага — и фото оживает</h2>
+    <div class="how-grid">
+      <div class="how-step fade-up">
+        <div class="icon">📸</div>
+        <h3>Загрузите фото</h3>
+        <p>Любая старая фотография — выцветшая, потрескавшаяся, с царапинами. Мы принимаем все форматы.</p>
+        <div class="time">~5 секунд</div>
+      </div>
+      <div class="how-step fade-up">
+        <div class="icon">✨</div>
+        <h3>ИИ восстановит</h3>
+        <p>Уберём повреждения, вернём цвет. Лица остаются подлинными — мы не дорисовываем и не омолаживаем.</p>
+        <div class="time">~20 секунд</div>
+      </div>
+      <div class="how-step fade-up">
+        <div class="icon">💛</div>
+        <h3>Поделитесь</h3>
+        <p>Скачайте результат, отправьте родным или распечатайте. Каждое восстановленное фото — подарок семье.</p>
+        <div class="time">Навсегда</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BEFORE / AFTER SHOWCASE ── -->
+<section class="showcase" id="showcase">
+  <div class="container">
+    <div class="section-label">✦ Реальные примеры ✦</div>
+    <h2>Посмотрите, как мы работаем</h2>
+    <p style="text-align:center;color:rgba(26,21,19,.4);max-width:500px;margin:.75rem auto 0;font-size:.85rem">Наведите на фото, чтобы увидеть результат</p>
+    <div class="showcase-grid">
+      <div class="showcase-card fade-up">
+        <div class="pair">
+          <img src="/assets/catcheye-landing/photo-hero-b3a1844c.jpg" alt="До" style="filter:grayscale(1) sepia(.6) brightness(.7)">
+          <img src="/assets/catcheye-landing/photo-hero-b3a1844c.jpg" alt="После">
+        </div>
+        <span class="label label-before">Было</span>
+        <span class="label label-after">Стало</span>
+        <span class="hint">Наведи →</span>
+      </div>
+      <div class="showcase-card fade-up">
+        <div class="pair">
+          <img src="/assets/catcheye-landing/photo-hero-b3a1844c.jpg" alt="До" style="filter:grayscale(1) sepia(.6) brightness(.7)">
+          <img src="/assets/catcheye-landing/photo-hero-b3a1844c.jpg" alt="После">
+        </div>
+        <span class="label label-before">Было</span>
+        <span class="label label-after">Стало</span>
+        <span class="hint">Наведи →</span>
+      </div>
+      <div class="showcase-card fade-up">
+        <div class="pair">
+          <img src="/assets/catcheye-landing/photo-hero-b3a1844c.jpg" alt="До" style="filter:grayscale(1) sepia(.6) brightness(.7)">
+          <img src="/assets/catcheye-landing/photo-hero-b3a1844c.jpg" alt="После">
+        </div>
+        <span class="label label-before">Было</span>
+        <span class="label label-after">Стало</span>
+        <span class="hint">Наведи →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY US ── -->
+<section class="why" id="why">
+  <div class="container" style="text-align:center">
+    <div class="section-label">✦ Почему нам доверяют ✦</div>
+    <h2>Реставрация без компромиссов</h2>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <span class="emoji">🕊️</span>
+        <h3>Подлинность лиц</h3>
+        <p>Мы не омолаживаем и не «улучшаем» лица. Ваши близкие остаются собой — такими, какими вы их помните.</p>
+      </div>
+      <div class="why-card fade-up">
+        <span class="emoji">🤖</span>
+        <h3>Двойной контроль</h3>
+        <p>ИИ-проверка каждого фото перед и после обработки. Если что-то пошло не так — фото уходит на ручной контроль.</p>
+      </div>
+      <div class="why-card fade-up">
+        <span class="emoji">🔒</span>
+        <h3>Приватность</h3>
+        <p>Ваши фото не используются для обучения моделей. После обработки вы можете удалить их навсегда.</p>
+      </div>
+      <div class="why-card fade-up">
+        <span class="emoji">💛</span>
+        <h3>С заботой</h3>
+        <p>За каждым фото — чья-то история. Мы относимся к этому с уважением. Не просто технология, а миссия.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS DETAIL ── -->
+<section class="process" id="process">
+  <div class="container" style="text-align:center">
+    <div class="section-label">✦ Что происходит внутри ✦</div>
+    <h2>Как ИИ восстанавливает фото</h2>
+    <p style="text-align:center;color:rgba(26,21,19,.4);max-width:500px;margin:.75rem auto 0;font-size:.85rem">Прозрачный процесс — никаких чёрных ящиков</p>
+    <div class="process-steps">
+      <div class="process-step fade-up">
+        <div class="num">01</div>
+        <div class="text">
+          <h4>Анализ</h4>
+          <p>ИИ определяет тип фото, количество людей, характер повреждений и выбирает оптимальный метод восстановления.</p>
+        </div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="num">02</div>
+        <div class="text">
+          <h4>Реставрация</h4>
+          <p>Удаление царапин, пятен, выцветания. Восстановление цвета. Лица обрабатываются отдельным алгоритмом — максимально бережно.</p>
+        </div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="num">03</div>
+        <div class="text">
+          <h4>Контроль</h4>
+          <p>Сравнение оригинала и результата: количество лиц совпадает? Черты не изменились? Если есть сомнения — запрос на ручную проверку.</p>
+        </div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="num">04</div>
+        <div class="text">
+          <h4>Готово</h4>
+          <p>Вы получаете уведомление. Скачиваете фото, делитесь с семьёй. Можно заказать печать.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ── -->
+<section class="cta" id="try">
+  <div class="container" style="display:flex;justify-content:center">
+    <div class="cta-box">
+      <h2>Готовы восстановить <br>свою историю?</h2>
+      <p>Попробуйте бесплатно. Первые 3 фото — без оплаты. Просто загрузите и убедитесь сами.</p>
+      <form class="cta-form" action="https://savemyhistory.tech" method="GET">
+        <input type="email" placeholder="Ваш email — получите доступ">
+        <button type="submit">Начать →</button>
+      </form>
+      <div class="cta-note">Не беспокоим, не спамим. Только важное.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ── -->
+<footer>
+  <div class="counter">Восстановлено <em>283</em> фото · Помним <em>156</em> лиц</div>
+  <nav>
+    <a href="https://savemyhistory.tech">Save My History</a>
+    <a href="https://instagram.com/save.my.history">Instagram</a>
+    <a href="https://savemyhistory.tech/privacy.html">Конфиденциальность</a>
+    <a href="https://savemyhistory.tech/terms.html">Условия</a>
+  </nav>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const s = window.scrollY;
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progressBar').style.width = (s/h*100)+'%';
+});
+
+// Hero animation on load
+setTimeout(()=>{
+  document.getElementById('heroFrame').classList.add('loaded');
+},800);
+
+// Intersection Observer for fade-up
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('in-view');
+  });
+},{threshold:.15});
+
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+// Counter animation
+function animateCounter(el, target, dur=2000){
+  let start = 0;
+  const t0 = performance.now();
+  function tick(now){
+    const t = Math.min(1,(now-t0)/dur);
+    const e = 1-Math.pow(1-t,3);
+    el.textContent = Math.floor(start+(target-start)*e);
+    if(t<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+document.querySelectorAll('.num').forEach(el=>{
+  const val = parseInt(el.textContent.replace(/[^\d]/g,''));
+  if(val) animateCounter(el, val, 1500);
+});
+</script>
+</body>
+</html>
