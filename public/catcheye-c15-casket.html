@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<!-- CATCHEYE_C15_CASKET_PORT Creative Bridge sibling · assets /assets/catcheye-c15-casket · source catcheye C15 casket · 2026-08-12 -->
+
+<html lang="ru" data-catcheye-c15-casket-port="1" data-catcheye-c15-casket="1" id="CATCHEYE_C15_CASKET_PORT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Save My History — Сохраните своё наследие</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#100b07;--ink:#f1e7d4;--muted:#a3957c;--gold:#e7b765;--ease:cubic-bezier(.2,.7,.2,1)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+.serif{font-family:'Cormorant Garamond',serif}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px 38px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:18px;letter-spacing:.16em;color:var(--gold);display:flex;align-items:center;gap:8px}
+.menu{display:flex;gap:28px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#d8cab0}
+.menu a{color:inherit;text-decoration:none}.menu a:hover{color:var(--gold)}
+.login{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0a0805;background:var(--gold);border-radius:8px;padding:10px 20px;text-decoration:none;font-weight:600}
+@media(max-width:880px){.menu{display:none}}
+
+/* HERO: torn-paper diagonal split */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center}
+.hero .photo{position:absolute;inset:0;z-index:0}
+.hero .photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);animation:dr 30s ease-in-out infinite alternate}
+@keyframes dr{from{transform:scale(1.05)}to{transform:scale(1.12)}}
+/* right text panel sits over a darker side */
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(16,11,7,.3) 38%,rgba(16,11,7,.72) 60%)}
+/* torn diagonal seam */
+.tear{position:absolute;top:0;bottom:0;left:48%;width:120px;z-index:2;transform:skewX(-9deg);pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(245,237,222,.0) 40%,rgba(245,237,222,.85) 49%,rgba(245,237,222,.85) 51%,rgba(0,0,0,.2) 53%,transparent);
+  filter:drop-shadow(0 0 16px rgba(0,0,0,.5))}
+.tear::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(180deg,transparent 0 14px,rgba(255,255,255,.6) 14px 15px,transparent 15px 24px);
+  mix-blend-mode:screen;opacity:.5}
+.hero .wrap{position:relative;z-index:3;width:100%;max-width:1200px;margin:0 auto;padding:0 52px;display:flex;justify-content:flex-end}
+.hcol{max-width:460px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(36px,5.4vw,68px);line-height:1.04;color:#f5ead2;text-shadow:0 3px 40px rgba(0,0,0,.7);opacity:0;animation:up 1.3s .4s forwards}
+.hero p{margin-top:18px;font-size:13px;letter-spacing:.06em;line-height:1.9;text-transform:uppercase;color:#d7c9af;font-weight:400;opacity:0;animation:up 1.3s .7s forwards}
+.hero .cta{display:inline-flex;margin-top:30px;padding:15px 32px;border:1px solid var(--gold);border-radius:8px;color:var(--gold);font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;background:rgba(231,183,101,.05);transition:.3s}
+.hero .cta:hover{background:var(--gold);color:#0a0805}
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.year{position:absolute;left:30px;top:50%;transform:rotate(180deg);writing-mode:vertical-rl;z-index:3;font-size:12px;letter-spacing:.4em;color:var(--muted)}
+.attach{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;text-align:center;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#d8cab0}
+.attach .ar{display:block;margin:0 auto 8px;width:34px;height:34px;border:1px solid rgba(231,183,101,.5);border-radius:8px;position:relative}
+.attach .ar::after{content:"↓";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold);animation:bob 1.8s infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,-60%)}50%{transform:translate(-50%,-40%)}}
+.spark{position:absolute;bottom:26px;right:36px;z-index:3;color:var(--gold);opacity:.7;animation:tw 3s infinite}
+@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}
+
+.r{opacity:0;transform:translateY(42px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.r.in{opacity:1;transform:none}
+.d1{transition-delay:.14s}.d2{transition-delay:.3s}
+.sec{padding:18vh 0;position:relative}.sec .wrap{max-width:820px;margin:0 auto;padding:0 40px;text-align:center}
+.kick{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.sec h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(32px,5.2vw,60px);line-height:1.1;color:#f1e4cc}
+.sec p{margin:22px auto 0;max-width:54ch;color:var(--muted);font-weight:300;font-size:clamp(15px,1.8vw,18px);line-height:1.75}
+.thread{width:1px;height:90px;margin:0 auto;background:linear-gradient(180deg,transparent,var(--gold),transparent);opacity:.45}
+.cta2{display:inline-flex;margin-top:24px;padding:15px 30px;border-radius:8px;background:var(--gold);color:#0a0805;font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.25s}
+.cta2:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(231,183,101,.4)}
+footer{padding:80px 28px 64px;text-align:center;border-top:1px solid rgba(231,183,101,.14)}
+footer .logo{justify-content:center;font-size:24px;margin-bottom:8px}
+footer .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);margin-bottom:18px}
+footer a{color:var(--muted);text-decoration:none;margin:0 10px;font-size:13px}footer a:hover{color:var(--gold)}
+footer .c{margin-top:14px;font-size:11px;color:#5e5443}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<nav>
+  <div class="logo serif">SAVE MY HISTORY ✦</div>
+  <div class="menu"><a href="#meaning">Главная</a><a href="#meaning">О нас</a><a href="#tech">Услуги</a><a href="#pass">Галерея</a><a href="#final">Контакты</a></div>
+  <a class="login" href="https://savemyhistory.tech">Войти</a>
+</nav>
+
+<header class="hero">
+  <div class="photo"><img src="/assets/catcheye-c15-casket/hero-91fd6a1ee337.jpg" alt=""></div>
+  <div class="tear"></div>
+  <div class="year">2026</div>
+  <div class="wrap">
+    <div class="hcol">
+      <h1 class="serif">СОХРАНИТЕ<br>СВОЁ НАСЛЕДИЕ</h1>
+      <p>Наш искусственный интеллект восстанавливает семейные фотографии. Откройте шкатулку памяти.</p>
+      <a class="cta" href="https://savemyhistory.tech">Восстановить фото</a>
+    </div>
+  </div>
+  <div class="attach"><span class="ar"></span>Прикрепите для продолжения</div>
+  <div class="spark">✦</div>
+</header>
+
+<section class="sec" id="meaning">
+  <div class="wrap">
+    <div class="kick r">Наследие</div>
+    <h2 class="serif r d1">Время — единственный<br>враг вашей памяти.</h2>
+    <p class="r d2">Старые снимки — хрупкая химия, что разрушается каждый день. Фотобумага теряет до 5% контрастности ежегодно. То, что ещё можно восстановить сегодня, через 10 лет станет белым пятном.</p>
+  </div>
+</section>
+<div class="thread"></div>
+
+<section class="sec" id="tech">
+  <div class="wrap">
+    <div class="kick r">Исцеление</div>
+    <h2 class="serif r d1">Исцеление, а не ретушь.</h2>
+    <p class="r d2">Система восстанавливает анатомию лиц с точностью до 98% в 4K. Мастер-ретушёр вручную проверяет естественность взгляда — чтобы фото было живым, а не сгенерированным.</p>
+  </div>
+</section>
+<div class="thread"></div>
+
+<section class="sec" id="pass">
+  <div class="wrap">
+    <div class="kick r">Family Pass</div>
+    <h2 class="serif r d1">Подарок, который<br>невозможно забыть.</h2>
+    <p class="r d2">Лучшее, что можно подарить родителям — встреча с их молодостью. Откройте «ведро с фотографиями» вместе. Семейный доступ на 50 снимков — всё наследие за один вечер.</p>
+    <a class="cta2 r d2" href="https://savemyhistory.tech">Подарить Family Pass</a>
+  </div>
+</section>
+<div class="thread"></div>
+
+<section class="sec" id="final">
+  <div class="wrap">
+    <div class="kick r">Корни</div>
+    <h2 class="serif r d1">Не оставляйте это на «потом».<br>«Потом» может не наступить.</h2>
+    <p class="r d2">Спасённая сегодня фотография станет бесценной реликвией через 10 лет. Станьте тем, кто сохранил корни своего рода от забвения.</p>
+    <a class="cta2 r d2" href="https://savemyhistory.tech">Оживить мой семейный архив</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo serif">SAVE MY HISTORY ✦</div>
+  <div class="m serif">Мы не храним гигабайты. Мы сохраняем род.</div>
+  <div><a href="https://savemyhistory.tech">savemyhistory.tech</a><a href="https://instagram.com/save.my.history">Instagram</a><a href="https://t.me/maximprods">Telegram</a></div>
+  <div class="c">© 2026 Save My History · CatchEye Studio · agentC-15 «Шкатулка наследия»</div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.2});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
