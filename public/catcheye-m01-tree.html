@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru" id="CATCHEYE_M01_TREE_PORT" data-catcheye-m01-tree-port="1">
+<head>
+<meta charset=utf-8>
+<!-- CATCHEYE_M01_TREE_PORT Creative Bridge sibling · assets /assets/catcheye-m01-tree · source arena Agent-M m01-tree «Дерево» · 2026-08-12 · invent_eyes=N · bark+forest from source (real) -->
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Дерево · Save My History</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel=stylesheet>
+<style>
+:root{--cream:#f3e9dc;--dim:#cbbfa8;--amber:#d6a15d;--bg:#0b0806;--serif:'Cormorant Garamond',serif;--sans:Inter,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;overflow-x:hidden}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:99;background:linear-gradient(90deg,#7a5a2e,var(--amber));transition:width .1s}
+.bgstack{position:fixed;inset:0;z-index:-2}
+.bgstack .layer{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center}
+.bgstack .layer.on{opacity:1}
+.bgstack video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.bgstack video.on{opacity:1}
+.vignette{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at center,transparent 28%,rgba(11,8,6,.88) 96%)}
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:14vh 28px;position:relative}
+.kick{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--amber);margin-bottom:22px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,8vw,96px);line-height:1.02}
+h1 em{font-style:italic;color:var(--amber)}
+.depth{font-family:var(--serif);font-style:italic;font-size:clamp(13px,2vw,16px);color:var(--dim);position:absolute;top:26px;left:0;right:0;letter-spacing:2px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5.5vw,60px);line-height:1.1;max-width:780px}
+h2 em{font-style:italic;color:var(--amber)}
+.body{color:var(--dim);font-size:clamp(15px,2.2vw,19px);max-width:560px;margin-top:22px}
+.num{font-family:var(--serif);font-style:italic;font-size:clamp(60px,12vw,140px);color:var(--amber);opacity:.5;line-height:.8;margin-bottom:10px}
+.scrollhint{position:absolute;bottom:40px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dim);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.btn{display:inline-block;margin-top:40px;background:var(--amber);color:#1a120b;text-decoration:none;padding:17px 42px;border-radius:40px;font-size:14px;letter-spacing:1.5px;font-weight:500;text-transform:uppercase;transition:.35s;border:none;cursor:pointer}
+.btn:hover{background:transparent;color:var(--amber);box-shadow:inset 0 0 0 1px var(--amber);transform:translateY(-3px)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1.1s,transform 1.1s}.reveal.in{opacity:1;transform:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 24px}
+.logo{font-family:var(--serif);font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);opacity:.85}
+</style>
+</head>
+<body>
+<nav><div class=logo>Save My History</div></nav>
+<div id=prog></div>
+<div class=bgstack>
+  <video id=vid class=layer muted loop playsinline preload=metadata><source src="https://savemyhistory.tech/assets/catcheye-m01-tree/forest-9ef763699476.mp4" type=video/mp4></video>
+  <div class=layer id=bg-bark style="background-image:url('https://savemyhistory.tech/assets/catcheye-m01-tree/bark-2e5d0cc0bdc7.jpg')"></div>
+  <div class=layer id=bg-roots style="background:linear-gradient(180deg,#1a1108,#000)"></div>
+</div>
+<div class=vignette></div>
+
+<section data-bg=vid>
+  <div class=kick>Save My History</div>
+  <h1>Каждая жизнь —<br><em>дерево</em>.</h1>
+  <p class=body>Кора помнит каждый шрам. Кольца — каждый год. А корни уходят туда, откуда ты родом.</p>
+  <span class=btn onclick="document.querySelector('#s1').scrollIntoView({behavior:'smooth'})">Спуститься к корням ↓</span>
+  <div class=scrollhint>прокрути вниз по стволу</div>
+</section>
+
+<section id=s1 data-bg=bark><div class=depth>— ствол · кора —</div>
+  <div class=reveal><div class=num>01</div><h2>Трещина — это <em>разбитое сердце</em>.</h2><p class=body>Без неё ты так и принимал бы зависимость за любовь.</p></div></section>
+
+<section data-bg=bark><div class=depth>— ниже · смола на ране —</div>
+  <div class=reveal><div class=num>02</div><h2>Затянувшийся надлом — <em>предательство</em>.</h2><p class=body>Опыт, после которого учишься вставать на свою сторону.</p></div></section>
+
+<section data-bg=bark><div class=depth>— глубже · сухой год —</div>
+  <div class=reveal><div class=num>03</div><h2>Тонкое кольцо — <em>безденежье</em>.</h2><p class=body>Год, что показал настоящую цену и деньгам, и тебе самому.</p></div></section>
+
+<section data-bg=bark><div class=depth>— у основания · тень —</div>
+  <div class=reveal><div class=num>04</div><h2>Тёмный слой — <em>одиночество</em>.</h2><p class=body>В тишине ты наконец встретился с собой.</p></div></section>
+
+<section data-bg=roots><div class=depth>— земля · корни —</div>
+  <div class=reveal><div class=num>05</div><h2>А здесь, в корнях — <em>род</em>.</h2><p class=body>Те, кто были до тебя. Их лица. Их свет. Всё, что тебя держит.</p></div></section>
+
+<section data-bg=roots>
+  <div class=reveal>
+    <div class=kick>Save My History</div>
+    <h2>Корни <em>выцветают</em> в коробке на антресоли.</h2>
+    <p class=body>Мы возвращаем старые фото к жизни — кинематографично, реалистично, будто снято вчера. Чтобы память рода не стиралась вместе с бумагой.</p>
+    <a class=btn href="https://savemyhistory.tech">Вернуть фото к жизни</a>
+  </div>
+</section>
+
+<script>
+var prog=document.getElementById('prog');
+addEventListener('scroll',function(){var h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(scrollY/h*100)+'%';},{passive:true});
+var vid=document.getElementById('vid');
+var layers={vid:vid,bark:document.getElementById('bg-bark'),roots:document.getElementById('bg-roots')};
+function showBg(k){for(var n in layers)layers[n].classList.toggle('on',n===k);if(k==='vid'){vid.play().catch(function(){});}}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){showBg(e.target.dataset.bg);var r=e.target.querySelector('.reveal');if(r)r.classList.add('in');}});},{threshold:.55});
+document.querySelectorAll('section').forEach(function(s){io.observe(s);});
+showBg('vid');vid.play().catch(function(){});
+</script>
+</body>
+</html>
