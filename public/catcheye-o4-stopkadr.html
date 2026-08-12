@@ -1,0 +1,61 @@
+<!doctype html><html lang="ru" id="CATCHEYE_O4_STOPKADR_PORT" data-catcheye-o4-stopkadr-port="1"><head><meta charset=utf-8>
+<!-- CATCHEYE_O4_STOPKADR_PORT Creative Bridge sibling · assets /assets/catcheye-o4-stopkadr · source arena agent-o o4-stopkadr · 2026-08-12 · invent_eyes=N · g4_* from smh-photos Spaces (real source assets) -->
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Стоп-кадр · Save My History</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel=stylesheet>
+<style>
+:root{--bg:#070605;--ink:#f3ece0;--soft:#9a8d78;--gold:#caa24b;--ease:cubic-bezier(.22,.61,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow-x:hidden}
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0;z-index:99}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;mix-blend-mode:difference}
+.logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.langs button{background:none;border:none;color:#fff;opacity:.5;cursor:pointer;font-size:12px;margin-left:10px}
+.stage{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");pointer-events:none;z-index:3}
+.portrait{position:relative;width:min(78vw,560px);aspect-ratio:3/4;border-radius:6px;overflow:hidden;box-shadow:0 50px 140px rgba(0,0,0,.7)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait .after{opacity:0;transition:opacity 2s var(--ease)}
+.portrait.in .after{opacity:1}
+.overlay-txt{position:absolute;left:32px;bottom:40px;z-index:4;max-width:60%}
+.overlay-txt .k{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.overlay-txt h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,6vw,68px);font-weight:600;line-height:1.05;text-wrap:balance}
+section{max-width:820px;margin:0 auto;padding:120px 32px;text-align:center}
+.reveal{opacity:0;transform:translateY(34px);transition:all 1s var(--ease)}.reveal.in{opacity:1;transform:none}
+.quote{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,50px);font-weight:500;line-height:1.22;text-wrap:balance}
+.quote em{color:var(--gold);font-style:italic}
+.cta{display:inline-flex;gap:10px;margin-top:34px;padding:18px 40px;background:var(--gold);color:#070605;text-decoration:none;border-radius:40px;font-weight:500;transition:.3s var(--ease)}
+.cta:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(202,162,75,.3)}
+footer{text-align:center;padding:56px;font-size:12px;color:var(--soft)}
+</style></head><body>
+<div class=progress id=prog></div>
+<nav><div class=logo>Save My History</div><div><span class=langs><button>RU</button><button>UA</button><button>EN</button></span></div></nav>
+
+<div class=stage>
+  <div class=grain></div>
+  <div class=portrait id=port>
+    <img class=before src="https://savemyhistory.tech/assets/catcheye-o4-stopkadr/g4-before-c5a91ab2af67.jpg" alt="лицо до реставрации, в зерне и царапинах">
+    <img class=after src="https://savemyhistory.tech/assets/catcheye-o4-stopkadr/g4-after-35dc26a6f665.jpg" alt="то же лицо, бережно восстановленное">
+  </div>
+  <div class=overlay-txt>
+    <div class=k>Стоп-кадр</div>
+    <h1>Это лицо ещё можно остановить от исчезновения</h1>
+  </div>
+</div>
+
+<section>
+  <p class="quote reveal">Зерно, царапины, выцветший свет — уходят.<br>А <em>человек</em> — остаётся. Тем же самым.</p>
+</section>
+
+<section>
+  <p class="quote reveal">Мы не рисуем новое лицо.<br>Мы <em>проявляем</em> то, что время почти стёрло.</p>
+  <a class="cta reveal" href="https://savemyhistory.tech">Проявить своё фото →</a>
+</section>
+
+<footer>Save My History · 283 лица возвращены · честно, без подмены</footer>
+<script>
+const prog=document.getElementById('prog');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.3});
+document.querySelectorAll('.reveal,#port').forEach(el=>io.observe(el));
+</script></body></html>
