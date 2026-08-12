@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- CATCHEYE_C04_HANDS_PORT Creative Bridge sibling · assets /assets/catcheye-c04-hands · source catcheye C04 hands · 2026-08-12 · hands-photo.png 404 → M/m02-attic/img/bg.jpg -->
+
+<html lang="ru" data-catcheye-c04-hands-port="1" data-catcheye-c04-hands="1" id="CATCHEYE_C04_HANDS_PORT">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Save My History — Письмо</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#f4ede1;--muted:#a99d89;--accent:#d99a5b;--bg:#0a0806}
+html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+.serif{font-family:'Cormorant Garamond',serif}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;padding:20px 36px;background:linear-gradient(180deg,rgba(10,8,6,.55),transparent)}
+nav .brand{font-family:'Cormorant Garamond',serif;font-size:21px}nav .brand b{color:var(--accent)}
+nav .lang{display:flex;gap:14px;font-size:12px;letter-spacing:.16em;color:var(--muted)}nav .lang a.on{color:var(--accent)}
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 0 14vh}
+.hero .bg{position:absolute;inset:0;z-index:0}.hero .bg img{width:100%;height:100%;object-fit:cover;animation:z 24s ease-in-out infinite alternate}
+@keyframes z{from{transform:scale(1.05)}to{transform:scale(1.16)}}
+.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,6,.4),rgba(10,8,6,.15) 40%,rgba(10,8,6,.92))}
+.hero .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:0 36px;width:100%}
+.kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;opacity:0;animation:up 1.2s .3s forwards}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:clamp(34px,5.6vw,68px);line-height:1.12;max-width:20ch;opacity:0;animation:up 1.2s .5s forwards}
+.hero h1 em{font-style:normal;color:var(--accent)}
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.r{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}.r.in{opacity:1;transform:none}
+.d1{transition-delay:.14s}.d2{transition-delay:.3s}
+.letter{padding:18vh 0}.letter .wrap{max-width:720px;margin:0 auto;padding:0 36px}
+.letter p{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.4vw,34px);line-height:1.5;font-weight:400;margin-bottom:36px}
+.letter p em{color:var(--accent);font-style:italic}
+.letter .sign{font-style:italic;color:var(--muted);font-size:20px}
+.promise{min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.promise .bg{position:absolute;inset:0;z-index:0}.promise .bg img{width:100%;height:100%;object-fit:cover;animation:z 26s ease-in-out infinite alternate}
+.promise .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(100% 80% at 50% 50%,transparent,rgba(10,8,6,.86))}
+.promise .wrap{position:relative;z-index:2;max-width:740px;padding:0 28px}
+.promise h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,5.5vw,68px)}.promise h2 em{color:var(--accent);font-style:italic}
+.promise p{margin:24px auto 38px;max-width:46ch;color:#e0d6c4;font-weight:300;font-size:18px;line-height:1.7}
+.cta{display:inline-flex;gap:10px;padding:17px 30px;border-radius:999px;font-weight:600;font-size:15px;background:var(--accent);color:#0a0805;text-decoration:none;transition:.25s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(217,154,91,.4)}
+.cta.ghost{background:transparent;border:1px solid rgba(244,237,225,.3);color:var(--ink)}
+.ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+footer{padding:80px 28px 70px;text-align:center}
+footer .brand{font-family:'Cormorant Garamond',serif;font-size:28px;margin-bottom:8px}footer .brand b{color:var(--accent)}
+footer .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);margin-bottom:24px}
+footer .links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-size:14px;margin-bottom:16px}footer .links a{color:var(--muted);text-decoration:none}footer .links a:hover{color:var(--accent)}
+footer .c{font-size:12px;color:#5e564a}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<nav><div class="brand serif">Save My <b>History</b></div><div class="lang"><a class="on">RU</a><a>UA</a><a>EN</a></div></nav>
+<header class="hero">
+  <div class="bg"><img src="https://savemyhistory.tech/assets/catcheye-c04-hands/hands-photo-e3a1061452ca.jpg" alt=""></div>
+  <div class="wrap">
+    <div class="kick">Письмо от Алины</div>
+    <h1 class="serif">Я держала в руках фото бабушки, которое <em>почти стёрлось.</em> И поняла, чем буду заниматься.</h1>
+  </div>
+</header>
+<section class="letter">
+  <div class="wrap">
+    <p class="r">Когда мы уезжали от войны, я взяла немного вещей. Но альбомы — взяла все. Потому что дом можно потерять, а лицо родного человека — <em>нельзя.</em></p>
+    <p class="r d1">Многим повезло меньше. У кого-то остался один треснутый снимок. У кого-то — только воспоминание, которое тает.</p>
+    <p class="r d2">Я двенадцать лет работаю с фотографиями. И теперь возвращаю людям их лица — настоящие, не выдуманные. Это и есть Save My History.</p>
+    <p class="sign r d2">— Алина, основательница</p>
+  </div>
+</section>
+<section class="promise">
+  <div class="bg"><img src="https://savemyhistory.tech/assets/catcheye-c04-hands/hands-photo-e3a1061452ca.jpg" alt=""></div>
+  <div class="wrap">
+    <div class="kick">Save My History</div>
+    <h2 class="r d1">Покажите мне <em>ваше</em> фото.</h2>
+    <p class="r d2">Загрузите старый снимок — и увидите лицо родного человека снова чётким. Бесплатно, без карты.</p>
+    <div class="ctas r d2"><a class="cta" href="https://savemyhistory.tech">Вернуть фото к жизни</a><a class="cta ghost" href="https://instagram.com/save.my.history">Смотреть работы</a></div>
+  </div>
+</section>
+<footer>
+  <div class="brand serif">Save My <b>History</b></div>
+  <div class="m serif">Мы не храним гигабайты. Мы сохраняем любовь.</div>
+  <div class="links"><a href="https://savemyhistory.tech">savemyhistory.tech</a><a href="https://instagram.com/save.my.history">Instagram</a><a href="https://t.me/maximprods">Telegram</a></div>
+  <div class="c">© 2026 Save My History · CatchEye Studio · agentC-04 «Письмо»</div>
+</footer>
+<script>const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.2});document.querySelectorAll('.r').forEach(el=>io.observe(el));</script>
+</body>
+</html>
