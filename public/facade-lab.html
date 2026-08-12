@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" data-door-a-creative-raise-2="1" data-door-a-creative-raise-3="1" data-door-a-creative-raise-4="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" data-door-a-creative-raise-2="1" data-door-a-creative-raise-3="1" data-door-a-creative-raise-4="1" data-door-a-eye-fix="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SaveMyHistory — Лампа над альбомом</title>
-<meta name="description" content="Тихая комната, тёплый свет, закрытый альбом. Комната, где хранитель рода наконец начинает.">
+<meta name="description" content="Тихая комната, тёплый свет, открытый альбом. Комната, где хранитель рода наконец начинает.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#E8E2D8">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -136,12 +136,12 @@ a{color:inherit}
 .brand{
   font-family:var(--smh-font-display);
   font-weight:600;
-  font-size:clamp(1.32rem,2.45vw,1.82rem);
+  font-size:clamp(1.48rem,2.8vw,2.05rem);
   line-height:.92;letter-spacing:-.02em;
-  color:rgba(243,238,230,.36);margin-bottom:0;
-  /* Creative raise: brand whispers after lamp owns first beat; never opacity:1 */
+  color:rgba(243,238,230,.82);margin-bottom:0;
+  /* Eye fix: brand readable hero signal; soft, not ghost */
   opacity:0;animation:heroFadeBrand 1s var(--smh-ease) .62s forwards;
-  text-shadow:0 4px 18px rgba(28,25,21,.08);
+  text-shadow:0 2px 14px rgba(28,25,21,.45);
 }
 .brand .mark{color:#E2B87A}
 .hero h1{
@@ -163,16 +163,18 @@ a{color:inherit}
   display:flex;flex-direction:column;align-items:center;gap:6px;
   color:rgba(243,238,230,.38);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   font-weight:500;pointer-events:none;
-  opacity:0;animation:heroFade .9s var(--smh-ease) 2.2s forwards;
+  /* Eye fix: keep translateX(-50%) through fade — heroFade wiped centering */
+  opacity:0;animation:heroFadeCue .9s var(--smh-ease) 2.2s forwards;
 }
 .scroll-cue i{
   width:1px;height:28px;background:linear-gradient(180deg,rgba(226,184,122,.05),rgba(226,184,122,.75));
   display:block;animation:cuePulse 2.2s var(--smh-ease) infinite;
 }
 @keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes heroFadeCue{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%)}}
 @keyframes heroFadeH1{from{opacity:0;transform:translateY(14px)}to{opacity:.92;transform:none}}
 @keyframes heroFadeLead{from{opacity:0;transform:translateY(10px)}to{opacity:.88;transform:none}}
-@keyframes heroFadeBrand{from{opacity:0;transform:translateY(10px)}to{opacity:.28;transform:none}}
+@keyframes heroFadeBrand{from{opacity:0;transform:translateY(10px)}to{opacity:.78;transform:none}}
 @keyframes cuePulse{0%,100%{opacity:.35;transform:scaleY(.85)}50%{opacity:1;transform:scaleY(1)}}
 
 .bridge{
@@ -681,8 +683,8 @@ a{color:inherit}
   .act-hush--archive{height:clamp(16px,3vh,32px)}
   .foot__lineage{font-size:12px;max-width:34ch}
   .hero__copy{padding-top:18vh;padding-bottom:clamp(56px,14vh,110px)}
-  .brand{font-size:clamp(1.22rem,5.5vw,1.65rem);opacity:.30;color:rgba(243,238,230,.34);animation-name:heroFadeBrandMobile;animation-delay:.58s}
-  @keyframes heroFadeBrandMobile{from{opacity:0;transform:translateY(10px)}to{opacity:.30;transform:none}}
+  .brand{font-size:clamp(1.36rem,5.8vw,1.85rem);opacity:.78;color:rgba(243,238,230,.84);animation-name:heroFadeBrandMobile;animation-delay:.58s}
+  @keyframes heroFadeBrandMobile{from{opacity:0;transform:translateY(10px)}to{opacity:.78;transform:none}}
   .hero h1{font-size:clamp(1.42rem,5.6vw,1.75rem);margin-top:14px;color:rgba(243,238,230,.94);max-width:15ch}
   .hero__lead{font-size:15px;color:rgba(243,238,230,.76);max-width:24ch}
   .scroll-cue{bottom:14px;color:rgba(243,238,230,.42)}
@@ -715,18 +717,18 @@ a{color:inherit}
 }
 @media (max-width:430px){
   .hero__copy{padding-top:16vh}
-  .brand{font-size:clamp(1.14rem,5.1vw,1.48rem);opacity:.28;animation-name:heroFadeBrandTiny;animation-delay:.58s}
-  @keyframes heroFadeBrandTiny{from{opacity:0;transform:translateY(10px)}to{opacity:.28;transform:none}}
+  .brand{font-size:clamp(1.28rem,5.4vw,1.68rem);opacity:.78;animation-name:heroFadeBrandTiny;animation-delay:.58s}
+  @keyframes heroFadeBrandTiny{from{opacity:0;transform:translateY(10px)}to{opacity:.78;transform:none}}
   .hero h1{font-size:clamp(1.38rem,5.8vw,1.62rem)}
   .ba-shell{max-height:min(64svh,540px)}
   .archive__pair,.archive__leaf--wide .archive__pair{aspect-ratio:3/4}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .brand{animation:none!important;opacity:.28!important;transform:none}
+  .brand{animation:none!important;opacity:.78!important;transform:none}
   .hero h1{animation:none!important;opacity:.92!important;transform:none}
   .hero__lead{animation:none!important;opacity:.88!important;transform:none}
-  .scroll-cue{animation:none!important;opacity:1;transform:none}
+  .scroll-cue{animation:none!important;opacity:1;transform:translateX(-50%)}
   /* Pass8 cold path: keep poster via video; do not force full still */
   .hero__media video{display:none!important}
   .hero__media.is-poster-only video{display:block!important}
@@ -776,7 +778,7 @@ a{color:inherit}
   <div class="hero__copy" id="lab-copy">
     <p class="brand">Save<span class="mark">My</span>History</p>
     <h1>Лампа над альбомом.</h1>
-    <p class="hero__lead">Тихая комната. Тёплый свет. Закрытый альбом.</p>
+    <p class="hero__lead">Тихая комната. Тёплый свет. Открытый альбом.</p>
   </div>
   <div class="scroll-cue" aria-hidden="true"><span>дальше</span><i></i></div>
 </header>
