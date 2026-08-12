@@ -405,20 +405,21 @@ a{color:inherit}
 .archive__pair .arch-after{opacity:0;z-index:2}
 .archive__badge{
   position:absolute;left:10px;bottom:10px;z-index:3;
-  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  color:rgba(243,238,230,.88);
-  background:rgba(28,25,21,.42);
+  font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(243,238,230,.7);
+  background:transparent;
   border:none;
-  border-radius:0;padding:4px 0;
+  border-radius:0;padding:0;
   pointer-events:none;
   opacity:0;
-  transition:opacity .35s var(--smh-ease),background .35s var(--smh-ease);
+  transition:opacity .35s var(--smh-ease),color .35s var(--smh-ease);
 }
 .archive__leaf.is-revealed .archive__badge,
 .archive__leaf:hover .archive__badge,
 .archive__leaf:focus-within .archive__badge{
-  opacity:1;
-  background:rgba(140,94,40,.55);
+  opacity:.8;
+  color:rgba(226,184,122,.9);
+  background:transparent;
 }
 .archive__leaf.is-revealed .archive__pair .arch-before,
 .archive__leaf:hover .archive__pair .arch-before,
@@ -446,10 +447,10 @@ a{color:inherit}
 @media (hover:none){
   .archive__leaf:hover .archive__pair .arch-before{opacity:1}
   .archive__leaf:hover .archive__pair .arch-after{opacity:0}
-  .archive__leaf:hover .archive__badge{background:rgba(28,25,21,.42)}
+  .archive__leaf:hover .archive__badge{opacity:0;background:transparent}
   .archive__leaf.is-revealed .archive__pair .arch-before{opacity:0}
   .archive__leaf.is-revealed .archive__pair .arch-after{opacity:1}
-  .archive__leaf.is-revealed .archive__badge{background:rgba(140,94,40,.55)}
+  .archive__leaf.is-revealed .archive__badge{opacity:.8;background:transparent;color:rgba(226,184,122,.9)}
 }
 @media (max-width:720px){
   .archive__shelf{gap:18px}
@@ -506,7 +507,7 @@ a{color:inherit}
 .archive__leaf{
   opacity:.94;
   transform:translate3d(0,16px,0);
-  transition:opacity .72s var(--smh-ease), transform .78s var(--smh-ease), box-shadow .35s var(--smh-ease);
+  transition:opacity .72s var(--smh-ease), transform .78s var(--smh-ease);
 }
 .archive__leaf:nth-child(2){transition-delay:.05s}
 .archive__leaf:nth-child(3){transition-delay:.09s}
