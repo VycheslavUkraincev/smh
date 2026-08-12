@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Полка макетов · Банк CatchEye · Save My History</title>
+<meta name="description" content="Банк живых макетов CatchEye — полка идей для Save My History, не конкурсная арена.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- CATCHEYE_BANK_SHELF -->
+<style>
+:root{
+  --bg:#1a1510;
+  --bg2:#241c14;
+  --ink:#f2e8d8;
+  --soft:#a89880;
+  --lamp:#d4a574;
+  --line:rgba(212,165,116,.18);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%,rgba(212,165,116,.12),transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 100%,rgba(120,80,40,.1),transparent 50%),
+    linear-gradient(165deg,var(--bg),var(--bg2) 60%,#120e0a);
+  color:var(--ink);
+  font-family:"Source Sans 3",system-ui,sans-serif;
+  font-weight:300;
+  line-height:1.5;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:48px 22px 80px}
+header{margin-bottom:36px}
+.brand{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(13px,2.2vw,15px);
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--lamp);
+  margin-bottom:18px;
+}
+h1{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-weight:500;
+  font-size:clamp(36px,7vw,56px);
+  line-height:1.05;
+  letter-spacing:-.01em;
+}
+h1 em{font-style:italic;color:var(--lamp)}
+.lead{
+  margin-top:16px;
+  max-width:540px;
+  font-size:16px;
+  color:var(--soft);
+}
+.note{
+  margin-top:14px;
+  font-size:13px;
+  color:var(--soft);
+  border-left:2px solid var(--line);
+  padding-left:12px;
+}
+nav.filters{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin:28px 0 22px;
+  position:sticky;top:0;z-index:20;
+  padding:12px 0;
+  background:linear-gradient(to bottom,rgba(26,21,16,.96),rgba(26,21,16,.88));
+  backdrop-filter:blur(10px);
+}
+nav.filters button{
+  appearance:none;background:transparent;
+  border:1px solid var(--line);
+  color:var(--soft);
+  padding:7px 14px;
+  font:inherit;font-size:13px;font-weight:400;
+  cursor:pointer;
+  transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease);
+}
+nav.filters button.on,
+nav.filters button:hover{
+  background:rgba(212,165,116,.14);
+  color:var(--ink);
+  border-color:rgba(212,165,116,.4);
+}
+.list{display:flex;flex-direction:column;gap:0}
+.row{
+  display:grid;
+  grid-template-columns:64px 1fr auto;
+  gap:12px 16px;
+  align-items:baseline;
+  padding:14px 4px;
+  border-bottom:1px solid var(--line);
+  text-decoration:none;
+  color:inherit;
+  transition:background .25s var(--ease);
+}
+.row:hover{background:rgba(212,165,116,.05)}
+.row .id{
+  font-size:12px;
+  letter-spacing:.08em;
+  color:var(--lamp);
+  font-weight:500;
+}
+.row h2{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:22px;
+  font-weight:500;
+  line-height:1.2;
+}
+.row p{
+  grid-column:2;
+  font-size:13px;
+  color:var(--soft);
+  margin-top:2px;
+}
+.row .go{
+  font-size:12px;
+  color:var(--lamp);
+  letter-spacing:.06em;
+  white-space:nowrap;
+  align-self:center;
+}
+.honesty{
+  display:inline;
+  font-size:12px;
+  color:var(--lamp);
+  opacity:.85;
+}
+.row[hidden]{display:none}
+footer{
+  margin-top:48px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  font-size:12px;
+  color:var(--soft);
+}
+footer a{color:var(--lamp);text-decoration:none}
+@media (max-width:560px){
+  .row{grid-template-columns:52px 1fr;gap:6px 10px}
+  .row .go{grid-column:2;justify-self:start;margin-top:4px}
+  .row p{grid-column:2}
+}
+</style>
+</head>
+<body data-catcheye-bank="1" id="CATCHEYE_BANK_SHELF">
+<!-- CATCHEYE_BANK_SHELF -->
+<div class="wrap">
+  <header>
+    <div class="brand">Save My History</div>
+    <h1>Полка <em>макетов</em></h1>
+    <p class="lead">Банк CatchEye — живые страницы-идеи для ремесла. Не арена, не трофеи: просто полка, куда можно заглянуть и открыть то, что уже на воздухе.</p>
+    <p class="note">Все ссылки ведут на live · savemyhistory.tech. Тяжёлый catcheye-c18-oak.html на полку не кладём — открываем c18-final-oak.</p>
+  </header>
+
+  <nav class="filters" aria-label="Фильтры полки">
+    <button type="button" class="on" data-f="all">Все</button>
+    <button type="button" data-f="C">C</button>
+    <button type="button" data-f="O">O</button>
+    <button type="button" data-f="M">M</button>
+    <button type="button" data-f="extra">Extra</button>
+    <button type="button" data-f="story">Story</button>
+  </nav>
+
+  <main class="list" id="shelf"></main>
+
+  <footer>
+    Банк идей CatchEye · <a href="https://savemyhistory.tech/">savemyhistory.tech</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var BASE='https://savemyhistory.tech/';
+  var items=[
+    {g:'C',id:'C01',t:'Кинцуги',d:'Золотые трещины — красота несовершенства',u:'catcheye-c01-kintsugi.html'},
+    {g:'C',id:'C02',t:'Эмбер',d:'Тёплый угольный свет',u:'catcheye-c02-ember.html'},
+    {g:'C',id:'C03',t:'Коллаж',d:'Мозаика семейных кадров',u:'catcheye-c03-collage.html'},
+    {g:'C',id:'C04',t:'Из рук в руки',d:'Память между поколениями',u:'catcheye-c04-hands.html'},
+    {g:'C',id:'C05',t:'Музей',d:'Галерейная подача памяти',u:'catcheye-c05-museum.html'},
+    {g:'C',id:'C06',t:'Чердак',d:'Коробка со старыми фото',u:'catcheye-c06-attic.html'},
+    {g:'C',id:'C07',t:'Слайдер',d:'До / после перетягиванием',u:'catcheye-c07-slider.html'},
+    {g:'C',id:'C09',t:'Проявление',d:'Лицо проявляется из зерна',u:'catcheye-c09-reveal.html'},
+    {g:'C',id:'C10',t:'Два режима',d:'Minimal / Cinematic',u:'catcheye-c10-dualmode.html'},
+    {g:'C',id:'C11',t:'Золотое время (часы)',d:'Карманные часы · не путать с golden-time',u:'catcheye-c11-goldtime.html',note:'C11 ≠ catcheye-golden-time'},
+    {g:'C',id:'C12',t:'Восстановление скроллом',d:'Фото чинится по мере прокрутки',u:'catcheye-c12-scrollrestore.html'},
+    {g:'C',id:'C13',t:'Preserve Legacy',d:'Премиум золотой регистр',u:'catcheye-c13-legacy.html'},
+    {g:'C',id:'C14',t:'Fading Past',d:'Кадр рассыпается в золотую пыль',u:'catcheye-c14-fading.html'},
+    {g:'C',id:'C15',t:'Шкатулка',d:'Золотой ларец, порванная бумага',u:'catcheye-c15-casket.html'},
+    {g:'C',id:'C16',t:'Береста-триптих',d:'Три экрана на берёзовой коре',u:'catcheye-c16-birch.html'},
+    {g:'C',id:'C17',t:'Древо-свиток',d:'Берёза-ось, золото к корням',u:'catcheye-c17-tree.html'},
+    {g:'C',id:'C18',t:'Дуб 300 лет',d:'Финальный дуб (slim) · не fat catcheye-c18-oak',u:'c18-final-oak.html'},
+    {g:'C',id:'C19',t:'Карта памяти',d:'Движение Хранителей, глобус',u:'catcheye-c19-movement.html'},
+
+    {g:'O',id:'O1',t:'Последний кадр',d:'Время по скроллу',u:'catcheye-o1-posledniy-kadr.html'},
+    {g:'O',id:'O2',t:'Письмо из прошлого',d:'Лендинг как архивное письмо',u:'catcheye-o2-pismo.html'},
+    {g:'O',id:'O3',t:'Свет в окне',d:'Светлый тёплый регистр',u:'catcheye-o3-svet-v-okne.html'},
+    {g:'O',id:'O4',t:'Стоп-кадр',d:'Проявка лица из зерна',u:'catcheye-o4-stopkadr.html'},
+    {g:'O',id:'O5',t:'Конверт',d:'Фото поднимается из конверта',u:'catcheye-o5-konvert.html'},
+    {g:'O',id:'O6',t:'Рассвет',d:'Цвет приходит как утро',u:'catcheye-o6-rassvet.html'},
+    {g:'O',id:'O7',t:'Имя',d:'Лицо вокруг имени',u:'catcheye-o7-imya.html'},
+    {g:'O',id:'O8',t:'Две руки',d:'Память между поколениями',u:'catcheye-o8-dve-ruki.html'},
+    {g:'O',id:'O9',t:'Тёмная комната',d:'Фотолаб, проявитель',u:'catcheye-o9-temnaya-komnata.html'},
+
+    {g:'M',id:'M01',t:'Дерево',d:'Родовое древо как навигация',u:'catcheye-m01-tree.html'},
+    {g:'M',id:'M02',t:'Чердак',d:'Чердак воспоминаний',u:'catcheye-m02-attic.html'},
+    {g:'M',id:'M03',t:'Тёмная комната',d:'Проявка кадра',u:'catcheye-m03-darkroom.html'},
+    {g:'M',id:'M04',t:'Дыхание',d:'Кадр оживает дыханием',u:'catcheye-m04-dyhanie.html'},
+    {g:'M',id:'M05',t:'Письмо',d:'Сторителл-письмо',u:'catcheye-m05-pismo.html'},
+    {g:'M',id:'M06',t:'Стена',d:'Стена памяти',u:'catcheye-m06-stena.html'},
+
+    {g:'extra',id:'EX1',t:'Story тёмная',d:'Ранний сторителл · не путать с story.html',u:'catcheye-smh-story.html',note:'EX1 ≠ story.html'},
+    {g:'extra',id:'EX2',t:'Story светлая',d:'Светлая версия истории',u:'catcheye-smh-story-light.html'},
+    {g:'extra',id:'EX3',t:'Tree (ранний)',d:'Кора/лес · почти дубль M01',u:'catcheye-ex3-tree.html',note:'EX3 ≈ M01'},
+    {g:'extra',id:'LAND',t:'SMH landing',d:'Лендинг-макет CatchEye',u:'catcheye-smh-landing.html'},
+    {g:'extra',id:'GOLD',t:'Golden time',d:'Отдельный golden-time · не C11',u:'catcheye-golden-time.html',note:'≠ C11 goldtime'},
+
+    {g:'story',id:'LIVE',t:'Хранитель рода',d:'Живой продукт · story.html',u:'story.html'}
+  ];
+
+  var shelf=document.getElementById('shelf');
+  function render(f){
+    shelf.innerHTML='';
+    items.forEach(function(x){
+      if(f!=='all'&&x.g!==f) return;
+      var a=document.createElement('a');
+      a.className='row';
+      a.href=BASE+x.u;
+      a.target='_blank';
+      a.rel='noopener';
+      a.dataset.g=x.g;
+      var note=x.note?' <span class="honesty">· '+x.note+'</span>':'';
+      a.innerHTML='<span class="id">'+x.id+'</span><div><h2>'+x.t+'</h2><p>'+x.d+note+'</p></div><span class="go">открыть ↗</span>';
+      shelf.appendChild(a);
+    });
+  }
+  render('all');
+  document.querySelectorAll('nav.filters button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('nav.filters button').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');
+      render(b.dataset.f);
+    });
+  });
+})();
+</script>
+</body>
+</html>
