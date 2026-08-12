@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -517,28 +517,26 @@ a{color:inherit}
   pointer-events:none;
 }
 
-/* Invite soft COLD_PATH_B — one quiet CTA; waitlist soft link only */
+/* Invite soft COLD_PATH_B — h2 + soft only; Pass10 hush residual chrome */
 .invite{
-  display:grid;gap:var(--smh-space-4);align-items:start;max-width:560px;
+  display:grid;gap:var(--smh-space-3);align-items:start;max-width:520px;
   opacity:calc(.35 + var(--invite-in) * .65);
-  transform:translate3d(0, calc((1 - var(--invite-in)) * 14px), 0);
+  transform:translate3d(0, calc((1 - var(--invite-in)) * 10px), 0);
 }
 .invite-card{
-  padding:clamp(18px,2.6vw,24px) 0 0;
+  padding:clamp(10px,1.6vw,14px) 0 0;
   border:none;
   border-radius:0;
   background:transparent;
-  border-top:1px solid rgba(28,25,21,.08);
+  border-top:1px solid rgba(28,25,21,.05);
 }
-.invite-card h3{font-family:var(--smh-font-display);font-size:1.08rem;margin-bottom:8px;font-weight:600}
-.invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:12px;max-width:40ch}
-.invite-card .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
+.invite-card .actions{display:block;margin:0;padding:0}
 .invite-soft{
-  display:inline;font-size:14px;font-weight:500;color:var(--smh-mute);
-  text-decoration:none;border-bottom:1px solid rgba(110,102,83,.35);
+  display:inline;font-size:13px;font-weight:500;color:var(--smh-mute);
+  text-decoration:none;border-bottom:1px solid rgba(110,102,83,.28);
   transition:color .2s var(--smh-ease),border-color .2s var(--smh-ease);
 }
-.invite-soft:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.45)}
+.invite-soft:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.4)}
 .invite-soft:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px;border-bottom-color:transparent}
 
 .foot{
@@ -1027,7 +1025,7 @@ a{color:inherit}
           armed = true;
           tryPlayHero();
         }
-        /* Pass9: gate residual video~441KB / still~274KB — poster leads; idle later */
+        /* Pass9 gate kept; Pass10: slightly later idle — poster holds longer on narrow/saveData */
         function armHeroOnScroll(){
           var y = window.scrollY || window.pageYOffset || 0;
           var vhGate = window.innerHeight || 1;
@@ -1036,7 +1034,7 @@ a{color:inherit}
         }
         window.addEventListener('scroll', armHeroOnScroll, {passive:true});
         window.addEventListener('pointerdown', armHero, {passive:true, once:true});
-        setTimeout(armHero, 4800);
+        setTimeout(armHero, 5600);
       } else {
         tryPlayHero();
         setTimeout(function(){
