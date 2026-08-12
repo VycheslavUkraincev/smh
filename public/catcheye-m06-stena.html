@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru" id="CATCHEYE_M06_STENA_PORT" data-catcheye-m06-stena-port="1">
+<head>
+<meta charset=utf-8>
+<!-- CATCHEYE_M06_STENA_PORT Creative Bridge sibling · assets /assets/catcheye-m06-stena · source arena Agent-M m06-stena «Стена памяти» · 2026-08-12 · invent_eyes=N · g1–g4 before/after from Spaces (real) · closes Agent-M M-1..M-6 -->
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>M-06 · Стена памяти — Save My History</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#08070a;color:#efe7da;font-family:Georgia,serif;min-height:100vh}
+header{text-align:center;padding:12vh 6vw 6vh}
+header h1{font-size:clamp(30px,6vw,68px);font-weight:400;letter-spacing:.03em;line-height:1.2}
+header h1 .a{color:#c9883f}
+header p{margin-top:20px;color:#9c9486;font-size:clamp(14px,2vw,18px);letter-spacing:.05em}
+.wall{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:1100px;margin:0 auto;padding:0 4vw 8vh}
+@media(min-width:880px){.wall{grid-template-columns:repeat(4,1fr)}}
+.cell{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:4px;cursor:pointer;box-shadow:0 18px 50px rgba(0,0,0,.55)}
+.cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cell .af{opacity:0;transition:opacity 1.4s ease;filter:saturate(1.08)}
+.cell.show .af{opacity:1}
+.cell .tag{position:absolute;bottom:0;left:0;right:0;padding:14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;background:linear-gradient(transparent,rgba(0,0,0,.8));z-index:2}
+.cell .tag b{color:#c9883f;font-weight:400}
+.foot{text-align:center;padding:0 6vw 14vh}
+.foot .big{font-size:clamp(24px,4.4vw,48px);font-weight:400;line-height:1.35;max-width:18ch;margin:0 auto 40px}
+.cta{display:inline-block;padding:18px 50px;border:1px solid #c9883f;color:#efe7da;text-decoration:none;letter-spacing:.18em;text-transform:uppercase;font-size:14px;transition:.4s}
+.cta:hover{background:#c9883f;color:#08070a}
+.accent{color:#c9883f}
+</style>
+</head>
+<body>
+<header>
+  <h1>Стена памяти.<br><span class=a>Каждый — кто-то живой.</span></h1>
+  <p>Наведи на любого — и время отступит назад.</p>
+</header>
+<div class=wall id=wall>
+  <div class=cell data-i=0>
+    <img class=bf src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g1-before-35bb3a61b52f.jpg" alt="" width=1000 height=1543>
+    <img class=af src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g1-after-1f50111ea5cf.jpg" alt="" width=832 height=1284>
+    <div class=tag><b>после</b> · Бабушка · 1962</div>
+  </div>
+  <div class=cell data-i=1>
+    <img class=bf src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g2-before-2bff4a865021.jpg" alt="" width=1000 height=1468>
+    <img class=af src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g2-after-2c7102893815.jpg" alt="" width=848 height=1246>
+    <div class=tag><b>после</b> · Свадьба · 1971</div>
+  </div>
+  <div class=cell data-i=2>
+    <img class=bf src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g3-before-7f0a0cc58f06.jpg" alt="" width=1000 height=676>
+    <img class=af src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g3-after-35f138fe9576.jpg" alt="" width=1000 height=675>
+    <div class=tag><b>после</b> · Двор детства</div>
+  </div>
+  <div class=cell data-i=3>
+    <img class=bf src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g4-before-c5a91ab2af67.jpg" alt="" width=1000 height=767>
+    <img class=af src="https://savemyhistory.tech/assets/catcheye-m06-stena/cell-g4-after-35dc26a6f665.jpg" alt="" width=1000 height=767>
+    <div class=tag><b>после</b> · Отец · молодой</div>
+  </div>
+</div>
+<div class=foot>
+  <div class=big>У тебя дома такая же стена. Просто <span class=accent>в коробке</span>.</div>
+  <a class=cta href="https://savemyhistory.tech">Восстановить всех</a>
+</div>
+<script>
+var cells=[].slice.call(document.querySelectorAll('.cell'));
+cells.forEach(function(c,idx){
+  c.addEventListener('mouseenter',function(){c.classList.add('show')});
+  c.addEventListener('mouseleave',function(){c.classList.remove('show')});
+  setInterval(function(){c.classList.toggle('show')},3600+idx*900);
+});
+</script>
+</body>
+</html>
