@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" data-door-a-creative-raise-2="1" data-door-a-creative-raise-3="1" data-door-a-creative-raise-4="1" data-door-a-eye-fix="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" data-door-a-creative-raise-2="1" data-door-a-creative-raise-3="1" data-door-a-creative-raise-4="1" data-door-a-eye-3bugs-craft="1" data-door-a-eye-fix="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -364,19 +364,15 @@ a{color:inherit}
 }
 .archive__leaf{
   position:relative;
-  border:1px solid rgba(28,25,21,.1);
-  border-radius:var(--smh-radius);
-  background:
-    linear-gradient(180deg,rgba(243,238,230,.55),rgba(232,226,216,.35)),
-    #EDE6DB;
-  box-shadow:0 18px 40px -32px rgba(28,25,21,.35);
-  padding:14px 14px 16px;
-  overflow:hidden;
+  border:none;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:6px 0 8px;
+  overflow:visible;
 }
-.archive__leaf::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(135deg,rgba(226,184,122,.08),transparent 40%);
-}
+.archive__leaf::before{display:none}
+
 .archive__meta{
   display:flex;align-items:baseline;justify-content:space-between;gap:12px;
   margin-bottom:10px;position:relative;z-index:1;
@@ -418,11 +414,13 @@ a{color:inherit}
   border:1px solid rgba(243,238,230,.18);
   border-radius:4px;padding:5px 8px;
   pointer-events:none;
+  opacity:0;
   transition:opacity .35s var(--smh-ease),background .35s var(--smh-ease);
 }
 .archive__leaf.is-revealed .archive__badge,
 .archive__leaf:hover .archive__badge,
 .archive__leaf:focus-within .archive__badge{
+  opacity:1;
   background:rgba(140,94,40,.55);
 }
 .archive__leaf.is-revealed .archive__pair .arch-before,
@@ -451,14 +449,14 @@ a{color:inherit}
 @media (hover:none){
   .archive__leaf:hover .archive__pair .arch-before{opacity:1}
   .archive__leaf:hover .archive__pair .arch-after{opacity:0}
-  .archive__leaf:hover .archive__badge{background:rgba(28,25,21,.42)}
+  .archive__leaf:hover .archive__badge{opacity:0;background:rgba(28,25,21,.42)}
   .archive__leaf.is-revealed .archive__pair .arch-before{opacity:0}
   .archive__leaf.is-revealed .archive__pair .arch-after{opacity:1}
-  .archive__leaf.is-revealed .archive__badge{background:rgba(140,94,40,.55)}
+  .archive__leaf.is-revealed .archive__badge{opacity:1;background:rgba(140,94,40,.55)}
 }
 @media (max-width:720px){
   .archive__shelf{gap:18px}
-  .archive__leaf{padding:12px}
+  .archive__leaf{padding:6px 0 8px}
   .archive__pair{aspect-ratio:4/5}
   .archive__leaf--wide .archive__pair{aspect-ratio:4/5}
 }
@@ -509,9 +507,9 @@ a{color:inherit}
   font-weight:500;
 }
 .archive__leaf{
-  opacity:.68;
-  transform:translate3d(0,16px,0);
-  transition:opacity .72s var(--smh-ease), transform .78s var(--smh-ease), box-shadow .35s var(--smh-ease);
+  opacity:.94;
+  transform:translate3d(0,10px,0);
+  transition:opacity .72s var(--smh-ease), transform .78s var(--smh-ease);
 }
 .archive__leaf:nth-child(2){transition-delay:.05s}
 .archive__leaf:nth-child(3){transition-delay:.09s}
@@ -633,13 +631,16 @@ a{color:inherit}
   letter-spacing:calc(-.005em + var(--end-hold) * .018em);
 }
 
+/* Eye 3bugs craft · hide empty spread shell; soft invite without loud underline */
+.album__frame--quiet,
+.album__frame[hidden]{display:none!important}
 .invite-soft{
-  display:inline;font-size:13px;font-weight:500;color:var(--smh-mute);
-  text-decoration:none;border-bottom:1px solid rgba(110,102,83,.28);
-  transition:color .2s var(--smh-ease),border-color .2s var(--smh-ease);
+  display:inline;font-size:13px;font-weight:500;color:rgba(110,102,83,.72);
+  text-decoration:none;border-bottom:none;
+  transition:color .2s var(--smh-ease);
 }
-.invite-soft:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.4)}
-.invite-soft:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px;border-bottom-color:transparent}
+.invite-soft:hover{color:var(--smh-amber-deep)}
+.invite-soft:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px}
 
 .foot{
   padding:var(--smh-space-5) 0;
@@ -712,7 +713,7 @@ a{color:inherit}
   .archive__meta{margin-bottom:6px}
   .archive__meta strong{font-size:.98rem}
   .archive__tap{margin-top:6px;font-size:11px}
-  .archive__leaf{padding:10px}
+  .archive__leaf{padding:4px 0 8px}
   .archive__shelf{gap:14px}
 }
 @media (max-width:430px){
@@ -789,9 +790,7 @@ a{color:inherit}
 <main>
 <section class="section section--paper" id="album" data-act="2" aria-labelledby="album-title">
   <div class="wrap album" data-story-obj="album">
-    <div class="album__frame" aria-hidden="true">
-      <img src="/assets/facade-lab/2026-08-11-album-spread-empty.jpg" alt="" width="1400" height="781" loading="lazy" decoding="async">
-    </div>
+    <div class="album__frame album__frame--quiet" aria-hidden="true" hidden></div>
     <div>
       <p class="section__eyebrow">Открыть · как начинается</p>
       <h2 id="album-title">Комната, где хранитель наконец начинает.</h2>
