@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- C18_OAK_PORT Creative Bridge sibling · assets /assets/c18-oak · source catcheye C18 final oak · 2026-08-12 -->
-<html lang="ru" data-c18-oak-port="1" data-catcheye-c18-oak="1">
+<!-- C18_OAK_PORT Creative Bridge sibling · assets /assets/c18-oak · source catcheye C18 final oak · 2026-08-12 · sol craft -->
+<html lang="ru" data-c18-oak-port="1" data-catcheye-c18-oak="1" data-c18-sol-craft="1">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -53,6 +53,10 @@ nav.solid{background:rgba(12,10,7,.82);backdrop-filter:blur(10px)}
 .list li{color:#d8cab0;font-weight:300;padding-left:22px;position:relative}.list li::before{content:"✦";position:absolute;left:0;color:var(--gold);font-size:11px;top:3px}
 .cta{display:inline-flex;margin-top:22px;padding:15px 30px;border-radius:10px;background:var(--gold);color:#0c0a07;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.25s}
 .cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(231,183,101,.45)}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:22px}
+.cta-row .cta{margin-top:0}
+.cta-quiet{font-size:12px;letter-spacing:.08em;color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(169,154,126,.45);padding-bottom:2px;transition:color .25s,border-color .25s}
+.cta-quiet:hover{color:var(--gold);border-color:var(--gold)}
 .r{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.r.in{opacity:1;transform:none}
 .d1{transition-delay:.14s}.d2{transition-delay:.3s}
 .prog{position:fixed;left:0;top:0;height:3px;background:var(--gold);width:var(--p,0);z-index:60}
@@ -121,21 +125,25 @@ footer .c{margin-top:14px;font-size:11px;color:#5e5443}
     </div>
     <div class="block right" id="sol">
       <div class="panel r">
-        <div class="kick">Our Solution · Кинцуги</div>
+        <div class="kick">Save My History · Кинцуги</div>
         <h2 class="serif">Мы заполняем трещины золотом.</h2>
-        <p>Как японские мастера кинцуги: не прячем след времени, а делаем его драгоценным. Фото не «как новое» — оно бесценное.</p>
+        <p>Не «как новое». Как японские мастера кинцуги: след времени остаётся, но становится драгоценным. Save My History бережно чинит бумагу и свет — разрывы, выцветание, воду — и оставляет лицо вашим.</p>
         <ul class="list">
-          <li>Ремонт разрывов и царапин</li>
-          <li>Восстановление цвета и выцветания</li>
-          <li>Удаление следов воды и плесени</li>
+          <li>Склеиваем разрывы, не стирая историю</li>
+          <li>Возвращаем цвет, где время его съело</li>
+          <li>Убираем воду и плесень, не перерисовывая человека</li>
         </ul>
+        <div class="cta-row">
+          <a class="cta" href="https://savemyhistory.tech">Сохранить первое фото</a>
+          <a class="cta-quiet" href="#trust">Как мы бережём взгляд</a>
+        </div>
       </div>
     </div>
     <div class="block left" id="trust">
       <div class="panel r">
-        <div class="kick">Trust the Masters</div>
-        <h2 class="serif">Доверьтесь мастерам ремесла.</h2>
-        <p>ИИ восстанавливает анатомию лиц до 98% точности, а мастер-ретушёр вручную проверяет естественность взгляда. Живое фото — не сгенерированное.</p>
+        <div class="kick">Лицо как оно есть</div>
+        <h2 class="serif">Мы не изобретаем глаза.</h2>
+        <p>Никаких чужих зрачков и «улучшенной» улыбки. Реставрация чинит бумагу и свет; взгляд остаётся тем же человеком. Мастер смотрит вручную — живое фото, не сгенерированное.</p>
       </div>
     </div>
   </div>
@@ -147,7 +155,7 @@ footer .c{margin-top:14px;font-size:11px;color:#5e5443}
     <div class="kick r" style="color:var(--gold)">Корни рода</div>
     <h2 class="serif r d1">Золотые корни хранят<br>вашу <em>шкатулку памяти.</em></h2>
     <p class="r d2">Спасённое сегодня фото станет бесценной реликвией через 10 лет. Станьте тем, кто сохранил корни своего рода от забвения.</p>
-    <a class="cta r d2" href="https://savemyhistory.tech">Начать мой проект реставрации</a>
+    <a class="cta r d2" href="https://savemyhistory.tech">Сохранить первое фото</a>
   </div>
 </section>
 
