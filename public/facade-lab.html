@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" data-door-a-pass10-craft="1" data-door-a-pass11-craft="1" data-door-a-pass12-craft="1" data-door-a-pass13-craft="1" data-door-a-pass14-craft="1" data-door-a-pass15-craft="1" data-door-a-creative-raise="1" data-door-a-creative-raise-2="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -434,6 +434,65 @@ a{color:inherit}
   .archive__pair img{transition:none!important}
   .archive__badge,.archive__story i{transition:none!important}
   :root{--gallery-in:1}
+}
+
+/* Creative raise 2 · warm-print mid-scroll + leaf micro + chapter breath */
+.album__frame{
+  transform:scale(calc(.974 + var(--album-in) * .026));
+  opacity:calc(.78 + var(--album-in) * .22);
+}
+.album #album-title{
+  letter-spacing:calc(-.03em + var(--album-in) * .014em);
+}
+.honest__mat{
+  transform:scale(calc(.976 + var(--honest-in) * .024));
+}
+.honest #honesty-title{
+  letter-spacing:calc(-.028em + var(--honest-in) * .016em);
+}
+.archive-bridge{
+  opacity:calc(.4 + var(--honest-in) * .6);
+  transform:scaleY(calc(.92 + var(--honest-in) * .08));
+  transform-origin:top center;
+}
+#truth-title,#archive-title{
+  font-weight:500;
+  font-size:clamp(1.36rem,2.5vw,1.9rem);
+  line-height:1.26;
+  letter-spacing:-.018em;
+  max-width:24ch;
+}
+#truth-title{
+  letter-spacing:calc(-.024em + var(--pin-p) * .012em);
+}
+.pin-chapter__intro .section__eyebrow,
+.archive__head .section__eyebrow{
+  letter-spacing:.155em;
+  font-weight:500;
+}
+.archive__leaf{
+  opacity:.68;
+  transform:translate3d(0,16px,0);
+  transition:opacity .72s var(--smh-ease), transform .78s var(--smh-ease), box-shadow .35s var(--smh-ease);
+}
+.archive__leaf:nth-child(2){transition-delay:.05s}
+.archive__leaf:nth-child(3){transition-delay:.09s}
+.archive__leaf:nth-child(4){transition-delay:.12s}
+.archive__leaf:nth-child(5){transition-delay:.15s}
+.archive__leaf:nth-child(6){transition-delay:.18s}
+.archive__leaf:nth-child(7){transition-delay:.21s}
+.archive__leaf:nth-child(8){transition-delay:.24s}
+.archive__leaf.is-near{
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+@media (prefers-reduced-motion:reduce){
+  .album__frame,.honest__mat,.archive-bridge{transform:none!important;opacity:1!important}
+  .album #album-title,.honest #honesty-title,#truth-title{letter-spacing:-.018em!important}
+  .archive__leaf{opacity:1!important;transform:none!important;transition:none!important}
+  /* intentional quiet lamp-room — authored still, not a broken fallback */
+  .brand{opacity:.22!important}
+  .hero__media.is-still img{transform:scale(1.015)!important}
 }
 
 /* Honesty + quiet FACE/EYE visual bridge into archive shelf */
@@ -1081,6 +1140,7 @@ a{color:inherit}
 
 
   var leaves = document.querySelectorAll('.archive__leaf');
+  if(reduce){ Array.prototype.forEach.call(leaves, function(leaf){ if(leaf) leaf.classList.add('is-near'); }); }
   function syncLeafUI(leaf, on){
     if(!leaf) return;
     leaf.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -1126,6 +1186,8 @@ a{color:inherit}
       if(r.top < vh * 1.12 && r.bottom > -vh * 0.15){
         hydrateLeafBefore(leaf);
         hydrateLeafAfter(leaf);
+        /* Creative raise 2: archival soft-rise once near — hydrate thresholds held */
+        if(!leaf.classList.contains('is-near')) leaf.classList.add('is-near');
       }
     });
   }
