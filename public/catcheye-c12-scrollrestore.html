@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<!-- CATCHEYE_C12_SCROLLRESTORE_PORT Creative Bridge sibling · assets /assets/catcheye-c12-scrollrestore · source catcheye C12 scrollrestore · 2026-08-12 -->
+
+<html lang="ru" data-catcheye-c12-scrollrestore-port="1" data-catcheye-c12-scrollrestore="1" id="CATCHEYE_C12_SCROLLRESTORE_PORT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SaveMyHistory — Восстанови скроллом</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0c0a08;--ink:#f4ede1;--muted:#a99d89;--accent:#d99a5b;--ease:cubic-bezier(.2,.7,.2,1)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+.serif{font-family:'Cormorant Garamond',serif}
+
+/* fixed stage = the photo that restores */
+.stage{position:fixed;inset:0;z-index:0;overflow:hidden;background:#0c0a08}
+.half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
+.half img{position:absolute;top:0;height:100%;width:100vw;object-fit:cover;max-width:none}
+.left{left:0}.left img{left:0}
+.right{right:0}.right img{right:0}
+/* LEFT photo layers (stacked) */
+.left .l-old{filter:grayscale(1) sepia(.5) contrast(.8) brightness(.85)}
+.left .l-new{opacity:0;transition:opacity .4s linear}
+/* RIGHT reveal: paper -> faded -> full, driven by var(--p) 0..1 */
+.right{transform:translateX(calc((1 - var(--reveal,0)) * 60%));transition:transform .15s linear}
+.right .paper{position:absolute;inset:0;background:#e9e0cf;opacity:var(--paper,0)}
+.right img{opacity:var(--rimg,0);filter:grayscale(calc(1 - var(--rcolor,0))) sepia(calc(.6*(1 - var(--rcolor,0)))) contrast(calc(.8 + .2*var(--rcolor,0)))}
+/* fold line */
+.fold{position:absolute;top:0;bottom:0;left:50%;width:2px;transform:translateX(-1px);z-index:5;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(255,255,255,.15),rgba(0,0,0,.5));box-shadow:0 0 18px rgba(0,0,0,.6),inset 0 0 4px rgba(255,255,255,.4);opacity:var(--fold,.25)}
+/* damage overlay on whole photo (scratches), fades out as restored */
+.damage{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:var(--dmg,0);mix-blend-mode:overlay;background:
+ repeating-linear-gradient(92deg,rgba(0,0,0,.0) 0 7px,rgba(0,0,0,.12) 7px 8px),
+ repeating-linear-gradient(178deg,rgba(255,255,255,.0) 0 13px,rgba(0,0,0,.08) 13px 14px)}
+.vign{position:absolute;inset:0;z-index:6;pointer-events:none;background:radial-gradient(80% 80% at 50% 45%,transparent,rgba(12,10,8,.7))}
+
+/* scroll content above stage */
+.scroller{position:relative;z-index:10}
+.panel{min-height:100vh;display:flex;align-items:center;padding:0 8vw}
+.panel.center{justify-content:center;text-align:center}
+.card{max-width:560px;background:rgba(12,10,8,.42);backdrop-filter:blur(6px);border:1px solid rgba(217,154,91,.18);border-radius:18px;padding:34px 30px}
+.kick{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.panel h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(30px,5vw,58px);line-height:1.08}
+.panel h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(40px,7vw,90px);line-height:1.02;text-shadow:0 2px 40px rgba(0,0,0,.7)}
+.panel p{margin-top:18px;color:#e3d8c6;font-weight:300;font-size:clamp(15px,1.8vw,18px);line-height:1.7;max-width:48ch}
+.prog{position:fixed;left:0;top:0;height:3px;background:var(--accent);width:var(--scroll,0);z-index:30}
+.hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:30;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);opacity:.8;animation:b 2.2s infinite}
+@keyframes b{0%,100%{opacity:.35}50%{opacity:1}}
+.cta{display:inline-flex;gap:10px;margin-top:24px;padding:16px 30px;border-radius:999px;font-weight:600;font-size:15px;background:var(--accent);color:#0a0805;text-decoration:none;transition:.25s}
+.cta:hover{transform:translateY(-2px)}
+nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:16px 28px}
+nav .logo{font-family:'Cormorant Garamond',serif;font-size:20px}.logo b{color:var(--accent)}
+nav .badge{font-size:11px;letter-spacing:.16em;color:var(--muted);border:1px solid rgba(217,154,91,.25);border-radius:999px;padding:6px 12px}
+footer{position:relative;z-index:10;background:var(--bg);text-align:center;padding:80px 28px 64px;border-top:1px solid rgba(217,154,91,.15)}
+footer .logo{font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:8px}footer .logo b{color:var(--accent)}
+footer .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);margin-bottom:18px}
+footer a{color:var(--muted);text-decoration:none;margin:0 10px;font-size:13px}footer a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<nav><div class="logo serif">Save<b>My</b>History</div><div class="badge">Восстанови скроллом ↓</div></nav>
+
+<div class="stage" id="stage">
+  <div class="half left">
+    <img class="l-old" src="/assets/catcheye-c12-scrollrestore/before-a6a12814fb31.jpg" alt="">
+    <img class="l-new" id="lnew" src="/assets/catcheye-c12-scrollrestore/after-fd504d0be3b3.jpg" alt="">
+  </div>
+  <div class="half right" id="right">
+    <div class="paper"></div>
+    <img src="/assets/catcheye-c12-scrollrestore/after-fd504d0be3b3.jpg" alt="">
+  </div>
+  <div class="damage" id="damage"></div>
+  <div class="fold" id="fold"></div>
+  <div class="vign"></div>
+</div>
+
+<div class="scroller">
+  <!-- 1 -->
+  <section class="panel center">
+    <div>
+      <div class="kick">SaveMyHistory</div>
+      <h1 class="serif">Время — единственный<br>враг вашей памяти.</h1>
+      <p style="margin-left:auto;margin-right:auto">Сначала остался только обрывок. Листай вниз — и фотография начнёт возвращаться, кусок за куском.</p>
+    </div>
+  </section>
+  <!-- 2 -->
+  <section class="panel">
+    <div class="card">
+      <div class="kick">Наследие</div>
+      <h2 class="serif">Оцифруйте историю<br>своего рода сегодня.</h2>
+      <p>Фотобумага окисляется и теряет до 5% контрастности ежегодно. То, что ещё можно восстановить сегодня, через 10 лет станет белым пятном.</p>
+    </div>
+  </section>
+  <!-- 3 -->
+  <section class="panel" style="justify-content:flex-end">
+    <div class="card">
+      <div class="kick">Исцеление</div>
+      <h2 class="serif">Исцеление,<br>а не ретушь.</h2>
+      <p>Система восстанавливает анатомию лиц с точностью до 98% в 4K. Мастер-ретушёр вручную проверяет естественность взгляда — фото живое, а не сгенерированное.</p>
+    </div>
+  </section>
+  <!-- 4 -->
+  <section class="panel center">
+    <div class="card" style="background:rgba(12,10,8,.5)">
+      <div class="kick">Сгиб времени</div>
+      <h2 class="serif">Снимок, что складывали пополам — снова целый.</h2>
+      <p style="margin-left:auto;margin-right:auto">Левая и правая половины сошлись. По линии сгиба ещё виден залом — след времени, который мы не прячем, а помним.</p>
+    </div>
+  </section>
+  <!-- 5 -->
+  <section class="panel center">
+    <div>
+      <div class="kick">Лучше оригинала</div>
+      <h2 class="serif">Не оставляйте это на «потом».</h2>
+      <p style="margin-left:auto;margin-right:auto">Спасённое сегодня фото станет реликвией через 10 лет. Левая часть уже чётче, чем была — это апскейл. Станьте тем, кто сохранил корни рода.</p>
+      <a class="cta" href="https://savemyhistory.tech">Оживить мой семейный архив</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="logo serif">Save<b>My</b>History</div>
+  <div class="m serif">Мы не храним гигабайты. Мы сохраняем род.</div>
+  <div><a href="https://savemyhistory.tech">savemyhistory.tech</a><a href="https://instagram.com/save.my.history">Instagram</a><a href="https://t.me/maximprods">Telegram</a></div>
+  <div style="margin-top:14px;font-size:11px;color:#5e564a">© 2026 SaveMyHistory · CatchEye · agentC-12 «Scroll-Restore» (механика Флорентийца)</div>
+</footer>
+
+<script>
+const stage=document.getElementById('stage'),right=document.getElementById('right'),fold=document.getElementById('fold'),
+      damage=document.getElementById('damage'),lnew=document.getElementById('lnew'),prog=document.getElementById('prog');
+function clamp(v){return Math.max(0,Math.min(1,v));}
+function lerp(a,b,t){return a+(b-a)*t;}
+function onScroll(){
+  const max=document.body.scrollHeight-innerHeight;
+  const p=clamp(scrollY/max); // 0..1 overall
+  prog.style.setProperty('--scroll',(p*100)+'%');
+
+  // STAGE 1 (0-0.2): only left exists, right empty
+  // STAGE 2 (0.2-0.35): right paper appears
+  // STAGE 3 (0.35-0.5): faded photo on right
+  // STAGE 4 (0.5-0.7): full b/w both, damage, fold visible
+  // STAGE 5 (0.7-0.85): color returns
+  // STAGE 6 (0.85-1): left upscaled (l-new) better than original
+
+  // right slides in + reveals
+  const reveal=clamp((p-0.18)/0.22);              // right comes in 0.18->0.40
+  right.style.setProperty('--reveal',reveal);
+  const paper=clamp((p-0.2)/0.12);                 // paper 0.2->0.32
+  right.style.setProperty('--paper',paper);
+  const rimg=clamp((p-0.32)/0.18);                 // photo on right 0.32->0.5
+  right.style.setProperty('--rimg',rimg);
+  const rcolor=clamp((p-0.62)/0.2);                // color 0.62->0.82
+  right.style.setProperty('--rcolor',rcolor);
+
+  // damage peaks mid then fades
+  let dmg = p<0.5 ? clamp((p-0.3)/0.2) : clamp(1-(p-0.5)/0.25);
+  damage.style.setProperty('--dmg',(dmg*0.9).toString());
+
+  // fold visible strongest around middle
+  const foldV = 0.2 + clamp(1-Math.abs(p-0.55)/0.35)*0.7;
+  fold.style.setProperty('--fold',foldV.toString());
+
+  // left upscale at the end
+  lnew.style.opacity = clamp((p-0.8)/0.18).toString();
+}
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',onScroll);
+onScroll();
+</script>
+</body>
+</html>
