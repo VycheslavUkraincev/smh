@@ -1,0 +1,69 @@
+<!doctype html><html lang="ru" id="CATCHEYE_O5_KONVERT_PORT" data-catcheye-o5-konvert-port="1"><head><meta charset=utf-8>
+<!-- CATCHEYE_O5_KONVERT_PORT Creative Bridge sibling · assets /assets/catcheye-o5-konvert · source arena agent-o o5-konvert · 2026-08-12 · invent_eyes=N · hero_after from smh-photos Spaces (real source asset) -->
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Конверт · Save My History</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel=stylesheet>
+<style>
+:root{--bg:#14110c;--paper:#e8ddc8;--ink:#2a2018;--soft:#6e6152;--gold:#9a7028;--ease:cubic-bezier(.22,.61,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--paper);font-family:Inter,sans-serif;overflow-x:hidden}
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0;z-index:99}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;padding:20px 32px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.langs button{background:none;border:none;color:var(--paper);opacity:.5;cursor:pointer;font-size:12px;margin-left:10px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px}
+.kicker{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,8vw,90px);font-weight:600;line-height:1.05;text-wrap:balance;max-width:13ch}
+h1 em{font-style:italic;color:var(--gold)}
+.envelope{position:relative;width:min(86vw,560px);margin:50px auto;perspective:1400px}
+.flap{position:relative;background:linear-gradient(160deg,#d8c9a8,#c9b896);border-radius:8px;padding:22px;box-shadow:0 50px 130px rgba(0,0,0,.6);transition:transform 1.4s var(--ease)}
+.photo{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:4/3;transform:translateY(40px) scale(.94);opacity:.4;transition:all 1.4s var(--ease)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.envelope.in .photo{transform:none;opacity:1}
+.tag{position:absolute;bottom:12px;left:12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;background:rgba(20,17,12,.7);padding:5px 11px;border-radius:18px;z-index:2}
+.cap{text-align:center;color:var(--soft);font-size:13px;margin-top:20px}
+section{max-width:780px;margin:0 auto;padding:110px 32px;text-align:center}
+.reveal{opacity:0;transform:translateY(32px);transition:all 1s var(--ease)}.reveal.in{opacity:1;transform:none}
+.quote{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,50px);font-weight:500;line-height:1.22;text-wrap:balance}
+.quote em{color:var(--gold);font-style:italic}
+.cta{display:inline-flex;gap:10px;margin-top:34px;padding:18px 40px;background:var(--gold);color:#14110c;text-decoration:none;border-radius:40px;font-weight:500;transition:.3s var(--ease)}
+.cta:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(154,112,40,.35)}
+footer{text-align:center;padding:56px;font-size:12px;color:var(--soft)}
+</style></head><body>
+<div class=progress id=prog></div>
+<nav><div class=logo>Save My History</div><div><span class=langs><button>RU</button><button>UA</button><button>EN</button></span></div></nav>
+
+<div class=hero>
+  <div class=kicker>Конверт</div>
+  <h1>Внутри старого конверта — <em>лицо</em>, которое ты почти забыл</h1>
+  <div style="margin-top:40px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)">↓ открой конверт</div>
+</div>
+
+<div style="padding:40px 24px">
+  <div class=envelope id=env>
+    <div class=flap>
+      <div class=photo>
+        <img src="https://savemyhistory.tech/assets/catcheye-o5-konvert/hero-after-fd504d0be3b3.jpg" alt="восстановленное семейное фото">
+        <span class=tag>возвращено</span>
+      </div>
+    </div>
+    <div class=cap>Листай — фото поднимается из конверта</div>
+  </div>
+</div>
+
+<section>
+  <p class="quote reveal">Оно лежало в темноте десятилетиями.<br>Пора <em>достать его на свет.</em></p>
+</section>
+
+<section>
+  <p class="quote reveal">Мы вернём цвет и чёткость —<br>но оставим лицо <em>точно таким</em>, каким оно было.</p>
+  <a class="cta reveal" href="https://savemyhistory.tech">Открыть своё фото →</a>
+</section>
+
+<footer>Save My History · 283 конверта открыты заново</footer>
+<script>
+const prog=document.getElementById('prog');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.35});
+document.querySelectorAll('.reveal,#env').forEach(el=>io.observe(el));
+</script></body></html>
