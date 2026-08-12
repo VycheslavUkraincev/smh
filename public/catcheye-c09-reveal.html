@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- CATCHEYE_C09_REVEAL_PORT Creative Bridge sibling · assets /assets/catcheye-c09-reveal · source catcheye C09 reveal · 2026-08-12 -->
+<html lang="ru" data-catcheye-c09-reveal-port="1" data-catcheye-c09-reveal="1" id="CATCHEYE_C09_REVEAL_PORT">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Save My History — Проявление</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#f4eee2;--muted:#a89c86;--accent:#d99a5b;--bg:#080706}
+html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+.serif{font-family:'Cormorant Garamond',serif}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;padding:20px 36px;background:linear-gradient(180deg,rgba(8,7,6,.6),transparent)}
+nav .brand{font-family:'Cormorant Garamond',serif;font-size:21px}nav .brand b{color:var(--accent)}
+nav .lang{display:flex;gap:14px;font-size:12px;letter-spacing:.16em;color:var(--muted)}nav .lang a.on{color:var(--accent)}
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero .stage{position:absolute;inset:0;z-index:0}
+.hero .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .stage .after{opacity:0;transition:opacity 2.4s ease;filter:saturate(1.05)}
+.hero.lit .stage .after{opacity:1}
+.hero .stage::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,7,6,.82),rgba(8,7,6,.25) 55%,rgba(8,7,6,.6))}
+.hero .wrap{position:relative;z-index:3;max-width:1080px;margin:0 auto;padding:0 36px;width:100%}
+.kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;opacity:0;animation:up 1.2s .3s forwards}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,6.4vw,80px);line-height:1.06;max-width:17ch;opacity:0;animation:up 1.2s .5s forwards}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{margin-top:22px;max-width:44ch;color:#ddd1bd;font-weight:300;font-size:clamp(15px,2vw,19px);opacity:0;animation:up 1.2s .8s forwards}
+.scrollhint{margin-top:34px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);opacity:0;animation:up 1.2s 1.1s forwards,blink 2.4s 1.6s infinite}
+@keyframes blink{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.r{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}.r.in{opacity:1;transform:none}
+.d1{transition-delay:.14s}.d2{transition-delay:.3s}
+.story{padding:18vh 0}.story .wrap{max-width:720px;margin:0 auto;padding:0 36px}
+.story p{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.4vw,34px);line-height:1.5;margin-bottom:34px}.story p em{color:var(--accent);font-style:italic}
+.promise{min-height:86vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.promise .bg{position:absolute;inset:0;z-index:0}.promise .bg img{width:100%;height:100%;object-fit:cover}
+.promise .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(100% 80% at 50% 50%,rgba(8,7,6,.5),rgba(8,7,6,.93))}
+.promise .wrap{position:relative;z-index:2;max-width:740px;padding:0 28px}
+.promise h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,5.5vw,68px)}.promise h2 em{color:var(--accent);font-style:italic}
+.promise p{margin:24px auto 38px;max-width:46ch;color:#e2d7c4;font-weight:300;font-size:18px;line-height:1.7}
+.cta{display:inline-flex;gap:10px;padding:17px 30px;border-radius:999px;font-weight:600;font-size:15px;background:var(--accent);color:#0a0805;text-decoration:none;transition:.25s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(217,154,91,.4)}
+.cta.ghost{background:transparent;border:1px solid rgba(244,238,226,.3);color:var(--ink)}
+.ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+footer{padding:80px 28px 70px;text-align:center}
+footer .brand{font-family:'Cormorant Garamond',serif;font-size:28px;margin-bottom:8px}footer .brand b{color:var(--accent)}
+footer .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);margin-bottom:24px}
+footer .links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-size:14px;margin-bottom:16px}footer .links a{color:var(--muted);text-decoration:none}footer .links a:hover{color:var(--accent)}
+footer .c{font-size:12px;color:#5e564a}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<nav><div class="brand serif">Save My <b>History</b></div><div class="lang"><a class="on">RU</a><a>UA</a><a>EN</a></div></nav>
+<header class="hero" id="hero">
+  <div class="stage">
+    <img class="before" src="https://savemyhistory.tech/assets/catcheye-c09-reveal/hero-before-a6a12814fb31.jpg" alt="до">
+    <img class="after" src="https://savemyhistory.tech/assets/catcheye-c09-reveal/hero-after-fd504d0be3b3.jpg" alt="после">
+  </div>
+  <div class="wrap">
+    <div class="kick">Проявление</div>
+    <h1 class="serif">Смотри. Лицо <em>проявляется</em> прямо сейчас.</h1>
+    <p>Как старая плёнка в проявителе — выцветший снимок медленно возвращается к жизни. Это реальное фото клиента.</p>
+    <div class="scrollhint">↓ листай — история продолжается</div>
+  </div>
+</header>
+<section class="story">
+  <div class="wrap">
+    <p class="r">Сначала был только силуэт. Размытое пятно, где когда-то было <em>лицо.</em></p>
+    <p class="r d1">Трещины, царапины, выцветший цвет. Время почти стёрло человека.</p>
+    <p class="r d2">Мы вернули его — таким, каким он был. Не похожего. Не выдуманного. <em>Его.</em></p>
+  </div>
+</section>
+<section class="promise">
+  <div class="bg"><img src="https://savemyhistory.tech/assets/catcheye-c09-reveal/g2-after-2c7102893815.jpg" alt=""></div>
+  <div class="wrap">
+    <div class="kick">Save My History</div>
+    <h2 class="r d1">Проявите <em>своё</em> фото.</h2>
+    <p class="r d2">Загрузите старый снимок — и увидите, как лицо возвращается. Первое фото бесплатно, без карты.</p>
+    <div class="ctas r d2"><a class="cta" href="https://savemyhistory.tech">Вернуть фото к жизни</a><a class="cta ghost" href="https://instagram.com/save.my.history">Смотреть работы</a></div>
+  </div>
+</section>
+<footer>
+  <div class="brand serif">Save My <b>History</b></div>
+  <div class="m serif">Мы не храним гигабайты. Мы сохраняем любовь.</div>
+  <div class="links"><a href="https://savemyhistory.tech">savemyhistory.tech</a><a href="https://instagram.com/save.my.history">Instagram</a><a href="https://t.me/maximprods">Telegram</a></div>
+  <div class="c">© 2026 Save My History · CatchEye Studio · agentC-09 «Проявление» · реальное фото клиента</div>
+</footer>
+<script>
+const hero=document.getElementById('hero');
+setTimeout(()=>hero.classList.add('lit'),900);
+let lit=true;
+window.addEventListener('scroll',()=>{ // re-trigger reveal when back at top
+  if(window.scrollY<60&&!lit){hero.classList.remove('lit');void hero.offsetWidth;setTimeout(()=>hero.classList.add('lit'),200);lit=true;}
+  if(window.scrollY>200)lit=false;
+});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.2});document.querySelectorAll('.r').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
