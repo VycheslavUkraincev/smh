@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -235,9 +235,20 @@ a{color:inherit}
 }
 .step p{color:var(--smh-ink-soft);font-size:.95rem;max-width:36ch}
 
+
+/* Pass7: kill 1×1 gif empty-flash until real src hydrates */
+.ba img[src^="data:image/gif"],
+.honest__mat img[src^="data:image/gif"],
+.face-bridge__chip img[src^="data:image/gif"],
+#hero-still[src^="data:image/gif"]{
+  opacity:0;
+}
+.ba img,.honest__mat img,.face-bridge__chip img,#hero-still{
+  transition:opacity .28s var(--smh-ease);
+}
 /* BA pin chapter — stage only sticky; caption below; no sideways clip */
 .pin-chapter{
-  position:relative;min-height:72vh;
+  position:relative;min-height:70vh;
   overflow-x:clip;overflow-x:hidden;
 }
 .pin-chapter__intro{
@@ -246,7 +257,7 @@ a{color:inherit}
 }
 .pin-chapter__stage{
   position:sticky;top:0;
-  min-height:79svh;min-height:79vh;
+  min-height:76svh;min-height:76vh;
   display:flex;flex-direction:column;justify-content:center;
   padding:clamp(10px,2vh,22px) 0;z-index:2;
   overflow:hidden;isolation:isolate;
@@ -446,8 +457,8 @@ a{color:inherit}
 .honest__gaze{
   position:absolute;inset:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 42% 36% at 48% 34%,rgba(226,184,122,.22) 0%,transparent 58%),
-    linear-gradient(180deg,transparent 48%,rgba(28,25,21,.42) 100%);
+    radial-gradient(ellipse 38% 30% at 48% 34%,rgba(226,184,122,.12) 0%,transparent 62%),
+    linear-gradient(180deg,transparent 62%,rgba(28,25,21,.28) 100%);
 }
 .honest__gaze-caption{
   position:absolute;left:12px;bottom:12px;z-index:2;
@@ -520,7 +531,6 @@ a{color:inherit}
 .invite-card h3{font-family:var(--smh-font-display);font-size:1.08rem;margin-bottom:8px;font-weight:600}
 .invite-card p{color:var(--smh-ink-soft);font-size:.95rem;margin-bottom:12px;max-width:40ch}
 .invite-card .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
-.invite-card .hint{margin-top:12px;font-size:13px;color:var(--smh-mute)}
 .invite-soft{
   display:inline;font-size:14px;font-weight:500;color:var(--smh-mute);
   text-decoration:none;border-bottom:1px solid rgba(110,102,83,.35);
@@ -555,10 +565,10 @@ a{color:inherit}
   .hero h1{font-size:clamp(1.42rem,5.6vw,1.75rem);margin-top:14px;color:rgba(243,238,230,.94);max-width:15ch}
   .hero__lead{font-size:15px;color:rgba(243,238,230,.76);max-width:24ch}
   .scroll-cue{bottom:14px;color:rgba(243,238,230,.42)}
-  .pin-chapter{min-height:68vh;overflow-x:hidden}
+  .pin-chapter{min-height:66vh;overflow-x:hidden}
   .pin-chapter__intro .section__lead{margin-bottom:0}
   .pin-chapter__stage{
-    min-height:77svh;min-height:77vh;padding:8px 0;
+    min-height:74svh;min-height:74vh;padding:8px 0;
     overflow:hidden;
   }
   .proof-meta{margin-bottom:10px;gap:8px 12px}
@@ -819,10 +829,8 @@ a{color:inherit}
   <div class="wrap invite">
     <p class="section__eyebrow">Тихое приглашение</p>
     <h2 id="invite-title">Когда придёт код — войдёте тихо.</h2>
-    <p class="section__lead">Сначала комната и правда. Код придёт отдельно — здесь только тихий знак, без сцены «восстановить сейчас».</p>
     <div class="invite-card">
-      <h3>Хранитель держит место</h3>
-      <p>Когда код придёт — войдёте тихо, уже зная свет этой комнаты.</p>
+      <p>Хранитель держит место — сначала комната и правда, без сцены «восстановить сейчас».</p>
       <div class="actions">
         <a class="invite-soft" href="/waitlist.html">Пока — тихий лист ожидания</a>
       </div>
@@ -1098,24 +1106,28 @@ a{color:inherit}
   }
   function hydratePinBa(){
     if(!ba) return;
-    var r = ba.getBoundingClientRect();
+    var root = pinChapter || ba;
+    var r = root.getBoundingClientRect();
     var vh = window.innerHeight || 1;
-    if(r.top < vh * 1.4 && r.bottom > -vh * 0.15){
+    /* Pass7: earlier root — kill empty flash on fast scroll into Правда */
+    if(r.top < vh * 2.25 && r.bottom > -vh * 0.3){
       hydrateLeafImg(ba.querySelector('.before[data-src]'));
       hydrateLeafImg(ba.querySelector('.after[data-src]'));
     }
   }
   function hydrateBridgeDoubles(){
     var vh = window.innerHeight || 1;
+    var honestyEl = honesty || document.getElementById('honesty');
     var mat = document.querySelector('.honest__mat img[data-src]');
     if(mat){
-      var mr = mat.getBoundingClientRect();
-      if(mr.top < vh * 1.35 && mr.bottom > -vh * 0.2) hydrateLeafImg(mat);
+      var root = honestyEl || mat;
+      var mr = root.getBoundingClientRect();
+      if(mr.top < vh * 2.2 && mr.bottom > -vh * 0.3) hydrateLeafImg(mat);
     }
     var past = document.querySelector('.face-bridge__chip--past img[data-src]');
     if(past){
       var pr = past.getBoundingClientRect();
-      if(pr.top < vh * 1.35 && pr.bottom > -vh * 0.2) hydrateLeafImg(past);
+      if(pr.top < vh * 2.2 && pr.bottom > -vh * 0.3) hydrateLeafImg(past);
     }
   }
   function hydrateNearPayload(){
