@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<!-- CATCHEYE_C10_DUALMODE_PORT Creative Bridge sibling · assets /assets/catcheye-c10-dualmode · source catcheye C10 dualmode · 2026-08-12 -->
+
+<html lang="ru" data-mode="minimal" data-catcheye-c10-dualmode-port="1" data-catcheye-c10-dualmode="1" id="CATCHEYE_C10_DUALMODE_PORT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SaveMyHistory — Время — единственный враг вашей памяти</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+/* ---------- MINIMAL (Walter Sophia) ---------- */
+html[data-mode="minimal"]{--bg:#f6f4f0;--ink:#16130f;--muted:#6f6a60;--accent:#16130f;--line:#16130f;--card:#ffffff;--cardline:rgba(0,0,0,.1)}
+/* ---------- CINEMATIC ---------- */
+html[data-mode="cinematic"]{--bg:#0a0907;--ink:#f5efe3;--muted:#a89c86;--accent:#d99a5b;--line:#d99a5b;--card:#141009;--cardline:rgba(217,154,91,.2)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;transition:background .8s var(--ease),color .8s var(--ease)}
+.serif{font-family:'Cormorant Garamond',serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+.kick{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);font-weight:600}
+/* grain only in cinematic */
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .8s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html[data-mode="cinematic"] .grain{opacity:.05}
+
+/* HEADER */
+header.bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:transparent;transition:background .4s}
+header.bar.solid{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:.02em}.logo b{font-weight:600}
+.menu{display:flex;gap:26px;font-size:12px;letter-spacing:.06em;color:var(--muted)}
+.menu a{color:inherit;text-decoration:none}.menu a:hover{color:var(--ink)}
+.tools{display:flex;align-items:center;gap:18px}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);cursor:pointer;user-select:none;border:1px solid var(--cardline);border-radius:999px;padding:6px 10px}
+.toggle .dot{width:30px;height:16px;border-radius:999px;background:var(--cardline);position:relative;transition:.4s}
+.toggle .dot::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--ink);transition:.4s var(--ease)}
+html[data-mode="cinematic"] .toggle .dot::after{left:16px;background:var(--accent)}
+.toggle b{color:var(--ink)}
+.startbtn{font-size:12px;border:1px solid var(--ink);border-radius:999px;padding:9px 16px;color:var(--ink);text-decoration:none;transition:.25s}
+.startbtn:hover{background:var(--ink);color:var(--bg)}
+@media(max-width:760px){.menu{display:none}}
+
+/* reveal */
+.r{opacity:0;transform:translateY(38px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.r.in{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.26s}.d3{transition-delay:.4s}
+
+/* SECTION base */
+section{position:relative;z-index:2}
+.sec{min-height:100vh;display:flex;align-items:center;padding:16vh 0}
+.center{text-align:center;justify-content:center}
+
+/* HERO */
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(44px,8vw,104px);line-height:1.02;letter-spacing:-.01em}
+.hero .sub{margin:26px auto 0;max-width:54ch;color:var(--muted);font-weight:300;font-size:clamp(15px,1.8vw,18px);line-height:1.7}
+.squiggle{display:block;margin:30px auto 0;width:160px;height:70px}
+.squiggle path{fill:none;stroke:var(--line);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.8s var(--ease) .5s}
+.hero.in .squiggle path{stroke-dashoffset:0}
+.trigger{margin-top:30px;font-size:13px;color:var(--muted);letter-spacing:.02em}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:16px 30px;border-radius:999px;font-weight:600;font-size:15px;background:var(--ink);color:var(--bg);text-decoration:none;transition:.25s var(--ease)}
+.cta:hover{transform:translateY(-2px)}
+html[data-mode="cinematic"] .cta{background:var(--accent);color:#0a0805}
+.cta.ghost{background:transparent;border:1px solid var(--ink);color:var(--ink)}
+html[data-mode="cinematic"] .cta.ghost{border-color:var(--accent);color:var(--accent)}
+
+/* SLIDER compare (in hero upload zone) */
+.upload{margin:34px auto 0;max-width:560px}
+.cmp{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;border:1px solid var(--cardline);box-shadow:0 30px 70px rgba(0,0,0,.18);user-select:none}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cmp .after{clip-path:inset(0 0 0 var(--x,52%))}
+.cmp .handle{position:absolute;top:0;bottom:0;left:var(--x,52%);width:2px;background:#fff;mix-blend-mode:difference;cursor:ew-resize}
+.cmp .handle::before{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.3)}
+.cmp .tg{position:absolute;top:12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff}
+.cmp .tg.l{left:12px}.cmp .tg.r{right:12px}
+.uphint{text-align:center;margin-top:12px;font-size:12px;color:var(--muted)}
+
+/* SECTION text blocks */
+.block{max-width:760px;margin:0 auto;text-align:center}
+.block h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(32px,5.4vw,64px);line-height:1.08;letter-spacing:-.01em}
+.block p{margin:22px auto 0;max-width:56ch;color:var(--muted);font-weight:300;font-size:clamp(15px,1.8vw,18px);line-height:1.75}
+.accent{margin:26px auto 0;display:inline-block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.4vw,26px);color:var(--ink);border-top:1px solid var(--cardline);border-bottom:1px solid var(--cardline);padding:14px 4px}
+
+/* FAMILY PASS card */
+.pass{max-width:720px;margin:36px auto 0;border:1px solid var(--cardline);border-radius:22px;padding:38px 32px;background:var(--card);transition:background .8s}
+.pass .price{font-family:'Cormorant Garamond',serif;font-size:40px;margin-bottom:6px}
+.pass ul{list-style:none;margin:18px 0 0;display:grid;gap:10px;text-align:left;max-width:420px;margin-left:auto;margin-right:auto}
+.pass li{color:var(--muted);font-weight:300;font-size:15px;padding-left:22px;position:relative}
+.pass li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+
+/* DENOISE / cinematic bg image for emotion */
+.emotion .photo{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .8s}
+html[data-mode="cinematic"] .emotion .photo{opacity:.5}
+.emotion .photo img{width:100%;height:100%;object-fit:cover}
+html[data-mode="cinematic"] .emotion::after{content:"";position:absolute;inset:0;background:radial-gradient(90% 80% at 50% 50%,transparent,rgba(10,9,7,.86));z-index:1}
+.emotion .block{position:relative;z-index:2}
+.privacy{margin:22px auto 0;font-size:12px;color:var(--muted);max-width:42ch}
+
+/* FINAL */
+.final h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(34px,6vw,76px);line-height:1.05}
+
+footer{padding:80px 32px 64px;text-align:center;border-top:1px solid var(--cardline)}
+footer .logo{font-size:26px;margin-bottom:8px}
+footer .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);margin-bottom:22px}
+footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;font-size:13px;margin-bottom:14px}
+footer .links a{color:var(--muted);text-decoration:none}footer .links a:hover{color:var(--ink)}
+footer .c{font-size:11px;color:var(--muted);opacity:.7}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="bar" id="bar">
+  <div class="logo serif">Save<b>My</b>History</div>
+  <nav class="menu">
+    <a href="#meaning">О проекте</a><a href="#tech">Технологии</a><a href="#pass">Family Pass</a><a href="#emotion">Отзывы</a>
+  </nav>
+  <div class="tools">
+    <div class="toggle" id="modeToggle" title="Переключить режим"><span>Minimal</span><span class="dot"></span><b>Cinematic</b></div>
+    <a class="startbtn" href="https://savemyhistory.tech">Начать реставрацию</a>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<section class="sec center hero" id="hero">
+  <div class="wrap">
+    <div class="kick r">SaveMyHistory</div>
+    <h1 class="serif r d1">Время — единственный<br>враг вашей памяти.</h1>
+    <p class="sub r d2">Старые снимки — хрупкая химия, что разрушается каждый день. Успейте сохранить улыбки тех, кто вам дорог, пока бумага ещё хранит их черты. Мы возвращаем чёткость там, где она начала угасать.</p>
+    <svg class="squiggle r d2" viewBox="0 0 160 70"><path d="M6 34 C 40 -6, 70 70, 104 38 S 150 6, 156 30"/></svg>
+    <div class="upload r d3">
+      <div class="cmp" id="cmp">
+        <img class="before" src="/assets/catcheye-c10-dualmode/hero-before-a6a12814fb31.jpg" alt="до">
+        <img class="after" src="/assets/catcheye-c10-dualmode/hero-after-fd504d0be3b3.jpg" alt="после">
+        <span class="tg l">Было</span><span class="tg r">Стало</span>
+        <div class="handle" id="handle"></div>
+      </div>
+      <div class="uphint">Потяните ползунок — это реальное фото клиента. Первое ваше фото — бесплатно.</div>
+    </div>
+    <div><a class="cta" href="https://savemyhistory.tech">Оживить память за 15 секунд</a></div>
+  </div>
+</section>
+
+<!-- 2. MEANING -->
+<section class="sec" id="meaning">
+  <div class="wrap block">
+    <div class="kick r">Наследие</div>
+    <h2 class="serif r d1">Оцифруйте историю<br>своего рода сегодня.</h2>
+    <p class="r d2">Фотобумага окисляется и теряет до 5% контрастности ежегодно. То, что ещё можно восстановить сегодня, через 10 лет станет белым пятном. Сохраните визуальный код своей семьи, чтобы ваши внуки увидели лица тех, чью фамилию они носят.</p>
+    <span class="accent serif r d2">Мы останавливаем невидимый процесс разрушения вашего наследия.</span>
+  </div>
+</section>
+
+<!-- 3. TECH -->
+<section class="sec" id="tech">
+  <div class="wrap block">
+    <div class="kick r">Технология</div>
+    <h2 class="serif r d1">Исцеление, а не ретушь.</h2>
+    <p class="r d2">Наша система восстанавливает анатомию лиц с точностью до 98%. Глубокая субреставрация пикселей в 4K-качестве — мы возвращаем утраченные мгновения, а не накладываем фильтры.</p>
+    <p class="r d2">Чтобы избежать «ошибок нейросетей», результат в тарифе Pro проходит финальный аудит мастером-ретушёром. Мы вручную проверяем естественность взгляда и текстуру кожи — чтобы фото выглядело живым, а не сгенерированным.</p>
+  </div>
+</section>
+
+<!-- 4. FAMILY PASS -->
+<section class="sec center" id="pass">
+  <div class="wrap block">
+    <div class="kick r">Family Pass</div>
+    <h2 class="serif r d1">Подарок, который<br>невозможно забыть.</h2>
+    <p class="r d2">Лучшее, что вы можете подарить родителям — встреча с их молодостью. Откройте «ведро с фотографиями» вместе. Наведите телефон на старый снимок — и прошлое снова обретает цвет и резкость.</p>
+    <div class="pass r d2">
+      <div class="price serif">Family Pass</div>
+      <ul>
+        <li>Семейный доступ на 50 снимков</li>
+        <li>Всё наследие — за один вечер</li>
+        <li>Печать в премиальных фотокнигах</li>
+      </ul>
+      <div style="margin-top:24px"><a class="cta" href="https://savemyhistory.tech">Подарить Family Pass</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. EMOTION -->
+<section class="sec center emotion" id="emotion">
+  <div class="photo"><img src="/assets/catcheye-c10-dualmode/g2-after-2c7102893815.jpg" alt=""></div>
+  <div class="wrap block">
+    <div class="kick r">Доверие</div>
+    <h2 class="serif r d1">Слёзы радости —<br>наша главная метрика.</h2>
+    <p class="r d2">Мы не восстанавливаем файлы — мы возвращаем людям их близких. Посмотрите, как меняется атмосфера в доме, когда история семьи снова становится чёткой и осязаемой.</p>
+    <div class="privacy r d2">Ваши данные — только ваши. Оригиналы мы удаляем через 24 часа после завершения работы.</div>
+  </div>
+</section>
+
+<!-- 6. FINAL -->
+<section class="sec center final" id="final">
+  <div class="wrap block">
+    <div class="kick r">Корни</div>
+    <h2 class="serif r d1">Не оставляйте это на «потом».<br>«Потом» может не наступить.</h2>
+    <p class="r d2">Спасённая сегодня фотография станет бесценной реликвией через 10 лет. Станьте тем, кто сохранил корни своего рода от забвения. Подарите своим детям их настоящую историю.</p>
+    <div class="r d2" style="margin-top:26px"><a class="cta" href="https://savemyhistory.tech">Оживить мой семейный архив</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo serif">Save<b>My</b>History</div>
+  <div class="m serif">Мы не храним гигабайты. Мы сохраняем род.</div>
+  <div class="links"><a href="https://savemyhistory.tech">savemyhistory.tech</a><a href="https://instagram.com/save.my.history">Instagram</a><a href="https://t.me/maximprods">Telegram</a></div>
+  <div class="c">© 2026 SaveMyHistory · CatchEye Studio · agentC-10 «Dual-Mode» (Minimal ● Cinematic)</div>
+</footer>
+
+<script>
+// mode toggle
+const html=document.documentElement, t=document.getElementById('modeToggle');
+t.addEventListener('click',()=>{html.dataset.mode = html.dataset.mode==='minimal'?'cinematic':'minimal';});
+// header solid on scroll
+const bar=document.getElementById('bar');
+addEventListener('scroll',()=>bar.classList.toggle('solid',scrollY>40));
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.closest('section')?.classList.add('in');}}),{threshold:.18});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
+document.querySelectorAll('.hero').forEach(el=>io.observe(el));
+// compare slider
+const cmp=document.getElementById('cmp');
+function setX(x){const r=cmp.getBoundingClientRect();let p=Math.max(3,Math.min(97,(x-r.left)/r.width*100));cmp.style.setProperty('--x',p+'%');}
+let drag=false;
+cmp.addEventListener('pointerdown',e=>{drag=true;setX(e.clientX);});
+addEventListener('pointermove',e=>{if(drag)setX(e.clientX);});
+addEventListener('pointerup',()=>drag=false);
+</script>
+</body>
+</html>
