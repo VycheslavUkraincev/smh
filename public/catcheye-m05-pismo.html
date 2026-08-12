@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru" id="CATCHEYE_M05_PISMO_PORT" data-catcheye-m05-pismo-port="1">
+<head>
+<meta charset=utf-8>
+<!-- CATCHEYE_M05_PISMO_PORT Creative Bridge sibling · assets /assets/catcheye-m05-pismo · source arena Agent-M m05-pismo «Письмо из коробки» · 2026-08-12 · invent_eyes=N · g2 before/after from Spaces (real) · distinct from O2 pismo (letter-card) -->
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>M-05 · Письмо из коробки — Save My History</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#f0e9dd;font-family:Georgia,serif;overflow-x:hidden}
+.hero{position:relative;height:100vh;overflow:hidden;display:grid;place-items:center}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) sepia(.2);transform:scale(1.08);animation:zoom 18s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.veil{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.85))}
+.letter{position:relative;z-index:2;max-width:680px;padding:0 7vw;text-align:center}
+.letter .line{display:block;font-size:clamp(22px,4.2vw,46px);line-height:1.45;font-weight:400;opacity:0;filter:blur(8px);transform:translateY(14px);transition:1.2s}
+.letter .line.on{opacity:1;filter:blur(0);transform:none}
+.letter .sig{margin-top:40px;font-style:italic;font-size:clamp(15px,2.4vw,22px);color:#c9883f;opacity:0;transition:1.4s 2.6s}
+.letter.on .sig{opacity:1}
+.second{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0}
+@media(max-width:760px){.second{grid-template-columns:1fr}.second .ph{height:60vh}}
+.second .ph{position:relative;height:100vh;overflow:hidden}
+.second .ph img{width:100%;height:100%;object-fit:cover}
+.second .ph .lbl{position:absolute;top:24px;left:24px;font-size:12px;letter-spacing:.25em;text-transform:uppercase;background:rgba(0,0,0,.5);padding:8px 14px;border:1px solid rgba(255,255,255,.2)}
+.second .txt{padding:8vh 7vw}
+.second h2{font-size:clamp(28px,4.5vw,54px);font-weight:400;line-height:1.25;margin-bottom:26px}
+.second p{font-size:clamp(15px,2vw,19px);line-height:1.7;color:#b9b0a2;max-width:42ch}
+.cta{margin-top:42px;display:inline-block;padding:18px 48px;border:1px solid #c9883f;color:#f0e9dd;text-decoration:none;letter-spacing:.18em;text-transform:uppercase;font-size:14px;transition:.4s}
+.cta:hover{background:#c9883f;color:#000}
+.accent{color:#c9883f}
+</style>
+</head>
+<body>
+<section class=hero>
+  <img src="https://savemyhistory.tech/assets/catcheye-m05-pismo/hero-before-2bff4a865021.jpg" alt="" width=1000 height=1468>
+  <div class=veil></div>
+  <div class=letter id=L>
+    <span class=line>Эта коробка стояла на антресоли двадцать лет.</span>
+    <span class=line>Внутри — люди, которых ты <span class=accent>любил</span>.</span>
+    <span class=line>Их лица выцветают быстрее, чем память.</span>
+    <span class=sig>— и однажды коробку откроют твои внуки.</span>
+  </div>
+</section>
+<section class=second>
+  <div class=ph>
+    <img src="https://savemyhistory.tech/assets/catcheye-m05-pismo/hero-after-2c7102893815.jpg" alt="" width=848 height=1246>
+    <div class=lbl>после · восстановлено</div>
+  </div>
+  <div class=txt>
+    <h2>Мы вернули им <span class=accent>резкость</span>.</h2>
+    <p>Не «новое фото». То же самое — но таким, каким его видели в тот день. Цвет, глаза, свет из окна. Всё на месте.</p>
+    <a class=cta href="https://savemyhistory.tech">Открыть свою коробку</a>
+  </div>
+</section>
+<script>
+var L=document.getElementById('L'),lines=[].slice.call(L.querySelectorAll('.line')),i=0;
+function tick(){if(i<lines.length){lines[i].classList.add('on');i++;setTimeout(tick,1100)}else L.classList.add('on')}
+setTimeout(tick,700);
+</script>
+</body>
+</html>
