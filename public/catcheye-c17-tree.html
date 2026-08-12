@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<!-- CATCHEYE_C17_TREE_PORT Creative Bridge sibling · assets /assets/catcheye-c17-tree · source catcheye C17 tree · 2026-08-12 -->
+<html lang="ru" data-catcheye-c17-tree-port="1" data-catcheye-c17-tree="1" id="CATCHEYE_C17_TREE_PORT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Save My History — Кинцуги-древо</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0e0b07;--ink:#f2e8d6;--muted:#a99a7e;--gold:#e7b765;--gold-deep:#bd8a3c;--ease:cubic-bezier(.2,.7,.2,1)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+.serif{font-family:'Cormorant Garamond',serif}
+
+/* fixed birch stage behind everything */
+.tree{position:fixed;inset:0;z-index:0;overflow:hidden;background:#0e0b07}
+.tree img{position:absolute;left:50%;top:0;transform:translateX(-50%);height:auto;width:auto;min-height:100%;min-width:100%;object-fit:cover;opacity:.92}
+.tree::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,11,7,.5),rgba(14,11,7,.2) 30%,rgba(14,11,7,.35) 70%,rgba(14,11,7,.7))}
+/* gold glow grows with scroll via --glow 0..1 */
+.glow{position:fixed;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(60% 50% at 50% calc(100% - 8%),rgba(231,183,101,calc(.55*var(--glow,0))),transparent 60%);
+  opacity:1}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px 36px;background:linear-gradient(180deg,rgba(14,11,7,.55),transparent)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:18px;letter-spacing:.14em;color:var(--gold);display:flex;gap:8px;align-items:center}
+.menu{display:flex;gap:24px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#e3d6bd}
+.menu a{color:inherit;text-decoration:none}.menu a:hover{color:var(--gold)}
+.login{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0e0b07;background:var(--gold);border-radius:8px;padding:9px 18px;text-decoration:none;font-weight:600}
+@media(max-width:880px){.menu{display:none}}
+
+.scroller{position:relative;z-index:10}
+.block{min-height:100vh;display:flex;align-items:center;padding:0 8vw}
+.block.center{justify-content:center;text-align:center}
+.block.left{justify-content:flex-start}.block.right{justify-content:flex-end}
+.panel{max-width:440px;background:rgba(14,11,7,.34);backdrop-filter:blur(5px);border:1px solid rgba(231,183,101,.18);border-radius:18px;padding:34px 30px}
+.kick{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.block h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,6vw,76px);line-height:1.02;text-shadow:0 3px 40px rgba(0,0,0,.7)}
+.block h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,4.4vw,52px);line-height:1.08}
+.block p{margin-top:16px;color:#e0d4bd;font-weight:300;font-size:clamp(15px,1.8vw,18px);line-height:1.7}
+.list{margin-top:18px;list-style:none;display:grid;gap:10px}
+.list li{color:#d8cab0;font-weight:300;padding-left:22px;position:relative}.list li::before{content:"✦";position:absolute;left:0;color:var(--gold);font-size:11px;top:3px}
+.cta{display:inline-flex;margin-top:24px;padding:15px 30px;border-radius:10px;background:var(--gold);color:#0e0b07;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.25s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(231,183,101,.45)}
+.cta.ghost{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.r{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.r.in{opacity:1;transform:none}
+.d1{transition-delay:.14s}.d2{transition-delay:.3s}
+.prog{position:fixed;left:0;top:0;height:3px;background:var(--gold);width:var(--p,0);z-index:50}
+.tip{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:30;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);opacity:.7;animation:b 2.4s infinite}
+@keyframes b{0%,100%{opacity:.3}50%{opacity:1}}
+footer{position:relative;z-index:10;background:rgba(14,11,7,.85);text-align:center;padding:70px 28px 60px;border-top:1px solid rgba(231,183,101,.14)}
+footer .logo{justify-content:center;font-size:24px;margin-bottom:8px}
+footer .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);margin-bottom:18px}
+footer a{color:var(--muted);text-decoration:none;margin:0 10px;font-size:13px}footer a:hover{color:var(--gold)}
+footer .c{margin-top:14px;font-size:11px;color:#5e5443}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="tree"><img src="/assets/catcheye-c17-tree/tree-6264f1aeeaf7.jpg" alt=""></div>
+<div class="glow" id="glow"></div>
+<nav>
+  <div class="logo serif">SAVE MY HISTORY ✦</div>
+  <div class="menu"><a href="#prob">Проблема</a><a href="#sol">Решение</a><a href="#trust">Мастера</a><a href="#final">Старт</a></div>
+  <a class="login" href="https://savemyhistory.tech">Войти</a>
+</nav>
+
+<div class="scroller">
+  <!-- HERO -->
+  <section class="block center" id="hero">
+    <div>
+      <div class="kick r">Premium Photo Restoration</div>
+      <h1 class="serif r d1">SAVE MY HISTORY:<br>храним ваши<br>драгоценные мгновения.</h1>
+      <p class="r d2" style="max-width:46ch;margin-left:auto;margin-right:auto">Премиальная реставрация семейных фотографий. Время стирает лица — мы возвращаем их.</p>
+      <a class="cta r d2" href="https://savemyhistory.tech">Восстановить мои фото</a>
+    </div>
+  </section>
+
+  <!-- PROBLEM (left, grey side) -->
+  <section class="block left" id="prob">
+    <div class="panel r">
+      <div class="kick">The Problem</div>
+      <h2 class="serif">Память выцветает.</h2>
+      <p>Фотобумага окисляется и теряет до 5% контрастности ежегодно. Трещины, заломы, вода, выцветание — время не щадит ни одного снимка. То, что цело сегодня, завтра станет белым пятном.</p>
+    </div>
+  </section>
+
+  <!-- SOLUTION (right, gold side) -->
+  <section class="block right" id="sol">
+    <div class="panel r">
+      <div class="kick">Our Solution · Кинцуги</div>
+      <h2 class="serif">Реставрация в духе кинцуги.</h2>
+      <p>Мы не прячем трещины времени — мы заполняем их золотом. Снимок не «как новый», а бесценный.</p>
+      <ul class="list">
+        <li>Ремонт разрывов и царапин</li>
+        <li>Восстановление выцветания и цвета</li>
+        <li>Удаление следов воды и плесени</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="block left" id="trust">
+    <div class="panel r">
+      <div class="kick">Trust the Craft</div>
+      <h2 class="serif">Доверьтесь мастерам ремесла.</h2>
+      <p>ИИ восстанавливает анатомию лиц с точностью до 98%, а мастер-ретушёр вручную проверяет естественность взгляда. Живое фото — не сгенерированное.</p>
+    </div>
+  </section>
+
+  <!-- FINAL (roots + chest) -->
+  <section class="block center" id="final">
+    <div>
+      <div class="kick r">Корни рода</div>
+      <h2 class="serif r d1" style="font-size:clamp(32px,5.5vw,64px)">Золотые корни хранят<br>вашу шкатулку памяти.</h2>
+      <p class="r d2" style="max-width:46ch;margin-left:auto;margin-right:auto">Спасённое сегодня фото станет реликвией через 10 лет. Станьте тем, кто сохранил корни своего рода.</p>
+      <a class="cta r d2" href="https://savemyhistory.tech">Начать мой проект реставрации</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="logo serif">SAVE MY HISTORY ✦</div>
+  <div class="m serif">Мы не прячем трещины времени. Мы заполняем их золотом.</div>
+  <div><a href="https://savemyhistory.tech">savemyhistory.tech</a><a href="https://instagram.com/save.my.history">Instagram</a><a href="https://t.me/maximprods">Telegram</a></div>
+  <div class="c">© 2026 Save My History · CatchEye Studio · agentC-17 «Кинцуги-древо» (берёза-свиток, золото разгорается скроллом)</div>
+</footer>
+
+<script>
+const prog=document.getElementById('prog'),glow=document.getElementById('glow');
+function onScroll(){
+  const max=document.body.scrollHeight-innerHeight;
+  const p=Math.max(0,Math.min(1,scrollY/max));
+  prog.style.setProperty('--p',(p*100)+'%');
+  glow.style.setProperty('--glow',p.toString()); // gold grows as you scroll down to the roots
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.2});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
