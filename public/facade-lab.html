@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -126,7 +126,8 @@ a{color:inherit}
   font-size:clamp(1.38rem,2.6vw,1.95rem);
   line-height:.92;letter-spacing:-.02em;
   color:rgba(243,238,230,.42);margin-bottom:0;
-  opacity:0;animation:heroFadeBrand 1.05s var(--smh-ease) 1.05s forwards;
+  /* Pass8: quieter+earlier settle so lamp leads first-3s; never opacity:1 */
+  opacity:0;animation:heroFadeBrand .9s var(--smh-ease) .42s forwards;
   text-shadow:0 4px 18px rgba(28,25,21,.1);
 }
 .brand .mark{color:#E2B87A}
@@ -156,7 +157,7 @@ a{color:inherit}
   display:block;animation:cuePulse 2.2s var(--smh-ease) infinite;
 }
 @keyframes heroFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes heroFadeBrand{from{opacity:0;transform:translateY(12px)}to{opacity:.48;transform:none}}
+@keyframes heroFadeBrand{from{opacity:0;transform:translateY(10px)}to{opacity:.36;transform:none}}
 @keyframes cuePulse{0%,100%{opacity:.35;transform:scaleY(.85)}50%{opacity:1;transform:scaleY(1)}}
 
 .bridge{
@@ -295,6 +296,7 @@ a{color:inherit}
   position:absolute;inset:0;cursor:ew-resize;touch-action:none;user-select:none;
   overflow:hidden;contain:paint;
 }
+.ba:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px}
 .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;pointer-events:none}
 .ba .before{z-index:1}
 .ba .after{z-index:2;clip-path:inset(0 calc(100% - var(--reveal)) 0 0)}
@@ -457,13 +459,13 @@ a{color:inherit}
 .honest__gaze{
   position:absolute;inset:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 38% 30% at 48% 34%,rgba(226,184,122,.12) 0%,transparent 62%),
-    linear-gradient(180deg,transparent 62%,rgba(28,25,21,.28) 100%);
+    radial-gradient(ellipse 36% 28% at 48% 34%,rgba(226,184,122,.07) 0%,transparent 64%),
+    linear-gradient(180deg,transparent 68%,rgba(28,25,21,.16) 100%);
 }
 .honest__gaze-caption{
   position:absolute;left:12px;bottom:12px;z-index:2;
-  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:rgba(243,238,230,.82);
+  font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(243,238,230,.62);
 }
 .gates{display:grid;gap:14px;margin-top:8px}
 .gate{
@@ -537,6 +539,7 @@ a{color:inherit}
   transition:color .2s var(--smh-ease),border-color .2s var(--smh-ease);
 }
 .invite-soft:hover{color:var(--smh-amber-deep);border-bottom-color:rgba(176,122,58,.45)}
+.invite-soft:focus-visible{outline:2px solid var(--smh-amber);outline-offset:3px;border-bottom-color:transparent}
 
 .foot{
   padding:var(--smh-space-5) 0;
@@ -560,8 +563,8 @@ a{color:inherit}
   }
   .hero__glow{opacity:calc(.55 + var(--dust) * .25);background:radial-gradient(ellipse 70% 48% at 55% 36%,rgba(226,184,122,.26) 0%,transparent 64%)}
   .hero__copy{padding-top:18vh;padding-bottom:clamp(56px,14vh,110px)}
-  .brand{font-size:clamp(1.28rem,5.8vw,1.75rem);opacity:.55;color:rgba(243,238,230,.38);animation-name:heroFadeBrandMobile}
-  @keyframes heroFadeBrandMobile{from{opacity:0;transform:translateY(12px)}to{opacity:.55;transform:none}}
+  .brand{font-size:clamp(1.28rem,5.8vw,1.75rem);opacity:.40;color:rgba(243,238,230,.38);animation-name:heroFadeBrandMobile}
+  @keyframes heroFadeBrandMobile{from{opacity:0;transform:translateY(10px)}to{opacity:.40;transform:none}}
   .hero h1{font-size:clamp(1.42rem,5.6vw,1.75rem);margin-top:14px;color:rgba(243,238,230,.94);max-width:15ch}
   .hero__lead{font-size:15px;color:rgba(243,238,230,.76);max-width:24ch}
   .scroll-cue{bottom:14px;color:rgba(243,238,230,.42)}
@@ -594,18 +597,21 @@ a{color:inherit}
 }
 @media (max-width:430px){
   .hero__copy{padding-top:16vh}
-  .brand{font-size:clamp(1.2rem,5.4vw,1.55rem);opacity:.52;animation-name:heroFadeBrandTiny}
-  @keyframes heroFadeBrandTiny{from{opacity:0;transform:translateY(12px)}to{opacity:.52;transform:none}}
+  .brand{font-size:clamp(1.2rem,5.4vw,1.55rem);opacity:.38;animation-name:heroFadeBrandTiny}
+  @keyframes heroFadeBrandTiny{from{opacity:0;transform:translateY(10px)}to{opacity:.38;transform:none}}
   .hero h1{font-size:clamp(1.38rem,5.8vw,1.62rem)}
   .ba-shell{max-height:min(64svh,540px)}
   .archive__pair,.archive__leaf--wide .archive__pair{aspect-ratio:3/4}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .brand{animation:none!important;opacity:.48!important;transform:none}
+  .brand{animation:none!important;opacity:.36!important;transform:none}
   .hero h1,.hero__lead,.scroll-cue{animation:none!important;opacity:1;transform:none}
+  /* Pass8 cold path: keep poster via video; do not force full still */
   .hero__media video{display:none!important}
-  .hero__media img,.hero__media.is-still img{opacity:1!important;transform:scale(1.02)}
+  .hero__media.is-poster-only video{display:block!important}
+  .hero__media.is-poster-only img{opacity:0!important}
+  .hero__media.is-still img{opacity:1!important;transform:scale(1.02)}
   .hero,.album,.pin-chapter__plane,.pin-chapter__after,.honest,.archive,.invite{opacity:1!important;transform:none!important;filter:none!important}
   .pin-chapter{min-height:0!important;overflow:visible!important}
   .pin-chapter__stage{position:relative!important;min-height:0!important;overflow:visible!important}
@@ -681,7 +687,7 @@ a{color:inherit}
         <button type="button" class="btn btn--line btn--sm" id="ba-toggle" aria-pressed="false">Было / Стало</button>
       </div>
       <div class="ba-shell" id="ba-shell">
-        <div class="ba" id="ba" role="img" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
+        <div class="ba" id="ba" role="img" tabindex="0" aria-label="Сравнение: уходящее семейное фото и бережно сбережённое. Тяните полоску.">
           <img class="before" data-src="/assets/hero_before.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Семейное фото до — почти стёртое" width="1200" height="1600" decoding="async">
           <img class="after" data-src="/assets/hero_after.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="То же фото после бережной реставрации" width="1200" height="1600" decoding="async">
           <div class="rail" aria-hidden="true"></div>
@@ -827,7 +833,6 @@ a{color:inherit}
 
 <section class="section section--deep" id="invite" data-soft-wave="1" data-cold-path-b="1" data-story-obj="invite" aria-labelledby="invite-title">
   <div class="wrap invite">
-    <p class="section__eyebrow">Тихое приглашение</p>
     <h2 id="invite-title">Когда придёт код — войдёте тихо.</h2>
     <div class="invite-card">
       <p>Хранитель держит место — сначала комната и правда, без сцены «восстановить сейчас».</p>
@@ -981,18 +986,32 @@ a{color:inherit}
     heroStill.removeAttribute('data-src');
     heroStill.setAttribute('src', src);
   }
+  function showPosterOnlyHero(){
+    /* Pass8 COLD_PATH_B: keep ~85KB poster; skip full still ~274KB */
+    if(heroMedia){
+      heroMedia.classList.add('is-poster-only');
+      heroMedia.classList.remove('is-still');
+    }
+  }
   function showStillHero(){
     hydrateHeroStill();
-    if(heroMedia) heroMedia.classList.add('is-still');
+    if(heroMedia){
+      heroMedia.classList.remove('is-poster-only');
+      heroMedia.classList.add('is-still');
+    }
   }
   function tryPlayHero(){
     if(!heroVideo || reduce) return;
+    if(heroMedia){
+      heroMedia.classList.remove('is-poster-only');
+      heroMedia.classList.remove('is-still');
+    }
     var playP = heroVideo.play();
     if(playP && playP.catch) playP.catch(function(){ showStillHero(); });
   }
   if(heroVideo){
     if(reduce){
-      showStillHero();
+      showPosterOnlyHero();
       try{ heroVideo.pause(); }catch(e){}
     } else {
       var narrow = false;
@@ -1001,18 +1020,17 @@ a{color:inherit}
       try{ saveData = !!(navigator.connection && navigator.connection.saveData); }catch(e){}
       heroVideo.addEventListener('error', function(){ showStillHero(); });
       if(narrow || saveData){
-        showStillHero();
+        showPosterOnlyHero();
         try{ heroVideo.pause(); }catch(e){}
         var armed = false;
         function armHero(){
           if(armed) return;
           armed = true;
-          if(heroMedia) heroMedia.classList.remove('is-still');
           tryPlayHero();
         }
         window.addEventListener('scroll', armHero, {passive:true, once:true});
         window.addEventListener('pointerdown', armHero, {passive:true, once:true});
-        setTimeout(armHero, 1800);
+        setTimeout(armHero, 2400);
       } else {
         tryPlayHero();
         setTimeout(function(){
