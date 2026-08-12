@@ -1,83 +1,119 @@
-<!doctype html><html lang=ru><head><meta charset=utf-8>
+<!doctype html><html lang=ru data-story-keeper-craft="1" data-cold-path-b="1"><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noindex,nofollow">
 <title>SaveMyHistory — Хранитель рода</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@200;300;400;500&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Manrope:wght@300;400;500&display=swap" rel=stylesheet>
 <style>
 :root{--ease:cubic-bezier(.22,.61,.36,1);
-  --bg:#efe7d6;--ink:#2a2118;--soft:#5D4F3A;--gold:#9a6e1f;--line:rgba(154,110,31,.45);}
-body.cine{--bg:#0a0807;--ink:#f1e9da;--soft:#B8A892;--gold:#e0b256;--line:rgba(224,178,86,.65);}
+  --bg:#efe7d6;--ink:#2a2118;--soft:#5D4F3A;--gold:#9a6e1f;--line:rgba(154,110,31,.45);
+  --paper:#f3ecdf;--nav-wash:rgba(243,236,223,.88);}
+body.cine{--bg:#0a0807;--ink:#f1e9da;--soft:#B8A892;--gold:#e0b256;--line:rgba(224,178,86,.65);
+  --paper:#120e0b;--nav-wash:rgba(10,8,7,.72);}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow-x:hidden;transition:background .9s var(--ease),color .9s var(--ease)}
+body{background:var(--bg);color:var(--ink);font-family:Manrope,sans-serif;overflow-x:hidden;transition:background .9s var(--ease),color .9s var(--ease)}
+/* Minimal paper — not empty cream */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%,rgba(154,110,31,.1),transparent 55%),
+    radial-gradient(ellipse 70% 50% at 80% 100%,rgba(90,60,30,.06),transparent 50%),
+    repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(42,33,24,.015) 3px,rgba(42,33,24,.015) 4px),
+    var(--paper);
+  transition:opacity .9s var(--ease)}
+body.cine::before{opacity:.2;background:radial-gradient(ellipse 80% 50% at 50% 20%,rgba(224,178,86,.08),transparent 60%),var(--bg)}
 body.cine::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);width:0;z-index:990}
-nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:20px 5vw;mix-blend-mode:difference}
-.logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#fff}
-.toggle{display:inline-flex;border:1px solid rgba(255,255,255,.4);border-radius:30px;overflow:hidden;font-size:11px;letter-spacing:.05em}
-.toggle button{background:none;border:none;color:#fff;padding:7px 14px;cursor:pointer;font-family:inherit}
-.toggle button.on{background:var(--gold);color:#000}
-/* through-line */
+/* Nav: warm paper chrome, ink on wash */
+nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;
+  background:linear-gradient(180deg,var(--nav-wash),transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;font-size:11px;letter-spacing:.06em;background:rgba(255,255,255,.18)}
+body.cine .toggle{background:rgba(255,255,255,.04)}
+.toggle button{background:none;border:none;color:var(--soft);padding:7px 14px;cursor:pointer;font-family:inherit}
+.toggle button.on{background:var(--gold);color:var(--bg)}
+/* through-line — stronger on paper */
 .thread{position:fixed;top:0;left:50%;transform:translateX(-50%);width:120px;height:100vh;z-index:2;pointer-events:none}
 .thread svg{width:100%;height:100%}
-.tpath{fill:none;stroke:var(--gold);stroke-width:2;filter:drop-shadow(0 0 5px var(--gold))}
-section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:110px 6vw;overflow:hidden}
-.photobg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.3s var(--ease)}
+.tpath{fill:none;stroke:var(--gold);stroke-width:2.4;opacity:.85;filter:drop-shadow(0 0 4px rgba(154,110,31,.35))}
+body.cine .tpath{opacity:.95;filter:drop-shadow(0 0 6px rgba(224,178,86,.55))}
+section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:110px 6vw;overflow:hidden;z-index:1}
+.photobg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.12;transition:opacity 1.3s var(--ease)}
 body.cine .photobg{opacity:.5}
 .videobg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s}
 body.cine .videobg{opacity:.55}
-body.cine .scrim{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent,rgba(8,6,5,.78));z-index:1}
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(circle at 50% 42%,rgba(243,236,223,.15),rgba(239,231,214,.55) 70%,rgba(239,231,214,.82))}
+body.cine .scrim{background:radial-gradient(circle at 50% 50%,transparent,rgba(8,6,5,.78))}
 .content{position:relative;z-index:5;max-width:620px;margin:0 auto;text-align:center}
 .over{font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
 h1,h2{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.03;letter-spacing:-.01em;text-wrap:balance}
 h1{font-size:clamp(40px,8.5vw,96px)}h2{font-size:clamp(32px,6.5vw,76px)}
 h1 em,h2 em{font-style:italic;color:var(--gold)}
 .lead{font-size:clamp(15px,2vw,20px);color:var(--soft);max-width:500px;margin:24px auto 0;font-weight:300;line-height:1.65}
-.cta{display:inline-flex;margin-top:32px;padding:17px 42px;background:var(--gold);color:var(--bg);text-decoration:none;border-radius:40px;font-weight:500;font-size:16px;transition:.35s var(--ease)}
-.cta:hover{transform:translateY(-3px)}
+/* Soft keeper CTA — not SaaS pill to index */
+.cta{display:inline-flex;margin-top:32px;padding:15px 34px;background:transparent;color:var(--ink);text-decoration:none;
+  border:1px solid var(--gold);border-radius:2px;font-weight:500;font-size:15px;letter-spacing:.04em;transition:.35s var(--ease)}
+.cta:hover{background:var(--gold);color:var(--bg);transform:translateY(-2px)}
+.cta-note{margin-top:14px;font-size:13px;color:var(--soft);font-weight:300}
+.cta-note a{color:var(--gold);text-decoration:none;border-bottom:1px solid transparent}
+.cta-note a:hover{border-bottom-color:var(--gold)}
 .reveal{opacity:0;transform:translateY(34px);transition:all 1.05s var(--ease)}.reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}.progress,.thread{display:none}}
 .scrollhint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);opacity:.6}
 .counter{font-family:'Cormorant Garamond',serif;font-size:clamp(50px,11vw,130px);color:var(--gold);line-height:1}
+.counter-sub{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-top:6px;margin-bottom:10px}
+/* Honest BA face — reused shelf asset */
+.ba{margin:28px auto 0;max-width:340px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ba figure{margin:0;position:relative}
+.ba img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;border:1px solid var(--line);border-radius:1px;background:#ddd}
+.ba figcaption{position:absolute;left:8px;bottom:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#f1e9da;background:rgba(42,33,24,.55);padding:3px 7px}
+.ba-cap{grid-column:1/-1;font-size:12px;color:var(--soft);margin-top:4px;font-weight:300}
 footer{position:relative;z-index:5;text-align:center;padding:50px 20px;font-size:12px;color:var(--soft);border-top:1px solid var(--line)}
-@media(max-width:600px){section{padding:80px 5vw}.lead{font-size:16px;max-width:100%;margin-top:18px}.over{font-size:10px;letter-spacing:.22em}.toggle button{padding:5px 10px;font-size:10px}nav{padding:16px 4vw}.logo{font-size:14px}}
+footer a{color:var(--gold);text-decoration:none}
+@media(max-width:600px){section{padding:80px 5vw}.lead{font-size:16px;max-width:100%;margin-top:18px}.over{font-size:10px;letter-spacing:.22em}.toggle button{padding:5px 10px;font-size:10px}nav{padding:16px 4vw}.logo{font-size:14px}.ba{max-width:280px;gap:8px}}
 </style><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head><body>
 <div class=progress id=prog></div>
-<div class=thread><svg id=tsvg viewBox="0 0 120 3600" preserveAspectRatio="xMidYMin meet">
+<div class=thread aria-hidden=true><svg id=tsvg viewBox="0 0 120 3600" preserveAspectRatio="xMidYMin meet">
   <path id=tp class=tpath d="M60 0 C 60 240,20 380,60 560 S 100 820,60 1060 C 30 1280,90 1480,60 1700 S 20 1980,60 2220 C 95 2440,25 2700,60 2940 S 60 3300,60 3600"/>
 </svg></div>
 
 <nav>
-  <a class=logo href="/" style="text-decoration:none;color:#fff">SAVE MY HISTORY</a>
-  <div class=toggle><button class=on id=bMin>Minimal</button><button id=bCine>Cinematic</button></div>
+  <a class=logo href="/">SAVE MY HISTORY</a>
+  <div class=toggle><button class=on id=bMin type=button>Бумага</button><button id=bCine type=button>Кино</button></div>
 </nav>
 
 <!-- 1 HERO -->
 <section>
-  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/gen_keeper_fire.jpg')"></div><div class=scrim></div>
+  <div class=photobg style="background-image:url('/assets/gen_keeper_fire.jpg')"></div><div class=scrim></div>
   <div class=content>
     <div class=over>Хранитель рода</div>
     <h1>В каждом роду есть тот, кто <em>хранит огонь</em></h1>
     <p class=lead>Эта золотая нить — память твоей семьи. Она ведёт от первого лица к последнему. Стань тем, кто не даст ей оборваться.</p>
-    <a class=cta href="https://savemyhistory.tech">Начать · первое фото бесплатно</a>
+    <a class=cta href="/waitlist.html">Оставить место у нити</a>
+    <p class=cta-note>Когда откроем доступ — напишем. Есть код друга? <a href="/cabinet.html">тихо войти</a></p>
   </div>
   <div class=scrollhint>↓ следуй за нитью</div>
 </section>
 
-<!-- 2 SPARK + VIDEO -->
+<!-- 2 SPARK + VIDEO + honest BA face -->
 <section>
-  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/gen_spark_hands.jpg')"></div>
-  <video class=videobg autoplay muted loop playsinline poster="https://savemyhistory.tech/assets/gen_spark_hands.jpg"><source src="https://savemyhistory.tech/assets/gen_spark_video.mp4" type=video/mp4></video>
+  <div class=photobg style="background-image:url('/assets/gen_spark_hands.jpg')"></div>
+  <video class=videobg autoplay muted loop playsinline poster="/assets/gen_spark_hands.jpg"><source src="/assets/gen_spark_video.mp4" type=video/mp4></video>
   <div class=scrim></div>
   <div class=content>
-    <div class="over reveal">Guard the spark · Искра</div>
+    <div class="over reveal">Искра</div>
     <h2 class=reveal>Сбереги <em>искру</em>, пока она тёплая</h2>
     <p class="lead reveal">Старое фото — это свет, который однажды зажгли. Мы возвращаем ему яркость бережно, не меняя человека. Кинцуги памяти: след времени становится золотом.</p>
+    <div class="ba reveal" data-ba-standin="case_o95" data-invent-eyes="N">
+      <figure><img src="/assets/case_o95_before.jpg" alt="Семейный портрет до бережного восстановления" width=480 height=640 loading=lazy decoding=async><figcaption>Было</figcaption></figure>
+      <figure><img src="/assets/case_o95_after.jpg" alt="То же лицо после бережного восстановления" width=480 height=640 loading=lazy decoding=async><figcaption>Стало</figcaption></figure>
+      <p class=ba-cap>Одно лицо из архива · без выдуманных глаз · stand-in case_o95</p>
+    </div>
   </div>
 </section>
 
 <!-- 3 NATIONAL / ROD -->
 <section>
-  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/case_o55_after.jpg')"></div><div class=scrim></div>
+  <div class=photobg style="background-image:url('/assets/case_o55_after.jpg')"></div><div class=scrim></div>
   <div class=content>
     <div class="over reveal">Унаследовано · Рід</div>
     <h2 class=reveal>Вышиванка, свадьба, лица — <em>твой код</em></h2>
@@ -87,36 +123,38 @@ footer{position:relative;z-index:5;text-align:center;padding:50px 20px;font-size
 
 <!-- 4 OAK -->
 <section>
-  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/gen_oak_bukovyna.jpg')"></div><div class=scrim></div>
+  <div class=photobg style="background-image:url('/assets/gen_oak_bukovyna.jpg')"></div><div class=scrim></div>
   <div class=content>
-    <div class="over reveal">Rooted · Корни</div>
+    <div class="over reveal">Корни</div>
     <div class="counter reveal">312</div>
+    <div class="counter-sub reveal">вёсен в кольцах</div>
     <h2 class=reveal>Нить прорастает в <em>дерево</em></h2>
     <p class="lead reveal">Как дуб Буковины держит триста вёсен в кольцах, так род держится корнями. Каждое ясное лицо — кольцо памяти.</p>
   </div>
 </section>
 
 <!-- 5 FINAL -->
-<section>
-  <div class=photobg style="background-image:url('https://savemyhistory.tech/assets/case_o110_after.jpg')"></div><div class=scrim></div>
+<section data-cold-path-b="1">
+  <div class=photobg style="background-image:url('/assets/case_o110_after.jpg')"></div><div class=scrim></div>
   <div class=content>
     <div class="over reveal">Хранитель — это ты</div>
     <h2 class=reveal>Не дай нити <em>оборваться</em></h2>
     <p class="lead reveal">Сбережённое сегодня через десять лет станет реликвией рода. Передай детям их настоящую историю — ясной и живой.</p>
-    <a class="cta reveal" href="https://savemyhistory.tech">Хранить мой семейный архив</a>
+    <a class="cta reveal" href="/waitlist.html">Сохранить место для рода</a>
+    <p class="cta-note reveal">Без мгновенного SLA · обычно к утру / до 48 часов · список ожидания</p>
   </div>
 </section>
 
-<footer>Save My History · финальная сборка R6 · режим: <span id=modeName>Minimal</span><br><a href="/" style="color:var(--gold)">На главную</a> · <a href="/cabinet.html" style="color:var(--gold)">Кабинет</a></footer>
+<footer>Save My History · хранитель рода · режим: <span id=modeName>Бумага</span><br><a href="/waitlist.html">Список ожидания</a> · <a href="/">На главную</a> · <a href="/cabinet.html">Кабинет</a></footer>
 
 <script>
 const body=document.body,bMin=document.getElementById('bMin'),bCine=document.getElementById('bCine'),mn=document.getElementById('modeName');
-function setMode(c){body.classList.toggle('cine',c);bMin.classList.toggle('on',!c);bCine.classList.toggle('on',c);mn.textContent=c?'Cinematic':'Minimal';}
+function setMode(c){body.classList.toggle('cine',c);bMin.classList.toggle('on',!c);bCine.classList.toggle('on',c);mn.textContent=c?'Кино':'Бумага';}
 bMin.onclick=()=>setMode(false);bCine.onclick=()=>setMode(true);
 const prog=document.getElementById('prog'),tp=document.getElementById('tp');
 const len=tp.getTotalLength();tp.style.strokeDasharray=len;tp.style.strokeDashoffset=len;
-function onScroll(){const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight);prog.style.width=(p*100)+'%';tp.style.strokeDashoffset=len*(1-p);}
-addEventListener('scroll',onScroll);onScroll();
+function onScroll(){const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);prog.style.width=(p*100)+'%';tp.style.strokeDashoffset=len*(1-p);}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll&&e.target.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));}}),{threshold:.2});
 document.querySelectorAll('section,.reveal').forEach(s=>io.observe(s));
 </script></body></html>
