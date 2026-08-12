@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
+<html lang="ru" data-facade-lab="1" data-door-a-lamp="1" data-door-a-gallery="1" data-door-a-gallery-raise="1" data-door-a-freeform-hero="1" data-door-a-mobile="1" data-door-a-continue-improve="1" data-door-a-pass3-craft="1" data-door-a-pass4-craft="1" data-door-a-pass5-craft="1" data-door-a-pass6-craft="1" data-door-a-pass7-craft="1" data-door-a-pass8-craft="1" data-door-a-pass9-craft="1" class="facade-lab nano-alt-facade-lab door-a-lamp">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -835,7 +835,6 @@ a{color:inherit}
   <div class="wrap invite">
     <h2 id="invite-title">Когда придёт код — войдёте тихо.</h2>
     <div class="invite-card">
-      <p>Хранитель держит место — сначала комната и правда, без сцены «восстановить сейчас».</p>
       <div class="actions">
         <a class="invite-soft" href="/waitlist.html">Пока — тихий лист ожидания</a>
       </div>
@@ -1028,9 +1027,16 @@ a{color:inherit}
           armed = true;
           tryPlayHero();
         }
-        window.addEventListener('scroll', armHero, {passive:true, once:true});
+        /* Pass9: gate residual video~441KB / still~274KB — poster leads; idle later */
+        function armHeroOnScroll(){
+          var y = window.scrollY || window.pageYOffset || 0;
+          var vhGate = window.innerHeight || 1;
+          if(y < Math.max(48, vhGate * 0.12)) return;
+          armHero();
+        }
+        window.addEventListener('scroll', armHeroOnScroll, {passive:true});
         window.addEventListener('pointerdown', armHero, {passive:true, once:true});
-        setTimeout(armHero, 2400);
+        setTimeout(armHero, 4800);
       } else {
         tryPlayHero();
         setTimeout(function(){
@@ -1116,7 +1122,8 @@ a{color:inherit}
       if(!leaf) return;
       var r = leaf.getBoundingClientRect();
       var vh = window.innerHeight || 1;
-      if(r.top < vh * 1.35 && r.bottom > -vh * 0.2){
+      /* Pass9: tighter near-view — was 1.35 early pull */
+      if(r.top < vh * 1.12 && r.bottom > -vh * 0.15){
         hydrateLeafBefore(leaf);
         hydrateLeafAfter(leaf);
       }
@@ -1127,8 +1134,8 @@ a{color:inherit}
     var root = pinChapter || ba;
     var r = root.getBoundingClientRect();
     var vh = window.innerHeight || 1;
-    /* Pass7: earlier root — kill empty flash on fast scroll into Правда */
-    if(r.top < vh * 2.25 && r.bottom > -vh * 0.3){
+    /* Pass7 opacity hold / race fix kept; Pass9 nudge 2.25→1.55 closer to viewport */
+    if(r.top < vh * 1.55 && r.bottom > -vh * 0.25){
       hydrateLeafImg(ba.querySelector('.before[data-src]'));
       hydrateLeafImg(ba.querySelector('.after[data-src]'));
     }
@@ -1140,12 +1147,12 @@ a{color:inherit}
     if(mat){
       var root = honestyEl || mat;
       var mr = root.getBoundingClientRect();
-      if(mr.top < vh * 2.2 && mr.bottom > -vh * 0.3) hydrateLeafImg(mat);
+      if(mr.top < vh * 1.55 && mr.bottom > -vh * 0.25) hydrateLeafImg(mat);
     }
     var past = document.querySelector('.face-bridge__chip--past img[data-src]');
     if(past){
       var pr = past.getBoundingClientRect();
-      if(pr.top < vh * 2.2 && pr.bottom > -vh * 0.3) hydrateLeafImg(past);
+      if(pr.top < vh * 1.55 && pr.bottom > -vh * 0.25) hydrateLeafImg(past);
     }
   }
   function hydrateNearPayload(){
