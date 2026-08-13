@@ -44,6 +44,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:cent
 .cta{display:inline-flex;margin-top:24px;padding:15px 30px;border-radius:10px;background:var(--gold);color:#0e0b07;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:.25s}
 .cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(231,183,101,.45)}
 .cta.ghost{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.cta-note{margin-top:14px;font-size:12px;color:var(--muted);font-weight:300;letter-spacing:.02em}
+.cta-note a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(231,183,101,.35)}
+.relic{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.relic figure{margin:0;position:relative;border-radius:10px;overflow:hidden;border:1px solid rgba(231,183,101,.2)}
+.relic img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover}
+.relic figcaption{position:absolute;left:8px;bottom:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#f1e9da;background:rgba(14,11,7,.55);padding:3px 7px}
+.relic-cap{margin-top:12px;font-size:12px;color:var(--muted);font-weight:300;letter-spacing:.04em;line-height:1.5}
 .r{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.r.in{opacity:1;transform:none}
 .d1{transition-delay:.14s}.d2{transition-delay:.3s}
 .prog{position:fixed;left:0;top:0;height:3px;background:var(--gold);width:var(--p,0);z-index:50}
@@ -70,17 +77,18 @@ footer .c{margin-top:14px;font-size:11px;color:#5e5443}
   <!-- HERO -->
   <section class="block center" id="hero">
     <div>
-      <div class="kick r">Premium Photo Restoration</div>
-      <h1 class="serif r d1">SAVE MY HISTORY:<br>храним ваши<br>драгоценные мгновения.</h1>
-      <p class="r d2" style="max-width:46ch;margin-left:auto;margin-right:auto">Премиальная реставрация семейных фотографий. Время стирает лица — мы возвращаем их.</p>
-      <a class="cta r d2" href="https://savemyhistory.tech">Восстановить мои фото</a>
+      <div class="kick r">Кинцуги рода</div>
+      <h1 class="serif r d1">SAVE MY HISTORY:<br>золото в трещинах<br>вашей памяти.</h1>
+      <p class="r d2" style="max-width:46ch;margin-left:auto;margin-right:auto">Семейный снимок — нить рода. Время стирает лица; мы бережём взгляд и бумагу, не выдумывая новых глаз.</p>
+      <a class="cta r d2" href="/waitlist.html">Оставить место у корней</a>
+      <p class="cta-note r d2">Когда откроем доступ — напишем. Есть код друга? <a href="/cabinet.html">тихо войти</a></p>
     </div>
   </section>
 
   <!-- PROBLEM (left, grey side) -->
   <section class="block left" id="prob">
     <div class="panel r">
-      <div class="kick">The Problem</div>
+      <div class="kick">Что гаснет</div>
       <h2 class="serif">Память выцветает.</h2>
       <p>Фотобумага окисляется и теряет до 5% контрастности ежегодно. Трещины, заломы, вода, выцветание — время не щадит ни одного снимка. То, что цело сегодня, завтра станет белым пятном.</p>
     </div>
@@ -89,7 +97,7 @@ footer .c{margin-top:14px;font-size:11px;color:#5e5443}
   <!-- SOLUTION (right, gold side) -->
   <section class="block right" id="sol">
     <div class="panel r">
-      <div class="kick">Our Solution · Кинцуги</div>
+      <div class="kick">Кинцуги</div>
       <h2 class="serif">Реставрация в духе кинцуги.</h2>
       <p>Мы не прячем трещины времени — мы заполняем их золотом. Снимок не «как новый», а бесценный.</p>
       <ul class="list">
@@ -100,12 +108,17 @@ footer .c{margin-top:14px;font-size:11px;color:#5e5443}
     </div>
   </section>
 
-  <!-- TRUST -->
+  <!-- TRUST / proof -->
   <section class="block left" id="trust">
     <div class="panel r">
-      <div class="kick">Trust the Craft</div>
-      <h2 class="serif">Доверьтесь мастерам ремесла.</h2>
-      <p>ИИ восстанавливает анатомию лиц с точностью до 98%, а мастер-ретушёр вручную проверяет естественность взгляда. Живое фото — не сгенерированное.</p>
+      <div class="kick">Взгляд остаётся вашим</div>
+      <h2 class="serif">Мы не изобретаем глаза.</h2>
+      <p>Бережём анатомию лица и естественность взгляда. Мастер проверяет живое фото руками — не сгенерированное, не чужое. Лицо остаётся тем, кем было.</p>
+      <div class="relic" data-ba-standin="case_o95" data-invent-eyes="N">
+        <figure><img src="/assets/case_o95_before.jpg" alt="Семейный портрет до бережного восстановления" width="240" height="320" loading="lazy" decoding="async"><figcaption>Было</figcaption></figure>
+        <figure><img src="/assets/case_o95_after.jpg" alt="То же лицо после бережного восстановления" width="240" height="320" loading="lazy" decoding="async"><figcaption>Стало</figcaption></figure>
+      </div>
+      <p class="relic-cap">Реликвия рода · одно лицо из архива · без выдуманных глаз · stand-in case_o95</p>
     </div>
   </section>
 
@@ -115,7 +128,8 @@ footer .c{margin-top:14px;font-size:11px;color:#5e5443}
       <div class="kick r">Корни рода</div>
       <h2 class="serif r d1" style="font-size:clamp(32px,5.5vw,64px)">Золотые корни хранят<br>вашу шкатулку памяти.</h2>
       <p class="r d2" style="max-width:46ch;margin-left:auto;margin-right:auto">Спасённое сегодня фото станет реликвией через 10 лет. Станьте тем, кто сохранил корни своего рода.</p>
-      <a class="cta r d2" href="https://savemyhistory.tech">Начать мой проект реставрации</a>
+      <a class="cta r d2" href="/waitlist.html">Сохранить место для рода</a>
+      <p class="cta-note r d2">Тихий лист ожидания. Без давления — напишем, когда откроем доступ.</p>
     </div>
   </section>
 </div>
