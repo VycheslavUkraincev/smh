@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l6" data-smh-landing-wave="20260813">
+<html lang="ru" data-smh-landing="l6" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>История одного архива · SaveMyHistory</title>
 <meta name="description" content="SaveMyHistory — как устроена работа с семейным архивом: от коробки с фото до бережного восстановления.">
 <!-- SMH_LANDING_SEVEN_MOCKUPS wave 20260813 · axis L6 История · assets reused /assets/c18-oak + /assets/catcheye-smh-story · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<!-- SMH_LANDING_SEVEN_LENGTHEN 20260813 · below-fold chapters added · 0E asset reuse · invent_eyes=N -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -81,6 +82,25 @@ footer a{color:inherit}
   .plates-grid{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+.epigraph{padding:clamp(76px,12vh,150px) 0;border-top:1px solid var(--line);text-align:center;
+  background:radial-gradient(60vmax 30vmax at 50% 30%,rgba(61,90,106,.08),transparent 72%)}
+.epigraph blockquote{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(24px,3.7vw,48px);line-height:1.2;max-width:22ch;margin:0 auto;text-wrap:balance}
+.epigraph .by{margin-top:20px;font-family:Cinzel,serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--soft)}
+
+.register{padding:clamp(76px,12vh,150px) 0;border-top:1px solid var(--line)}
+.register h2{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(26px,3.7vw,46px);line-height:1.14;max-width:20ch;margin-bottom:clamp(18px,3vh,28px);text-wrap:balance}
+.register .fond{margin-bottom:14px}
+.rrows{margin-top:clamp(26px,4vh,44px);display:grid;gap:16px;max-width:66ch}
+.rrows div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:baseline;color:var(--soft);font-size:clamp(15.5px,1.45vw,17.5px)}
+.rrows b{font-weight:500;color:var(--archive);font-family:Cinzel,serif;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;min-width:11ch}
+
+.qa{padding:clamp(76px,12vh,150px) 0;border-top:1px solid var(--line)}
+.qa h2{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(26px,3.7vw,46px);margin-bottom:clamp(24px,4vh,42px);max-width:18ch;text-wrap:balance}
+.qa dl{border-top:1px solid var(--line)}
+.qa dt{font-family:'EB Garamond',serif;font-weight:500;font-size:clamp(19px,2.1vw,24px);color:var(--archive);padding-top:clamp(20px,3vh,30px)}
+.qa dd{color:var(--soft);font-size:clamp(15.5px,1.45vw,17.5px);max-width:64ch;margin:8px 0 0;padding-bottom:clamp(20px,3vh,30px);border-bottom:1px solid var(--line)}
+
+@media (max-width:900px){.rrows div{grid-template-columns:1fr;gap:4px}}
 </style>
 </head>
 <body>
@@ -139,6 +159,67 @@ footer a{color:inherit}
       </div>
     </section>
   </div>
+    <section class="chapter reveal" data-no="V">
+      <span class="no">Глава V</span>
+      <div>
+        <h2>Почему архив, а не поток</h2>
+        <p>Поток считает файлы. Архив считает дела: у каждого своя история повреждений, свой вопрос без ответа и свой человек, который его принёс.</p>
+        <p>Разница видна в мелочах. В потоке снимок проходит один и тот же набор действий; в архиве сначала решают, что с ним вообще можно делать.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="VI">
+      <span class="no">Глава VI</span>
+      <div>
+        <h2>Как читается состояние бумаги</h2>
+        <p>Желтизна говорит о свете и тепле, в которых снимок лежал. Сетка мелких трещин — о том, что его часто брали в руки. Белая полоса по краю — о том, что он годами стоял в рамке.</p>
+        <p>Это не дефекты, а биография предмета. Часть из неё мы сознательно оставляем: снимок, стертый до гладкого пластика, перестаёт быть старым снимком.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="VII">
+      <span class="no">Глава VII</span>
+      <div>
+        <h2>Сколько это занимает</h2>
+        <p>Одно дело — ночь, иногда две. Сначала опись, потом работа, потом обязательная пауза и свежий взгляд на результат рядом с исходником.</p>
+        <p>Мы не обещаем результат за две минуты — такой срок означал бы, что снимок никто не рассматривал.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="VIII">
+      <span class="no">Глава VIII</span>
+      <div>
+        <h2>Последняя коробка</h2>
+        <p>У каждого архива есть день, когда его разбирают в последний раз — и почти всегда это день, когда спрашивать уже не у кого.</p>
+        <p>Поэтому самый полезный совет мы даём до всякой работы: подпишите имена на обороте, пока их ещё помнят. Это спасает больше, чем любая обработка.</p>
+      </div>
+    </section>
+    <section class="chapter reveal" data-no="IX">
+      <span class="no">Глава IX</span>
+      <div>
+        <h2>Как хранить то, что осталось</h2>
+        <p>Бумаге вредит не время, а перепады: жара и сырость, батарея под полкой, окно на южную сторону. Самое безопасное место в квартире обычно самое скучное: внутренний шкаф в жилой комнате.</p>
+        <p>Снимки лучше лежат горизонтально и без давления сверху. Резинки, скрепки и плёнка «чтобы не пылились» вредят сильнее, чем помогают.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="X">
+      <span class="no">Глава X</span>
+      <div>
+        <h2>Когда архив делят</h2>
+        <p>Рано или поздно коробка делится между родственниками — и чаще всего после этого никто уже не знает, где что лежит.</p>
+        <p>Цифровая копия решает именно эту беду: оригинал остаётся у одного, а видеть снимок могут все. Поэтому мы просим не отдавать нам бумагу и работаем со снимком с телефона.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="XI">
+      <span class="no">Глава XI</span>
+      <div>
+        <h2>Чего мы не делаем никогда</h2>
+        <p>Не дорисовываем глаза и не меняем черты. Не добавляем людей, которых на снимке не было, и не убираем тех, кто был.</p>
+        <p>Не дорисовываем фон там, где кадр обрезан, и не делаем из группового снимка портрет. Снимок остаётся тем кадром, который когда-то сделали.</p>
+      </div>
+    </section>
 </main>
 
 <section class="plates">
@@ -154,6 +235,53 @@ footer a{color:inherit}
       </figure>
     </div>
     <p class="note">Два листа одного дела. Мы не считаем проценты улучшения и не обещаем чуда: люди на снимке остаются теми же, кем были.</p>
+  </div>
+</section>
+
+<section class="qa">
+  <div class="wrap">
+    <h2 class="reveal">Вопросы к архиву</h2>
+    <dl>
+      <dt class="reveal">С чего начать опись, если я ничего не знаю?</dt>
+      <dd class="reveal">С того, что точно помните вы. Даже одна строка «это дача, конец шестидесятых» делает снимок частью истории, а не просто бумагой.</dd>
+
+      <dt class="reveal">Нужно ли нести оригиналы куда-то?</dt>
+      <dd class="reveal">Нет. Оригинал остаётся дома всегда. Мы работаем со снимком, сделанным у окна без вспышки.</dd>
+
+      <dt class="reveal">Что если в семье спорят, кто на снимке?</dt>
+      <dd class="reveal">Запишем обе версии с пометкой «спорно». Архив выдерживает разногласия лучше, чем выдуманную определённость.</dd>
+
+      <dt class="reveal">Сколько стоит ведение дела?</dt>
+      <dd class="reveal">Сейчас нисколько: выдача на паузе, и мы не берём денег за то, чего не отдаём. Цену назовём до работы.</dd>
+
+      <dt class="reveal">Можно ли забрать всё из кабинета?</dt>
+      <dd class="reveal">Да, в любой момент. Одно письмо — и дело закрывается вместе со всеми файлами и описью.</dd>
+
+      <dt class="reveal">А если снимок уже нельзя спасти?</dt>
+      <dd class="reveal">Тогда мы так и напишем в описи. Честная запись об утрате — тоже часть архива, и она лучше красивой подмены.</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="epigraph">
+  <div class="wrap">
+    <blockquote class="reveal">Архив — это не то, что лежит в коробке. Это то, что кто-то ещё может объяснить.</blockquote>
+    <div class="by reveal">Из описи первого дела</div>
+  </div>
+</section>
+
+<section class="register">
+  <div class="wrap">
+    <div class="fond reveal">Опись · что входит в дело</div>
+    <h2 class="reveal">Что мы записываем до того, как прикоснуться к снимку</h2>
+    <div class="rrows">
+      <div class="reveal"><b>Состояние</b><span>Заломы, пятна, осыпавшаяся эмульсия, утраченные участки — словами и без оценок.</span></div>
+      <div class="reveal"><b>Контекст</b><span>Год или его приближение, место, повод, имена — всё, что вы помните и готовы рассказать.</span></div>
+      <div class="reveal"><b>Границы</b><span>Что мы решили не трогать и почему. Этот пункт чаще всего самый длинный.</span></div>
+      <div class="reveal"><b>Отказы</b><span>Если честно вернуть не получится, это записывается тоже — и говорится вам прямо.</span></div>
+      <div class="reveal"><b>Сейчас</b><span>Приём и кабинет открыты; выдача готовых работ на паузе, и мы говорим об этом до, а не после.</span></div>
+      <div class="reveal"><b>Ваше право</b><span>Загруженное видно только вам; одно письмо — и дело закрывается вместе со всеми файлами.</span></div>
+    </div>
   </div>
 </section>
 

@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l5" data-smh-landing-wave="20260813">
+<html lang="ru" data-smh-landing="l5" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Приглашение · SaveMyHistory</title>
 <meta name="description" content="SaveMyHistory — тихое приглашение в лист ожидания на бережное восстановление семейных фотографий.">
 <!-- SMH_LANDING_SEVEN_MOCKUPS wave 20260813 · axis L5 Приглашение · assets reused /assets/gen_keeper_fire.jpg · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<!-- SMH_LANDING_SEVEN_LENGTHEN 20260813 · below-fold chapters added · 0E asset reuse · invent_eyes=N -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
@@ -74,6 +75,39 @@ footer a{color:inherit}
   .invite-plate img{-webkit-mask-image:radial-gradient(88% 74% at 50% 48%,#000 54%,transparent 94%);mask-image:radial-gradient(88% 74% at 50% 48%,#000 54%,transparent 94%)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.flourish path{stroke-dashoffset:0}}
+.fold{padding:clamp(76px,12vh,145px) 0}
+.fold+.fold{border-top:1px solid rgba(31,43,38,.12)}
+.fmark{font-family:Marcellus,serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--olive);margin-bottom:clamp(18px,3vh,28px)}
+.flead{font-family:Marcellus,serif;font-weight:400;font-size:clamp(25px,3.6vw,45px);line-height:1.15;max-width:20ch;text-wrap:balance}
+.ftext{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(22px,4vw,60px);margin-top:clamp(26px,4vh,44px)}
+.ftext p{color:var(--soft);font-size:clamp(15px,1.45vw,17.5px)}
+.ftext p+p{margin-top:14px}
+
+.rite{margin-top:clamp(30px,5vh,52px);border-top:1px solid rgba(31,43,38,.14)}
+.rstep{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,4vw,54px);padding:clamp(22px,3.6vh,34px) 0;border-bottom:1px solid rgba(31,43,38,.14);align-items:start}
+.rstep .k{font-family:Marcellus,serif;font-size:clamp(15px,1.7vw,19px);color:var(--olive);min-width:8ch}
+.rstep h3{font-family:Marcellus,serif;font-size:clamp(19px,2.1vw,24px);margin-bottom:6px}
+.rstep p{color:var(--soft);max-width:58ch;font-size:clamp(14.5px,1.4vw,16.5px)}
+
+.candle-say{padding:clamp(76px,12vh,145px) 0;text-align:center;
+  background:radial-gradient(58vmax 30vmax at 50% 34%,rgba(192,138,69,.12),transparent 72%)}
+.candle-say blockquote{font-family:Marcellus,serif;font-size:clamp(24px,3.6vw,46px);line-height:1.22;max-width:22ch;margin:0 auto;text-wrap:balance}
+.candle-say .by{margin-top:20px;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--soft)}
+
+.plainly{margin-top:clamp(26px,4vh,44px);display:grid;gap:16px;max-width:62ch}
+.plainly div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:baseline;color:var(--soft);font-size:clamp(14.5px,1.4vw,16.5px)}
+.plainly b{font-weight:400;color:var(--ink);font-family:Marcellus,serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;min-width:10ch}
+
+.qa{padding:clamp(76px,12vh,145px) 0;border-top:1px solid rgba(31,43,38,.12)}
+.qa h2{font-family:Marcellus,serif;font-size:clamp(25px,3.6vw,44px);margin-bottom:clamp(24px,4vh,42px);max-width:18ch;text-wrap:balance}
+.qa dl{border-top:1px solid rgba(31,43,38,.14)}
+.qa dt{font-family:Marcellus,serif;font-size:clamp(18px,2vw,23px);padding-top:clamp(20px,3vh,30px)}
+.qa dd{color:var(--soft);font-size:clamp(14.5px,1.4vw,16.5px);max-width:64ch;margin:8px 0 0;padding-bottom:clamp(20px,3vh,30px);border-bottom:1px solid rgba(31,43,38,.14)}
+
+@media (max-width:900px){
+  .rstep{grid-template-columns:1fr;gap:6px}
+  .plainly div{grid-template-columns:1fr;gap:4px}
+}
 </style>
 </head>
 <body>
@@ -122,6 +156,156 @@ footer a{color:inherit}
     </div>
   </div>
 </main>
+
+<section class="fold">
+  <div class="wrap">
+    <div class="fmark reveal">I · Почему приглашение</div>
+    <h2 class="flead reveal">Мы предпочитаем позвать, а не уговорить</h2>
+    <div class="ftext">
+      <div class="reveal">
+        <p>Семейные снимки — плохой повод для громких обещаний. Здесь нельзя торопить человека и нельзя продавать ему чувство вины за то, что коробка всё ещё не разобрана.</p>
+        <p>Поэтому мы не ставим таймеры, не считаем оставшиеся места вслух и не пишем писем «вы ещё думаете?».</p>
+      </div>
+      <div class="reveal">
+        <p>Приглашение отличается от рекламы одним: его можно спокойно отклонить, и ничего не произойдёт.</p>
+        <p>Если вы оставите место и передумаете через полгода — это нормальный исход, а не потерянный клиент.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fold">
+  <div class="wrap">
+    <div class="fmark reveal">II · Первый вечер</div>
+    <h2 class="flead reveal">Как выбрать первый снимок</h2>
+    <div class="rite">
+      <section class="rstep reveal">
+        <span class="k">Не самый</span>
+        <div>
+          <h3>Не самый разрушенный</h3>
+          <p>Почти все начинают с самого тяжёлого случая — и потом разочаровываются. Начните с того, где лицо ещё читается: так будет видно, что вообще возможно.</p>
+        </div>
+      </section>
+      <section class="rstep reveal">
+        <span class="k">Тот, где</span>
+        <div>
+          <h3>Тот, где вы знаете имена</h3>
+          <p>Снимок с известными именами всегда обрабатывать честнее: есть с чем сверить результат и есть кому сказать «это он».</p>
+        </div>
+      </section>
+      <section class="rstep reveal">
+        <span class="k">Снимайте</span>
+        <div>
+          <h3>Снимайте у окна, без вспышки</h3>
+          <p>Днём, на ровной поверхности, без наклона. Вспышка выбивает фактуру бумаги, а именно по ней мы читаем состояние снимка.</p>
+        </div>
+      </section>
+      <section class="rstep reveal">
+        <span class="k">И оборот</span>
+        <div>
+          <h3>Оборот тоже</h3>
+          <p>Если там что-то написано — это часть снимка. Имя, год, город стоят дороже любой обработки.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="candle-say">
+  <div class="wrap">
+    <blockquote class="reveal">Мы пришли со свечой, а не с прожектором. Свеча показывает меньше, зато не слепит.</blockquote>
+    <div class="by reveal">О том, как мы начинаем</div>
+  </div>
+</section>
+
+<section class="fold">
+  <div class="wrap">
+    <div class="fmark reveal">III · Лицо</div>
+    <h2 class="flead reveal">Одно условие, которое мы ставим себе</h2>
+    <div class="ftext">
+      <div class="reveal">
+        <p>Глаза не дорисовываются. Если зрачков не осталось на бумаге, мы оставляем мягкость — и говорим об этом вам сразу.</p>
+        <p>Черты лица не двигаются, кожа не разглаживается, зерно остаётся зерном.</p>
+      </div>
+      <div class="reveal">
+        <p>Это самое скучное обещание из всех возможных — и единственное, которое имеет значение, когда снимок увидит тот, кто этого человека помнит.</p>
+        <p>Сложный снимок мы назовём сложным, а невозможный — невозможным.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fold">
+  <div class="wrap">
+    <div class="fmark reveal">IV · Где мы сейчас</div>
+    <h2 class="flead reveal">Честно, до того как вы решите</h2>
+    <div class="plainly">
+      <div class="reveal"><b>Работает</b><span>Лист ожидания и личный кабинет: место, загрузка, хранение ваших снимков.</span></div>
+      <div class="reveal"><b>На паузе</b><span>Выдача готовых работ. Мы скажем, когда откроем — одним письмом.</span></div>
+      <div class="reveal"><b>Сейчас</b><span>Никакой оплаты и никаких обязательств с вашей стороны.</span></div>
+      <div class="reveal"><b>Любой день</b><span>Одно письмо — и мы убираем вас из листа вместе со всем загруженным.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fold">
+  <div class="wrap">
+    <div class="fmark reveal">V · Тихое</div>
+    <h2 class="flead reveal">Почти всегда это делают ради кого-то ещё</h2>
+    <div class="ftext">
+      <div class="reveal">
+        <p>Люди редко приносят снимки для себя. Чаще — чтобы показать матери, чтобы отдать брату, чтобы внук когда-нибудь увидел, как выглядела его прабабушка.</p>
+        <p>Это меняет цену ошибки. Неаккуратная работа здесь — не просто плохой файл, а чужое лицо, показанное близким.</p>
+      </div>
+      <div class="reveal">
+        <p>Поэтому мы начинаем тихо и малым кругом. Сначала те, кто готов подождать вместе с нами.</p>
+        <p>Если это про вас — оставьте место. Если нет, совет про имена на обороте работает и без нас.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fold">
+  <div class="wrap">
+    <div class="fmark reveal">VI · Очередь</div>
+    <h2 class="flead reveal">Как устроен лист ожидания</h2>
+    <div class="ftext">
+      <div class="reveal">
+        <p>Очередь идёт по дате записи — без платного ускорения и без «важных гостей» впереди всех. Кто пришёл раньше, тот и раньше.</p>
+        <p>Единственное исключение — снимки в аварийном состоянии, которые осыпаются прямо сейчас. Им мы стараемся ответить быстрее, и это тоже не про деньги.</p>
+      </div>
+      <div class="reveal">
+        <p>Мы не показываем счётчик оставшихся мест и не устраиваем гонку. Если место нужно, оно есть.</p>
+        <p>Когда подойдёт ваша очередь, придёт одно письмо. Если вы к тому времени передумаете — просто не отвечайте, мы не будем напоминать.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="qa">
+  <div class="wrap">
+    <h2 class="reveal">Что обычно спрашивают перед тем, как оставить место</h2>
+    <dl>
+      <dt class="reveal">Меня будут заваливать письмами?</dt>
+      <dd class="reveal">Нет. Одно письмо, когда откроется выдача. Никаких дайджестов, акций и напоминаний «вы забыли о нас».</dd>
+
+      <dt class="reveal">Надо ли сразу что-то загружать?</dt>
+      <dd class="reveal">Нет. Можно просто оставить почту и вернуться к снимкам тогда, когда будет сила их разбирать.</dd>
+
+      <dt class="reveal">Я не уверен, что мои фото кому-то интересны.</dt>
+      <dd class="reveal">Они и не должны быть интересны посторонним. Это ваш архив, и он останется вашим — мы ничего не публикуем без спроса.</dd>
+
+      <dt class="reveal">А если человека на снимке уже нет?</dt>
+      <dd class="reveal">Это самый частый случай и главная причина, по которой мы не трогаем лица: поправить нас уже некому.</dd>
+
+      <dt class="reveal">Можно ли подарить это родителям?</dt>
+      <dd class="reveal">Когда откроем выдачу — да. Сейчас мы не продаём ни работы, ни сертификаты, чтобы не обещать срок, который не контролируем.</dd>
+
+      <dt class="reveal">Где гарантия, что лицо не испортят?</dt>
+      <dd class="reveal">Гарантия одна и письменная: глаза не дорисовываются, черты не двигаются, сложное называется сложным.</dd>
+    </dl>
+  </div>
+</section>
 
 <section class="promise">
   <div class="wrap">

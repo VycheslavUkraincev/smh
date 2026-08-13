@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l7" data-smh-landing-wave="20260813">
+<html lang="ru" data-smh-landing="l7" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>К утру · SaveMyHistory</title>
 <meta name="description" content="SaveMyHistory — ночная смена над семейными снимками: медленно, бережно, без обещаний за две минуты.">
 <!-- SMH_LANDING_SEVEN_MOCKUPS wave 20260813 · axis L7 К утру · assets reused /assets/gen_pocketwatch.jpg (текстура) · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<!-- SMH_LANDING_SEVEN_LENGTHEN 20260813 · below-fold chapters added · 0E asset reuse · invent_eyes=N -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
@@ -83,6 +84,40 @@ footer a{color:inherit}
   .hour{grid-template-columns:1fr;gap:6px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+.nchap{padding:clamp(76px,12vh,150px) 0}
+.nchap+.nchap{border-top:1px solid rgba(134,151,172,.16)}
+.nmark{font-family:Spectral,serif;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--lamp);opacity:.9;margin-bottom:clamp(18px,3vh,28px)}
+.nlead{font-family:Spectral,serif;font-weight:300;font-size:clamp(25px,3.7vw,46px);line-height:1.15;max-width:20ch;text-wrap:balance}
+.nlead em{font-style:italic;color:var(--lamp)}
+.ntext{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(22px,4vw,62px);margin-top:clamp(26px,4vh,44px)}
+.ntext p{color:var(--dim);font-size:clamp(15px,1.45vw,17.5px)}
+.ntext p+p{margin-top:14px}
+
+.tasks{margin-top:clamp(30px,5vh,52px);border-top:1px solid rgba(134,151,172,.2)}
+.task{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,4vw,54px);padding:clamp(22px,3.6vh,34px) 0;border-bottom:1px solid rgba(134,151,172,.2);align-items:start}
+.task .n{font-family:Spectral,serif;font-size:clamp(17px,2vw,22px);color:var(--lamp);min-width:3ch}
+.task h3{font-family:Spectral,serif;font-weight:400;font-size:clamp(19px,2.1vw,25px);margin-bottom:6px}
+.task p{color:var(--dim);max-width:58ch;font-size:clamp(14.5px,1.4vw,16.5px)}
+
+.dawn-say{padding:clamp(78px,12vh,150px) 0;text-align:center;
+  background:radial-gradient(58vmax 30vmax at 50% 34%,rgba(240,201,138,.09),transparent 72%)}
+.dawn-say blockquote{font-family:Spectral,serif;font-weight:300;font-style:italic;font-size:clamp(23px,3.6vw,44px);line-height:1.24;max-width:23ch;margin:0 auto;color:var(--lamp);text-wrap:balance}
+.dawn-say .by{margin-top:20px;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+
+.nowlist{margin-top:clamp(26px,4vh,44px);display:grid;gap:16px;max-width:64ch}
+.nowlist div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:baseline;color:var(--dim);font-size:clamp(14.5px,1.4vw,16.5px)}
+.nowlist b{font-weight:400;color:var(--lamp);font-family:Spectral,serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;min-width:10ch}
+
+.qa{padding:clamp(76px,12vh,150px) 0;border-top:1px solid rgba(134,151,172,.16)}
+.qa h2{font-family:Spectral,serif;font-weight:300;font-size:clamp(25px,3.6vw,45px);margin-bottom:clamp(24px,4vh,42px);max-width:18ch;text-wrap:balance}
+.qa dl{border-top:1px solid rgba(134,151,172,.2)}
+.qa dt{font-family:Spectral,serif;font-weight:400;font-size:clamp(18px,2vw,23px);color:var(--lamp);padding-top:clamp(20px,3vh,30px)}
+.qa dd{color:var(--dim);font-size:clamp(14.5px,1.4vw,16.5px);max-width:64ch;margin:8px 0 0;padding-bottom:clamp(20px,3vh,30px);border-bottom:1px solid rgba(134,151,172,.2)}
+
+@media (max-width:900px){
+  .task{grid-template-columns:1fr;gap:6px}
+  .nowlist div{grid-template-columns:1fr;gap:4px}
+}
 </style>
 </head>
 <body>
@@ -141,6 +176,156 @@ footer a{color:inherit}
     </div>
   </div>
 </main>
+
+<section class="nchap">
+  <div class="wrap">
+    <div class="nmark reveal">I · Почему ночь</div>
+    <h2 class="nlead reveal">Ночью никто не <em>торопит</em></h2>
+    <div class="ntext">
+      <div class="reveal">
+        <p>Днём у любой работы есть фон: письма, звонки, очередь, чужие сроки. Ночью остаётся только снимок и тот, кто над ним сидит.</p>
+        <p>Это не романтика, а рабочее условие. Внимание — единственный инструмент, который нельзя ускорить.</p>
+      </div>
+      <div class="reveal">
+        <p>Поэтому мы не запускаем обработку на каждый файл по мере поступления. Заявки ждут вечера и разбираются по одной.</p>
+        <p>Снимок ждёт своей ночи, а не своего места в конвейере. Разница видна на результате.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nchap">
+  <div class="wrap">
+    <div class="nmark reveal">II · Что успевает одна ночь</div>
+    <h2 class="nlead reveal">Три вещи, которые нельзя пропустить</h2>
+    <div class="tasks">
+      <section class="task reveal">
+        <span class="n">01</span>
+        <div>
+          <h3>Прочитать повреждения</h3>
+          <p>Где залом прошёл через лицо, где пятно съело фон, где эмульсия осыпалась насовсем. Список составляется до того, как что-то менять.</p>
+        </div>
+      </section>
+      <section class="task reveal">
+        <span class="n">02</span>
+        <div>
+          <h3>Решить, что не трогать</h3>
+          <p>Самый долгий пункт. Глаза, черты, зерно, надпись на обороте — всё, что останется как есть, записывается отдельно.</p>
+        </div>
+      </section>
+      <section class="task reveal">
+        <span class="n">03</span>
+        <div>
+          <h3>Посмотреть свежим глазом</h3>
+          <p>Между работой и ответом всегда есть пауза. Без неё любая правка кажется удачной — и именно так лицо становится чужим.</p>
+        </div>
+      </section>
+      <section class="task reveal">
+        <span class="n">04</span>
+        <div>
+          <h3>Написать честные слова</h3>
+          <p>Что удалось, что нет и почему. Без процентов, без восторгов и без обещаний на следующий раз.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="dawn-say">
+  <div class="wrap">
+    <blockquote class="reveal">Утро — это не срок. Это обещание, что вас не оставят без ответа.</blockquote>
+    <div class="by reveal">Как мы понимаем «к утру»</div>
+  </div>
+</section>
+
+<section class="nchap">
+  <div class="wrap">
+    <div class="nmark reveal">III · Граница</div>
+    <h2 class="nlead reveal">Ночь ничего не разрешает дорисовывать</h2>
+    <div class="ntext">
+      <div class="reveal">
+        <p>В три часа ночи любой компромисс выглядит разумно. Именно поэтому правила записаны заранее и ночью не обсуждаются.</p>
+        <p>Глаза не дорисовываются. Черты не двигаются. Зерно остаётся зерном.</p>
+      </div>
+      <div class="reveal">
+        <p>Если взгляд ушёл в зерно, он останется мягким и в готовой работе — это не недоделка, а граница честности.</p>
+        <p>Сложный снимок мы назовём сложным утром, а не пришлём красивую замену тому, что утрачено.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nchap">
+  <div class="wrap">
+    <div class="nmark reveal">IV · Где мы сейчас</div>
+    <h2 class="nlead reveal">Спокойно и без паники</h2>
+    <div class="nowlist">
+      <div class="reveal"><b>Работает</b><span>Вход, лист ожидания и кабинет: место можно занять сегодня ночью.</span></div>
+      <div class="reveal"><b>На паузе</b><span>Выдача готовых работ. Ночная смена занята качеством, а не отгрузкой.</span></div>
+      <div class="reveal"><b>Не обещаем</b><span>Ни двух минут, ни процентов, ни чуда к утру любой ценой.</span></div>
+      <div class="reveal"><b>Ваше</b><span>Загруженное видно только вам; одно письмо — и мы всё убираем.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="nchap">
+  <div class="wrap">
+    <div class="nmark reveal">V · Тихое</div>
+    <h2 class="nlead reveal">Почти все пишут нам поздно</h2>
+    <div class="ntext">
+      <div class="reveal">
+        <p>Заявки чаще всего приходят после полуночи. Не потому, что так удобнее — просто коробку достают тогда, когда дом затих.</p>
+        <p>И почти всегда в таком письме больше о человеке, чем о файле.</p>
+      </div>
+      <div class="reveal">
+        <p>Мы читаем эти письма целиком — и именно поэтому не отвечаем шаблоном через минуту.</p>
+        <p>Ответ придёт к утру. Его напишет тот, кто действительно смотрел на ваш снимок.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nchap">
+  <div class="wrap">
+    <div class="nmark reveal">Ещё одна глава · Что приходит утром</div>
+    <h2 class="nlead reveal">Как выглядит наш <em>ответ</em></h2>
+    <div class="ntext">
+      <div class="reveal">
+        <p>Это не рекламное письмо и не строчка «ваш заказ готов». Это короткая записка о том, в каком состоянии снимок и что с ним честно сделать.</p>
+        <p>Если в кадре есть участок, который мы решили не трогать, мы назовём его и объясним почему. Молчание тут хуже отказа.</p>
+      </div>
+      <div class="reveal">
+        <p>Иногда в ответе будет вопрос к вам: кто второй слева, какой это год, была ли там рамка. Ответ на такой вопрос меняет работу сильнее любого инструмента.</p>
+        <p>И всегда будет строка про границу: глаза не дорисованы, черты не тронуты.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="qa">
+  <div class="wrap">
+    <h2 class="reveal">Что спрашивают ночью</h2>
+    <dl>
+      <dt class="reveal">Почему не быстрее?</dt>
+      <dd class="reveal">Быстрее — это без паузы и без свежего взгляда на результат. Именно в этот момент лицо обычно и становится чужим.</dd>
+
+      <dt class="reveal">А если мне нужно к дате?</dt>
+      <dd class="reveal">Скажите сразу. Если мы не успеваем честно, мы так и ответим и не возьмёмся. Лучше отказ, чем сорванный срок и сорванный снимок.</dd>
+
+      <dt class="reveal">Можно писать ночью?</dt>
+      <dd class="reveal">Можно в любое время. Ответ придёт не мгновенно — и это хороший знак: значит, его пишет человек, а не автоответчик.</dd>
+
+      <dt class="reveal">Сколько это стоит сейчас?</dt>
+      <dd class="reveal">Сейчас нисколько: выдача на паузе, денег вперёд мы не берём. Когда откроем, цену назовём до работы, а не после.</dd>
+
+      <dt class="reveal">Почему выдача вообще закрыта?</dt>
+      <dd class="reveal">Потому что результат пока не такой, чтобы мы спокойно отдали его своей семье. Откроем, когда будет.</dd>
+
+      <dt class="reveal">Что с моими файлами потом?</dt>
+      <dd class="reveal">Они видны только вам. Одно письмо — и мы удаляем всё вместе с записью в листе ожидания.</dd>
+    </dl>
+  </div>
+</section>
 
 <section class="truth">
   <div class="wrap">
