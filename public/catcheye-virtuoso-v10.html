@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Save My History — Спуск по стволу</title>
-<meta name="description" content="Ствол на всю высоту. Скролл — спуск по коре. Одна золотая нить. Мы не изобретаем глаза.">
+<meta name="description" content="Ствол на всю высоту. Скролл — спуск по коре. Одна золотая нить. Мы не изобретаем глаза. Длинный спуск: сезоны коры, шёпот рода, письма, тихий ритуал.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -47,7 +47,7 @@ a{color:inherit}
   left:50%;
   top:0;
   width:max(100vw,56vh);
-  height:320vh;
+  height:780vh;
   transform:translate3d(-50%, calc(var(--trunk-y) * -1px), 0);
   will-change:transform;
 }
@@ -55,19 +55,22 @@ a{color:inherit}
   position:absolute;
   left:0;
   width:100%;
-  height:33.34%;
+  height:16.67%;
   object-fit:cover;
   object-position:center center;
 }
-.trunk__plane .s1{top:0;object-position:center 28%}
-.trunk__plane .s2{top:33.33%;object-position:center 50%;filter:saturate(.92) contrast(1.04)}
-.trunk__plane .s3{top:66.66%;object-position:center 62%;filter:saturate(.88) contrast(1.06)}
+.trunk__plane .s1{top:0;object-position:center 22%}
+.trunk__plane .s2{top:16.66%;object-position:center 38%;filter:saturate(.94) contrast(1.03)}
+.trunk__plane .s3{top:33.32%;object-position:center 50%;filter:saturate(.9) contrast(1.05)}
+.trunk__plane .s4{top:49.98%;object-position:center 48%;filter:saturate(.88) contrast(1.06) brightness(.96)}
+.trunk__plane .s5{top:66.64%;object-position:center 58%;filter:saturate(.86) contrast(1.07) brightness(.93)}
+.trunk__plane .s6{top:83.3%;object-position:center 72%;filter:saturate(.84) contrast(1.08) brightness(.9)}
 .trunk__veil{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(90deg,rgba(12,10,7,.72) 0%,rgba(12,10,7,.28) 38%,rgba(12,10,7,.18) 50%,rgba(12,10,7,.35) 68%,rgba(12,10,7,.78) 100%),
-    linear-gradient(180deg,rgba(12,10,7,.45) 0%,rgba(12,10,7,.12) 22%,rgba(12,10,7,.2) 70%,rgba(12,10,7,.78) 100%);
+    linear-gradient(90deg,rgba(12,10,7,.74) 0%,rgba(12,10,7,.3) 38%,rgba(12,10,7,.16) 50%,rgba(12,10,7,.36) 68%,rgba(12,10,7,.8) 100%),
+    linear-gradient(180deg,rgba(12,10,7,.48) 0%,rgba(12,10,7,.12) 18%,rgba(12,10,7,.18) 55%,rgba(12,10,7,.42) 78%,rgba(12,10,7,.82) 100%);
 }
 
 /* Quiet gold thread along trunk center — grows with descent */
@@ -83,13 +86,13 @@ a{color:inherit}
   background:linear-gradient(
     180deg,
     transparent 0%,
-    rgba(231,183,101,.15) 8%,
-    var(--gold) 35%,
-    var(--gold) 72%,
+    rgba(231,183,101,.15) 6%,
+    var(--gold) 32%,
+    var(--gold) 74%,
     transparent 100%
   );
   box-shadow:0 0 14px rgba(231,183,101,.35);
-  opacity:calc(.25 + var(--thread) * .55);
+  opacity:calc(.22 + var(--thread) * .58);
   clip-path:inset(0 0 calc((1 - var(--thread)) * 100%) 0);
   transition:opacity .2s linear;
 }
@@ -113,16 +116,20 @@ a{color:inherit}
   align-items:center;
   padding:12vh 6vw;
 }
+.beat--tall{min-height:110vh;min-height:110dvh}
 .beat--hero{justify-content:center;text-align:center;padding-top:16vh}
 .beat--mid{justify-content:flex-start}
+.beat--alt{justify-content:flex-end}
 .beat--gaze{justify-content:flex-end}
 .beat--wait{justify-content:center;text-align:center;padding-bottom:16vh}
+.beat--center{justify-content:center;text-align:center}
 
 .panel{
   width:min(520px,92vw);
   padding:8px 4px;
 }
 .beat--hero .panel{width:min(720px,94vw)}
+.beat--letter .panel{width:min(480px,90vw)}
 
 .brand{
   font-family:'Cormorant Garamond',serif;
@@ -169,8 +176,12 @@ h2 em{font-style:italic;color:var(--gold)}
   color:rgba(236,223,200,.82);
   line-height:1.65;
 }
-.beat--hero .lead{
+.lead + .lead{margin-top:12px}
+.beat--hero .lead,
+.beat--center .lead{
   margin-left:auto;margin-right:auto;
+}
+.beat--hero .lead{
   opacity:0;
   animation:fadeUp .95s var(--ease) .95s forwards;
 }
@@ -186,7 +197,8 @@ h2 em{font-style:italic;color:var(--gold)}
   opacity:0;
   animation:fadeUp .9s var(--ease) 1.25s forwards;
 }
-.beat--wait .cta-row{justify-content:center}
+.beat--wait .cta-row,
+.beat--center .cta-row{justify-content:center}
 .cta{
   display:inline-flex;
   padding:14px 28px;
@@ -243,6 +255,94 @@ h2 em{font-style:italic;color:var(--gold)}
   letter-spacing:.12em;
   text-transform:uppercase;
   color:var(--mute);
+}
+
+.fragment{
+  margin-top:22px;
+  padding:18px 20px 16px;
+  border-left:1px solid rgba(231,183,101,.35);
+  background:linear-gradient(90deg,rgba(12,10,7,.42),transparent);
+  max-width:34ch;
+}
+.fragment p{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(17px,2.1vw,21px);
+  line-height:1.45;
+  color:rgba(243,234,216,.9);
+}
+.fragment .who{
+  margin-top:10px;
+  font-family:Manrope,sans-serif;
+  font-style:normal;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--mute);
+}
+
+.season-row{
+  margin-top:22px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  max-width:40ch;
+}
+.season{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(231,183,101,.72);
+  border-bottom:1px solid rgba(231,183,101,.22);
+  padding-bottom:3px;
+}
+
+.lineage{
+  margin-top:20px;
+  list-style:none;
+  max-width:34ch;
+}
+.lineage li{
+  position:relative;
+  padding:10px 0 10px 18px;
+  border-left:1px solid rgba(231,183,101,.22);
+  font-size:14px;
+  font-weight:300;
+  color:rgba(236,223,200,.78);
+  line-height:1.5;
+}
+.lineage li::before{
+  content:"";
+  position:absolute;
+  left:-3px;top:16px;
+  width:5px;height:5px;
+  border-radius:50%;
+  background:var(--gold);
+  opacity:.65;
+}
+.lineage li strong{
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+  font-size:17px;
+  color:rgba(243,234,216,.92);
+  margin-bottom:2px;
+}
+
+.ritual{
+  margin-top:18px;
+  display:grid;
+  gap:12px;
+  max-width:36ch;
+}
+.ritual span{
+  display:block;
+  font-size:13px;
+  font-weight:300;
+  color:rgba(236,223,200,.76);
+  padding-left:14px;
+  border-left:1px solid rgba(231,183,101,.28);
+  line-height:1.55;
 }
 
 .gaze-mat{
@@ -304,12 +404,16 @@ footer a:hover{color:var(--gold)}
 }
 
 @media(max-width:820px){
-  .beat--mid,.beat--gaze{justify-content:center;text-align:center}
-  .beat--mid .lead,.beat--gaze .lead,.mantra{margin-left:auto;margin-right:auto}
+  .beat--mid,.beat--alt,.beat--gaze,.beat--letter{justify-content:center;text-align:center}
+  .beat--mid .lead,.beat--alt .lead,.beat--gaze .lead,.beat--letter .lead,
+  .mantra,.fragment,.lineage,.ritual,.season-row{margin-left:auto;margin-right:auto}
+  .fragment{text-align:left}
+  .lineage{text-align:left}
+  .ritual{text-align:left}
   .gaze-mat{margin-left:auto;margin-right:auto}
   .trunk__veil{
     background:
-      linear-gradient(180deg,rgba(12,10,7,.55) 0%,rgba(12,10,7,.22) 28%,rgba(12,10,7,.28) 68%,rgba(12,10,7,.82) 100%),
+      linear-gradient(180deg,rgba(12,10,7,.55) 0%,rgba(12,10,7,.22) 22%,rgba(12,10,7,.26) 58%,rgba(12,10,7,.55) 82%,rgba(12,10,7,.86) 100%),
       radial-gradient(70% 55% at 50% 45%,rgba(12,10,7,.1),rgba(12,10,7,.55));
   }
 }
@@ -327,9 +431,12 @@ footer a:hover{color:var(--gold)}
 
 <div class="trunk" id="trunk" aria-hidden="true">
   <div class="trunk__plane" id="trunk-plane">
-    <img class="s1" src="/assets/virtuoso-v10/oak-813d062b.jpg" alt="" width="2400" height="1340" decoding="async">
-    <img class="s2" src="/assets/virtuoso-v10/trunk-line-02.png" alt="" width="768" height="1376" decoding="async">
-    <img class="s3" src="/assets/virtuoso-v10/bark-fade-03.png" alt="" width="768" height="1376" decoding="async" loading="lazy">
+    <img class="s1" src="/assets/virtuoso-v10/canopy-01.jpg" alt="" width="2400" height="1600" decoding="async">
+    <img class="s2" src="/assets/virtuoso-v10/oak-813d062b.jpg" alt="" width="2400" height="1340" decoding="async">
+    <img class="s3" src="/assets/virtuoso-v10/trunk-line-02.png" alt="" width="768" height="1376" decoding="async">
+    <img class="s4" src="/assets/virtuoso-v10/heartwood-04.jpg" alt="" width="1200" height="1600" decoding="async" loading="lazy">
+    <img class="s5" src="/assets/virtuoso-v10/bark-fade-03.png" alt="" width="768" height="1376" decoding="async" loading="lazy">
+    <img class="s6" src="/assets/virtuoso-v10/roots-06.jpg" alt="" width="1600" height="2000" decoding="async" loading="lazy">
   </div>
   <div class="trunk__veil"></div>
 </div>
@@ -337,34 +444,133 @@ footer a:hover{color:var(--gold)}
 <div class="gold-thread" id="gold-thread" aria-hidden="true"></div>
 
 <main class="journey" id="journey">
-  <!-- Beat 0: crown / first viewport — one composition -->
+  <!-- Beat 0: crown -->
   <section class="beat beat--hero" id="top" aria-label="Начало спуска">
     <div class="panel">
       <p class="brand">Save<span class="mark">My</span>History</p>
       <h1>Спуск по <em>стволу.</em></h1>
-      <p class="lead">Скролл — не страницы. Вы идёте вниз по коре. Одна золотая нить держит род.</p>
+      <p class="lead">Скролл — не страницы. Вы идёте вниз по коре. Одна золотая нить держит род — от кроны к корням, сквозь сезоны и шёпот писем.</p>
       <div class="cta-row">
         <a class="cta" href="/waitlist.html">Оставить место у нити</a>
-        <a class="cta-quiet" href="#thread-beat">Вниз по коре</a>
+        <a class="cta-quiet" href="#canopy">Вниз по коре</a>
       </div>
     </div>
   </section>
 
-  <!-- Beat 1: thread hush -->
-  <section class="beat beat--mid" id="thread-beat" aria-labelledby="thread-title">
+  <!-- Beat 1: canopy hush -->
+  <section class="beat beat--mid" id="canopy" aria-labelledby="canopy-title">
     <div class="panel">
-      <div class="kick hush">Золотая нить</div>
-      <h2 class="hush" id="thread-title">Нить не спорит с шумом.<br>Она <em>держит.</em></h2>
-      <p class="lead hush">Золото здесь не декор. Тонкий след на коре памяти — позвоночник истории, без толпы кадров.</p>
+      <div class="kick hush">Крона</div>
+      <h2 class="hush" id="canopy-title">Свет ещё помнит<br><em>имена.</em></h2>
+      <p class="lead hush">Высоко на стволе кора тонкая, почти прозрачная для солнца. Здесь история только начинается — как лист, который ещё не решили сохранить.</p>
+      <p class="lead hush">Хранитель не торопит. Он ждёт, пока взгляд сам найдёт первую трещину, где прячется тепло.</p>
+      <p class="mantra hush">Сначала — тишина кроны.</p>
     </div>
   </section>
 
-  <!-- Beat 2: gaze honesty -->
+  <!-- Beat 2: gold thread -->
+  <section class="beat beat--alt" id="thread-beat" aria-labelledby="thread-title">
+    <div class="panel">
+      <div class="kick hush">Золотая нить</div>
+      <h2 class="hush" id="thread-title">Нить не спорит с шумом.<br>Она <em>держит.</em></h2>
+      <p class="lead hush">Золото здесь не декор. Тонкий след на коре памяти — позвоночник истории, без толпы кадров и без громких обещаний.</p>
+      <p class="lead hush">Пока вы спускаетесь, нить чуть крепчает. Не ярче — честнее. Как рука, которая не отпускает.</p>
+    </div>
+  </section>
+
+  <!-- Beat 3: seasons of bark -->
+  <section class="beat beat--mid beat--tall" id="seasons" aria-labelledby="seasons-title">
+    <div class="panel">
+      <div class="kick hush">Сезоны коры</div>
+      <h2 class="hush" id="seasons-title">Каждый слой —<br><em>другой год.</em></h2>
+      <p class="lead hush">Весна оставила светлые кольца. Лето — плотные. Осень сжала волокна. Зима научила молчать. На одном стволе помещается целый календарь рода.</p>
+      <div class="season-row hush" aria-hidden="true">
+        <span class="season">Весна · рост</span>
+        <span class="season">Лето · плотность</span>
+        <span class="season">Осень · сжатие</span>
+        <span class="season">Зима · покой</span>
+      </div>
+      <p class="lead hush">Мы не выравниваем кору под «красивый кадр». Мы читаем её так, как читают старый дом — пальцами, не вспышкой.</p>
+    </div>
+  </section>
+
+  <!-- Beat 4: family whispers -->
+  <section class="beat beat--alt" id="whispers" aria-labelledby="whispers-title">
+    <div class="panel">
+      <div class="kick hush">Шёпот семьи</div>
+      <h2 class="hush" id="whispers-title">Голоса живут<br>в <em>трещинах.</em></h2>
+      <p class="lead hush">Где-то между слоями — смех с кухни, скрип половиц, имя, которое произносили только дома. Ствол помнит тише, чем альбом.</p>
+      <div class="fragment hush">
+        <p>«Не выбрасывай конверты. Там запах дороги.»</p>
+        <p class="who">шёпот · демо-линия рода</p>
+      </div>
+      <p class="lead hush">Это не архив ради архива. Это бережность к тому, что ещё дышит в бумаге и в дереве.</p>
+    </div>
+  </section>
+
+  <!-- Beat 5: letter fragment -->
+  <section class="beat beat--mid beat--letter" id="letter" aria-labelledby="letter-title">
+    <div class="panel">
+      <div class="kick hush">Обрывок письма</div>
+      <h2 class="hush" id="letter-title">Чернила бледнеют.<br><em>Смысл — нет.</em></h2>
+      <div class="fragment hush">
+        <p>«Мама, я доехал. Двор тот же. Яблоня ниже, чем в детстве — или я вырос? Целую. Жди весточку в четверг.»</p>
+        <p class="who">фрагмент · вымышленное письмо хранителя</p>
+      </div>
+      <p class="lead hush">Мы не дописываем исчезнувшие строки. Мы даём уцелевшему лечь ровно — чтобы его можно было прочесть вслух внукам.</p>
+      <p class="note hush">демо-нарратив · не личный архив</p>
+    </div>
+  </section>
+
+  <!-- Beat 6: heartwood -->
+  <section class="beat beat--center" id="heartwood" aria-labelledby="heartwood-title">
+    <div class="panel">
+      <div class="kick hush">Сердцевина</div>
+      <h2 class="hush" id="heartwood-title">Глубже кора —<br>тише <em>сердце.</em></h2>
+      <p class="lead hush">В середине ствола меньше света и больше правды. Здесь хранятся не парадные портреты, а повседневность: рука на плече, стол после ужина, взгляд в окно перед отъездом.</p>
+      <p class="mantra hush">Сердцевина не кричит. Она ждёт.</p>
+      <div class="cta-row hush">
+        <a class="cta-quiet" href="#lineage">Дальше — к линии рода</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beat 7: lineage notes -->
+  <section class="beat beat--mid beat--tall" id="lineage" aria-labelledby="lineage-title">
+    <div class="panel">
+      <div class="kick hush">Заметки рода</div>
+      <h2 class="hush" id="lineage-title">Линия не прямая.<br>Она <em>живая.</em></h2>
+      <p class="lead hush">Демо-линия — как партитура: паузы важнее нот. Хранитель ставит пометки мягко, без суда и без лишних ярлыков.</p>
+      <ul class="lineage hush">
+        <li><strong>Анна · 1948</strong>Письма с полей. Почерк наклонный, почти музыка.</li>
+        <li><strong>Илья · 1971</strong>Плёнка с дачи. Свет падает слева — как всегда в том дворе.</li>
+        <li><strong>Мария · 1994</strong>Открытка без марки. Запах кедра на сгибе.</li>
+        <li><strong>Тихий лист · сейчас</strong>Место у нити. Пока без имени — только ожидание.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Beat 8: quiet ritual -->
+  <section class="beat beat--alt" id="ritual" aria-labelledby="ritual-title">
+    <div class="panel">
+      <div class="kick hush">Тихий ритуал</div>
+      <h2 class="hush" id="ritual-title">Спуск — это<br><em>обряд внимания.</em></h2>
+      <p class="lead hush">Не спешите к корням. Каждый жест на пути — маленький обет: не торопить память, не подменять лицо, не делать из рода витрину.</p>
+      <div class="ritual hush">
+        <span>Остановить скролл на трещине, где свет ложится мягче.</span>
+        <span>Прочесть обрывок вслух — хотя бы шёпотом.</span>
+        <span>Оставить место у нити, если история ещё едет к вам.</span>
+      </div>
+      <p class="mantra hush">Внимание — единственная реставрация, которая не врёт.</p>
+    </div>
+  </section>
+
+  <!-- Beat 9: honest gaze (once) -->
   <section class="beat beat--gaze" id="gaze" aria-labelledby="gaze-title">
     <div class="panel">
       <div class="kick hush">Честный взгляд</div>
       <h2 class="hush" id="gaze-title">Мы не изобретаем <em>глаза.</em></h2>
-      <p class="lead hush">Где бумага ещё держит лицо — бережно проявляем. Где память ушла — не подменяем выдумкой.</p>
+      <p class="lead hush">Где бумага ещё держит лицо — бережно проявляем. Где память ушла — не подменяем выдумкой. Один честный жест на всём спуске.</p>
       <p class="mantra hush">Свидетель · взгляд</p>
       <p class="note hush">invent_eyes=N · архивный кадр</p>
       <button type="button" class="gaze-toggle hush" id="gaze-toggle" aria-pressed="false">Было / Стало</button>
@@ -376,24 +582,49 @@ footer a:hover{color:var(--gold)}
     </div>
   </section>
 
-  <!-- Beat 3: soft waitlist at roots -->
+  <!-- Beat 10: bark grain interlude -->
+  <section class="beat beat--mid" id="grain" aria-labelledby="grain-title">
+    <div class="panel">
+      <div class="kick hush">Рисунок коры</div>
+      <h2 class="hush" id="grain-title">Узоры не украшение.<br>Они — <em>почерк.</em></h2>
+      <p class="lead hush">Внизу ствол темнеет. Волокна сходятся, как линии на ладони. Здесь легко захотеть «почистить» кадр до глянца — и потерять характер.</p>
+      <p class="lead hush">Хранитель оставляет шероховатость. Потому что род не бывает идеально отполированным. Он бывает узнаваемым.</p>
+      <p class="note hush">демо · гармония спуска · без витрины</p>
+    </div>
+  </section>
+
+  <!-- Beat 11: approaching roots -->
+  <section class="beat beat--alt" id="approach" aria-labelledby="approach-title">
+    <div class="panel">
+      <div class="kick hush">К корням</div>
+      <h2 class="hush" id="approach-title">Земля ближе.<br>Нить <em>тише.</em></h2>
+      <p class="lead hush">Перед корнями воздух гуще. Скролл замедляется сам — не техникой, а смыслом. Вы уже прошли крону, сезоны, письма, сердцевину. Осталось одно: согласие ждать.</p>
+      <div class="fragment hush">
+        <p>«Когда придёт код — я буду у нити. Не раньше.»</p>
+        <p class="who">хранитель · тихий обет</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beat 12: soft waitlist at roots -->
   <section class="beat beat--wait" id="invite" data-cold-path-b="1" aria-labelledby="invite-title">
     <div class="panel">
       <div class="kick hush">У корней</div>
       <h2 class="hush" id="invite-title">Когда придёт код — нить не оборвётся.</h2>
-      <p class="lead hush" style="margin-left:auto;margin-right:auto">Оставьте место. Хранитель напишет.</p>
+      <p class="lead hush" style="margin-left:auto;margin-right:auto">Оставьте место. Хранитель напишет. Без спешки, без витрины — только тихий лист ожидания у подножия ствола.</p>
       <div class="cta-row hush">
         <a class="cta" href="/waitlist.html">Оставить место для рода</a>
         <a class="invite-soft" href="/waitlist.html">Пока — тихий лист ожидания</a>
       </div>
+      <p class="note hush" style="margin-top:22px">спуск окончен · invent_eyes=N · NOT_CLAIMED</p>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="m">Save My History · ствол · нить · спуск</div>
-  <div><a href="/waitlist.html">Лист ожидания</a><a href="/">На главную</a></div>
-  <div style="margin-top:16px;opacity:.7">© 2026 Save My History · virtuoso v10 trunk scroll · invent_eyes=N · NOT_CLAIMED</div>
+  <div class="m">Save My History · ствол · нить · спуск · сезоны · письма</div>
+  <div><a href="/waitlist.html">Лист ожидания</a><a href="#top">К кроне</a><a href="/">На главную</a></div>
+  <div style="margin-top:16px;opacity:.7">© 2026 Save My History · virtuoso v10 trunk scroll 3× · invent_eyes=N · NOT_CLAIMED</div>
 </footer>
 
 <script>
@@ -417,10 +648,10 @@ footer a:hover{color:var(--gold)}
     var max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
     var p=clamp(scrollY/max);
     root.style.setProperty('--p',String(p));
-    root.style.setProperty('--thread',String(clamp(p*1.15)));
+    root.style.setProperty('--thread',String(clamp(p*1.08)));
 
     if(!reduce&&plane){
-      /* Tall plane 320vh; travel so bottom bark reaches as page ends */
+      /* Tall plane ~780vh; travel so bottom bark reaches as page ends */
       var travel=Math.max(0,plane.offsetHeight-innerHeight);
       root.style.setProperty('--trunk-y',String(Math.round(travel*p)));
     }
