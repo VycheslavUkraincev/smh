@@ -53,18 +53,13 @@ a{color:inherit}
 }
 .trunk__plane img{
   position:absolute;
-  left:0;
+  inset:0;
   width:100%;
-  height:16.67%;
+  height:100%;
   object-fit:cover;
   object-position:center center;
+  filter:saturate(.9) contrast(1.05) brightness(.96);
 }
-.trunk__plane .s1{top:0;object-position:center 22%}
-.trunk__plane .s2{top:16.66%;object-position:center 38%;filter:saturate(.94) contrast(1.03)}
-.trunk__plane .s3{top:33.32%;object-position:center 50%;filter:saturate(.9) contrast(1.05)}
-.trunk__plane .s4{top:49.98%;object-position:center 48%;filter:saturate(.88) contrast(1.06) brightness(.96)}
-.trunk__plane .s5{top:66.64%;object-position:center 58%;filter:saturate(.86) contrast(1.07) brightness(.93)}
-.trunk__plane .s6{top:83.3%;object-position:center 72%;filter:saturate(.84) contrast(1.08) brightness(.9)}
 .trunk__veil{
   position:absolute;
   inset:0;
@@ -431,12 +426,7 @@ footer a:hover{color:var(--gold)}
 
 <div class="trunk" id="trunk" aria-hidden="true">
   <div class="trunk__plane" id="trunk-plane">
-    <img class="s1" src="/assets/virtuoso-v10/canopy-01.jpg" alt="" width="2400" height="1600" decoding="async">
-    <img class="s2" src="/assets/virtuoso-v10/oak-813d062b.jpg" alt="" width="2400" height="1340" decoding="async">
-    <img class="s3" src="/assets/virtuoso-v10/trunk-line-02.png" alt="" width="768" height="1376" decoding="async">
-    <img class="s4" src="/assets/virtuoso-v10/heartwood-04.jpg" alt="" width="1200" height="1600" decoding="async" loading="lazy">
-    <img class="s5" src="/assets/virtuoso-v10/bark-fade-03.png" alt="" width="768" height="1376" decoding="async" loading="lazy">
-    <img class="s6" src="/assets/virtuoso-v10/roots-06.jpg" alt="" width="1600" height="2000" decoding="async" loading="lazy">
+    <img class="trunk__one" src="/assets/virtuoso-v10/one-trunk-continuous.jpg" alt="" width="1536" height="2752" decoding="async">
   </div>
   <div class="trunk__veil"></div>
 </div>
