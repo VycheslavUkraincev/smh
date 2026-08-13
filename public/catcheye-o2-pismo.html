@@ -1,5 +1,5 @@
-<!doctype html><html lang="ru" id="CATCHEYE_O2_PISMO_PORT" data-catcheye-o2-pismo-port="1"><head><meta charset=utf-8>
-<!-- CATCHEYE_O2_PISMO_PORT Creative Bridge sibling · assets /assets/catcheye-o2-pismo · source arena agent-o o2-pismo · 2026-08-12 · invent_eyes=N · g2_* from smh-photos Spaces (real source assets) -->
+<!doctype html><html lang="ru" id="CATCHEYE_O2_PISMO_PORT" data-catcheye-o2-pismo-port="1" data-o2-pismo-craft="1"><head><meta charset=utf-8>
+<!-- CATCHEYE_O2_PISMO_PORT Creative Bridge sibling · assets /assets/catcheye-o2-pismo · source arena agent-o o2-pismo · 2026-08-13 · invent_eyes=N · g2_* from smh-photos Spaces (real source assets) · O2_PISMO_CRAFT quiet letter pass · COLD_PATH_B waitlist -->
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>Письмо из прошлого · Save My History</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel=stylesheet>
@@ -10,12 +10,14 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--paper);font-family:Inter,sans-serif;overflow-x:hidden}
 .progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0;z-index:99}
 nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;padding:20px 32px}
-.logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
-.langs button{background:none;border:none;color:var(--paper);opacity:.5;cursor:pointer;font-size:12px;margin-left:10px}
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px;position:relative}
+.logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);text-decoration:none}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px 100px;position:relative}
 .kicker{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
 h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,8vw,92px);font-weight:600;line-height:1.05;text-wrap:balance;max-width:14ch}
 h1 em{font-style:italic;color:var(--gold)}
+.hero-slip{margin-top:48px;width:min(220px,46vw);height:28px;background:var(--paper);border-radius:3px 3px 0 0;box-shadow:0 18px 50px rgba(0,0,0,.45);transform:rotate(-1.2deg);opacity:.92;position:relative}
+.hero-slip::before{content:"";position:absolute;left:14px;right:14px;top:10px;height:1px;background:rgba(154,112,40,.28)}
+.hero-slip::after{content:"";position:absolute;left:14px;right:40%;top:16px;height:1px;background:rgba(154,112,40,.18)}
 .letter{max-width:620px;margin:60px auto;background:var(--paper);color:var(--ink);padding:clamp(36px,6vw,72px);border-radius:4px;box-shadow:0 50px 140px rgba(0,0,0,.55);position:relative;transform:rotate(-.6deg)}
 .letter::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 31px,rgba(154,112,40,.08) 32px);pointer-events:none;border-radius:4px}
 .letter .date{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--soft);margin-bottom:24px;font-size:18px}
@@ -23,22 +25,32 @@ h1 em{font-style:italic;color:var(--gold)}
 .line{opacity:0;filter:blur(6px);transform:translateY(14px);transition:all 1.1s var(--ease)}
 .line.in{opacity:1;filter:none;transform:none}
 .letter .sign{text-align:right;font-style:italic;color:var(--gold);margin-top:30px}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:760px;margin:40px auto;border-radius:6px;overflow:hidden;box-shadow:0 40px 110px rgba(0,0,0,.5)}
+.letter .postmark{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--soft);letter-spacing:.04em;margin-top:8px;opacity:.85}
+.proof{max-width:760px;margin:56px auto 0;padding:0 24px;text-align:center}
+.proof .gaze{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.4vw,24px);color:var(--paper);opacity:.88;margin:0 0 18px;font-style:italic}
+.proof .note{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-top:16px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:760px;margin:0 auto;border-radius:6px;overflow:hidden;box-shadow:0 40px 110px rgba(0,0,0,.5)}
 .split img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4;display:block}
 .split figure{position:relative;margin:0}
 .split figcaption{position:absolute;bottom:12px;left:12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;background:rgba(26,21,16,.7);padding:5px 10px;border-radius:20px;color:var(--paper)}
-.center{text-align:center;padding:120px 24px}
-.cta{display:inline-flex;gap:10px;margin-top:34px;padding:18px 40px;background:var(--gold);color:#1a1510;text-decoration:none;border-radius:40px;font-weight:500;transition:.3s var(--ease)}
-.cta:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(154,112,40,.35)}
-footer{text-align:center;padding:60px;font-size:12px;color:var(--soft)}
-@media (max-width:640px){.split{grid-template-columns:1fr;max-width:420px}nav{padding:16px 18px}}
+.center{text-align:center;padding:100px 24px 80px}
+.whisper{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,44px);font-weight:600;line-height:1.25;max-width:16ch;margin:0 auto;text-wrap:balance}
+.whisper-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.2vw,22px);color:var(--soft);margin:18px auto 0;max-width:28ch;line-height:1.45}
+.cta{display:inline-flex;gap:10px;margin-top:34px;padding:16px 34px;background:transparent;color:var(--paper);text-decoration:none;border-radius:40px;font-weight:400;border:1px solid rgba(236,226,207,.35);transition:.3s var(--ease);font-size:15px;letter-spacing:.02em}
+.cta:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.cta.solid{background:var(--gold);color:#1a1510;border-color:var(--gold);font-weight:500}
+.cta.solid:hover{color:#1a1510;box-shadow:0 20px 50px rgba(154,112,40,.35)}
+footer{text-align:center;padding:48px 24px 60px;font-size:12px;color:var(--soft)}
+footer a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(110,97,82,.35)}
+@media (max-width:640px){.split{grid-template-columns:1fr;max-width:420px}nav{padding:16px 18px}.hero{padding-bottom:72px}}
 </style></head><body>
 <div class=progress id=prog></div>
-<nav><div class=logo>Save My History</div><div><span class=langs><button type=button>RU</button><button type=button>UA</button><button type=button>EN</button></span></div></nav>
+<nav><a class=logo href="/waitlist.html">Save My History</a></nav>
 
 <div class=hero>
   <div class=kicker>Письмо из прошлого</div>
   <h1>Старое фото — это <em>письмо</em>, которое тебе ещё не поздно прочесть</h1>
+  <div class=hero-slip aria-hidden=true></div>
 </div>
 
 <div class=letter>
@@ -47,20 +59,26 @@ footer{text-align:center;padding:60px;font-size:12px;color:var(--soft)}
   <p class=line>Бумага потускнела, краски ушли, и моё лицо почти стёрлось со снимка.</p>
   <p class=line>Но я всё ещё здесь. Меня можно вернуть — таким, каким я был. Без выдумки.</p>
   <p class="sign line">— твоя память</p>
+  <p class="postmark line">Сбережено в семейном альбоме · прочитано тобой сегодня</p>
 </div>
 
-<div class=split>
-  <figure><img src="https://savemyhistory.tech/assets/catcheye-o2-pismo/g2-before-2bff4a865021.jpg" alt="до" width="1000" height="1468"><figcaption>было</figcaption></figure>
-  <figure><img src="https://savemyhistory.tech/assets/catcheye-o2-pismo/g2-after-2c7102893815.jpg" alt="после" width="848" height="1246"><figcaption>стало</figcaption></figure>
+<div class=proof>
+  <p class=gaze>Мы не изобретаем глаза. Только возвращаем свет бумаге.</p>
+  <div class=split>
+    <figure><img src="/assets/catcheye-o2-pismo/g2-before-2bff4a865021.jpg" alt="до" width="1000" height="1468"><figcaption>было</figcaption></figure>
+    <figure><img src="/assets/catcheye-o2-pismo/g2-after-2c7102893815.jpg" alt="после" width="848" height="1246"><figcaption>стало</figcaption></figure>
+  </div>
+  <p class=note>тот же снимок · invent_eyes=N · без чужого лица</p>
 </div>
 
 <div class=center>
   <div class=kicker>Прочти своё письмо</div>
-  <h1 style="font-size:clamp(32px,6vw,64px)">Верни первое фото бесплатно</h1>
-  <a class=cta href="https://savemyhistory.tech">Восстановить →</a>
+  <p class=whisper>Пока бумага ещё держит голос</p>
+  <p class=whisper-sub>Оставь место в листе ожидания — хранитель напишет, когда можно принести первое фото.</p>
+  <a class="cta solid" href="/waitlist.html">Оставить место для письма</a>
 </div>
 
-<footer>Save My History · документальная честность лиц · 283 истории возвращены</footer>
+<footer>Save My History · документальная честность лиц · <a href="/waitlist.html">лист ожидания</a></footer>
 
 <script>
 const prog=document.getElementById('prog');
