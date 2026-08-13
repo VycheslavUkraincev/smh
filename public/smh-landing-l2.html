@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l2" data-smh-landing-wave="20260813">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Хранитель рода · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Тот же человек, тот же взгляд.">
+<!-- SMH_LANDING_SEVEN_MOCKUPS wave 20260813 · axis L2 Дуб · assets reused /assets/c18-oak · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0d1310;--bark:#171f19;--bone:#e9e6da;--moss:#8c9c7d;--gold:#c3a24e;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--deep);color:var(--bone);font-family:Jost,sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+.wrap{width:min(1240px,92vw);margin:0 auto}
+
+.hero{position:relative;min-height:100svh;display:grid;align-items:end;overflow:hidden;isolation:isolate}
+.canopy{position:absolute;inset:-6% 0 0;z-index:-3;will-change:transform}
+.canopy img{width:100%;height:112%;object-fit:cover;object-position:50% 42%;filter:saturate(.78) brightness(.66) contrast(1.06)}
+.shafts{position:absolute;inset:-20% -10%;z-index:-2;pointer-events:none;mix-blend-mode:screen;opacity:.5;
+  background:repeating-linear-gradient(102deg,rgba(255,232,178,.16) 0 2px,rgba(255,232,178,0) 3px 92px);
+  animation:shaft 26s linear infinite alternate}
+@keyframes shaft{from{transform:translate3d(-3%,0,0) rotate(0deg)}to{transform:translate3d(3%,-2%,0) rotate(.6deg)}}
+.fade{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(to top,rgba(13,19,16,.97) 3%,rgba(13,19,16,.72) 30%,rgba(13,19,16,.18) 60%,rgba(13,19,16,.55) 100%)}
+
+.rail{position:absolute;top:0;right:clamp(14px,3vw,40px);height:100%;display:flex;align-items:center;z-index:3;pointer-events:none}
+.rail span{writing-mode:vertical-rl;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.5em;text-transform:uppercase;color:rgba(233,230,218,.42)}
+
+.hero-body{position:relative;z-index:2;padding:0 0 clamp(60px,10vh,120px);max-width:22ch}
+.brand{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.7vw,21px);font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:clamp(22px,4vh,36px)}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,7.4vw,96px);line-height:1.02;letter-spacing:-.01em;max-width:14ch;text-wrap:balance}
+h1 em{font-style:italic;color:var(--gold)}
+.support{margin-top:22px;max-width:42ch;color:rgba(233,230,218,.68);font-size:clamp(15px,1.45vw,18px)}
+.actions{margin-top:clamp(26px,4vh,38px);display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px}
+.cta{display:inline-flex;align-items:center;gap:12px;padding:15px 30px;border:1px solid rgba(195,162,78,.6);color:var(--gold);text-decoration:none;font-size:15px;letter-spacing:.04em;background:rgba(13,19,16,.28);transition:.35s var(--ease)}
+.cta:hover{background:var(--gold);color:#0d1310;border-color:var(--gold);transform:translateY(-2px)}
+.status{font-size:13px;letter-spacing:.03em;color:rgba(233,230,218,.5)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1.15s var(--ease),transform 1.15s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+.rings{padding:clamp(90px,14vh,170px) 0;background:linear-gradient(to bottom,var(--deep),var(--bark) 55%,var(--deep))}
+.rings-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,4vw,54px);align-items:baseline;margin-bottom:clamp(40px,7vh,80px)}
+.rings-head h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(28px,4vw,50px);line-height:1.1;max-width:16ch}
+.rings-head .num{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:.32em;color:var(--moss);text-transform:uppercase}
+
+.ring{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,4vw,54px);padding:clamp(26px,4vh,40px) 0;border-top:1px solid rgba(140,156,125,.18);align-items:start}
+.ring .year{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,24px);color:var(--gold);min-width:5.5ch}
+.ring h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(20px,2.2vw,26px);margin-bottom:8px}
+.ring p{color:rgba(233,230,218,.62);max-width:60ch;font-size:clamp(14.5px,1.4vw,17px)}
+
+.grain{position:relative;padding:clamp(80px,12vh,150px) 0;overflow:hidden}
+.grain-media{position:relative;border-radius:2px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.55)}
+.grain-media img{width:100%;height:clamp(240px,42vh,420px);object-fit:cover;filter:saturate(.7) brightness(.72);transform:scale(1.02)}
+.grain-cap{margin-top:16px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--moss)}
+
+.close{padding:clamp(80px,13vh,150px) 0 clamp(70px,10vh,120px);text-align:center}
+.close h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(30px,5vw,62px);line-height:1.1;max-width:17ch;margin:0 auto;text-wrap:balance}
+.close p{margin:20px auto 0;max-width:44ch;color:rgba(233,230,218,.62)}
+.close .actions{justify-content:center;margin-top:34px}
+
+footer{padding:32px 0 54px;border-top:1px solid rgba(140,156,125,.16);font-size:12.5px;color:rgba(233,230,218,.42);display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between;letter-spacing:.03em}
+footer a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(233,230,218,.24)}
+
+@media (max-width:820px){
+  .rail{display:none}
+  .hero-body{max-width:none}
+  .ring{grid-template-columns:1fr;gap:6px}
+  .rings-head{grid-template-columns:1fr;gap:10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="canopy" id="canopy"><img src="/assets/c18-oak/oak-1-813d062b.jpg" alt="Старый дуб в лесу, солнечные лучи сквозь крону" width="2400" height="1340"></div>
+  <div class="shafts" aria-hidden="true"></div>
+  <div class="fade" aria-hidden="true"></div>
+  <div class="rail" aria-hidden="true"><span>Хранитель рода</span></div>
+
+  <div class="wrap hero-body">
+    <div class="brand reveal">SaveMyHistory</div>
+    <h1 class="reveal">Род держится на тех, кто <em>сохранил</em></h1>
+    <p class="support reveal">Бережное восстановление семейных фотографий: бумаге возвращается свет, а лицо остаётся тем же лицом.</p>
+    <div class="actions reveal">
+      <a class="cta" href="/waitlist.html">Встать в лист ожидания</a>
+      <span class="status">Вход открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+</header>
+
+<main class="rings">
+  <div class="wrap">
+    <div class="rings-head reveal">
+      <span class="num">Кольца</span>
+      <h2>У дерева это годовые кольца. У семьи — снимки.</h2>
+    </div>
+
+    <section class="ring reveal">
+      <span class="year">Ⅰ</span>
+      <div>
+        <h3>Сначала уходит цвет</h3>
+        <p>Жёлтеет бумага, сереют тени, края оттираются об альбомные уголки. Это ещё не потеря — это предупреждение.</p>
+      </div>
+    </section>
+
+    <section class="ring reveal">
+      <span class="year">Ⅱ</span>
+      <div>
+        <h3>Потом уходят имена</h3>
+        <p>Снимок ещё цел, но уже некому сказать, кто стоит вторым слева. Мы просим подписать имена сразу, пока их ещё помнят.</p>
+      </div>
+    </section>
+
+    <section class="ring reveal">
+      <span class="year">Ⅲ</span>
+      <div>
+        <h3>И только потом — лица</h3>
+        <p>Мы работаем с тем, что ещё есть на бумаге. Где взгляд ушёл в зерно — оставляем мягкость. Новых глаз не рисуем никогда.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<section class="grain">
+  <div class="wrap reveal">
+    <div class="grain-media"><img src="/assets/catcheye-m01-tree/bark-2e5d0cc0bdc7.jpg" alt="Крупный план коры старого дерева" width="1280" height="2294" loading="lazy"></div>
+    <p class="grain-cap">Фактуру не зашлифовываем · зерно — часть снимка</p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <h2 class="reveal">Станьте тем, кто в вашей семье сохранил</h2>
+    <p class="reveal">Приём заявок и кабинет работают. Готовые работы мы пока не выдаём — ждём, пока качество перестанет нас смущать.</p>
+    <div class="actions reveal"><a class="cta" href="/waitlist.html">Оставить место</a></div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · семейный архив без выдумки</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add('in')}, i*110); io.unobserve(e.target);} });
+  },{threshold:.2,rootMargin:'0px 0px -8%'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+  var canopy=document.getElementById('canopy'), ticking=false;
+  function park(){ var y=window.scrollY||0; canopy.style.transform='translate3d(0,'+(y*.22).toFixed(1)+'px,0)'; ticking=false; }
+  addEventListener('scroll',function(){ if(!ticking && window.scrollY<window.innerHeight*1.3){ ticking=true; requestAnimationFrame(park);} },{passive:true});
+})();
+</script>
+</body>
+</html>

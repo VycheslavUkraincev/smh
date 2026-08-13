@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l6" data-smh-landing-wave="20260813">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>История одного архива · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — как устроена работа с семейным архивом: от коробки с фото до бережного восстановления.">
+<!-- SMH_LANDING_SEVEN_MOCKUPS wave 20260813 · axis L6 История · assets reused /assets/c18-oak + /assets/catcheye-smh-story · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#e8e9e7;--page2:#dfe2e1;--ink:#1b2126;--soft:#5d666c;--archive:#3d5a6a;--line:rgba(27,33,38,.15);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--page);color:var(--ink);font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.64;overflow-x:hidden}
+img{display:block;max-width:100%}
+.wrap{width:min(1220px,92vw);margin:0 auto}
+
+.opening{position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);align-items:center;gap:clamp(24px,4vw,64px);overflow:hidden}
+.opening::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(80vmax 60vmax at 8% 10%,#f2f3f1,transparent 60%),linear-gradient(155deg,var(--page),var(--page2))}
+.opening-copy{padding:clamp(70px,10vh,110px) 0 clamp(50px,8vh,90px) max(4vw,calc((100vw - 1220px)/2))}
+.brand{font-family:Cinzel,serif;font-weight:500;font-size:clamp(15px,1.5vw,18px);letter-spacing:.3em;text-transform:uppercase;color:var(--archive);margin-bottom:clamp(24px,4vh,40px)}
+.fond{font-family:Cinzel,serif;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--soft);margin-bottom:14px}
+h1{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(38px,5.8vw,78px);line-height:1.04;max-width:14ch;letter-spacing:-.01em;text-wrap:balance}
+h1 em{font-style:italic;color:var(--archive)}
+.support{margin-top:clamp(18px,3vh,28px);max-width:46ch;color:var(--soft);font-size:clamp(16px,1.5vw,19px)}
+.actions{margin-top:clamp(26px,4vh,40px);display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+.cta{display:inline-flex;align-items:center;gap:12px;padding:15px 32px;background:var(--archive);color:#f4f6f5;text-decoration:none;font-family:Cinzel,serif;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;transition:.35s var(--ease)}
+.cta:hover{background:var(--ink);transform:translateY(-2px)}
+.status{font-size:15px;color:var(--soft)}
+
+.opening-plate{position:relative;height:min(84svh,760px);overflow:hidden}
+.opening-plate img{width:100%;height:100%;object-fit:cover;object-position:50% 46%;
+  filter:grayscale(.55) sepia(.12) saturate(.8) contrast(1.03);transform:scale(1.05);animation:hold 40s var(--ease) infinite alternate}
+@keyframes hold{from{transform:scale(1.05)}to{transform:scale(1.13) translateY(-1.5%)}}
+.opening-plate::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to right,var(--page2) 0%,rgba(223,226,225,.35) 16%,transparent 46%)}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 1.05s var(--ease),transform 1.05s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+.chapters{padding:clamp(84px,13vh,160px) 0;position:relative}
+.marker{position:fixed;left:clamp(10px,2vw,26px);top:50%;transform:translateY(-50%);z-index:20;
+  font-family:Cinzel,serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--soft);
+  writing-mode:vertical-rl;opacity:0;transition:opacity .5s var(--ease)}
+.marker.on{opacity:1}
+
+.chapter{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,4vw,60px);padding:clamp(30px,5vh,52px) 0;border-top:1px solid var(--line);align-items:start}
+.chapter .no{font-family:Cinzel,serif;font-size:clamp(13px,1.4vw,15px);letter-spacing:.2em;color:var(--archive);min-width:7ch;padding-top:6px}
+.chapter h2{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(24px,3.1vw,38px);line-height:1.14;margin-bottom:12px;max-width:20ch;text-wrap:balance}
+.chapter p{color:var(--soft);max-width:60ch;font-size:clamp(16px,1.5vw,18.5px)}
+.chapter p+p{margin-top:12px}
+
+.plates{padding:0 0 clamp(80px,12vh,150px)}
+.plates-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,26px)}
+.plates figure{margin:0}
+.plates img{width:100%;aspect-ratio:3/2;object-fit:cover;filter:grayscale(.4) sepia(.1) contrast(1.02)}
+.plates figcaption{margin-top:10px;font-family:Cinzel,serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+.plates .note{margin-top:22px;font-size:16px;color:var(--soft);max-width:64ch}
+
+.colophon{padding:clamp(70px,11vh,140px) 0;border-top:1px solid var(--line);text-align:center}
+.colophon h2{font-family:'EB Garamond',serif;font-weight:400;font-size:clamp(28px,4.2vw,54px);line-height:1.1;max-width:20ch;margin:0 auto;text-wrap:balance}
+.colophon p{margin:18px auto 0;max-width:48ch;color:var(--soft)}
+.colophon .actions{justify-content:center;margin-top:32px}
+
+footer{padding:26px 0 52px;border-top:1px solid var(--line);font-size:14px;color:var(--soft);display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between}
+footer a{color:inherit}
+
+@media (max-width:900px){
+  .opening{grid-template-columns:1fr;min-height:auto}
+  .opening-copy{order:2;padding:clamp(40px,6vh,64px) 4vw clamp(50px,8vh,80px)}
+  .opening-plate{order:1;height:52svh}
+  .opening-plate::after{background:linear-gradient(to bottom,transparent 60%,var(--page2))}
+  .chapter{grid-template-columns:1fr;gap:8px}
+  .marker{display:none}
+  .plates-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="opening">
+  <div class="opening-copy">
+    <div class="brand">SaveMyHistory</div>
+    <div class="fond">Семейный фонд · опись начата</div>
+    <h1>У каждой коробки с фото есть <em>своя история</em></h1>
+    <p class="support">Мы бережно восстанавливаем семейные фотографии и ведём их как архив, а не как поток заказов. Лицо остаётся тем же лицом.</p>
+    <div class="actions">
+      <a class="cta" href="/waitlist.html">Открыть свой архив</a>
+      <span class="status">Приём открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+
+  <div class="opening-plate">
+    <img src="/assets/c18-oak/oak-3-91fd6a1e.jpg" alt="Старый сундук с семейными фотографиями, ключом и бумагами" width="2400" height="1340">
+  </div>
+</header>
+
+<div class="marker" id="marker" aria-hidden="true">Глава <span id="markerNo">I</span></div>
+
+<main class="chapters">
+  <div class="wrap">
+    <section class="chapter reveal" data-no="I">
+      <span class="no">Глава I</span>
+      <div>
+        <h2>Коробка на антресолях</h2>
+        <p>Сначала это просто коробка: конверты, альбом без обложки, снимки врассыпную. Потом кто-то один в семье понимает, что её больше некому разобрать.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="II">
+      <span class="no">Глава II</span>
+      <div>
+        <h2>Опись важнее красоты</h2>
+        <p>Перед тем как что-то делать со снимком, его нужно описать: год, место, имена, что уже утрачено. Без этого любая обработка — угадывание.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="III">
+      <span class="no">Глава III</span>
+      <div>
+        <h2>Работа с бумагой</h2>
+        <p>Заломы, пятна, выцветшие участки, осыпавшаяся эмульсия. Мы возвращаем то, что было на снимке, и не добавляем того, чего там никогда не было.</p>
+        <p>Глаза не дорисовываем. Где взгляд ушёл в зерно — там останется мягкость.</p>
+      </div>
+    </section>
+
+    <section class="chapter reveal" data-no="IV">
+      <span class="no">Глава IV</span>
+      <div>
+        <h2>Где мы сейчас</h2>
+        <p>Вход, лист ожидания и кабинет работают. Выдачу готовых работ мы держим на паузе, пока качество не станет таким, чтобы мы отдали такое своей семье.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<section class="plates">
+  <div class="wrap reveal">
+    <div class="plates-grid">
+      <figure>
+        <img src="/assets/catcheye-smh-story/hero_before-a6a12814fb31.jpg" alt="Семейный снимок в исходном состоянии" width="1200" height="800" loading="lazy">
+        <figcaption>Лист 1 · как принесли</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/catcheye-smh-story/hero_after-fd504d0be3b3.jpg" alt="Тот же снимок после работы с бумагой" width="1200" height="800" loading="lazy">
+        <figcaption>Лист 2 · тот же снимок</figcaption>
+      </figure>
+    </div>
+    <p class="note">Два листа одного дела. Мы не считаем проценты улучшения и не обещаем чуда: люди на снимке остаются теми же, кем были.</p>
+  </div>
+</section>
+
+<section class="colophon">
+  <div class="wrap">
+    <h2 class="reveal">Начните опись своего архива</h2>
+    <p class="reveal">Оставьте место в листе ожидания — напишем, когда можно будет принести первое фото.</p>
+    <div class="actions reveal"><a class="cta" href="/waitlist.html">Занять место</a></div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · семейный архив без выдумки</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add('in')}, i*110); io.unobserve(e.target);} });
+  },{threshold:.2,rootMargin:'0px 0px -8%'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+  var marker=document.getElementById('marker'), no=document.getElementById('markerNo');
+  var chapters=[].slice.call(document.querySelectorAll('.chapter'));
+  var cio=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ no.textContent=e.target.getAttribute('data-no'); marker.classList.add('on'); } });
+  },{threshold:.45});
+  chapters.forEach(function(c){cio.observe(c)});
+
+  var last=chapters[chapters.length-1];
+  var eio=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(!e.isIntersecting && e.boundingClientRect.top<0) marker.classList.remove('on'); });
+  },{threshold:0});
+  if(last) eio.observe(last);
+})();
+</script>
+</body>
+</html>

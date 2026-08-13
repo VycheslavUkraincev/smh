@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l3" data-smh-landing-wave="20260813">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Письмо на обороте · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий и надписей на их обороте.">
+<!-- SMH_LANDING_SEVEN_MOCKUPS wave 20260813 · axis L3 Письмо · assets reused /assets/catcheye-o2-pismo · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;1,7..72,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#efe8d9;--paper2:#e6ddca;--ink:#28241d;--pencil:#6f6757;--seal:#8a3a2b;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:Literata,Georgia,serif;font-weight:300;line-height:1.62;overflow-x:hidden}
+img{display:block;max-width:100%}
+.wrap{width:min(1080px,90vw);margin:0 auto}
+
+.sheet{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(72px,11vh,120px) 0 clamp(48px,8vh,90px);overflow:hidden;isolation:isolate}
+.sheet::before{content:"";position:absolute;inset:0;z-index:-3;
+  background:
+    radial-gradient(120vmax 80vmax at 22% 8%,#f6f0e3,transparent 58%),
+    radial-gradient(90vmax 70vmax at 92% 92%,#e2d8c2,transparent 62%),
+    linear-gradient(168deg,var(--paper),var(--paper2))}
+.sheet::after{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(transparent 0 37px,rgba(111,103,87,.09) 37px 38px)}
+.sweep{position:absolute;inset:-30% -20%;z-index:-1;pointer-events:none;
+  background:linear-gradient(104deg,transparent 38%,rgba(255,255,255,.5) 50%,transparent 62%);
+  animation:sweep 17s ease-in-out infinite}
+@keyframes sweep{0%,100%{transform:translate3d(-16%,0,0)}50%{transform:translate3d(16%,0,0)}}
+
+.letterhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  border-bottom:1px solid rgba(111,103,87,.28);padding-bottom:14px;margin-bottom:clamp(34px,6vh,64px)}
+.brand{font-family:Literata,serif;font-weight:400;font-size:clamp(16px,1.7vw,20px);letter-spacing:.28em;text-transform:uppercase}
+.date{font-family:Caveat,cursive;font-size:clamp(19px,2vw,24px);color:var(--pencil)}
+
+h1{font-family:Literata,serif;font-weight:300;font-size:clamp(34px,5.6vw,68px);line-height:1.12;max-width:19ch;letter-spacing:-.012em;text-wrap:balance}
+.hand{display:block;font-family:Caveat,cursive;font-weight:600;color:var(--seal);font-size:clamp(38px,6.4vw,80px);line-height:1;margin-top:.18em}
+.support{margin-top:clamp(20px,3vh,30px);max-width:50ch;color:var(--pencil);font-size:clamp(15.5px,1.5vw,18.5px)}
+
+.underline{margin-top:26px;width:min(420px,72vw);height:26px}
+.underline path{fill:none;stroke:var(--seal);stroke-width:2.2;stroke-linecap:round;
+  stroke-dasharray:620;stroke-dashoffset:620;animation:draw 2.6s var(--ease) .5s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+.actions{margin-top:clamp(28px,4vh,42px);display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+.cta{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;letter-spacing:.02em;border-radius:1px;transition:.35s var(--ease)}
+.cta:hover{background:var(--seal);transform:translateY(-2px)}
+.cta.ghost{background:transparent;color:var(--ink);border:1px solid rgba(40,36,29,.3)}
+.cta.ghost:hover{background:rgba(40,36,29,.06);color:var(--ink)}
+.status{font-size:13.5px;color:var(--pencil)}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+.back{padding:clamp(80px,12vh,150px) 0;background:linear-gradient(to bottom,var(--paper2),var(--paper))}
+.back-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:center}
+.photo{position:relative;transform:rotate(-1.6deg);box-shadow:0 26px 60px rgba(60,48,30,.22);background:#fff;padding:10px 10px 42px}
+.photo img{width:100%;height:auto;filter:saturate(.92) contrast(1.02)}
+.photo figcaption{position:absolute;left:16px;right:16px;bottom:12px;font-family:Caveat,cursive;font-size:19px;color:var(--pencil)}
+.back h2{font-family:Literata,serif;font-weight:300;font-size:clamp(26px,3.6vw,44px);line-height:1.15;margin-bottom:18px;text-wrap:balance}
+.back p{color:var(--pencil);max-width:52ch}
+.back p+p{margin-top:14px}
+.note{margin-top:22px;padding-left:16px;border-left:2px solid var(--seal);font-family:Caveat,cursive;font-size:clamp(20px,2.2vw,26px);color:var(--ink);line-height:1.35}
+
+.close{padding:clamp(78px,12vh,140px) 0 clamp(60px,9vh,110px);text-align:center;
+  background:radial-gradient(70vmax 40vmax at 50% 0%,rgba(138,58,43,.09),transparent 70%)}
+.close h2{font-family:Literata,serif;font-weight:300;font-size:clamp(28px,4.4vw,54px);line-height:1.14;max-width:20ch;margin:0 auto;text-wrap:balance}
+.close p{margin:18px auto 0;max-width:46ch;color:var(--pencil)}
+.close .actions{justify-content:center}
+
+footer{padding:30px 0 52px;border-top:1px solid rgba(111,103,87,.26);font-size:13px;color:var(--pencil);display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between}
+footer a{color:inherit}
+
+@media (max-width:820px){.back-grid{grid-template-columns:1fr;gap:34px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.underline path{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+
+<header class="sheet">
+  <div class="sweep" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="letterhead reveal">
+      <span class="brand">SaveMyHistory</span>
+      <span class="date">писано рукой, хранимо бумагой</span>
+    </div>
+
+    <h1 class="reveal">Самое важное часто написано
+      <span class="hand">на обороте фотографии</span>
+    </h1>
+
+    <svg class="underline" viewBox="0 0 420 26" aria-hidden="true">
+      <path d="M4 18C60 6 108 22 158 14c46-7 78-12 122-4 34 6 78 10 136 2"></path>
+    </svg>
+
+    <p class="support reveal">Мы бережно восстанавливаем семейные фотографии и сохраняем надпись на их обороте — чернила, карандаш, дату, чьё-то имя. Лицо остаётся тем же лицом.</p>
+
+    <div class="actions reveal">
+      <a class="cta" href="/waitlist.html">Оставить место в листе ожидания</a>
+      <span class="status">Приём открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+</header>
+
+<main class="back">
+  <div class="wrap back-grid">
+    <figure class="photo reveal">
+      <img src="/assets/catcheye-o2-pismo/g2-before-2bff4a865021.jpg" alt="Старая чёрно-белая фотография: три молодые женщины на улице" width="1000" height="1468" loading="lazy">
+      <figcaption>без подписи — и уже некого спросить</figcaption>
+    </figure>
+
+    <div class="reveal">
+      <h2>Пока есть кого спросить</h2>
+      <p>Почти в каждом альбоме есть снимок, о котором уже некому рассказать. Лицо есть — имени нет.</p>
+      <p>Поэтому мы просим приносить фотографии вместе с тем, что вы помните: год, город, кто с краю. Надпись на обороте — часть снимка, и мы её не стираем.</p>
+      <p class="note">Глаза не дорисовываем. Если взгляд ушёл в зерно, пусть останется мягким.</p>
+    </div>
+  </div>
+</main>
+
+<section class="close">
+  <div class="wrap">
+    <h2 class="reveal">Напишите нам одну строку — дальше наша работа</h2>
+    <p class="reveal">Лист ожидания и кабинет работают. Готовые работы мы пока не выдаём — сначала качество, потом обещания.</p>
+    <div class="actions reveal">
+      <a class="cta" href="/waitlist.html">Занять место</a>
+      <a class="cta ghost" href="/waitlist.html">Просто оставить почту</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · фотографии и то, что написано на их обороте</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add('in')}, i*120); io.unobserve(e.target);} });
+  },{threshold:.22,rootMargin:'0px 0px -8%'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+  var photo=document.querySelector('.photo'), t=false;
+  if(photo && matchMedia('(min-width:821px)').matches){
+    addEventListener('scroll',function(){
+      if(t) return; t=true;
+      requestAnimationFrame(function(){
+        var r=photo.getBoundingClientRect(), p=1-(r.top/innerHeight);
+        if(p>0 && p<2) photo.style.transform='rotate('+(-1.6+p*1.1).toFixed(2)+'deg) translateY('+(-p*10).toFixed(1)+'px)';
+        t=false;
+      });
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>

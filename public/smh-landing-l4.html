@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l4" data-smh-landing-wave="20260813">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Тот же взгляд · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий без выдуманных глаз.">
+<!-- SMH_LANDING_SEVEN_MOCKUPS wave 20260813 · axis L4 Взгляд · assets reused /assets/catcheye-o2-pismo · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#f4f3f0;--ink:#14161a;--grey:#6c7076;--line:rgba(20,22,26,.16);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--page);color:var(--ink);font-family:Jost,sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+.wrap{width:min(1280px,92vw);margin:0 auto}
+
+.hero{min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);align-items:stretch}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:clamp(72px,10vh,120px) clamp(24px,4vw,64px) clamp(48px,7vh,90px) max(24px,calc((100vw - 1280px)/2 + 4vw))}
+.brand{font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(15px,1.5vw,18px);letter-spacing:.36em;text-transform:uppercase;margin-bottom:clamp(26px,5vh,44px)}
+h1{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(38px,5.6vw,78px);line-height:1.02;letter-spacing:-.018em;max-width:13ch;text-wrap:balance}
+h1 em{font-style:italic}
+.rule{height:1px;background:var(--line);margin:clamp(24px,4vh,38px) 0;transform-origin:left;transform:scaleX(0);animation:rule 1.6s var(--ease) .35s forwards}
+@keyframes rule{to{transform:scaleX(1)}}
+.support{max-width:42ch;color:var(--grey);font-size:clamp(15px,1.45vw,18px)}
+.actions{margin-top:clamp(26px,4vh,40px);display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+.cta{display:inline-flex;align-items:center;gap:12px;padding:15px 30px;background:var(--ink);color:var(--page);text-decoration:none;font-size:14.5px;letter-spacing:.06em;text-transform:uppercase;transition:.35s var(--ease)}
+.cta:hover{transform:translateY(-2px);background:#000}
+.status{font-size:13px;color:var(--grey);letter-spacing:.04em}
+
+.hero-right{position:relative;overflow:hidden;background:#e7e5e1}
+.hero-right img{width:100%;height:100%;object-fit:cover;object-position:52% 30%;filter:grayscale(1) contrast(1.04);
+  transform:scale(1.06);animation:settle 3.4s var(--ease) .2s both}
+@keyframes settle{from{transform:scale(1.14);filter:grayscale(1) contrast(.9) brightness(1.06)}to{transform:scale(1.06);filter:grayscale(1) contrast(1.04)}}
+.scanline{position:absolute;left:0;right:0;height:22vh;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.16),transparent);animation:scan 11s ease-in-out infinite}
+@keyframes scan{0%{transform:translateY(-24vh)}100%{transform:translateY(110vh)}}
+.credit{position:absolute;left:0;bottom:0;right:0;padding:16px 20px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#fff;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent)}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+.creed{padding:clamp(88px,14vh,170px) 0}
+.creed h2{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(26px,3.8vw,46px);line-height:1.14;max-width:20ch;margin-bottom:clamp(38px,6vh,64px);text-wrap:balance}
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,4vw,56px);padding:clamp(24px,4vh,36px) 0;border-bottom:1px solid var(--line);align-items:baseline}
+.row .k{font-family:'Bodoni Moda',serif;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--grey);min-width:6ch}
+.row h3{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(19px,2.1vw,25px);margin-bottom:6px}
+.row p{color:var(--grey);max-width:58ch;font-size:clamp(14.5px,1.4vw,16.5px)}
+
+.pair{padding:0 0 clamp(80px,12vh,150px)}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}
+.pair figure{position:relative;margin:0;background:var(--page)}
+.pair img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1)}
+.pair figcaption{padding:12px 4px;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+.pair .cap{margin-top:20px;font-size:13.5px;color:var(--grey);max-width:60ch}
+
+.close{padding:clamp(70px,11vh,130px) 0 clamp(64px,9vh,110px);border-top:1px solid var(--line)}
+.close h2{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,4.4vw,56px);line-height:1.1;max-width:18ch;text-wrap:balance}
+.close p{margin-top:16px;max-width:46ch;color:var(--grey)}
+
+footer{padding:26px 0 50px;font-size:12.5px;color:var(--grey);display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between;letter-spacing:.04em;border-top:1px solid var(--line)}
+footer a{color:inherit}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{order:2;padding:clamp(44px,7vh,70px) 4vw clamp(50px,8vh,80px)}
+  .hero-right{order:1;height:62svh}
+  .row{grid-template-columns:1fr;gap:6px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.rule{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-left">
+    <div class="brand">SaveMyHistory</div>
+    <h1>Тот же взгляд.<br><em>Ни одного</em> чужого.</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="support">Мы бережно восстанавливаем семейные фотографии и никогда не дорисовываем глаза. Где взгляд ушёл в зерно — там останется мягкость.</p>
+    <div class="actions">
+      <a class="cta" href="/waitlist.html">Лист ожидания</a>
+      <span class="status">Приём открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img src="/assets/catcheye-o2-pismo/g2-before-2bff4a865021.jpg" alt="Архивная чёрно-белая фотография: три молодые женщины" width="1000" height="1468">
+    <div class="scanline" aria-hidden="true"></div>
+    <div class="credit">Семейный архив · снимок показан без обработки</div>
+  </div>
+</header>
+
+<main class="creed">
+  <div class="wrap">
+    <h2 class="reveal">Четыре правила, которые мы не нарушаем</h2>
+    <div class="rows">
+      <section class="row reveal">
+        <span class="k">01</span>
+        <div>
+          <h3>Глаза не рисуются</h3>
+          <p>Если зрачков нет на бумаге — их не будет и на результате. Мягкий взгляд честнее придуманной резкости.</p>
+        </div>
+      </section>
+      <section class="row reveal">
+        <span class="k">02</span>
+        <div>
+          <h3>Черты лица не двигаются</h3>
+          <p>Не сужаем нос, не выравниваем улыбку, не омолаживаем кожу. Человек должен остаться узнаваемым тем, кто его любил.</p>
+        </div>
+      </section>
+      <section class="row reveal">
+        <span class="k">03</span>
+        <div>
+          <h3>Зерно остаётся зерном</h3>
+          <p>Плёнка и бумага — часть истории снимка. Полированное до пластика фото перестаёт быть семейным.</p>
+        </div>
+      </section>
+      <section class="row reveal">
+        <span class="k">04</span>
+        <div>
+          <h3>Нет — значит нет</h3>
+          <p>Если снимок разрушен так, что честно его не вернуть, мы скажем об этом прямо, а не пришлём красивую подделку.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<section class="pair">
+  <div class="wrap reveal">
+    <div class="pair-grid">
+      <figure><img src="/assets/catcheye-smh-story/hero_before-a6a12814fb31.jpg" alt="Семейный групповой снимок до работы" width="1200" height="800" loading="lazy"></figure>
+      <figure><img src="/assets/catcheye-smh-story/hero_after-fd504d0be3b3.jpg" alt="Тот же снимок после бережной работы с бумагой" width="1200" height="800" loading="lazy"></figure>
+    </div>
+    <p class="cap">Оба кадра показаны в чёрно-белом и без обещаний в процентах. Это один и тот же снимок и одни и те же лица — меняется только состояние бумаги.</p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <h2 class="reveal">Если вам важно, чтобы лицо осталось своим</h2>
+    <p class="reveal">Вход и кабинет работают, выдачу держим на паузе. Оставьте место — напишем, когда откроем.</p>
+    <div class="actions reveal"><a class="cta" href="/waitlist.html">Занять место</a></div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · без выдуманных глаз</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add('in')}, i*100); io.unobserve(e.target);} });
+  },{threshold:.2,rootMargin:'0px 0px -8%'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>
