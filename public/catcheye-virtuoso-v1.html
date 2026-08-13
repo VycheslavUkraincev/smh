@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru" data-awwwards-virtuoso-v1="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Save My History — Лампа над альбомом</title>
+<meta name="description" content="Тихая комната. Тёплый свет. Открытый альбом. Хранитель бережёт взгляд — не изобретает глаза.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1915;--paper:#E8E2D8;--mute:#6E665C;--amber:#B07A3A;--amber-soft:#E2B87A;
+  --night:#0c0a07;--night-ink:#f3ead8;--gold:#e7b765;--ease:cubic-bezier(.22,.61,.36,1);
+  --hero-p:0;--glow:0.35;--album:0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Manrope,sans-serif;background:var(--night);color:var(--night-ink);overflow-x:hidden;font-weight:400;line-height:1.55}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.thread{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold));width:0;z-index:100;transform-origin:left}
+
+/* HERO — lamp owns the plane */
+.hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-end;overflow:hidden}
+.hero__media{position:absolute;inset:0;z-index:0;background:#2A2218}
+.hero__media video,.hero__media img{
+  width:100%;height:100%;object-fit:cover;object-position:center 40%;
+  transform:translate3d(0,calc(var(--hero-p)*14px),0) scale(1.03);
+  will-change:transform;
+}
+.hero__media video{position:absolute;inset:0}
+.hero__media img{position:relative;z-index:1}
+.hero__media.is-live img{opacity:0;transition:opacity 1.1s var(--ease)}
+.hero__veil{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(48% 42% at 52% 34%,rgba(226,184,122,calc(.18+var(--glow)*.2)),transparent 72%),
+    linear-gradient(180deg,rgba(12,10,7,.08) 0%,rgba(12,10,7,.35) 48%,rgba(12,10,7,.86) 100%);
+}
+.hero__grain{
+  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E");
+  background-size:160px;
+}
+.hero__copy{position:relative;z-index:5;width:min(680px,92vw);margin:0 auto;padding:0 4vw 13vh;text-align:center}
+.brand{
+  font-family:\'Cormorant Garamond\',serif;font-weight:500;font-size:clamp(1.3rem,3vw,1.75rem);
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(243,238,230,.38);
+  opacity:0;animation:fadeUp 1.1s var(--ease) .5s forwards;
+}
+.brand .mark{color:var(--amber-soft)}
+.hero h1{
+  font-family:\'Cormorant Garamond\',serif;font-weight:500;
+  font-size:clamp(2.05rem,5.4vw,3.55rem);line-height:1.06;margin-top:16px;
+  color:rgba(251,244,230,.95);text-shadow:0 6px 48px rgba(0,0,0,.5);
+  opacity:0;animation:fadeUp 1s var(--ease) .78s forwards;
+}
+.hero__lead{
+  margin:16px auto 0;max-width:34ch;font-size:clamp(15px,1.8vw,18px);font-weight:300;
+  color:rgba(236,223,200,.8);opacity:0;animation:fadeUp .95s var(--ease) 1.12s forwards;
+}
+.hero__cta{
+  margin-top:28px;display:flex;flex-wrap:wrap;gap:14px 22px;justify-content:center;align-items:center;
+  opacity:0;animation:fadeUp .9s var(--ease) 1.5s forwards;
+}
+.cta{
+  display:inline-flex;padding:14px 26px;border-radius:8px;text-decoration:none;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  background:var(--gold);color:var(--night);transition:transform .25s var(--ease),background .25s;
+}
+.cta:hover{transform:translateY(-2px);background:var(--amber-soft)}
+.cta-quiet{
+  font-size:13px;color:rgba(236,223,200,.68);text-decoration:none;
+  border-bottom:1px solid rgba(231,183,101,.32);padding-bottom:2px;
+}
+.cta-quiet:hover{color:var(--gold);border-color:var(--gold)}
+.scrollcue{
+  position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:5;
+  width:1px;height:26px;background:linear-gradient(180deg,rgba(226,184,122,.05),rgba(226,184,122,.7));
+  opacity:0;animation:fadeUp .9s var(--ease) 2s forwards;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Album room */
+.room{
+  position:relative;padding:16vh 6vw 12vh;
+  background:linear-gradient(180deg,#120e0b,#0f0c09);
+}
+.room::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:url("/assets/virtuoso-v1/paper-dust-b8ae8346.jpg") center/cover no-repeat;
+  opacity:.1;mix-blend-mode:soft-light;
+}
+.wrap{width:min(980px,100%);margin:0 auto;position:relative;z-index:1}
+.kick{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+h2{
+  font-family:\'Cormorant Garamond\',serif;font-weight:500;
+  font-size:clamp(1.75rem,4vw,2.9rem);line-height:1.08;
+}
+h2 em{font-style:italic;color:var(--gold)}
+.lead{margin-top:16px;max-width:40ch;font-size:clamp(15px,1.7vw,17px);font-weight:300;color:#cbbca3;line-height:1.65}
+.r{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.r.in{opacity:1;transform:none}
+
+.album{
+  margin:40px auto 0;width:min(420px,86vw);aspect-ratio:5/4;position:relative;
+  transform:perspective(900px) rotateX(calc(8deg - var(--album)*8deg)) scale(calc(.92 + var(--album)*.08));
+  transform-origin:center bottom;transition:transform .2s linear;
+}
+.album__frame{
+  position:absolute;inset:0;border-radius:3px;
+  background:linear-gradient(160deg,#2a2218,#1a1510);
+  border:1px solid rgba(231,183,101,.22);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.75),0 0 0 10px rgba(26,21,16,.55);
+  overflow:hidden;
+}
+.album__frame img{width:100%;height:100%;object-fit:cover;object-position:center 20%;opacity:.92}
+.album__hinge{
+  position:absolute;left:-2px;top:12%;bottom:12%;width:4px;border-radius:2px;
+  background:linear-gradient(180deg,rgba(231,183,101,.15),rgba(231,183,101,.55),rgba(231,183,101,.15));
+}
+
+/* Gaze once */
+.gaze{
+  padding:14vh 6vw;background:#0c0a07;
+  display:grid;gap:clamp(28px,5vw,56px);align-items:center;
+}
+@media(min-width:860px){.gaze{grid-template-columns:.95fr 1.05fr;width:min(1080px,92vw);margin:0 auto;padding-left:0;padding-right:0}}
+.gaze__mat{
+  position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:2px;
+  border:1px solid rgba(231,183,101,.18);background:#1a1510;
+}
+.gaze__mat img{width:100%;height:100%;object-fit:cover;object-position:center 18%;position:absolute;inset:0}
+.gaze__mat .before{opacity:1;transition:opacity .75s var(--ease)}
+.gaze__mat.is-after .before{opacity:0}
+.gaze__cap{
+  position:absolute;left:10px;bottom:10px;z-index:2;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:#f1e9da;background:rgba(12,10,7,.55);padding:4px 8px;
+}
+.gaze__toggle{
+  margin-top:18px;display:inline-flex;padding:10px 16px;border-radius:6px;
+  border:1px solid rgba(231,183,101,.35);background:transparent;color:var(--night-ink);
+  font:inherit;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+}
+.gaze__toggle[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+.mantra{
+  margin-top:22px;font-family:\'Cormorant Garamond\',serif;font-style:italic;
+  font-size:clamp(18px,2.3vw,24px);color:rgba(243,238,230,.88);max-width:28ch;
+}
+.note{margin-top:12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+
+.invite{
+  text-align:center;padding:18vh 6vw 14vh;
+  background:linear-gradient(180deg,#120e0b,#0c0a07);
+}
+.invite h2{font-family:\'Cormorant Garamond\',serif;font-weight:500;font-size:clamp(1.85rem,3.8vw,2.85rem)}
+.invite-breath{margin:16px auto 0;max-width:34ch;color:#b8a892;font-weight:300}
+.cta-row{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
+.invite-soft{
+  display:inline-flex;padding:14px 24px;border:1px solid rgba(231,183,101,.38);border-radius:8px;
+  text-decoration:none;letter-spacing:.06em;font-size:14px;transition:.25s;
+}
+.invite-soft:hover{border-color:var(--gold);color:var(--gold)}
+footer{
+  text-align:center;padding:48px 24px 56px;border-top:1px solid rgba(231,183,101,.12);
+  font-size:12px;color:var(--mute);
+}
+footer .m{font-family:\'Cormorant Garamond\',serif;font-style:italic;margin-bottom:12px}
+footer a{color:var(--mute);text-decoration:none;margin:0 10px}footer a:hover{color:var(--gold)}
+@media (prefers-reduced-motion:reduce){
+  .hero__media video,.hero__media img{transform:none!important}
+  .r,.brand,.hero h1,.hero__lead,.hero__cta,.scrollcue{opacity:1!important;transform:none!important;animation:none!important}
+}
+</style>
+</head>
+<body data-awwwards-virtuoso-v1="1" data-invent-eyes="N" data-cold-path-b="1">
+<div class="thread" id="thread" aria-hidden="true"></div>
+
+<header class="hero" id="top">
+  <div class="hero__media" id="hero-media" aria-hidden="true">
+    <video id="hero-video" muted loop playsinline preload="metadata" poster="/assets/virtuoso-v1/lamp-desk-hero-poster-6910f31a.jpg">
+      <source src="/assets/virtuoso-v1/lamp-desk-mood-37f3b237.mp4" type="video/mp4">
+    </video>
+    <img id="hero-still" src="/assets/virtuoso-v1/lamp-desk-hero-62f80a99.jpg" alt="" width="1920" height="1080" decoding="async">
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+  <div class="hero__copy">
+    <p class="brand">Save<span class="mark">My</span>History</p>
+    <h1>Лампа над альбомом.</h1>
+    <p class="hero__lead">Тихая комната. Тёплый свет. Открытый альбом — и место для хранителя.</p>
+    <div class="hero__cta">
+      <a class="cta" href="/waitlist.html">Оставить место у лампы</a>
+      <a class="cta-quiet" href="#gaze">Как мы бережём взгляд</a>
+    </div>
+  </div>
+  <div class="scrollcue" aria-hidden="true"></div>
+</header>
+
+<section class="room" id="room" aria-labelledby="room-title">
+  <div class="wrap">
+    <div class="kick r">Комната хранителя</div>
+    <h2 class="r" id="room-title">Комната, где хранитель<br>наконец <em>начинает.</em></h2>
+    <p class="lead r">Не спеша. Не ради эффекта. Просто открыть альбом и дать свету коснуться лица, которое ещё помнит бумагу.</p>
+    <div class="album r" id="album" aria-hidden="true">
+      <div class="album__frame">
+        <img src="/assets/virtuoso-v1/gaze-after-0a7f86ce.jpg" alt="" width="900" height="720" loading="lazy">
+      </div>
+      <div class="album__hinge"></div>
+    </div>
+  </div>
+</section>
+
+<section class="gaze" id="gaze" aria-labelledby="gaze-title">
+  <div>
+    <div class="kick r">Честный взгляд</div>
+    <h2 class="r" id="gaze-title">Мы не изобретаем <em>глаза.</em></h2>
+    <p class="lead r">Где бумага ещё держит лицо — бережно проявляем. Где память ушла — не подменяем выдумкой. Лицо важнее эффекта.</p>
+    <p class="mantra r">Свидетель · взгляд</p>
+    <p class="note r">Одно лицо из архива · invent_eyes=N · case_o95</p>
+    <button type="button" class="gaze__toggle r" id="gaze-toggle" aria-pressed="false">Было / Стало</button>
+  </div>
+  <figure class="gaze__mat r" id="gaze-mat" data-invent-eyes="N">
+    <img class="after" src="/assets/virtuoso-v1/gaze-after-0a7f86ce.jpg" alt="Сбережённое семейное фото" width="900" height="1200" loading="lazy">
+    <img class="before" src="/assets/virtuoso-v1/gaze-before-75616329.jpg" alt="Семейное фото до бережного проявления" width="900" height="1200" loading="lazy">
+    <span class="gaze__cap" id="gaze-cap">Было</span>
+  </figure>
+</section>
+
+<section class="invite" id="invite" data-cold-path-b="1">
+  <div class="kick r">Тихий лист</div>
+  <h2 class="r">Когда придёт код — войдёте тихо.</h2>
+  <p class="invite-breath r">Свет над альбомом никуда не торопит. Оставьте место — хранитель напишет.</p>
+  <div class="cta-row r">
+    <a class="cta" href="/waitlist.html">Оставить место для рода</a>
+    <a class="invite-soft" href="/waitlist.html">Пока — тихий лист ожидания</a>
+  </div>
+</section>
+
+<footer>
+  <div class="m">Save My History · лампа · тишина · взгляд</div>
+  <div><a href="/waitlist.html">Лист ожидания</a><a href="/">На главную</a></div>
+  <div style="margin-top:16px;opacity:.7">© 2026 Save My History · virtuoso v1 · invent_eyes=N · NOT_CLAIMED</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var thread=document.getElementById(\'thread\');
+  var hero=document.getElementById(\'top\');
+  var heroMedia=document.getElementById(\'hero-media\');
+  var heroVideo=document.getElementById(\'hero-video\');
+  var album=document.getElementById(\'album\');
+  var gazeMat=document.getElementById(\'gaze-mat\');
+  var gazeToggle=document.getElementById(\'gaze-toggle\');
+  var gazeCap=document.getElementById(\'gaze-cap\');
+  var reduce=window.matchMedia(\'(prefers-reduced-motion: reduce)\').matches;
+  function clamp(n){return Math.max(0,Math.min(1,n))}
+  function reveal(){
+    document.querySelectorAll(\'.r\').forEach(function(el){
+      if(el.getBoundingClientRect().top < innerHeight*0.88) el.classList.add(\'in\');
+    });
+  }
+  function onScroll(){
+    var max=Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    var p=clamp(scrollY/max);
+    if(thread) thread.style.width=(p*100)+\'%\';
+    if(hero){
+      var hr=hero.getBoundingClientRect();
+      root.style.setProperty(\'--hero-p\', String(clamp(1 - hr.bottom/innerHeight)*0.9));
+      root.style.setProperty(\'--glow\', String(0.3 + clamp(scrollY/(innerHeight*0.5))*0.35));
+    }
+    if(album){
+      var ar=album.getBoundingClientRect();
+      var ap=clamp(1 - ar.top/(innerHeight*0.85));
+      root.style.setProperty(\'--album\', String(ap));
+    }
+    reveal();
+  }
+  if(gazeToggle && gazeMat){
+    gazeToggle.addEventListener(\'click\', function(){
+      var on=gazeToggle.getAttribute(\'aria-pressed\')===\'true\';
+      gazeToggle.setAttribute(\'aria-pressed\', on ? \'false\' : \'true\');
+      gazeMat.classList.toggle(\'is-after\', !on);
+      if(gazeCap) gazeCap.textContent = on ? \'Было\' : \'Стало\';
+    });
+  }
+  function tryPlay(){
+    if(!heroVideo || reduce) return;
+    var p=heroVideo.play();
+    if(p && p.then) p.then(function(){ if(heroMedia) heroMedia.classList.add(\'is-live\'); }).catch(function(){});
+  }
+  window.addEventListener(\'scroll\', onScroll, {passive:true});
+  window.addEventListener(\'resize\', onScroll);
+  onScroll(); tryPlay();
+  document.addEventListener(\'visibilitychange\', function(){ if(!document.hidden) tryPlay(); });
+})();
+</script>
+</body>
+</html>
