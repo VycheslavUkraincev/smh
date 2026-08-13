@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru" data-awwwards-virtuoso-v14="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Save My History — Окно на рассвете</title>
+<meta name="description" content="Мягкий утренний свет в окне. Рассвет для бумаги рода. Мы не изобретаем глаза.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{--mute:#8a7a5f;--amber-soft:#e2b87a;--night:#0c0a07;--night-ink:#f3ead8;--gold:#e7b765;--ease:cubic-bezier(.22,.61,.36,1);--hero-p:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Manrope,sans-serif;background:var(--night);color:var(--night-ink);overflow-x:hidden;font-weight:400;line-height:1.55}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.thread{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold));width:0;z-index:100}
+.brand{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(1.15rem,2.7vw,1.55rem);letter-spacing:.2em;text-transform:uppercase;color:rgba(243,238,230,.4);opacity:0;animation:fadeUp 1.1s var(--ease) .3s forwards}
+.brand .mark{color:var(--amber-soft)}
+.cta{display:inline-flex;padding:14px 28px;border-radius:8px;text-decoration:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;background:var(--gold);color:var(--night);transition:transform .25s var(--ease),background .25s}
+.cta:hover{transform:translateY(-2px);background:var(--amber-soft)}
+.cta-quiet{font-size:13px;color:rgba(236,223,200,.68);text-decoration:none;border-bottom:1px solid rgba(231,183,101,.32);padding-bottom:2px}
+.cta-quiet:hover{color:var(--gold);border-color:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.kick{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.12}
+h2 em{font-style:italic;color:var(--gold)}
+.lead{margin-top:16px;max-width:40ch;font-size:clamp(15px,1.7vw,17px);font-weight:300;color:#cbbca3;line-height:1.65}
+.r{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.r.in{opacity:1;transform:none}
+.mantra{margin-top:22px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.3vw,24px);color:rgba(243,238,230,.88);max-width:28ch}
+.note{margin-top:12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.invite{text-align:center;padding:16vh 6vw 14vh;background:linear-gradient(180deg,#120e0b,#0c0a07)}
+.invite h2{font-size:clamp(1.8rem,3.6vw,2.7rem)}
+.invite-breath{margin:16px auto 0;max-width:34ch;color:#b8a892;font-weight:300}
+.cta-row{margin-top:26px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
+.invite-soft{display:inline-flex;padding:14px 24px;border:1px solid rgba(231,183,101,.38);border-radius:8px;text-decoration:none;letter-spacing:.06em;font-size:14px;transition:.25s}
+.invite-soft:hover{border-color:var(--gold);color:var(--gold)}
+footer{text-align:center;padding:48px 24px 56px;border-top:1px solid rgba(231,183,101,.12);font-size:12px;color:var(--mute)}
+footer .m{font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:12px}
+footer a{color:var(--mute);text-decoration:none;margin:0 10px}footer a:hover{color:var(--gold)}
+
+.gaze{padding:14vh 6vw;background:#0c0a07;display:grid;gap:clamp(28px,5vw,56px);align-items:center}
+@media(min-width:860px){.gaze{grid-template-columns:.95fr 1.05fr;width:min(1080px,92vw);margin:0 auto;padding-left:0;padding-right:0}}
+.gaze__mat{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:2px;border:1px solid rgba(231,183,101,.18);background:#1a1510}
+.gaze__mat img{width:100%;height:100%;object-fit:cover;object-position:center 18%;position:absolute;inset:0}
+.gaze__mat .before{opacity:1;transition:opacity .75s var(--ease)}
+.gaze__mat.is-after .before{opacity:0}
+.gaze__cap{position:absolute;left:10px;bottom:10px;z-index:2;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#f1e9da;background:rgba(12,10,7,.55);padding:4px 8px}
+.gaze__toggle{margin-top:18px;display:inline-flex;padding:10px 16px;border-radius:6px;border:1px solid rgba(231,183,101,.35);background:transparent;color:var(--night-ink);font:inherit;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.gaze__toggle[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+
+.hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-end;overflow:hidden}
+.hero__media{position:absolute;inset:0;z-index:0;background:#1a120a}
+.hero__media img{width:100%;height:100%;object-fit:cover;object-position:center 35%;transform:translate3d(0,calc(var(--hero-p)*-12px),0) scale(1.05);filter:saturate(.95) brightness(1.02)}
+.hero__veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(255,214,160,.08) 0%,rgba(12,10,7,.25) 45%,rgba(12,10,7,.88) 100%),radial-gradient(50% 40% at 60% 30%,rgba(231,183,101,.18),transparent 70%)}
+.hero__copy{position:relative;z-index:5;width:min(700px,92vw);margin:0 auto;padding:0 4vw 13vh;text-align:center}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.15rem,5.6vw,3.7rem);line-height:1.06;margin-top:16px;opacity:0;animation:fadeUp 1s var(--ease) .7s forwards}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero__lead{margin:16px auto 0;max-width:34ch;font-size:clamp(15px,1.8vw,18px);font-weight:300;color:rgba(236,223,200,.82);opacity:0;animation:fadeUp .95s var(--ease) 1.1s forwards}
+.hero__cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px 22px;justify-content:center;opacity:0;animation:fadeUp .9s var(--ease) 1.45s forwards}
+.dawn{padding:14vh 6vw;background:linear-gradient(180deg,#14100b,#0c0a07);text-align:center}
+.dawn .wrap{width:min(640px,100%);margin:0 auto}
+@media(prefers-reduced-motion:reduce){.hero__media img{transform:none!important}.r,.brand,.hero h1,.hero__lead,.hero__cta{opacity:1!important;animation:none!important}}
+
+</style>
+</head>
+<body data-awwwards-virtuoso-v14="1" data-invent-eyes="N" data-cold-path-b="1">
+<div class="thread" id="thread" aria-hidden="true"></div>
+<header class="hero" id="top">
+  <div class="hero__media" aria-hidden="true">
+    <img src="/assets/virtuoso-v14/window-dust-e3a1061452ca.jpg" alt="" width="1920" height="1280" decoding="async">
+  </div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__copy">
+    <p class="brand">Save<span class="mark">My</span>History</p>
+    <h1>Окно на <em>рассвете.</em></h1>
+    <p class="hero__lead">Мягкий утренний свет. Пыль в воздухе. Бумага, которая ещё может встретить день.</p>
+    <div class="hero__cta">
+      <a class="cta" href="/waitlist.html">Оставить место у окна</a>
+      <a class="cta-quiet" href="#gaze">Как мы бережём взгляд</a>
+    </div>
+  </div>
+</header>
+<section class="dawn">
+  <div class="wrap">
+    <div class="kick r">Dawn window</div>
+    <h2 class="r">Утро не торопит лицо.<br>Оно его <em>встречает.</em></h2>
+    <p class="lead r" style="margin-left:auto;margin-right:auto">Рассвет здесь — не фильтр. Это мягкий свет на бумаге рода.</p>
+  </div>
+</section>
+<section class="gaze" id="gaze" aria-labelledby="gaze-title">
+  <div>
+    <div class="kick r">Честный взгляд</div>
+    <h2 class="r" id="gaze-title">Мы не изобретаем <em>глаза.</em></h2>
+    <p class="lead r">Где бумага ещё держит лицо — бережно проявляем. Где память ушла — не подменяем выдумкой.</p>
+    <p class="mantra r">Свидетель · взгляд</p>
+    <p class="note r">invent_eyes=N · рассвет</p>
+    <button type="button" class="gaze__toggle r" id="gaze-toggle" aria-pressed="false">Было / Стало</button>
+  </div>
+  <figure class="gaze__mat r" id="gaze-mat" data-invent-eyes="N">
+    <img class="after" src="/assets/virtuoso-v14/g1-after-1f50111ea5cf.jpg" alt="Сбережённое семейное фото" width="900" height="1200" loading="lazy">
+    <img class="before" src="/assets/virtuoso-v14/g1-before-35bb3a61b52f.jpg" alt="Семейное фото до бережного проявления" width="900" height="1200" loading="lazy">
+    <span class="gaze__cap" id="gaze-cap">Было</span>
+  </figure>
+</section><section class="invite" id="invite" data-cold-path-b="1">
+  <div class="kick r">Тихий лист</div>
+  <h2 class="r">Когда придёт код — войдёте с рассветом.</h2>
+  <p class="invite-breath r">Оставьте место. Хранитель напишет.</p>
+  <div class="cta-row r">
+    <a class="cta" href="/waitlist.html">Оставить место для рода</a>
+    <a class="invite-soft" href="/waitlist.html">Пока — тихий лист ожидания</a>
+  </div>
+</section>
+<footer>
+  <div class="m">Save My History · окно · рассвет · пыль</div>
+  <div><a href="/waitlist.html">Лист ожидания</a><a href="/">На главную</a></div>
+  <div style="margin-top:16px;opacity:.7">© 2026 Save My History · virtuoso v14 · invent_eyes=N · NOT_CLAIMED</div>
+</footer>
+<script>
+var customScroll=null;function afterInit(){}
+(function(){
+  var thread=document.getElementById('thread');
+  var root=document.documentElement;
+  var hero=document.getElementById('top');
+  var gazeMat=document.getElementById('gaze-mat');
+  var gazeToggle=document.getElementById('gaze-toggle');
+  var gazeCap=document.getElementById('gaze-cap');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clamp(n){return Math.max(0,Math.min(1,n))}
+  function reveal(){document.querySelectorAll('.r').forEach(function(el){if(el.getBoundingClientRect().top<innerHeight*0.88)el.classList.add('in');});}
+  function onScroll(){
+    var max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+    var p=clamp(scrollY/max);
+    if(thread) thread.style.width=(p*100)+'%';
+    if(hero){var hr=hero.getBoundingClientRect();root.style.setProperty('--hero-p',String(clamp(1-hr.bottom/innerHeight)));}
+    if(typeof customScroll==='function') customScroll(clamp);
+    reveal();
+  }
+  if(gazeToggle&&gazeMat){
+    gazeToggle.addEventListener('click',function(){
+      var on=gazeToggle.getAttribute('aria-pressed')==='true';
+      gazeToggle.setAttribute('aria-pressed',on?'false':'true');
+      gazeMat.classList.toggle('is-after',!on);
+      if(gazeCap) gazeCap.textContent=on?'Было':'Стало';
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+  if(typeof afterInit==='function') afterInit(reduce);
+})();
+
+</script>
+</body>
+</html>
