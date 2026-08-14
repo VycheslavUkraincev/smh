@@ -253,6 +253,8 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
   --tile:#FCF9F5;
   --glow:rgba(190,146,96,.18);
   --seat:rgba(138,106,83,.34);
+  --lamp:rgba(214,168,110,.20);
+  --rail:rgba(232,222,209,.34);
   --r-lg:18px;
   --lift:0 1px 1px rgba(64,46,34,.05), 0 12px 30px -14px rgba(64,46,34,.30);
 }
@@ -260,6 +262,8 @@ body.is-dark{
   --tile:#2A2321;
   --glow:rgba(198,161,132,.10);
   --seat:rgba(198,161,132,.34);
+  --lamp:rgba(198,161,132,.12);
+  --rail:rgba(198,161,132,.10);
   --lift:0 1px 1px rgba(0,0,0,.28), 0 12px 30px -14px rgba(0,0,0,.55);
 }
 
@@ -311,13 +315,13 @@ body.is-dark .auth-bar{background-image:linear-gradient(180deg, rgba(198,161,132
 
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .app .card,.app .head,.app .auth-bar{animation:rise .55s cubic-bezier(.2,.7,.3,1) both}
-#game .card:nth-of-type(2){animation-delay:.05s}
-#game .card:nth-of-type(3){animation-delay:.10s}
-#game .card:nth-of-type(4){animation-delay:.15s}
-#game .card:nth-of-type(5){animation-delay:.20s}
-#game .card:nth-of-type(6){animation-delay:.25s}
-#game .card:nth-of-type(7){animation-delay:.30s}
-#game .card:nth-of-type(8){animation-delay:.35s}
+.zone-rail > .card:nth-child(1){animation-delay:.05s}
+.zone-rail > .card:nth-child(2){animation-delay:.10s}
+.zone-main > .card:nth-child(1){animation-delay:.10s}
+.zone-main > .card:nth-child(2){animation-delay:.15s}
+.zone-main > .card:nth-child(3){animation-delay:.20s}
+.zone-main > .card:nth-child(4){animation-delay:.25s}
+.zone-main > .card:nth-child(5){animation-delay:.30s}
 
 /* ---------- первый экран: приглашение за стол ---------- */
 .hero-head{margin-bottom:14px;text-align:center}
@@ -329,8 +333,12 @@ body.is-dark .auth-bar{background-image:linear-gradient(180deg, rgba(198,161,132
   transform:translateX(-50%);pointer-events:none;
   background:radial-gradient(closest-side, var(--glow), transparent 75%);
 }
-.crest{position:relative;width:118px;height:118px;margin:0 auto 14px}
+.crest{position:relative;width:118px;height:118px;margin:0 auto 10px}
 .crest svg{width:118px;height:118px;display:block}
+.crest .mat{fill:none;stroke:var(--line);stroke-width:1.1;opacity:.5}
+.crest .mat--in{opacity:.3}
+.crest .corner{fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+.frame-cap{margin:0 auto 15px;max-width:31ch;font-size:12.5px;line-height:1.5;color:var(--muted)}
 .crest .table{fill:none;stroke:var(--line);stroke-width:1.4;stroke-dasharray:3 5;opacity:.85}
 .crest .hearth{fill:var(--pill);stroke:var(--line);stroke-width:1}
 .crest .seat-dot{fill:var(--card);stroke:var(--line);stroke-width:1.2}
@@ -366,10 +374,21 @@ body.is-dark .auth-bar{background-image:linear-gradient(180deg, rgba(198,161,132
 
 /* ---------- доска шагов ---------- */
 .qbar{height:9px;border-radius:999px;background:var(--divider);overflow:hidden;margin:0 0 14px}
+.qbar{position:relative}
 .qbar span{
   display:block;height:100%;width:0;border-radius:999px;
   background:linear-gradient(90deg, var(--line), var(--accent));
   transition:width .7s cubic-bezier(.2,.7,.3,1);
+}
+/* пять делений: видно, что путь состоит из шагов, а не из процентов */
+.qbar::after{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.75;
+  background-image:linear-gradient(90deg,
+    transparent 0 calc(20% - 1px), var(--card) calc(20% - 1px) 20%,
+    transparent 20% calc(40% - 1px), var(--card) calc(40% - 1px) 40%,
+    transparent 40% calc(60% - 1px), var(--card) calc(60% - 1px) 60%,
+    transparent 60% calc(80% - 1px), var(--card) calc(80% - 1px) 80%,
+    transparent 80%);
 }
 .quests{counter-reset:q;display:grid;gap:9px}
 .quests li{
@@ -434,6 +453,13 @@ body.is-dark .quests li.done{background:linear-gradient(180deg, rgba(198,161,132
   width:22px;height:22px;padding:10px;box-sizing:content-box;
   border-radius:50%;background:var(--pill);margin-bottom:11px;
 }
+/* уголки как у фотографии, вставленной в альбом */
+.card--photos .drop{position:relative}
+.card--photos .drop::before,.card--photos .drop::after{
+  content:'';position:absolute;width:14px;height:14px;border:1.5px solid var(--accent);opacity:.32;
+}
+.card--photos .drop::before{left:10px;top:10px;border-right:0;border-bottom:0;border-radius:4px 0 0 0}
+.card--photos .drop::after{right:10px;bottom:10px;border-left:0;border-top:0;border-radius:0 0 4px 0}
 .shots{gap:12px}
 .shot{border-radius:14px;background:var(--card);box-shadow:var(--lift)}
 .shot img{padding:6px 6px 0;border-radius:14px}
@@ -501,22 +527,85 @@ body.tg-fs .top{
   .wide-chip{animation:none}
 }
 
+/* ---------- широкая раскладка: комната, а не растянутая колонка ----------
+   На телефоне .game-grid и обе зоны прозрачны (display:contents), карточки
+   идут ровно тем же порядком, что и раньше — одной колонкой.
+   От 720px (сюда же попадает телефон боком и планшет) комната раскладывается
+   на две зоны: слева живая часть круга, справа тихая полка с шагами и
+   местами за столом. Свет лампы становится шире, бумага — заметнее. */
+.game-grid,.zone-main,.zone-rail{display:contents}
+
 @media (min-width:720px){
-  .app{max-width:740px;padding-top:22px}
-  .shots{grid-template-columns:repeat(3,1fr)}
+  .app{max-width:880px;padding-top:22px}
+  body.in-tg .app{max-width:min(100%, 1180px)}
+
+  body::before{
+    background:
+      radial-gradient(64% 46% at 50% -10%, var(--lamp), transparent 70%),
+      radial-gradient(44% 40% at 0% 4%, rgba(138,106,83,.055), transparent 72%),
+      radial-gradient(52% 46% at 104% 104%, rgba(138,106,83,.08), transparent 74%);
+  }
+
+  /* первый экран: приглашение за стол слева, «меня позвали» справа */
+  #setup{
+    display:grid;align-items:start;gap:16px;
+    grid-template-columns:minmax(0,1.55fr) minmax(248px,.92fr);
+    grid-template-areas:'head head' 'hero join';
+  }
+  #setup .hero-head{grid-area:head;margin-bottom:0}
+  #setup .card--hero{grid-area:hero;margin:0}
+  #setup .card--join{grid-area:join;margin:0}
+
+  /* полка над столом: имя круга и кольцо во всю ширину */
+  #game > .card--circle{
+    margin-bottom:16px;
+    background-image:linear-gradient(180deg, rgba(232,222,209,.42), transparent 130px);
+  }
+  body.is-dark #game > .card--circle{background-image:linear-gradient(180deg, rgba(198,161,132,.12), transparent 130px)}
+
+  .game-grid{
+    display:grid;align-items:start;gap:16px;
+    grid-template-columns:minmax(0,1.62fr) minmax(256px,1fr);
+  }
+  .zone-main,.zone-rail{display:flex;flex-direction:column;gap:16px;min-width:0}
+  .zone-main{grid-column:1;grid-row:1}
+  .zone-rail{grid-column:2;grid-row:1}
+  .zone-main > .card,.zone-rail > .card{margin:0}
+
+  /* полка звучит тише: слой бумаги поверх темы клиента и закладка папки сверху */
+  .zone-rail > .card{position:relative;background-image:linear-gradient(180deg, var(--rail), transparent 240px)}
+  .zone-rail > .card::after{
+    content:'';position:absolute;left:18px;top:-1px;width:52px;height:3px;
+    border-radius:0 0 3px 3px;background:var(--accent);opacity:.45;
+  }
+  .zone-rail .people{grid-template-columns:1fr}
+
+  .shots{grid-template-columns:repeat(2,1fr)}
+  .crest,.crest svg{width:138px;height:138px}
 }
+
 @media (min-width:920px){
-  .app{max-width:min(980px, 100%);padding-top:26px}
+  .app{max-width:min(1040px, 100%);padding-top:26px}
   .hero-head h1{font-size:38px}
   .hero-head p{max-width:46ch}
   .card--hero .field,.card--hero .btn--wide{max-width:420px}
-  .shots{grid-template-columns:repeat(4,1fr)}
+  .game-grid{gap:18px;grid-template-columns:minmax(0,1.7fr) minmax(276px,1fr)}
+  .shots{grid-template-columns:repeat(3,1fr)}
+  .crest,.crest svg{width:154px;height:154px}
 }
-@media (min-width:1080px){
-  #game{columns:2;column-gap:18px}
-  #game .card{break-inside:avoid;page-break-inside:avoid}
-  /* сноски под столом, а не хвостом одной колонки */
-  #game > .note,#game > .foot{column-span:all;break-inside:avoid}
+
+@media (min-width:1180px){
+  .app{max-width:min(1180px, 100%)}
+  .game-grid{gap:20px;grid-template-columns:minmax(0,1.75fr) minmax(300px,1fr)}
+}
+
+/* телефон боком: экрана мало по высоте — рамка и шапка отступают */
+@media (orientation:landscape) and (max-height:470px){
+  .app{padding-top:10px}
+  .hero-head{margin-bottom:10px}
+  .card--hero{padding-top:4px}
+  .crest,.crest svg{width:92px;height:92px}
+  .frame-cap{margin-bottom:11px}
 }
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -553,16 +642,23 @@ body.tg-fs .top{
     <div class="card card--hero">
       <div class="crest" aria-hidden="true">
         <svg viewBox="0 0 118 118">
-          <circle class="table" cx="59" cy="59" r="34"/>
-          <circle class="hearth" cx="59" cy="59" r="13"/>
-          <circle class="seat-dot lit" cx="59" cy="16" r="7"/>
-          <circle class="seat-dot" cx="96" cy="37.5" r="7"/>
-          <circle class="seat-dot" cx="96" cy="80.5" r="7"/>
-          <circle class="seat-dot lit" cx="59" cy="102" r="7"/>
-          <circle class="seat-dot" cx="22" cy="80.5" r="7"/>
-          <circle class="seat-dot" cx="22" cy="37.5" r="7"/>
+          <rect class="mat" x="3.5" y="3.5" width="111" height="111" rx="6"/>
+          <rect class="mat mat--in" x="11" y="11" width="96" height="96" rx="3"/>
+          <path class="corner" d="M18 27.5V18h9.5"/>
+          <path class="corner" d="M100 27.5V18h-9.5"/>
+          <path class="corner" d="M18 90.5V100h9.5"/>
+          <path class="corner" d="M100 90.5V100h-9.5"/>
+          <circle class="table" cx="59" cy="59" r="30"/>
+          <circle class="hearth" cx="59" cy="59" r="11.5"/>
+          <circle class="seat-dot lit" cx="59" cy="21" r="6.2"/>
+          <circle class="seat-dot" cx="92" cy="40" r="6.2"/>
+          <circle class="seat-dot" cx="92" cy="78" r="6.2"/>
+          <circle class="seat-dot lit" cx="59" cy="97" r="6.2"/>
+          <circle class="seat-dot" cx="26" cy="78" r="6.2"/>
+          <circle class="seat-dot" cx="26" cy="40" r="6.2"/>
         </svg>
       </div>
+      <p class="frame-cap">Пустая рамка ждёт первый снимок — и людей, которые скажут, кто на нём.</p>
       <div class="field">
         <label for="circleName">Назовите круг так, как говорите дома</label>
         <input class="inp" id="circleName" type="text" maxlength="48" placeholder="Например: Наши Ковалёвы" autocomplete="off">
@@ -605,138 +701,151 @@ body.tg-fs .top{
       <p class="card-sub" style="margin:0" id="circleLede">Круг собирается по шагу за раз. Ничего не надо делать за один вечер.</p>
     </div>
 
-    <div class="card card--quest">
-      <div class="card-head">
-        <h2>Шаги семьи</h2>
-        <span class="cnt" id="qCnt">0 из 5</span>
-      </div>
-      <div class="qbar" aria-hidden="true"><span id="qBarFg"></span></div>
-      <ul class="quests" id="qList"></ul>
-    </div>
+    <!-- широкий экран: слева живая часть круга, справа полка с шагами и местами -->
+    <div class="game-grid">
 
-    <div class="card">
-      <div class="card-head">
-        <h2>Родные</h2>
-        <span class="cnt" id="pCnt">0</span>
-      </div>
-      <p class="card-sub">Сначала те, кого вы назовёте без запинки. Остальных добавят те, кто помнит лучше вас.</p>
-      <div class="field">
-        <label for="pName">Имя</label>
-        <input class="inp" id="pName" type="text" maxlength="40" placeholder="Например: Ольга Николаевна" autocomplete="off">
-      </div>
-      <div class="field">
-        <label for="pRole">Кто это для вас</label>
-        <select class="inp" id="pRole">
-          <option>бабушка</option>
-          <option>дедушка</option>
-          <option>мама</option>
-          <option>папа</option>
-          <option>сестра</option>
-          <option>брат</option>
-          <option>тётя</option>
-          <option>дядя</option>
-          <option>дочь</option>
-          <option>сын</option>
-          <option>я</option>
-          <option>другой родственник</option>
-        </select>
-      </div>
-      <button class="btn btn--primary btn--wide" id="addP" type="button">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="8" r="3.4"/><path d="M4.5 19.4c0-3.4 2.9-5.8 6.5-5.8 1.2 0 2.3.3 3.2.7M18 14.6v5.2M20.6 17.2h-5.2"/></svg>
-        Добавить в круг
-      </button>
-      <ul class="people" id="pList" style="margin-top:14px"></ul>
-    </div>
+      <div class="zone-rail">
 
-    <div class="card card--photos">
-      <div class="card-head">
-        <h2>Фотографии</h2>
-        <span class="cnt" id="fCnt">0</span>
-      </div>
-      <p class="card-sub">Один снимок — уже начало. После загрузки отметьте, кто на нём — имена становятся фактом только от человека, не от машины.</p>
-      <label class="drop" for="file">
-        <svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="13.6" rx="2.2"/><circle cx="8.6" cy="10.2" r="1.5"/><path d="M4.4 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>
-        <b>Фото для круга</b>
-        <small>Снимите старую карточку прямо со стола, выберите из галереи или перетащите сюда — снимок останется на этом устройстве</small>
-      </label>
-      <input id="file" class="vh" type="file" accept="image/*">
-      <div class="shots" id="fList" style="margin-top:12px"></div>
-      <p class="legend">
-        <span><span class="mark mark--ok"></span>подтверждено семьёй</span>
-        <span><span class="mark mark--hyp"></span>ещё никто не назван</span>
-      </p>
-    </div>
-
-    <div class="card card--invite">
-      <div class="card-head"><h2>Позвать родных</h2></div>
-      <p class="card-sub">Отправьте эту ссылку в семейный чат. Она откроет тот же круг и те же шаги.</p>
-      <div class="link-box">
-        <code id="inviteUrl">—</code>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn--primary" id="copyBtn" type="button">
-          <svg viewBox="0 0 24 24"><rect x="8.6" y="8.6" width="11.8" height="11.8" rx="2.2"/><path d="M15.4 5.4H5.8a2.2 2.2 0 0 0-2.2 2.2v9.6"/></svg>
-          Скопировать ссылку
-        </button>
-        <button class="btn btn--quiet" id="shareBtn" type="button">Отправить в чат</button>
-      </div>
-      <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
-    </div>
-
-    <div class="card card--ask">
-      <div class="card-head"><h2>Вопрос на вечер</h2></div>
-      <p class="card-sub">Необязательный шаг, самый ценный. Выберите один вопрос и задайте его старшим вслух.</p>
-      <div class="chips" id="qsList"></div>
-      <p class="note" id="qsNote">Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.</p>
-    </div>
-
-    <div class="card card--butler">
-      <div class="card-head">
-        <span class="but-ava" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 17.6h15"/><path d="M6.6 17.6a5.4 5.4 0 0 1 10.8 0"/><path d="M12 12.2V9.8"/><circle cx="12" cy="7.9" r="1.5"/></svg></span>
-        <h2>Дворецкий</h2>
-        <span class="cnt" id="bCnt">0 заметок</span>
-      </div>
-      <p class="card-sub">Здесь каждый в круге говорит своими словами: пожелание, замечание, идея или вопрос. Дворецкий примет заметку и сложит её в сводку для хранителя круга.</p>
-
-      <ul class="thread" id="bThread" aria-live="polite"></ul>
-
-      <div class="field">
-        <label for="bWho">Кто пишет</label>
-        <select class="inp" id="bWho"></select>
-      </div>
-      <div class="field">
-        <label for="bText">Пожелание или замечание</label>
-        <textarea class="ta" id="bText" maxlength="600" placeholder="Например: хочу отмечать, кто держал камеру"></textarea>
-      </div>
-      <button class="btn btn--primary btn--wide" id="bSend" type="button">
-        <svg viewBox="0 0 24 24"><path d="M4.6 12.2l14.8-6.6-6.2 14.6-2.1-6-6.5-2z"/></svg>
-        Передать дворецкому
-      </button>
-
-      <div class="sum">
-        <h3>Сводка для хранителя</h3>
-        <div class="chips" id="bTags"></div>
-        <ul class="notes" id="bList"></ul>
-        <div class="btn-row" style="margin-top:13px">
-          <button class="btn btn--quiet" id="bCopy" type="button">Скопировать сводку</button>
-          <button class="btn btn--quiet" id="bClear" type="button">Очистить заметки</button>
+        <div class="card card--quest">
+          <div class="card-head">
+            <h2>Шаги семьи</h2>
+            <span class="cnt" id="qCnt">0 из 5</span>
+          </div>
+          <div class="qbar" aria-hidden="true"><span id="qBarFg"></span></div>
+          <ul class="quests" id="qList"></ul>
         </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2>Родные</h2>
+            <span class="cnt" id="pCnt">0</span>
+          </div>
+          <p class="card-sub">Сначала те, кого вы назовёте без запинки. Остальных добавят те, кто помнит лучше вас.</p>
+          <div class="field">
+            <label for="pName">Имя</label>
+            <input class="inp" id="pName" type="text" maxlength="40" placeholder="Например: Ольга Николаевна" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="pRole">Кто это для вас</label>
+            <select class="inp" id="pRole">
+              <option>бабушка</option>
+              <option>дедушка</option>
+              <option>мама</option>
+              <option>папа</option>
+              <option>сестра</option>
+              <option>брат</option>
+              <option>тётя</option>
+              <option>дядя</option>
+              <option>дочь</option>
+              <option>сын</option>
+              <option>я</option>
+              <option>другой родственник</option>
+            </select>
+          </div>
+          <button class="btn btn--primary btn--wide" id="addP" type="button">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="8" r="3.4"/><path d="M4.5 19.4c0-3.4 2.9-5.8 6.5-5.8 1.2 0 2.3.3 3.2.7M18 14.6v5.2M20.6 17.2h-5.2"/></svg>
+            Добавить в круг
+          </button>
+          <ul class="people" id="pList" style="margin-top:14px"></ul>
+        </div>
+
       </div>
 
-      <p class="rule">Честно об этой версии: дворецкий отвечает заранее заготовленными словами и хранит заметки в памяти этого устройства. Живой разговор включится, когда у круга появится общий сервер — тогда заметки родных будут приходить хранителю сами. Пока сводку можно скопировать и отправить одним сообщением.</p>
-    </div>
+      <div class="zone-main">
 
-    <div class="card">
-      <div class="card-head"><h2>Что дальше</h2></div>
-      <p class="card-sub" style="margin-bottom:13px">Когда круг собран, его место — в архиве, где у каждого имени и даты видно, откуда мы это знаем.</p>
-      <div class="btn-row">
-        <a class="btn btn--quiet" href="/smh-cabinet-mock.html">Посмотреть архив</a>
-        <a class="btn btn--quiet" href="/smh-cabinet-razgovor.html">Экран «Разговор»</a>
+        <div class="card card--photos">
+          <div class="card-head">
+            <h2>Фотографии</h2>
+            <span class="cnt" id="fCnt">0</span>
+          </div>
+          <p class="card-sub">Один снимок — уже начало. После загрузки отметьте, кто на нём — имена становятся фактом только от человека, не от машины.</p>
+          <label class="drop" for="file">
+            <svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="13.6" rx="2.2"/><circle cx="8.6" cy="10.2" r="1.5"/><path d="M4.4 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>
+            <b>Фото для круга</b>
+            <small>Снимите старую карточку прямо со стола, выберите из галереи или перетащите сюда — снимок останется на этом устройстве</small>
+          </label>
+          <input id="file" class="vh" type="file" accept="image/*">
+          <div class="shots" id="fList" style="margin-top:12px"></div>
+          <p class="legend">
+            <span><span class="mark mark--ok"></span>подтверждено семьёй</span>
+            <span><span class="mark mark--hyp"></span>ещё никто не назван</span>
+          </p>
+        </div>
+
+        <div class="card card--invite">
+          <div class="card-head"><h2>Позвать родных</h2></div>
+          <p class="card-sub">Отправьте эту ссылку в семейный чат. Она откроет тот же круг и те же шаги.</p>
+          <div class="link-box">
+            <code id="inviteUrl">—</code>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn--primary" id="copyBtn" type="button">
+              <svg viewBox="0 0 24 24"><rect x="8.6" y="8.6" width="11.8" height="11.8" rx="2.2"/><path d="M15.4 5.4H5.8a2.2 2.2 0 0 0-2.2 2.2v9.6"/></svg>
+              Скопировать ссылку
+            </button>
+            <button class="btn btn--quiet" id="shareBtn" type="button">Отправить в чат</button>
+          </div>
+          <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
+        </div>
+
+        <div class="card card--ask">
+          <div class="card-head"><h2>Вопрос на вечер</h2></div>
+          <p class="card-sub">Необязательный шаг, самый ценный. Выберите один вопрос и задайте его старшим вслух.</p>
+          <div class="chips" id="qsList"></div>
+          <p class="note" id="qsNote">Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.</p>
+        </div>
+
+        <div class="card card--butler">
+          <div class="card-head">
+            <span class="but-ava" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 17.6h15"/><path d="M6.6 17.6a5.4 5.4 0 0 1 10.8 0"/><path d="M12 12.2V9.8"/><circle cx="12" cy="7.9" r="1.5"/></svg></span>
+            <h2>Дворецкий</h2>
+            <span class="cnt" id="bCnt">0 заметок</span>
+          </div>
+          <p class="card-sub">Здесь каждый в круге говорит своими словами: пожелание, замечание, идея или вопрос. Дворецкий примет заметку и сложит её в сводку для хранителя круга.</p>
+
+          <ul class="thread" id="bThread" aria-live="polite"></ul>
+
+          <div class="field">
+            <label for="bWho">Кто пишет</label>
+            <select class="inp" id="bWho"></select>
+          </div>
+          <div class="field">
+            <label for="bText">Пожелание или замечание</label>
+            <textarea class="ta" id="bText" maxlength="600" placeholder="Например: хочу отмечать, кто держал камеру"></textarea>
+          </div>
+          <button class="btn btn--primary btn--wide" id="bSend" type="button">
+            <svg viewBox="0 0 24 24"><path d="M4.6 12.2l14.8-6.6-6.2 14.6-2.1-6-6.5-2z"/></svg>
+            Передать дворецкому
+          </button>
+
+          <div class="sum">
+            <h3>Сводка для хранителя</h3>
+            <div class="chips" id="bTags"></div>
+            <ul class="notes" id="bList"></ul>
+            <div class="btn-row" style="margin-top:13px">
+              <button class="btn btn--quiet" id="bCopy" type="button">Скопировать сводку</button>
+              <button class="btn btn--quiet" id="bClear" type="button">Очистить заметки</button>
+            </div>
+          </div>
+
+          <p class="rule">Честно об этой версии: дворецкий отвечает заранее заготовленными словами и хранит заметки в памяти этого устройства. Живой разговор включится, когда у круга появится общий сервер — тогда заметки родных будут приходить хранителю сами. Пока сводку можно скопировать и отправить одним сообщением.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Что дальше</h2></div>
+          <p class="card-sub" style="margin-bottom:13px">Когда круг собран, его место — в архиве, где у каждого имени и даты видно, откуда мы это знаем.</p>
+          <div class="btn-row">
+            <a class="btn btn--quiet" href="/smh-cabinet-mock.html">Посмотреть архив</a>
+            <a class="btn btn--quiet" href="/smh-cabinet-razgovor.html">Экран «Разговор»</a>
+          </div>
+          <div class="btn-row" style="margin-top:9px">
+            <a class="btn btn--primary btn--wide" href="/waitlist.html">Узнать первым</a>
+          </div>
+          <button class="btn btn--quiet btn--wide" id="resetBtn" type="button" style="margin-top:14px">Начать другой круг</button>
+        </div>
+
       </div>
-      <div class="btn-row" style="margin-top:9px">
-        <a class="btn btn--primary btn--wide" href="/waitlist.html">Узнать первым</a>
-      </div>
-      <button class="btn btn--quiet btn--wide" id="resetBtn" type="button" style="margin-top:14px">Начать другой круг</button>
+
     </div>
 
     <p class="note">Демо-хранение на устройстве: имена, фото и отметки хранятся только в памяти этого браузера и не уходят на сервер. Если очистить данные браузера, круг исчезнет. Мы ничего не дорисовываем на ваших снимках и не угадываем лица: имя появляется только тогда, когда его назвал человек.</p>
