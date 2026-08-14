@@ -62,6 +62,45 @@
 .seam-back2{display:block;margin-top:8px;font-size:12.5px;color:var(--accent)}
 .seam-back2:hover{text-decoration:underline;text-underline-offset:3px}
 @media (max-width:900px){.seam-door{margin-left:0;text-align:left}}
+/* G5 · круг из вечера: экран читает тот же круг, что и кабинет, и говорит правду,
+   когда круга нет. Пример чужой семьи спрятан за кнопкой и по умолчанию выключен. */
+.cr{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px 18px;margin:0 0 16px}
+.cr-head{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.cr-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;margin:0 0 4px}
+.cr-sub{margin:0;font-size:13.5px;color:var(--ink-2);max-width:62ch}
+.cr-code{margin-left:auto;background:var(--pill);color:var(--accent-deep);font-size:12.5px;letter-spacing:.06em;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.cr-nums{display:flex;flex-wrap:wrap;gap:10px 28px;margin:0 0 14px;padding-top:12px;border-top:1px solid var(--divider)}
+.cr-num b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;font-weight:600;line-height:1.1}
+.cr-num span{font-size:12.5px;color:var(--muted)}
+.cr-people{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.cr-p{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:999px;padding:4px 14px 4px 4px;background:var(--page)}
+.cr-i{width:26px;height:26px;border-radius:50%;background:var(--pill);color:var(--accent-deep);display:grid;place-items:center;font-size:11.5px;font-weight:600}
+.cr-p b{font-size:13px;font-weight:600}
+.cr-p small{font-size:12px;color:var(--muted)}
+.cr-shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px;margin:0 0 14px}
+.cr-shot{margin:0}
+.cr-shot img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
+.cr-shot small{display:block;margin-top:6px;font-size:12px;color:var(--ink-2);line-height:1.35}
+.cr-shot em{display:block;margin-top:4px;font-size:11.5px;font-style:normal;color:var(--muted)}
+.cr-mute{color:var(--muted)}
+.cr-words{margin:0 0 14px;padding:0;list-style:none}
+.cr-w{padding:10px 0;border-top:1px solid var(--divider)}
+.cr-w:first-child{border-top:0;padding-top:0}
+.cr-w b{font-size:13px}
+.cr-w p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+.cr-line{margin:0 0 10px;font-size:13.5px;color:var(--ink-2);max-width:70ch}
+.cr-empty{border:1px dashed var(--line);border-radius:12px;padding:18px 20px;background:var(--page);margin:0 0 14px}
+.cr-empty h3{margin:0 0 7px;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:600}
+.cr-empty p{margin:0 0 12px;font-size:13.5px;color:var(--ink-2);max-width:64ch}
+.cr-cta{display:inline-block;background:var(--accent);color:#fff;padding:9px 18px;border-radius:10px;font-size:13.5px;font-weight:500}
+.cr-cta:hover{background:var(--accent-deep)}
+.cr-note{margin:0;font-size:11.5px;color:var(--muted);max-width:76ch}
+.cr-demo-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.cr-demo-btn{background:transparent;border:1px solid var(--line);color:var(--ink-2);font:inherit;font-size:13px;padding:7px 15px;border-radius:999px;cursor:pointer}
+.cr-demo-btn:hover{border-color:var(--accent);color:var(--accent-deep)}
+.cr-demo-hint{font-size:12px;color:var(--muted)}
+.cr-demo-flag{margin:0 0 14px;font-size:12.5px;color:var(--muted);border-left:2px solid var(--line);padding-left:11px}
+body:not(.demo-on) [data-demo]{display:none!important}
 </style>
 </head>
 <body>
@@ -80,7 +119,7 @@
       <div class="nav-label">Работа с памятью</div>
       <a class="nav-item" href="/smh-cabinet-stol.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
       <a class="nav-item is-active" href="/smh-cabinet-razgovor.html" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
-      <a class="nav-item" href="/smh-cabinet-podtverzhdeniya.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения<span class="nav-count">7</span></a>
+      <a class="nav-item" href="/smh-cabinet-podtverzhdeniya.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения<span class="nav-count" data-demo>7</span></a>
       <a class="nav-item" href="/smh-cabinet-privatnost.html"><svg viewBox="0 0 24 24"><rect x="4.6" y="10.4" width="14.8" height="9.4" rx="2"/><path d="M8.4 10.2V7.8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>Приватность и роли</a>
     </nav>
     <div class="sidebar-foot">
@@ -101,8 +140,8 @@
           <svg viewBox="0 0 24 24"><path d="M18 8.6a6 6 0 1 0-12 0c0 6-2.2 7.4-2.2 7.4h16.4S18 14.6 18 8.6z"/><path d="M13.7 19.4a2 2 0 0 1-3.4 0"/></svg>
         </button>
         <button class="user" type="button">
-          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy">
-          <span>Алина</span>
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy" data-demo>
+          <span id="crUser">Гость</span>
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
         </button>
       </div>
@@ -123,7 +162,25 @@
       <p class="lede">Один снимок, один вопрос, одна кнопка. Голос остаётся голосом: расшифровка живёт рядом с оригинальной записью, а не вместо неё.</p>
     </header>
 
-    <section class="card rv">
+    <section class="cr rv" id="crBox" aria-labelledby="crTitle">
+      <div class="cr-head">
+        <div>
+          <h2 class="serif" id="crTitle">Ваш круг</h2>
+          <p class="cr-sub" id="crSub"></p>
+        </div>
+        <span class="cr-code" id="crCode" hidden></span>
+      </div>
+      <div id="crBody"></div>
+      <p class="cr-note" id="crNote"></p>
+    </section>
+
+    <div class="cr-demo-row">
+      <button class="cr-demo-btn" id="crDemoBtn" type="button" aria-pressed="false">Показать пример</button>
+      <span class="cr-demo-hint">Пример другой семьи — только чтобы показать, как устроен экран. По умолчанию он выключен.</span>
+    </div>
+    <p class="cr-demo-flag" data-demo>Ниже — пример: чужие имена, даты и подписи, придуманные для показа. Это не ваш архив.</p>
+
+    <section class="card rv" data-demo>
       <div class="ask">
         <div>
           <figure class="ask-photo" style="margin:0">
@@ -151,7 +208,7 @@
       </div>
     </section>
 
-    <div class="two">
+    <div class="two" data-demo>
       <section class="card rv" style="margin-top:0">
         <div class="card-head">
           <h2>Голос</h2>
@@ -187,7 +244,7 @@
       </section>
     </div>
 
-    <section class="card rv">
+    <section class="card rv" data-demo>
       <div class="card-head">
         <h2>Что архив услышал</h2>
         <p>Всё это пока черновики — они ждут подтверждения семьи</p>
@@ -279,6 +336,216 @@
     var hash = h === -1 ? '' : href.slice(h);
     links[i].setAttribute('href', path + '?c=' + encodeURIComponent(code) + hash);
   }
+})();
+</script>
+<script>
+/* G5 · этот экран читает тот же круг, что и кабинет: ?c= затем ?circle= затем
+   последний круг этого браузера. Показываем только то, что набрал человек;
+   чего в круге нет, того здесь не появится. Кода мы никогда не выпускаем. */
+(function(){
+  var PREFIX = 'smh_fg_v1_';
+  var LAST   = 'smh_fg_last';
+  var GAME   = '/smh-family-game.html';
+
+  function $(id){ return document.getElementById(id); }
+
+  function esc(s){
+    var d = document.createElement('div');
+    d.textContent = String(s == null ? '' : s);
+    return d.innerHTML;
+  }
+
+  function ls(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+
+  function param(n){
+    try{
+      var m = new RegExp('[?&]' + n + '=([^&#]*)').exec(location.search);
+      return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+    }catch(e){ return ''; }
+  }
+
+  function cleanCode(v){
+    v = String(v || '').trim().toUpperCase();
+    return /^[A-Z0-9]{4,12}$/.test(v) ? v : '';
+  }
+
+  function load(code){
+    if(!code) return null;
+    try{
+      var raw = ls(PREFIX + code);
+      if(!raw) return null;
+      var s = JSON.parse(raw);
+      if(!s || typeof s !== 'object') return null;
+      if(!s.people) s.people = [];
+      if(!s.photos) s.photos = [];
+      if(!s.notes)  s.notes  = [];
+      return s;
+    }catch(e){ return null; }
+  }
+
+  function initials(name){
+    var parts = String(name || '').trim().split(/\s+/), s = '';
+    for(var i=0;i<parts.length && s.length<2;i++){ if(parts[i]) s += parts[i].charAt(0).toUpperCase(); }
+    return s || '\u00b7';
+  }
+
+  function word(n, one, few, many){
+    var a = Math.abs(n) % 100, b = a % 10;
+    if(a > 10 && a < 20) return many;
+    if(b > 1 && b < 5) return few;
+    if(b === 1) return one;
+    return many;
+  }
+
+  function nums(rows){
+    var h = '<div class="cr-nums">';
+    for(var i=0;i<rows.length;i++){
+      h += '<div class="cr-num"><b>' + rows[i][0] + '</b><span>' + rows[i][1] + '</span></div>';
+    }
+    return h + '</div>';
+  }
+
+  function caps(st){
+    var n = 0;
+    for(var i=0;i<st.photos.length;i++){
+      var c = st.photos[i].cap;
+      if(c && String(c).trim()) n++;
+    }
+    return n;
+  }
+
+  function capList(st, limit){
+    var out = [];
+    for(var i=0;i<st.photos.length && out.length<limit;i++){
+      var c = st.photos[i].cap;
+      if(c && String(c).trim()) out.push(String(c).trim());
+    }
+    return out;
+  }
+
+  function nameById(st, id){
+    for(var i=0;i<st.people.length;i++){
+      if(st.people[i].id === id) return st.people[i].name || '';
+    }
+    return '';
+  }
+
+  function whoNames(st, f){
+    var out = [], w = f.who || [];
+    for(var i=0;i<w.length;i++){
+      var n = nameById(st, w[i]);
+      if(n) out.push(n);
+    }
+    return out;
+  }
+
+  function peopleHtml(st){
+    var h = '<div class="cr-people">', any = false;
+    for(var i=0;i<st.people.length;i++){
+      var p = st.people[i];
+      if(!p || !p.name) continue;
+      any = true;
+      h += '<span class="cr-p"><span class="cr-i" aria-hidden="true">' + esc(initials(p.name)) + '</span>' +
+           '<b>' + esc(p.name) + '</b>' + (p.role ? '<small>' + esc(p.role) + '</small>' : '') + '</span>';
+    }
+    return any ? (h + '</div>') : '';
+  }
+
+  var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
+  var st    = load(code);
+  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length));
+  var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
+
+  /* то, что именно этот экран может честно показать из круга */
+  function body(){
+    var h = '', i;
+    h += nums([[st.notes.length, word(st.notes.length, 'запись', 'записи', 'записей')],
+               [st.people.length, word(st.people.length, 'человек', 'человека', 'человек')]]);
+    if(st.notes.length){
+      var list = st.notes.slice().sort(function(a, b){ return (b.at || 0) - (a.at || 0); }).slice(0, 6);
+      h += '<ul class="cr-words">';
+      for(i=0;i<list.length;i++){
+        h += '<li class="cr-w"><b>' + esc(list[i].who || 'Кто-то в круге') + '</b><p>' + esc(list[i].text || '') + '</p></li>';
+      }
+      h += '</ul>';
+    }else{
+      h += '<p class="cr-line">В этом круге пока ничего не сказано дворецкому. Первое слово говорят в вечере — и оно появится здесь тем же текстом.</p>';
+    }
+    if(st.question) h += '<p class="cr-line">Вопрос вечера сейчас: «' + esc(st.question) + '».</p>';
+    if(st.later && st.later.q) h += '<p class="cr-line">Отложенный вопрос ждёт на этом устройстве: «' + esc(st.later.q) + '».</p>';
+    h += '<p class="cr-line">Голоса здесь нет: в вечере слова набирают руками, и набранный текст мы не выдаём за запись. Ни одной расшифровки и ни одной минуты аудио в этом круге не хранится.</p>';
+    return h;
+  }
+
+  function emptyHtml(){
+    var t, p;
+    if(code && !st){
+      t = 'Этого круга здесь нет';
+      p = 'Круг ' + esc(code) + ' живёт в памяти того окна, где его завели. Откройте «Вечер» там же и вернитесь сюда: чужую семью вместо вашей мы сюда не поставим.';
+    }else if(code){
+      t = 'Здесь пока пусто';
+      p = 'Круг заведён, но в нём ещё не сказано ни слова. Первое скажут в вечере — и оно окажется здесь тем же текстом.';
+    }else{
+      t = 'Экран наполняется из вечера';
+      p = 'Разговор начинается в вечере. В этом браузере ещё нет ни одного круга, поэтому и слов здесь нет.';
+    }
+    return '<div class="cr-empty"><h3>' + t + '</h3><p>' + p + '</p>' +
+           '<a class="cr-cta" href="' + back + '">Вернуться в вечер</a></div>';
+  }
+
+  function render(){
+    var title, sub;
+    if(lived){
+      title = st.name || 'Ваш круг';
+      sub = 'Слова, сказанные в вечере на этом устройстве. Ни одной строки мы не дописали.';
+    }else if(st){
+      title = st.name || 'Ваш круг';
+      sub = 'Круг есть, памяти в нём пока нет.';
+    }else if(code){
+      title = 'Круг ' + code;
+      sub = 'Мы не видим его в этом окне.';
+    }else{
+      title = 'Ваш круг';
+      sub = 'Круга на этом устройстве пока нет.';
+    }
+
+    $('crTitle').textContent = title;
+    $('crSub').textContent = sub;
+
+    var c = $('crCode');
+    if(code){ c.textContent = 'Код круга \u00b7 ' + code; c.hidden = false; }
+    else { c.hidden = true; }
+
+    $('crBody').innerHTML = lived ? body() : emptyHtml();
+    $('crNote').textContent = 'Круг хранится только в этом браузере, на этом устройстве — это не синхронизация. Голос здесь не записывается и не расшифровывается — показаны только слова, набранные в вечере.';
+
+    var who = '';
+    if(lived){
+      for(var i=0;i<st.people.length;i++){
+        if(st.people[i].role === 'я'){ who = st.people[i].name; break; }
+      }
+      if(!who && st.people.length) who = st.people[0].name;
+    }
+    var u = $('crUser');
+    if(u) u.textContent = who || 'Гость';
+  }
+
+  /* пример чужой семьи — только по просьбе, и никогда сам по себе */
+  function bindDemo(){
+    var b = $('crDemoBtn');
+    if(!b) return;
+    b.addEventListener('click', function(){
+      var on = document.body.classList.toggle('demo-on');
+      b.textContent = on ? 'Скрыть пример' : 'Показать пример';
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if(!on) return;
+      var rv = document.querySelectorAll('[data-demo] .rv, [data-demo].rv');
+      for(var i=0;i<rv.length;i++) rv[i].classList.add('in');
+    });
+  }
+
+  try{ render(); }catch(e){}
+  bindDemo();
 })();
 </script>
 </body>
