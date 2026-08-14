@@ -77,6 +77,18 @@ input,select{font:inherit;color:inherit}
 .top .brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;line-height:1.1;letter-spacing:.2px;color:var(--ink)}
 .top .to-cab{margin-left:auto;font-size:12.5px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:5px 12px}
 
+/* ---------- вход через Telegram ---------- */
+.tg-auth{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--accent-deep);background:var(--pill);border-radius:999px;padding:4px 5px 4px 11px;max-width:56vw}
+.tg-auth .tg-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.tg-auth .tg-out{font-family:inherit;font-size:11.5px;color:var(--muted);background:transparent;border:1px solid var(--border);border-radius:999px;padding:3px 9px;line-height:1}
+.tg-auth .tg-out:active{background:var(--active);color:var(--ink)}
+.auth-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--soft);padding:13px 15px;margin:0 0 14px}
+.auth-t{min-width:0;flex:1}
+.auth-t b{display:block;font-size:14px;font-weight:500}
+.auth-t small{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+#tgLoginBox{flex:0 0 auto;min-height:1px}
+.auth-wait{flex-basis:100%;margin:0;font-size:12px;color:var(--muted);line-height:1.55}
+
 .head{margin:0 0 16px}
 .head .crumb{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 7px}
 .head h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,7vw,32px);line-height:1.14;margin:0 0 8px;font-weight:600;letter-spacing:.2px}
@@ -240,7 +252,17 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
 
   <div class="top">
     <span class="brand serif">SaveMyHistory</span>
+    <span class="tg-auth" id="tgAuth" hidden></span>
     <a class="to-cab" href="/smh-cabinet-mock.html">Архив</a>
+  </div>
+
+  <div class="auth-bar" id="authBar" hidden>
+    <div class="auth-t">
+      <b>Войти через Telegram</b>
+      <small>Чтобы круг и дворецкий знали вас по имени. Можно смотреть и гостем — тогда заметки останутся без подписи.</small>
+    </div>
+    <div id="tgLoginBox"></div>
+    <p class="auth-wait hide" id="authWait">Кнопка входа появится, когда у круга будет свой бот в Telegram. Пока можно продолжать гостем.</p>
   </div>
 
   <!-- ============ шаг 0: круга ещё нет ============ -->
@@ -455,6 +477,10 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
   ];
 
   var tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+  var inMiniApp = !!(tg && (tg.initData || (tg.initDataUnsafe && tg.initDataUnsafe.user)));
+  var AUTH = 'smh_fg_auth_v1';
+  var BOT_USERNAME = 'SaveFamilyHistorybot';
+  var me = null;
   var state = null;
 
   var $ = function(id){ return document.getElementById(id); };
@@ -513,6 +539,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     try{
       localStorage.setItem(PREFIX + state.code, JSON.stringify(state));
       localStorage.setItem(LAST, state.code);
+      if(me) localStorage.setItem(LAST + '_tg' + me.id, state.code);
       return true;
     }catch(e){
       toast('На устройстве закончилось место для демо-хранения');
@@ -703,8 +730,11 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     var pre = new URLSearchParams(location.search).get('circle');
     state = blank(pre ? pre.toUpperCase().slice(0,12) : newCode(), name);
 
-    var me = tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.first_name : '';
-    if(me) state.people.push({ id: uid(), name: me, role: 'я' });
+    var mine = me ? authName() : '';
+    if(mine){
+      state.people.push({ id: uid(), name: mine, role: 'я' });
+      state.owner = { id: me.id, name: mine, via: me.via || '' };
+    }
 
     save();
     buzz('ok');
@@ -907,8 +937,14 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
   }
 
   function members(){
-    if(state.people.length) return state.people;
-    return [{ id: 'guest', name: 'Гость круга', role: '' }];
+    var list = state.people.slice();
+    if(me){
+      var mine = authName(), has = false;
+      for(var i=0;i<list.length;i++){ if(list[i].name === mine){ has = true; break; } }
+      if(!has) list.unshift({ id: 'tg' + me.id, name: mine, role: 'вы' });
+    }
+    if(!list.length) list.push({ id: 'guest', name: 'Гость круга', role: '' });
+    return list;
   }
 
   function renderButlerWho(){
@@ -1102,7 +1138,10 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
 
   $('resetBtn').addEventListener('click', function(){
     state = null;
-    try{ localStorage.removeItem(LAST); }catch(e){}
+    try{
+      localStorage.removeItem(LAST);
+      if(me) localStorage.removeItem(LAST + '_tg' + me.id);
+    }catch(e){}
     $('game').classList.add('hide');
     $('setup').classList.remove('hide');
     $('circleName').value = '';
@@ -1131,11 +1170,110 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     }catch(e){}
   }
 
+  /* ---------- вход через Telegram ----------
+     Мини-приложение: имя приходит из Telegram само.
+     Сайт: виджет входа Telegram. Проверка подписи данных требует сервера —
+     здесь пока клиентская сессия на этом устройстве, и об этом сказано честно. */
+  function authName(u){
+    var x = u || me;
+    if(!x) return 'Гость круга';
+    var n = [x.first_name || '', x.last_name || ''].join(' ').trim();
+    if(n) return n;
+    return x.username ? '@' + x.username : 'Гость круга';
+  }
+
+  function pickUser(u, via){
+    return {
+      id: u.id,
+      first_name: u.first_name || '',
+      last_name: u.last_name || '',
+      username: u.username || '',
+      photo_url: u.photo_url || '',
+      via: via
+    };
+  }
+
+  function saveAuth(u){
+    me = u;
+    try{ localStorage.setItem(AUTH, JSON.stringify(u)); }catch(e){}
+  }
+
+  function loadAuth(){
+    try{
+      var raw = localStorage.getItem(AUTH);
+      var u = raw ? JSON.parse(raw) : null;
+      return (u && u.id) ? u : null;
+    }catch(e){ return null; }
+  }
+
+  function signOut(){
+    me = null;
+    try{ localStorage.removeItem(AUTH); }catch(e){}
+    renderAuth();
+    if(state) renderButler();
+    toast('Вы вышли. Круг остаётся на этом устройстве');
+  }
+
+  function renderAuth(){
+    var chip = $('tgAuth'), bar = $('authBar');
+    if(me){
+      chip.innerHTML = '<span class="tg-name">' + esc(authName()) + '</span>' +
+        (inMiniApp ? '' : '<button class="tg-out" id="tgOut" type="button">Выйти</button>');
+      chip.hidden = false;
+      bar.hidden = true;
+      var out = $('tgOut');
+      if(out) out.addEventListener('click', signOut);
+    }else{
+      chip.hidden = true;
+      chip.innerHTML = '';
+      bar.hidden = inMiniApp;
+    }
+  }
+
+  function mountLoginWidget(){
+    var box = $('tgLoginBox');
+    if(!box || box.getAttribute('data-mounted') === '1') return;
+    if(!BOT_USERNAME){
+      $('authWait').classList.remove('hide');
+      return;
+    }
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://telegram.org/js/telegram-widget.js?22';
+    s.setAttribute('data-telegram-login', BOT_USERNAME);
+    s.setAttribute('data-size', 'large');
+    s.setAttribute('data-radius', '12');
+    s.setAttribute('data-request-access', 'write');
+    s.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    box.appendChild(s);
+    box.setAttribute('data-mounted', '1');
+  }
+
+  window.onTelegramAuth = function(user){
+    if(!user || !user.id) return;
+    saveAuth(pickUser(user, 'widget'));
+    renderAuth();
+    if(state) renderButler();
+    toast('Здравствуйте, ' + authName() + '. Теперь круг знает вас по имени');
+  };
+
+  (function initAuth(){
+    var u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : null;
+    if(u && u.id) saveAuth(pickUser(u, 'miniapp'));
+    else me = loadAuth();
+    renderAuth();
+    if(!me && !inMiniApp) mountLoginWidget();
+  })();
+
   /* ---------- старт ---------- */
   (function boot(){
     var wanted = new URLSearchParams(location.search).get('circle');
     if(wanted) wanted = wanted.toUpperCase().slice(0, 12);
-    var code = wanted || (function(){ try{ return localStorage.getItem(LAST); }catch(e){ return null; } })();
+    var code = wanted || (function(){
+      try{
+        return (me && localStorage.getItem(LAST + '_tg' + me.id)) || localStorage.getItem(LAST);
+      }catch(e){ return null; }
+    })();
 
     if(code){
       var found = load(code);
