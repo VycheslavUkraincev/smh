@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l17" data-smh-content-gen="20260814" data-smh-landing-role="main-candidate" data-smh-landing-wave="20260814-sanctuary" data-smh-landing-status="local-ready" data-smh-quality="raise-20260814" data-smh-craft="smooth-nav-20260814">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SaveMyHistory — тихое место для семейного архива</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Лицо остаётся собой. Приём открыт, выдача сейчас на паузе.">
+<!-- complete polish complete-20260814: icons, share card, colour -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="theme-color" content="#121214">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SaveMyHistory">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="SaveMyHistory — тихое место для семейного архива">
+<meta property="og:description" content="SaveMyHistory — бережное восстановление семейных фотографий. Лицо остаётся собой. Приём открыт, выдача сейчас на паузе.">
+<meta property="og:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SaveMyHistory — тихое место для семейного архива">
+<meta name="twitter:description" content="SaveMyHistory — бережное восстановление семейных фотографий. Лицо остаётся собой. Приём открыт, выдача сейчас на паузе.">
+<meta name="twitter:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
+<meta name="robots" content="noindex">
+<!-- SMH_LANDING_L17 wave 20260814-sanctuary · role: MAIN HOMEPAGE CANDIDATE (local only) · axis: тёмная витрина архива, сетка + карта, кадр в раме по центру · art: reuse hashed SMH archive planes (0E) · split = ИЛЛЮСТРАЦИЯ, не доказательство · invent_eyes=N · LIVE=N · INDEX_TOUCHED=N -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#121214;--ink2:#17181B;--ink3:#1C1E22;--ink4:#22252A;
+  --paper:#E9E5DC;--paper2:#B9B2A6;--muted:#8B857C;
+  --gold:#C0A16A;--gold2:#B08F5B;--gold3:#D8C79B;
+  --line:rgba(233,229,220,.10);
+  --line2:rgba(233,229,220,.18);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);
+  font-family:Manrope,"Helvetica Neue",sans-serif;font-weight:300;line-height:1.7;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{width:min(1240px,90vw);margin:0 auto}
+
+/* ============ sanctuary background: grid + faint map + vignette ============ */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg .grid{position:absolute;inset:-2px;
+  background-image:
+    linear-gradient(to right,rgba(233,229,220,.055) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(233,229,220,.055) 1px,transparent 1px);
+  background-size:clamp(120px,13vw,190px) clamp(120px,13vw,190px)}
+.bg .grid::after{content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(to right,rgba(233,229,220,.10) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(233,229,220,.10) 1px,transparent 1px);
+  background-size:clamp(360px,39vw,570px) clamp(360px,39vw,570px)}
+.bg .map{position:absolute;top:50%;left:50%;width:min(1900px,150vw);
+  transform:translate(-50%,-50%);opacity:.5;
+  animation:mapGlow 24s ease-in-out infinite alternate}
+@keyframes mapGlow{from{opacity:.34}to{opacity:.66}}
+.bg .map path,.bg .map circle{fill:none;stroke:var(--gold2);stroke-width:1.1;
+  vector-effect:non-scaling-stroke;opacity:.32}
+.bg .map .faint{opacity:.16;stroke-dasharray:3 7}
+.bg .vig{position:absolute;inset:0;
+  background:
+    radial-gradient(72% 58% at 50% 44%,rgba(200,164,104,.055) 0%,rgba(18,18,20,0) 62%),
+    radial-gradient(120% 92% at 50% 50%,rgba(18,18,20,0) 34%,rgba(18,18,20,.72) 100%)}
+.bg .noise{position:absolute;inset:0;opacity:.32;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>")}
+
+/* ============ header ============ */
+.top{position:relative;z-index:5;display:flex;align-items:center;
+  gap:clamp(20px,3.4vw,54px);padding:clamp(22px,3vh,34px) 0;
+  border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:clamp(20px,3.4vw,54px);width:min(1240px,90vw)}
+/* brand is hero-level: never weaker than nav */
+.brand{display:flex;align-items:center;gap:clamp(10px,1.1vw,16px);margin-right:auto;
+  font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+  font-size:clamp(19px,2.5vw,31px);line-height:1;letter-spacing:.17em;
+  text-transform:uppercase;color:#F4EFE4;white-space:nowrap}
+.brand .emblem{width:clamp(24px,2.7vw,34px);height:clamp(24px,2.7vw,34px);flex:none}
+.brand .emblem svg{width:100%;height:100%;display:block}
+.nav{display:flex;gap:clamp(16px,2.1vw,32px);font-size:clamp(12px,1.06vw,13.5px);
+  font-weight:300;letter-spacing:.10em;color:rgba(233,229,220,.62)}
+.nav a{padding:6px 0;border-bottom:1px solid transparent;transition:color .4s var(--ease),border-color .4s var(--ease)}
+.nav a:hover{color:var(--gold3);border-color:rgba(192,161,106,.5)}
+.enter{flex:none;font-size:clamp(11.5px,1vw,13px);letter-spacing:.10em;
+  padding:9px clamp(14px,1.5vw,20px);border:1px solid var(--line2);border-radius:2px;
+  color:rgba(233,229,220,.86);transition:border-color .4s var(--ease),color .4s var(--ease),background .4s var(--ease)}
+.enter:hover{border-color:var(--gold2);color:var(--gold3);background:rgba(192,161,106,.07)}
+
+/* ============ hero: ONE composition ============ */
+.hero{position:relative;z-index:2;min-height:calc(100svh - 96px);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(26px,4.4vh,54px) 0 clamp(20px,3vh,34px)}
+.stage{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,2.1fr) minmax(0,.86fr);
+  gap:clamp(24px,3.4vw,60px);align-items:center}
+
+/* --- side zones: quiet, secondary, no fake uploader --- */
+.zone{opacity:0;transform:translateY(14px);
+  animation:zoneIn 1.5s var(--ease) .75s forwards}
+@keyframes zoneIn{to{opacity:1;transform:none}}
+.zone .zi{width:22px;height:22px;margin-bottom:14px;color:var(--gold2)}
+.zone .zi svg{width:100%;height:100%;display:block}
+.zone h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;
+  font-size:clamp(17px,1.75vw,22px);color:#F2ECE0;letter-spacing:.01em;line-height:1.25}
+.zone p{font-size:clamp(12.5px,1.06vw,13.8px);color:rgba(233,229,220,.58);
+  margin-top:10px;line-height:1.66;max-width:30ch}
+.zone .meta{margin-top:14px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(233,229,220,.36)}
+.zone-r{text-align:right}
+.zone-r p,.zone-r .meta{margin-left:auto}
+.zone-r .zi{margin-left:auto}
+
+/* --- framed archive plane --- */
+.framewrap{position:relative;display:flex;flex-direction:column;align-items:center}
+.frame{position:relative;width:100%;padding:clamp(10px,1.05vw,15px);
+  border:1px solid rgba(192,161,106,.42);border-radius:4px;
+  background:linear-gradient(180deg,rgba(233,229,220,.045),rgba(233,229,220,.012));
+  box-shadow:0 0 0 1px rgba(18,18,20,.9) inset,
+             0 26px 70px -26px rgba(0,0,0,.92),
+             0 0 90px -34px rgba(192,161,106,.34);
+  opacity:0;transform:translateY(18px) scale(.985);
+  animation:frameIn 1.6s var(--ease) .15s forwards, frameBreathe 15s ease-in-out 1.9s infinite alternate}
+@keyframes frameIn{to{opacity:1;transform:none}}
+@keyframes frameBreathe{
+  from{box-shadow:0 0 0 1px rgba(18,18,20,.9) inset,0 26px 70px -26px rgba(0,0,0,.92),0 0 74px -36px rgba(192,161,106,.26)}
+  to{box-shadow:0 0 0 1px rgba(18,18,20,.9) inset,0 26px 70px -26px rgba(0,0,0,.92),0 0 110px -28px rgba(192,161,106,.44)}}
+.plate{position:relative;overflow:hidden;border-radius:2px;
+  aspect-ratio:3/2;background:#0C0C0E;
+  box-shadow:0 0 0 1px rgba(192,161,106,.22)}
+.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center 42%}
+/* ONE photograph under two lightings — pixel-identical either side of the seam,
+   so it can never be read as a before/after proof of a real order */
+.plate .pane-b{filter:sepia(.30) saturate(.62) contrast(1.07) brightness(.84)}
+.pane-a{position:absolute;inset:0;overflow:hidden;
+  clip-path:inset(0 0 0 var(--split,52%))}
+.pane-a img{filter:saturate(1.06) contrast(1.02) brightness(1.13)}
+.pane-a::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(216,199,155,.14),rgba(216,199,155,0) 46%)}
+.seam{position:absolute;top:0;bottom:0;left:var(--split,52%);width:1px;
+  background:linear-gradient(180deg,rgba(216,199,155,0),rgba(216,199,155,.85) 18%,rgba(216,199,155,.85) 82%,rgba(216,199,155,0));
+  box-shadow:0 0 14px rgba(192,161,106,.5);transform:translateX(-.5px);pointer-events:none}
+.seam .knob{position:absolute;top:50%;left:50%;width:34px;height:34px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  border:1px solid rgba(216,199,155,.72);background:rgba(18,18,20,.72);
+  backdrop-filter:blur(2px);display:grid;place-items:center}
+.seam .knob::before,.seam .knob::after{content:"";position:absolute;width:5px;height:5px;
+  border-top:1px solid var(--gold3);border-right:1px solid var(--gold3)}
+.seam .knob::before{transform:rotate(-135deg) translate(-4px,0)}
+.seam .knob::after{transform:rotate(45deg) translate(-4px,0)}
+.range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.tag{position:absolute;bottom:10px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  padding:5px 9px;color:rgba(233,229,220,.78);background:rgba(12,12,14,.6);
+  border:1px solid rgba(233,229,220,.14);border-radius:2px;pointer-events:none;backdrop-filter:blur(3px)}
+.tag-l{left:10px}
+.tag-r{right:10px;color:rgba(216,199,155,.86);border-color:rgba(192,161,106,.3)}
+/* honest caption — the split is an illustration, never proof */
+.disclaim{margin-top:clamp(12px,1.7vh,17px);max-width:64ch;text-align:center;
+  font-size:clamp(11.5px,1vw,12.8px);line-height:1.62;color:rgba(233,229,220,.46);
+  letter-spacing:.012em}
+.disclaim b{font-weight:400;color:rgba(216,199,155,.76)}
+
+/* ============ hero support + CTA group ============ */
+.support{margin:clamp(20px,3vh,32px) auto 0;max-width:54ch;text-align:center;
+  font-size:clamp(14px,1.32vw,16.5px);line-height:1.72;color:rgba(233,229,220,.72)}
+.support b{font-weight:400;color:#F4EFE4}
+.ctas{margin-top:clamp(18px,2.6vh,26px);display:flex;flex-wrap:wrap;
+  justify-content:center;align-items:center;gap:clamp(12px,1.4vw,18px)}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:2px;
+  padding:clamp(12px,1.6vh,16px) clamp(20px,2.4vw,32px);
+  font-size:clamp(12px,1.08vw,13.6px);letter-spacing:.115em;text-transform:uppercase;
+  transition:border-color .45s var(--ease),color .45s var(--ease),
+             background .45s var(--ease),transform .45s var(--ease)}
+.btn-gold{border:1px solid rgba(192,161,106,.6);color:var(--gold3);
+  background:linear-gradient(180deg,rgba(192,161,106,.14),rgba(192,161,106,.035))}
+.btn-gold:hover{border-color:rgba(216,199,155,.9);color:#F2E7CC;
+  background:linear-gradient(180deg,rgba(192,161,106,.22),rgba(192,161,106,.07));
+  transform:translateY(-1px)}
+.btn-ghost{border:1px solid var(--line2);color:rgba(233,229,220,.88)}
+.btn-ghost:hover{border-color:rgba(192,161,106,.55);color:var(--gold3);
+  background:rgba(192,161,106,.06);transform:translateY(-1px)}
+.btn .arw{display:inline-block;width:8px;height:8px;border-right:1px solid currentColor;
+  border-bottom:1px solid currentColor;transform:rotate(45deg);
+  transition:transform .45s var(--ease)}
+.btn-ghost:hover .arw{transform:rotate(45deg) translate(2px,2px)}
+.status{margin-top:clamp(15px,2.2vh,22px);text-align:center;font-size:11.5px;
+  letter-spacing:.17em;text-transform:uppercase;color:rgba(233,229,220,.42)}
+.status b{font-weight:400;color:rgba(216,199,155,.82)}
+
+/* ============ storytelling scroll — closed until «Узнать о проекте» ============ */
+.story{position:relative;z-index:2;background:var(--ink)}
+html.js .story{max-height:0;overflow:hidden;opacity:0;pointer-events:none;
+  transition:opacity 1s var(--ease)}
+html.js .story.open{max-height:none;overflow:visible;opacity:1;pointer-events:auto}
+.ch{padding:clamp(72px,12.5vh,144px) 0;border-top:1px solid var(--line)}
+.ch .wrap{display:grid;grid-template-columns:minmax(0,.32fr) minmax(0,1fr);
+  gap:clamp(26px,4vw,72px);align-items:start}
+.num{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(28px,3.5vw,46px);
+  line-height:1;color:var(--gold2)}
+.num span{display:block;margin-top:12px;font-family:Manrope,sans-serif;font-size:10.5px;
+  font-weight:300;letter-spacing:.32em;text-transform:uppercase;color:rgba(233,229,220,.38)}
+.ch h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;
+  font-size:clamp(26px,3.9vw,50px);line-height:1.17;letter-spacing:-.004em;
+  color:#F7F2E8;max-width:19ch}
+.ch h3 em{font-style:italic;color:var(--gold3)}
+.ch p{font-size:clamp(14.5px,1.38vw,17.2px);line-height:1.78;color:rgba(233,229,220,.74);
+  max-width:60ch;margin-top:clamp(16px,2.4vh,24px)}
+.ch p strong{font-weight:400;color:#F4EFE4}
+.ch .aside{margin-top:clamp(20px,2.8vh,28px);padding-left:clamp(16px,1.7vw,22px);
+  border-left:1px solid rgba(192,161,106,.4);font-size:clamp(13.5px,1.2vw,15px);
+  color:rgba(233,229,220,.6);max-width:52ch}
+
+/* honest terms grid */
+.terms{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,34px);
+  margin-top:clamp(28px,4vh,46px)}
+.term{padding:clamp(20px,2.4vw,28px);border:1px solid var(--line2);border-radius:2px;
+  background:linear-gradient(180deg,rgba(233,229,220,.035),rgba(233,229,220,0))}
+.term .k{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(233,229,220,.48)}
+.term .v{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(20px,2.4vw,29px);
+  line-height:1.22;color:var(--gold3);margin-top:10px}
+.term p{font-size:clamp(13px,1.16vw,14.6px);margin-top:11px;max-width:34ch}
+
+/* what we never do */
+.nolist{margin-top:clamp(24px,3.4vh,38px);display:grid;gap:14px;max-width:58ch}
+.nolist li{list-style:none;display:flex;gap:14px;align-items:baseline;
+  font-size:clamp(14px,1.28vw,16px);color:rgba(233,229,220,.7)}
+.nolist li::before{content:"—";color:var(--gold2);flex:none}
+
+/* ============ hero desk plane (atmosphere, behind composition) ============ */
+.desk{position:absolute;left:0;right:0;bottom:0;height:min(56vh,540px);z-index:0;
+  pointer-events:none;
+  background-image:url("/assets/landing-l17/plane-desk-1800.jpg");
+  background-size:cover;background-position:center 70%;
+  opacity:.19;filter:saturate(.5) contrast(1.05) brightness(.7);
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.7) 44%,rgba(0,0,0,.95) 100%);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.7) 44%,rgba(0,0,0,.95) 100%)}
+.hero .wrap{position:relative;z-index:2}
+
+/* ============ chapter planes ============ */
+.chfig{position:relative;margin-top:clamp(24px,3.4vh,42px);overflow:hidden;border-radius:3px;
+  border:1px solid rgba(192,161,106,.24);
+  box-shadow:0 26px 64px -32px rgba(0,0,0,.92)}
+.chfig img{width:100%;height:clamp(200px,34vh,370px);object-fit:cover;display:block;
+  filter:saturate(.7) contrast(1.05) brightness(.85);
+  transition:filter 1.3s var(--ease),transform 1.5s var(--ease)}
+.chfig:hover img{filter:saturate(.85) contrast(1.06) brightness(.92);transform:scale(1.014)}
+.chfig figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(233,229,220,.7);
+  background:linear-gradient(180deg,rgba(12,12,14,0),rgba(12,12,14,.86))}
+footer .fnote{flex:1 1 100%;order:9;font-size:11.5px;letter-spacing:.01em;
+  color:rgba(233,229,220,.34);line-height:1.6}
+
+/* archive strip */
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.5vw,20px);
+  margin-top:clamp(26px,3.6vh,42px)}
+.strip figure{position:relative;overflow:hidden;border-radius:2px;
+  border:1px solid rgba(192,161,106,.22)}
+.strip img{width:100%;height:clamp(150px,22vh,230px);object-fit:cover;
+  filter:saturate(.82) contrast(1.03);transition:filter 1.1s var(--ease),transform 1.1s var(--ease)}
+.strip figure:hover img{filter:saturate(.95) contrast(1.05);transform:scale(1.03)}
+.strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:9px 12px;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(233,229,220,.76);background:linear-gradient(180deg,rgba(12,12,14,0),rgba(12,12,14,.82))}
+
+/* closing chapter */
+.ch-close .wrap{grid-template-columns:1fr;justify-items:center;text-align:center}
+.ch-close h3{max-width:20ch}
+.ch-close p{margin-left:auto;margin-right:auto;max-width:52ch}
+
+footer{position:relative;z-index:2;padding:clamp(38px,6vh,64px) 0;
+  border-top:1px solid var(--line);font-size:12.5px;color:rgba(233,229,220,.48)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px 28px;
+  justify-content:space-between;align-items:center}
+footer .fb{font-family:"Cormorant Garamond",Georgia,serif;font-size:13.5px;
+  letter-spacing:.22em;text-transform:uppercase;color:rgba(233,229,220,.7)}
+
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(24px);
+  transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:1080px){
+  .stage{grid-template-columns:1fr;gap:clamp(22px,3.4vh,34px)}
+  .framewrap{order:-1}
+  .zone-r{text-align:left}
+  .zone-r p,.zone-r .meta,.zone-r .zi{margin-left:0}
+  .zone p{max-width:44ch}
+}
+@media (max-width:860px){
+  .nav{display:none}
+  .hero{min-height:auto;padding-top:clamp(28px,5vh,48px)}
+  .ch .wrap{grid-template-columns:1fr;gap:18px}
+  .num{display:flex;align-items:baseline;gap:14px}
+  .num span{margin-top:0}
+  .terms,.strip{grid-template-columns:1fr}
+  .ch h3{max-width:none}
+  .brand{letter-spacing:.12em}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .frame,.zone{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* ===== craft smooth-nav-20260814: header stays with the reader, chapters keep order ===== */
+.top{position:sticky;top:0;
+  background:linear-gradient(180deg,rgba(18,18,20,.86),rgba(18,18,20,.62));
+  -webkit-backdrop-filter:saturate(130%) blur(12px);backdrop-filter:saturate(130%) blur(12px);
+  transition:padding .55s var(--ease),background .55s var(--ease),border-color .55s var(--ease)}
+.top.is-set{padding:11px 0;background:rgba(18,18,20,.94);border-bottom-color:var(--line2)}
+.nav a.is-here{color:var(--gold3);border-color:rgba(192,161,106,.55)}
+.craft-cta{display:none;margin-left:clamp(14px,2vw,26px);
+  font-family:Manrope,"Helvetica Neue",sans-serif;font-weight:400;font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  background:var(--gold3);padding:9px 18px;border-radius:999px;white-space:nowrap;
+  transition:background .4s var(--ease),transform .4s var(--ease)}
+.craft-cta:hover{background:#EBDCB4;transform:translateY(-1px)}
+.top.is-set .craft-cta{display:inline-flex;align-items:center}
+/* one waitlist button in the bar at a time */
+.top.is-set .enter{display:none}
+.craft-rail{position:absolute;left:0;bottom:-1px;height:1px;width:100%;
+  transform:scaleX(var(--read,0));transform-origin:0 50%;opacity:0;
+  background:linear-gradient(90deg,rgba(192,161,106,.35),rgba(216,199,155,.92));
+  transition:opacity .6s var(--ease)}
+.top.is-set .craft-rail{opacity:1}
+.ch[id],.hero[id]{scroll-margin-top:76px}
+@media (max-width:720px){
+  .top.is-set{padding:9px 0}
+  .craft-cta{margin-left:auto;font-size:11px;padding:8px 15px;letter-spacing:.1em}
+  .ch[id],.hero[id]{scroll-margin-top:58px}
+}
+@media (prefers-reduced-motion:reduce){
+  .top,.craft-cta,.craft-rail{transition:none}
+  .rv{transition-delay:0s!important}
+}
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="smh-skip" href="#story">К содержанию</a>
+
+<div class="bg" aria-hidden="true">
+  <div class="grid"></div>
+  <svg class="map" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid meet">
+    <path d="M118 246c34-38 92-54 150-42 44 9 66 38 112 40 40 2 62-22 104-16 46 7 58 48 44 86-13 36-54 52-58 92-4 44 26 74 12 116-12 36-58 52-96 44-44-9-60-52-98-74-40-23-92-18-122-52-32-36-24-96 4-134z"/>
+    <path d="M356 470c26 16 40 48 36 82-4 40-30 74-28 116 2 44 30 72 22 110-6 30-36 48-64 40" class="faint"/>
+    <path d="M690 180c56-30 128-26 186 2 44 22 62 62 106 82 46 22 104 8 142 40 40 34 34 100-2 138-34 36-92 40-124 78-30 36-24 92-58 122-36 32-98 22-128-14-32-38-20-96-46-138-24-40-76-56-96-100-22-46-4-104 20-146 10-18 22-40 0-64z"/>
+    <path d="M1046 300c44-8 90 10 118 44 30 36 34 90 66 122 30 30 82 30 104 68" class="faint"/>
+    <path d="M1218 452c38-22 90-16 120 14 32 32 30 88 4 124-24 34-72 46-92 84-18 34-6 82-34 106" class="faint"/>
+    <path d="M250 596c60-18 128-6 176 34 42 34 58 92 106 118"/>
+    <circle cx="404" cy="286" r="5"/>
+    <circle cx="838" cy="330" r="5"/>
+    <circle cx="1180" cy="512" r="5"/>
+    <circle cx="600" cy="640" r="5"/>
+  </svg>
+  <div class="vig"></div>
+  <div class="noise"></div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="SaveMyHistory">
+      <span class="emblem">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M20 4c7 6 11 12 11 19a11 11 0 0 1-22 0c0-7 4-13 11-19z" stroke="#C0A16A" stroke-width="1.3"/>
+          <path d="M20 12v20M20 20l6-5M20 26l-6-5" stroke="#C0A16A" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
+      </span>
+      SaveMyHistory
+    </a>
+    <nav class="nav">
+      <a href="#ch-3" data-open-story>Как это</a>
+      <a href="#ch-7" data-open-story>Цены</a>
+      <a href="#ch-1" data-open-story>О нас</a>
+      <a href="#ch-5" data-open-story>Вопросы</a>
+    </nav>
+    <a class="enter" href="/waitlist.html">Лист ожидания</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="desk" aria-hidden="true"></div>
+  <div class="wrap">
+    <h1 class="vh">SaveMyHistory - бережная реставрация старых семейных фотографий</h1>
+    <div class="stage">
+
+      <aside class="zone">
+        <span class="zi">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2.5" y="6.5" width="19" height="14" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M8.5 6.5l1.6-2.6h3.8l1.6 2.6" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            <circle cx="12" cy="13.4" r="3.6" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </span>
+        <h2>Что можно прислать</h2>
+        <p>Снимок из альбома, скан или фото телефоном при дневном свете. Мятые края, трещины и пятна - не помеха.</p>
+        <div class="meta">JPG · PNG · TIFF · HEIC</div>
+      </aside>
+
+      <div class="framewrap">
+        <div class="frame">
+          <div class="plate" id="plate" style="--split:52%">
+            <img class="pane-b" src="/assets/landing-l17/plate-doorway-2000.jpg"
+                 srcset="/assets/landing-l17/plate-doorway-1100.jpg 1100w, /assets/landing-l17/plate-doorway-2000.jpg 2000w"
+                 sizes="(max-width:1080px) 92vw, 52vw"
+                 alt="Три человека стоят спиной в дверном проёме на старой чёрно-белой фотографии, лежащей на деревянной поверхности" fetchpriority="high" decoding="async">
+            <div class="pane-a" aria-hidden="true">
+              <img src="/assets/landing-l17/plate-doorway-2000.jpg"
+                   srcset="/assets/landing-l17/plate-doorway-1100.jpg 1100w, /assets/landing-l17/plate-doorway-2000.jpg 2000w"
+                   sizes="(max-width:1080px) 92vw, 52vw"
+                   alt="" decoding="async">
+            </div>
+            <div class="seam" id="seam"><span class="knob" aria-hidden="true"></span></div>
+            <span class="tag tag-l">архивный кадр</span>
+            <span class="tag tag-r">больше света</span>
+            <input class="range" id="range" type="range" min="6" max="94" value="52"
+                   aria-label="Сдвинуть границу света на кадре">
+          </div>
+        </div>
+        <p class="disclaim">Слева и справа - <b>один и тот же кадр</b>, справа на него просто падает больше света.
+          Это иллюстрация того, как мы смотрим на снимок, а не чей-то готовый заказ и не обещание результата.
+          Реальные работы показываем только с согласия семьи.</p>
+      </div>
+
+      <aside class="zone zone-r">
+        <span class="zi">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3.5 7.2c0-1 .8-1.8 1.8-1.8h4.1l1.8 2.2h7.5c1 0 1.8.8 1.8 1.8v8.6c0 1-.8 1.8-1.8 1.8H5.3c-1 0-1.8-.8-1.8-1.8V7.2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M3.5 11.6h17" stroke="currentColor" stroke-width="1.1"/>
+          </svg>
+        </span>
+        <h2>Семейный архив</h2>
+        <p>Каждый снимок живёт в отдельной папке: оригинал, наши шаги и итог. Ничего не публикуем и не отдаём третьим.</p>
+        <div class="meta">Личное хранение · удаление по просьбе</div>
+      </aside>
+
+    </div>
+
+    <p class="support">Старые семейные фотографии выцветают тише, чем мы успеваем заметить.
+      <b>Мы возвращаем им свет - так, чтобы лицо осталось собой.</b></p>
+
+    <div class="ctas">
+      <a class="btn btn-gold" href="/waitlist.html">Занять место</a>
+      <button class="btn btn-ghost" id="storyBtn" type="button" aria-expanded="false" aria-controls="story">
+        Узнать о проекте <i class="arw" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <p class="status">Приём открыт · выдача сейчас <b>на паузе</b></p>
+  </div>
+</section>
+
+<main class="story" id="story">
+
+  <section class="ch" id="ch-1">
+    <div class="wrap">
+      <div class="num rv">I<span>О нас</span></div>
+      <div class="rv">
+        <h3>Сначала уходят края. <em>Потом лицо.</em></h3>
+        <p>Фотографии не исчезают разом. Сначала желтеет бумага, потом трескается эмульсия,
+          потом в один день оказывается, что никто уже не помнит, кто стоит вторым слева.
+          <strong>SaveMyHistory существует ради того момента, который наступает раньше.</strong></p>
+        <p>Мы не фабрика и не кнопка. Маленькая мастерская, которая берёт старый кадр
+          и аккуратно возвращает ему свет - без фантазий о том, чего на снимке никогда не было.</p>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/dawn-window-1200.jpg"
+               srcset="/assets/landing-l17/dawn-window-1200.jpg 1200w, /assets/landing-l17/dawn-window-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Рабочий стол реставратора у высокого окна на рассвете, лампа выключена" loading="lazy" decoding="async">
+          <figcaption>мастерская на рассвете &middot; иллюстрация</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="ch-2">
+    <div class="wrap">
+      <div class="num rv">II<span>Главное правило</span></div>
+      <div class="rv">
+        <h3>Лицо должно <em>остаться собой</em></h3>
+        <p>Самое лёгкое - сделать красиво. Самое важное - сделать похоже. Если после работы
+          человек на снимке стал моложе, гладче или просто другим человеком - это брак, а не результат.</p>
+        <p>Поэтому черты лица мы трогаем меньше всего. Работаем с тем, что испортило время:
+          трещины, заломы, пятна, выцветший тон. Сомневаемся - оставляем как есть.</p>
+        <p class="aside">Спорные места мы показываем и спрашиваем вас. Вы знаете это лицо лучше любого алгоритма.</p>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/plane-hands-1200.jpg"
+               srcset="/assets/landing-l17/plane-hands-1200.jpg 1200w, /assets/landing-l17/plane-hands-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Руки в хлопковых перчатках держат повреждённый отпечаток" loading="lazy" decoding="async">
+          <figcaption>руки в перчатках &middot; иллюстрация</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="ch-3">
+    <div class="wrap">
+      <div class="num rv">III<span>Как это устроено</span></div>
+      <div class="rv">
+        <h3>Три шага, без лишних движений</h3>
+        <p>Никаких личных кабинетов с десятью вкладками. Вы присылаете снимок и рассказываете,
+          что на нём важно. Дальше работаем мы.</p>
+        <div class="terms">
+          <div class="term">
+            <div class="k">шаг первый</div>
+            <div class="v">Присылаете</div>
+            <p>Скан или фото телефоном. Достаточно ровного дневного света и стола.</p>
+          </div>
+          <div class="term">
+            <div class="k">шаг второй</div>
+            <div class="v">Смотрим</div>
+            <p>Говорим честно, что реально сделать с этим кадром, а что нет.</p>
+          </div>
+          <div class="term">
+            <div class="k">шаг третий</div>
+            <div class="v">Возвращаем</div>
+            <p>Оригинал и итог рядом. Файл в качестве, пригодном для печати.</p>
+          </div>
+        </div>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/plane-negatives-1200.jpg"
+               srcset="/assets/landing-l17/plane-negatives-1200.jpg 1200w, /assets/landing-l17/plane-negatives-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Плёночная полоса на просмотровом столе, рядом пинцет" loading="lazy" decoding="async">
+          <figcaption>плёнка на просветке &middot; иллюстрация</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="ch-4">
+    <div class="wrap">
+      <div class="num rv">IV<span>Честный срок</span></div>
+      <div class="rv">
+        <h3>Мы не обещаем <em>«за две минуты»</em></h3>
+        <p>Старый снимок требует времени и человеческого взгляда. Обычно работа занимает
+          <strong>около суток</strong>, иногда до двух. Если понимаем, что не уложимся - пишем заранее,
+          а не после срока.</p>
+        <div class="terms">
+          <div class="term">
+            <div class="k">обычно</div>
+            <div class="v">К утру</div>
+            <p>Отдали вечером - чаще всего готово к следующему дню.</p>
+          </div>
+          <div class="term">
+            <div class="k">если сложно</div>
+            <div class="v">До 48 часов</div>
+            <p>Сильные повреждения и групповые портреты идут медленнее.</p>
+          </div>
+          <div class="term">
+            <div class="k">сейчас</div>
+            <div class="v">Выдача на паузе</div>
+            <p>Приём открыт, возврат работ временно остановлен. Мы говорим об этом до, а не после.</p>
+          </div>
+        </div>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/plane-lamp-1200.jpg"
+               srcset="/assets/landing-l17/plane-lamp-1200.jpg 1200w, /assets/landing-l17/plane-lamp-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Настольная лампа над рабочим столом вечером" loading="lazy" decoding="async">
+          <figcaption>вечерний свет над столом &middot; иллюстрация</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="ch-5">
+    <div class="wrap">
+      <div class="num rv">V<span>Границы</span></div>
+      <div class="rv">
+        <h3>Чего мы <em>не делаем</em> никогда</h3>
+        <p>Честный список ограничений говорит о мастерской больше, чем любой список возможностей.</p>
+        <ul class="nolist">
+          <li>Не придумываем глаза и черты, которых нет на исходнике.</li>
+          <li>Не добавляем людей, предметы и фон, которых не было в кадре.</li>
+          <li>Не делаем из фотографии видео и не заставляем людей двигаться.</li>
+          <li>Не публикуем ваши снимки без отдельного согласия семьи.</li>
+          <li>Не называем проценты точности: память не измеряется цифрами.</li>
+        </ul>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/loupe-grain-1200.jpg"
+               srcset="/assets/landing-l17/loupe-grain-1200.jpg 1200w, /assets/landing-l17/loupe-grain-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Лупа лежит на углу старого снимка, под стеклом видно зерно бумаги" loading="lazy" decoding="async">
+          <figcaption>зерно под лупой &middot; граница читаемого</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="ch-6">
+    <div class="wrap">
+      <div class="num rv">VI<span>Архив</span></div>
+      <div class="rv">
+        <h3>Снимок возвращается <em>в семью</em>, а не в ленту</h3>
+        <p>У каждой работы своя папка: то, что вы прислали, наши шаги и итог рядом с оригиналом.
+          <strong>Оригинал мы не переписываем никогда</strong> - он остаётся отдельным файлом.</p>
+        <p>Чужих глаз здесь нет. Мы не выкладываем ваши фотографии в примеры, не передаём их
+          третьим и удаляем всё по первой просьбе - без объяснений и анкет.</p>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/plane-folder-1200.jpg"
+               srcset="/assets/landing-l17/plane-folder-1200.jpg 1200w, /assets/landing-l17/plane-folder-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Стопка старых папок и документов под лампой" loading="lazy" decoding="async">
+          <figcaption>папки архива &middot; иллюстрация</figcaption>
+        </figure>
+        <div class="strip">
+          <figure><img src="/assets/gallery/n003.jpg" alt="Кадр из рабочего архива" loading="lazy" decoding="async"><figcaption>папка семьи</figcaption></figure>
+          <figure><img src="/assets/gallery/n031.jpg" alt="Кадр из рабочего архива" loading="lazy" decoding="async"><figcaption>оригинал сохранён</figcaption></figure>
+          <figure><img src="/assets/gallery/n077.jpg" alt="Кадр из рабочего архива" loading="lazy" decoding="async"><figcaption>удаление по просьбе</figcaption></figure>
+        </div>
+        <div class="aside">Кадры выше - из нашего рабочего архива материалов, а не чьи-то заказы.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="ch-7">
+    <div class="wrap">
+      <div class="num rv">VII<span>Цены</span></div>
+      <div class="rv">
+        <h3>Считаем <em>по кадру</em>, а не по тарифу</h3>
+        <p>Один снимок и коробка на двести штук - разная работа, и делать вид, что это одна кнопка,
+          нечестно. Поэтому цену мы называем после того, как посмотрим на фотографию,
+          <strong>и до того, как начнём</strong>.</p>
+        <div class="terms">
+          <div class="term">
+            <div class="k">один кадр</div>
+            <div class="v">Цена после осмотра</div>
+            <p>Смотрим повреждения и называем сумму словами, до начала работы.</p>
+          </div>
+          <div class="term">
+            <div class="k">семейная коробка</div>
+            <div class="v">Считаем разбором</div>
+            <p>Большие архивы разбираем частями, чтобы платить приходилось только за нужное.</p>
+          </div>
+          <div class="term">
+            <div class="k">сейчас</div>
+            <div class="v">Оплаты нет</div>
+            <p>Пока выдача на паузе, мы никого не просим платить. Только лист ожидания.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch" id="ch-8">
+    <div class="wrap">
+      <div class="num rv">VIII<span>Лист ожидания</span></div>
+      <div class="rv">
+        <h3>Место в очереди - <em>это всё, что мы просим сейчас</em></h3>
+        <p>Приём открыт, выдача на паузе: мы берём снимки в работу, но не возвращаем их прямо сегодня.
+          Честнее сказать это заранее, чем взять деньги и молчать. <strong>Оставьте место за собой -
+          напишем, когда дойдёт очередь.</strong></p>
+        <div class="aside">Никаких рассылок и напоминаний. Одно письмо - когда действительно сможем взять ваш кадр.</div>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/plane-shelf-1600.jpg"
+               srcset="/assets/landing-l17/plane-shelf-1600.jpg 1600w, /assets/landing-l17/plane-shelf-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Рама изнанкой вверх стоит у стопки старых книг" loading="lazy" decoding="async">
+          <figcaption>рамы ждут очереди &middot; иллюстрация</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- конверты · content-gen 20260814 -->
+  <section class="ch" id="ch-konverty">
+    <div class="wrap">
+      <div class="num rv">IX<span>Хранение</span></div>
+      <div class="rv">
+        <h3>Бумага дольше живёт <em>в темноте и покое</em></h3>
+        <p>Снимкам вредит не время само по себе, а свет на подоконнике, сырость на балконе и
+          плёнка, в которую их когда-то переложили «чтобы не запылились». Бумажный конверт,
+          ровная стопка, тёмный ящик - этого достаточно.</p>
+        <p>Мы не продаём коробки и папки и не будем уговаривать что-то купить.
+          <strong>Скажем прямо, что стоит переложить, а что лучше не трогать вовсе</strong> -
+          иногда самое бережное решение это оставить как есть.</p>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/archival-sleeves-1200.jpg"
+               srcset="/assets/landing-l17/archival-sleeves-1200.jpg 1200w, /assets/landing-l17/archival-sleeves-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Деревянный лоток с вертикально стоящими бумажными конвертами, рядом на столе белые перчатки" loading="lazy" decoding="async">
+          <figcaption>конверты и лоток &middot; иллюстрация</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ночь · content-gen 20260814 -->
+  <section class="ch" id="ch-noch">
+    <div class="wrap">
+      <div class="num rv">X<span>Ночь</span></div>
+      <div class="rv">
+        <h3>Настоящая работа идёт <em>ночью</em>, когда дом затих</h3>
+        <p>Днём глаз спешит. Вечером, при одной лампе, видно то, что было пропущено: где залом,
+          а где царапина на плёнке, где тень от съёмки, а где пятно, появившееся позже.</p>
+        <p>Поэтому один кадр иногда занимает целый вечер, и мы не считаем это долгим.
+          <strong>Лучше отдать снимок на день позже, чем стереть с него человека</strong>.</p>
+        <figure class="chfig rv">
+          <img src="/assets/landing-l17/night-desk-1200.jpg"
+               srcset="/assets/landing-l17/night-desk-1200.jpg 1200w, /assets/landing-l17/night-desk-2000.jpg 2000w"
+               sizes="(max-width:860px) 92vw, 64vw"
+               alt="Тёмная комната: настольная лампа горит над закрытым альбомом, рядом стул и полки" loading="lazy" decoding="async">
+          <figcaption>вечерний стол &middot; иллюстрация</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch ch-close" id="ch-9">
+    <div class="wrap">
+      <div class="rv">
+        <h3>Пусть у них будет <em>ещё немного света</em></h3>
+        <p>Фотографии переживают тех, кто на них смотрел. Мы просто стараемся, чтобы это длилось дольше.</p>
+        <div class="ctas">
+          <a class="btn btn-gold" href="/waitlist.html">Занять место</a>
+          <a class="btn btn-ghost" href="#top">Наверх <i class="arw" aria-hidden="true"></i></a>
+        </div>
+        <p class="status">Приём открыт · выдача сейчас <b>на паузе</b></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<style data-smh-polish="complete-20260814">
+/* ===== SMH complete polish complete-20260814: finished footer, icon system, focus states =====
+   0E craft - inline SVG + CSS masks, no new binary assets. */
+.smh-skip{position:absolute;left:-9999px;top:0;z-index:999;padding:12px 20px;background:#C0A16A;color:#12100c;font:500 13px/1 Manrope,sans-serif;letter-spacing:.08em;border-radius:0 0 3px 0}
+.smh-skip:focus{left:0}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid #C0A16A;outline-offset:3px;border-radius:2px}
+.smh-foot{display:block;position:relative;z-index:2;border-top:1px solid rgba(233,229,220,.12);color:rgba(233,229,220,.50);font-family:Manrope,"Helvetica Neue",system-ui,sans-serif;font-weight:300;font-size:13px;line-height:1.65;letter-spacing:.01em;padding:clamp(46px,7vh,78px) 0 clamp(26px,4vh,38px);margin-top:0}
+.smh-foot-wrap{width:min(1240px,90vw);margin:0 auto}
+.smh-foot a{color:inherit;text-decoration:none;transition:color .35s cubic-bezier(.22,.61,.36,1)}
+.smh-foot a:hover{color:rgba(233,229,220,.80)}
+.smh-foot p{margin:0;max-width:none;font-size:13px;color:inherit}
+.smh-foot-top{display:grid;grid-template-columns:minmax(240px,1.35fr) repeat(3,minmax(130px,.8fr));gap:clamp(26px,3.4vw,54px)}
+.smh-foot-name{display:inline-flex;align-items:center;gap:10px;font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:rgba(233,229,220,.80)}
+.smh-foot-name svg{width:19px;height:19px;color:#C0A16A;flex:none}
+.smh-foot-line{margin-top:14px!important;max-width:34ch!important;opacity:.95}
+.smh-foot-state{margin-top:12px!important;display:flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.02em}
+.smh-foot-state i{width:7px;height:7px;border-radius:50%;background:#C0A16A;flex:none;box-shadow:0 0 0 3px rgba(0,0,0,.001)}
+.smh-foot-h{display:block;font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:rgba(233,229,220,.80);opacity:.8;margin-bottom:14px}
+.smh-foot-col a{display:block;padding:5px 0;font-size:13px}
+.smh-foot-soc{display:flex;align-items:center;gap:10px;margin-top:22px;flex-wrap:wrap}
+.smh-foot-soc a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(233,229,220,.12);border-radius:50%;color:inherit;transition:color .35s ease,border-color .35s ease,transform .35s ease,background .35s ease}
+.smh-foot-soc a:hover{color:#C0A16A;border-color:#C0A16A;transform:translateY(-2px)}
+.smh-foot-soc svg{width:17px;height:17px}
+.smh-foot-bot{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;justify-content:space-between;margin-top:clamp(30px,4.6vh,52px);padding-top:clamp(18px,2.6vh,26px);border-top:1px solid rgba(233,229,220,.12);font-size:12px;opacity:.9}
+.smh-foot-note{flex:1 1 100%%;font-size:11.5px;line-height:1.6;opacity:.72;max-width:78ch!important}
+.smh-foot-up{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.smh-foot-up svg{width:15px;height:15px;transition:transform .35s cubic-bezier(.22,.61,.36,1)}
+.smh-foot-up:hover svg{transform:translateY(-3px)}
+@media (max-width:900px){.smh-foot-top{grid-template-columns:1fr 1fr}.smh-foot-brand{grid-column:1 / -1}}
+@media (max-width:560px){.smh-foot-top{grid-template-columns:1fr;gap:26px}.smh-foot-bot{flex-direction:column;align-items:flex-start}}
+.btn-gold::after{content:"";display:inline-block;width:.82em;height:.82em;margin-left:.6em;vertical-align:-.07em;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .4s cubic-bezier(.22,.61,.36,1)}
+.btn-gold:hover::after{transform:translateX(4px)}
+@media (prefers-reduced-motion:reduce){.smh-foot a,.smh-foot-soc a,.smh-foot-up svg{transition:none}.smh-foot-up:hover svg{transform:none}}
+</style>
+
+<footer class="smh-foot" data-smh-footer="complete-20260814">
+  <div class="smh-foot-wrap">
+    <div class="smh-foot-top">
+      <div class="smh-foot-brand">
+        <a class="smh-foot-name" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19.4 4.3c1 8.4-3.9 13.9-11.6 15 .1-8.4 4.9-14 11.6-15z"/><path d="M7.8 19.3c1.9-4.3 4.8-7.4 8.7-9.5"/></svg> SaveMyHistory</a>
+        <p class="smh-foot-line">Бережное восстановление семейных фотографий. Лицо остаётся собой.</p>
+        <p class="smh-foot-state"><i aria-hidden="true"></i>Приём открыт · выдача сейчас на мягкой паузе</p>
+        <div class="smh-foot-soc">
+          <a href="https://t.me/maximprods" target="_blank" rel="noopener noreferrer" title="Telegram" aria-label="SaveMyHistory в Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.3 4.4 2.9 11.3c-.8.3-.8 1.4.1 1.6l4.6 1.4 1.8 5c.2.7 1.1.9 1.6.3l2.4-2.6 4.5 3.3c.6.4 1.4.1 1.5-.6l2.9-14c.2-.8-.6-1.5-1.4-1.2z"/><path d="m7.6 14.3 9.4-6.4-6.9 7.8-.2 3.3"/></svg></a>
+          <a href="https://instagram.com/save.my.history" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="SaveMyHistory в Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true" focusable="false"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.1" cy="6.9" r="1.05" fill="currentColor" stroke="none"/></svg></a>
+          <a class="smh-mail" href="mailto:savemyfamilyhistory@gmail.com" data-u="savemyfamilyhistory" data-d="gmail.com" title="Написать письмом" aria-label="Написать нам письмом"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.6" y="5" width="18.8" height="14" rx="2.6"/><path d="m3.6 7.2 8.4 5.9 8.4-5.9"/></svg></a>
+          <a href="https://savemyhistory.tech/" target="_blank" rel="noopener noreferrer" title="savemyhistory.tech" aria-label="Сайт savemyhistory.tech"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.9"/><path d="M3.3 9.4h17.4M3.3 14.6h17.4"/><path d="M12 3.1c2.5 2.6 3.8 5.6 3.8 8.9S14.5 18.3 12 20.9C9.5 18.3 8.2 15.3 8.2 12S9.5 5.7 12 3.1z"/></svg></a>
+        </div>
+      </div>
+      <nav class="smh-foot-col" aria-label="Разделы страницы">
+        <span class="smh-foot-h">Страница</span>
+      <a href="#ch-1" data-open-story>О нас</a>
+      <a href="#ch-2" data-open-story>Главное правило</a>
+      <a href="#ch-3" data-open-story>Как это устроено</a>
+      <a href="#ch-4" data-open-story>Честный срок</a>
+      <a href="#ch-5" data-open-story>Границы</a>
+      <a href="#ch-7" data-open-story>Цены</a>
+      <a href="#ch-konverty" data-open-story>Хранение</a>
+      <a href="#ch-noch" data-open-story>Ночь</a>
+      <a href="#ch-8" data-open-story>Лист ожидания</a>
+      </nav>
+      <nav class="smh-foot-col" aria-label="Проект">
+        <span class="smh-foot-h">Проект</span>
+        <a href="/waitlist.html">Лист ожидания</a>
+        <a href="/gallery.html">Галерея</a>
+        <a href="/cabinet.html">Кабинет</a>
+        <a href="https://savemyhistory.tech/">savemyhistory.tech</a>
+      </nav>
+      <nav class="smh-foot-col" aria-label="Документы">
+        <span class="smh-foot-h">Документы</span>
+        <a href="/privacy.html">Конфиденциальность</a>
+        <a href="/terms.html">Условия</a>
+        <a class="smh-mail" href="mailto:savemyfamilyhistory@gmail.com" data-u="savemyfamilyhistory" data-d="gmail.com">Написать нам</a>
+      </nav>
+    </div>
+    <div class="smh-foot-bot">
+      <span>© 2026 SaveMyHistory · Сохрани историю своей семьи</span>
+      <a class="smh-foot-up" href="#top">Наверх <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19.2V5.4M6.2 11.2 12 5.4l5.8 5.8"/></svg></a>
+      <p class="smh-foot-note">Предметные кадры на этой странице - иллюстрации обстановки, а не фотографии чьих-то работ и не доказательство результата.</p>
+    </div>
+  </div>
+</footer>
+
+<script data-smh-polish="complete-20260814">
+(function(){
+  var m = document.querySelectorAll('.smh-mail');
+  for (var i = 0; i < m.length; i++) {
+    var a = m[i], u = a.getAttribute('data-u'), d = a.getAttribute('data-d');
+    if (u && d) a.setAttribute('href', 'mailto:' + u + '@' + d);
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var story = document.getElementById('story');
+  var btn = document.getElementById('storyBtn');
+
+  function openStory(scrollTo){
+    var wasClosed = !story.classList.contains('open');
+    story.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    if (wasClosed) reveal();
+    if (scrollTo){
+      var target = scrollTo === true ? document.getElementById('ch-1') : scrollTo;
+      if (target) requestAnimationFrame(function(){
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    }
+  }
+
+  btn.addEventListener('click', function(){ openStory(true); });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-open-story]'), function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = a.getAttribute('href').slice(1);
+      openStory(document.getElementById(id));
+    });
+  });
+
+  // scrolling past the hero also lets the story begin
+  var hero = document.getElementById('top');
+  if ('IntersectionObserver' in window){
+    var heroWatch = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting && en.boundingClientRect.top < 0){
+          openStory(false);
+          heroWatch.disconnect();
+        }
+      });
+    }, {threshold:0});
+    heroWatch.observe(hero);
+  } else {
+    openStory(false);
+  }
+
+  // scroll reveal
+  var revealed = false;
+  function reveal(){
+    var items = document.querySelectorAll('.rv:not(.in)');
+    if (!('IntersectionObserver' in window)){
+      Array.prototype.forEach.call(items, function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:.12});
+    Array.prototype.forEach.call(items, function(el){ io.observe(el); });
+    revealed = true;
+  }
+
+  // framed plane: split is an illustration control, nothing is being restored
+  var plate = document.getElementById('plate');
+  var range = document.getElementById('range');
+  if (plate && range){
+    var apply = function(){ plate.style.setProperty('--split', range.value + '%'); };
+    range.addEventListener('input', apply);
+    apply();
+  }
+})();
+</script>
+
+<script data-smh-craft="smooth-nav-20260814">
+/* craft: quiet nav + scroll rhythm - vanilla, no deps */
+(function(){
+  var cfg = {"bar": ".top", "nav": ".nav", "railClass": "craft-rail", "railHost": "bar", "cta": "Лист ожидания", "ctaClass": "craft-cta", "ctaHost": "bar", "stuckClass": "is-set", "veilClass": "is-veiled", "veilOnDown": false, "triggerEl": null, "trigger": 12, "offset": 76, "groupSel": ".ch", "revealSel": ".rv", "step": 0.1, "keepAuthored": false};
+  var doc = document.documentElement;
+  var mq  = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reduce = mq.matches;
+  var bar = document.querySelector(cfg.bar);
+  var nav = document.querySelector(cfg.nav);
+  if (!bar || !nav) return;
+
+  var rail = document.createElement('span');
+  rail.className = cfg.railClass;
+  rail.setAttribute('aria-hidden','true');
+  (cfg.railHost === 'bar' ? bar : nav).appendChild(rail);
+
+  if (cfg.cta) {
+    var cta = document.createElement('a');
+    cta.className = cfg.ctaClass;
+    cta.href = '/waitlist.html';
+    cta.textContent = cfg.cta;
+    (cfg.ctaHost === 'bar' ? bar.querySelector('.wrap') || bar : nav).appendChild(cta);
+  }
+
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+  var spy = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var el = id ? document.getElementById(id) : null;
+    if (el) spy.push({ a: a, el: el });
+  });
+  spy.sort(function(x, y){
+    var rel = x.el.compareDocumentPosition(y.el);
+    if (rel & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+    if (rel & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+    return 0;
+  });
+
+  /* keyboard: an anchor jump should also move focus, not just the viewport */
+  links.forEach(function(a){
+    if (a.hasAttribute('data-open-story')) return;
+    a.addEventListener('click', function(){
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if (!el) return;
+      window.setTimeout(function(){
+        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex','-1');
+        try { el.focus({ preventScroll: true }); } catch (e) {}
+      }, reduce ? 0 : 520);
+    });
+  });
+
+  /* module timing: chapters arrive in their own rhythm, not one global queue */
+  if (!reduce && cfg.revealSel) {
+    Array.prototype.forEach.call(document.querySelectorAll(cfg.groupSel), function(group){
+      var kids = group.querySelectorAll(cfg.revealSel);
+      Array.prototype.forEach.call(kids, function(el, i){
+        if (cfg.keepAuthored && el.hasAttribute('data-d')) return;
+        el.style.transitionDelay = (Math.min(i, 4) * cfg.step).toFixed(2) + 's';
+      });
+    });
+  }
+
+  var lastY = window.pageYOffset, stuck = false, veiled = false, ticking = false, active = null;
+
+  function trigger(){
+    if (!cfg.triggerEl) return cfg.trigger;
+    var t = document.querySelector(cfg.triggerEl);
+    return t ? Math.max(120, t.offsetHeight - cfg.offset) : 320;
+  }
+
+  function frame(){
+    ticking = false;
+    var y = window.pageYOffset;
+    var h = doc.scrollHeight - window.innerHeight;
+    doc.style.setProperty('--read', (h > 0 ? Math.min(1, Math.max(0, y / h)) : 0).toFixed(4));
+
+    var edge = trigger();
+    if ((y > edge) !== stuck) {
+      stuck = y > edge;
+      bar.classList.toggle(cfg.stuckClass, stuck);
+    }
+
+    if (cfg.veilOnDown && stuck && !reduce) {
+      if (y > lastY + 4 && !veiled && y > edge + 140) {
+        veiled = true; bar.classList.add(cfg.veilClass);
+      } else if (y < lastY - 4 && veiled) {
+        veiled = false; bar.classList.remove(cfg.veilClass);
+      }
+    } else if (veiled) {
+      veiled = false; bar.classList.remove(cfg.veilClass);
+    }
+    lastY = y;
+
+    var probe = y + cfg.offset + Math.round(window.innerHeight * 0.30);
+    var cur = null;
+    for (var i = 0; i < spy.length; i++) {
+      if (spy[i].el.getBoundingClientRect().top + y <= probe) cur = spy[i];
+    }
+    if (cur !== active) {
+      if (active) { active.a.classList.remove('is-here'); active.a.removeAttribute('aria-current'); }
+      active = cur;
+      if (active) { active.a.classList.add('is-here'); active.a.setAttribute('aria-current','true'); }
+    }
+  }
+
+  function onScroll(){
+    if (!ticking) { ticking = true; window.requestAnimationFrame(frame); }
+  }
+
+  frame();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', onScroll);
+  if (mq.addEventListener) mq.addEventListener('change', function(){ reduce = mq.matches; });
+})();
+</script>
+</body>
+</html>
