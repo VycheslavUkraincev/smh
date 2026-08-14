@@ -1157,6 +1157,38 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
 .inv-kit .btn{margin-top:11px;padding:8px 13px;font-size:12.5px}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ---------- E · первая память, подписи, заметки круга ---------- */
+.first-mem{margin:0 0 12px;padding:10px 13px;border:1px solid var(--border);border-radius:12px;
+  background:linear-gradient(180deg,rgba(228,177,67,.14),rgba(228,177,67,.03));
+  font-size:12.5px;line-height:1.55;color:var(--ink)}
+.first-mem b{font-weight:600}
+.cap-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.cap-in{flex:1 1 150px;min-width:0;font-size:12.5px;padding:8px 10px}
+.cap-save{flex:0 0 auto;font-size:11.5px;padding:8px 11px}
+.cap-has{display:block;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.45}
+.cap-said{display:block;margin-top:7px;font-size:12.5px;line-height:1.5;color:var(--ink);
+  padding-left:9px;border-left:2px solid var(--line);overflow-wrap:anywhere}
+.seat-wish{margin-top:13px;padding-top:12px;border-top:1px solid var(--divider)}
+.sw-lab{display:block;font-size:11.5px;color:var(--muted);margin-bottom:6px}
+.sw-row{display:flex;flex-wrap:wrap;gap:6px}
+.sw-row .inp{flex:1 1 140px;min-width:0;font-size:12.5px;padding:8px 10px}
+.sw-row .btn{flex:0 0 auto;font-size:11.5px;padding:8px 11px}
+.sw-note{margin:8px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.tm-wish{font-style:italic}
+.journal{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.jr-it{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--tile);
+  cursor:pointer;transition:border-color .18s ease,transform .18s ease}
+.jr-it:hover{border-color:var(--line);transform:translateY(-1px)}
+.jr-it:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.jr-k{display:inline-block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.jr-it b{display:block;font-size:12.5px;font-weight:500;margin-top:2px}
+.jr-t{display:block;font-size:12.5px;line-height:1.5;margin-top:4px;color:var(--ink-2);overflow-wrap:anywhere}
+.jr-it small{display:block;font-size:10.5px;color:var(--muted);margin-top:5px}
+.jr-empty{padding:12px 13px;border:1px dashed var(--line);border-radius:12px;
+  font-size:12px;line-height:1.55;color:var(--muted)}
+.inv-next{margin:11px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+  background:var(--soft);font-size:12px;line-height:1.55;color:var(--ink)}
+.inv-next b{font-weight:600}
 </style>
 </head>
 <body>
@@ -1314,8 +1346,18 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           <span class="cnt" id="treeCnt">0 из 7</span>
         </div>
         <p class="card-sub">Кружки на ветвях — места круга. В занятых стоят инициалы имени, которое назвал человек; свободные ждут своих людей.</p>
+        <p class="first-mem hide" id="firstMem" data-brand-apply="E-first-memory"></p>
         <div class="tree-map" id="treeWrap"></div>
         <p class="tree-hint" id="treeHint">Свободное место — это приглашение: нажмите на него, чтобы позвать человека в круг.</p>
+        <div class="seat-wish" data-brand-apply="E-seat-wish">
+          <label class="sw-lab" for="seatWish">Кого вы ждёте на свободном месте</label>
+          <div class="sw-row">
+            <input class="inp" id="seatWish" type="text" maxlength="24" placeholder="Например: Бабушка">
+            <button class="btn btn--quiet" id="seatWishAdd" type="button">Подписать место</button>
+            <button class="btn btn--quiet hide" id="seatWishClear" type="button">Убрать подписи</button>
+          </div>
+          <p class="sw-note" id="seatWishNote"></p>
+        </div>
       </div>
 
       <div class="card card--week" id="weekStrip">
@@ -1467,6 +1509,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
             <button class="btn btn--quiet" id="copyTextBtn" type="button">Скопировать сообщение</button>
           </div>
           <p class="inv-keep">Мы храним истории — и ничего не досочиняем за вашу семью.</p>
+          <p class="inv-next hide" id="invNext" data-brand-apply="E-invite-next">Скопировано. Дальше одно движение: отправьте это <b>одному</b> родному — тому, кто точно откроет. Круг начинается с одного человека, а не с рассылки. Код остаётся тем же — мы его не меняем.</p>
           <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
         </div>
 
@@ -1524,6 +1567,15 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           </div>
 
           <p class="rule">Честно об этой версии: дворецкий отвечает заранее заготовленными словами и хранит заметки в памяти этого устройства. Живой разговор включится, когда у круга появится общий сервер — тогда заметки родных будут приходить хранителю сами. Пока сводку можно скопировать и отправить одним сообщением.</p>
+        </div>
+
+        <div class="card card--journal" data-brand-apply="E-journal">
+          <div class="card-head">
+            <h2>Заметки круга</h2>
+            <span class="cnt" id="jrCnt">пока пусто</span>
+          </div>
+          <p class="card-sub">Тихая лента вечера: подписи к снимкам и слова, сказанные дворецкому. Здесь только то, что уже лежит на этом устройстве — ни одной строки мы не написали за вас и ни одна никуда не ушла.</p>
+          <ul class="journal" id="jrList"></ul>
         </div>
 
         <div class="card card--next">
@@ -1618,6 +1670,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(!s.people) s.people = [];
     if(!s.photos) s.photos = [];
     if(!s.notes)  s.notes  = [];
+    if(!s.wish)   s.wish   = [];
     return s;
   }
 
@@ -1650,6 +1703,8 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       question: null,
       later: null,
       notes: [],
+      wish: [],
+      firstMem: null,
       invited: false,
       born: Date.now()
     };
@@ -1661,6 +1716,19 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       if(state.photos[i].who && state.photos[i].who.length) return true;
     }
     return false;
+  }
+
+  /* E · подпись под снимком — это слова человека, а не машины. */
+  function captioned(){
+    for(var i=0;i<state.photos.length;i++){
+      if(state.photos[i].cap && state.photos[i].cap.trim()) return true;
+    }
+    return false;
+  }
+
+  /* esc() не трогает кавычки, а текст человека идёт в атрибут value. */
+  function escA(s){
+    return esc(s).replace(/"/g, '&quot;');
   }
 
   function quests(){
@@ -1764,10 +1832,15 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     }
 
     /* свободные места за столом — приглашение, а не пустота */
-    var free = Math.max(0, 3 - state.people.length);
-    var hint = state.people.length
-      ? 'ждёт своего человека'
-      : 'начните с того, кто первым приходит в голову';
+    /* E · свободные строки говорят ту же правду, что кружки на ветвях
+       и стулья за столом: сколько мест в круге действительно пусто. */
+    var freeAll = Math.max(0, SEATS.length - state.people.length);
+    var free = Math.min(3, freeAll);
+    var hint = state.people.length > 1
+      ? 'свободных мест в круге: ' + freeAll
+      : (state.people.length === 1
+          ? 'пока в круге только вы — свободных мест: ' + freeAll
+          : 'начните с того, кто первым приходит в голову');
     for(var s=0;s<free;s++){
       html += '<li class="seat-free" data-invite="1" role="button" tabindex="0" aria-label="Свободное место — позвать родных">' +
                 '<span class="who" aria-hidden="true">+</span>' +
@@ -1809,6 +1882,17 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
                   '<b style="margin-top:7px">' + (names.length ? esc(names.join(', ')) : 'Кто здесь?') + '</b>' +
                   '<small>' + esc(f.date) + '</small>' +
                   '<div class="chips">' + chips + '</div>' +
+                  (f.cap ? '<span class="cap-said">' + esc(f.cap) + '</span>' : '') +
+                  '<div class="cap-row" data-brand-apply="E-photo-caption">' +
+                    '<input class="inp cap-in" type="text" maxlength="120" data-cap="' + esc(f.id) + '" ' +
+                      'value="' + escA(f.cap || '') + '" aria-label="Подпись к снимку" ' +
+                      'placeholder="Где это, какой год, чей дом">' +
+                    '<button class="btn btn--quiet cap-save" type="button" data-capsave="' + esc(f.id) + '">' +
+                      (f.cap ? 'Обновить' : 'Сохранить') + '</button>' +
+                  '</div>' +
+                  '<small class="cap-has">' +
+                    (f.cap ? 'Подпись сохранена на этом устройстве'
+                          : 'Подпись пишете вы — мы не придумываем ни слова и не угадываем лиц') + '</small>' +
                   '<button class="shot-x" type="button" data-rm="' + esc(f.id) + '">Убрать снимок</button>' +
                 '</figcaption>' +
               '</figure>';
@@ -1889,7 +1973,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       '<path class="tm-leaf" d="M106 56c8 .7 12.5 5.2 12.5 11.8-6.2-.2-11.8-4-12.5-11.8z"/>' +
       '<circle class="tm-ring" cx="160" cy="64" r="29"/>';
 
-    var taken = 0;
+    var taken = 0, freeAt = 0, wish = wishList();
     for(var i=0;i<SEATS.length;i++){
       var s = SEATS[i];
       var p = state.people[i] || null;
@@ -1902,19 +1986,26 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
                  '<text class="tm-l" x="' + s.x + '" y="' + ly + '">' + esc(shortName(p.name)) + '</text>' +
                '</g>';
       }else{
+        var wl = wish[freeAt] || '';
+        freeAt++;
         svg += '<g class="tm-seat tm-free" data-free="' + i + '" role="button" tabindex="0" ' +
-                 'aria-label="Свободное место — позвать родных">' +
+                 'aria-label="' + (wl ? 'Свободное место, здесь ждут: ' + escA(wl)
+                                     : 'Свободное место — позвать родных') + '">' +
                  '<circle class="tm-c" cx="' + s.x + '" cy="' + s.y + '" r="' + s.r + '"/>' +
                  '<text class="tm-i" x="' + s.x + '" y="' + (s.y + 5) + '">+</text>' +
-                 '<text class="tm-l" x="' + s.x + '" y="' + ly + '">Свободно</text>' +
+                 '<text class="tm-l' + (wl ? ' tm-wish' : '') + '" x="' + s.x + '" y="' + ly + '">' +
+                   esc(wl || 'Свободно') + '</text>' +
                '</g>';
       }
     }
     wrap.innerHTML = svg + '</svg>';
+    var tFree = SEATS.length - taken;
     $('treeCnt').textContent = taken + ' из ' + SEATS.length;
-    $('treeHint').textContent = taken >= SEATS.length
+    $('treeHint').textContent = tFree <= 0
       ? 'Все семь мест заняты. Дальше круг растёт вширь: каждый добавляет тех, кого помнит только он.'
-      : 'Свободное место — это приглашение: нажмите на кружок, чтобы позвать человека в круг.';
+      : (taken <= 1
+          ? 'Пока в круге только вы. Свободных мест: ' + tFree + ' — нажмите на любой кружок, чтобы позвать человека. Сами мы сюда никого не впишем.'
+          : 'Свободных мест: ' + tFree + '. Нажмите на кружок, чтобы позвать человека в круг.');
   }
 
   /* ---------- 04 · кто за столом ----------
@@ -1965,10 +2056,13 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       }
     }
     wrap.innerHTML = svg + '</svg>';
+    var cFree = TABLE_SEATS.length - taken;
     $('tableCnt').textContent = taken + ' из ' + TABLE_SEATS.length;
-    $('tableHint').textContent = taken >= TABLE_SEATS.length
+    $('tableHint').textContent = cFree <= 0
       ? 'За столом больше нет свободных мест — и это хороший вечер.'
-      : 'Свободное место за столом — это приглашение: нажмите на него, чтобы позвать человека.';
+      : (taken <= 1
+          ? 'Пока за столом только вы. Свободных стульев: ' + cFree + ' — нажмите на любой, чтобы позвать человека. Сами мы за стол никого не сажаем.'
+          : 'Свободных стульев: ' + cFree + '. Нажмите на любой из них, чтобы позвать человека.');
   }
 
   /* ---------- 05 · полка архива ----------
@@ -2156,10 +2250,16 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         s: state.question ? 'Вопрос выбран: ' + state.question : 'Выберите вопрос на вечер и задайте его старшим вслух.',
         go: state.question ? 'Открыть вопрос' : 'Выбрать вопрос',
         act: function(){ lightCard('.card--ask'); } },
-      { done: tagged(),
+      /* E · дело закрывает настоящая подпись: отмеченный родной
+         из списка круга или строка, написанная рукой человека. Само — никогда. */
+      { done: tagged() || captioned(),
         t: 'Подписать фото',
-        s: state.photos.length ? 'Отметьте на снимке тех, кого узнали.' : 'Сначала один снимок — имена придут после.',
-        go: state.photos.length ? 'Отметить людей' : 'Добавить фото',
+        s: !state.photos.length
+             ? 'Сначала один снимок — имена и подпись придут после.'
+             : ((tagged() || captioned())
+                 ? 'Снимок подписан вашими словами.'
+                 : 'Отметьте тех, кого узнали, или впишите подпись под снимком.'),
+        go: state.photos.length ? 'Подписать снимок' : 'Добавить фото',
         act: function(){ lightCard('.card--photos'); } },
       { done: hasNotes,
         t: 'Спросить про год',
@@ -2203,6 +2303,194 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     }
     renderWeek();
     renderShelf();
+    renderFirstMem(filled);
+    renderWish();
+  }
+
+  /* ---------- E · первая память ----------
+     Один раз за круг и только если этот вечер начался с пустой рамки:
+     когда в круг легло первое настоящее — снимок, имя или слово
+     дворецкому, — рамка уступает место дереву, и об этом говорится
+     одной тихой строкой. Ни конфетти, ни очков, ни одного лица.
+     Флажок живёт в самом круге, поэтому при следующем открытии строка
+     не повторяется; кругам, собранным до этой версии, ставится молчаливая
+     отметка — праздновать задним числом нечего. */
+  var wasFilled = false;
+  var celebrate = false;
+
+  function seedFirstMemory(){
+    celebrate = false;
+    wasFilled = circleFilled();
+    if(wasFilled && !state.firstMem){
+      state.firstMem = -1;
+      save();
+    }
+  }
+
+  function markFirstMemory(){
+    if(!state || wasFilled || !circleFilled()) return;
+    wasFilled = true;
+    if(state.firstMem) return;
+    state.firstMem = Date.now();
+    celebrate = true;
+    save();
+    buzz('ok');
+    toast('Первая память на месте — дерево открылось');
+  }
+
+  function renderFirstMem(filled){
+    var el = $('firstMem');
+    if(!el) return;
+    var show = !!(filled && celebrate);
+    el.classList.toggle('hide', !show);
+    if(show){
+      el.innerHTML = '<b>Первая память на месте — дерево открылось.</b> ' +
+        'Пустая рамка своё отстояла. Дальше круг растёт только от того, что принесёте вы: ' +
+        'снимок, имя, слово. Никого и ничего мы сюда не допишем.';
+    }
+  }
+
+  /* ---------- E · подпись к снимку ----------
+     Кто в кадре — по-прежнему только те имена, которые человек уже
+     назвал в этом круге: чипы берут их из списка родных и никого не
+     угадывают. Подпись — свободная строка, и пишет её человек.
+     Пустая подпись остаётся пустой и ничего не засчитывает. */
+  function saveCaption(id, text){
+    var t = String(text == null ? '' : text).trim().replace(/\s+/g, ' ').slice(0, 120);
+    var hit = null;
+    for(var i=0;i<state.photos.length;i++){
+      if(state.photos[i].id === id){ hit = state.photos[i]; break; }
+    }
+    if(!hit) return;
+    if((hit.cap || '') === t){
+      toast(t ? 'Подпись не изменилась' : 'Напишите подпись своими словами');
+      return;
+    }
+    hit.cap = t;
+    hit.capAt = t ? Date.now() : null;
+    if(save()){
+      buzz(t ? 'ok' : 'tap');
+      renderAll();
+      toast(t ? 'Подпись сохранена — она осталась на этом устройстве' : 'Подпись убрана');
+    }
+  }
+
+  /* ---------- E · заметки круга ----------
+     Тихая лента из того, что уже лежит на этом устройстве: подписи к
+     снимкам и заметки дворецкому. Ни одной строки не пишется само, ничего
+     не уходит на сервер, порядок — просто по времени. Пусто — значит пусто,
+     и об этом сказано прямо. Нажатие ведёт туда, где слово было сказано. */
+  function journalItems(){
+    var out = [], i, notes = state.notes || [];
+    for(i=0;i<notes.length;i++){
+      out.push({ at: notes[i].at || 0, who: notes[i].who || 'Кто-то в круге',
+                 kind: notes[i].kind || 'заметка', text: notes[i].text, go: 'butler' });
+    }
+    for(i=0;i<state.photos.length;i++){
+      var f = state.photos[i];
+      if(f.cap && f.cap.trim()){
+        out.push({ at: f.capAt || 0, who: 'Подпись к снимку', kind: 'фото',
+                   text: f.cap, go: 'photo' });
+      }
+    }
+    out.sort(function(a, b){ return b.at - a.at; });
+    return out;
+  }
+
+  function renderJournal(){
+    var list = $('jrList');
+    if(!list) return;
+    var items = journalItems(), html = '', i;
+    if(!items.length){
+      html = '<li class="jr-empty">Пока тихо. Выберите вечерний вопрос, подпишите снимок или скажите слово дворецкому — строка появится здесь сама, вашими словами.</li>';
+    }
+    for(i=0;i<items.length && i<14;i++){
+      var it = items[i], stamp = '';
+      if(it.at){
+        var d = new Date(it.at);
+        stamp = ('0'+d.getDate()).slice(-2) + '.' + ('0'+(d.getMonth()+1)).slice(-2) + ' · ' +
+                ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+      }
+      html += '<li class="jr-it" role="button" tabindex="0" data-jr="' + esc(it.go) + '">' +
+                '<span class="jr-k">' + esc(it.kind) + '</span>' +
+                '<b>' + esc(it.who) + '</b>' +
+                '<span class="jr-t">' + esc(it.text) + '</span>' +
+                (stamp ? '<small>' + esc(stamp) + '</small>' : '') +
+              '</li>';
+    }
+    list.innerHTML = html;
+    var c = $('jrCnt');
+    if(c) c.textContent = items.length ? (items.length + ' ' + noteWord(items.length)) : 'пока пусто';
+  }
+
+  function jrGo(el){
+    if(!el || !state) return;
+    buzz('tap');
+    if(el.getAttribute('data-jr') === 'photo') lightCard('.card--photos');
+    else lightCard('.card--butler', $('bText'));
+  }
+
+  /* ---------- E · подписать свободное место ----------
+     Слово, которое человек написал сам: «Бабушка», «Дядя Коля».
+     Участником круга оно не становится: место остаётся свободным, остаётся
+     тем же приглашением, в счётчики не попадает, лиц мы не рисуем.
+     Мы только помним, кого здесь ждут. */
+  function wishList(){
+    return (state && state.wish && state.wish.length) ? state.wish : [];
+  }
+
+  function freeSeats(){
+    return Math.max(0, SEATS.length - state.people.length);
+  }
+
+  function addWish(){
+    var el = $('seatWish');
+    if(!el || !state) return;
+    var t = el.value.trim().replace(/\s+/g, ' ').slice(0, 24);
+    if(!t){ toast('Напишите, кого вы здесь ждёте'); el.focus(); return; }
+    if(wishList().length >= freeSeats()){
+      toast('Свободных мест под подпись больше нет');
+      return;
+    }
+    if(!state.wish) state.wish = [];
+    state.wish.push(t);
+    if(save()){
+      el.value = '';
+      buzz('tap');
+      renderAll();
+      toast('Место подписано — и всё ещё ждёт человека');
+    }else{
+      state.wish.pop();
+    }
+  }
+
+  function clearWish(){
+    if(!state || !wishList().length) return;
+    state.wish = [];
+    if(save()){
+      buzz('tap');
+      renderAll();
+      toast('Подписи убраны — места снова просто свободны');
+    }
+  }
+
+  function renderWish(){
+    var note = $('seatWishNote'), clr = $('seatWishClear');
+    var w = wishList(), free = state ? freeSeats() : 0;
+    if(clr) clr.classList.toggle('hide', !w.length);
+    if(!note) return;
+    note.textContent = w.length
+      ? 'Подписано мест: ' + Math.min(w.length, free) + ' из ' + free +
+        '. Это только память о том, кого вы ждёте: человеком место от подписи не становится и в счёт круга не идёт.'
+      : 'Можно подписать свободное место своим словом — «Бабушка», «Дядя Коля». Оно останется приглашением: мы не выдаём подпись за живого человека и лиц не рисуем.';
+  }
+
+  /* ---------- E · один следующий шаг после копирования ----------
+     Вместо стопки тостов — одна строка под приглашением и живая кнопка
+     «Отправить в чат» рядом. Код не перевыпускается никогда. */
+  function renderInviteNext(){
+    var el = $('invNext');
+    if(el) el.classList.toggle('hide', !(state && state.invited));
   }
 
   function byId(id){
@@ -2217,6 +2505,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   }
 
   function renderAll(){
+    markFirstMemory();
     $('cName').textContent = state.name;
     $('cCode').textContent = 'Код круга · ' + state.code;
     $('inviteUrl').textContent = inviteUrl();
@@ -2228,12 +2517,15 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     renderQuestion();
     renderHome();
     renderButler();
+    renderJournal();
+    renderInviteNext();
     renderRibbon();
   }
 
   function openGame(){
     $('setup').classList.add('hide');
     $('game').classList.remove('hide');
+    seedFirstMemory();
     renderAll();
     mainButton(true);
   }
@@ -2663,6 +2955,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   $('emptyPhoto').addEventListener('click', openPhotoPicker);
   $('copyCodeBtn').addEventListener('click', function(){
     if(!state) return;
+    markInvited();
     copyText(state.code, 'Код скопирован — отправьте родным');
   });
   $('copyTextBtn').addEventListener('click', function(){
@@ -2768,6 +3061,41 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       renderAll();
     }
   });
+
+  /* E · подпись к снимку: по кнопке или по Enter в самой строке */
+  $('fList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-capsave]');
+    if(!b || !state) return;
+    var id = b.getAttribute('data-capsave');
+    var inp = $('fList').querySelector('[data-cap="' + id + '"]');
+    saveCaption(id, inp ? inp.value : '');
+  });
+
+  $('fList').addEventListener('keydown', function(e){
+    if(e.key !== 'Enter') return;
+    var inp = e.target.closest('[data-cap]');
+    if(!inp || !state) return;
+    e.preventDefault();
+    saveCaption(inp.getAttribute('data-cap'), inp.value);
+  });
+
+  /* E · заметки круга ничего не отмечают — только ведут к сказанному */
+  $('jrList').addEventListener('click', function(e){
+    jrGo(e.target.closest('[data-jr]'));
+  });
+
+  $('jrList').addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    var b = e.target.closest('[data-jr]');
+    if(!b) return;
+    e.preventDefault();
+    jrGo(b);
+  });
+
+  /* E · подписать свободное место */
+  $('seatWishAdd').addEventListener('click', addWish);
+  $('seatWishClear').addEventListener('click', clearWish);
+  $('seatWish').addEventListener('keydown', function(e){ if(e.key === 'Enter') addWish(); });
 
   $('qsList').addEventListener('click', function(e){
     var b = e.target.closest('[data-q]');
