@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l8" data-smh-landing-wave="20260813" data-smh-landing-scroll="horizontal" data-smh-landing-photos="20260814">
+<html lang="ru" data-smh-landing="l8" data-smh-landing-wave="20260813" data-smh-landing-scroll="horizontal" data-smh-landing-photos="20260814" data-smh-landing-eye="hero-clip-20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,6 +7,7 @@
 <meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Снимки лежат в ряд, как жизнь: листайте вправо.">
 <!-- SMH_LANDING_HORIZONTAL_SCROLL wave 20260813 · axis L8 Лента · true horizontal track (wheel-mapped + native overflow + drag) · assets reused · invent_eyes=N · COLD_PATH_B soft waitlist -->
 <!-- SMH_LANDING_PHOTOS_SCROLL_FIX 20260814 · 10 stations · momentum wheel/drag, snap retired · 0E asset reuse · invent_eyes=N -->
+<!-- SMH_LANDING_L8_HERO_CLIP_FIX 20260814 · station-01 copy fits the safe band: hero measure widened so the H1 stops shattering, display type capped by viewport height, safe flex-end so overflow can never hide under the top edge · invent_eyes=N · spend_E=0 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
@@ -35,11 +36,13 @@ a{color:inherit}
 #track.dragging a{pointer-events:none}
 
 .panel{position:relative;flex:0 0 auto;height:100svh;display:flex;align-items:center;
-  padding:clamp(28px,5vh,64px) clamp(26px,4.4vw,86px) clamp(112px,15vh,148px)}
+  padding:calc(clamp(28px,5vh,64px) + env(safe-area-inset-top,0px)) clamp(26px,4.4vw,86px) clamp(112px,15vh,148px)}
 /* one continuous desk edge running through every station */
 .panel::after{content:"";position:absolute;left:0;right:0;top:var(--deskline);border-top:1px solid var(--line);pointer-events:none}
 
-.p-open{flex-basis:100vw;width:100vw;align-items:flex-end}
+/* station 01 sits on the bottom edge of the safe band; `safe` keeps a tall block
+   from sliding out under the top of the window, where there is no way to scroll to it */
+.p-open{flex-basis:100vw;width:100vw;align-items:flex-end;align-items:safe flex-end}
 .p-photo{flex-basis:min(74vw,1000px);width:min(74vw,1000px)}
 .p-text{flex-basis:min(56vw,660px);width:min(56vw,660px)}
 .p-close{flex-basis:min(86vw,980px);width:min(86vw,980px)}
@@ -61,10 +64,10 @@ a{color:inherit}
 
 /* ---------- station typography ---------- */
 .body{position:relative;z-index:2;max-width:52ch}
-.p-open .body{max-width:26ch;padding-bottom:clamp(10px,4vh,44px)}
+.p-open .body{max-width:min(78vw,900px);padding-bottom:clamp(8px,3vh,32px)}
 .num{font-family:'Instrument Serif',serif;font-size:13px;letter-spacing:.42em;color:var(--brass);text-transform:uppercase;display:block;margin-bottom:clamp(16px,3vh,26px)}
 .brand{font-family:'Instrument Serif',serif;font-size:clamp(19px,2vw,26px);letter-spacing:.34em;text-transform:uppercase;color:var(--brass);margin-bottom:clamp(20px,4vh,34px)}
-h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(44px,7.6vw,104px);line-height:.98;letter-spacing:-.015em;text-wrap:balance}
+h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(34px,min(6.2vw,9.2vh),84px);line-height:1;letter-spacing:-.015em;text-wrap:balance}
 h1 em{font-style:italic;color:var(--brass)}
 h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(30px,4.4vw,62px);line-height:1.04;letter-spacing:-.01em;max-width:17ch;text-wrap:balance}
 p.support{margin-top:20px;max-width:44ch;color:var(--ash);font-size:clamp(15px,1.4vw,18px)}
@@ -104,7 +107,7 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
 .hint.gone{opacity:0}
 
 @media (max-width:820px){
-  .p-open{align-items:flex-end}
+  .p-open{align-items:flex-end;align-items:safe flex-end}
   .p-open .body{max-width:none}
   .p-photo,.p-text,.p-close{flex-basis:88vw;width:88vw}
   .panel{padding:clamp(24px,4vh,40px) 22px clamp(120px,17vh,150px)}
