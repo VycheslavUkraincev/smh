@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l24" data-smh-landing-wave="20260814-six" data-smh-landing-status="local-ready" data-smh-craft="smooth-nav-20260814" data-smh-visuals="planes-20260814">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Порог · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Лицо остаётся собой. Приём открыт, выдача на паузе.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SaveMyHistory">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Порог · SaveMyHistory">
+<meta property="og:description" content="SaveMyHistory — бережное восстановление семейных фотографий. Лицо остаётся собой. Приём открыт, выдача на паузе.">
+<meta property="og:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Порог · SaveMyHistory">
+<meta name="twitter:description" content="SaveMyHistory — бережное восстановление семейных фотографий. Лицо остаётся собой. Приём открыт, выдача на паузе.">
+<meta name="twitter:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#100C07">
+<!-- SMH L24 wave 20260814-six · axis: порог дома и осенний лес за ним · planes: nano-banana-2 2K · invent_eyes=N · 0 readable faces -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --soil:#100C07;--bark:#251A11;
+  --paper:#F2EFE8;--muted:#B9AE99;
+  --accent:#DCB86B;--accent2:#9C7B42;
+  --line:rgba(242,239,232,.18);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--soil);color:var(--paper);
+  font-family:Manrope,"Helvetica Neue",sans-serif;font-weight:300;line-height:1.7;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,88vw);margin:0 auto}
+
+/* ============ hero ============ */
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;
+  justify-items:center;overflow:hidden;isolation:isolate}
+.hero-art{position:absolute;inset:0;z-index:0}
+.hero-art picture{display:block;width:100%;height:100%}
+.hero-art img{width:100%;height:100%;object-fit:cover;object-position:center 50%;
+  transform:scale(1.045);animation:breathe 26s var(--ease) infinite alternate}
+@keyframes breathe{to{transform:scale(1.09)}}
+.hero-art::after{content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(120% 78% at 50% 34%,rgba(12,8,4,.30) 0%,rgba(12,8,4,.06) 46%,rgba(12,8,4,.46) 100%),
+    linear-gradient(180deg,rgba(14,9,4,.54) 0%,rgba(14,9,4,.10) 34%,rgba(14,9,4,.36) 62%,rgba(11,7,3,.90) 100%)}
+.rays{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(118deg,rgba(255,226,150,0) 26%,rgba(255,226,150,.16) 33%,rgba(255,226,150,0) 39%,
+    rgba(255,226,150,0) 48%,rgba(255,232,168,.11) 54%,rgba(255,226,150,0) 60%);
+  opacity:.75;animation:ray 14s ease-in-out infinite alternate}
+@keyframes ray{from{opacity:.42;transform:translateX(-1.4%)}to{opacity:.9;transform:translateX(1.4%)}}
+.dust{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.mote{position:absolute;width:3px;height:3px;border-radius:50%;
+  background:rgba(255,238,196,.75);filter:blur(.4px);opacity:0;animation:drift linear infinite}
+@keyframes drift{
+  0%{opacity:0;transform:translate3d(0,18vh,0) scale(.7)}
+  14%{opacity:.85}86%{opacity:.5}
+  100%{opacity:0;transform:translate3d(5vw,-64vh,0) scale(1.25)}}
+.marks{position:absolute;inset:clamp(16px,2.4vw,34px);z-index:3;pointer-events:none}
+.marks i{position:absolute;width:clamp(22px,2.6vw,38px);height:clamp(22px,2.6vw,38px);
+  opacity:0;animation:markIn 1.5s var(--ease) .35s forwards}
+.marks i::before,.marks i::after{content:"";position:absolute;background:rgba(242,239,232,.62)}
+.marks i::before{width:100%;height:1px}
+.marks i::after{width:1px;height:100%}
+.m-tl{top:0;left:0}.m-tl::before{top:0;left:0}.m-tl::after{top:0;left:0}
+.m-tr{top:0;right:0}.m-tr::before{top:0;right:0}.m-tr::after{top:0;right:0}
+.m-bl{bottom:0;left:0}.m-bl::before{bottom:0;left:0}.m-bl::after{bottom:0;left:0}
+.m-br{bottom:0;right:0}.m-br::before{bottom:0;right:0}.m-br::after{bottom:0;right:0}
+@keyframes markIn{to{opacity:1}}
+.hero-body{position:relative;z-index:4;text-align:center;padding:clamp(96px,14vh,150px) 6vw clamp(74px,12vh,120px)}
+.hero-body::before{content:"";position:absolute;inset:-4% -6%;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 48% at 50% 54%,rgba(10,6,2,.56) 0%,rgba(10,6,2,.32) 50%,rgba(10,6,2,0) 78%)}
+.brand{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+  font-size:clamp(30px,7.4vw,92px);line-height:1.02;letter-spacing:.16em;
+  text-transform:uppercase;text-indent:.16em;color:#FBF7EE;
+  text-shadow:0 2px 26px rgba(10,6,2,.62),0 1px 3px rgba(10,6,2,.5)}
+.brand span{display:inline-block;opacity:0;transform:translateY(14px);animation:rise 1.5s var(--ease) forwards}
+.brand span:nth-child(2){animation-delay:.13s}
+.brand span:nth-child(3){animation-delay:.26s}
+@keyframes rise{to{opacity:1;transform:none}}
+.kicker{font-size:clamp(10px,1.15vw,12.5px);letter-spacing:.44em;text-transform:uppercase;
+  color:rgba(242,239,232,.72);margin-bottom:clamp(20px,3.4vh,32px);
+  opacity:0;animation:rise 1.4s var(--ease) .15s forwards;text-shadow:0 1px 12px rgba(10,6,2,.7)}
+h1.support{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(19px,2.9vw,34px);line-height:1.4;max-width:23ch;
+  margin:clamp(24px,3.8vh,40px) auto 0;color:rgba(248,243,233,.94);
+  text-shadow:0 2px 20px rgba(10,6,2,.66);opacity:0;animation:rise 1.5s var(--ease) .95s forwards}
+.hero-cta{position:relative;margin-top:clamp(30px,5vh,52px);display:flex;flex-direction:column;
+  align-items:center;gap:clamp(14px,2vh,20px);opacity:0;animation:rise 1.5s var(--ease) 1.25s forwards}
+.hero-cta::before{content:"";position:absolute;inset:-32% -14% -40%;z-index:-1;pointer-events:none;
+  background:radial-gradient(58% 60% at 50% 50%,rgba(9,6,2,.60) 0%,rgba(9,6,2,.34) 54%,rgba(9,6,2,0) 82%)}
+.cta{display:inline-block;padding:15px 34px;border:1px solid rgba(242,239,232,.62);
+  border-radius:999px;font-size:clamp(12.5px,1.25vw,14.5px);letter-spacing:.2em;
+  text-transform:uppercase;font-weight:400;color:#FBF7EE;
+  background:rgba(16,10,4,.44);backdrop-filter:blur(3px);
+  transition:background .45s var(--ease),border-color .45s var(--ease),letter-spacing .45s var(--ease)}
+.cta:hover{background:rgba(215,193,90,.16);border-color:var(--accent);letter-spacing:.235em}
+.hero-status{font-size:clamp(11.5px,1.15vw,13px);letter-spacing:.1em;color:rgba(242,239,232,.78);
+  text-shadow:0 1px 6px rgba(10,6,2,.9),0 1px 14px rgba(10,6,2,.7)}
+.hero-status b{font-weight:400;color:var(--accent)}
+.scroll-hint{position:absolute;left:50%;bottom:clamp(18px,3.4vh,30px);transform:translateX(-50%);
+  z-index:4;font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;
+  color:rgba(242,239,232,.5);opacity:0;animation:rise 1.4s var(--ease) 1.8s forwards}
+
+/* ============ below fold ============ */
+main{position:relative;z-index:2;background:var(--soil)}
+section{padding:clamp(74px,12vh,140px) 0;border-top:1px solid rgba(242,239,232,.07)}
+section:first-child{border-top:0}
+.eyebrow{font-size:clamp(10px,1.05vw,11.5px);letter-spacing:.42em;text-transform:uppercase;
+  color:var(--accent2);margin-bottom:clamp(16px,2.4vh,24px)}
+.eyebrow::before{content:"";display:inline-block;width:26px;height:1px;margin-right:12px;
+  vertical-align:.32em;background:currentColor;opacity:.55}
+h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;
+  font-size:clamp(28px,4.4vw,54px);line-height:1.16;color:#F7F2E8;max-width:17ch}
+h2 em{font-style:italic;color:var(--accent)}
+p{font-size:clamp(15px,1.42vw,17.5px);color:rgba(242,239,232,.76);max-width:62ch;
+  margin-top:clamp(18px,2.6vh,26px)}
+p strong{font-weight:400;color:#F7F2E8}
+.lead{max-width:64ch}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,84px);align-items:center}
+.split.rev .s-art{order:-1}
+.s-art{position:relative;overflow:hidden;border-radius:2px}
+.s-art img{width:100%;height:clamp(300px,46vh,520px);object-fit:cover;
+  filter:saturate(.92) contrast(1.04);transform:scale(1.02)}
+.s-art::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,7,3,.10),rgba(11,7,3,.42))}
+.band{margin-top:clamp(28px,4vh,52px);position:relative;overflow:hidden;border-radius:2px}
+.band img{width:100%;height:clamp(260px,52vh,560px);object-fit:cover;filter:saturate(.92) contrast(1.04)}
+.band::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,7,3,.16),rgba(11,7,3,.46))}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(26px,3.4vw,52px);
+  margin-top:clamp(38px,5.4vh,62px)}
+.step{border-top:1px solid rgba(242,239,232,.16);padding-top:22px}
+.step .n{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(30px,3.4vw,44px);
+  color:var(--accent2);line-height:1;display:block;margin-bottom:14px}
+.step h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+  font-size:clamp(19px,2.05vw,24px);color:#F7F2E8}
+.step p{font-size:clamp(14px,1.28vw,15.5px);margin-top:12px;max-width:38ch}
+
+/* terms */
+.terms{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(24px,3vw,48px);
+  margin-top:clamp(34px,4.6vh,54px)}
+.term{padding:clamp(22px,2.6vw,30px);border:1px solid rgba(242,239,232,.13);border-radius:2px;
+  background:linear-gradient(180deg,rgba(242,239,232,.035),rgba(242,239,232,0))}
+.term .k{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(242,239,232,.55)}
+.term .v{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(22px,2.6vw,32px);
+  color:var(--accent);margin-top:10px;line-height:1.2}
+.term p{margin-top:12px;font-size:clamp(13.5px,1.2vw,15px);max-width:40ch}
+
+/* closing */
+.close{position:relative;text-align:center;overflow:hidden}
+.close-art{position:absolute;inset:0;z-index:0}
+.close-art img{width:100%;height:100%;object-fit:cover;object-position:center 62%}
+.close-art::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,7,3,.86),rgba(11,7,3,.60) 42%,rgba(11,7,3,.92))}
+.close .wrap{position:relative;z-index:2}
+.close h2{margin:0 auto;max-width:20ch}
+.close p{margin-left:auto;margin-right:auto;max-width:52ch}
+.close .cta{margin-top:clamp(30px,4.4vh,44px)}
+.note{margin-top:clamp(22px,3vh,30px);font-size:13px;color:rgba(242,239,232,.6);letter-spacing:.04em}
+.note b{font-weight:400;color:var(--accent)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity 1.15s var(--ease),transform 1.15s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (max-width:860px){
+  .split,.steps,.terms{grid-template-columns:1fr}
+  .split.rev .s-art{order:0}
+  .s-art img{height:clamp(240px,38vh,340px)}
+  .brand{letter-spacing:.1em;text-indent:.1em}
+  h2{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .hero-art img{transform:scale(1.02)}
+}
+
+/* ===== quiet nav ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;
+  gap:clamp(14px,2.4vw,32px);padding:12px clamp(18px,5vw,58px);
+  background:rgba(20,13,7,.90);
+  -webkit-backdrop-filter:saturate(140%) blur(14px);backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid rgba(215,193,90,.18);
+  opacity:0;visibility:hidden;transform:translateY(-100%);
+  transition:opacity .5s var(--ease),transform .55s var(--ease),visibility 0s linear .55s}
+.nav.is-set{opacity:1;visibility:visible;transform:none;
+  transition:opacity .5s var(--ease),transform .55s var(--ease),visibility 0s}
+.nav.is-set.is-veiled{transform:translateY(-108%);opacity:0}
+.nav-brand{font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;letter-spacing:.26em;
+  text-transform:uppercase;color:rgba(251,247,238,.92);white-space:nowrap;transition:color .4s var(--ease)}
+.nav-brand:hover{color:#fff}
+.nav-links{display:flex;align-items:center;gap:clamp(13px,2.1vw,28px);margin-left:auto}
+.nav-links a{position:relative;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(242,239,232,.60);white-space:nowrap;transition:color .4s var(--ease)}
+.nav-links a:hover,.nav-links a.is-here{color:#FBF7EE}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:1px;
+  background:var(--accent);opacity:0;transform:scaleX(.28);transform-origin:0 50%;
+  transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.nav-links a.is-here::after{opacity:.85;transform:none}
+.nav-cta{display:none;margin-left:clamp(12px,2vw,24px);font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:#171009;background:var(--accent);padding:9px 18px;border-radius:999px;
+  white-space:nowrap;transition:background .4s var(--ease),transform .4s var(--ease)}
+.nav-cta:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.nav.is-set .nav-cta{display:inline-flex;align-items:center}
+.nav-rail{position:absolute;left:0;bottom:0;height:1px;width:100%;
+  transform:scaleX(var(--read,0));transform-origin:0 50%;opacity:0;
+  background:linear-gradient(90deg,var(--accent2),var(--accent));transition:opacity .6s var(--ease)}
+.nav.is-set .nav-rail{opacity:1}
+section[id]{scroll-margin-top:74px}
+.hero[id]{scroll-margin-top:0}
+@media (max-width:1040px){
+  .nav{padding:12px clamp(16px,3.2vw,30px)}
+  .nav-links{gap:12px}
+  .nav-links a{font-size:10.5px;letter-spacing:.14em}
+  .nav-cta{margin-left:14px;padding:8px 14px;letter-spacing:.12em}
+}
+@media (max-width:720px){
+  .nav{padding:10px 20px}
+  .nav-links{display:none}
+  .nav-cta{margin-left:auto}
+  section[id]{scroll-margin-top:58px}
+}
+@media (prefers-reduced-motion:reduce){
+  .nav,.nav-brand,.nav-links a,.nav-links a::after,.nav-cta,.nav-rail{transition:none}
+  .nav.is-set.is-veiled{transform:none;opacity:1}
+}
+
+.duo{margin-top:clamp(34px,5vh,58px);display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(24px,3.4vw,54px)}
+.duo>div{padding:clamp(22px,2.8vw,34px);border:1px solid rgba(242,239,232,.13);border-radius:2px;
+  background:linear-gradient(180deg,rgba(242,239,232,.04),rgba(242,239,232,0))}
+.duo .h{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent2)}
+.duo h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:clamp(21px,2.5vw,30px);color:#F7F2E8;margin-top:12px}
+.duo p{font-size:clamp(14px,1.3vw,15.5px);max-width:44ch}
+.duo img{margin-top:22px;width:100%;height:clamp(180px,26vh,262px);object-fit:cover;
+  border-radius:2px;filter:saturate(.9) contrast(1.05)}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="smh-skip" href="#dver">К содержанию</a>
+
+<nav class="nav" aria-label="Разделы страницы">
+  <a class="nav-brand" href="#top">SaveMyHistory</a>
+  <span class="nav-links">
+    <a href="#dver">Дверь</a>
+    <a href="#vnutri">Внутри</a>
+    <a href="#kryltso">Крыльцо</a>
+    <a href="#kryuchok">Крючок</a>
+    <a href="#vozvrashchenie">Возвращение</a>
+    <a href="#kak">Приём</a>
+    <a href="#srok">Сроки</a>
+  </span>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-art">
+    <picture>
+      <img src="assets/landing-l24/hero-threshold-2000.jpg"
+           srcset="assets/landing-l24/hero-threshold-1200.jpg 1200w, assets/landing-l24/hero-threshold-2000.jpg 2000w"
+           sizes="100vw"
+           alt="Открытая дверь старого деревянного дома изнутри тёмной прихожей, за порогом размытый осенний лес в золотом свете" width="2000" height="1116" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+  <div class="rays" aria-hidden="true"></div>
+  <div class="dust" aria-hidden="true" id="dust"></div>
+  <div class="marks" aria-hidden="true"><i class="m-tl"></i><i class="m-tr"></i><i class="m-bl"></i><i class="m-br"></i></div>
+
+  <div class="hero-body">
+    <div class="kicker">Семейный архив</div>
+    <div class="brand" aria-label="SAVE MY HISTORY"><span>SAVE</span> <span>MY</span> <span>HISTORY</span></div>
+    <h1 class="support">Дом помнят не комнатами, а порогом: тем местом, где стояли, когда уезжали и когда возвращались.</h1>
+    <div class="hero-cta">
+      <a class="cta" href="/waitlist.html">Занять место в листе ожидания</a>
+      <div class="hero-status">Приём открыт · выдача сейчас <b>на паузе</b></div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">ниже</div>
+</header>
+
+<main>
+
+  <section id="dver">
+    <div class="wrap split">
+      <div class="rv">
+        <div class="eyebrow">Дверь</div>
+        <h2>Почти в каждом архиве есть <em>снимок у двери</em></h2>
+        <p>Так снимали всегда: выходили на крыльцо, потому что там светло, и вставали в дверном проёме. Уезжающий с чемоданом, вернувшийся из армии, вся семья перед дорогой.</p>
+        <p>Эти карточки узнаются мгновенно, даже когда лица уже не разобрать. Дверь, косяк, ступенька - и по ним понятно, что это был важный день.</p>
+      </div>
+      <div class="s-art rv">
+        <img src="assets/landing-l24/door-ajar-2000.jpg"
+             srcset="assets/landing-l24/door-ajar-1200.jpg 1200w, assets/landing-l24/door-ajar-2000.jpg 2000w"
+             sizes="(max-width:860px) 88vw, 44vw"
+             alt="Приоткрытая деревянная дверь с железной щеколдой, тёплый свет узкой полосой лежит на половицах" width="2000" height="1116" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section id="vnutri">
+    <div class="wrap">
+      <div class="rv">
+        <div class="eyebrow">Две стороны</div>
+        <h2>Порог всегда делит кадр <em>надвое</em></h2>
+        <p class="lead">Внутри и снаружи на старом снимке живут по разным законам. Понимать это важно до того, как что-то трогать.</p>
+      </div>
+      <div class="duo">
+        <div class="rv">
+          <div class="h">Внутри</div>
+          <h3>Тень, в которой ничего нет</h3>
+          <p>Тёмная часть кадра на плёнке тех лет часто пуста: выдержку ставили по улице, и в прихожей не осталось никаких данных. Вытянуть оттуда лицо нельзя - там его физически нет. Мы скажем это прямо, а не сделаем вид.</p>
+          <img src="assets/landing-l24/light-spill-2000.jpg"
+             srcset="assets/landing-l24/light-spill-1200.jpg 1200w, assets/landing-l24/light-spill-2000.jpg 2000w"
+             sizes="(max-width:760px) 88vw, 44vw"
+             alt="Свет из открытой двери лежит полосой на тёмном деревянном полу, в луче видна пыль" width="2000" height="1116" loading="lazy" decoding="async">
+        </div>
+        <div class="rv">
+          <div class="h">Снаружи</div>
+          <h3>Свет, который выжигает</h3>
+          <p>Пересвеченное небо и листва за дверью - вторая типичная потеря. Здесь чуть проще: фактуру иногда удаётся вернуть, если бумага не выгорела насквозь. Но и тут мы работаем по тому, что есть.</p>
+          <img src="assets/landing-l24/forest-beyond-2000.jpg"
+             srcset="assets/landing-l24/forest-beyond-1200.jpg 1200w, assets/landing-l24/forest-beyond-2000.jpg 2000w"
+             sizes="(max-width:760px) 88vw, 44vw"
+             alt="Осенний лес за дверным проёмом, полностью размытый в золотое боке, резким остаётся только край косяка" width="2000" height="1116" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kryltso">
+    <div class="wrap split rev">
+      <div class="rv">
+        <div class="eyebrow">Крыльцо</div>
+        <h2>Доски запоминают <em>шаги</em></h2>
+        <p>Серое дерево крыльца, вытертое там, где ступали, и заросшее мхом там, где не ступал никто. Осенью на нём лежат листья, и по ним видно, что дверь давно не открывали.</p>
+        <p>Иногда именно так архив и находят: приезжают разбирать дом и обнаруживают коробку в сенях. К нам такие снимки приходят с настоящей уличной пылью на эмульсии.</p>
+      </div>
+      <div class="s-art rv">
+        <img src="assets/landing-l24/porch-boards-2000.jpg"
+             srcset="assets/landing-l24/porch-boards-1200.jpg 1200w, assets/landing-l24/porch-boards-2000.jpg 2000w"
+             sizes="(max-width:860px) 88vw, 44vw"
+             alt="Серые доски старого крыльца сверху, палые листья и лежащая среди них небольшая фотография" width="2000" height="1116" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section id="kryuchok">
+    <div class="wrap split">
+      <div class="rv">
+        <div class="eyebrow">Крючок</div>
+        <h2>Вещи остаются <em>на своих местах</em></h2>
+        <p>Пальто на кованом крючке, сумка под ним, галоши у стены. В доме, где давно никто не живёт, прихожая выглядит так, будто человек вышел на минуту.</p>
+        <p>Мы стараемся, чтобы со снимками было так же: <strong>вернуть свет, но ничего не переставить</strong>. Ни черты лица, ни фон, ни то, что было на нём случайно.</p>
+      </div>
+      <div class="s-art rv">
+        <img src="assets/landing-l24/coat-hook-2000.jpg"
+             srcset="assets/landing-l24/coat-hook-1200.jpg 1200w, assets/landing-l24/coat-hook-2000.jpg 2000w"
+             sizes="(max-width:860px) 88vw, 44vw"
+             alt="Кованый крючок в тёмной прихожей, на нём висит старое шерстяное пальто, рядом холщовая сумка" width="2000" height="1116" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section id="vozvrashchenie">
+    <div class="wrap">
+      <div class="rv">
+        <div class="eyebrow">Возвращение</div>
+        <h2>Через порог всегда <em>возвращались</em></h2>
+        <p>Мы не обещаем вернуть человека. Это честная граница, и мы её не переступаем: восстановленная карточка - это по-прежнему тот же снимок, просто с него убрали шум времени.</p>
+        <p>Но одно происходит почти всегда. Когда с фотографии уходят залом, пятно и белая линия поперёк лица, её перестают прятать в коробку и снова ставят на полку. Ради этого всё и делается.</p>
+        <p>Ничего не нужно решать сегодня. Порог на то и порог, что на нём можно постоять.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="kak">
+    <div class="wrap">
+      <div class="rv">
+        <div class="eyebrow">Как мы принимаем</div>
+        <h2>Три шага - и снимок в работе</h2>
+        <p class="lead">Приём открыт. Настраивать ничего не нужно, и оригинал никуда не едет.</p>
+      </div>
+      <div class="steps">
+        <div class="step rv">
+          <span class="n">01</span>
+          <h3>Снимок</h3>
+          <p>Сфотографируйте карточку целиком при дневном свете, без вспышки и бликов. Скан тоже подойдёт.</p>
+        </div>
+        <div class="step rv">
+          <span class="n">02</span>
+          <h3>Разбор</h3>
+          <p>Смотрим состояние бумаги и говорим честно, что получится, а что уже утрачено.</p>
+        </div>
+        <div class="step rv">
+          <span class="n">03</span>
+          <h3>Бережная работа</h3>
+          <p>Восстанавливаем шаг за шагом, сверяясь с лицом на оригинале.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="srok">
+    <div class="wrap">
+      <div class="rv">
+        <div class="eyebrow">Честно о сроках</div>
+        <h2>Мы говорим <em>как есть</em></h2>
+        <p class="lead">Лучше подождать одну ночь, чем вернуть карточку, в которой появилось что-то чужое.</p>
+      </div>
+      <div class="terms">
+        <div class="term rv">
+          <div class="k">Приём</div>
+          <div class="v">Открыт</div>
+          <p>Заявки принимаем сегодня, место в очереди закрепляется в порядке записи.</p>
+        </div>
+        <div class="term rv">
+          <div class="k">Выдача</div>
+          <div class="v">На паузе</div>
+          <p>Пауза нужна, чтобы не отдавать работу второпях. Как только снимется - вы узнаете первыми.</p>
+        </div>
+        <div class="term rv">
+          <div class="k">Обычный срок</div>
+          <div class="v">К утру, ~48 часов</div>
+          <p>В штатном режиме карточка возвращается к утру следующего дня, в сложных случаях - около двух суток.</p>
+        </div>
+        <div class="term rv">
+          <div class="k">Оригинал</div>
+          <div class="v">Остаётся у вас</div>
+          <p>Мы работаем только с копией. Бумажный снимок остаётся дома.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" id="list">
+    <div class="close-art" aria-hidden="true">
+      <img src="assets/landing-l24/close-doorway-2000.jpg"
+             srcset="assets/landing-l24/close-doorway-1200.jpg 1200w, assets/landing-l24/close-doorway-2000.jpg 2000w"
+             sizes="100vw"
+             alt="" width="2000" height="1116" loading="lazy" decoding="async">
+    </div>
+    <div class="wrap rv">
+      <div class="eyebrow">Лист ожидания</div>
+      <h2>Оставьте снимку <em>место в очереди</em></h2>
+      <p>Запись ни к чему не обязывает. Мы напишем, когда подойдёт ваша очередь и выдача снова откроется - и начнём спокойно, с одного кадра.</p>
+      <a class="cta" href="/waitlist.html">Занять место в листе ожидания</a>
+      <div class="note">Приём открыт · выдача <b>на паузе</b> · оригиналы остаются у вас</div>
+    </div>
+  </section>
+
+</main>
+
+<style data-smh-polish="complete-20260814">
+.smh-skip{position:absolute;left:-9999px;top:0;z-index:999;padding:12px 20px;background:var(--accent);color:#12100c;font:500 13px/1 Manrope,sans-serif;letter-spacing:.08em;border-radius:0 0 3px 0}
+.smh-skip:focus{left:0}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.smh-foot{display:block;position:relative;z-index:2;background:var(--soil);border-top:1px solid rgba(242,239,232,.10);color:rgba(242,239,232,.55);font-family:Manrope,"Helvetica Neue",system-ui,sans-serif;font-weight:300;font-size:13px;line-height:1.65;padding:clamp(46px,7vh,78px) 0 clamp(26px,4vh,38px)}
+.smh-foot-wrap{width:min(1180px,88vw);margin:0 auto}
+.smh-foot a{color:inherit;text-decoration:none;transition:color .35s cubic-bezier(.22,.61,.36,1)}
+.smh-foot a:hover{color:rgba(242,239,232,.84)}
+.smh-foot p{margin:0;max-width:none;font-size:13px;color:inherit}
+.smh-foot-top{display:grid;grid-template-columns:minmax(240px,1.35fr) repeat(3,minmax(130px,.8fr));gap:clamp(26px,3.4vw,54px)}
+.smh-foot-name{display:inline-flex;align-items:center;gap:10px;font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:rgba(242,239,232,.84)}
+.smh-foot-name svg{width:19px;height:19px;color:var(--accent);flex:none}
+.smh-foot-line{margin-top:14px!important;max-width:34ch!important;opacity:.95}
+.smh-foot-state{margin-top:12px!important;display:flex;align-items:center;gap:9px;font-size:12.5px}
+.smh-foot-state i{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.smh-foot-h{display:block;font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:rgba(242,239,232,.84);opacity:.8;margin-bottom:14px}
+.smh-foot-col a{display:block;padding:5px 0;font-size:13px}
+.smh-foot-soc{display:flex;align-items:center;gap:10px;margin-top:22px;flex-wrap:wrap}
+.smh-foot-soc a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(242,239,232,.10);border-radius:50%;transition:color .35s ease,border-color .35s ease,transform .35s ease}
+.smh-foot-soc a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+.smh-foot-soc svg{width:17px;height:17px}
+.smh-foot-bot{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;justify-content:space-between;margin-top:clamp(30px,4.6vh,52px);padding-top:clamp(18px,2.6vh,26px);border-top:1px solid rgba(242,239,232,.10);font-size:12px;opacity:.9}
+.smh-foot-up{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.smh-foot-up svg{width:15px;height:15px;transition:transform .35s cubic-bezier(.22,.61,.36,1)}
+.smh-foot-up:hover svg{transform:translateY(-3px)}
+@media (max-width:900px){.smh-foot-top{grid-template-columns:1fr 1fr}.smh-foot-brand{grid-column:1 / -1}}
+@media (max-width:560px){.smh-foot-top{grid-template-columns:1fr;gap:26px}.smh-foot-bot{flex-direction:column;align-items:flex-start}}
+.cta::after{content:"";display:inline-block;width:.82em;height:.82em;margin-left:.6em;vertical-align:-.07em;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .4s cubic-bezier(.22,.61,.36,1)}
+.cta:hover::after{transform:translateX(4px)}
+.scroll-hint::after{content:"";display:block;width:16px;height:16px;margin:6px auto 0;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9.5l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9.5l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.85}
+@media (prefers-reduced-motion:reduce){.smh-foot a,.smh-foot-soc a,.smh-foot-up svg{transition:none}.smh-foot-up:hover svg{transform:none}}
+</style>
+
+<footer class="smh-foot" data-smh-footer="complete-20260814">
+  <div class="smh-foot-wrap">
+    <div class="smh-foot-top">
+      <div class="smh-foot-brand">
+        <a class="smh-foot-name" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19.4 4.3c1 8.4-3.9 13.9-11.6 15 .1-8.4 4.9-14 11.6-15z"/><path d="M7.8 19.3c1.9-4.3 4.8-7.4 8.7-9.5"/></svg> SaveMyHistory</a>
+        <p class="smh-foot-line">Бережное восстановление семейных фотографий. Лицо остаётся собой.</p>
+        <p class="smh-foot-state"><i aria-hidden="true"></i>Приём открыт · выдача сейчас на мягкой паузе</p>
+        <div class="smh-foot-soc">
+          <a href="https://t.me/maximprods" target="_blank" rel="noopener noreferrer" title="Telegram" aria-label="SaveMyHistory в Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.3 4.4 2.9 11.3c-.8.3-.8 1.4.1 1.6l4.6 1.4 1.8 5c.2.7 1.1.9 1.6.3l2.4-2.6 4.5 3.3c.6.4 1.4.1 1.5-.6l2.9-14c.2-.8-.6-1.5-1.4-1.2z"/><path d="m7.6 14.3 9.4-6.4-6.9 7.8-.2 3.3"/></svg></a>
+          <a href="https://instagram.com/save.my.history" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="SaveMyHistory в Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true" focusable="false"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.1" cy="6.9" r="1.05" fill="currentColor" stroke="none"/></svg></a>
+          <a class="smh-mail" href="mailto:savemyfamilyhistory@gmail.com" data-u="savemyfamilyhistory" data-d="gmail.com" title="Написать письмом" aria-label="Написать нам письмом"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.6" y="5" width="18.8" height="14" rx="2.6"/><path d="m3.6 7.2 8.4 5.9 8.4-5.9"/></svg></a>
+          <a href="https://savemyhistory.tech/" target="_blank" rel="noopener noreferrer" title="savemyhistory.tech" aria-label="Сайт savemyhistory.tech"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.9"/><path d="M3.3 9.4h17.4M3.3 14.6h17.4"/><path d="M12 3.1c2.5 2.6 3.8 5.6 3.8 8.9S14.5 18.3 12 20.9C9.5 18.3 8.2 15.3 8.2 12S9.5 5.7 12 3.1z"/></svg></a>
+        </div>
+      </div>
+      <nav class="smh-foot-col" aria-label="Разделы страницы">
+        <span class="smh-foot-h">Страница</span>
+      <a href="#dver">Дверь</a>
+      <a href="#vnutri">Внутри</a>
+      <a href="#kryltso">Крыльцо</a>
+      <a href="#kryuchok">Крючок</a>
+      <a href="#vozvrashchenie">Возвращение</a>
+      <a href="#kak">Приём</a>
+      <a href="#srok">Сроки</a>
+      <a href="#list">Лист ожидания</a>
+      </nav>
+      <nav class="smh-foot-col" aria-label="Проект">
+        <span class="smh-foot-h">Проект</span>
+        <a href="/waitlist.html">Лист ожидания</a>
+        <a href="/gallery.html">Галерея</a>
+        <a href="/cabinet.html">Кабинет</a>
+        <a href="https://savemyhistory.tech/">savemyhistory.tech</a>
+      </nav>
+      <nav class="smh-foot-col" aria-label="Документы">
+        <span class="smh-foot-h">Документы</span>
+        <a href="/privacy.html">Конфиденциальность</a>
+        <a href="/terms.html">Условия</a>
+        <a class="smh-mail" href="mailto:savemyfamilyhistory@gmail.com" data-u="savemyfamilyhistory" data-d="gmail.com">Написать нам</a>
+      </nav>
+    </div>
+    <div class="smh-foot-bot">
+      <span>© 2026 SaveMyHistory · Сохрани историю своей семьи</span>
+      <a class="smh-foot-up" href="#top">Наверх <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19.2V5.4M6.2 11.2 12 5.4l5.8 5.8"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script data-smh-polish="complete-20260814">
+(function(){
+  var m = document.querySelectorAll('.smh-mail');
+  for (var i = 0; i < m.length; i++) {
+    var a = m[i], u = a.getAttribute('data-u'), d = a.getAttribute('data-d');
+    if (u && d) a.setAttribute('href', 'mailto:' + u + '@' + d);
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dust = document.getElementById('dust');
+  if (dust && !rm) {
+    for (var i = 0; i < 26; i++) {
+      var m = document.createElement('span');
+      m.className = 'mote';
+      m.style.left = (Math.random() * 100).toFixed(2) + '%';
+      m.style.bottom = (-10 + Math.random() * 30).toFixed(2) + '%';
+      m.style.transform = 'scale(' + (0.5 + Math.random() * 1.6).toFixed(2) + ')';
+      m.style.animationDuration = (16 + Math.random() * 22).toFixed(1) + 's';
+      m.style.animationDelay = (-Math.random() * 30).toFixed(1) + 's';
+      dust.appendChild(m);
+    }
+  }
+  var items = document.querySelectorAll('.rv');
+  if (rm || !('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(items, function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  Array.prototype.forEach.call(items, function(el){ io.observe(el); });
+})();
+</script>
+
+<script data-smh-craft="smooth-nav-20260814">
+(function(){
+  var doc = document.documentElement;
+  var mq  = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reduce = mq.matches;
+  var bar = document.querySelector('.nav');
+  if (!bar) return;
+
+  var rail = document.createElement('span');
+  rail.className = 'nav-rail';
+  rail.setAttribute('aria-hidden','true');
+  bar.appendChild(rail);
+
+  var cta = document.createElement('a');
+  cta.className = 'nav-cta';
+  cta.href = '/waitlist.html';
+  cta.textContent = 'Лист ожидания';
+  bar.appendChild(cta);
+
+  var links = Array.prototype.slice.call(bar.querySelectorAll('a[href^="#"]'));
+  var spy = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var el = id ? document.getElementById(id) : null;
+    if (el) spy.push({ a: a, el: el });
+  });
+  spy.sort(function(x, y){
+    var rel = x.el.compareDocumentPosition(y.el);
+    if (rel & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+    if (rel & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+    return 0;
+  });
+  links.forEach(function(a){
+    a.addEventListener('click', function(){
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if (!el) return;
+      window.setTimeout(function(){
+        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex','-1');
+        try { el.focus({ preventScroll: true }); } catch (e) {}
+      }, reduce ? 0 : 520);
+    });
+  });
+  if (!reduce) {
+    Array.prototype.forEach.call(document.querySelectorAll('section'), function(group){
+      Array.prototype.forEach.call(group.querySelectorAll('.rv'), function(el, i){
+        el.style.transitionDelay = (Math.min(i, 4) * 0.09).toFixed(2) + 's';
+      });
+    });
+  }
+
+  var lastY = window.pageYOffset, stuck = false, veiled = false, ticking = false, active = null;
+  function trigger(){
+    var t = document.querySelector('.hero');
+    return t ? Math.max(120, t.offsetHeight - 74) : 320;
+  }
+  function frame(){
+    ticking = false;
+    var y = window.pageYOffset;
+    var h = doc.scrollHeight - window.innerHeight;
+    doc.style.setProperty('--read', (h > 0 ? Math.min(1, Math.max(0, y / h)) : 0).toFixed(4));
+    var edge = trigger();
+    if ((y > edge) !== stuck) { stuck = y > edge; bar.classList.toggle('is-set', stuck); }
+    if (stuck && !reduce) {
+      if (y > lastY + 4 && !veiled && y > edge + 140) { veiled = true; bar.classList.add('is-veiled'); }
+      else if (y < lastY - 4 && veiled) { veiled = false; bar.classList.remove('is-veiled'); }
+    } else if (veiled) { veiled = false; bar.classList.remove('is-veiled'); }
+    lastY = y;
+    var probe = y + 74 + Math.round(window.innerHeight * 0.30);
+    var cur = null;
+    for (var i = 0; i < spy.length; i++) {
+      if (spy[i].el.getBoundingClientRect().top + y <= probe) cur = spy[i];
+    }
+    if (cur !== active) {
+      if (active) { active.a.classList.remove('is-here'); active.a.removeAttribute('aria-current'); }
+      active = cur;
+      if (active) { active.a.classList.add('is-here'); active.a.setAttribute('aria-current','true'); }
+    }
+  }
+  function onScroll(){ if (!ticking) { ticking = true; window.requestAnimationFrame(frame); } }
+  frame();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', onScroll);
+  if (mq.addEventListener) mq.addEventListener('change', function(){ reduce = mq.matches; });
+})();
+</script>
+</body>
+</html>
