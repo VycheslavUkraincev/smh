@@ -190,6 +190,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .stat svg{width:21px;height:21px;stroke:var(--accent);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:0 0 21px;opacity:.9}
 .stat-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;line-height:1.1;color:var(--ink);font-weight:600}
 .stat-label{font-size:12.5px;color:var(--muted);margin-top:1px}
+.stat-label a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(138,106,83,.25)}
+.stat-label a:hover{color:var(--ink);border-bottom-color:rgba(138,106,83,.5)}
 
 /* ---------- cards ---------- */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
@@ -373,9 +375,11 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       <a class="nav-item" href="#relations"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6.5" r="2.4"/><circle cx="18" cy="17.5" r="2.4"/><path d="M8.2 10.9l7.6-3.3M8.2 13.1l7.6 3.3"/></svg>Связи</a>
       <div class="nav-sep"></div>
       <div class="nav-label">Работа с памятью</div>
-      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
-      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
-      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения</a>
+      <a class="nav-item" href="/smh-cabinet-stol.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
+      <a class="nav-item" href="/smh-cabinet-karta.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.2"/><circle cx="9" cy="10.4" r="2.2"/><path d="M5.6 16.6c.5-1.9 1.8-2.9 3.4-2.9s2.9 1 3.4 2.9M15 9.4h3.6M15 12.6h3.6"/></svg>Карточка памяти</a>
+      <a class="nav-item" href="/smh-cabinet-razgovor.html"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
+      <a class="nav-item" href="/smh-cabinet-podtverzhdeniya.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения</a>
+      <a class="nav-item" href="/smh-cabinet-privatnost.html"><svg viewBox="0 0 24 24"><rect x="4.6" y="10.4" width="14.8" height="9.4" rx="2"/><path d="M8.4 10.2V7.8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>Приватность и роли</a>
     </nav>
 
     <div class="quick">
@@ -424,7 +428,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
         <p>Сохраняем не только фото — человека, голос и связь поколений</p>
         <div class="hero-ctas">
           <a class="hero-cta" href="/waitlist.html">Исследовать архив</a>
-          <a class="hero-cta hero-cta--soft" href="/waitlist.html">Записать рассказ</a>
+          <a class="hero-cta hero-cta--soft" href="/smh-cabinet-razgovor.html">Записать рассказ</a>
         </div>
       </div>
     </section>
@@ -436,7 +440,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       </div>
       <div class="stat">
         <svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>
-        <div><div class="stat-num">48</div><div class="stat-label">Подтверждено семьёй</div></div>
+        <div><div class="stat-num">48</div><div class="stat-label"><a href="/smh-cabinet-podtverzhdeniya.html">Подтверждено семьёй</a></div></div>
       </div>
       <div class="stat">
         <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>
