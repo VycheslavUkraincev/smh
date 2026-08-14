@@ -478,17 +478,28 @@ body.tg-fs .top{
   padding-top:calc(13px + var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px));
   padding-right:100px;
 }
-/* тихая подсказка, если клиент всё-таки оставил половину экрана */
+/* заметная кнопка, если клиент всё-таки оставил половину экрана */
 .wide-chip{
   position:fixed;left:50%;transform:translateX(-50%);
-  bottom:calc(12px + env(safe-area-inset-bottom));
-  font-size:12.5px;line-height:1;color:var(--muted);
-  background:var(--pill);border:1px solid var(--border);
-  border-radius:999px;padding:7px 14px;z-index:70;
-  box-shadow:0 6px 18px -12px rgba(0,0,0,.45);
+  bottom:calc(14px + env(safe-area-inset-bottom));
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:600;line-height:1;
+  color:var(--tg-theme-button-text-color, #fff);
+  background:var(--tg-theme-button-color, var(--accent));
+  border:0;border-radius:999px;padding:13px 22px;z-index:90;
+  box-shadow:0 10px 26px -10px rgba(64,46,34,.55);
+  animation:wide-pulse 1.9s ease-in-out infinite;
 }
+.wide-chip::before{content:'\2922';font-size:16px;font-weight:400}
 .wide-chip[hidden]{display:none}
-.wide-chip:active{background:var(--active);color:var(--ink)}
+.wide-chip:active{background:var(--accent-deep);animation:none}
+@keyframes wide-pulse{
+  0%,100%{box-shadow:0 10px 26px -10px rgba(64,46,34,.55), 0 0 0 0 rgba(138,106,83,.34)}
+  50%{box-shadow:0 10px 26px -10px rgba(64,46,34,.55), 0 0 0 11px rgba(138,106,83,0)}
+}
+@media (prefers-reduced-motion:reduce){
+  .wide-chip{animation:none}
+}
 
 @media (min-width:720px){
   .app{max-width:740px;padding-top:22px}
@@ -1168,10 +1179,27 @@ body.tg-fs .top{
     copyText(url + ' — ' + text, 'Ссылка скопирована');
   }
 
+  /* Главную кнопку делят между собой приглашение и временное «На весь экран».
+     Пока окно не развернулось, вторая перекрывает первую, а как только
+     экран открыт целиком — приглашение возвращается на место. */
+  var inviteMainOn = false;
+  var wideMainOn = false;
+
   function mainButton(on){
+    inviteMainOn = !!on;
+    applyMainButton();
+  }
+
+  function applyMainButton(){
     if(!tg || !tg.MainButton) return;
+    try{ tg.MainButton.offClick(openWideByUser); }catch(e){}
+    try{ tg.MainButton.offClick(shareInvite); }catch(e){}
     try{
-      if(on){
+      if(wideMainOn){
+        tg.MainButton.setText('На весь экран');
+        tg.MainButton.onClick(openWideByUser);
+        tg.MainButton.show();
+      }else if(inviteMainOn){
         tg.MainButton.setText('Позвать родных');
         tg.MainButton.onClick(shareInvite);
         tg.MainButton.show();
@@ -1489,12 +1517,26 @@ body.tg-fs .top{
     markFullscreen();
   }
 
-  /* Развернулись ли мы на самом деле. У старых клиентов свойств нет —
-     тогда считаем, что всё в порядке, и ничем не мешаем. */
+  /* Умеет ли клиент настоящий полный экран (Bot API 8.0+). */
+  function hasFullscreenApi(){
+    if(!tg) return false;
+    try{
+      return !!(tg.isVersionAtLeast && tg.isVersionAtLeast('8.0') &&
+                typeof tg.requestFullscreen === 'function' &&
+                typeof tg.isFullscreen === 'boolean');
+    }catch(e){ return false; }
+  }
+
+  /* Развернулись ли мы на самом деле.
+     Там, где полный экран есть, засчитывается ТОЛЬКО isFullscreen: expand()
+     поднимает лист до половины и уже выставляет isExpanded, из-за чего кнопка
+     пропадала, хотя экран так и не открылся целиком.
+     На старых клиентах полного экрана нет — там судим по isExpanded, а при
+     неизвестных свойствах молчим, чтобы ничем не мешать. */
   function isWideOpen(){
     if(!tg) return true;
     try{
-      if(tg.isFullscreen) return true;
+      if(hasFullscreenApi()) return !!tg.isFullscreen;
       if(typeof tg.isExpanded === 'boolean') return !!tg.isExpanded;
       var vh = tg.viewportHeight || 0, sh = (window.screen && screen.height) || 0;
       if(vh && sh && vh < sh * 0.7) return false;
@@ -1510,22 +1552,29 @@ body.tg-fs .top{
     /* Полный экран — Bot API 8.0+, на телефоне тоже: шапку из-под системных
        кнопок уводит body.tg-fs .top. */
     try{
-      if(tg.isVersionAtLeast && tg.isVersionAtLeast('8.0') &&
-         typeof tg.requestFullscreen === 'function' && !tg.isFullscreen){
-        tg.requestFullscreen();
-      }
+      if(hasFullscreenApi() && !tg.isFullscreen) tg.requestFullscreen();
     }catch(e){}
     fitViewport();
     syncWideChip();
   }
 
-  /* Тихая подсказка на случай, когда клиент открыл половину экрана:
-     касание пользователя разворачивает окно там, где авто-вызов не сработал. */
+  /* Тот же вызов, но от руки человека: касание и есть тот жест, которого
+     Telegram ждёт, чтобы пустить страницу в полный экран. */
+  function openWideByUser(){
+    try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }catch(e){}
+    openWide();
+    setTimeout(syncWideChip, 350);
+    setTimeout(syncWideChip, 900);
+  }
+
+  /* Заметная кнопка на случай, когда клиент открыл половину экрана, плюс
+     дублирующая главная кнопка Telegram — пока экран не открыт целиком. */
   var wideChip = null;
   function syncWideChip(){
     if(!tg) return;
     if(isWideOpen()){
       if(wideChip) wideChip.hidden = true;
+      if(wideMainOn){ wideMainOn = false; applyMainButton(); }
       return;
     }
     if(!wideChip){
@@ -1533,10 +1582,30 @@ body.tg-fs .top{
       wideChip.type = 'button';
       wideChip.className = 'wide-chip';
       wideChip.textContent = 'На весь экран';
-      wideChip.addEventListener('click', openWide);
+      wideChip.addEventListener('click', openWideByUser);
       document.body.appendChild(wideChip);
     }
     wideChip.hidden = false;
+    if(!wideMainOn){ wideMainOn = true; applyMainButton(); }
+  }
+
+  /* Первое касание где угодно на странице тоже разворачивает окно: один раз,
+     в фазе перехвата и ничего не отменяя, поэтому обычные нажатия работают
+     как прежде, а Telegram получает нужный ему жест человека. */
+  var wideGestureArmed = false;
+  function armWideGesture(){
+    if(wideGestureArmed) return;
+    wideGestureArmed = true;
+    function disarm(){
+      try{ document.removeEventListener('pointerdown', onFirstTouch, true); }catch(e){}
+      try{ document.removeEventListener('touchstart', onFirstTouch, true); }catch(e){}
+    }
+    function onFirstTouch(){
+      disarm();
+      if(!isWideOpen()) openWide();
+    }
+    try{ document.addEventListener('pointerdown', onFirstTouch, true); }catch(e){}
+    try{ document.addEventListener('touchstart', onFirstTouch, true); }catch(e){}
   }
 
   if(tg){
@@ -1547,6 +1616,8 @@ body.tg-fs .top{
       /* Telegram часто пропускает первый вызов, пока окно ещё едет вверх. */
       [0, 120, 400, 1000].forEach(function(ms){ setTimeout(openWide, ms); });
       setTimeout(syncWideChip, 1200);
+      setTimeout(syncWideChip, 2400);
+      armWideGesture();
       paintTheme();
       tg.onEvent('themeChanged', paintTheme);
       var retriedWide = false;
