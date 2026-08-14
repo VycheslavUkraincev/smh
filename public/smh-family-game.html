@@ -504,21 +504,39 @@ body.tg-fs .top{
   padding-top:calc(13px + var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px));
   padding-right:100px;
 }
-/* заметная кнопка, если клиент всё-таки оставил половину экрана */
+/* заметная кнопка, если клиент всё-таки оставил половину экрана.
+   Живёт поверх всего: под ней бывает и всплывающая карточка, и тост, а
+   пропустить её нельзя — это единственный путь к полному экрану. */
 .wide-chip{
   position:fixed;left:50%;transform:translateX(-50%);
-  bottom:calc(14px + env(safe-area-inset-bottom));
+  bottom:calc(18px + env(safe-area-inset-bottom, 0px) + var(--tg-safe-area-inset-bottom, 0px));
   display:inline-flex;align-items:center;gap:8px;
-  font-size:15px;font-weight:600;line-height:1;
+  font-size:16px;font-weight:600;line-height:1;
   color:var(--tg-theme-button-text-color, #fff);
   background:var(--tg-theme-button-color, var(--accent));
-  border:0;border-radius:999px;padding:13px 22px;z-index:90;
+  border:0;border-radius:999px;padding:15px 24px;z-index:2147483000;
   box-shadow:0 10px 26px -10px rgba(64,46,34,.55);
   animation:wide-pulse 1.9s ease-in-out infinite;
 }
 .wide-chip::before{content:'\2922';font-size:16px;font-weight:400}
 .wide-chip[hidden]{display:none}
 .wide-chip:active{background:var(--accent-deep);animation:none}
+
+/* та же просьба, но прямо в странице, у самого верха: главную кнопку
+   Telegram и плавающую подсказку видно не в каждом клиенте. */
+.wide-cta{
+  display:none;width:100%;box-sizing:border-box;
+  align-items:center;justify-content:center;gap:8px;
+  font:inherit;font-size:16px;font-weight:600;line-height:1;
+  color:var(--tg-theme-button-text-color, #fff);
+  background:var(--tg-theme-button-color, var(--accent));
+  border:0;border-radius:16px;padding:15px 18px;margin:0 0 14px;
+  cursor:pointer;
+  box-shadow:0 10px 24px -12px rgba(64,46,34,.6);
+}
+.wide-cta::before{content:'\2922';font-size:17px;font-weight:400}
+.wide-cta.on{display:flex}
+.wide-cta:active{background:var(--accent-deep)}
 @keyframes wide-pulse{
   0%,100%{box-shadow:0 10px 26px -10px rgba(64,46,34,.55), 0 0 0 0 rgba(138,106,83,.34)}
   50%{box-shadow:0 10px 26px -10px rgba(64,46,34,.55), 0 0 0 11px rgba(138,106,83,0)}
@@ -1626,34 +1644,51 @@ body.tg-fs .top{
     markFullscreen();
   }
 
-  /* Умеет ли клиент настоящий полный экран (Bot API 8.0+). */
+  /* Умеет ли клиент настоящий полный экран (Bot API 8.0+).
+     Спрашиваем только про сам вызов: на части клиентов свойство isFullscreen
+     появляется лишь после первого запроса, и требование «это boolean» роняло
+     проверку целиком — а вместе с ней пряталась и кнопка. */
   function hasFullscreenApi(){
     if(!tg) return false;
-    try{
-      return !!(tg.isVersionAtLeast && tg.isVersionAtLeast('8.0') &&
-                typeof tg.requestFullscreen === 'function' &&
-                typeof tg.isFullscreen === 'boolean');
-    }catch(e){ return false; }
+    try{ return typeof tg.requestFullscreen === 'function'; }catch(e){ return false; }
+  }
+
+  /* Экран открыт целиком — только это и считается полным экраном. */
+  function isFullscreenNow(){
+    if(!tg) return false;
+    try{ return tg.isFullscreen === true; }catch(e){ return false; }
   }
 
   /* Развернулись ли мы на самом деле.
-     Там, где полный экран есть, засчитывается ТОЛЬКО isFullscreen: expand()
-     поднимает лист до половины и уже выставляет isExpanded, из-за чего кнопка
-     пропадала, хотя экран так и не открылся целиком.
-     На старых клиентах полного экрана нет — там судим по isExpanded, а при
-     неизвестных свойствах молчим, чтобы ничем не мешать. */
+     Где полный экран есть, засчитывается ТОЛЬКО isFullscreen === true:
+     expand() поднимает лист до половины и уже выставляет isExpanded, из-за
+     чего кнопка пропадала, хотя шапка Telegram оставалась на экране.
+     Где полного экрана нет — судим по высоте окна, но никогда по одному
+     isExpanded. Ничего не поняли — считаем, что не развернулись: лишняя
+     кнопка безобиднее, чем половина экрана без выхода. */
   function isWideOpen(){
     if(!tg) return true;
     try{
-      if(hasFullscreenApi()) return !!tg.isFullscreen;
-      if(typeof tg.isExpanded === 'boolean') return !!tg.isExpanded;
-      var vh = tg.viewportHeight || 0, sh = (window.screen && screen.height) || 0;
-      if(vh && sh && vh < sh * 0.7) return false;
-    }catch(e){ return true; }
-    return true;
+      if(hasFullscreenApi()) return isFullscreenNow();
+      var vh = tg.viewportHeight || window.innerHeight || 0;
+      var sh = (window.screen && screen.height) || 0;
+      if(vh && sh) return vh >= sh * 0.85;
+      return !!tg.isExpanded;
+    }catch(e){ return false; }
   }
 
-  function openWide(){
+  /* Предлагать полный экран стоит там, где Telegram его умеет и ещё не дал.
+     На клиентах без такой возможности кнопка обещала бы несбыточное — там
+     после expand() она просто не появляется. */
+  function shouldOfferWide(){
+    return !!tg && hasFullscreenApi() && !isFullscreenNow();
+  }
+
+  /* Сам по себе, без касания, полный экран просим один раз: Telegram всё
+     равно ждёт жеста человека, а очередь отказов ничего не меняет. Главный
+     путь — кнопка ниже. */
+  var autoFsAsked = false;
+  function openWide(byUser){
     if(!tg) return;
     try{ tg.ready(); }catch(e){}
     try{ tg.expand(); }catch(e){}
@@ -1661,7 +1696,10 @@ body.tg-fs .top{
     /* Полный экран — Bot API 8.0+, на телефоне тоже: шапку из-под системных
        кнопок уводит body.tg-fs .top. */
     try{
-      if(hasFullscreenApi() && !tg.isFullscreen) tg.requestFullscreen();
+      if(hasFullscreenApi() && !isFullscreenNow() && (byUser || !autoFsAsked)){
+        if(!byUser) autoFsAsked = true;
+        tg.requestFullscreen();
+      }
     }catch(e){}
     fitViewport();
     syncWideChip();
@@ -1671,18 +1709,38 @@ body.tg-fs .top{
      Telegram ждёт, чтобы пустить страницу в полный экран. */
   function openWideByUser(){
     try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }catch(e){}
-    openWide();
+    openWide(true);
     setTimeout(syncWideChip, 350);
     setTimeout(syncWideChip, 900);
   }
 
-  /* Заметная кнопка на случай, когда клиент открыл половину экрана, плюс
-     дублирующая главная кнопка Telegram — пока экран не открыт целиком. */
+  /* Просьба открыть весь экран живёт в трёх местах сразу: кнопкой в самой
+     странице у верха, плавающей подсказкой внизу и главной кнопкой Telegram.
+     Разные клиенты показывают разное, поэтому мимо всех трёх не пройти. */
   var wideChip = null;
+  var wideCta = null;
+
+  function ensureWideCta(){
+    if(wideCta) return wideCta;
+    var app = document.getElementById('main');
+    if(!app) return null;
+    wideCta = document.createElement('button');
+    wideCta.type = 'button';
+    wideCta.id = 'wideOpenBtn';
+    wideCta.className = 'wide-cta';
+    wideCta.textContent = 'На весь экран';
+    wideCta.addEventListener('click', openWideByUser);
+    var top = app.querySelector('.top');
+    if(top && top.nextSibling) app.insertBefore(wideCta, top.nextSibling);
+    else app.insertBefore(wideCta, app.firstChild);
+    return wideCta;
+  }
+
   function syncWideChip(){
     if(!tg) return;
-    if(isWideOpen()){
+    if(!shouldOfferWide()){
       if(wideChip) wideChip.hidden = true;
+      if(wideCta) wideCta.classList.remove('on');
       if(wideMainOn){ wideMainOn = false; applyMainButton(); }
       return;
     }
@@ -1695,6 +1753,8 @@ body.tg-fs .top{
       document.body.appendChild(wideChip);
     }
     wideChip.hidden = false;
+    var cta = ensureWideCta();
+    if(cta) cta.classList.add('on');
     if(!wideMainOn){ wideMainOn = true; applyMainButton(); }
   }
 
@@ -1711,7 +1771,7 @@ body.tg-fs .top{
     }
     function onFirstTouch(){
       disarm();
-      if(!isWideOpen()) openWide();
+      if(!isWideOpen()) openWide(true);
     }
     try{ document.addEventListener('pointerdown', onFirstTouch, true); }catch(e){}
     try{ document.addEventListener('touchstart', onFirstTouch, true); }catch(e){}
