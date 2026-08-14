@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Разговор — SaveMyHistory</title>
+<meta name="description" content="Разговор SaveMyHistory: один снимок, один вопрос, одна кнопка. Голос родного человека остаётся рядом с расшифровкой.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/product-screens/base.css">
+<style>
+.ask{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:22px;align-items:start}
+.ask-photo{border-radius:11px;overflow:hidden;background:#EFE9E0;box-shadow:var(--shadow)}
+.ask-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(.34) saturate(.84)}
+.ask-cap{margin:10px 2px 0;font-size:12.5px;color:var(--muted)}
+.question{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(24px,2.6vw,31px);line-height:1.2;font-weight:500;margin:0 0 10px;letter-spacing:.2px}
+.question-sub{margin:0 0 20px;font-size:14px;color:var(--ink-2);max-width:52ch}
+.rec{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.rec-btn{
+  display:inline-flex;align-items:center;gap:11px;background:var(--accent);color:#fff;
+  padding:15px 28px;border-radius:999px;font-size:16px;font-weight:500;
+  box-shadow:0 2px 16px rgba(64,46,34,.16);transition:background .2s ease, transform .2s ease;
+}
+.rec-btn:hover{background:var(--accent-deep);transform:translateY(-1px)}
+.rec-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.rec-hint{font-size:12.5px;color:var(--muted);max-width:30ch;line-height:1.45}
+.next-q{list-style:none;margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--divider);display:flex;flex-wrap:wrap;gap:8px}
+.next-q li{font-size:13px;color:var(--ink-2);border:1px solid var(--border);border-radius:999px;padding:7px 14px;background:var(--card)}
+.wave{display:flex;align-items:flex-end;gap:3px;height:44px;margin:0 0 4px}
+.wave i{flex:1;background:var(--line);border-radius:2px;opacity:.75}
+.audio{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:11px;background:#FCFAF7}
+.audio-play{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.audio-play svg{width:15px;height:15px;stroke:#fff;fill:#fff;stroke-width:1}
+.audio-meta{min-width:0;flex:1}
+.audio-meta b{display:block;font-size:13.5px;font-weight:600}
+.audio-meta small{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.script{font-size:14px;line-height:1.62;color:var(--ink-2)}
+.script p{margin:0 0 13px}
+.script p:last-child{margin-bottom:0}
+.script mark{background:rgba(138,106,83,.13);color:var(--ink);border-radius:3px;padding:1px 3px}
+.pulled{list-style:none;margin:0;padding:0}
+.pulled li{display:flex;align-items:flex-start;gap:11px;padding:12px 0;border-top:1px solid var(--divider)}
+.pulled li:first-child{border-top:0;padding-top:0}
+.pulled-t{min-width:0;flex:1}
+.pulled-t b{display:block;font-size:13.5px;font-weight:600}
+.pulled-t small{font-size:12.5px;color:var(--muted);line-height:1.45;display:block;margin-top:2px}
+.pulled .badge{flex:0 0 auto;margin-top:1px}
+.rule{margin:16px 0 0;padding:13px 15px;border-left:2px solid var(--accent);background:#FBF8F4;border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink-2)}
+@media (max-width:1120px){.ask{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a class="brand serif" href="/smh-cabinet-mock.html">SaveMyHistory</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a class="nav-item" href="/smh-cabinet-mock.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20h14V9.8"/><path d="M10 20v-6h4v6"/></svg>Главная</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#tree"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.4"/><circle cx="5.5" cy="19" r="2.4"/><circle cx="18.5" cy="19" r="2.4"/><path d="M12 7.4v4.2M5.5 16.6v-2.4h13v2.4M12 11.6v2.6"/></svg>Древо семьи</a>
+      <a class="nav-item" href="/smh-cabinet-karta.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/></svg>Люди</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#albums"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>Фотографии</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#events"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>События</a>
+      <div class="nav-sep"></div>
+      <div class="nav-label">Работа с памятью</div>
+      <a class="nav-item" href="/smh-cabinet-stol.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
+      <a class="nav-item is-active" href="/smh-cabinet-razgovor.html" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
+      <a class="nav-item" href="/smh-cabinet-podtverzhdeniya.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения<span class="nav-count">7</span></a>
+      <a class="nav-item" href="/smh-cabinet-privatnost.html"><svg viewBox="0 0 24 24"><rect x="4.6" y="10.4" width="14.8" height="9.4" rx="2"/><path d="M8.4 10.2V7.8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>Приватность и роли</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M9.8 9.4a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .9-1 1.6v.3"/><path d="M12 16.8h.01"/></svg>Помощь</a>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+
+    <div class="topbar">
+      <div class="search">
+        <label for="q" class="skip">Поиск по архиву</label>
+        <input id="q" type="search" placeholder="Поиск по архиву..." autocomplete="off">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" type="button" aria-label="Уведомления">
+          <svg viewBox="0 0 24 24"><path d="M18 8.6a6 6 0 1 0-12 0c0 6-2.2 7.4-2.2 7.4h16.4S18 14.6 18 8.6z"/><path d="M13.7 19.4a2 2 0 0 1-3.4 0"/></svg>
+        </button>
+        <button class="user" type="button">
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy">
+          <span>Алина</span>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="siblings" aria-label="Экраны продукта">
+      <a class="sib" href="/smh-cabinet-mock.html">Кабинет</a>
+      <a class="sib" href="/smh-cabinet-stol.html">Стол</a>
+      <a class="sib" href="/smh-cabinet-karta.html">Карточка памяти</a>
+      <a class="sib is-here" href="/smh-cabinet-razgovor.html" aria-current="page">Разговор</a>
+      <a class="sib" href="/smh-cabinet-podtverzhdeniya.html">Подтверждения</a>
+      <a class="sib" href="/smh-cabinet-privatnost.html">Приватность и роли</a>
+    </nav>
+
+    <header class="page-head">
+      <p class="crumb">Уровень рассказа</p>
+      <h1>Разговор</h1>
+      <p class="lede">Один снимок, один вопрос, одна кнопка. Голос остаётся голосом: расшифровка живёт рядом с оригинальной записью, а не вместо неё.</p>
+    </header>
+
+    <section class="card rv">
+      <div class="ask">
+        <div>
+          <figure class="ask-photo" style="margin:0">
+            <img src="/assets/cabinet-mock/album-3.jpg" alt="Семейный снимок, о котором идёт разговор" width="800" height="600" loading="lazy">
+          </figure>
+          <p class="ask-cap">Томск, около 1936 · на снимке шесть человек, двоих архив пока не знает</p>
+        </div>
+        <div>
+          <p class="question serif">Кто здесь рядом с вами?</p>
+          <p class="question-sub">Покажите этот снимок бабушке и просто нажмите запись. Говорить можно как угодно долго и как угодно свободно — разбирать сказанное будем мы, не она.</p>
+          <div class="rec">
+            <a class="rec-btn" href="/waitlist.html">
+              <svg viewBox="0 0 24 24"><rect x="9.4" y="3.2" width="5.2" height="10" rx="2.6"/><path d="M6 11.2a6 6 0 0 0 12 0M12 17.2v3.4"/></svg>
+              Записать рассказ
+            </a>
+            <span class="rec-hint">Можно остановить и продолжить позже. Запись не уходит никуда дальше вашего архива.</span>
+          </div>
+          <ul class="next-q">
+            <li>Что было сразу после этого дня?</li>
+            <li>Кто не попал в кадр?</li>
+            <li>Чей это дом за спиной?</li>
+            <li>Что вы хотите, чтобы внуки об этом знали?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="two">
+      <section class="card rv" style="margin-top:0">
+        <div class="card-head">
+          <h2>Голос</h2>
+          <p>Оригинал записи</p>
+        </div>
+        <div class="wave" aria-hidden="true">
+          <i style="height:22%"></i><i style="height:38%"></i><i style="height:61%"></i><i style="height:44%"></i><i style="height:78%"></i><i style="height:53%"></i><i style="height:88%"></i><i style="height:62%"></i><i style="height:40%"></i><i style="height:71%"></i><i style="height:49%"></i><i style="height:83%"></i><i style="height:58%"></i><i style="height:35%"></i><i style="height:66%"></i><i style="height:47%"></i><i style="height:74%"></i><i style="height:31%"></i><i style="height:56%"></i><i style="height:26%"></i>
+        </div>
+        <div class="audio">
+          <span class="audio-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5l11 6.5-11 6.5z"/></svg></span>
+          <div class="audio-meta">
+            <b>Ольга Николаевна · 4 мин 12 сек</b>
+            <small>Записано 16 мая 2024 · хранится как оригинал, отдельным файлом</small>
+          </div>
+          <span class="badge badge--doc">не перезаписывается</span>
+        </div>
+        <p class="rule">Аудио священно так же, как скан. Расшифровка — производная копия: если машина услышала слово неверно, правится расшифровка, а голос остаётся нетронутым.</p>
+      </section>
+
+      <section class="card rv" style="margin-top:0">
+        <div class="card-head">
+          <h2>Расшифровка</h2>
+          <p>Рядом с записью, а не вместо неё</p>
+        </div>
+        <div class="script">
+          <p>«Это у дома на <mark>Затеевской</mark>, мы туда переехали, когда мне было лет девять. Слева отец, он тогда работал на железной дороге.</p>
+          <p>Рядом со мной <mark>не Николай, а Пётр</mark>, его брат. Их всю жизнь путали, даже в семье. Николай в тот год был уже в армии.</p>
+          <p>А снимали нас перед тем, как <mark>уехать в Киев</mark>. Мама плакала всё утро, но на карточке она улыбается — фотограф попросил.»</p>
+        </div>
+        <p class="legend">
+          <span>расшифровка правится, запись — нет</span>
+        </p>
+      </section>
+    </div>
+
+    <section class="card rv">
+      <div class="card-head">
+        <h2>Что архив услышал</h2>
+        <p>Всё это пока черновики — они ждут подтверждения семьи</p>
+      </div>
+      <ul class="pulled">
+        <li>
+          <div class="pulled-t"><b>Человек справа — Пётр, брат Николая</b><small>Прямо сказано в рассказе. Ждёт подтверждения ещё одного из родных, потому что имена на этом снимке уже путали.</small></div>
+          <span class="badge badge--hyp"><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+        </li>
+        <li>
+          <div class="pulled-t"><b>Место: дом на Затеевской, Томск</b><small>Совпадает с подписью на обороте снимка. Два источника сходятся.</small></div>
+          <span class="badge badge--fam"><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+        </li>
+        <li>
+          <div class="pulled-t"><b>Переезд в Киев — вскоре после съёмки</b><small>В древе этот переезд стоит 1961 годом, а рассказ ставит его раньше. Мы не выбираем сами: показываем оба источника семье.</small></div>
+          <span class="badge badge--soft">противоречие</span>
+        </li>
+      </ul>
+      <div class="btn-row" style="margin-top:16px">
+        <a class="btn btn--primary" href="/smh-cabinet-podtverzhdeniya.html">Отправить семье на подтверждение</a>
+        <a class="btn btn--quiet" href="/smh-cabinet-karta.html">Открыть карточку снимка</a>
+      </div>
+      <p class="legend">
+        <span><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+        <span><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+        <span><span class="mark mark--doc" aria-hidden="true"></span>из документа</span>
+      </p>
+    </section>
+
+    <section class="foot rv">
+      <div>
+        <h2 class="serif">Голос успевают записать не всегда</h2>
+        <p>Фотография без рассказа за одно поколение становится безымянной картинкой. Один вопрос и четыре минуты записи меняют это навсегда.</p>
+      </div>
+      <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
+    </section>
+
+    <p class="note">Демонстрационный макет интерфейса. Имена, даты и слова рассказа — пример. Точка означает «подтверждено семьёй», пунктирный кружок — гипотезу: это ещё никто из родных не подтвердил.</p>
+
+  </main>
+</div>
+<script src="/assets/product-screens/reveal.js" defer></script>
+</body>
+</html>

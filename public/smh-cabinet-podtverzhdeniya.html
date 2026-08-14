@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Подтверждения — SaveMyHistory</title>
+<meta name="description" content="Подтверждения SaveMyHistory: архив предлагает, семья подтверждает. Очередь черновиков имён, дат и мест с подписью того, кто подтвердил.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/product-screens/base.css">
+<style>
+.qhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filt{font-size:12.5px;padding:6px 13px;border-radius:999px;border:1px solid var(--border);color:var(--ink-2);background:var(--card)}
+.filt.is-on{background:var(--active);border-color:var(--active);color:var(--ink);font-weight:500}
+.qcount{margin-left:auto;font-size:13px;color:var(--muted)}
+.q{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--divider)}
+.q:first-of-type{border-top:0;padding-top:2px}
+.q-thumb{width:96px;height:96px;flex:0 0 96px;border-radius:10px;object-fit:cover;filter:sepia(.34) saturate(.84)}
+.q-body{min-width:0;flex:1}
+.q-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:7px}
+.q-claim{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:600;line-height:1.25;margin:0}
+.q-top .badge{margin-left:auto;flex:0 0 auto}
+.q-why{margin:0 0 10px;font-size:13.5px;color:var(--ink-2);line-height:1.5;max-width:74ch}
+.q-src{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0 0 13px;font-size:12.5px;color:var(--muted)}
+.q-src span{display:inline-flex;align-items:center}
+.q-acts{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.act{font-size:13.5px;padding:8px 17px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--ink-2);transition:border-color .18s ease,color .18s ease,background .18s ease}
+.act:hover{border-color:var(--line);color:var(--ink)}
+.act--yes{background:var(--accent);border-color:var(--accent);color:#fff}
+.act--yes:hover{background:var(--accent-deep);border-color:var(--accent-deep);color:#fff}
+.act--no{color:var(--ink-2)}
+.q-ask{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.conflict{border-left:2px solid var(--line);background:#FBF8F4;border-radius:0 8px 8px 0;padding:12px 15px;margin:0 0 13px}
+.conflict b{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.conflict p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.5}
+.done{list-style:none;margin:0;padding:0}
+.done li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--divider)}
+.done li:first-child{border-top:0;padding-top:0}
+.done-t{min-width:0}
+.done-t b{display:block;font-size:13.5px;font-weight:600}
+.done-t small{font-size:12.5px;color:var(--muted)}
+.done .badge{margin-left:auto}
+.circle{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.who{display:flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:999px;padding:5px 14px 5px 5px;background:var(--card)}
+.who img{width:28px;height:28px;border-radius:50%;object-fit:cover;filter:sepia(.34) saturate(.82)}
+.who b{font-size:13px;font-weight:600}
+.who small{font-size:12px;color:var(--muted)}
+@media (max-width:640px){
+  .q{flex-direction:column}
+  .q-thumb{width:100%;height:150px;flex:none}
+  .q-ask{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a class="brand serif" href="/smh-cabinet-mock.html">SaveMyHistory</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a class="nav-item" href="/smh-cabinet-mock.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20h14V9.8"/><path d="M10 20v-6h4v6"/></svg>Главная</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#tree"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.4"/><circle cx="5.5" cy="19" r="2.4"/><circle cx="18.5" cy="19" r="2.4"/><path d="M12 7.4v4.2M5.5 16.6v-2.4h13v2.4M12 11.6v2.6"/></svg>Древо семьи</a>
+      <a class="nav-item" href="/smh-cabinet-karta.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/></svg>Люди</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#albums"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>Фотографии</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#events"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>События</a>
+      <div class="nav-sep"></div>
+      <div class="nav-label">Работа с памятью</div>
+      <a class="nav-item" href="/smh-cabinet-stol.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
+      <a class="nav-item" href="/smh-cabinet-razgovor.html"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
+      <a class="nav-item is-active" href="/smh-cabinet-podtverzhdeniya.html" aria-current="page"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения<span class="nav-count">7</span></a>
+      <a class="nav-item" href="/smh-cabinet-privatnost.html"><svg viewBox="0 0 24 24"><rect x="4.6" y="10.4" width="14.8" height="9.4" rx="2"/><path d="M8.4 10.2V7.8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>Приватность и роли</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M9.8 9.4a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .9-1 1.6v.3"/><path d="M12 16.8h.01"/></svg>Помощь</a>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+
+    <div class="topbar">
+      <div class="search">
+        <label for="q" class="skip">Поиск по архиву</label>
+        <input id="q" type="search" placeholder="Поиск по архиву..." autocomplete="off">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" type="button" aria-label="Уведомления">
+          <svg viewBox="0 0 24 24"><path d="M18 8.6a6 6 0 1 0-12 0c0 6-2.2 7.4-2.2 7.4h16.4S18 14.6 18 8.6z"/><path d="M13.7 19.4a2 2 0 0 1-3.4 0"/></svg>
+        </button>
+        <button class="user" type="button">
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy">
+          <span>Алина</span>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="siblings" aria-label="Экраны продукта">
+      <a class="sib" href="/smh-cabinet-mock.html">Кабинет</a>
+      <a class="sib" href="/smh-cabinet-stol.html">Стол</a>
+      <a class="sib" href="/smh-cabinet-karta.html">Карточка памяти</a>
+      <a class="sib" href="/smh-cabinet-razgovor.html">Разговор</a>
+      <a class="sib is-here" href="/smh-cabinet-podtverzhdeniya.html" aria-current="page">Подтверждения</a>
+      <a class="sib" href="/smh-cabinet-privatnost.html">Приватность и роли</a>
+    </nav>
+
+    <header class="page-head">
+      <p class="crumb">Уровень факта · очередь семьи</p>
+      <h1>Подтверждения</h1>
+      <p class="lede">Архив предлагает — семья подтверждает. Пока родные не сказали своё слово, имя и дата остаются пунктиром и никуда дальше карточки не уходят.</p>
+    </header>
+
+    <section class="card rv">
+      <div class="qhead">
+        <div class="filters">
+          <span class="filt is-on">Всё · 7</span>
+          <span class="filt">Имена · 3</span>
+          <span class="filt">Даты и места · 2</span>
+          <span class="filt">Противоречия · 2</span>
+        </div>
+        <span class="qcount">Отвечать можно по одному, в любом порядке</span>
+      </div>
+
+      <article class="q">
+        <img class="q-thumb" src="/assets/cabinet-mock/album-2.jpg" alt="Снимок, к которому относится предположение" width="96" height="96" loading="lazy">
+        <div class="q-body">
+          <div class="q-top">
+            <h2 class="q-claim">Возможно, справа Пётр, а не Николай</h2>
+            <span class="badge badge--hyp"><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+          </div>
+          <p class="q-why">Так сказала Ольга Николаевна в записи от 16 мая. Раньше в архиве этот человек был подписан Николаем — по подписи на обороте другого снимка. Мы не выбираем сами.</p>
+          <p class="q-src">
+            <span><span class="mark mark--hyp" aria-hidden="true"></span>из рассказа · 16 мая 2024</span>
+            <span><span class="mark mark--doc" aria-hidden="true"></span>подпись на обороте говорит иначе</span>
+          </p>
+          <div class="q-acts">
+            <a class="act act--yes" href="/waitlist.html">Подтвердить</a>
+            <a class="act act--no" href="/waitlist.html">Это не он</a>
+            <a class="act" href="/waitlist.html">Не знаю</a>
+            <span class="q-ask">спросим ещё Татьяну и Сергея</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="q">
+        <img class="q-thumb" src="/assets/cabinet-mock/album-4.jpg" alt="Снимок, к которому относится предположение" width="96" height="96" loading="lazy">
+        <div class="q-body">
+          <div class="q-top">
+            <h2 class="q-claim">Год переезда в Киев</h2>
+            <span class="badge badge--soft">противоречие</span>
+          </div>
+          <div class="conflict">
+            <b>Два источника расходятся</b>
+            <p>В древе стоит 1961 год. В рассказе Ольги Николаевны переезд идёт сразу за съёмкой около 1936-го. Оба варианта остаются на виду, пока семья не скажет, какой верный.</p>
+          </div>
+          <div class="q-acts">
+            <a class="act act--yes" href="/waitlist.html">Верно 1961</a>
+            <a class="act" href="/waitlist.html">Верно раньше</a>
+            <a class="act" href="/waitlist.html">Уточню у мамы</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="q">
+        <img class="q-thumb" src="/assets/cabinet-mock/album-1.jpg" alt="Снимок, к которому относится предположение" width="96" height="96" loading="lazy">
+        <div class="q-body">
+          <div class="q-top">
+            <h2 class="q-claim">Похоже, это тот же человек, что на семи других снимках</h2>
+            <span class="badge badge--hyp"><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+          </div>
+          <p class="q-why">Совпадают лицо, возраст и место съёмки. Мы не объединяем людей сами: пока вы не подтвердите, это остаются два разных человека в архиве.</p>
+          <p class="q-src">
+            <span><span class="mark mark--hyp" aria-hidden="true"></span>спорное совпадение · ждёт человека</span>
+          </p>
+          <div class="q-acts">
+            <a class="act act--yes" href="/waitlist.html">Это один человек</a>
+            <a class="act act--no" href="/waitlist.html">Это разные люди</a>
+            <a class="act" href="/waitlist.html">Показать все семь</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="q">
+        <img class="q-thumb" src="/assets/cabinet-mock/story-2.jpg" alt="Документ, к которому относится предположение" width="96" height="96" loading="lazy">
+        <div class="q-body">
+          <div class="q-top">
+            <h2 class="q-claim">Дом на Затеевской, Томск</h2>
+            <span class="badge badge--doc"><span class="mark mark--doc" aria-hidden="true"></span>из документа</span>
+          </div>
+          <p class="q-why">Подпись на обороте и рассказ сходятся. Нужен один голос семьи, чтобы место перестало быть пунктиром и встало в карточку сплошной точкой.</p>
+          <div class="q-acts">
+            <a class="act act--yes" href="/waitlist.html">Подтвердить</a>
+            <a class="act act--no" href="/waitlist.html">Это другое место</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="grid-2" style="margin-top:16px">
+      <section class="card rv" style="margin-top:0">
+        <div class="card-head">
+          <h2>Уже подтверждено</h2>
+          <p>Каждая запись подписана именем</p>
+        </div>
+        <ul class="done">
+          <li>
+            <div class="done-t"><b>Алексей Иванович · годы жизни</b><small>подтвердила Татьяна · 12 мая 2024</small></div>
+            <span class="badge badge--fam"><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+          </li>
+          <li>
+            <div class="done-t"><b>Свадьба Сергея и Веры · 1963</b><small>подтвердил Сергей · 10 мая 2024 · сверено со свидетельством</small></div>
+            <span class="badge badge--doc"><span class="mark mark--doc" aria-hidden="true"></span>из документа</span>
+          </li>
+          <li>
+            <div class="done-t"><b>«Слева не Николай, а его брат Пётр»</b><small>правка Татьяны · 16 мая 2024 · ждёт второго голоса</small></div>
+            <span class="badge badge--hyp"><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+          </li>
+        </ul>
+        <p class="legend">
+          <span><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+          <span><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+          <span><span class="mark mark--doc" aria-hidden="true"></span>из документа</span>
+        </p>
+      </section>
+
+      <section class="card rv" style="margin-top:0">
+        <div class="card-head">
+          <h2>Кого спрашиваем</h2>
+          <p>Тихий круг: только те, кого позвали</p>
+        </div>
+        <div class="circle">
+          <span class="who"><img src="/assets/cabinet-mock/av-7.jpg" alt="" width="28" height="28" loading="lazy"><span><b>Татьяна</b> <small>· 14 ответов</small></span></span>
+          <span class="who"><img src="/assets/cabinet-mock/av-6.jpg" alt="" width="28" height="28" loading="lazy"><span><b>Сергей</b> <small>· 9 ответов</small></span></span>
+          <span class="who"><img src="/assets/cabinet-mock/av-8.jpg" alt="" width="28" height="28" loading="lazy"><span><b>Ольга</b> <small>· голос и 4 ответа</small></span></span>
+        </div>
+        <p class="q-why" style="margin-top:14px">Вопросы приходят по одному и без напоминаний каждый день. Человеку, которому 95, архив показывает один снимок и один вопрос — не список задач.</p>
+        <div class="btn-row" style="margin-top:14px">
+          <a class="btn btn--quiet" href="/smh-cabinet-privatnost.html">Кто и что видит</a>
+          <a class="btn btn--quiet" href="/waitlist.html">Позвать ещё родных</a>
+        </div>
+      </section>
+    </div>
+
+    <section class="foot rv">
+      <div>
+        <h2 class="serif">Архив перестаёт быть одиноким альбомом</h2>
+        <p>Имя становится фактом только тогда, когда его подтвердил живой человек. До этого момента оно честно остаётся догадкой — и так и выглядит везде в интерфейсе.</p>
+      </div>
+      <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
+    </section>
+
+    <p class="note">Демонстрационный макет интерфейса. Имена, даты и ответы — пример. Точка означает «подтверждено семьёй», пунктирный кружок — гипотезу, квадрат — сведения из документа.</p>
+
+  </main>
+</div>
+<script src="/assets/product-screens/reveal.js" defer></script>
+</body>
+</html>

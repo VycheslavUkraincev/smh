@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Приватность и роли — SaveMyHistory</title>
+<meta name="description" content="Приватность и роли SaveMyHistory: кто что видит, кто подтверждает, кому переходит архив. Файлы всегда ваши, выгрузка в открытом виде в любой момент.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/product-screens/base.css">
+<style>
+.roles{list-style:none;margin:0;padding:0}
+.roles li{display:flex;align-items:flex-start;gap:13px;padding:15px 0;border-top:1px solid var(--divider)}
+.roles li:first-child{border-top:0;padding-top:0}
+.roles img{width:38px;height:38px;flex:0 0 38px;border-radius:50%;object-fit:cover;filter:sepia(.34) saturate(.82);margin-top:1px}
+.role-t{min-width:0;flex:1}
+.role-t b{display:block;font-size:14.5px;font-weight:600}
+.role-t small{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:3px;max-width:62ch}
+.roles .badge{flex:0 0 auto;margin-top:2px}
+.perm{width:100%;border-collapse:collapse;font-size:13.5px}
+.perm th,.perm td{text-align:left;padding:11px 10px;border-top:1px solid var(--divider)}
+.perm thead th{border-top:0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;padding-top:0}
+.perm tbody th{font-weight:600;color:var(--ink)}
+.perm td{color:var(--ink-2)}
+.yes,.no{display:inline-block;width:15px;height:15px;border-radius:50%;vertical-align:middle}
+.yes{background:var(--accent);opacity:.85;position:relative}
+.yes::after{content:"";position:absolute;left:4px;top:4.5px;width:6px;height:3px;border-left:1.4px solid #fff;border-bottom:1.4px solid #fff;transform:rotate(-45deg)}
+.no{border:1px dashed var(--line)}
+.sw{list-style:none;margin:0;padding:0}
+.sw li{display:flex;align-items:flex-start;gap:14px;padding:15px 0;border-top:1px solid var(--divider)}
+.sw li:first-child{border-top:0;padding-top:0}
+.sw-t{min-width:0;flex:1}
+.sw-t b{display:block;font-size:14px;font-weight:600}
+.sw-t small{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:3px;max-width:64ch}
+.toggle{flex:0 0 auto;width:42px;height:24px;border-radius:999px;background:var(--divider);position:relative;margin-top:2px}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(64,46,34,.25);transition:left .2s ease}
+.toggle.is-on{background:var(--accent)}
+.toggle.is-on::after{left:21px}
+.plain{margin:0;font-size:14px;color:var(--ink-2);line-height:1.6;max-width:72ch}
+.plain + .plain{margin-top:12px}
+.honest{margin:16px 0 0;padding:15px 17px;border-left:2px solid var(--accent);background:#FBF8F4;border-radius:0 8px 8px 0}
+.honest b{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px}
+.honest p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.out{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px}
+.out div{border:1px solid var(--border);border-radius:11px;padding:14px 15px}
+.out b{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px}
+.out p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+@media (max-width:1120px){.out{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .perm{font-size:12.5px}
+  .perm th,.perm td{padding:9px 6px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a class="brand serif" href="/smh-cabinet-mock.html">SaveMyHistory</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a class="nav-item" href="/smh-cabinet-mock.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20h14V9.8"/><path d="M10 20v-6h4v6"/></svg>Главная</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#tree"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.4"/><circle cx="5.5" cy="19" r="2.4"/><circle cx="18.5" cy="19" r="2.4"/><path d="M12 7.4v4.2M5.5 16.6v-2.4h13v2.4M12 11.6v2.6"/></svg>Древо семьи</a>
+      <a class="nav-item" href="/smh-cabinet-karta.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/></svg>Люди</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#albums"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>Фотографии</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#events"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>События</a>
+      <div class="nav-sep"></div>
+      <div class="nav-label">Работа с памятью</div>
+      <a class="nav-item" href="/smh-cabinet-stol.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
+      <a class="nav-item" href="/smh-cabinet-razgovor.html"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
+      <a class="nav-item" href="/smh-cabinet-podtverzhdeniya.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения<span class="nav-count">7</span></a>
+      <a class="nav-item is-active" href="/smh-cabinet-privatnost.html" aria-current="page"><svg viewBox="0 0 24 24"><rect x="4.6" y="10.4" width="14.8" height="9.4" rx="2"/><path d="M8.4 10.2V7.8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>Приватность и роли</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M9.8 9.4a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .9-1 1.6v.3"/><path d="M12 16.8h.01"/></svg>Помощь</a>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+
+    <div class="topbar">
+      <div class="search">
+        <label for="q" class="skip">Поиск по архиву</label>
+        <input id="q" type="search" placeholder="Поиск по архиву..." autocomplete="off">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" type="button" aria-label="Уведомления">
+          <svg viewBox="0 0 24 24"><path d="M18 8.6a6 6 0 1 0-12 0c0 6-2.2 7.4-2.2 7.4h16.4S18 14.6 18 8.6z"/><path d="M13.7 19.4a2 2 0 0 1-3.4 0"/></svg>
+        </button>
+        <button class="user" type="button">
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy">
+          <span>Алина</span>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="siblings" aria-label="Экраны продукта">
+      <a class="sib" href="/smh-cabinet-mock.html">Кабинет</a>
+      <a class="sib" href="/smh-cabinet-stol.html">Стол</a>
+      <a class="sib" href="/smh-cabinet-karta.html">Карточка памяти</a>
+      <a class="sib" href="/smh-cabinet-razgovor.html">Разговор</a>
+      <a class="sib" href="/smh-cabinet-podtverzhdeniya.html">Подтверждения</a>
+      <a class="sib is-here" href="/smh-cabinet-privatnost.html" aria-current="page">Приватность и роли</a>
+    </nav>
+
+    <header class="page-head">
+      <p class="crumb">Хранение и доступ</p>
+      <h1>Приватность и роли</h1>
+      <p class="lede">Семейный архив — это чужие лица, чужие имена и чужие истории тоже. Здесь видно, кто что видит, кто имеет право подтверждать и что происходит с архивом дальше.</p>
+    </header>
+
+    <section class="card rv">
+      <div class="card-head">
+        <h2>Тихий круг</h2>
+        <p>Архив видят только те, кого позвали</p>
+      </div>
+      <ul class="roles">
+        <li>
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="38" height="38" loading="lazy">
+          <div class="role-t"><b>Алина · хранитель</b><small>Загружает, редактирует, зовёт родных, выгружает весь архив. Единственная роль, которая может удалить что-либо навсегда.</small></div>
+          <span class="badge badge--fam">полный доступ</span>
+        </li>
+        <li>
+          <img src="/assets/cabinet-mock/av-7.jpg" alt="" width="38" height="38" loading="lazy">
+          <div class="role-t"><b>Татьяна · подтверждает</b><small>Видит снимки и карточки, отвечает на вопросы, правит имена и даты. Её подтверждение подписывается её именем и остаётся в паспорте снимка.</small></div>
+          <span class="badge badge--soft">правит и подтверждает</span>
+        </li>
+        <li>
+          <img src="/assets/cabinet-mock/av-8.jpg" alt="" width="38" height="38" loading="lazy">
+          <div class="role-t"><b>Ольга Николаевна · рассказывает</b><small>Один снимок, один вопрос, кнопка записи. Ничего лишнего на экране: ни настроек, ни очередей, ни счётчиков.</small></div>
+          <span class="badge badge--soft">только рассказ</span>
+        </li>
+        <li>
+          <img src="/assets/cabinet-mock/av-6.jpg" alt="" width="38" height="38" loading="lazy">
+          <div class="role-t"><b>Сергей · смотрит</b><small>Видит архив, но не меняет его. Может попросить доступ к подтверждениям — просьба придёт хранителю.</small></div>
+          <span class="badge badge--soft">чтение</span>
+        </li>
+      </ul>
+      <div class="btn-row" style="margin-top:16px">
+        <a class="btn btn--primary" href="/waitlist.html">Позвать родных</a>
+        <a class="btn btn--quiet" href="/smh-cabinet-podtverzhdeniya.html">Очередь подтверждений</a>
+      </div>
+    </section>
+
+    <section class="card rv">
+      <div class="card-head">
+        <h2>Что кому видно</h2>
+        <p>Одна таблица без мелкого шрифта</p>
+      </div>
+      <table class="perm">
+        <thead>
+          <tr><th scope="col">Действие</th><th scope="col">Хранитель</th><th scope="col">Подтверждает</th><th scope="col">Рассказывает</th><th scope="col">Смотрит</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Смотреть снимки и карточки</th><td><span class="yes"></span></td><td><span class="yes"></span></td><td><span class="yes"></span></td><td><span class="yes"></span></td></tr>
+          <tr><th scope="row">Подтверждать имена и даты</th><td><span class="yes"></span></td><td><span class="yes"></span></td><td><span class="no"></span></td><td><span class="no"></span></td></tr>
+          <tr><th scope="row">Записывать рассказ</th><td><span class="yes"></span></td><td><span class="yes"></span></td><td><span class="yes"></span></td><td><span class="no"></span></td></tr>
+          <tr><th scope="row">Загружать и собирать версии</th><td><span class="yes"></span></td><td><span class="no"></span></td><td><span class="no"></span></td><td><span class="no"></span></td></tr>
+          <tr><th scope="row">Выгрузить весь архив</th><td><span class="yes"></span></td><td><span class="no"></span></td><td><span class="no"></span></td><td><span class="no"></span></td></tr>
+          <tr><th scope="row">Удалить безвозвратно</th><td><span class="yes"></span></td><td><span class="no"></span></td><td><span class="no"></span></td><td><span class="no"></span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="grid-2" style="margin-top:16px">
+      <section class="card rv" style="margin-top:0">
+        <div class="card-head">
+          <h2>Границы, которые ставите вы</h2>
+          <p>По архиву целиком или по отдельному снимку</p>
+        </div>
+        <ul class="sw">
+          <li>
+            <div class="sw-t"><b>Не искать по лицам</b><small>Архив перестаёт сопоставлять лица между снимками. Имена дальше проставляются только людьми.</small></div>
+            <span class="toggle is-on" role="img" aria-label="включено"></span>
+          </li>
+          <li>
+            <div class="sw-t"><b>Не публиковать этот снимок</b><small>Отметка живёт на самом файле: он не попадёт ни в публичную ссылку, ни в общий альбом, ни в экспорт для печати.</small></div>
+            <span class="toggle is-on" role="img" aria-label="включено"></span>
+          </li>
+          <li>
+            <div class="sw-t"><b>Водяной знак на публичной версии</b><small>Если однажды поделитесь ссылкой, копия уходит помеченной, а оригинал остаётся дома.</small></div>
+            <span class="toggle is-on" role="img" aria-label="включено"></span>
+          </li>
+          <li>
+            <div class="sw-t"><b>Живые люди на снимке</b><small>Пока человек жив, его лицо и имя показываются только внутри круга. Ребёнок на общем снимке не становится публичным вместе с прабабушкой.</small></div>
+            <span class="toggle is-on" role="img" aria-label="включено"></span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card rv" style="margin-top:0">
+        <div class="card-head">
+          <h2>Наследование</h2>
+          <p>Что будет с архивом после вас</p>
+        </div>
+        <p class="plain">Архив собирают, чтобы он пережил того, кто его собрал. Поэтому у него заранее есть второй хранитель: человек, к которому переходят все права, если ваш доступ пропадёт.</p>
+        <ul class="roles" style="margin-top:14px">
+          <li>
+            <img src="/assets/cabinet-mock/av-6.jpg" alt="" width="38" height="38" loading="lazy">
+            <div class="role-t"><b>Сергей — второй хранитель</b><small>Получает полные права, если архив останется без хозяина. Знает об этом: мы спрашиваем согласие, а не назначаем молча.</small></div>
+            <span class="badge badge--fam">согласие получено</span>
+          </li>
+        </ul>
+        <div class="honest">
+          <b>Отдельно про экспорт</b>
+          <p>Выгрузка всего архива в открытом виде доступна в любой момент и не требует ничьего разрешения: оригиналы, производные версии, паспорта снимков, расшифровки и аудио одним архивом. Наследник получает папку с файлами, а не ключ от нашего сервиса.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="card rv">
+      <div class="card-head">
+        <h2>Что мы говорим про хранение честно</h2>
+        <p>Без обещаний, за которыми пока нет политики</p>
+      </div>
+      <p class="plain"><b>Файлы всегда ваши.</b> Вы забираете весь архив в открытом виде когда захотите, без переговоров с поддержкой и без потери структуры.</p>
+      <p class="plain">Мы не пишем «мы никогда не храним ваши фотографии». Чтобы обработать снимок, сервису нужно его получить, и говорить обратное было бы неправдой. Вместо этого мы показываем, где файл лежит, кто к нему имеет доступ, и даём удалить облачные копии в один шаг.</p>
+      <div class="out">
+        <div><b>Забрать всё</b><p>Оригиналы, версии, паспорта, расшифровки и аудио — одним архивом, в открытых форматах.</p></div>
+        <div><b>Удалить облачные копии</b><p>Один шаг, без письма в поддержку. Что удалено — удалено, включая производные версии.</p></div>
+        <div><b>Уйти без потерь</b><p>Выгруженный архив читается без нас: обычные папки, обычные файлы, паспорт рядом с фотографией.</p></div>
+      </div>
+      <div class="btn-row" style="margin-top:16px">
+        <a class="btn btn--primary" href="/waitlist.html">Выгрузить архив</a>
+        <a class="btn btn--quiet" href="/waitlist.html">Удалить облачные копии</a>
+      </div>
+    </section>
+
+    <section class="foot rv">
+      <div>
+        <h2 class="serif">Архив принадлежит семье, а не сервису</h2>
+        <p>Права, границы и наследование стоят рядом с фотографиями, а не в отдельном документе, который никто не читает.</p>
+      </div>
+      <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
+    </section>
+
+    <p class="note">Демонстрационный макет интерфейса. Имена, роли и настройки — пример. Итоговые формулировки прав и хранения появятся вместе с реальной политикой сервиса.</p>
+
+  </main>
+</div>
+<script src="/assets/product-screens/reveal.js" defer></script>
+</body>
+</html>

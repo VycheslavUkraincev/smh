@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Стол — SaveMyHistory</title>
+<meta name="description" content="Стол SaveMyHistory: оригинал не перезаписывается, шкала доверия вместо названий моделей, карта вмешательств и паспорт снимка.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/product-screens/base.css">
+<style>
+.desk{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 16px 18px;display:flex;flex-direction:column}
+.panel-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.panel-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:600;margin:0}
+.panel-head .badge{margin-left:auto}
+.frame{position:relative;border-radius:10px;overflow:hidden;background:#EFE9E0}
+.frame img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(.34) saturate(.84)}
+.frame figcaption{margin:9px 2px 0;font-size:12px;color:var(--muted)}
+.zone{position:absolute;border-radius:4px;display:flex;align-items:flex-start;justify-content:flex-end;padding:3px}
+.zone--data{border:1.5px solid rgba(138,106,83,.85);background:rgba(138,106,83,.16)}
+.zone--guess{border:1.5px dashed rgba(109,85,67,.9);background:rgba(233,226,218,.30)}
+.zone--lost{border:1.5px dotted rgba(47,36,31,.55);background:rgba(47,36,31,.08)}
+.zone b{font-size:10.5px;line-height:1;background:#fff;color:var(--ink);border-radius:999px;padding:3px 6px;box-shadow:0 0 0 1px var(--border)}
+.zone-list{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:1px solid var(--divider);display:flex;flex-direction:column;gap:11px}
+.zone-list li{display:flex;gap:10px;font-size:13px;color:var(--ink-2);line-height:1.45}
+.zone-list b{flex:0 0 20px;height:20px;border-radius:999px;background:var(--pill);color:var(--accent-deep);font-size:11px;display:grid;place-items:center;font-weight:600}
+.scale{margin-top:14px}
+.scale-track{position:relative;height:2px;background:var(--divider);margin:26px 10px 0}
+.scale-track::before{content:"";position:absolute;left:0;width:36%;top:0;height:2px;background:var(--accent)}
+.stop{position:absolute;top:50%;transform:translate(-50%,-50%);text-align:center}
+.stop i{display:block;width:13px;height:13px;border-radius:50%;background:var(--card);border:1.5px solid var(--line);margin:0 auto}
+.stop.is-on i{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px rgba(138,106,83,.14)}
+.stop.is-later i{border-style:dashed;opacity:.7}
+.stop em{display:block;font-style:normal;font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:600;margin-top:9px}
+.stop small{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap}
+.stop.is-later em,.stop.is-later small{color:var(--muted)}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:66px}
+.mode{border:1px solid var(--border);border-radius:11px;padding:13px 14px}
+.mode.is-on{border-color:var(--line);background:#FCFAF7}
+.mode.is-later{border-style:dashed;opacity:.72}
+.mode h3{margin:0 0 5px;font-size:14px;font-weight:600}
+.mode p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.rule{margin:16px 0 0;padding:13px 15px;border-left:2px solid var(--accent);background:#FBF8F4;border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink-2)}
+.pass{list-style:none;margin:0;padding:0}
+.pass li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--divider)}
+.pass li:first-child{border-top:0;padding-top:0}
+.pass-t{min-width:0}
+.pass-t b{display:block;font-size:14px;font-weight:600}
+.pass-t small{font-size:12.5px;color:var(--muted)}
+.pass .badge{margin-left:auto}
+@media (max-width:1120px){.desk{grid-template-columns:1fr}.modes{grid-template-columns:1fr;margin-top:74px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a class="brand serif" href="/smh-cabinet-mock.html">SaveMyHistory</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a class="nav-item" href="/smh-cabinet-mock.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20h14V9.8"/><path d="M10 20v-6h4v6"/></svg>Главная</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#tree"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.4"/><circle cx="5.5" cy="19" r="2.4"/><circle cx="18.5" cy="19" r="2.4"/><path d="M12 7.4v4.2M5.5 16.6v-2.4h13v2.4M12 11.6v2.6"/></svg>Древо семьи</a>
+      <a class="nav-item" href="/smh-cabinet-karta.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/></svg>Люди</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#albums"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>Фотографии</a>
+      <a class="nav-item" href="/smh-cabinet-mock.html#events"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>События</a>
+      <div class="nav-sep"></div>
+      <div class="nav-label">Работа с памятью</div>
+      <a class="nav-item is-active" href="/smh-cabinet-stol.html" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
+      <a class="nav-item" href="/smh-cabinet-razgovor.html"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
+      <a class="nav-item" href="/smh-cabinet-podtverzhdeniya.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения<span class="nav-count">7</span></a>
+      <a class="nav-item" href="/smh-cabinet-privatnost.html"><svg viewBox="0 0 24 24"><rect x="4.6" y="10.4" width="14.8" height="9.4" rx="2"/><path d="M8.4 10.2V7.8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>Приватность и роли</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M9.8 9.4a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .9-1 1.6v.3"/><path d="M12 16.8h.01"/></svg>Помощь</a>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+
+    <div class="topbar">
+      <div class="search">
+        <label for="q" class="skip">Поиск по архиву</label>
+        <input id="q" type="search" placeholder="Поиск по архиву..." autocomplete="off">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" type="button" aria-label="Уведомления">
+          <svg viewBox="0 0 24 24"><path d="M18 8.6a6 6 0 1 0-12 0c0 6-2.2 7.4-2.2 7.4h16.4S18 14.6 18 8.6z"/><path d="M13.7 19.4a2 2 0 0 1-3.4 0"/></svg>
+        </button>
+        <button class="user" type="button">
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy">
+          <span>Алина</span>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="siblings" aria-label="Экраны продукта">
+      <a class="sib" href="/smh-cabinet-mock.html">Кабинет</a>
+      <a class="sib is-here" href="/smh-cabinet-stol.html" aria-current="page">Стол</a>
+      <a class="sib" href="/smh-cabinet-karta.html">Карточка памяти</a>
+      <a class="sib" href="/smh-cabinet-razgovor.html">Разговор</a>
+      <a class="sib" href="/smh-cabinet-podtverzhdeniya.html">Подтверждения</a>
+      <a class="sib" href="/smh-cabinet-privatnost.html">Приватность и роли</a>
+    </nav>
+
+    <header class="page-head">
+      <p class="crumb">Уровень пикселя</p>
+      <h1>Стол</h1>
+      <p class="lede">Слева оригинал — он не меняется никогда. Справа отдельная версия, которую вы собираете сами, и карта того, что в ней сделано и по каким данным.</p>
+    </header>
+
+    <section class="desk rv">
+      <figure class="panel" style="margin:0">
+        <div class="panel-head">
+          <h2>Оригинал</h2>
+          <span class="badge badge--doc">не перезаписывается</span>
+        </div>
+        <div class="frame"><img src="/assets/cabinet-mock/album-2.jpg" alt="Оригинальный семейный снимок, скан" width="800" height="600" loading="lazy"></div>
+        <figcaption>Скан 1200 dpi · загружен 12 мая 2024 · хранится отдельным файлом</figcaption>
+      </figure>
+
+      <figure class="panel" style="margin:0">
+        <div class="panel-head">
+          <h2>Версия A · Бережный</h2>
+          <span class="badge badge--soft">производная копия</span>
+        </div>
+        <div class="frame">
+          <img src="/assets/cabinet-mock/album-2.jpg" alt="Та же фотография с картой вмешательств поверх" width="800" height="600" loading="lazy">
+          <div class="zone zone--data" style="left:6%;top:12%;width:20%;height:26%"><b>1</b></div>
+          <div class="zone zone--guess" style="left:40%;top:52%;width:24%;height:20%"><b>2</b></div>
+          <div class="zone zone--lost" style="left:70%;top:20%;width:19%;height:24%"><b>3</b></div>
+        </div>
+        <figcaption>Карта вмешательств включена · собрана 14 мая 2024</figcaption>
+        <ul class="zone-list">
+          <li><b>1</b><span>Залом 4 мм у левого края. Заполнен по данным самого снимка — по симметрии соседней области.</span></li>
+          <li><b>2</b><span>Выцветание на скатерти. Тон предположен ИИ по соседним участкам — это догадка, а не данные оригинала.</span></li>
+          <li><b>3</b><span>Лицо мальчика справа утрачено эмульсией. Мы его не дорисовываем: черт, которых нет в исходных пикселях, здесь не появится.</span></li>
+        </ul>
+        <p class="legend">
+          <span><span class="mark mark--ok" aria-hidden="true"></span>по данным оригинала</span>
+          <span><span class="mark mark--hyp" aria-hidden="true"></span>предположено ИИ</span>
+          <span><span class="mark mark--doc" aria-hidden="true"></span>утрачено — оставлено как есть</span>
+        </p>
+      </figure>
+    </section>
+
+    <section class="card rv" style="margin-top:16px">
+      <div class="card-head">
+        <h2>Шкала доверия</h2>
+        <p>Вместо названий моделей — одно понятное деление</p>
+      </div>
+      <div class="scale">
+        <div class="scale-track" aria-hidden="true">
+          <div class="stop is-on" style="left:0"><i></i><em>0</em><small>Архивный</small></div>
+          <div class="stop is-on" style="left:36%"><i></i><em>25</em><small>Бережный</small></div>
+          <div class="stop is-later" style="left:72%"><i></i><em>50</em><small>Визуальный · позже</small></div>
+        </div>
+        <div class="modes">
+          <div class="mode is-on">
+            <h3>0 · Архивный</h3>
+            <p>Только техническая очистка: пыль, царапины, заломы. Ни одной новой детали. Для документов и генеалогии.</p>
+          </div>
+          <div class="mode is-on">
+            <h3>25 · Бережный</h3>
+            <p>Резкость, контраст, выцветание. Минимальное вмешательство. Рабочий режим семейного архива.</p>
+          </div>
+          <div class="mode is-later">
+            <h3>50 · Визуальный</h3>
+            <p>Отдельная помеченная версия для печати и подарков. Появится позже и всегда как отдельная копия, не вместо оригинала.</p>
+          </div>
+        </div>
+      </div>
+      <p class="rule">В режимах 0 и 25 модуль лиц ограничен кодом: он не имеет права породить черту, которой нет в исходных пикселях. Если лицо утрачено — оно остаётся утраченным, и архив говорит это вслух.</p>
+      <div class="btn-row" style="margin-top:16px">
+        <a class="btn btn--primary" href="/waitlist.html"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Сохранить как отдельную версию</a>
+        <a class="btn btn--quiet" href="/waitlist.html">Скачать паспорт снимка</a>
+      </div>
+    </section>
+
+    <section class="card rv">
+      <div class="card-head">
+        <h2>Паспорт снимка</h2>
+        <p>Выгружается вместе с фотографией</p>
+      </div>
+      <ul class="pass">
+        <li>
+          <div class="pass-t"><b>Оригинал</b><small>12 мая 2024 · загрузила Алина · с тех пор не менялся</small></div>
+          <span class="badge badge--doc">исходник</span>
+        </li>
+        <li>
+          <div class="pass-t"><b>Версия A · Бережный</b><small>14 мая 2024 · три записи о вмешательствах, одна из них помечена как догадка</small></div>
+          <span class="badge badge--soft">производная</span>
+        </li>
+        <li>
+          <div class="pass-t"><b>Правка родственника</b><small>16 мая 2024 · Татьяна: «слева не Николай, а его брат Пётр»</small></div>
+          <span class="badge badge--fam"><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+        </li>
+        <li>
+          <div class="pass-t"><b>Место и год съёмки</b><small>Томск, около 1936 — по подписи на обороте, год пока никто из родных не подтвердил</small></div>
+          <span class="badge badge--hyp"><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+        </li>
+      </ul>
+      <p class="legend">
+        <span><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+        <span><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+        <span><span class="mark mark--doc" aria-hidden="true"></span>из документа</span>
+      </p>
+    </section>
+
+    <section class="foot rv">
+      <div>
+        <h2 class="serif">Оригинал остаётся собой</h2>
+        <p>Любая улучшенная версия — отдельная копия со своей записью в паспорте. Ничего не переписывается поверх того, что вам оставила семья.</p>
+      </div>
+      <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
+    </section>
+
+    <p class="note">Демонстрационный макет интерфейса. Имена, даты и подписи — пример. Сплошная рамка на карте вмешательств означает работу по данным самого снимка, пунктир — предположение ИИ, точечная рамка — утраченный участок, который мы оставляем утраченным.</p>
+
+  </main>
+</div>
+<script src="/assets/product-screens/reveal.js" defer></script>
+</body>
+</html>
