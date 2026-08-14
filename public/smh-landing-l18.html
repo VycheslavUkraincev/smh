@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l18" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-trunk-forest" data-smh-landing-status="local-ready" data-smh-scroll="trunk-vertical" data-smh-quality="raise-20260814" data-smh-craft="smooth-nav-20260814">
+<html lang="ru" data-smh-landing="l18" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-trunk-forest-strip" data-smh-trunk-strip="8" data-smh-landing-status="local-ready" data-smh-scroll="trunk-vertical" data-smh-quality="raise-20260814" data-smh-craft="smooth-nav-20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
 <meta name="robots" content="noindex">
 <!-- SMH_LANDING_L18 wave 20260814-trunk · quality raise-20260814 · axis: непрерывный вертикальный ствол, крона -> станции -> корни · 8 полных экранов · art: 6 оригинальных планов nano-banana-2 @2K (2752x1536 / 1536x2752 / 2400x1792), сгенерированы 2026-08-14, spend_E=24 · bark-tile = вертикально зеркальный тайл из плана коры (бесшовная колонна) · refs = композиционный ориентир, не источник пикселей · invent_eyes=N · LIVE=N · INDEX_TOUCHED=N -->
-<!-- SMH_LANDING_L18 wave 20260814-trunk-forest · правка по вкусу Романа: ствол шире (25vw -> 38vw, моб. 62vw -> 80vw), за стволом читается лес с боке · art: 2 новых плана nano-banana-2 @2K (forest-far - сильное боке, forest-mid - мягкий фокус), сгенерированы 2026-08-14, spend_E=8 · 0 читаемых лиц · без фейкового BA · invent_eyes=N -->
+<!-- SMH_LANDING_L18 wave 20260814-trunk-forest-strip · главный ориентир - референс Романа (сверхвысокий кадр бука с золотым швом кинцуги, нарезанный на планы) · ствол шире референса (колонна 60vw, моб. 100vw; на кадре ствол занимает ~80% ширины) · лента пересобрана по оси ствола: окно 1340 из 1536 идёт за осью (0.53-0.75 ширины плана), ствол выпрямлен по центру колонны и крупнее в 1.15 раза, 0E · за стволом лес с боке · art: 4 новых плана nano-banana-2 @2K 9:16, сшиты в ленту 1536x10108 с кроссфейдом и подгонкой тона на стыках, нарезаны на 8 фонов-станций (crown -> кинцуги -> корни), spend_E=16 (всего по задаче 24 с планами леса) · 0 читаемых лиц · без фейкового BA · invent_eyes=N -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -85,14 +85,29 @@ a{color:inherit;text-decoration:none}
     radial-gradient(84% 50% at 50% 8%,rgba(224,205,154,.16) 0%,rgba(0,0,0,0) 66%),
     linear-gradient(180deg,rgba(22,14,7,.32) 0%,rgba(18,12,7,.52) 58%,rgba(9,6,3,.82) 100%)}
 
-/* колонна ствола по центру */
-.col{position:absolute;top:-14vh;bottom:-14vh;left:50%;
-  width:clamp(340px,38vw,680px);transform:translateX(-50%)}
+/* колонна ствола по центру - широкая, живая, фотографическая */
+.col{position:absolute;top:0;bottom:0;left:50%;overflow:hidden;
+  width:clamp(520px,60vw,1120px);transform:translateX(-50%)}
+/* ===== ствол-лента: одна сверхвысокая фотография, нарезанная на 8 планов =====
+   Крона -> кинцуги -> корни идут одной непрерывной колонной; лента едет вверх
+   ровно на свою высоту минус экран, поэтому низ ствола приходит к концу спуска. */
+.col .strip{position:absolute;left:0;right:0;top:0;
+  transform:translateY(calc(var(--p) * (100vh - 100%)));
+  will-change:transform;
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.5) 6%,#000 14%,#000 86%,rgba(0,0,0,.5) 94%,rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.5) 6%,#000 14%,#000 86%,rgba(0,0,0,.5) 94%,rgba(0,0,0,0) 100%)}
+.col .strip img{width:100%;height:auto;display:block;margin:0;
+  filter:saturate(.84) brightness(.72) contrast(1.04)}
+/* стыки планов: следующий кадр заходит на предыдущий и растворяет шов */
+.col .strip img + img{margin-top:-2.4%;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 4.6%,#000 100%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,#000 4.6%,#000 100%)}
+/* кора-тайл остаётся глубоким запасным слоем под лентой */
 .col .bark{position:absolute;inset:0;
   background-image:url("assets/landing-l18/bark-tile.jpg");
   background-size:100% auto;background-repeat:repeat-y;
   background-position:center calc(var(--p) * -180vh);
-  filter:saturate(.82) brightness(.62) contrast(1.06);
+  filter:saturate(.82) brightness(.34) contrast(1.06);
   -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 5%,#000 12%,#000 88%,rgba(0,0,0,.55) 95%,rgba(0,0,0,0) 100%);
   mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 5%,#000 12%,#000 88%,rgba(0,0,0,.55) 95%,rgba(0,0,0,0) 100%)}
 /* тёплая грань слева, тень справа - объём ствола */
@@ -102,7 +117,7 @@ a{color:inherit;text-decoration:none}
     rgba(224,205,154,.10) 38%,rgba(0,0,0,0) 56%,
     rgba(0,0,0,.30) 82%,rgba(0,0,0,.60) 100%)}
 /* волокно коры - тонкие вертикальные линии поверх текстуры */
-.col .fiber{position:absolute;inset:0;opacity:.34;
+.col .fiber{position:absolute;inset:0;opacity:.12;
   background-image:repeating-linear-gradient(90deg,
     rgba(0,0,0,.34) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,0) 9px,
     rgba(239,233,220,.05) 10px,rgba(0,0,0,0) 12px)}
@@ -255,13 +270,14 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
 @media(max-width:900px){
   .station .wrap{grid-template-columns:1fr;gap:clamp(24px,4vh,40px)}
   .station.right .side,.station.left .side{grid-column:1}
-  .col{width:min(80vw,430px)}
+  .col{width:min(100vw,560px)}
   .depth{display:none}
   .plate img{height:clamp(190px,32vh,300px)}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .col .bark{background-position:center 0}
+  .col .strip{transform:none}
   .crown,.roots{transform:translate(-50%,0);opacity:1}
   .forest.far img,.forest.mid img{transform:translate(-50%,-50%)}
   .leaf,.scrollcue .ln{animation:none}
@@ -318,6 +334,40 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
   <div class="crown"><img src="assets/landing-l18/crown.jpg" alt=""></div>
   <div class="col">
     <div class="bark"></div>
+    <div class="strip" data-smh-trunk-slices="8">
+      <img src="assets/landing-l18/trunk-01-950.jpg"
+           srcset="assets/landing-l18/trunk-01-950.jpg 950w, assets/landing-l18/trunk-01-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="eager" decoding="async">
+      <img src="assets/landing-l18/trunk-02-950.jpg"
+           srcset="assets/landing-l18/trunk-02-950.jpg 950w, assets/landing-l18/trunk-02-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="lazy" decoding="async">
+      <img src="assets/landing-l18/trunk-03-950.jpg"
+           srcset="assets/landing-l18/trunk-03-950.jpg 950w, assets/landing-l18/trunk-03-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="lazy" decoding="async">
+      <img src="assets/landing-l18/trunk-04-950.jpg"
+           srcset="assets/landing-l18/trunk-04-950.jpg 950w, assets/landing-l18/trunk-04-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="lazy" decoding="async">
+      <img src="assets/landing-l18/trunk-05-950.jpg"
+           srcset="assets/landing-l18/trunk-05-950.jpg 950w, assets/landing-l18/trunk-05-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="lazy" decoding="async">
+      <img src="assets/landing-l18/trunk-06-950.jpg"
+           srcset="assets/landing-l18/trunk-06-950.jpg 950w, assets/landing-l18/trunk-06-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="lazy" decoding="async">
+      <img src="assets/landing-l18/trunk-07-950.jpg"
+           srcset="assets/landing-l18/trunk-07-950.jpg 950w, assets/landing-l18/trunk-07-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="lazy" decoding="async">
+      <img src="assets/landing-l18/trunk-08-950.jpg"
+           srcset="assets/landing-l18/trunk-08-950.jpg 950w, assets/landing-l18/trunk-08-1400.jpg 1400w"
+           sizes="(max-width:900px) 100vw, 60vw"
+           alt="" loading="lazy" decoding="async">
+    </div>
     <div class="fiber"></div>
     <div class="round"></div>
   </div>
