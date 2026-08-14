@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l18" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-trunk" data-smh-landing-status="local-ready" data-smh-scroll="trunk-vertical" data-smh-quality="raise-20260814" data-smh-craft="smooth-nav-20260814">
+<html lang="ru" data-smh-landing="l18" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-trunk-forest" data-smh-landing-status="local-ready" data-smh-scroll="trunk-vertical" data-smh-quality="raise-20260814" data-smh-craft="smooth-nav-20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -25,6 +25,7 @@
 <meta name="twitter:image" content="https://smh-photos.fra1.digitaloceanspaces.com/assets/og.jpg">
 <meta name="robots" content="noindex">
 <!-- SMH_LANDING_L18 wave 20260814-trunk · quality raise-20260814 · axis: непрерывный вертикальный ствол, крона -> станции -> корни · 8 полных экранов · art: 6 оригинальных планов nano-banana-2 @2K (2752x1536 / 1536x2752 / 2400x1792), сгенерированы 2026-08-14, spend_E=24 · bark-tile = вертикально зеркальный тайл из плана коры (бесшовная колонна) · refs = композиционный ориентир, не источник пикселей · invent_eyes=N · LIVE=N · INDEX_TOUCHED=N -->
+<!-- SMH_LANDING_L18 wave 20260814-trunk-forest · правка по вкусу Романа: ствол шире (25vw -> 38vw, моб. 62vw -> 80vw), за стволом читается лес с боке · art: 2 новых плана nano-banana-2 @2K (forest-far - сильное боке, forest-mid - мягкий фокус), сгенерированы 2026-08-14, spend_E=8 · 0 читаемых лиц · без фейкового BA · invent_eyes=N -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -66,16 +67,34 @@ a{color:inherit;text-decoration:none}
     linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(9,6,3,.72) 100%);
   opacity:clamp(0,calc(var(--p) * 1.7 - .38),1)}
 
+/* ===== лес за стволом: два плана с боке (forest-20260814) =====
+   Дальний план сильно размыт, средний - мягкий фокус. Оба живут
+   ПОД колонной ствола, поэтому ствол всегда читается спереди. */
+.forest{position:absolute;inset:0;overflow:hidden}
+.forest img{position:absolute;left:50%;top:50%;width:126%;height:118%;
+  object-fit:cover;object-position:center 42%;transform:translate(-50%,-50%)}
+.forest.far img{filter:blur(9px) saturate(.66) brightness(.42) contrast(1.02);
+  transform:translate(-50%,calc(-50% + var(--p) * 5vh)) scale(1.06);opacity:.92}
+.forest.mid img{filter:blur(3.4px) saturate(.72) brightness(.5) contrast(1.05);
+  transform:translate(-50%,calc(-50% + var(--p) * -7vh)) scale(1.02);
+  opacity:clamp(.34,calc(.9 - var(--p) * .5),.9);
+  -webkit-mask-image:radial-gradient(78% 62% at 50% 46%,#000 42%,rgba(0,0,0,.35) 78%,rgba(0,0,0,0) 100%);
+  mask-image:radial-gradient(78% 62% at 50% 46%,#000 42%,rgba(0,0,0,.35) 78%,rgba(0,0,0,0) 100%)}
+/* воздух между лесом и стволом - глубина, а не плоская вклейка */
+.forest.haze{background:
+    radial-gradient(84% 50% at 50% 8%,rgba(224,205,154,.16) 0%,rgba(0,0,0,0) 66%),
+    linear-gradient(180deg,rgba(22,14,7,.32) 0%,rgba(18,12,7,.52) 58%,rgba(9,6,3,.82) 100%)}
+
 /* колонна ствола по центру */
 .col{position:absolute;top:-14vh;bottom:-14vh;left:50%;
-  width:clamp(230px,25vw,430px);transform:translateX(-50%)}
+  width:clamp(340px,38vw,680px);transform:translateX(-50%)}
 .col .bark{position:absolute;inset:0;
   background-image:url("assets/landing-l18/bark-tile.jpg");
   background-size:100% auto;background-repeat:repeat-y;
   background-position:center calc(var(--p) * -180vh);
   filter:saturate(.82) brightness(.62) contrast(1.06);
-  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,#000 16%,#000 84%,rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,#000 16%,#000 84%,rgba(0,0,0,0) 100%)}
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 5%,#000 12%,#000 88%,rgba(0,0,0,.55) 95%,rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 5%,#000 12%,#000 88%,rgba(0,0,0,.55) 95%,rgba(0,0,0,0) 100%)}
 /* тёплая грань слева, тень справа - объём ствола */
 .col .round{position:absolute;inset:0;
   background:linear-gradient(90deg,
@@ -236,7 +255,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
 @media(max-width:900px){
   .station .wrap{grid-template-columns:1fr;gap:clamp(24px,4vh,40px)}
   .station.right .side,.station.left .side{grid-column:1}
-  .col{width:min(62vw,340px)}
+  .col{width:min(80vw,430px)}
   .depth{display:none}
   .plate img{height:clamp(190px,32vh,300px)}
 }
@@ -244,6 +263,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
   html{scroll-behavior:auto}
   .col .bark{background-position:center 0}
   .crown,.roots{transform:translate(-50%,0);opacity:1}
+  .forest.far img,.forest.mid img{transform:translate(-50%,-50%)}
   .leaf,.scrollcue .ln{animation:none}
   .rv{opacity:1;transform:none;transition:none}
 }
@@ -284,6 +304,17 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
     <span class="light"></span>
     <span class="earth"></span>
   </div>
+  <div class="forest far">
+    <img src="assets/landing-l18/forest-far-1200.jpg"
+         srcset="assets/landing-l18/forest-far-1200.jpg 1200w, assets/landing-l18/forest-far-2000.jpg 2000w"
+         sizes="100vw" alt="" loading="eager" decoding="async">
+  </div>
+  <div class="forest mid">
+    <img src="assets/landing-l18/forest-mid-1200.jpg"
+         srcset="assets/landing-l18/forest-mid-1200.jpg 1200w, assets/landing-l18/forest-mid-2000.jpg 2000w"
+         sizes="100vw" alt="" loading="lazy" decoding="async">
+  </div>
+  <div class="forest haze"></div>
   <div class="crown"><img src="assets/landing-l18/crown.jpg" alt=""></div>
   <div class="col">
     <div class="bark"></div>
