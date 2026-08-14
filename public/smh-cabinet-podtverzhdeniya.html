@@ -53,6 +53,18 @@
   .q-thumb{width:100%;height:150px;flex:none}
   .q-ask{margin-left:0;width:100%}
 }
+
+/* G3 · шов «Вечер — Дом»: одна тихая дверь обратно, тем же голосом, что в кабинете. */
+.seam-door-row{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;margin:18px 0 0;padding:15px 17px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.seam-door-row p{margin:0;font-size:13.5px;color:var(--ink-2);max-width:56ch}
+.seam-code:not([hidden]){display:block;margin-top:6px;font-size:12px;color:var(--muted)}
+.seam-door{margin-left:auto;text-align:right}
+.seam-back{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:10px 20px;border-radius:10px;font-size:14px;font-weight:500;transition:background .2s ease, transform .2s ease}
+.seam-back:hover{background:var(--accent-deep);transform:translateY(-1px)}
+.seam-back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.seam-back2{display:block;margin-top:8px;font-size:12.5px;color:var(--accent)}
+.seam-back2:hover{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:900px){.seam-door{margin-left:0;text-align:left}}
 </style>
 </head>
 <body>
@@ -253,10 +265,61 @@
       <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
     </section>
 
+    <section class="seam-door-row rv" aria-label="Возврат в «Вечер»">
+      <p>Подтверждение ставит второй человек. Его зовут в вечере, а не здесь.<span class="seam-code" id="seamCode" hidden></span></p>
+      <div class="seam-door">
+        <a class="seam-back" id="seamBack" href="/smh-family-game.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>Вернуться в вечер</a>
+        <a class="seam-back2" href="https://t.me/SaveFamilyHistorybot/family">Открыть «Вечер» в Telegram</a>
+      </div>
+    </section>
+
     <p class="note">Демонстрационный макет интерфейса. Имена, даты и ответы — пример. Точка означает «подтверждено семьёй», пунктирный кружок — гипотезу, квадрат — сведения из документа.</p>
 
   </main>
 </div>
 <script src="/assets/product-screens/reveal.js" defer></script>
+<script>
+/* G3 · шов «Вечер — Дом»: код круга берём только из адреса этой страницы или из
+   памяти этого же браузера. Ничего не выдумываем и нового кода не выпускаем. */
+(function(){
+  var LAST = 'smh_fg_last';
+  var GAME = '/smh-family-game.html';
+
+  function ls(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+
+  function param(n){
+    try{
+      var m = new RegExp('[?&]' + n + '=([^&#]*)').exec(location.search);
+      return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+    }catch(e){ return ''; }
+  }
+
+  function cleanCode(v){
+    v = String(v || '').trim().toUpperCase();
+    return /^[A-Z0-9]{4,12}$/.test(v) ? v : '';
+  }
+
+  var code = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
+  var back = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
+
+  var door = document.getElementById('seamBack');
+  if(door) door.setAttribute('href', back);
+
+  var chip = document.getElementById('seamCode');
+  if(chip && code){ chip.textContent = 'Код круга · ' + code; chip.hidden = false; }
+
+  if(!code) return;
+
+  var links = document.querySelectorAll('a[href^="/smh-cabinet-"]');
+  for(var i=0;i<links.length;i++){
+    var href = links[i].getAttribute('href');
+    if(!href || href.indexOf('?') !== -1) continue;
+    var h = href.indexOf('#');
+    var path = h === -1 ? href : href.slice(0, h);
+    var hash = h === -1 ? '' : href.slice(h);
+    links[i].setAttribute('href', path + '?c=' + encodeURIComponent(code) + hash);
+  }
+})();
+</script>
 </body>
 </html>
