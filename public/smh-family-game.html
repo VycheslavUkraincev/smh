@@ -15,36 +15,36 @@
 /* SaveMyHistory — семейный круг (Telegram Mini App)
    Палитра и ритм унаследованы от smh-cabinet-mock.html. Не уводить в сторону. */
 :root{
-  --page:#F7F4EF;
-  --card:#FFFFFF;
-  --soft:#FBF8F4;
-  --active:#EDE3D6;
-  --pill:#E8DED1;
-  --border:#E9E2DA;
-  --divider:#E4DDD4;
-  --line:#C9B9A8;
-  --ink:#2F241F;
-  --ink-2:#6F655F;
-  --muted:#93867B;
-  --accent:#8A6A53;
-  --accent-deep:#6D5543;
+  --page:#F6EFE1;
+  --card:#FDFAF4;
+  --soft:#F8F1E4;
+  --active:#EADCC6;
+  --pill:#EEE1CB;
+  --border:#E7DAC5;
+  --divider:#E5D8C4;
+  --line:#C6B295;
+  --ink:#33251C;
+  --ink-2:#6F6055;
+  --muted:#93826F;
+  --accent:#9A6F44;
+  --accent-deep:#7A5330;
   --shadow:0 1px 2px rgba(64,46,34,.04), 0 8px 24px rgba(64,46,34,.05);
   --radius:14px;
 }
 body.is-dark{
-  --page:#1E1917;
-  --card:#272120;
-  --soft:#2C2523;
-  --active:#3A302A;
-  --pill:#3A302A;
-  --border:#3A322E;
-  --divider:#352E2A;
-  --line:#6B5B4E;
-  --ink:#F0E9E1;
-  --ink-2:#C3B7AC;
-  --muted:#9C8F84;
-  --accent:#B08D71;
-  --accent-deep:#C6A184;
+  --page:#1D1815;
+  --card:#272019;
+  --soft:#2C241D;
+  --active:#3B3025;
+  --pill:#3B3025;
+  --border:#3B3128;
+  --divider:#362D25;
+  --line:#6E5B47;
+  --ink:#F1E8DC;
+  --ink-2:#C6B7A6;
+  --muted:#9E8E7C;
+  --accent:#C08F5B;
+  --accent-deep:#D8AC79;
   --shadow:0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.22);
 }
 *{box-sizing:border-box}
@@ -250,20 +250,28 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
    Переменные Telegram остаются главными внутри мини-приложения.
    ============================================================ */
 :root{
-  --tile:#FCF9F5;
-  --glow:rgba(190,146,96,.18);
-  --seat:rgba(138,106,83,.34);
-  --lamp:rgba(214,168,110,.20);
-  --rail:rgba(232,222,209,.34);
+  --tile:#FBF5E9;
+  --glow:rgba(228,177,67,.20);
+  --seat:rgba(154,111,68,.34);
+  --lamp:rgba(242,200,75,.18);
+  --rail:rgba(231,215,191,.40);
+  --bark:#5A3A28;
+  --leaf:#8A9A45;
+  --leaf-gold:#E4B143;
+  --birch:rgba(154,111,68,.055);
   --r-lg:18px;
   --lift:0 1px 1px rgba(64,46,34,.05), 0 12px 30px -14px rgba(64,46,34,.30);
 }
 body.is-dark{
-  --tile:#2A2321;
-  --glow:rgba(198,161,132,.10);
-  --seat:rgba(198,161,132,.34);
-  --lamp:rgba(198,161,132,.12);
-  --rail:rgba(198,161,132,.10);
+  --tile:#2A2219;
+  --glow:rgba(228,177,67,.10);
+  --seat:rgba(216,172,121,.34);
+  --lamp:rgba(228,177,67,.10);
+  --rail:rgba(216,172,121,.09);
+  --bark:#C2A184;
+  --leaf:#A9B58A;
+  --leaf-gold:#D8AC79;
+  --birch:rgba(216,172,121,.05);
   --lift:0 1px 1px rgba(0,0,0,.28), 0 12px 30px -14px rgba(0,0,0,.55);
 }
 
@@ -272,7 +280,8 @@ body::before,body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-ev
 body::before{
   background:
     radial-gradient(88% 52% at 50% -6%, var(--glow), transparent 68%),
-    radial-gradient(58% 42% at 106% 104%, rgba(138,106,83,.07), transparent 72%);
+    radial-gradient(58% 42% at 106% 104%, rgba(154,111,68,.07), transparent 72%),
+    repeating-linear-gradient(90deg, var(--birch) 0 1.5px, transparent 1.5px 78px);
 }
 body::after{
   opacity:.5;
@@ -290,8 +299,10 @@ body.is-dark::after{opacity:.28}
 }
 .top .brand{display:inline-flex;align-items:center;gap:9px}
 .top .brand::before{
-  content:'';width:9px;height:9px;border-radius:50%;flex:0 0 9px;
-  background:var(--accent);box-shadow:0 0 0 3px rgba(138,106,83,.15);
+  content:'';width:11px;height:11px;flex:0 0 11px;
+  border-radius:50% 0 50% 0;transform:rotate(-12deg);
+  background:linear-gradient(140deg, var(--leaf-gold), var(--accent));
+  box-shadow:0 0 0 3px rgba(154,111,68,.13);
 }
 .top .to-cab{transition:background .2s ease,color .2s ease,border-color .2s ease}
 .top .to-cab:active{background:var(--active);color:var(--ink);border-color:var(--line)}
@@ -339,13 +350,18 @@ body.is-dark .auth-bar{background-image:linear-gradient(180deg, rgba(198,161,132
 .crest .mat--in{opacity:.3}
 .crest .corner{fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
 .frame-cap{margin:0 auto 15px;max-width:31ch;font-size:12.5px;line-height:1.5;color:var(--muted)}
-.crest .table{fill:none;stroke:var(--line);stroke-width:1.4;stroke-dasharray:3 5;opacity:.85}
-.crest .hearth{fill:var(--pill);stroke:var(--line);stroke-width:1}
+/* дерево в пустой рамке: ствол, ветви и кружки, которые ждут своих людей */
+.crest .ground{fill:none;stroke:var(--line);stroke-width:1.1;stroke-linecap:round;stroke-dasharray:3 5;opacity:.7}
+.crest .trunk{fill:none;stroke:var(--bark);stroke-width:3.4;stroke-linecap:round;opacity:.85}
+.crest .root{fill:none;stroke:var(--bark);stroke-width:1.4;stroke-linecap:round;opacity:.5}
+.crest .branch{fill:none;stroke:var(--bark);stroke-width:1.9;stroke-linecap:round;opacity:.72}
+.crest .leaf-sh{fill:var(--leaf);opacity:.6}
+.crest .leaf-rib{fill:none;stroke:var(--bark);stroke-width:.9;stroke-linecap:round;opacity:.42}
 .crest .seat-dot{fill:var(--card);stroke:var(--line);stroke-width:1.2}
 .crest .seat-dot.lit{fill:var(--accent);stroke:var(--accent)}
 @keyframes breathe{0%,100%{opacity:.6}50%{opacity:1}}
 .crest .lit{animation:breathe 3.8s ease-in-out infinite}
-.crest .lit:nth-of-type(6){animation-delay:1.3s}
+.crest .lit:nth-of-type(3){animation-delay:1.3s}
 .card--hero .field{text-align:left;max-width:340px;margin:0 auto 12px}
 .card--hero .btn--wide{display:flex;max-width:340px;margin:0 auto}
 .card--hero .note{max-width:40ch;margin-left:auto;margin-right:auto}
@@ -494,6 +510,58 @@ body.is-dark .card--butler{background-image:linear-gradient(180deg, rgba(198,161
 body.is-dark .rule{background:linear-gradient(90deg, rgba(198,161,132,.13), transparent)}
 .toast{box-shadow:0 12px 30px -12px rgba(0,0,0,.55)}
 
+
+/* ============================================================
+   Фирменный слой: дерево, берёзовая бумага, тёплый свет.
+   Всё рисуется градиентами и SVG: ни одной картинки фоном,
+   ни одного дорисованного лица.
+   ============================================================ */
+
+/* ступень круга: тихая строка с листом, а не табло с очками */
+.level{
+  display:inline-flex;align-items:center;gap:7px;
+  margin:8px 0 0;font-size:11.5px;line-height:1;color:var(--accent-deep);
+  background:linear-gradient(180deg, var(--pill), transparent 140%);
+  border:1px solid var(--seat);border-radius:999px;padding:5px 11px 5px 9px;
+}
+.level::before{
+  content:'';width:9px;height:9px;flex:0 0 9px;
+  border-radius:50% 0 50% 0;transform:rotate(-12deg);
+  background:linear-gradient(140deg, var(--leaf-gold), var(--accent));
+}
+
+/* кружки на ветвях и места за столом — одна и та же фигура */
+.who{box-shadow:inset 0 0 0 1px rgba(255,255,255,.4), 0 0 0 3px rgba(154,111,68,.07), 0 1px 2px rgba(64,46,34,.09)}
+.seat-free .who{box-shadow:none}
+
+/* шаги: готовый шаг помечен листом, как выросшая ветка */
+.quests li.done::after{
+  padding-left:21px;
+  background-color:var(--pill);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M10.6 1.4C5 1.4 1.4 4 1.4 8c0 1 .3 1.8.8 2.5C3.6 7 6 5.2 9 4.3 6.6 5.7 4.4 7.7 3.3 10.8c.8.4 1.6.6 2.4.6 3.3 0 4.9-3.4 4.9-10z' fill='%237A5330'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:7px 50%;background-size:9px 9px;
+}
+body.is-dark .quests li.done::after{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M10.6 1.4C5 1.4 1.4 4 1.4 8c0 1 .3 1.8.8 2.5C3.6 7 6 5.2 9 4.3 6.6 5.7 4.4 7.7 3.3 10.8c.8.4 1.6.6 2.4.6 3.3 0 4.9-3.4 4.9-10z' fill='%23D8AC79'/%3E%3C/svg%3E");
+}
+
+/* берёзовая бумага карточек: вертикальный ритм почти на грани видимого */
+.card--hero,.card--circle{
+  background-image:
+    linear-gradient(180deg, rgba(238,225,203,.34), transparent 150px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 54px);
+}
+body.is-dark .card--hero,body.is-dark .card--circle{
+  background-image:
+    linear-gradient(180deg, rgba(216,172,121,.10), transparent 150px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 54px);
+}
+
+/* лампа над столом тёплее, тени тише — настроение дома, а не интерфейса */
+.card--hero::before{background:radial-gradient(closest-side, var(--glow), transparent 74%)}
+.qbar span{background:linear-gradient(90deg, var(--leaf), var(--leaf-gold) 62%, var(--accent))}
+.drop svg{background:linear-gradient(140deg, var(--pill), var(--soft))}
+
 /* ---------- широкий экран: Telegram на телефоне, планшете, компьютере ----------
    В мини-приложении колонка занимает всю ширину окна: 560px там читались
    узкой полоской. В обычном браузере ограничения остаются прежними. */
@@ -560,8 +628,9 @@ body.tg-fs .top{
   body::before{
     background:
       radial-gradient(64% 46% at 50% -10%, var(--lamp), transparent 70%),
-      radial-gradient(44% 40% at 0% 4%, rgba(138,106,83,.055), transparent 72%),
-      radial-gradient(52% 46% at 104% 104%, rgba(138,106,83,.08), transparent 74%);
+      radial-gradient(44% 40% at 0% 4%, rgba(154,111,68,.055), transparent 72%),
+      radial-gradient(52% 46% at 104% 104%, rgba(154,111,68,.08), transparent 74%),
+      repeating-linear-gradient(90deg, var(--birch) 0 1.5px, transparent 1.5px 96px);
   }
 
   /* первый экран: приглашение за стол слева, «меня позвали» справа */
@@ -591,7 +660,12 @@ body.tg-fs .top{
   .zone-main > .card,.zone-rail > .card{margin:0}
 
   /* полка звучит тише: слой бумаги поверх темы клиента и закладка папки сверху */
-  .zone-rail > .card{position:relative;background-image:linear-gradient(180deg, var(--rail), transparent 240px)}
+  .zone-rail > .card{
+    position:relative;
+    background-image:
+      linear-gradient(180deg, var(--rail), transparent 240px),
+      repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 46px);
+  }
   .zone-rail > .card::after{
     content:'';position:absolute;left:18px;top:-1px;width:52px;height:3px;
     border-radius:0 0 3px 3px;background:var(--accent);opacity:.45;
@@ -666,17 +740,23 @@ body.tg-fs .top{
           <path class="corner" d="M100 27.5V18h-9.5"/>
           <path class="corner" d="M18 90.5V100h9.5"/>
           <path class="corner" d="M100 90.5V100h-9.5"/>
-          <circle class="table" cx="59" cy="59" r="30"/>
-          <circle class="hearth" cx="59" cy="59" r="11.5"/>
-          <circle class="seat-dot lit" cx="59" cy="21" r="6.2"/>
-          <circle class="seat-dot" cx="92" cy="40" r="6.2"/>
-          <circle class="seat-dot" cx="92" cy="78" r="6.2"/>
-          <circle class="seat-dot lit" cx="59" cy="97" r="6.2"/>
-          <circle class="seat-dot" cx="26" cy="78" r="6.2"/>
-          <circle class="seat-dot" cx="26" cy="40" r="6.2"/>
+          <path class="ground" d="M33 99h52"/>
+          <path class="root" d="M59 97c-5 0-8-1.4-11-4M59 97c5 0 8-1.4 11-4"/>
+          <path class="trunk" d="M59 99V44"/>
+          <path class="branch" d="M59 78c-5-4-10-8-14-14"/>
+          <path class="branch" d="M59 78c5-4 10-8 14-14"/>
+          <path class="branch" d="M59 66c-3-6-5-10-6-15"/>
+          <path class="branch" d="M59 66c3-6 5-10 6-15"/>
+          <path class="leaf-sh" d="M82 69c-6.4.6-10 4.2-10 9.4 5-.2 9.4-3.2 10-9.4z"/>
+          <path class="leaf-rib" d="M80.6 70.4c-4 1.7-6.6 4.2-7.7 7.4"/>
+          <circle class="seat-dot lit" cx="59" cy="37" r="7"/>
+          <circle class="seat-dot" cx="51" cy="46" r="5.6"/>
+          <circle class="seat-dot lit" cx="67" cy="46" r="5.6"/>
+          <circle class="seat-dot" cx="42" cy="60" r="6.4"/>
+          <circle class="seat-dot" cx="76" cy="60" r="6.4"/>
         </svg>
       </div>
-      <p class="frame-cap">Пустая рамка ждёт первый снимок — и людей, которые скажут, кто на нём.</p>
+      <p class="frame-cap">Рамка пока пуста, а кружки на ветвях ждут своих людей: имя появляется только тогда, когда его назвал человек.</p>
       <div class="field">
         <label for="circleName">Назовите круг так, как говорите дома</label>
         <input class="inp" id="circleName" type="text" maxlength="48" placeholder="Например: Наши Ковалёвы" autocomplete="off">
@@ -707,6 +787,7 @@ body.tg-fs .top{
         <div style="min-width:0">
           <h1 class="circle-name serif" id="cName">Семейный круг</h1>
           <p class="code" id="cCode">КОД</p>
+          <p class="level" id="cLevel">Ступень 1 · круг только начался</p>
         </div>
         <div class="ring" aria-hidden="true">
           <svg viewBox="0 0 58 58">
@@ -1025,6 +1106,14 @@ body.tg-fs .top{
     }
     $('qList').innerHTML = html;
     $('qCnt').textContent = done + ' из ' + qs.length;
+
+    /* Ступень — это те же шаги, сказанные голосом семьи, а не очки:
+       ничего не начисляется сверх того, что человек действительно сделал. */
+    var lvEl = $('cLevel');
+    if(lvEl){
+      var LV = ['круг только начался','первые имена на ветвях','за столом уже не один','появился первый снимок','имена названы семьёй','круг собран'];
+      lvEl.textContent = 'Ступень ' + Math.min(done + 1, qs.length) + ' · ' + (LV[done] || LV[LV.length - 1]);
+    }
     var pct = Math.round(done / qs.length * 100);
     drawRing(pct);
     var bar = $('qBarFg');
