@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaveMyHistory — семейный архив</title>
+<meta name="description" content="SaveMyHistory — семейный архив: люди, истории, фотографии, документы, события и места в одном месте.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#F7F4EF;
+  --side:#F5F1EB;
+  --card:#FFFFFF;
+  --active:#EDE3D6;
+  --pill:#E8DED1;
+  --border:#E9E2DA;
+  --divider:#E4DDD4;
+  --line:#C9B9A8;
+  --ink:#2F241F;
+  --ink-2:#6F655F;
+  --muted:#93867B;
+  --accent:#8A6A53;
+  --accent-deep:#6D5543;
+  --beige:#EAE0D3;
+  --shadow:0 1px 2px rgba(64,46,34,.04), 0 8px 24px rgba(64,46,34,.05);
+  --radius:14px;
+  --sidebar-w:248px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--page);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.serif{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif}
+
+.skip{position:absolute;left:-9999px;top:0;background:#fff;padding:10px 16px;border-radius:8px;z-index:100}
+.skip:focus{left:12px;top:12px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* ---------- shell ---------- */
+.shell{display:flex;min-height:100vh}
+
+/* ---------- sidebar ---------- */
+.sidebar{
+  width:var(--sidebar-w);
+  flex:0 0 var(--sidebar-w);
+  background:var(--side);
+  border-right:1px solid var(--border);
+  padding:26px 16px 22px;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+}
+.brand{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:27px;
+  line-height:1.1;
+  letter-spacing:.2px;
+  color:#35241D;
+  padding:0 10px;
+  display:block;
+}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav-item{
+  display:flex;align-items:center;gap:11px;
+  padding:9px 10px;
+  border-radius:9px;
+  color:var(--ink-2);
+  font-size:14.5px;
+  transition:background .18s ease, color .18s ease;
+}
+.nav-item svg{flex:0 0 17px;width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.nav-item:hover{background:rgba(138,106,83,.09);color:var(--ink)}
+.nav-item.is-active{background:var(--active);color:var(--ink);font-weight:500}
+.nav-sep{height:1px;background:var(--divider);margin:6px 10px}
+.nav-label{
+  font-size:11px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:0 10px;
+  margin-bottom:2px;
+}
+.sidebar-foot{margin-top:auto;display:flex;flex-direction:column;gap:2px}
+
+/* ---------- main ---------- */
+.main{flex:1;min-width:0;padding:20px 30px 46px;max-width:1320px}
+
+.topbar{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.search{position:relative;flex:0 1 320px}
+.search input{
+  width:100%;height:38px;
+  border:1px solid var(--border);
+  background:var(--card);
+  border-radius:10px;
+  padding:0 38px 0 14px;
+  font-size:14px;color:var(--ink);
+  font-family:inherit;
+}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{outline:none;border-color:var(--line);box-shadow:0 0 0 3px rgba(138,106,83,.10)}
+.search svg{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:1.6;pointer-events:none}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.icon-btn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--ink-2);transition:background .18s ease}
+.icon-btn:hover{background:rgba(138,106,83,.09)}
+.icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.user{display:flex;align-items:center;gap:9px;padding:4px 8px 4px 4px;border-radius:999px;transition:background .18s ease}
+.user:hover{background:rgba(138,106,83,.09)}
+.user img{width:30px;height:30px;border-radius:50%;object-fit:cover;filter:sepia(.28) saturate(.85)}
+.user span{font-size:14px;font-weight:500}
+.user svg{width:13px;height:13px;stroke:var(--muted);fill:none;stroke-width:1.8}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  border-radius:var(--radius);
+  overflow:hidden;
+  min-height:250px;
+  display:flex;align-items:center;
+  padding:38px 44px;
+  margin-bottom:16px;
+  box-shadow:var(--shadow);
+  isolation:isolate;
+}
+.hero-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;
+  filter:sepia(.42) saturate(.78) contrast(1.03);
+  z-index:-2;
+  animation:kb 34s ease-in-out infinite alternate;
+  transform-origin:62% 45%;
+}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.10)}}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg, rgba(34,24,18,.80) 0%, rgba(34,24,18,.62) 38%, rgba(34,24,18,.22) 72%, rgba(34,24,18,.10) 100%);
+}
+.hero-copy{max-width:520px;color:#fff}
+.hero h1{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(30px,3.4vw,40px);
+  line-height:1.14;
+  margin:0 0 12px;
+  font-weight:500;
+  letter-spacing:.2px;
+  text-shadow:0 1px 18px rgba(20,12,8,.34);
+}
+.hero p{margin:0 0 20px;font-size:15px;color:rgba(255,255,255,.90);text-shadow:0 1px 12px rgba(20,12,8,.34)}
+.hero-cta{
+  display:inline-block;
+  background:var(--beige);
+  color:#3A2A21;
+  padding:11px 24px;
+  border-radius:10px;
+  font-size:14.5px;
+  font-weight:500;
+  transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+  box-shadow:0 2px 14px rgba(20,12,8,.16);
+}
+.hero-cta:hover{background:#F3EBE0;transform:translateY(-1px);box-shadow:0 6px 20px rgba(20,12,8,.2)}
+
+/* ---------- stats ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+  overflow:hidden;
+}
+.stat{display:flex;align-items:center;gap:13px;padding:19px 22px;position:relative}
+.stat + .stat::before{content:"";position:absolute;left:0;top:18%;height:64%;width:1px;background:var(--divider)}
+.stat svg{width:21px;height:21px;stroke:var(--accent);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:0 0 21px;opacity:.9}
+.stat-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;line-height:1.1;color:var(--ink);font-weight:600}
+.stat-label{font-size:12.5px;color:var(--muted);margin-top:1px}
+
+/* ---------- cards ---------- */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px 22px 22px;
+}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px}
+.card-head h2{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:21px;font-weight:600;margin:0;letter-spacing:.2px;
+}
+.card-link{font-size:13px;color:var(--accent);transition:color .18s ease}
+.card-link:hover{color:var(--accent-deep);text-decoration:underline;text-underline-offset:3px}
+
+/* stories */
+.story{display:flex;gap:13px;padding:11px 0;border-top:1px solid var(--divider)}
+.story:first-of-type{border-top:0;padding-top:0}
+.story img{width:60px;height:60px;flex:0 0 60px;border-radius:9px;object-fit:cover;filter:sepia(.34) saturate(.82)}
+.story h3{margin:0 0 3px;font-size:15px;font-weight:600;color:var(--ink)}
+.story p{margin:0 0 5px;font-size:13px;color:var(--ink-2);line-height:1.45}
+.story time{font-size:12px;color:var(--muted)}
+
+/* tree */
+.tree{padding-top:2px}
+.tree-row{display:flex;justify-content:center;gap:clamp(10px,3.2vw,42px);position:relative}
+.tree-row + .tree-row{margin-top:26px}
+.tree-rail{height:26px;position:relative;margin:0 auto}
+.tree-rail::before{content:"";position:absolute;left:18%;right:18%;top:50%;height:1px;background:var(--line);opacity:.75}
+.tree-rail span{position:absolute;top:0;bottom:0;width:1px;background:var(--line);opacity:.75}
+.node{width:78px;text-align:center}
+.node img{width:46px;height:46px;border-radius:50%;object-fit:cover;margin:0 auto 6px;filter:sepia(.4) saturate(.8);border:2px solid #fff;box-shadow:0 0 0 1px var(--border)}
+.node b{display:block;font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.25}
+.node small{display:block;font-size:10.5px;color:var(--muted);margin-top:1px}
+
+/* timeline */
+.timeline{position:relative;padding:22px 0 4px;overflow-x:auto}
+.timeline-track{display:flex;min-width:640px;position:relative}
+.timeline-track::before{content:"";position:absolute;left:6%;right:6%;top:29px;height:1px;background:var(--line)}
+.tl{flex:1;text-align:center;padding:0 6px;position:relative}
+.tl-year{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.tl-dot{width:11px;height:11px;border-radius:50%;background:var(--accent);margin:0 auto 12px;position:relative;z-index:1;box-shadow:0 0 0 4px var(--card)}
+.tl p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.4}
+
+/* albums */
+.albums{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.album img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;filter:sepia(.34) saturate(.84);transition:transform .5s cubic-bezier(.2,.7,.3,1), filter .5s ease}
+.album:hover img{transform:scale(1.025);filter:sepia(.2) saturate(.95)}
+.album.is-modern img{filter:sepia(.13) saturate(.95)}
+.album h3{margin:10px 0 2px;font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:600}
+.album span{display:block;font-size:12.5px;color:var(--muted)}
+
+/* relations */
+.rel{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--divider)}
+.rel:first-of-type{border-top:0;padding-top:0}
+.rel img{width:34px;height:34px;flex:0 0 34px;border-radius:50%;object-fit:cover;filter:sepia(.38) saturate(.8)}
+.rel-txt{min-width:0}
+.rel-txt b{display:block;font-size:14px;font-weight:600}
+.rel-txt small{font-size:12.5px;color:var(--muted)}
+.tag{margin-left:auto;flex:0 0 auto;background:var(--pill);color:var(--accent-deep);font-size:11.5px;padding:5px 12px;border-radius:999px;white-space:nowrap}
+
+/* events */
+.ev{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--divider)}
+.ev:first-of-type{border-top:0;padding-top:0}
+.ev-ic{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:var(--beige);display:grid;place-items:center}
+.ev-ic svg{width:16px;height:16px;stroke:var(--accent-deep);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ev-txt{min-width:0}
+.ev-txt b{display:block;font-size:13px;font-weight:600}
+.ev-txt small{font-size:12.5px;color:var(--ink-2)}
+.ev-note{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* footer */
+.foot{
+  margin-top:24px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:26px 28px;
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+}
+.foot h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;margin:0 0 5px;font-weight:600}
+.foot p{margin:0;font-size:13.5px;color:var(--ink-2);max-width:56ch}
+.foot-cta{
+  margin-left:auto;
+  background:var(--accent);
+  color:#fff;
+  padding:11px 24px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:500;
+  transition:background .2s ease, transform .2s ease;
+}
+.foot-cta:hover{background:var(--accent-deep);transform:translateY(-1px)}
+.note{margin:14px 2px 0;font-size:11.5px;color:var(--muted)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1120px){
+  .albums{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:960px){
+  .shell{flex-direction:column}
+  .sidebar{
+    width:100%;flex:none;height:auto;position:static;
+    flex-direction:row;align-items:center;gap:14px;
+    overflow-x:auto;padding:14px 16px;
+    border-right:0;border-bottom:1px solid var(--border);
+  }
+  .brand{font-size:22px;padding:0;white-space:nowrap}
+  .nav{flex-direction:row;gap:4px}
+  .nav-item{white-space:nowrap;padding:8px 12px}
+  .nav-sep,.nav-label,.sidebar-foot,.quick{display:none}
+  .main{padding:16px 18px 40px}
+  .grid-2{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat + .stat::before{display:none}
+  .stat{border-top:1px solid var(--divider)}
+  .stat:nth-child(-n+2){border-top:0}
+  .stat:nth-child(odd)::after{content:"";position:absolute;right:0;top:18%;height:64%;width:1px;background:var(--divider)}
+}
+@media (max-width:640px){
+  .hero{padding:26px 22px;min-height:210px}
+  .topbar{flex-wrap:wrap;gap:10px}
+  .search{flex:1 1 100%;order:2}
+  .topbar-right{margin-left:auto}
+  .albums{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .stat::after{display:none!important}
+  .stat + .stat{border-top:1px solid var(--divider)}
+  .node{width:64px}
+  .tag{display:none}
+  .foot-cta{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a class="brand serif" href="/smh-cabinet-mock.html">SaveMyHistory</a>
+
+    <nav class="nav" aria-label="Основное меню">
+      <a class="nav-item is-active" href="#main" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20h14V9.8"/><path d="M10 20v-6h4v6"/></svg>Главная</a>
+      <a class="nav-item" href="#tree"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.4"/><circle cx="5.5" cy="19" r="2.4"/><circle cx="18.5" cy="19" r="2.4"/><path d="M12 7.4v4.2M5.5 16.6v-2.4h13v2.4M12 11.6v2.6"/></svg>Древо семьи</a>
+      <a class="nav-item" href="#relations"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/></svg>Люди</a>
+      <a class="nav-item" href="#stories"><svg viewBox="0 0 24 24"><path d="M4 5.5h6a2 2 0 0 1 2 2V19a2.4 2.4 0 0 0-2-1.6H4z"/><path d="M20 5.5h-6a2 2 0 0 0-2 2V19a2.4 2.4 0 0 1 2-1.6h6z"/></svg>Истории</a>
+      <a class="nav-item" href="#albums"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>Фотографии</a>
+      <a class="nav-item" href="#stories"><svg viewBox="0 0 24 24"><path d="M6 3.5h7.5L18 8v12.5H6z"/><path d="M13.2 3.6V8.2H18"/><path d="M9 12.5h6M9 15.8h6"/></svg>Документы</a>
+      <a class="nav-item" href="#events"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>События</a>
+      <a class="nav-item" href="#events"><svg viewBox="0 0 24 24"><path d="M12 21s6.4-5.5 6.4-10.2A6.4 6.4 0 0 0 5.6 10.8C5.6 15.5 12 21 12 21z"/><circle cx="12" cy="10.4" r="2.3"/></svg>Места</a>
+      <a class="nav-item" href="#albums"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>Реликвии</a>
+      <a class="nav-item" href="#relations"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6.5" r="2.4"/><circle cx="18" cy="17.5" r="2.4"/><path d="M8.2 10.9l7.6-3.3M8.2 13.1l7.6 3.3"/></svg>Связи</a>
+    </nav>
+
+    <div class="quick">
+      <div class="nav-sep"></div>
+      <div class="nav-label">Быстрый доступ</div>
+      <nav class="nav" aria-label="Быстрый доступ">
+        <a class="nav-item" href="#stories"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M12 7.4V12l3 1.8"/></svg>Недавние добавления</a>
+        <a class="nav-item" href="#albums"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>Избранное</a>
+        <a class="nav-item" href="#relations"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5"/></svg>Найдите родственника</a>
+      </nav>
+    </div>
+
+    <div class="sidebar-foot">
+      <a class="nav-item" href="#main"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.8"/><path d="M19.2 14.4a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1v.3a2 2 0 1 1-4 0v-.2a1.6 1.6 0 0 0-2.8-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7h-.3a2 2 0 1 1 0-4h.2a1.6 1.6 0 0 0 1.1-2.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 2.7-1.1v-.3a2 2 0 1 1 4 0v.2a1.6 1.6 0 0 0 2.8 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7h.3a2 2 0 1 1 0 4h-.2a1.6 1.6 0 0 0-1.4.9z"/></svg>Настройки</a>
+      <a class="nav-item" href="#main"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M9.8 9.4a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .9-1 1.6v.3"/><path d="M12 16.8h.01"/></svg>Помощь</a>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+
+    <div class="topbar">
+      <div class="search">
+        <label for="q" class="skip">Поиск по архиву</label>
+        <input id="q" type="search" placeholder="Поиск по архиву..." autocomplete="off">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" type="button" aria-label="Уведомления">
+          <svg viewBox="0 0 24 24"><path d="M18 8.6a6 6 0 1 0-12 0c0 6-2.2 7.4-2.2 7.4h16.4S18 14.6 18 8.6z"/><path d="M13.7 19.4a2 2 0 0 1-3.4 0"/></svg>
+        </button>
+        <button class="user" type="button">
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy">
+          <span>Алина</span>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <img class="hero-img" src="/assets/cabinet-mock/hero-1800.jpg"
+           srcset="/assets/cabinet-mock/hero-1100.jpg 1100w, /assets/cabinet-mock/hero-1800.jpg 1800w"
+           sizes="(max-width:960px) 100vw, calc(100vw - 248px)"
+           alt="Семейный архив: старые снимки и бумаги на столе" width="1800" height="760">
+      <div class="hero-copy">
+        <h1>Наша история.<br>Наша семья.</h1>
+        <p>Сохраняем прошлое для будущих поколений</p>
+        <a class="hero-cta" href="/waitlist.html">Исследовать архив</a>
+      </div>
+    </section>
+
+    <section class="stats rv" aria-label="Архив в цифрах">
+      <div class="stat">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="8.6" r="3"/><path d="M3.6 19c0-3.1 2.4-5.2 5.4-5.2s5.4 2.1 5.4 5.2"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.6 19c0-2.4-.9-4.1-2.4-5"/></svg>
+        <div><div class="stat-num">126</div><div class="stat-label">Человек</div></div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>
+        <div><div class="stat-num">342</div><div class="stat-label">События</div></div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>
+        <div><div class="stat-num">1&thinsp;257</div><div class="stat-label">Фотографий</div></div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24"><path d="M6 3.5h7.5L18 8v12.5H6z"/><path d="M13.2 3.6V8.2H18"/><path d="M9 12.5h6M9 15.8h6"/></svg>
+        <div><div class="stat-num">215</div><div class="stat-label">Документов</div></div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24"><path d="M12 21s6.4-5.5 6.4-10.2A6.4 6.4 0 0 0 5.6 10.8C5.6 15.5 12 21 12 21z"/><circle cx="12" cy="10.4" r="2.3"/></svg>
+        <div><div class="stat-num">37</div><div class="stat-label">Мест</div></div>
+      </div>
+    </section>
+
+    <div class="grid-2">
+      <section class="card rv" id="stories">
+        <div class="card-head">
+          <h2>Недавние истории</h2>
+          <a class="card-link" href="/waitlist.html">Смотреть все</a>
+        </div>
+        <article class="story">
+          <img src="/assets/cabinet-mock/story-1.jpg" alt="" width="60" height="60" loading="lazy">
+          <div>
+            <h3>История семьи Ивановых</h3>
+            <p>Рассказ о том, как наши предки переехали в Сибирь в 1903 году.</p>
+            <time datetime="2024-05-12">12 мая 2024</time>
+          </div>
+        </article>
+        <article class="story">
+          <img src="/assets/cabinet-mock/story-2.jpg" alt="" width="60" height="60" loading="lazy">
+          <div>
+            <h3>Дневник бабушки Ольги</h3>
+            <p>Фрагменты из дневника 1950-х годов о жизни в послевоенном городе.</p>
+            <time datetime="2024-05-09">9 мая 2024</time>
+          </div>
+        </article>
+        <article class="story">
+          <img src="/assets/cabinet-mock/story-3.jpg" alt="" width="60" height="60" loading="lazy">
+          <div>
+            <h3>Письма с фронта</h3>
+            <p>Письма моего прадеда с Великой Отечественной войны.</p>
+            <time datetime="2024-05-01">1 мая 2024</time>
+          </div>
+        </article>
+      </section>
+
+      <section class="card rv" id="tree">
+        <div class="card-head">
+          <h2>Древо семьи</h2>
+          <a class="card-link" href="/waitlist.html">Открыть древо</a>
+        </div>
+        <div class="tree">
+          <div class="tree-row">
+            <div class="node"><img src="/assets/cabinet-mock/av-1.jpg" alt="" width="46" height="46" loading="lazy"><b>Иван Петрович</b><small>1880–1952</small></div>
+            <div class="node"><img src="/assets/cabinet-mock/av-2.jpg" alt="" width="46" height="46" loading="lazy"><b>Мария Николаевна</b><small>1885–1961</small></div>
+          </div>
+          <div class="tree-rail" aria-hidden="true"><span style="left:22%"></span><span style="left:50%"></span><span style="left:78%"></span></div>
+          <div class="tree-row">
+            <div class="node"><img src="/assets/cabinet-mock/av-3.jpg" alt="" width="46" height="46" loading="lazy"><b>Алексей Иванович</b><small>1910–1978</small></div>
+            <div class="node"><img src="/assets/cabinet-mock/av-4.jpg" alt="" width="46" height="46" loading="lazy"><b>Екатерина Ивановна</b><small>1912–1995</small></div>
+            <div class="node"><img src="/assets/cabinet-mock/av-5.jpg" alt="" width="46" height="46" loading="lazy"><b>Николай Иванович</b><small>1915–1983</small></div>
+          </div>
+          <div class="tree-rail" aria-hidden="true"><span style="left:22%"></span><span style="left:50%"></span><span style="left:78%"></span></div>
+          <div class="tree-row">
+            <div class="node"><img src="/assets/cabinet-mock/av-6.jpg" alt="" width="46" height="46" loading="lazy"><b>Сергей Алексеевич</b><small>1940</small></div>
+            <div class="node"><img src="/assets/cabinet-mock/av-7.jpg" alt="" width="46" height="46" loading="lazy"><b>Татьяна Алексеевна</b><small>1942</small></div>
+            <div class="node"><img src="/assets/cabinet-mock/av-8.jpg" alt="" width="46" height="46" loading="lazy"><b>Ольга Николаевна</b><small>1946</small></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card rv" id="events" style="margin-bottom:16px">
+      <div class="card-head">
+        <h2>Важные события</h2>
+        <a class="card-link" href="/waitlist.html">Смотреть все</a>
+      </div>
+      <div class="timeline">
+        <div class="timeline-track">
+          <div class="tl"><div class="tl-year">1880</div><div class="tl-dot"></div><p>Рождение Ивана Петровича</p></div>
+          <div class="tl"><div class="tl-year">1903</div><div class="tl-dot"></div><p>Переезд семьи в Томск</p></div>
+          <div class="tl"><div class="tl-year">1915</div><div class="tl-dot"></div><p>Рождение сына Николая</p></div>
+          <div class="tl"><div class="tl-year">1941–1945</div><div class="tl-dot"></div><p>Великая Отечественная война</p></div>
+          <div class="tl"><div class="tl-year">1961</div><div class="tl-dot"></div><p>Переезд в Киев</p></div>
+          <div class="tl"><div class="tl-year">2021</div><div class="tl-dot"></div><p>Рождение правнука Льва</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card rv" id="albums" style="margin-bottom:16px">
+      <div class="card-head">
+        <h2>Фотоальбомы</h2>
+        <a class="card-link" href="/waitlist.html">Смотреть все</a>
+      </div>
+      <div class="albums">
+        <article class="album">
+          <img src="/assets/cabinet-mock/album-1.jpg" alt="Семейные фотографии в архивной раскладке" loading="lazy">
+          <h3>Семейные фото</h3>
+          <span>XIX — начало XX вв. · 87 фото</span>
+        </article>
+        <article class="album">
+          <img src="/assets/cabinet-mock/album-2.jpg" alt="Альбомный разворот с праздничными снимками" loading="lazy">
+          <h3>Праздники и торжества</h3>
+          <span>1950–1980-е · 142 фото</span>
+        </article>
+        <article class="album">
+          <img src="/assets/cabinet-mock/album-3.jpg" alt="Конверты и снимки из поездок" loading="lazy">
+          <h3>Путешествия</h3>
+          <span>1960–2000-е · 96 фото</span>
+        </article>
+        <article class="album is-modern">
+          <img src="/assets/cabinet-mock/album-4.jpg" alt="Современные семейные снимки на полке" loading="lazy">
+          <h3>Дети и внуки</h3>
+          <span>2000–2024 · 211 фото</span>
+        </article>
+      </div>
+    </section>
+
+    <div class="grid-2">
+      <section class="card rv" id="relations">
+        <div class="card-head">
+          <h2>Родственные связи</h2>
+          <a class="card-link" href="/waitlist.html">Смотреть все</a>
+        </div>
+        <div class="rel">
+          <img src="/assets/cabinet-mock/av-3.jpg" alt="" width="34" height="34" loading="lazy">
+          <div class="rel-txt"><b>Вы и Алексей Иванович</b><small>дедушка</small></div>
+          <span class="tag">Родственная связь</span>
+        </div>
+        <div class="rel">
+          <img src="/assets/cabinet-mock/av-2.jpg" alt="" width="34" height="34" loading="lazy">
+          <div class="rel-txt"><b>Вы и Мария Николаевна</b><small>прабабушка</small></div>
+          <span class="tag">Родственная связь</span>
+        </div>
+        <div class="rel">
+          <img src="/assets/cabinet-mock/av-7.jpg" alt="" width="34" height="34" loading="lazy">
+          <div class="rel-txt"><b>Вы и Татьяна Алексеевна</b><small>тётя</small></div>
+          <span class="tag">Родственная связь</span>
+        </div>
+      </section>
+
+      <section class="card rv">
+        <div class="card-head">
+          <h2>Ближайшие события</h2>
+          <a class="card-link" href="/waitlist.html">Смотреть календарь</a>
+        </div>
+        <div class="ev">
+          <div class="ev-ic"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg></div>
+          <div class="ev-txt"><b>17 мая 2024</b><small>День рождения бабушки Ольги</small></div>
+          <span class="ev-note">95 лет</span>
+        </div>
+        <div class="ev">
+          <div class="ev-ic"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg></div>
+          <div class="ev-txt"><b>22 мая 2024</b><small>День рождения дедушки Алексея</small></div>
+          <span class="ev-note">114 лет</span>
+        </div>
+        <div class="ev">
+          <div class="ev-ic"><svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg></div>
+          <div class="ev-txt"><b>9 июня 2024</b><small>Семейный сбор</small></div>
+          <span class="ev-note">Ежегодное мероприятие</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="foot rv">
+      <div>
+        <h2 class="serif">Архив собирается по одной карточке</h2>
+        <p>Люди, истории, даты и места рядом с фотографией. Семья подтверждает — архив запоминает. Оригинал всегда остаётся нетронутым.</p>
+      </div>
+      <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
+    </section>
+
+    <p class="note">Демонстрационный макет интерфейса. Имена, даты и цифры — пример.</p>
+
+  </main>
+</div>
+<script>
+(function(){
+  var els = document.querySelectorAll('.rv');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      el.style.transitionDelay = (Math.min(el.dataset.i || 0, 3) * 70) + 'ms';
+      el.classList.add('in');
+      io.unobserve(el);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  els.forEach(function(el, i){ el.dataset.i = i % 4; io.observe(el); });
+})();
+</script>
+</body>
+</html>
