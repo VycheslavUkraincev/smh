@@ -965,6 +965,129 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
   .tree-map{width:min(100%, 300px)}
 }
 
+/* ============================================================
+   Слой C — стол, полка, лампа, лист и дорога
+   (макеты 04 · 05 · 07 · 08 · 09).
+   04: за столом видно, кто уже сел и сколько мест ещё ждут —
+       свободное место открывает то же приглашение, что и ветвь.
+   05: полка архива показывает ровно то, что лежит на этом
+       устройстве; пустая папка остаётся пустой.
+   07: над вопросом на вечер зажигается лампа хранителя.
+   08: приглашение получает лист и тихую строку о том, зачем мы здесь.
+   09: дорога светится только от настоящей работы семьи.
+   Средства прежние: градиент, полоса, SVG. Ни одной картинки
+   фоном, ни одного дорисованного лица.
+   ============================================================ */
+
+/* ---------- 04 · кто за столом ---------- */
+.card--table{position:relative;overflow:hidden}
+.table-map{width:min(100%, 420px);margin:4px auto 0}
+.table-map svg{width:100%;height:auto;display:block;overflow:visible}
+.table-map .tb-glow{fill:var(--glow)}
+.table-map .tb-top{fill:var(--tile);stroke:var(--line);stroke-width:1.3}
+.table-map .tb-edge{fill:none;stroke:var(--bark);stroke-width:1.4;opacity:.42}
+.table-map .tb-grain{fill:none;stroke:var(--bark);stroke-width:.9;opacity:.2}
+.table-map .tb-card{fill:none;stroke:var(--seat);stroke-width:1.2;stroke-dasharray:3 4}
+.table-map .tb-card.is-filled{fill:var(--pill);stroke:var(--seat);stroke-dasharray:none}
+.table-map .tb-c{fill:var(--card);stroke:var(--line);stroke-width:1.3}
+.table-map .tb-i{fill:var(--accent-deep);font-size:11px;font-weight:600;text-anchor:middle}
+.table-map .tb-l{fill:var(--muted);font-size:9px;text-anchor:middle}
+.table-map .tb-taken .tb-c{fill:var(--pill);stroke:var(--seat)}
+.table-map .tb-taken .tb-l{fill:var(--ink-2)}
+.table-map .tb-free{cursor:pointer}
+.table-map .tb-free .tb-c{fill:transparent;stroke:var(--seat);stroke-dasharray:3 4}
+.table-map .tb-free .tb-i{fill:var(--seat);font-weight:400;font-size:14px}
+.table-map .tb-free:hover .tb-c,.table-map .tb-free:focus .tb-c{stroke:var(--accent);stroke-dasharray:none}
+.table-map .tb-free:hover .tb-l,.table-map .tb-free:focus .tb-l{fill:var(--accent-deep)}
+.table-map .tb-free:focus{outline:none}
+.table-map .tb-free:focus-visible .tb-c{stroke:var(--accent);stroke-width:2.2}
+
+/* ---------- 05 · полка архива ---------- */
+.card--shelf{position:relative;overflow:hidden}
+.shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.folder{
+  position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  width:100%;text-align:left;padding:13px 13px 12px;
+  border:1px solid var(--border);border-radius:12px;background:var(--tile);
+  transition:border-color .25s ease,transform .12s ease;
+}
+.folder::before{
+  content:'';position:absolute;left:13px;top:-1px;width:32px;height:3px;
+  border-radius:0 0 3px 3px;background:var(--line);opacity:.6;
+}
+.folder:hover{border-color:var(--seat)}
+.folder:active{transform:translateY(1px)}
+.folder .fd-n{
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;line-height:1;
+  font-weight:600;color:var(--accent-deep);
+}
+.folder b{font-size:13.5px;font-weight:500;line-height:1.2}
+.folder small{font-size:11.5px;line-height:1.45;color:var(--muted)}
+.folder.is-empty{border-style:dashed;border-color:var(--seat);background:transparent}
+.folder.is-empty .fd-n{color:var(--seat)}
+.shelf-plank{height:4px;border-radius:0 0 4px 4px;background:var(--rail);margin:11px 0 0;box-shadow:0 1px 0 var(--line)}
+
+/* ---------- 07 · лампа хранителя над вопросом ---------- */
+.lamp-top{position:absolute;left:50%;top:-4px;width:74px;transform:translateX(-50%);pointer-events:none;z-index:0}
+.lamp-top svg{width:100%;height:auto;display:block;overflow:visible}
+.lamp-top .lp-cord{fill:none;stroke:var(--bark);stroke-width:1.2;opacity:.5}
+.lamp-top .lp-cone{fill:var(--lamp)}
+.lamp-top .lp-shade{fill:var(--pill);stroke:var(--seat);stroke-width:1.2;stroke-linejoin:round}
+.lamp-top .lp-bulb{fill:var(--leaf-gold);animation:lp-glow 5.4s ease-in-out infinite}
+@keyframes lp-glow{0%,100%{opacity:.55}50%{opacity:1}}
+.card--ask > .card-head,.card--ask > .card-sub,.card--ask > .chips,.card--ask > .qs-pick,.card--ask > .note{position:relative;z-index:1}
+.qs-pick{margin:11px 0 0;font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.qs-pick b{font-weight:500;color:var(--accent-deep)}
+
+/* ---------- 08 · приглашение: лист и тихая строка ---------- */
+.inv-leaf{flex:0 0 22px;width:22px;height:22px;display:grid;place-items:center}
+.inv-leaf svg{width:19px;height:19px}
+.inv-leaf .inv-blade{fill:var(--leaf);stroke:none;opacity:.75}
+.inv-leaf .inv-stem{fill:none;stroke:var(--leaf);stroke-width:1.4;stroke-linecap:round;opacity:.65}
+.inv-keep{display:flex;align-items:center;gap:9px;margin:12px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
+.inv-keep::before{content:'';flex:0 0 20px;height:1px;background:var(--line)}
+
+/* ---------- 09 · дорога: свет только от сделанного ---------- */
+.card--road{position:relative;overflow:hidden;background-image:linear-gradient(180deg, rgba(232,222,209,.34), transparent 130px)}
+body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,132,.1), transparent 130px)}
+.road{position:relative;margin:14px 0 0}
+.road-line{position:absolute;left:6px;right:6px;top:11px;height:2px;border-radius:2px;background:var(--divider);overflow:hidden}
+.road-line span{
+  display:block;height:100%;width:0;border-radius:2px;
+  background:linear-gradient(90deg, var(--leaf), var(--leaf-gold) 60%, var(--accent));
+  transition:width .8s cubic-bezier(.2,.7,.3,1);
+}
+.road-stops{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+.road-stop{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:0;border:0;background:transparent;font:inherit;color:inherit;
+  text-align:center;cursor:pointer;
+}
+.road-stop .rd-dot{
+  width:12px;height:12px;border-radius:50%;margin-top:5px;
+  border:1px dashed var(--line);background:var(--page);
+  transition:box-shadow .3s ease,background .3s ease,border-color .3s ease;
+}
+.road-stop b{font-size:11.5px;font-weight:500;line-height:1.2}
+.road-stop small{display:none;font-size:10px;line-height:1.35;color:var(--muted)}
+.road-stop.is-lit .rd-dot{border:1px solid var(--accent);background:var(--accent);box-shadow:0 0 0 4px rgba(228,177,67,.16)}
+.road-stop.is-lit b{color:var(--accent-deep)}
+.road-stop:active{transform:translateY(1px)}
+.road-note{margin:14px 2px 0;font-size:11.5px;line-height:1.55;color:var(--muted);text-align:center}
+@media (min-width:560px){
+  .road-stop small{display:block}
+}
+
+@media (min-width:720px){
+  .card--table{grid-column:1}
+  .card--road{grid-column:1 / -1}
+  .table-map{width:min(100%, 460px)}
+  .shelf{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (orientation:landscape) and (max-height:470px){
+  .table-map{width:min(100%, 300px)}
+}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -1123,6 +1246,29 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
         <div class="week-cards" id="weekList"></div>
       </div>
 
+      <div class="card card--table hide" id="tableMap" data-brand-apply="04-table">
+        <div class="card-head">
+          <h2>Кто за столом</h2>
+          <span class="cnt" id="tableCnt">0 из 6</span>
+        </div>
+        <p class="card-sub">Тот же круг, только с той стороны, с какой его видно за столом. В занятых местах стоят инициалы имени, которое назвал человек; свободные ждут своих людей.</p>
+        <div class="table-map" id="tableWrap"></div>
+        <p class="tree-hint" id="tableHint">Свободное место за столом — это приглашение: нажмите на него, чтобы позвать человека.</p>
+      </div>
+
+      <div class="card card--road hide" id="roadCard" data-brand-apply="09-road">
+        <div class="card-head">
+          <h2>Дорога</h2>
+          <span class="cnt" id="roadCnt">0 из 5</span>
+        </div>
+        <p class="card-sub">Станции — это главы, которые семья ещё расскажет. Ни одна не загорается сама: под каждой написано, каким настоящим делом она зажигается.</p>
+        <div class="road">
+          <span class="road-line" aria-hidden="true"><span id="roadFg"></span></span>
+          <div class="road-stops" id="roadStops"></div>
+        </div>
+        <p class="road-note" id="roadNote">Нажатие на станцию только ведёт туда, где это дело делается.</p>
+      </div>
+
     </div>
 
     <!-- широкий экран: слева живая часть круга, справа полка с шагами и местами -->
@@ -1139,7 +1285,7 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
           <ul class="quests" id="qList"></ul>
         </div>
 
-        <div class="card">
+        <div class="card card--people">
           <div class="card-head">
             <h2>Родные</h2>
             <span class="cnt" id="pCnt">0</span>
@@ -1186,6 +1332,13 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
           <p class="today-s" id="todayS">Одно действие за вечер — этого достаточно.</p>
         </div>
 
+        <div class="card card--shelf" data-brand-apply="05-shelf">
+          <div class="card-head"><h2>Полка архива</h2></div>
+          <p class="card-sub">Четыре папки — и в них ровно то, что действительно лежит на этом устройстве. Пустая папка остаётся пустой: в архив мы не кладём выдуманное.</p>
+          <div class="shelf" id="shelfList"></div>
+          <div class="shelf-plank" aria-hidden="true"></div>
+        </div>
+
         <div class="card card--photos">
           <div class="card-head">
             <h2>Фотографии</h2>
@@ -1206,7 +1359,10 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
         </div>
 
         <div class="card card--invite">
-          <div class="card-head"><h2>Позвать родных</h2></div>
+          <div class="card-head">
+            <span class="inv-leaf" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="inv-blade" d="M19 3.6c-8.2.5-12.8 4.6-12.8 11 0 1 .1 1.9.4 2.7C13 16.2 19 12 19 3.6z"/><path class="inv-stem" d="M5.4 20.4c1.5-2.9 3.7-5.3 6.5-7.1"/></svg></span>
+            <h2>Позвать родных</h2>
+          </div>
           <p class="card-sub">Отправьте эту ссылку в семейный чат. Она откроет тот же круг и те же шаги.</p>
           <div class="code-box">
             <span class="code-lab">Код круга</span>
@@ -1223,13 +1379,23 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
             </button>
             <button class="btn btn--quiet" id="shareBtn" type="button">Отправить в чат</button>
           </div>
+          <p class="inv-keep">Мы храним истории — и ничего не досочиняем за вашу семью.</p>
           <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
         </div>
 
-        <div class="card card--ask">
+        <div class="card card--ask" data-brand-apply="07-keeper">
+          <span class="lamp-top" aria-hidden="true">
+            <svg viewBox="0 0 74 64">
+              <path class="lp-cord" d="M37 0v13"/>
+              <path class="lp-cone" d="M37 27 10 62h54z"/>
+              <path class="lp-shade" d="M37 13 23 27h28z"/>
+              <circle class="lp-bulb" cx="37" cy="28.6" r="3.2"/>
+            </svg>
+          </span>
           <div class="card-head"><h2>Вопрос на вечер</h2></div>
           <p class="card-sub">Необязательный шаг, самый ценный. Выберите один вопрос и задайте его старшим вслух.</p>
           <div class="chips" id="qsList"></div>
+          <p class="qs-pick" id="qsPick"></p>
           <p class="note" id="qsNote">Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.</p>
         </div>
 
@@ -1269,7 +1435,7 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
           <p class="rule">Честно об этой версии: дворецкий отвечает заранее заготовленными словами и хранит заметки в памяти этого устройства. Живой разговор включится, когда у круга появится общий сервер — тогда заметки родных будут приходить хранителю сами. Пока сводку можно скопировать и отправить одним сообщением.</p>
         </div>
 
-        <div class="card">
+        <div class="card card--next">
           <div class="card-head"><h2>Что дальше</h2></div>
           <p class="card-sub" style="margin-bottom:13px">Когда круг собран, его место — в архиве, где у каждого имени и даты видно, откуда мы это знаем.</p>
           <div class="btn-row">
@@ -1566,6 +1732,14 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
       html += '<button class="chip ' + (on ? 'on' : '') + '" type="button" data-q="' + i + '">' + esc(QUESTIONS[i]) + '</button>';
     }
     $('qsList').innerHTML = html;
+
+    /* 07 · под лампой видно только то, что выбрал человек */
+    var pick = $('qsPick');
+    if(pick){
+      pick.innerHTML = state.question
+        ? 'Вопрос на этот вечер: <b>' + esc(state.question) + '</b>'
+        : 'Вопрос ещё не выбран — лампа горит, вечер ждёт.';
+    }
   }
 
   /* ---------- дом круга: пустая рамка → карта рода ----------
@@ -1640,6 +1814,139 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
       : 'Свободное место — это приглашение: нажмите на кружок, чтобы позвать человека в круг.';
   }
 
+  /* ---------- 04 · кто за столом ----------
+     Тот же круг, увиденный с той стороны, с какой его видно за столом.
+     В занятых местах — инициалы имени, которое назвал человек; свободные
+     остаются дашем и тем же приглашением, что и кружок на ветви.
+     Ни одного лица и ни одного придуманного имени. */
+  var TABLE_SEATS = [
+    { x:160, y:44,  up:1 },
+    { x:267, y:74,  up:1 },
+    { x:267, y:134, up:0 },
+    { x:160, y:164, up:0 },
+    { x:53,  y:134, up:0 },
+    { x:53,  y:74,  up:1 }
+  ];
+
+  function renderTable(){
+    var wrap = $('tableWrap');
+    if(!wrap) return;
+    var hasShot = state.photos.length > 0;
+    var svg = '<svg viewBox="0 0 320 200" role="img" aria-label="Стол круга: занятые и свободные места">' +
+      '<ellipse class="tb-glow" cx="160" cy="96" rx="104" ry="52"/>' +
+      '<ellipse class="tb-top" cx="160" cy="104" rx="84" ry="40"/>' +
+      '<ellipse class="tb-edge" cx="160" cy="101" rx="76" ry="33"/>' +
+      '<path class="tb-grain" d="M96 114c22 8 46 12 64 12s42-4 64-12"/>' +
+      '<path class="tb-grain" d="M104 92c18-7 38-10 56-10s38 3 56 10"/>' +
+      '<rect class="tb-card' + (hasShot ? ' is-filled' : '') + '" x="143" y="93" width="34" height="23" rx="3"/>';
+
+    var taken = 0;
+    for(var i=0;i<TABLE_SEATS.length;i++){
+      var s = TABLE_SEATS[i];
+      var p = state.people[i] || null;
+      var ly = s.up ? (s.y - 23) : (s.y + 29);
+      if(p){
+        taken++;
+        svg += '<g class="tb-seat tb-taken">' +
+                 '<circle class="tb-c" cx="' + s.x + '" cy="' + s.y + '" r="16"/>' +
+                 '<text class="tb-i" x="' + s.x + '" y="' + (s.y + 4) + '">' + esc(initials(p.name)) + '</text>' +
+                 '<text class="tb-l" x="' + s.x + '" y="' + ly + '">' + esc(shortName(p.name)) + '</text>' +
+               '</g>';
+      }else{
+        svg += '<g class="tb-seat tb-free" data-free="' + i + '" role="button" tabindex="0" ' +
+                 'aria-label="Свободное место за столом — позвать родных">' +
+                 '<circle class="tb-c" cx="' + s.x + '" cy="' + s.y + '" r="16"/>' +
+                 '<text class="tb-i" x="' + s.x + '" y="' + (s.y + 5) + '">+</text>' +
+                 '<text class="tb-l" x="' + s.x + '" y="' + ly + '">Свободно</text>' +
+               '</g>';
+      }
+    }
+    wrap.innerHTML = svg + '</svg>';
+    $('tableCnt').textContent = taken + ' из ' + TABLE_SEATS.length;
+    $('tableHint').textContent = taken >= TABLE_SEATS.length
+      ? 'За столом больше нет свободных мест — и это хороший вечер.'
+      : 'Свободное место за столом — это приглашение: нажмите на него, чтобы позвать человека.';
+  }
+
+  /* ---------- 05 · полка архива ----------
+     Цифра в папке — только то, что действительно лежит на этом
+     устройстве. Где хранилища ещё нет, стоит прочерк и честная
+     строка, а нажатие ведёт туда, где это можно наполнить по-настоящему.
+     Выдуманных бумаг в архиве не появляется. */
+  function shelfFolders(){
+    var notes = (state.notes && state.notes.length) || 0;
+    return [
+      { t: 'Фото', n: state.photos.length,
+        s: state.photos.length ? 'снимков на этом устройстве' : 'пока ни одного снимка',
+        act: function(){ lightCard('.card--photos'); } },
+      { t: 'Письма', n: notes,
+        s: notes ? 'слов, оставленных дворецкому' : 'ещё ни одного слова',
+        act: function(){ lightCard('.card--butler', $('bText')); } },
+      { t: 'Голос', n: null,
+        s: state.question ? 'вопрос выбран, запись — на экране «Разговор»' : 'запись голоса живёт на экране «Разговор»',
+        act: function(){ lightCard('.card--ask'); } },
+      { t: 'Документы', n: null,
+        s: 'в этой версии мы их ещё не храним',
+        act: function(){ lightCard('.card--next'); } }
+    ];
+  }
+
+  function renderShelf(){
+    var list = shelfFolders(), html = '';
+    for(var i=0;i<list.length;i++){
+      var f = list[i];
+      html += '<button class="folder ' + (f.n ? '' : 'is-empty') + '" type="button" data-fold="' + i + '">' +
+                '<span class="fd-n">' + (f.n === null ? '—' : f.n) + '</span>' +
+                '<b>' + esc(f.t) + '</b>' +
+                '<small>' + esc(f.s) + '</small>' +
+              '</button>';
+    }
+    $('shelfList').innerHTML = html;
+  }
+
+  /* ---------- 09 · дорога ----------
+     Названия станций — главы, которые семье ещё предстоит
+     рассказать, и это атмосфера, а не очки. Свет берётся только
+     от настоящей работы, и под каждой станцией написано, каким
+     именно. Нажатие ничего не отмечает — только ведёт туда,
+     где это дело делается. */
+  function roadStops(){
+    var named = state.people.length - (state.owner ? 1 : 0);
+    var notes = (state.notes && state.notes.length) || 0;
+    return [
+      { t:'Детство', s:'первый снимок', done: state.photos.length > 0,
+        act: function(){ lightCard('.card--photos'); } },
+      { t:'Школа', s:'имя на снимке', done: tagged(),
+        act: function(){ lightCard('.card--photos'); } },
+      { t:'Свадьба', s:'выбранный вопрос на вечер', done: !!state.question,
+        act: function(){ lightCard('.card--ask'); } },
+      { t:'Дом', s:'второй человек в круге', done: named > 0,
+        act: function(){ lightCard('.card--people', $('pName')); } },
+      { t:'Внуки', s:'слово дворецкому', done: notes > 0,
+        act: function(){ lightCard('.card--butler', $('bText')); } }
+    ];
+  }
+
+  function renderRoad(){
+    var list = roadStops(), lit = 0, next = null, html = '';
+    for(var i=0;i<list.length;i++){
+      if(list[i].done) lit++;
+      else if(!next) next = list[i];
+      html += '<button class="road-stop ' + (list[i].done ? 'is-lit' : '') + '" type="button" data-stop="' + i + '">' +
+                '<span class="rd-dot" aria-hidden="true"></span>' +
+                '<b>' + esc(list[i].t) + '</b>' +
+                '<small>' + esc(list[i].s) + '</small>' +
+              '</button>';
+    }
+    $('roadStops').innerHTML = html;
+    $('roadCnt').textContent = lit + ' из ' + list.length;
+    var bar = $('roadFg');
+    if(bar) bar.style.width = (lit ? Math.round((lit - 0.5) / list.length * 100) : 0) + '%';
+    $('roadNote').textContent = next
+      ? 'Станция «' + next.t + '» загорится, когда у круга появится: ' + next.s + '. Нажатие только ведёт туда, где это дело делается.'
+      : 'Все пять станций зажжены настоящей работой семьи. Дальше дорога идёт в архив, где видно, откуда мы всё это знаем.';
+  }
+
   /* Карточка недели ведёт к тому месту страницы, где дело и делается.
      Само по себе ничто не отмечается: подсветка — это только дорога. */
   function lightCard(sel, focusEl){
@@ -1702,10 +2009,17 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
     var filled = circleFilled();
     $('emptyFrame').classList.toggle('hide', filled);
     $('treeMap').classList.toggle('hide', !filled);
+    $('tableMap').classList.toggle('hide', !filled);
+    $('roadCard').classList.toggle('hide', !filled);
     $('emptyCode').textContent = state.code;
     $('inviteCode').textContent = state.code;
-    if(filled) renderTree();
+    if(filled){
+      renderTree();
+      renderTable();
+      renderRoad();
+    }
     renderWeek();
+    renderShelf();
   }
 
   function byId(id){
@@ -2170,6 +2484,33 @@ body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,
     if(!state || !e.target.closest('[data-free]')) return;
     e.preventDefault();
     shareInvite();
+  });
+
+  /* свободное место за столом — то же приглашение */
+  $('tableWrap').addEventListener('click', function(e){
+    if(state && e.target.closest('[data-free]')) shareInvite();
+  });
+  $('tableWrap').addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    if(!state || !e.target.closest('[data-free]')) return;
+    e.preventDefault();
+    shareInvite();
+  });
+
+  /* папка на полке и станция на дороге ничего не отмечают:
+     они только ведут туда, где работа делается руками */
+  $('shelfList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-fold]');
+    if(!b || !state) return;
+    var f = shelfFolders()[parseInt(b.getAttribute('data-fold'), 10)];
+    if(f && f.act){ buzz('tap'); f.act(); }
+  });
+
+  $('roadStops').addEventListener('click', function(e){
+    var b = e.target.closest('[data-stop]');
+    if(!b || !state) return;
+    var s = roadStops()[parseInt(b.getAttribute('data-stop'), 10)];
+    if(s && s.act){ buzz('tap'); s.act(); }
   });
 
   $('weekList').addEventListener('click', function(e){
