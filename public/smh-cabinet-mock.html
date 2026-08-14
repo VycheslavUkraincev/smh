@@ -289,6 +289,23 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .foot-cta:hover{background:var(--accent-deep);transform:translateY(-1px)}
 .note{margin:14px 2px 0;font-size:11.5px;color:var(--muted)}
 
+/* truth marks */
+.mark{display:inline-block;width:6px;height:6px;border-radius:50%;vertical-align:middle;margin-right:4px}
+.mark--ok{background:var(--accent);opacity:.9}
+.mark--hyp{border:1px dashed var(--line);background:transparent}
+.node small{display:inline-block;border-bottom:1px solid transparent;padding-bottom:1px}
+.node.is-ok small{border-bottom-color:rgba(138,106,83,.42)}
+.node.is-hyp small{border-bottom:1px dashed var(--line)}
+.tl.is-hyp .tl-dot{background:transparent;border:1px dashed var(--line)}
+.tl.is-hyp .tl-year{color:var(--ink-2)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:16px 0 0;padding-top:12px;border-top:1px solid var(--divider);font-size:11.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center}
+
+/* hero ctas */
+.hero-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.hero-cta--soft{background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.55);box-shadow:none}
+.hero-cta--soft:hover{background:rgba(255,255,255,.18);box-shadow:none}
+
 /* reveal */
 .rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1)}
 .rv.in{opacity:1;transform:none}
@@ -354,6 +371,11 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       <a class="nav-item" href="#events"><svg viewBox="0 0 24 24"><path d="M12 21s6.4-5.5 6.4-10.2A6.4 6.4 0 0 0 5.6 10.8C5.6 15.5 12 21 12 21z"/><circle cx="12" cy="10.4" r="2.3"/></svg>Места</a>
       <a class="nav-item" href="#albums"><svg viewBox="0 0 24 24"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>Реликвии</a>
       <a class="nav-item" href="#relations"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6.5" r="2.4"/><circle cx="18" cy="17.5" r="2.4"/><path d="M8.2 10.9l7.6-3.3M8.2 13.1l7.6 3.3"/></svg>Связи</a>
+      <div class="nav-sep"></div>
+      <div class="nav-label">Работа с памятью</div>
+      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
+      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
+      <a class="nav-item" href="/waitlist.html"><svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>Подтверждения</a>
     </nav>
 
     <div class="quick">
@@ -400,7 +422,10 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       <div class="hero-copy">
         <h1>Наша история.<br>Наша семья.</h1>
         <p>Сохраняем не только фото — человека, голос и связь поколений</p>
-        <a class="hero-cta" href="/waitlist.html">Исследовать архив</a>
+        <div class="hero-ctas">
+          <a class="hero-cta" href="/waitlist.html">Исследовать архив</a>
+          <a class="hero-cta hero-cta--soft" href="/waitlist.html">Записать рассказ</a>
+        </div>
       </div>
     </section>
 
@@ -410,8 +435,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
         <div><div class="stat-num">126</div><div class="stat-label">Человек</div></div>
       </div>
       <div class="stat">
-        <svg viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.2"/><path d="M3.6 9.6h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>
-        <div><div class="stat-num">342</div><div class="stat-label">События</div></div>
+        <svg viewBox="0 0 24 24"><path d="M12 3.4l6.6 2.4v5.4c0 4.2-2.8 7.2-6.6 9-3.8-1.8-6.6-4.8-6.6-9V5.8z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>
+        <div><div class="stat-num">48</div><div class="stat-label">Подтверждено семьёй</div></div>
       </div>
       <div class="stat">
         <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>
@@ -422,8 +447,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
         <div><div class="stat-num">215</div><div class="stat-label">Документов</div></div>
       </div>
       <div class="stat">
-        <svg viewBox="0 0 24 24"><path d="M12 21s6.4-5.5 6.4-10.2A6.4 6.4 0 0 0 5.6 10.8C5.6 15.5 12 21 12 21z"/><circle cx="12" cy="10.4" r="2.3"/></svg>
-        <div><div class="stat-num">37</div><div class="stat-label">Мест</div></div>
+        <svg viewBox="0 0 24 24"><rect x="9.4" y="3.2" width="5.2" height="10" rx="2.6"/><path d="M6 11.2a6 6 0 0 0 12 0M12 17.2v3.4"/></svg>
+        <div><div class="stat-num">12</div><div class="stat-label">С голосом</div></div>
       </div>
     </section>
 
@@ -466,22 +491,26 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
         </div>
         <div class="tree">
           <div class="tree-row">
-            <div class="node"><img src="/assets/cabinet-mock/av-1.jpg" alt="" width="46" height="46" loading="lazy"><b>Иван Петрович</b><small>1880–1952</small></div>
-            <div class="node"><img src="/assets/cabinet-mock/av-2.jpg" alt="" width="46" height="46" loading="lazy"><b>Мария Николаевна</b><small>1885–1961</small></div>
+            <div class="node is-hyp" title="Гипотеза — семья ещё не подтвердила"><img src="/assets/cabinet-mock/av-1.jpg" alt="" width="46" height="46" loading="lazy"><b>Иван Петрович</b><small><span class="mark mark--hyp" aria-hidden="true"></span>1880–1952</small></div>
+            <div class="node is-hyp" title="Гипотеза — семья ещё не подтвердила"><img src="/assets/cabinet-mock/av-2.jpg" alt="" width="46" height="46" loading="lazy"><b>Мария Николаевна</b><small><span class="mark mark--hyp" aria-hidden="true"></span>1885–1961</small></div>
           </div>
           <div class="tree-rail" aria-hidden="true"><span style="left:22%"></span><span style="left:50%"></span><span style="left:78%"></span></div>
           <div class="tree-row">
-            <div class="node"><img src="/assets/cabinet-mock/av-3.jpg" alt="" width="46" height="46" loading="lazy"><b>Алексей Иванович</b><small>1910–1978</small></div>
-            <div class="node"><img src="/assets/cabinet-mock/av-4.jpg" alt="" width="46" height="46" loading="lazy"><b>Екатерина Ивановна</b><small>1912–1995</small></div>
-            <div class="node"><img src="/assets/cabinet-mock/av-5.jpg" alt="" width="46" height="46" loading="lazy"><b>Николай Иванович</b><small>1915–1983</small></div>
+            <div class="node is-ok" title="Подтверждено семьёй"><img src="/assets/cabinet-mock/av-3.jpg" alt="" width="46" height="46" loading="lazy"><b>Алексей Иванович</b><small><span class="mark mark--ok" aria-hidden="true"></span>1910–1978</small></div>
+            <div class="node is-hyp" title="Гипотеза — семья ещё не подтвердила"><img src="/assets/cabinet-mock/av-4.jpg" alt="" width="46" height="46" loading="lazy"><b>Екатерина Ивановна</b><small><span class="mark mark--hyp" aria-hidden="true"></span>1912–1995</small></div>
+            <div class="node is-ok" title="Подтверждено семьёй"><img src="/assets/cabinet-mock/av-5.jpg" alt="" width="46" height="46" loading="lazy"><b>Николай Иванович</b><small><span class="mark mark--ok" aria-hidden="true"></span>1915–1983</small></div>
           </div>
           <div class="tree-rail" aria-hidden="true"><span style="left:22%"></span><span style="left:50%"></span><span style="left:78%"></span></div>
           <div class="tree-row">
-            <div class="node"><img src="/assets/cabinet-mock/av-6.jpg" alt="" width="46" height="46" loading="lazy"><b>Сергей Алексеевич</b><small>1940</small></div>
-            <div class="node"><img src="/assets/cabinet-mock/av-7.jpg" alt="" width="46" height="46" loading="lazy"><b>Татьяна Алексеевна</b><small>1942</small></div>
-            <div class="node"><img src="/assets/cabinet-mock/av-8.jpg" alt="" width="46" height="46" loading="lazy"><b>Ольга Николаевна</b><small>1946</small></div>
+            <div class="node is-ok" title="Подтверждено семьёй"><img src="/assets/cabinet-mock/av-6.jpg" alt="" width="46" height="46" loading="lazy"><b>Сергей Алексеевич</b><small><span class="mark mark--ok" aria-hidden="true"></span>1940</small></div>
+            <div class="node is-ok" title="Подтверждено семьёй"><img src="/assets/cabinet-mock/av-7.jpg" alt="" width="46" height="46" loading="lazy"><b>Татьяна Алексеевна</b><small><span class="mark mark--ok" aria-hidden="true"></span>1942</small></div>
+            <div class="node is-hyp" title="Гипотеза — семья ещё не подтвердила"><img src="/assets/cabinet-mock/av-8.jpg" alt="" width="46" height="46" loading="lazy"><b>Ольга Николаевна</b><small><span class="mark mark--hyp" aria-hidden="true"></span>1946</small></div>
           </div>
         </div>
+        <p class="legend">
+          <span><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+          <span><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+        </p>
       </section>
     </div>
 
@@ -492,14 +521,18 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       </div>
       <div class="timeline">
         <div class="timeline-track">
-          <div class="tl"><div class="tl-year">1880</div><div class="tl-dot"></div><p>Рождение Ивана Петровича</p></div>
-          <div class="tl"><div class="tl-year">1903</div><div class="tl-dot"></div><p>Переезд семьи в Томск</p></div>
-          <div class="tl"><div class="tl-year">1915</div><div class="tl-dot"></div><p>Рождение сына Николая</p></div>
-          <div class="tl"><div class="tl-year">1941–1945</div><div class="tl-dot"></div><p>Великая Отечественная война</p></div>
-          <div class="tl"><div class="tl-year">1961</div><div class="tl-dot"></div><p>Переезд в Киев</p></div>
-          <div class="tl"><div class="tl-year">2021</div><div class="tl-dot"></div><p>Рождение правнука Льва</p></div>
+          <div class="tl is-hyp" title="Гипотеза — семья ещё не подтвердила"><div class="tl-year">1880</div><div class="tl-dot"></div><p>Рождение Ивана Петровича</p></div>
+          <div class="tl is-hyp" title="Гипотеза — семья ещё не подтвердила"><div class="tl-year">1903</div><div class="tl-dot"></div><p>Переезд семьи в Томск</p></div>
+          <div class="tl" title="Подтверждено семьёй"><div class="tl-year">1915</div><div class="tl-dot"></div><p>Рождение сына Николая</p></div>
+          <div class="tl" title="Подтверждено семьёй"><div class="tl-year">1941–1945</div><div class="tl-dot"></div><p>Великая Отечественная война</p></div>
+          <div class="tl is-hyp" title="Гипотеза — семья ещё не подтвердила"><div class="tl-year">1961</div><div class="tl-dot"></div><p>Переезд в Киев</p></div>
+          <div class="tl" title="Подтверждено семьёй"><div class="tl-year">2021</div><div class="tl-dot"></div><p>Рождение правнука Льва</p></div>
         </div>
       </div>
+      <p class="legend">
+        <span><span class="mark mark--ok" aria-hidden="true"></span>подтверждено семьёй</span>
+        <span><span class="mark mark--hyp" aria-hidden="true"></span>гипотеза</span>
+      </p>
     </section>
 
     <section class="card rv" id="albums" style="margin-bottom:16px">
@@ -585,7 +618,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
     </section>
 
-    <p class="note">Демонстрационный макет интерфейса. Имена, даты и цифры — пример.</p>
+    <p class="note">Демонстрационный макет интерфейса. Имена, даты и цифры — пример. Точка рядом с датой значит «подтверждено семьёй», пунктир — гипотезу: это ещё никто из родных не подтвердил.</p>
 
   </main>
 </div>
