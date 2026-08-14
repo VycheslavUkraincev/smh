@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l13" data-smh-landing-wave="20260814-inspire" data-smh-inspire-src="kitamaki">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Материя · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Работа с материалом: бумага, свет, время.">
+<!-- SMH_LANDING_INSPIRATION_FIVE wave 20260814-inspire · axis L13 Материя · craft ref: material minimalism / slow reveal / letter-by-letter mark / object as memory · assets reused 0E · invent_eyes=N -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --washi:#e9e5dd;--washi2:#e0dbd1;--sumi:#16161a;--sumi2:#6a675f;--line:#c8c2b6;--indigo:#37455f;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--washi);color:var(--sumi);font-family:Rubik,sans-serif;font-weight:300;
+  line-height:1.68;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1240px,90vw);margin:0 auto}
+
+/* ---- hero: washi field + one material band ---- */
+.field{position:relative;min-height:100svh;display:grid;align-content:center;
+  padding:clamp(94px,13vh,150px) 0 clamp(60px,9vh,110px)}
+.band{position:absolute;top:0;bottom:0;right:0;width:min(38vw,520px);overflow:hidden;
+  clip-path:inset(100% 0 0 0);animation:wipe 1.9s var(--ease) .25s forwards}
+@keyframes wipe{to{clip-path:inset(0 0 0 0)}}
+.band img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5) contrast(1.06);
+  transform:scale(1.06);will-change:transform}
+.band::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--washi),rgba(233,229,221,0) 22%)}
+
+.f-body{position:relative;z-index:2;max-width:min(58ch,60%)}
+.brand{font-family:Prata,serif;font-size:clamp(14px,1.5vw,17px);letter-spacing:.42em;
+  text-transform:uppercase;margin-bottom:clamp(38px,6.5vh,72px);white-space:nowrap}
+.brand span{display:inline-block;opacity:0;transform:translateY(6px);
+  animation:ink .7s var(--ease) forwards}
+@keyframes ink{to{opacity:1;transform:none}}
+
+h1{font-family:Prata,serif;font-weight:400;font-size:clamp(33px,5.2vw,72px);line-height:1.12;
+  letter-spacing:-.01em;max-width:13ch;
+  opacity:0;transform:translateY(18px);animation:up 1.4s var(--ease) 1.05s forwards}
+@keyframes up{to{opacity:1;transform:none}}
+h1 em{font-style:normal;color:var(--indigo)}
+.support{margin-top:clamp(24px,3.6vh,36px);max-width:42ch;color:var(--sumi2);
+  font-size:clamp(15px,1.45vw,17.5px);opacity:0;animation:up 1.4s var(--ease) 1.3s forwards}
+.actions{margin-top:clamp(28px,4.2vh,44px);display:flex;flex-wrap:wrap;align-items:center;gap:15px 26px;
+  opacity:0;animation:up 1.4s var(--ease) 1.5s forwards}
+.cta{display:inline-flex;align-items:center;padding:16px 34px;background:var(--sumi);color:var(--washi);
+  text-decoration:none;font-size:14.5px;letter-spacing:.02em;transition:.42s var(--ease)}
+.cta:hover{background:var(--indigo);transform:translateY(-2px)}
+.state{font-size:13px;color:var(--sumi2)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1.15s var(--ease),transform 1.15s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---- material studies ---- */
+.study{padding:clamp(84px,13vh,180px) 0;border-top:1px solid var(--line)}
+.s-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,5.5vw,86px);
+  align-items:center}
+.study:nth-of-type(even) .s-media{order:-1}
+.s-n{font-family:Prata,serif;font-size:12px;letter-spacing:.36em;text-transform:uppercase;
+  color:var(--indigo);margin-bottom:clamp(18px,3vh,28px)}
+.study h2{font-family:Prata,serif;font-weight:400;font-size:clamp(25px,3.6vw,46px);line-height:1.14;
+  letter-spacing:-.008em;max-width:14ch;margin-bottom:clamp(18px,2.8vh,26px)}
+.study p{color:var(--sumi2);font-size:clamp(15px,1.45vw,17px);max-width:46ch}
+.study p+p{margin-top:14px}
+.s-media{overflow:hidden}
+.s-media img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(.44) contrast(1.05);
+  transform:scale(1.09);transition:transform 1.8s var(--ease),filter 1.8s var(--ease)}
+.study.in .s-media img{transform:none;filter:grayscale(.24) contrast(1.05)}
+.s-media figcaption{margin-top:11px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sumi2)}
+
+/* ---- single line breaths ---- */
+.breath{padding:clamp(84px,14vh,190px) 0;border-top:1px solid var(--line);background:var(--washi2)}
+.breath p{font-family:Prata,serif;font-weight:400;font-size:clamp(23px,3.6vw,44px);line-height:1.28;
+  max-width:21ch;margin:0 auto;text-align:center}
+.breath em{font-style:normal;color:var(--indigo)}
+
+/* ---- plain rows ---- */
+.plain{padding:clamp(84px,13vh,170px) 0;border-top:1px solid var(--line)}
+.plain h2{font-family:Prata,serif;font-weight:400;font-size:clamp(25px,3.6vw,46px);
+  max-width:16ch;margin-bottom:clamp(32px,5vh,54px)}
+.rows{border-top:1px solid var(--line)}
+.rw{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr);gap:clamp(14px,4vw,58px);
+  padding:clamp(20px,3.2vh,30px) 0;border-bottom:1px solid var(--line);align-items:baseline}
+.rw b{font-family:Prata,serif;font-weight:400;font-size:clamp(16px,1.8vw,21px);color:var(--indigo)}
+.rw span{color:var(--sumi2);font-size:clamp(14.5px,1.4vw,16.5px);max-width:58ch}
+
+.close{padding:clamp(90px,14vh,190px) 0;border-top:1px solid var(--line);text-align:center}
+.close h2{font-family:Prata,serif;font-weight:400;font-size:clamp(27px,4.6vw,60px);line-height:1.1;
+  max-width:16ch;margin:0 auto}
+.close h2 em{font-style:normal;color:var(--indigo)}
+.close .support{margin:24px auto 0;animation:none;opacity:1}
+.close .actions{justify-content:center;animation:none;opacity:1}
+
+footer{padding:30px 0 56px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sumi2);
+  display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+@media (max-width:940px){
+  .band{width:52vw;opacity:.5}
+  .f-body{max-width:none}
+  h1{max-width:none}
+  .s-grid{grid-template-columns:1fr;gap:26px}
+  .study:nth-of-type(even) .s-media{order:0}
+  .rw{grid-template-columns:1fr;gap:5px}
+  .brand{letter-spacing:.3em;white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .band{clip-path:none}
+  .brand span,h1,.support,.actions{opacity:1;transform:none}
+  .s-media img{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="field">
+  <div class="band" aria-hidden="true">
+    <img id="band" src="/assets/catcheye-m01-tree/bark-2e5d0cc0bdc7.jpg" alt="" width="900" height="1400">
+  </div>
+  <div class="wrap">
+    <div class="f-body">
+      <div class="brand" aria-label="SaveMyHistory">
+        <span style="animation-delay:.10s">S</span><span style="animation-delay:.16s">a</span><span style="animation-delay:.22s">v</span><span style="animation-delay:.28s">e</span><span style="animation-delay:.36s">M</span><span style="animation-delay:.42s">y</span><span style="animation-delay:.50s">H</span><span style="animation-delay:.56s">i</span><span style="animation-delay:.62s">s</span><span style="animation-delay:.68s">t</span><span style="animation-delay:.74s">o</span><span style="animation-delay:.80s">r</span><span style="animation-delay:.86s">y</span>
+      </div>
+      <h1>Сначала это <em>материал</em>, и только потом изображение</h1>
+      <p class="support">Бережное восстановление семейных фотографий. Мы работаем с бумагой, эмульсией и светом — с тем, что можно потрогать, и что разрушается со временем.</p>
+      <div class="actions">
+        <a class="cta" href="/waitlist.html">Оставить снимок в очереди</a>
+        <span class="state">Приём открыт · выдача пока на паузе</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="study">
+    <div class="wrap">
+      <div class="s-grid">
+        <div>
+          <div class="s-n reveal">01 · Бумага</div>
+          <h2 class="reveal">Носитель стареет раньше, чем память</h2>
+          <p class="reveal">Фотография — это тонкий слой эмульсии на бумаге. Он трескается по сгибам, отслаивается от влаги, желтеет от кислоты в картоне альбома. Всё это физические процессы, и почти все они обратимы на изображении.</p>
+          <p class="reveal">Именно с этим слоем мы и работаем. Не с человеком на снимке — с тем, что легло между ним и вами за семьдесят лет.</p>
+        </div>
+        <figure class="s-media">
+          <img src="/assets/catcheye-o2-pismo/g2-before-2bff4a865021.jpg" alt="Фактура старой бумаги с заломами" loading="lazy">
+          <figcaption>Архив · фактура носителя</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="study">
+    <div class="wrap">
+      <div class="s-grid">
+        <div>
+          <div class="s-n reveal">02 · Свет</div>
+          <h2 class="reveal">Выцветание — это потеря плотности</h2>
+          <p class="reveal">Снимок, простоявший на солнце, теряет не цвет, а разницу между тонами. Тени становятся серыми, света уходят в бумагу, лицо превращается в плоское пятно.</p>
+          <p class="reveal">Мы возвращаем плотность аккуратно, ориентируясь на то, что ещё читается в оригинале. Там, где данных нет совсем, мы останавливаемся — это граница, а не повод фантазировать.</p>
+        </div>
+        <figure class="s-media">
+          <img src="/assets/catcheye-o6-rassvet/g1-before-35bb3a61b52f.jpg" alt="Выцветший снимок с потерянной плотностью тонов" loading="lazy">
+          <figcaption>Архив · выцветание</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="study">
+    <div class="wrap">
+      <div class="s-grid">
+        <div>
+          <div class="s-n reveal">03 · Время</div>
+          <h2 class="reveal">Спешка оставляет свои следы тоже</h2>
+          <p class="reveal">Быстрая автоматическая обработка видна сразу: пластиковая кожа, стеклянные глаза, стёртая фактура. Это новый слой повреждений поверх старых, только уже необратимый.</p>
+          <p class="reveal">Поэтому мы отвечаем к утру, а по сложным случаям — в пределах сорока восьми часов. Не за две минуты.</p>
+        </div>
+        <figure class="s-media">
+          <img src="/assets/c18-oak/oak-2-e4121df8.jpg" alt="Срез дерева с годовыми кольцами" loading="lazy">
+          <figcaption>Архив · фактура времени</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="breath">
+    <div class="wrap">
+      <p class="reveal">Лицо на снимке <em>остаётся собой</em>. Это единственное правило, которое мы не нарушаем ни при каких условиях.</p>
+    </div>
+  </section>
+
+  <section class="plain">
+    <div class="wrap">
+      <h2 class="reveal">Коротко и по делу</h2>
+      <div class="rows">
+        <div class="rw reveal"><b>Что мы правим</b><span>Трещины, заломы, разрывы, пятна, плесень, выцветание, потерянные края бумаги, перекос кадра.</span></div>
+        <div class="rw reveal"><b>Чего не трогаем</b><span>Черты лица. Мы не дорисовываем глаза и не достраиваем утраченные фрагменты правдоподобной выдумкой.</span></div>
+        <div class="rw reveal"><b>Сколько ждать</b><span>Ответ по заявке — к утру, по сложным случаям до сорока восьми часов.</span></div>
+        <div class="rw reveal"><b>Что сейчас работает</b><span>Приём заявок открыт. Выдача готовых работ сознательно стоит на паузе, пока мы дорабатываем качество.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="close">
+  <div class="wrap">
+    <h2>Пока снимок цел, <em>с ним ещё можно работать</em></h2>
+    <p class="support">Покажите нам его — мы посмотрим на материал и скажем честно, что можно сделать.</p>
+    <div class="actions">
+      <a class="cta" href="/waitlist.html">Оставить снимок в очереди</a>
+      <span class="state">Приём открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · бережное восстановление семейных фотографий</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -12% 0px',threshold:.06});
+  document.querySelectorAll('.reveal,.study').forEach(function(n){io.observe(n)});
+
+  var band=document.getElementById('band');
+  if(band && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var t=0,cur=0,raf=null;
+    function loop(){
+      cur+=(t-cur)*.07;
+      band.style.transform='translate3d(0,'+cur.toFixed(2)+'px,0) scale(1.09)';
+      if(Math.abs(t-cur)>.15){raf=requestAnimationFrame(loop)}else{raf=null}
+    }
+    addEventListener('scroll',function(){
+      t=Math.max(-60,Math.min(60,scrollY*-.07));
+      if(!raf)raf=requestAnimationFrame(loop);
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>

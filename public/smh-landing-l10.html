@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l10" data-smh-landing-wave="20260814-inspire" data-smh-inspire-src="whyte-experience">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Опыт · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Медленная страница о том, что снимок держит вместо нас.">
+<!-- SMH_LANDING_INSPIRATION_FIVE wave 20260814-inspire · axis L10 Опыт · craft ref: spoken-word cadence / words as hero / long quiet scroll · original copy, no source text reused · assets reused 0E · invent_eyes=N -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;1,400&family=Commissioner:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#101113;--dark2:#0c0d0f;--paper:#e9e5de;--dim:#8b8880;--line:rgba(233,229,222,.14);--brass:#a89066;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--dark);color:var(--paper);font-family:Commissioner,sans-serif;font-weight:300;
+  line-height:1.66;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1080px,88vw);margin:0 auto}
+.narrow{width:min(760px,86vw);margin:0 auto}
+
+/* reading progress — a single hair of light */
+.bar{position:fixed;top:0;left:0;height:1px;width:0;background:var(--brass);z-index:9;opacity:.85}
+
+/* grain plane, flat (no glow) */
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.14}
+.grain img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+
+/* ---- hero: the stanza is the plane ---- */
+.open{min-height:100svh;display:grid;align-content:center;padding:clamp(92px,14vh,150px) 0 clamp(64px,10vh,120px)}
+.brand{font-family:Commissioner,sans-serif;font-weight:300;font-size:clamp(12.5px,1.2vw,14.5px);
+  letter-spacing:.36em;text-transform:uppercase;color:var(--brass);margin-bottom:clamp(40px,7vh,76px);
+  opacity:0;animation:fade 1.3s var(--ease) .15s forwards}
+@keyframes fade{to{opacity:1}}
+
+h1{font-family:Alegreya,serif;font-weight:400;font-size:clamp(31px,5.1vw,70px);line-height:1.16;
+  letter-spacing:.04em;max-width:17ch}
+h1 span{display:block;opacity:0;transform:translateY(16px);
+  animation:say 1.5s var(--ease) forwards}
+h1 span:nth-child(1){animation-delay:.30s}
+h1 span:nth-child(2){animation-delay:.62s}
+h1 span:nth-child(3){animation-delay:.94s}
+h1 span:nth-child(4){animation-delay:1.26s}
+h1 em{font-style:italic;color:var(--brass)}
+@keyframes say{to{opacity:1;transform:none;letter-spacing:0}}
+
+.support{margin-top:clamp(34px,5vh,52px);max-width:46ch;color:var(--dim);
+  font-size:clamp(15.5px,1.5vw,18px);opacity:0;animation:fade 1.4s var(--ease) 1.7s forwards}
+.actions{margin-top:clamp(30px,4.4vh,44px);display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;
+  opacity:0;animation:fade 1.4s var(--ease) 1.95s forwards}
+.cta{display:inline-flex;align-items:center;padding:15px 32px;border:1px solid var(--brass);color:var(--brass);
+  text-decoration:none;font-size:14.5px;letter-spacing:.02em;transition:.42s var(--ease)}
+.cta:hover{background:var(--brass);color:var(--dark)}
+.state{font-size:13.5px;color:var(--dim)}
+
+/* ---- stanzas ---- */
+.stanza{padding:clamp(86px,15vh,190px) 0}
+.stanza+.stanza{border-top:1px solid var(--line)}
+.mark{font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--brass);
+  margin-bottom:clamp(26px,4.2vh,44px)}
+.verse{font-family:Alegreya,serif;font-weight:400;font-size:clamp(22px,3.4vw,42px);line-height:1.34;
+  letter-spacing:.02em;max-width:22ch}
+.verse .l{display:block;opacity:0;transform:translateY(14px);
+  transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.verse.in .l{opacity:1;transform:none}
+.verse.in .l:nth-child(2){transition-delay:.16s}
+.verse.in .l:nth-child(3){transition-delay:.32s}
+.verse.in .l:nth-child(4){transition-delay:.48s}
+.verse.in .l:nth-child(5){transition-delay:.64s}
+.verse em{font-style:italic;color:var(--brass)}
+
+.aside{margin-top:clamp(32px,5vh,56px);max-width:56ch;color:var(--dim);font-size:clamp(15px,1.45vw,17px)}
+.aside p+p{margin-top:15px}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 1.05s var(--ease),transform 1.05s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---- a single held image ---- */
+.held{padding:clamp(70px,12vh,150px) 0;border-top:1px solid var(--line)}
+.held figure{margin:0}
+.held img{width:100%;max-height:76svh;object-fit:cover;filter:grayscale(.5) contrast(1.05)}
+.held figcaption{margin-top:16px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+
+/* ---- plain speech ---- */
+.plain{padding:clamp(86px,14vh,180px) 0;border-top:1px solid var(--line)}
+.plain h2{font-family:Alegreya,serif;font-weight:400;font-size:clamp(24px,3.5vw,42px);line-height:1.2;
+  letter-spacing:.02em;max-width:20ch;margin-bottom:clamp(30px,4.6vh,50px)}
+.plain dl{border-top:1px solid var(--line)}
+.plain dt{font-family:Alegreya,serif;font-weight:500;font-size:clamp(18px,2vw,23px);color:var(--brass);
+  padding-top:clamp(22px,3.2vh,32px)}
+.plain dd{color:var(--dim);font-size:clamp(15px,1.45vw,17px);max-width:62ch;margin:9px 0 0;
+  padding-bottom:clamp(22px,3.2vh,32px);border-bottom:1px solid var(--line)}
+
+.close{padding:clamp(94px,16vh,200px) 0;border-top:1px solid var(--line);background:var(--dark2)}
+.close .verse{margin-bottom:clamp(30px,4.6vh,48px)}
+
+footer{padding:30px 0 58px;border-top:1px solid var(--line);font-size:12.5px;color:var(--dim);
+  display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+@media (max-width:900px){h1{max-width:none;letter-spacing:.02em}.verse{max-width:none}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal,.brand,.support,.actions{opacity:1;transform:none}
+  h1 span,.verse .l{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar" id="bar" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"><img src="/assets/virtuoso-v1/paper-dust-b8ae8346.jpg" alt="" width="1600" height="1000"></div>
+
+<header class="open">
+  <div class="wrap">
+    <div class="brand">SaveMyHistory</div>
+    <h1><span>Снимок держит</span><span>то, что мы</span><span>уже не можем</span><span><em>держать сами</em></span></h1>
+    <p class="support">Бережное восстановление семейных фотографий. Медленно, вручную, с одним правилом: лицо на снимке остаётся собой.</p>
+    <div class="actions">
+      <a class="cta" href="/waitlist.html">Оставить снимок в очереди</a>
+      <span class="state">Приём открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="stanza">
+    <div class="narrow">
+      <div class="mark reveal">Первое</div>
+      <p class="verse"><span class="l">Сначала уходит запах</span><span class="l">комнаты, потом голос,</span><span class="l">потом порядок дней.</span><span class="l"><em>Остаётся прямоугольник</em></span><span class="l">бумаги на ладони.</span></p>
+      <div class="aside">
+        <p class="reveal">Мы редко замечаем, сколько работы делает за нас одна фотография. Она хранит то, что память отдаёт первым: как человек держал плечи, куда смотрел, кто стоял рядом и держал его за локоть.</p>
+        <p class="reveal">Когда бумага начинает разрушаться, теряется не изображение. Теряется последний свидетель.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stanza">
+    <div class="narrow">
+      <div class="mark reveal">Второе</div>
+      <p class="verse"><span class="l">Мы не возвращаем молодость.</span><span class="l">Мы возвращаем бумаге</span><span class="l">способность говорить</span><span class="l"><em>тем же голосом.</em></span></p>
+      <div class="aside">
+        <p class="reveal">Работа идёт с носителем, а не с человеком: трещины, заломы, выцветание, плесень, оторванный угол, пятно от воды. Всё это следы времени на бумаге, и их можно снять аккуратно.</p>
+        <p class="reveal">Черты лица мы не переписываем. Если глаз утрачен — мы скажем, что он утрачен, и не поставим на его место убедительную выдумку. Дорисованный взгляд похож на живого человека, но принадлежит уже не ему.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="held">
+    <div class="wrap">
+      <figure>
+        <img src="/assets/catcheye-m02-attic/bg-e3a1061452ca.jpg" alt="Чердачный свет над старыми коробками с фотографиями" loading="lazy">
+        <figcaption>Архив · где обычно всё это лежит</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stanza">
+    <div class="narrow">
+      <div class="mark reveal">Третье</div>
+      <p class="verse"><span class="l">Спешка — это форма</span><span class="l">невнимательности.</span><span class="l"><em>Мы отвечаем к утру,</em></span><span class="l">а не через две минуты.</span></p>
+      <div class="aside">
+        <p class="reveal">По обычной заявке ответ приходит к следующему утру. По сложной — в пределах сорока восьми часов. Это не медленно, это ровно столько, сколько нужно, чтобы посмотреть на снимок внимательно, а не прогнать его через очередь.</p>
+        <p class="reveal">Сейчас приём заявок открыт, а выдача сознательно стоит на паузе. Пока мы не готовы отдать результат, который отдали бы собственной семье, мы не отдаём его никому.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plain">
+    <div class="narrow">
+      <h2 class="reveal">Простыми словами, без поэзии</h2>
+      <dl>
+        <dt class="reveal">Что вы делаете со снимком</dt>
+        <dd class="reveal">Убираем повреждения носителя: трещины, царапины, заломы, пятна, выцветание. Выравниваем тон и плотность. По желанию — аккуратная тонировка, если она уместна для этого кадра.</dd>
+        <dt class="reveal">Чего вы не делаете</dt>
+        <dd class="reveal">Не меняем черты лица, не добавляем отсутствующие глаза и не достраиваем утраченные фрагменты выдумкой. Не превращаем снимок в чужую эстетику ради эффектного вида.</dd>
+        <dt class="reveal">Сколько ждать</dt>
+        <dd class="reveal">Ответ по заявке — к утру, по сложным случаям до сорока восьми часов. Сроки на саму работу называем индивидуально, после того как увидим снимок.</dd>
+        <dt class="reveal">Почему выдача на паузе</dt>
+        <dd class="reveal">Мы дорабатываем качество и не хотим отдавать промежуточное. Приём при этом работает: место в очереди сохраняется, и мы напишем, когда дойдём до вас.</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<section class="close">
+  <div class="narrow">
+    <p class="verse"><span class="l">Если снимок ещё</span><span class="l">у вас на руках —</span><span class="l"><em>время пока на вашей стороне.</em></span></p>
+    <div class="actions" style="animation:none;opacity:1">
+      <a class="cta" href="/waitlist.html">Оставить снимок в очереди</a>
+      <span class="state">Приём открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · бережное восстановление семейных фотографий</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -14% 0px',threshold:.06});
+  document.querySelectorAll('.reveal,.verse').forEach(function(n){io.observe(n)});
+
+  var bar=document.getElementById('bar'),raf=null;
+  function draw(){
+    var h=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width=(h>0?(scrollY/h)*100:0).toFixed(2)+'%';
+    raf=null;
+  }
+  addEventListener('scroll',function(){ if(!raf)raf=requestAnimationFrame(draw); },{passive:true});
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l11" data-smh-landing-wave="20260814-inspire" data-smh-inspire-src="koopt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ателье · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — ателье бережного восстановления семейных фотографий. Снимок принимают как работу, а не как файл.">
+<!-- SMH_LANDING_INSPIRATION_FIVE wave 20260814-inspire · axis L11 Ателье · craft ref: gallery calm / image-led / white space as respect / numbered process · assets reused 0E · invent_eyes=N -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Onest:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#faf9f6;--wall2:#f2f0eb;--ink:#1a1a17;--ink2:#6b6960;--line:#dedad2;--slate:#454f49;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--wall);color:var(--ink);font-family:Onest,sans-serif;font-weight:300;
+  line-height:1.64;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1280px,90vw);margin:0 auto}
+
+/* ---- hero: one work hung on a wall ---- */
+.gallery{position:relative;min-height:100svh;display:grid;align-content:center;
+  padding:clamp(94px,13vh,150px) 0 clamp(60px,9vh,110px);
+  background:linear-gradient(178deg,var(--wall) 0%,var(--wall) 62%,var(--wall2) 100%)}
+.g-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(34px,6vw,92px);align-items:center}
+.brand{position:absolute;top:clamp(28px,5vh,50px);left:0;right:0;
+  font-family:Forum,serif;font-size:clamp(15px,1.5vw,18px);letter-spacing:.3em;text-transform:uppercase}
+.brand small{display:block;font-family:Onest,sans-serif;font-size:11px;letter-spacing:.22em;
+  color:var(--ink2);margin-top:6px}
+
+h1{font-family:Forum,serif;font-weight:400;font-size:clamp(35px,5.4vw,74px);line-height:1.08;
+  letter-spacing:-.005em;max-width:14ch;
+  opacity:0;transform:translateY(20px);animation:up 1.25s var(--ease) .25s forwards}
+h1 em{font-style:normal;color:var(--slate)}
+@keyframes up{to{opacity:1;transform:none}}
+.support{margin-top:clamp(22px,3.4vh,34px);max-width:44ch;color:var(--ink2);
+  font-size:clamp(15.5px,1.5vw,18px);opacity:0;animation:up 1.25s var(--ease) .48s forwards}
+.actions{margin-top:clamp(28px,4.2vh,42px);display:flex;flex-wrap:wrap;align-items:center;gap:15px 26px;
+  opacity:0;animation:up 1.25s var(--ease) .66s forwards}
+.cta{display:inline-flex;align-items:center;padding:16px 34px;background:var(--ink);color:var(--wall);
+  text-decoration:none;font-size:15px;font-weight:400;transition:.4s var(--ease)}
+.cta:hover{background:var(--slate);transform:translateY(-2px)}
+.state{font-size:13.5px;color:var(--ink2)}
+
+/* the framed work */
+.hung{justify-self:center;width:min(470px,92%);
+  opacity:0;transform:translateY(26px) scale(.985);animation:hang 1.7s var(--ease) .1s forwards}
+@keyframes hang{to{opacity:1;transform:none}}
+.frame{background:#fff;padding:clamp(20px,3vw,38px) clamp(20px,3vw,38px) clamp(30px,4.4vw,56px);
+  border:1px solid var(--line);
+  box-shadow:0 2px 4px rgba(26,26,23,.05),0 26px 60px -24px rgba(26,26,23,.22);
+  transition:box-shadow 1s var(--ease)}
+.hung:hover .frame{box-shadow:0 2px 4px rgba(26,26,23,.06),0 34px 76px -26px rgba(26,26,23,.28)}
+.frame img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(.3) contrast(1.03)}
+.placard{margin-top:16px;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);
+  text-align:center}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1.05s var(--ease),transform 1.05s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---- respect trio ---- */
+.trio{padding:clamp(74px,11vh,140px) 0;border-top:1px solid var(--line)}
+.trio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+  gap:clamp(26px,4vw,64px)}
+.trio h3{font-family:Forum,serif;font-weight:400;font-size:clamp(20px,2.3vw,27px);margin-bottom:10px}
+.trio p{color:var(--ink2);font-size:clamp(14.5px,1.4vw,16.5px);max-width:34ch}
+
+/* ---- numbered process ---- */
+.proc{padding:clamp(80px,12vh,160px) 0;border-top:1px solid var(--line)}
+.proc h2{font-family:Forum,serif;font-weight:400;font-size:clamp(27px,4vw,50px);line-height:1.1;
+  max-width:18ch;margin-bottom:clamp(40px,6vh,72px)}
+.step{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);
+  align-items:center;padding:clamp(34px,5.5vh,64px) 0;border-top:1px solid var(--line)}
+.step:nth-child(even) .st-media{order:-1}
+.st-n{font-family:Forum,serif;font-size:clamp(28px,3.4vw,42px);color:var(--slate);
+  line-height:1;margin-bottom:16px;display:block}
+.step h3{font-family:Forum,serif;font-weight:400;font-size:clamp(21px,2.6vw,32px);margin-bottom:12px}
+.step p{color:var(--ink2);font-size:clamp(14.5px,1.4vw,16.5px);max-width:44ch}
+.st-media{overflow:hidden}
+.st-media img{width:100%;aspect-ratio:5/4;object-fit:cover;filter:grayscale(.36) contrast(1.03);
+  transform:scale(1.07);transition:transform 1.5s var(--ease),filter 1.5s var(--ease)}
+.step.in .st-media img{transform:none;filter:grayscale(.2) contrast(1.03)}
+.st-media figcaption{margin-top:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2)}
+
+/* ---- story band ---- */
+.story{padding:clamp(84px,13vh,170px) 0;background:var(--wall2);border-top:1px solid var(--line);text-align:center}
+.story h2{font-family:Forum,serif;font-weight:400;font-size:clamp(27px,4.4vw,58px);line-height:1.1;
+  max-width:19ch;margin:0 auto}
+.story h2 em{font-style:normal;color:var(--slate)}
+.story p{margin:26px auto 0;max-width:56ch;color:var(--ink2);font-size:clamp(15px,1.45vw,17.5px)}
+.story .actions{justify-content:center;margin-top:34px;animation:none;opacity:1}
+
+footer{padding:30px 0 56px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink2);
+  display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+@media (max-width:940px){
+  .g-grid{grid-template-columns:1fr;gap:clamp(36px,6vh,52px)}
+  .hung{width:min(360px,80%);justify-self:start}
+  h1{max-width:none}
+  .step{grid-template-columns:1fr;gap:22px}
+  .step:nth-child(even) .st-media{order:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  h1,.support,.actions,.hung{opacity:1;transform:none}
+  .st-media img{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="gallery">
+  <div class="wrap">
+    <div class="brand">SaveMyHistory<small>Ателье семейной фотографии</small></div>
+    <div class="g-grid">
+      <div>
+        <h1>Снимок принимают как <em>работу</em>, а не как файл</h1>
+        <p class="support">Бережное восстановление семейных фотографий. Каждый кадр смотрят отдельно, руками, и говорят о нём честно — включая то, что сделать нельзя.</p>
+        <div class="actions">
+          <a class="cta" href="/waitlist.html">Показать нам снимок</a>
+          <span class="state">Приём открыт · выдача пока на паузе</span>
+        </div>
+      </div>
+      <div class="hung">
+        <div class="frame">
+          <img src="/assets/catcheye-o9-temnaya-komnata/g4-before-c5a91ab2af67.jpg" alt="Старая семейная фотография в паспарту на светлой стене" width="1200" height="1500" loading="eager">
+        </div>
+        <div class="placard">Из семейного архива · состояние до работы</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="trio">
+    <div class="wrap">
+      <div class="trio-grid">
+        <div class="reveal">
+          <h3>Сначала разговор</h3>
+          <p>Мы смотрим снимок и говорим, что с ним реально сделать. Если случай безнадёжный — скажем это сразу, а не после оплаты.</p>
+        </div>
+        <div class="reveal">
+          <h3>Ответ к утру</h3>
+          <p>Обычная заявка разбирается к следующему утру, сложная — в пределах сорока восьми часов. Без обещаний за две минуты.</p>
+        </div>
+        <div class="reveal">
+          <h3>Лицо остаётся собой</h3>
+          <p>Мы убираем повреждения бумаги, но не переписываем черты и не дорисовываем утраченное правдоподобной выдумкой.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proc">
+    <div class="wrap">
+      <h2 class="reveal">Как проходит работа</h2>
+
+      <article class="step">
+        <div>
+          <span class="st-n">01</span>
+          <h3>Вы приносите снимок</h3>
+          <p>Достаточно ровной фотографии кадра при дневном свете — или скана, если он есть. Расскажите, кто на снимке и что для вас в нём важно: это влияет на то, к чему мы будем особенно внимательны.</p>
+        </div>
+        <figure class="st-media">
+          <img src="/assets/catcheye-m05-pismo/hero-before-2bff4a865021.jpg" alt="Снимок и бумаги, разложенные на столе" loading="lazy">
+          <figcaption>Архив · то, с чем приходят</figcaption>
+        </figure>
+      </article>
+
+      <article class="step">
+        <div>
+          <span class="st-n">02</span>
+          <h3>Мы смотрим его вживую</h3>
+          <p>Оцениваем носитель: степень выцветания, характер повреждений, что сохранилось в тенях, а что уже утрачено физически. По итогам пишем честное заключение — что поправим, чего трогать не станем и почему.</p>
+        </div>
+        <figure class="st-media">
+          <img src="/assets/catcheye-m03-darkroom/bg-ad267c120959.jpg" alt="Тёмная комната, рабочий стол мастера" loading="lazy">
+          <figcaption>Архив · рабочее место</figcaption>
+        </figure>
+      </article>
+
+      <article class="step">
+        <div>
+          <span class="st-n">03</span>
+          <h3>Возвращаем с объяснением</h3>
+          <p>Вместе с готовой работой вы получаете описание: что именно было сделано и где мы намеренно остановились. Никаких скрытых правок, о которых вы узнаете потом, разглядывая снимок.</p>
+        </div>
+        <figure class="st-media">
+          <img src="/assets/facade-lab/2026-08-11-album-spread-empty.jpg" alt="Раскрытый семейный альбом с пустыми полями" loading="lazy">
+          <figcaption>Архив · альбом, куда всё возвращается</figcaption>
+        </figure>
+      </article>
+    </div>
+  </section>
+</main>
+
+<section class="story">
+  <div class="wrap">
+    <h2>За каждым снимком стоит человек, который <em>его сохранил</em></h2>
+    <p>Кто-то донёс эту фотографию через переезды, войны и коробки на антресолях. Наша работа начинается с уважения к этому усилию, а уже потом — с техники.</p>
+    <div class="actions">
+      <a class="cta" href="/waitlist.html">Показать нам снимок</a>
+      <span class="state">Приём открыт · выдача пока на паузе</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · ателье семейной фотографии</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -12% 0px',threshold:.08});
+  document.querySelectorAll('.reveal,.step').forEach(function(n){io.observe(n)});
+})();
+</script>
+</body>
+</html>

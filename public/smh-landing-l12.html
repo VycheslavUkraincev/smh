@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ru" data-smh-landing="l12" data-smh-landing-wave="20260814-inspire" data-smh-inspire-src="appsignal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ясность · SaveMyHistory</title>
+<meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Точно и без тумана: что открыто, что на паузе, чего мы не делаем.">
+<!-- SMH_LANDING_INSPIRATION_FIVE wave 20260814-inspire · axis L12 Ясность · craft ref: product clarity / honest status / precision over hype · assets reused 0E · invent_eyes=N -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f6;--bg2:#eceeeb;--ink:#14181a;--ink2:#5f6a68;--line:#dde1dd;--teal:#1d6a5e;--warn:#8a6a2f;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Wix Madefor Display",sans-serif;font-weight:400;
+  line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1300px,92vw);margin:0 auto}
+.mono{font-family:"IBM Plex Mono",monospace;font-weight:300}
+
+/* ---- hero: split, one image plane ---- */
+.head{position:relative;min-height:100svh;display:grid;align-content:center;
+  padding:clamp(92px,13vh,146px) 0 clamp(56px,8vh,100px)}
+.h-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,5.5vw,88px);align-items:center}
+.brand{position:absolute;top:clamp(26px,4.6vh,48px);left:0;right:0;
+  font-weight:600;font-size:clamp(15px,1.5vw,17px);letter-spacing:-.01em}
+.brand i{font-style:normal;color:var(--teal)}
+
+.kicker{font-family:"IBM Plex Mono",monospace;font-weight:300;font-size:12.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:clamp(18px,2.8vh,26px);
+  opacity:0;animation:fade 1s var(--ease) .2s forwards}
+@keyframes fade{to{opacity:1}}
+h1{font-weight:500;font-size:clamp(34px,5vw,66px);line-height:1.07;letter-spacing:-.028em;max-width:16ch;
+  opacity:0;transform:translateY(18px);animation:up 1.1s var(--ease) .3s forwards}
+@keyframes up{to{opacity:1;transform:none}}
+h1 em{font-style:normal;color:var(--teal)}
+.support{margin-top:clamp(20px,3.2vh,30px);max-width:48ch;color:var(--ink2);
+  font-size:clamp(15.5px,1.5vw,18px);opacity:0;animation:up 1.1s var(--ease) .48s forwards}
+.actions{margin-top:clamp(26px,4vh,40px);display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;
+  opacity:0;animation:up 1.1s var(--ease) .64s forwards}
+.cta{display:inline-flex;align-items:center;padding:15px 30px;background:var(--teal);color:#fff;
+  text-decoration:none;font-size:15px;font-weight:500;border-radius:3px;transition:.35s var(--ease)}
+.cta:hover{background:#17554b;transform:translateY(-2px)}
+.state{font-family:"IBM Plex Mono",monospace;font-weight:300;font-size:13px;color:var(--ink2)}
+
+.plane{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:3px;
+  opacity:0;animation:fade 1.5s var(--ease) .25s forwards}
+.plane img{width:100%;aspect-ratio:4/3.4;object-fit:cover;filter:grayscale(.38) contrast(1.04)}
+.plane figcaption{font-family:"IBM Plex Mono",monospace;font-weight:300;font-size:11.5px;
+  letter-spacing:.1em;color:var(--ink2);padding:12px 16px;border-top:1px solid var(--line);background:var(--bg)}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.rule{height:1px;background:var(--line);transform:scaleX(0);transform-origin:left;
+  transition:transform 1.15s var(--ease)}
+.rule.in{transform:none}
+
+/* ---- status board ---- */
+.sec{padding:clamp(74px,11vh,150px) 0;border-top:1px solid var(--line)}
+.sec h2{font-weight:500;font-size:clamp(24px,3.4vw,42px);line-height:1.12;letter-spacing:-.022em;
+  max-width:19ch;margin-bottom:clamp(14px,2.2vh,20px)}
+.sec .sub{color:var(--ink2);max-width:56ch;font-size:clamp(14.5px,1.4vw,16.5px);
+  margin-bottom:clamp(32px,5vh,54px)}
+
+.board{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1.1fr) auto minmax(0,1.5fr);gap:clamp(14px,3vw,44px);
+  align-items:baseline;padding:clamp(18px,2.8vh,26px) 0;border-bottom:1px solid var(--line)}
+.row .what{font-weight:500;font-size:clamp(15.5px,1.6vw,18px)}
+.row .flag{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:12.5px;letter-spacing:.1em;
+  text-transform:uppercase;white-space:nowrap;display:inline-flex;align-items:center;gap:9px}
+.row .flag::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.flag.on{color:var(--teal)}
+.flag.on::before{animation:pulse 2.8s var(--ease) infinite}
+.flag.hold{color:var(--warn)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.32}}
+.row .note{color:var(--ink2);font-size:clamp(14px,1.35vw,16px)}
+
+/* ---- do / dont ---- */
+.dd{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,4.5vw,72px)}
+.dd h3{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:12.5px;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:20px}
+.dd .yes h3{color:var(--teal)}
+.dd .no h3{color:var(--warn)}
+.dd ul{list-style:none}
+.dd li{padding:14px 0;border-top:1px solid var(--line);font-size:clamp(14.5px,1.4vw,16.5px);color:var(--ink2)}
+.dd li b{display:block;font-family:"Wix Madefor Display",sans-serif;font-weight:500;color:var(--ink);margin-bottom:3px}
+
+/* ---- promises ---- */
+.prom{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(24px,3.6vw,56px)}
+.prom div{border-top:2px solid var(--teal);padding-top:22px}
+.prom b{display:block;font-weight:500;font-size:clamp(17px,1.9vw,21px);margin-bottom:9px}
+.prom p{color:var(--ink2);font-size:clamp(14.5px,1.4vw,16px);max-width:36ch}
+
+/* ---- numbers ---- */
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:clamp(22px,3vw,48px)}
+.nums div{border-top:1px solid var(--line);padding-top:20px}
+.nums b{display:block;font-family:"IBM Plex Mono",monospace;font-weight:400;
+  font-size:clamp(28px,3.8vw,46px);line-height:1;letter-spacing:-.02em;color:var(--teal)}
+.nums span{display:block;margin-top:12px;color:var(--ink2);font-size:14px;max-width:26ch}
+
+.foot-cta{padding:clamp(80px,12vh,160px) 0;background:var(--bg2);border-top:1px solid var(--line)}
+.foot-cta h2{font-weight:500;font-size:clamp(26px,4vw,52px);line-height:1.08;letter-spacing:-.026em;max-width:17ch}
+.foot-cta .support{margin-top:20px;animation:none;opacity:1}
+.foot-cta .actions{animation:none;opacity:1}
+
+footer{padding:28px 0 54px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink2);
+  display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between}
+
+@media (max-width:940px){
+  .h-grid{grid-template-columns:1fr;gap:clamp(32px,5vh,48px)}
+  h1{max-width:none}
+  .row{grid-template-columns:1fr;gap:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .rule{transform:none}
+  .kicker,h1,.support,.actions,.plane{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <div class="brand">SaveMyHistory<i>.</i></div>
+    <div class="h-grid">
+      <div>
+        <div class="kicker">Бережное восстановление семейных фото</div>
+        <h1>Точный ответ о снимке вместо <em>красивых обещаний</em></h1>
+        <p class="support">Мы говорим прямо: что с фотографией можно сделать, чего нельзя, сколько это займёт и что именно сейчас работает, а что стоит на паузе.</p>
+        <div class="actions">
+          <a class="cta" href="/waitlist.html">Оставить снимок в очереди</a>
+          <span class="state">приём открыт · выдача на паузе</span>
+        </div>
+      </div>
+      <figure class="plane">
+        <img src="/assets/virtuoso-synth/gaze-before-75616329.jpg" alt="Портрет из семейного архива до работы" width="1400" height="1190" loading="eager">
+        <figcaption>архив · исходное состояние носителя</figcaption>
+      </figure>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="reveal">Состояние сервиса, как есть</h2>
+      <p class="sub reveal">Без витрины и без «скоро запуск». Ниже — то, что происходит на самом деле в эту минуту.</p>
+      <div class="board">
+        <div class="row">
+          <span class="what">Приём заявок</span>
+          <span class="flag on">открыт</span>
+          <span class="note">Снимок можно оставить сейчас, место в очереди сохраняется.</span>
+        </div>
+        <div class="row">
+          <span class="what">Разбор и заключение</span>
+          <span class="flag on">работает</span>
+          <span class="note">Ответ по обычной заявке — к утру, по сложной — до 48 часов.</span>
+        </div>
+        <div class="row">
+          <span class="what">Выдача готовых работ</span>
+          <span class="flag hold">на паузе</span>
+          <span class="note">Дорабатываем качество. Пока результат не годится для собственной семьи, мы его не отдаём.</span>
+        </div>
+        <div class="row">
+          <span class="what">Достройка утраченных черт</span>
+          <span class="flag hold">отключена</span>
+          <span class="note">invent_eyes=N. Мы не дорисовываем глаза и лица там, где на носителе их уже нет.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="reveal">Что входит в работу и что в неё не входит</h2>
+      <p class="sub reveal">Полный список, без мелкого шрифта.</p>
+      <div class="dd">
+        <div class="yes">
+          <h3>Делаем</h3>
+          <ul>
+            <li class="reveal"><b>Повреждения носителя</b>Трещины, заломы, царапины, разрывы, следы клея и скотча.</li>
+            <li class="reveal"><b>Выцветание и тон</b>Возвращаем плотность и ровный тон там, где бумага выгорела.</li>
+            <li class="reveal"><b>Пятна и загрязнения</b>Плесень, вода, жёлтые пятна, отпечатки пальцев на эмульсии.</li>
+            <li class="reveal"><b>Геометрия кадра</b>Выравнивание, аккуратная обрезка полей, восстановление краёв бумаги.</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h3>Не делаем</h3>
+          <ul>
+            <li class="reveal"><b>Не меняем лицо</b>Черты остаются такими, какими они были на плёнке. Лицо остаётся собой.</li>
+            <li class="reveal"><b>Не достраиваем утраченное</b>Если фрагмент физически потерян — так и скажем, а не заполним выдумкой.</li>
+            <li class="reveal"><b>Не обещаем за две минуты</b>Аккуратная работа за две минуты не делается, и мы не будем делать вид.</li>
+            <li class="reveal"><b>Не показываем чужие результаты</b>Никаких подставных «до и после» в качестве доказательства.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="reveal">Три обещания, которые легко проверить</h2>
+      <p class="sub reveal">Их можно предъявить нам в любой момент.</p>
+      <div class="prom">
+        <div class="reveal">
+          <b>Никаких неожиданных счетов</b>
+          <p>Стоимость называется до начала работы. Если по ходу выясняется, что нужно больше — мы спрашиваем, а не выставляем.</p>
+        </div>
+        <div class="reveal">
+          <b>Отказ вместо имитации</b>
+          <p>Если снимок восстановить нельзя, мы скажем это прямо и не возьмём деньги за правдоподобную подделку.</p>
+        </div>
+        <div class="reveal">
+          <b>Отчёт о каждой правке</b>
+          <p>К работе прилагается описание того, что было изменено и где мы намеренно остановились.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="reveal">Сроки и цифры</h2>
+      <p class="sub reveal">Настоящие, а не маркетинговые.</p>
+      <div class="nums">
+        <div class="reveal"><b>к утру</b><span>типичный срок ответа по обычной заявке</span></div>
+        <div class="reveal"><b>48ч</b><span>верхняя граница по сложному случаю</span></div>
+        <div class="reveal"><b>1</b><span>снимок в работе за раз, без пакетного конвейера</span></div>
+        <div class="reveal"><b>0</b><span>дорисованных черт лица</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="foot-cta">
+  <div class="wrap">
+    <h2>Покажите снимок — получите честное заключение</h2>
+    <p class="support">Мы посмотрим и напишем, что реально сделать. Если случай безнадёжный, вы узнаете об этом первым же сообщением.</p>
+    <div class="actions">
+      <a class="cta" href="/waitlist.html">Оставить снимок в очереди</a>
+      <span class="state">приём открыт · выдача на паузе</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>
+  <span>SaveMyHistory · бережное восстановление семейных фотографий</span>
+  <span><a href="/waitlist.html">лист ожидания</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -10% 0px',threshold:.06});
+  document.querySelectorAll('.reveal,.rule').forEach(function(n){io.observe(n)});
+})();
+</script>
+</body>
+</html>
