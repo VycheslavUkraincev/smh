@@ -242,6 +242,237 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
 
 .hide{display:none!important}
 
+/* ============================================================
+   Игровой слой: тёплый семейный квест.
+   Поверх кабинетной базы — тот же цвет, только свет мягче,
+   шаги виднее, а места за столом ждут своих людей.
+   Только CSS и разметка: ни одной дорисованной картинки.
+   Переменные Telegram остаются главными внутри мини-приложения.
+   ============================================================ */
+:root{
+  --tile:#FCF9F5;
+  --glow:rgba(190,146,96,.18);
+  --seat:rgba(138,106,83,.34);
+  --r-lg:18px;
+  --lift:0 1px 1px rgba(64,46,34,.05), 0 12px 30px -14px rgba(64,46,34,.30);
+}
+body.is-dark{
+  --tile:#2A2321;
+  --glow:rgba(198,161,132,.10);
+  --seat:rgba(198,161,132,.34);
+  --lift:0 1px 1px rgba(0,0,0,.28), 0 12px 30px -14px rgba(0,0,0,.55);
+}
+
+/* тёплый свет над столом и едва слышное зерно бумаги */
+body::before,body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none}
+body::before{
+  background:
+    radial-gradient(88% 52% at 50% -6%, var(--glow), transparent 68%),
+    radial-gradient(58% 42% at 106% 104%, rgba(138,106,83,.07), transparent 72%);
+}
+body::after{
+  opacity:.5;
+  background-image:radial-gradient(rgba(120,90,60,.05) .5px, transparent .5px);
+  background-size:5px 5px;
+}
+body.is-dark::after{opacity:.28}
+
+/* ---------- шапка держится рядом ---------- */
+.top{
+  position:sticky;top:0;z-index:40;
+  margin:-14px -16px 14px;padding:13px 16px 11px;
+  background:linear-gradient(to bottom, var(--tg-theme-bg-color, var(--page)) 68%, transparent);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.top .brand{display:inline-flex;align-items:center;gap:9px}
+.top .brand::before{
+  content:'';width:9px;height:9px;border-radius:50%;flex:0 0 9px;
+  background:var(--accent);box-shadow:0 0 0 3px rgba(138,106,83,.15);
+}
+.top .to-cab{transition:background .2s ease,color .2s ease,border-color .2s ease}
+.top .to-cab:active{background:var(--active);color:var(--ink);border-color:var(--line)}
+
+/* ---------- вход через Telegram: часть дома, а не форма ---------- */
+.auth-bar{
+  border-radius:var(--r-lg);border-color:var(--seat);padding:14px 16px;
+  background-image:linear-gradient(180deg, rgba(232,222,209,.45), transparent 90%);
+}
+body.is-dark .auth-bar{background-image:linear-gradient(180deg, rgba(198,161,132,.12), transparent 90%)}
+.auth-t b{font-size:14.5px}
+.tg-auth{box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+
+/* ---------- карточки ---------- */
+.card{border-radius:var(--r-lg);box-shadow:var(--lift);padding:18px 17px 20px}
+.card-head h2{font-size:21px}
+.card-head .cnt{box-shadow:inset 0 0 0 1px rgba(255,255,255,.32)}
+.btn{transition:background .2s ease,border-color .2s ease,opacity .2s ease,transform .12s ease}
+.btn:active{transform:translateY(1px)}
+.btn--primary{box-shadow:0 6px 16px -9px rgba(109,85,67,.9)}
+
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.app .card,.app .head,.app .auth-bar{animation:rise .55s cubic-bezier(.2,.7,.3,1) both}
+#game .card:nth-of-type(2){animation-delay:.05s}
+#game .card:nth-of-type(3){animation-delay:.10s}
+#game .card:nth-of-type(4){animation-delay:.15s}
+#game .card:nth-of-type(5){animation-delay:.20s}
+#game .card:nth-of-type(6){animation-delay:.25s}
+#game .card:nth-of-type(7){animation-delay:.30s}
+#game .card:nth-of-type(8){animation-delay:.35s}
+
+/* ---------- первый экран: приглашение за стол ---------- */
+.hero-head{margin-bottom:14px;text-align:center}
+.hero-head h1{font-size:clamp(28px,7.6vw,35px)}
+.hero-head p{font-size:15px;max-width:34ch;margin:0 auto}
+.card--hero{position:relative;overflow:hidden;text-align:center;padding-top:8px}
+.card--hero::before{
+  content:'';position:absolute;left:50%;top:-130px;width:330px;height:240px;
+  transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(closest-side, var(--glow), transparent 75%);
+}
+.crest{position:relative;width:118px;height:118px;margin:0 auto 14px}
+.crest svg{width:118px;height:118px;display:block}
+.crest .table{fill:none;stroke:var(--line);stroke-width:1.4;stroke-dasharray:3 5;opacity:.85}
+.crest .hearth{fill:var(--pill);stroke:var(--line);stroke-width:1}
+.crest .seat-dot{fill:var(--card);stroke:var(--line);stroke-width:1.2}
+.crest .seat-dot.lit{fill:var(--accent);stroke:var(--accent)}
+@keyframes breathe{0%,100%{opacity:.6}50%{opacity:1}}
+.crest .lit{animation:breathe 3.8s ease-in-out infinite}
+.crest .lit:nth-of-type(6){animation-delay:1.3s}
+.card--hero .field{text-align:left;max-width:340px;margin:0 auto 12px}
+.card--hero .btn--wide{display:flex;max-width:340px;margin:0 auto}
+.card--hero .note{max-width:40ch;margin-left:auto;margin-right:auto}
+.steps-hint{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:15px 0 0}
+.steps-hint span{
+  font-size:11.5px;line-height:1;color:var(--accent-deep);
+  background:var(--pill);border-radius:999px;padding:6px 11px;
+}
+.card--join{background-image:none;background-color:transparent;box-shadow:none;border-style:dashed;border-color:var(--seat)}
+
+/* ---------- круг: имя, код, кольцо ---------- */
+.card--circle{position:relative;overflow:hidden}
+.card--circle::before{
+  content:'';position:absolute;right:-50px;top:-70px;width:210px;height:170px;pointer-events:none;
+  background:radial-gradient(closest-side, var(--glow), transparent 72%);
+}
+.circle-name{font-size:27px}
+.code{
+  display:inline-block;margin-top:6px;padding:4px 11px;font-size:11px;letter-spacing:.1em;
+  background:var(--soft);border:1px solid var(--border);border-radius:999px;
+}
+.ring{flex:0 0 66px;width:66px;height:66px}
+.ring svg{width:66px;height:66px}
+.ring::after{content:'';position:absolute;inset:-5px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--divider);opacity:.55}
+.ring b{font-size:14px;color:var(--accent-deep)}
+
+/* ---------- доска шагов ---------- */
+.qbar{height:9px;border-radius:999px;background:var(--divider);overflow:hidden;margin:0 0 14px}
+.qbar span{
+  display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg, var(--line), var(--accent));
+  transition:width .7s cubic-bezier(.2,.7,.3,1);
+}
+.quests{counter-reset:q;display:grid;gap:9px}
+.quests li{
+  counter-increment:q;align-items:center;gap:12px;
+  border:1px solid var(--border);border-radius:14px;background:var(--tile);
+  padding:12px 13px;transition:background .3s ease,border-color .3s ease;
+}
+.quests li:first-child{border-top:1px solid var(--border);padding-top:12px}
+.tick{
+  position:relative;flex:0 0 27px;width:27px;height:27px;margin-top:0;
+  border:1px solid var(--line);border-style:solid;background:var(--card);
+  font-size:12.5px;font-weight:600;color:var(--muted);
+}
+.tick::before{content:counter(q)}
+.tick svg{position:absolute;width:13px;height:13px}
+.quests li.done{
+  border-color:var(--seat);
+  background:linear-gradient(180deg, rgba(232,222,209,.55), rgba(232,222,209,.16));
+}
+body.is-dark .quests li.done{background:linear-gradient(180deg, rgba(198,161,132,.16), rgba(198,161,132,.05))}
+@keyframes pop{0%{transform:scale(.62)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+.quests li.done .tick{background:var(--accent);border-color:var(--accent);animation:pop .45s cubic-bezier(.2,.9,.3,1.4)}
+.quests li.done .tick::before{content:''}
+.quests li.done .q-t b{color:var(--ink);text-decoration:none}
+.quests li.done .q-t small{color:var(--accent-deep)}
+.quests li.done::after{
+  content:'готово';flex:0 0 auto;align-self:center;line-height:1;
+  font-size:10.5px;letter-spacing:.03em;color:var(--accent-deep);
+  background:var(--pill);border-radius:999px;padding:5px 9px;
+}
+.q-t b{font-size:14.5px}
+
+/* ---------- места за столом ---------- */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:9px}
+.people li{
+  border:1px solid var(--border);border-top:1px solid var(--border);border-radius:14px;
+  background:var(--tile);padding:11px 10px 11px 11px;gap:10px;align-items:center;
+}
+.people li:first-child{padding-top:11px}
+.who{
+  width:38px;height:38px;flex:0 0 38px;font-size:13.5px;
+  background:radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.45), transparent 62%), var(--pill);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.4), 0 1px 2px rgba(64,46,34,.09);
+}
+.who-t b{font-size:14px}
+.seat-free{border-style:dashed;border-color:var(--seat);background:transparent}
+.seat-free .who{
+  background:transparent;box-shadow:none;border:1px dashed var(--seat);
+  color:var(--seat);font-weight:400;font-size:18px;
+}
+.seat-free .who-t b{color:var(--muted);font-weight:400}
+
+/* ---------- фотографии ---------- */
+.drop{
+  border-width:2px;border-radius:16px;padding:24px 16px;
+  background:linear-gradient(180deg, var(--tile), var(--soft));
+  transition:border-color .2s ease,background .2s ease,transform .2s ease;
+}
+.drop:hover,.drop.over{border-color:var(--accent);background:linear-gradient(180deg, var(--pill), var(--soft))}
+.drop.over{transform:scale(1.01)}
+.drop svg{
+  width:22px;height:22px;padding:10px;box-sizing:content-box;
+  border-radius:50%;background:var(--pill);margin-bottom:11px;
+}
+.shots{gap:12px}
+.shot{border-radius:14px;background:var(--card);box-shadow:var(--lift)}
+.shot img{padding:6px 6px 0;border-radius:14px}
+.shot-b{padding:10px}
+
+/* ---------- приглашение ---------- */
+.card--invite .link-box{border-style:dashed;border-color:var(--seat);background:var(--tile);border-radius:12px}
+.card--invite .link-box::before{content:'';flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:.7}
+
+/* ---------- вопрос на вечер ---------- */
+.chip{transition:background .2s ease,border-color .2s ease,color .2s ease}
+.card--ask .chip{padding:8px 13px;font-size:12.5px;border-radius:12px;text-align:left}
+.card--ask .chip.on{box-shadow:inset 0 0 0 1px var(--seat)}
+
+/* ---------- дворецкий как спутник ---------- */
+.card--butler{background-image:linear-gradient(180deg, rgba(232,222,209,.42), transparent 150px)}
+body.is-dark .card--butler{background-image:linear-gradient(180deg, rgba(198,161,132,.13), transparent 150px)}
+.but-ava{
+  flex:0 0 30px;width:30px;height:30px;border-radius:50%;align-self:center;
+  display:grid;place-items:center;background:var(--pill);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.4);
+}
+.but-ava svg{width:16px;height:16px;stroke:var(--accent-deep);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.thread{gap:10px;padding:2px}
+.msg{box-shadow:0 1px 2px rgba(64,46,34,.06)}
+.msg--but{background:var(--card)}
+@keyframes bubble{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.thread .msg:last-child{animation:bubble .3s ease both}
+
+/* ---------- сноски и мелочи ---------- */
+.rule{border-radius:0 12px 12px 0;background:linear-gradient(90deg, rgba(232,222,209,.45), transparent)}
+body.is-dark .rule{background:linear-gradient(90deg, rgba(198,161,132,.13), transparent)}
+.toast{box-shadow:0 12px 30px -12px rgba(0,0,0,.55)}
+
+@media (min-width:720px){
+  .app{max-width:640px;padding-top:22px}
+  .shots{grid-template-columns:repeat(3,1fr)}
+}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -267,27 +498,38 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
 
   <!-- ============ шаг 0: круга ещё нет ============ -->
   <section id="setup">
-    <header class="head">
+    <header class="head hero-head">
       <p class="crumb">Семейный круг</p>
       <h1>Соберём родных в одном месте</h1>
-      <p>Один человек редко помнит всю семью. Вместе — помните. Круг — это общее место, куда каждый приносит своё: фото, имя, дату, рассказ.</p>
+      <p>Один человек редко помнит всю семью. Вместе — помните.</p>
     </header>
 
-    <div class="card">
-      <div class="card-head"><h2>Начать круг</h2></div>
-      <p class="card-sub">Назовите его так, как говорите дома: «Наши Ковалёвы», «Дом на Полевой», «Бабушкин альбом».</p>
+    <div class="card card--hero">
+      <div class="crest" aria-hidden="true">
+        <svg viewBox="0 0 118 118">
+          <circle class="table" cx="59" cy="59" r="34"/>
+          <circle class="hearth" cx="59" cy="59" r="13"/>
+          <circle class="seat-dot lit" cx="59" cy="16" r="7"/>
+          <circle class="seat-dot" cx="96" cy="37.5" r="7"/>
+          <circle class="seat-dot" cx="96" cy="80.5" r="7"/>
+          <circle class="seat-dot lit" cx="59" cy="102" r="7"/>
+          <circle class="seat-dot" cx="22" cy="80.5" r="7"/>
+          <circle class="seat-dot" cx="22" cy="37.5" r="7"/>
+        </svg>
+      </div>
       <div class="field">
-        <label for="circleName">Имя семейного круга</label>
+        <label for="circleName">Назовите круг так, как говорите дома</label>
         <input class="inp" id="circleName" type="text" maxlength="48" placeholder="Например: Наши Ковалёвы" autocomplete="off">
       </div>
       <button class="btn btn--primary btn--wide" id="createBtn" type="button">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M12 8.4v7.2M8.4 12h7.2"/></svg>
         Создать круг
       </button>
-      <p class="note">Всё, что вы добавите в этой версии, остаётся на этом устройстве и никуда не отправляется. Это демонстрация самого ритуала, а не хранилище архива.</p>
+      <p class="steps-hint"><span>назвать круг</span><span>позвать родных</span><span>первое фото</span></p>
+      <p class="note">Круг — общее место, куда каждый приносит своё: фото, имя, дату, рассказ. Всё, что вы добавите в этой версии, остаётся на этом устройстве и никуда не отправляется. Это демонстрация самого ритуала, а не хранилище архива.</p>
     </div>
 
-    <div class="card">
+    <div class="card card--join">
       <div class="card-head"><h2>Меня позвали</h2></div>
       <p class="card-sub">Если родные прислали код круга — введите его здесь.</p>
       <div class="row2">
@@ -300,7 +542,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
   <!-- ============ игра ============ -->
   <section id="game" class="hide">
 
-    <div class="card">
+    <div class="card card--circle">
       <div class="circle-line">
         <div style="min-width:0">
           <h1 class="circle-name serif" id="cName">Семейный круг</h1>
@@ -317,11 +559,12 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
       <p class="card-sub" style="margin:0" id="circleLede">Круг собирается по шагу за раз. Ничего не надо делать за один вечер.</p>
     </div>
 
-    <div class="card">
+    <div class="card card--quest">
       <div class="card-head">
         <h2>Шаги семьи</h2>
         <span class="cnt" id="qCnt">0 из 5</span>
       </div>
+      <div class="qbar" aria-hidden="true"><span id="qBarFg"></span></div>
       <ul class="quests" id="qList"></ul>
     </div>
 
@@ -359,7 +602,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
       <ul class="people" id="pList" style="margin-top:14px"></ul>
     </div>
 
-    <div class="card">
+    <div class="card card--photos">
       <div class="card-head">
         <h2>Фотографии</h2>
         <span class="cnt" id="fCnt">0</span>
@@ -367,8 +610,8 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
       <p class="card-sub">Один снимок — уже начало. После загрузки отметьте, кто на нём — имена становятся фактом только от человека, не от машины.</p>
       <label class="drop" for="file">
         <svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="13.6" rx="2.2"/><circle cx="8.6" cy="10.2" r="1.5"/><path d="M4.4 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>
-        <b>Добавить фотографию</b>
-        <small>Можно снять старый снимок прямо со стола или выбрать из галереи</small>
+        <b>Фото для круга</b>
+        <small>Снимите старую карточку прямо со стола, выберите из галереи или перетащите сюда — снимок останется на этом устройстве</small>
       </label>
       <input id="file" class="vh" type="file" accept="image/*">
       <div class="shots" id="fList" style="margin-top:12px"></div>
@@ -378,7 +621,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
       </p>
     </div>
 
-    <div class="card">
+    <div class="card card--invite">
       <div class="card-head"><h2>Позвать родных</h2></div>
       <p class="card-sub">Отправьте эту ссылку в семейный чат. Она откроет тот же круг и те же шаги.</p>
       <div class="link-box">
@@ -394,15 +637,16 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
       <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
     </div>
 
-    <div class="card">
+    <div class="card card--ask">
       <div class="card-head"><h2>Вопрос на вечер</h2></div>
       <p class="card-sub">Необязательный шаг, самый ценный. Выберите один вопрос и задайте его старшим вслух.</p>
       <div class="chips" id="qsList"></div>
       <p class="note" id="qsNote">Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.</p>
     </div>
 
-    <div class="card">
+    <div class="card card--butler">
       <div class="card-head">
+        <span class="but-ava" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 17.6h15"/><path d="M6.6 17.6a5.4 5.4 0 0 1 10.8 0"/><path d="M12 12.2V9.8"/><circle cx="12" cy="7.9" r="1.5"/></svg></span>
         <h2>Дворецкий</h2>
         <span class="cnt" id="bCnt">0 заметок</span>
       </div>
@@ -608,7 +852,10 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     }
     $('qList').innerHTML = html;
     $('qCnt').textContent = done + ' из ' + qs.length;
-    drawRing(Math.round(done / qs.length * 100));
+    var pct = Math.round(done / qs.length * 100);
+    drawRing(pct);
+    var bar = $('qBarFg');
+    if(bar) bar.style.width = pct + '%';
 
     var lede = $('circleLede');
     if(done === qs.length){
@@ -626,9 +873,6 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
 
   function renderPeople(){
     var html = '';
-    if(!state.people.length){
-      html = '<li style="border-top:0"><span class="who-t"><small>Пока никого. Начните с того, кто первым приходит в голову.</small></span></li>';
-    }
     for(var i=0;i<state.people.length;i++){
       var p = state.people[i];
       html += '<li>' +
@@ -639,6 +883,19 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
                 '</button>' +
               '</li>';
     }
+
+    /* свободные места за столом — приглашение, а не пустота */
+    var free = Math.max(0, 3 - state.people.length);
+    var hint = state.people.length
+      ? 'ждёт своего человека'
+      : 'начните с того, кто первым приходит в голову';
+    for(var s=0;s<free;s++){
+      html += '<li class="seat-free">' +
+                '<span class="who" aria-hidden="true">+</span>' +
+                '<span class="who-t"><b>Свободное место</b><small>' + hint + '</small></span>' +
+              '</li>';
+    }
+
     $('pList').innerHTML = html;
     $('pCnt').textContent = state.people.length;
   }
@@ -1089,6 +1346,23 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     if(f) addPhoto(f);
     e.target.value = '';
   });
+
+  /* снимок можно просто перетащить на рамку */
+  (function dropZone(){
+    var z = document.querySelector('.drop');
+    if(!z) return;
+    function stop(e){ e.preventDefault(); e.stopPropagation(); }
+    function over(e){ stop(e); z.classList.add('over'); }
+    function out(e){ stop(e); z.classList.remove('over'); }
+    z.addEventListener('dragenter', over);
+    z.addEventListener('dragover', over);
+    z.addEventListener('dragleave', out);
+    z.addEventListener('drop', function(e){
+      out(e);
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if(f && state) addPhoto(f);
+    });
+  })();
 
   $('copyBtn').addEventListener('click', function(){
     markInvited();
