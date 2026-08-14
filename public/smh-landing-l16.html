@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l16" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-suitcase-archive" data-smh-landing-status="local-ready" data-smh-craft="smooth-nav-20260814" data-smh-visuals="planes-20260814">
+<html lang="ru" data-smh-landing="l16" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-suitcase-archive" data-smh-landing-status="local-ready" data-smh-effects="invent-20260814" data-smh-craft="smooth-nav-20260814" data-smh-visuals="planes-20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -126,6 +126,38 @@ h1.support{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;font-s
   z-index:4;font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;
   color:rgba(242,239,232,.5);opacity:0;animation:rise 1.4s var(--ease) 1.8s forwards}
 </style>
+<style data-smh-effects="invent-20260814">
+
+/* ============ story reveal — closed until the soft CTA (L17 pattern) ============ */
+html.js .story{max-height:0;overflow:hidden;opacity:0;pointer-events:none;
+  transition:opacity .9s var(--ease)}
+html.js .story.open{max-height:none;overflow:visible;opacity:1;pointer-events:auto}
+.btn-story{display:inline-flex;align-items:center;gap:12px;cursor:pointer;
+  padding:14px 30px;border:1px solid rgba(242,239,232,.34);border-radius:999px;
+  font-family:inherit;font-size:clamp(11.5px,1.18vw,13.4px);letter-spacing:.2em;
+  text-transform:uppercase;font-weight:300;color:rgba(251,247,238,.9);
+  background:rgba(16,10,4,.3);backdrop-filter:blur(3px);
+  transition:background .45s var(--ease),border-color .45s var(--ease),
+    letter-spacing .45s var(--ease),color .45s var(--ease),opacity .7s var(--ease)}
+.btn-story:hover{background:rgba(16,10,4,.52);border-color:var(--accent);
+  color:#FBF7EE;letter-spacing:.235em}
+.btn-story .arw{width:7px;height:7px;flex:none;
+  border-right:1px solid currentColor;border-bottom:1px solid currentColor;
+  transform:rotate(45deg);transition:transform .45s var(--ease)}
+.btn-story:hover .arw{transform:rotate(45deg) translate(2px,2px)}
+.btn-story.is-open{opacity:.4}
+.btn-story.is-open .arw{transform:rotate(225deg)}
+
+/* ---- signature: the lid lifts off the case ---- */
+html.js .story.open{animation:lidLift 1.4s var(--ease)}
+@keyframes lidLift{0%{transform:translateY(15px);opacity:0}100%{transform:none;opacity:1}}
+
+@media (prefers-reduced-motion:reduce){
+  .grove{animation:none}
+  html.js .story.open{animation:none}
+}
+</style>
+<script data-smh-effects="invent-20260814-early">document.documentElement.className+=' js';</script>
 </head>
 <body>
 <a class="smh-skip" href="#chemodan">К содержанию</a>
@@ -161,6 +193,8 @@ h1.support{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;font-s
     <h1 class="support">Всё, что осталось от целой жизни, помещается в один чемодан. Мы бережно возвращаем этим снимкам свет.</h1>
     <div class="hero-cta">
       <a class="cta" href="/waitlist.html">Занять место в листе ожидания</a>
+      <button class="btn-story" id="storyBtn" type="button"
+              aria-expanded="false" aria-controls="story">Узнать о проекте <i class="arw" aria-hidden="true"></i></button>
       <div class="hero-status">Приём открыт · выдача сейчас <b>на паузе</b></div>
     </div>
   </div>
@@ -311,7 +345,7 @@ section[id]{scroll-margin-top:74px}
 }
 </style>
 
-<main>
+<main class="story" id="story">
 
   <section id="chemodan">
     <div class="wrap split">
@@ -744,6 +778,73 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
   window.addEventListener('resize', onScroll);
   window.addEventListener('load', onScroll);
   if (mq.addEventListener) mq.addEventListener('change', function(){ reduce = mq.matches; });
+})();
+</script>
+
+<script data-smh-effects="invent-20260814">
+/* effects: story reveal - vanilla, no deps */
+(function(){
+  var doc   = document.documentElement;
+  var story = document.getElementById('story');
+  var btn   = document.getElementById('storyBtn');
+  var rm    = window.matchMedia &&
+              window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!story) return;
+
+  var opened = false;
+
+  function settle(){
+    Array.prototype.forEach.call(document.querySelectorAll('.rv:not(.in)'), function(el){
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.classList.add('in');
+    });
+  }
+
+  function openStory(target){
+    if (!opened){
+      opened = true;
+      story.classList.add('open');
+      doc.classList.add('story-open');
+      if (btn){ btn.setAttribute('aria-expanded','true'); btn.classList.add('is-open'); }
+      window.setTimeout(settle, 950);
+    }
+    if (target){
+      window.requestAnimationFrame(function(){
+        target.scrollIntoView({ behavior: rm ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  if (btn){
+    btn.addEventListener('click', function(){
+      openStory(document.getElementById('chemodan'));
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1);
+      if (!id || id === 'top') return;
+      var el = document.getElementById(id);
+      if (!el || opened) return;
+      e.preventDefault();
+      openStory(el);
+    });
+  });
+
+  var hero = document.getElementById('top');
+  if (hero && 'IntersectionObserver' in window){
+    var hw = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting && en.boundingClientRect.top < 0){
+          openStory(null);
+          hw.disconnect();
+        }
+      });
+    }, { threshold: 0 });
+    hw.observe(hero);
+  } else {
+    openStory(null);
+  }
 })();
 </script>
 </body>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l22" data-smh-landing-wave="20260814-six" data-smh-landing-status="local-ready" data-smh-craft="smooth-nav-20260814" data-smh-visuals="planes-20260814">
+<html lang="ru" data-smh-landing="l22" data-smh-landing-wave="20260814-six" data-smh-landing-status="local-ready" data-smh-craft="smooth-nav-20260814" data-smh-visuals="planes-20260814" data-smh-effects="invent-20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -250,6 +250,60 @@ section[id]{scroll-margin-top:74px}
   color:rgba(242,239,232,.45)}
 @media (max-width:720px){.idx{grid-template-columns:1fr}}
 </style>
+<style data-smh-effects="invent-20260814">
+
+/* ============ story reveal — closed until the soft CTA (L17 pattern) ============ */
+html.js .story{max-height:0;overflow:hidden;opacity:0;pointer-events:none;
+  transition:opacity .9s var(--ease)}
+html.js .story.open{max-height:none;overflow:visible;opacity:1;pointer-events:auto}
+.btn-story{display:inline-flex;align-items:center;gap:12px;cursor:pointer;
+  padding:14px 30px;border:1px solid rgba(242,239,232,.34);border-radius:999px;
+  font-family:inherit;font-size:clamp(11.5px,1.18vw,13.4px);letter-spacing:.2em;
+  text-transform:uppercase;font-weight:300;color:rgba(251,247,238,.9);
+  background:rgba(16,10,4,.3);backdrop-filter:blur(3px);
+  transition:background .45s var(--ease),border-color .45s var(--ease),
+    letter-spacing .45s var(--ease),color .45s var(--ease),opacity .7s var(--ease)}
+.btn-story:hover{background:rgba(16,10,4,.52);border-color:var(--accent);
+  color:#FBF7EE;letter-spacing:.235em}
+.btn-story .arw{width:7px;height:7px;flex:none;
+  border-right:1px solid currentColor;border-bottom:1px solid currentColor;
+  transform:rotate(45deg);transition:transform .45s var(--ease)}
+.btn-story:hover .arw{transform:rotate(45deg) translate(2px,2px)}
+.btn-story.is-open{opacity:.4}
+.btn-story.is-open .arw{transform:rotate(225deg)}
+
+/* ---- signature: lid hinge + glassine ---- */
+html.js .story{transform-origin:top center}
+html.js .story.open{animation:lidOpen 1.6s var(--ease)}
+@keyframes lidOpen{0%{transform:perspective(1500px) rotateX(-7deg);opacity:0}
+  100%{transform:none;opacity:1}}
+.glassine{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(104deg,rgba(255,252,244,0) 37%,rgba(255,252,244,.11) 48%,
+    rgba(255,252,244,0) 59%);
+  animation:glassineFlutter 12s ease-in-out infinite alternate}
+@keyframes glassineFlutter{from{transform:translateX(-3.4%) skewX(-1.3deg)}
+  to{transform:translateX(3.4%) skewX(1.3deg)}}
+.story figure{position:relative;overflow:hidden}
+.story figure::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  transition:opacity 1s var(--ease);
+  background:linear-gradient(102deg,rgba(255,252,244,0) 40%,rgba(255,252,244,.14) 50%,
+    rgba(255,252,244,0) 60%)}
+.story figure:hover::after{opacity:1}
+
+@media (max-width:700px){
+  .grain{opacity:.04}
+  .steam,.bokeh{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .seal,.seal::after,.grain,.lamp,.steam i,.glassine,.beam,.spill,.bokeh i{animation:none}
+  html.js .story.open{animation:none}
+  .story .rv.in h2 em::after{animation:none;opacity:.6;transform:scaleX(1)}
+  .story .rv.in figure img{animation:none}
+  .story section.lit{animation:none}
+  .story section.lit::before{transition:none}
+}
+</style>
+<script data-smh-effects="invent-20260814-early">document.documentElement.className+=' js';</script>
 </head>
 <body>
 <a class="smh-skip" href="#shkatulka">К содержанию</a>
@@ -281,19 +335,22 @@ section[id]{scroll-margin-top:74px}
   <div class="dust" aria-hidden="true" id="dust"></div>
   <div class="marks" aria-hidden="true"><i class="m-tl"></i><i class="m-tr"></i><i class="m-bl"></i><i class="m-br"></i></div>
 
+  <div class="glassine" aria-hidden="true"></div>
   <div class="hero-body">
     <div class="kicker">Семейный архив</div>
     <div class="brand" aria-label="SAVE MY HISTORY"><span>SAVE</span> <span>MY</span> <span>HISTORY</span></div>
     <h1 class="support">Не у каждой семьи есть альбом. Но почти у каждой есть шкатулка, куда складывали то, что нельзя выбросить.</h1>
     <div class="hero-cta">
       <a class="cta" href="/waitlist.html">Занять место в листе ожидания</a>
+      <button class="btn-story" id="storyBtn" type="button"
+              aria-expanded="false" aria-controls="story">Узнать о проекте <i class="arw" aria-hidden="true"></i></button>
       <div class="hero-status">Приём открыт · выдача сейчас <b>на паузе</b></div>
     </div>
   </div>
   <div class="scroll-hint" aria-hidden="true">ниже</div>
 </header>
 
-<main>
+<main class="story" id="story">
 
   <section id="shkatulka">
     <div class="wrap split">
@@ -681,6 +738,77 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
   window.addEventListener('resize', onScroll);
   window.addEventListener('load', onScroll);
   if (mq.addEventListener) mq.addEventListener('change', function(){ reduce = mq.matches; });
+})();
+</script>
+
+<script data-smh-effects="invent-20260814">
+/* effects: story reveal + living signature - vanilla, no deps */
+(function(){
+  var doc   = document.documentElement;
+  var story = document.getElementById('story');
+  var btn   = document.getElementById('storyBtn');
+  var rm    = window.matchMedia &&
+              window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!story) return;
+
+  var opened = false;
+
+  /* safety net: anything already on screen when the story opens must not stay blank */
+  function settle(){
+    Array.prototype.forEach.call(document.querySelectorAll('.rv:not(.in)'), function(el){
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.classList.add('in');
+    });
+  }
+
+  function openStory(target){
+    if (!opened){
+      opened = true;
+      story.classList.add('open');
+      doc.classList.add('story-open');
+      if (btn){ btn.setAttribute('aria-expanded','true'); btn.classList.add('is-open'); }
+      window.setTimeout(settle, 950);
+    }
+    if (target){
+      window.requestAnimationFrame(function(){
+        target.scrollIntoView({ behavior: rm ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  if (btn){
+    btn.addEventListener('click', function(){
+      openStory(document.getElementById('shkatulka'));
+    });
+  }
+
+  /* nav / skip links open the story before they travel */
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1);
+      if (!id || id === 'top') return;
+      var el = document.getElementById(id);
+      if (!el || opened) return;
+      e.preventDefault();
+      openStory(el);
+    });
+  });
+
+  /* scrolling past the hero also lets the story begin */
+  var hero = document.getElementById('top');
+  if (hero && 'IntersectionObserver' in window){
+    var hw = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting && en.boundingClientRect.top < 0){
+          openStory(null);
+          hw.disconnect();
+        }
+      });
+    }, { threshold: 0 });
+    hw.observe(hero);
+  } else {
+    openStory(null);
+  }
+
 })();
 </script>
 </body>

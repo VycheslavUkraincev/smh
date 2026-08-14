@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l18" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-trunk-forest-strip" data-smh-trunk-strip="8" data-smh-landing-status="local-ready" data-smh-scroll="trunk-vertical" data-smh-quality="raise-20260814" data-smh-craft="smooth-nav-20260814">
+<html lang="ru" data-smh-landing="l18" data-smh-content-gen="20260814" data-smh-landing-wave="20260814-trunk-forest-strip" data-smh-trunk-strip="8" data-smh-landing-status="local-ready" data-smh-scroll="trunk-vertical" data-smh-quality="raise-20260814" data-smh-craft="smooth-nav-20260814" data-smh-effects="invent-20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -310,8 +310,41 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
   .rv{transition-delay:0s!important}
 }
 </style>
+<style data-smh-effects="invent-20260814">
+/* ---- story gate: the descent begins when you ask for it ---- */
+html.js .story{max-height:0;overflow:hidden;opacity:0;pointer-events:none;
+  transition:opacity .95s var(--ease)}
+html.js .story.open{max-height:none;overflow:visible;opacity:1;pointer-events:auto}
+
+.ctas{display:flex;flex-wrap:wrap;gap:clamp(10px,1.4vw,18px);
+  margin-top:clamp(22px,3vh,34px)}
+.btn{display:inline-flex;align-items:center;gap:.55em;
+  padding:15px clamp(22px,2.6vw,36px);border-radius:2px;
+  border:1px solid var(--gold2);background:rgba(198,168,104,.08);
+  font-family:inherit;font-size:clamp(13px,1.1vw,15px);letter-spacing:.10em;
+  color:#F6F1E5;cursor:pointer;
+  transition:background .45s var(--ease),border-color .45s var(--ease),color .45s var(--ease)}
+.btn:hover{background:rgba(198,168,104,.18);border-color:var(--gold3);color:#FFF9EC}
+.btn-ghost{background:transparent;border-color:var(--line)}
+.btn-ghost:hover{background:rgba(198,168,104,.10);border-color:var(--gold2)}
+.btn .arw{width:.82em;height:.82em;background:currentColor;transform:rotate(90deg);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition:transform .4s var(--ease)}
+.btn:hover .arw{transform:rotate(90deg) translateX(3px)}
+
+/* the cue points down the trunk - it would point at nothing while the descent is closed */
+.scrollcue{transition:opacity .8s var(--ease)}
+html.js:not(.story-open) .scrollcue{opacity:0;pointer-events:none}
+
+@media (prefers-reduced-motion:reduce){
+  html.js .story{transition:none}
+  .btn,.btn .arw{transition:none}
+  .scrollcue{transition:none}
+}
+</style>
 </head>
 <body>
+<script data-smh-effects="invent-20260814-early">document.documentElement.className+=' js';</script>
 <a class="smh-skip" href="#nasledie">К содержанию</a>
 
 <div class="spine" aria-hidden="true">
@@ -414,6 +447,13 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
         <div class="eyebrow rv">Крона · 01</div>
         <h1 class="rv">Память семьи растёт <em>деревом</em></h1>
         <p class="lead rv">Наверху - свет и лица, которые мы ещё помним. Внизу, у корней, - те, от кого остался один выцветший снимок. Спуститесь по стволу, и мы расскажем, как с ними обращаемся.</p>
+        <div class="ctas">
+          <a class="btn" href="/waitlist.html">Занять место</a>
+          <button class="btn btn-ghost" id="storyBtn" type="button"
+                  aria-expanded="false" aria-controls="story">
+            Узнать о проекте <i class="arw" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </div>
     <div class="scrollcue" aria-hidden="true">
@@ -422,6 +462,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
     </div>
   </section>
 
+  <div class="story" id="story">
   <!-- 02 · НАСЛЕДИЕ -->
   <section class="station right" id="nasledie" data-st="02">
     <div class="wrap">
@@ -690,6 +731,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);
     </div>
   </section>
 
+  </div>
 </main>
 
 <style data-smh-polish="complete-20260814">
@@ -957,6 +999,80 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
   window.addEventListener('resize', onScroll);
   window.addEventListener('load', onScroll);
   if (mq.addEventListener) mq.addEventListener('change', function(){ reduce = mq.matches; });
+})();
+</script>
+<script data-smh-effects="invent-20260814">
+/* effects: the descent opens on «Узнать о проекте» - vanilla, no deps */
+(function(){
+  var doc   = document.documentElement;
+  var story = document.getElementById('story');
+  var btn   = document.getElementById('storyBtn');
+  var rm    = window.matchMedia &&
+              window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!story) return;
+
+  var opened = false;
+
+  /* safety net: whatever is already on screen when the descent opens must not stay blank */
+  function settle(){
+    Array.prototype.forEach.call(document.querySelectorAll('.rv:not(.in)'), function(el){
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.classList.add('in');
+    });
+  }
+
+  /* the trunk strip reads --p off scrollHeight, so it must re-measure against the full descent */
+  function remeasure(){ window.dispatchEvent(new Event('resize')); }
+
+  function openStory(target){
+    if (!opened){
+      opened = true;
+      story.classList.add('open');
+      doc.classList.add('story-open');
+      if (btn){ btn.setAttribute('aria-expanded','true'); btn.classList.add('is-open'); }
+      remeasure();
+      window.setTimeout(settle, 950);
+      window.setTimeout(remeasure, 980);
+    }
+    if (target){
+      window.requestAnimationFrame(function(){
+        target.scrollIntoView({ behavior: rm ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  if (btn){
+    btn.addEventListener('click', function(){
+      openStory(document.getElementById('nasledie'));
+    });
+  }
+
+  /* nav / skip / footer links open the descent before they travel */
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1);
+      if (!id || id === 'krona') return;
+      var el = document.getElementById(id);
+      if (!el || opened) return;
+      e.preventDefault();
+      openStory(el);
+    });
+  });
+
+  /* scrolling past the crown also lets the descent begin */
+  var hero = document.getElementById('krona');
+  if (hero && 'IntersectionObserver' in window){
+    var hw = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting && en.boundingClientRect.top < 0){
+          openStory(null);
+          hw.disconnect();
+        }
+      });
+    }, { threshold: 0 });
+    hw.observe(hero);
+  } else {
+    openStory(null);
+  }
 })();
 </script>
 </body>

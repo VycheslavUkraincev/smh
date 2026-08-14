@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l23" data-smh-landing-wave="20260814-six" data-smh-landing-status="local-ready" data-smh-craft="smooth-nav-20260814" data-smh-visuals="planes-20260814">
+<html lang="ru" data-smh-landing="l23" data-smh-landing-wave="20260814-six" data-smh-landing-status="local-ready" data-smh-craft="smooth-nav-20260814" data-smh-visuals="planes-20260814" data-smh-effects="invent-20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -252,6 +252,59 @@ section[id]{scroll-margin-top:74px}
 .rung h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:clamp(20px,2.3vw,27px);color:#F7F2E8;margin-top:9px}
 .rung p{margin-top:10px;max-width:56ch;font-size:clamp(14px,1.3vw,16px)}
 </style>
+<style data-smh-effects="invent-20260814">
+
+/* ============ story reveal — closed until the soft CTA (L17 pattern) ============ */
+html.js .story{max-height:0;overflow:hidden;opacity:0;pointer-events:none;
+  transition:opacity .9s var(--ease)}
+html.js .story.open{max-height:none;overflow:visible;opacity:1;pointer-events:auto}
+.btn-story{display:inline-flex;align-items:center;gap:12px;cursor:pointer;
+  padding:14px 30px;border:1px solid rgba(242,239,232,.34);border-radius:999px;
+  font-family:inherit;font-size:clamp(11.5px,1.18vw,13.4px);letter-spacing:.2em;
+  text-transform:uppercase;font-weight:300;color:rgba(251,247,238,.9);
+  background:rgba(16,10,4,.3);backdrop-filter:blur(3px);
+  transition:background .45s var(--ease),border-color .45s var(--ease),
+    letter-spacing .45s var(--ease),color .45s var(--ease),opacity .7s var(--ease)}
+.btn-story:hover{background:rgba(16,10,4,.52);border-color:var(--accent);
+  color:#FBF7EE;letter-spacing:.235em}
+.btn-story .arw{width:7px;height:7px;flex:none;
+  border-right:1px solid currentColor;border-bottom:1px solid currentColor;
+  transform:rotate(45deg);transition:transform .45s var(--ease)}
+.btn-story:hover .arw{transform:rotate(45deg) translate(2px,2px)}
+.btn-story.is-open{opacity:.4}
+.btn-story.is-open .arw{transform:rotate(225deg)}
+
+/* ---- signature: stair light cascade ---- */
+.beam{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(196deg,rgba(255,236,190,0) 29%,rgba(255,236,190,.14) 42%,
+    rgba(255,236,190,0) 56%);
+  animation:beamBreathe 13s ease-in-out infinite alternate}
+@keyframes beamBreathe{from{opacity:.5;transform:translateY(-1.6%)}
+  to{opacity:.95;transform:translateY(1.6%)}}
+.story section{position:relative}
+.story section::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  transform:scaleX(0);transform-origin:center;
+  transition:transform 1.5s var(--ease);
+  background:linear-gradient(90deg,rgba(210,178,104,0),rgba(210,178,104,.6),rgba(210,178,104,0))}
+.story section.lit::before{transform:scaleX(1)}
+.story section.lit{animation:stepLight 2.4s var(--ease)}
+@keyframes stepLight{0%{background-color:rgba(255,236,190,0)}
+  22%{background-color:rgba(255,236,190,.028)}100%{background-color:rgba(255,236,190,0)}}
+
+@media (max-width:700px){
+  .grain{opacity:.04}
+  .steam,.bokeh{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .seal,.seal::after,.grain,.lamp,.steam i,.glassine,.beam,.spill,.bokeh i{animation:none}
+  html.js .story.open{animation:none}
+  .story .rv.in h2 em::after{animation:none;opacity:.6;transform:scaleX(1)}
+  .story .rv.in figure img{animation:none}
+  .story section.lit{animation:none}
+  .story section.lit::before{transition:none}
+}
+</style>
+<script data-smh-effects="invent-20260814-early">document.documentElement.className+=' js';</script>
 </head>
 <body>
 <a class="smh-skip" href="#stena">К содержанию</a>
@@ -283,19 +336,22 @@ section[id]{scroll-margin-top:74px}
   <div class="dust" aria-hidden="true" id="dust"></div>
   <div class="marks" aria-hidden="true"><i class="m-tl"></i><i class="m-tr"></i><i class="m-bl"></i><i class="m-br"></i></div>
 
+  <div class="beam" aria-hidden="true"></div>
   <div class="hero-body">
     <div class="kicker">Семейный архив</div>
     <div class="brand" aria-label="SAVE MY HISTORY"><span>SAVE</span> <span>MY</span> <span>HISTORY</span></div>
     <h1 class="support">В старых домах фотографии вешали вдоль лестницы. Поднимаешься на этаж - и проходишь три поколения.</h1>
     <div class="hero-cta">
       <a class="cta" href="/waitlist.html">Занять место в листе ожидания</a>
+      <button class="btn-story" id="storyBtn" type="button"
+              aria-expanded="false" aria-controls="story">Узнать о проекте <i class="arw" aria-hidden="true"></i></button>
       <div class="hero-status">Приём открыт · выдача сейчас <b>на паузе</b></div>
     </div>
   </div>
   <div class="scroll-hint" aria-hidden="true">ниже</div>
 </header>
 
-<main>
+<main class="story" id="story">
 
   <section id="stena">
     <div class="wrap split">
@@ -695,6 +751,88 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
   window.addEventListener('resize', onScroll);
   window.addEventListener('load', onScroll);
   if (mq.addEventListener) mq.addEventListener('change', function(){ reduce = mq.matches; });
+})();
+</script>
+
+<script data-smh-effects="invent-20260814">
+/* effects: story reveal + living signature - vanilla, no deps */
+(function(){
+  var doc   = document.documentElement;
+  var story = document.getElementById('story');
+  var btn   = document.getElementById('storyBtn');
+  var rm    = window.matchMedia &&
+              window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!story) return;
+
+  var opened = false;
+
+  /* safety net: anything already on screen when the story opens must not stay blank */
+  function settle(){
+    Array.prototype.forEach.call(document.querySelectorAll('.rv:not(.in)'), function(el){
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.classList.add('in');
+    });
+  }
+
+  function openStory(target){
+    if (!opened){
+      opened = true;
+      story.classList.add('open');
+      doc.classList.add('story-open');
+      if (btn){ btn.setAttribute('aria-expanded','true'); btn.classList.add('is-open'); }
+      window.setTimeout(settle, 950);
+    }
+    if (target){
+      window.requestAnimationFrame(function(){
+        target.scrollIntoView({ behavior: rm ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  if (btn){
+    btn.addEventListener('click', function(){
+      openStory(document.getElementById('stena'));
+    });
+  }
+
+  /* nav / skip links open the story before they travel */
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1);
+      if (!id || id === 'top') return;
+      var el = document.getElementById(id);
+      if (!el || opened) return;
+      e.preventDefault();
+      openStory(el);
+    });
+  });
+
+  /* scrolling past the hero also lets the story begin */
+  var hero = document.getElementById('top');
+  if (hero && 'IntersectionObserver' in window){
+    var hw = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting && en.boundingClientRect.top < 0){
+          openStory(null);
+          hw.disconnect();
+        }
+      });
+    }, { threshold: 0 });
+    hw.observe(hero);
+  } else {
+    openStory(null);
+  }
+
+  /* cascade: each flight catches the light as you climb it */
+  if (!rm && 'IntersectionObserver' in window) {
+    var stairs = document.querySelectorAll('.story section');
+    var lio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('lit'); lio.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -18% 0px', threshold: 0.06 });
+    Array.prototype.forEach.call(stairs, function(el){ lio.observe(el); });
+  }
+
 })();
 </script>
 </body>
