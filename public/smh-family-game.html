@@ -208,6 +208,26 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
 }
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
+/* ---------- дворецкий ---------- */
+.thread{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:9px;max-height:320px;overflow-y:auto}
+.msg{max-width:88%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.5;overflow-wrap:anywhere}
+.msg small{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}
+.msg--me{align-self:flex-end;background:var(--pill);color:var(--ink);border-bottom-right-radius:5px}
+.msg--me small{color:var(--accent-deep)}
+.msg--but{align-self:flex-start;background:var(--soft);border:1px solid var(--border);color:var(--ink-2);border-bottom-left-radius:5px}
+.ta{width:100%;min-height:84px;resize:vertical;border:1px solid var(--border);
+  background:var(--tg-theme-bg-color, var(--soft));border-radius:11px;padding:11px 13px;
+  font-size:16px;color:var(--ink);line-height:1.45;font-family:inherit}
+.ta::placeholder{color:var(--muted)}
+.ta:focus{outline:none;border-color:var(--line);box-shadow:0 0 0 3px rgba(138,106,83,.10)}
+.sum{margin-top:16px;padding-top:13px;border-top:1px solid var(--divider)}
+.sum h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:600;margin:0 0 9px;letter-spacing:.2px}
+.notes{list-style:none;margin:11px 0 0;padding:0}
+.notes li{padding:10px 0;border-top:1px solid var(--divider);font-size:13px;color:var(--ink-2);line-height:1.5;overflow-wrap:anywhere}
+.notes li:first-child{border-top:0}
+.notes b{font-weight:500;color:var(--ink)}
+.notes small{display:block;font-size:11px;color:var(--muted);margin-top:3px}
+
 .hide{display:none!important}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -360,6 +380,41 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     </div>
 
     <div class="card">
+      <div class="card-head">
+        <h2>Дворецкий</h2>
+        <span class="cnt" id="bCnt">0 заметок</span>
+      </div>
+      <p class="card-sub">Здесь каждый в круге говорит своими словами: пожелание, замечание, идея или вопрос. Дворецкий примет заметку и сложит её в сводку для хранителя круга.</p>
+
+      <ul class="thread" id="bThread" aria-live="polite"></ul>
+
+      <div class="field">
+        <label for="bWho">Кто пишет</label>
+        <select class="inp" id="bWho"></select>
+      </div>
+      <div class="field">
+        <label for="bText">Пожелание или замечание</label>
+        <textarea class="ta" id="bText" maxlength="600" placeholder="Например: хочу отмечать, кто держал камеру"></textarea>
+      </div>
+      <button class="btn btn--primary btn--wide" id="bSend" type="button">
+        <svg viewBox="0 0 24 24"><path d="M4.6 12.2l14.8-6.6-6.2 14.6-2.1-6-6.5-2z"/></svg>
+        Передать дворецкому
+      </button>
+
+      <div class="sum">
+        <h3>Сводка для хранителя</h3>
+        <div class="chips" id="bTags"></div>
+        <ul class="notes" id="bList"></ul>
+        <div class="btn-row" style="margin-top:13px">
+          <button class="btn btn--quiet" id="bCopy" type="button">Скопировать сводку</button>
+          <button class="btn btn--quiet" id="bClear" type="button">Очистить заметки</button>
+        </div>
+      </div>
+
+      <p class="rule">Честно об этой версии: дворецкий отвечает заранее заготовленными словами и хранит заметки в памяти этого устройства. Живой разговор включится, когда у круга появится общий сервер — тогда заметки родных будут приходить хранителю сами. Пока сводку можно скопировать и отправить одним сообщением.</p>
+    </div>
+
+    <div class="card">
       <div class="card-head"><h2>Что дальше</h2></div>
       <p class="card-sub" style="margin-bottom:13px">Когда круг собран, его место — в архиве, где у каждого имени и даты видно, откуда мы это знаем.</p>
       <div class="btn-row">
@@ -438,10 +493,18 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
   }
 
   /* ---------- хранение (демо, только это устройство) ---------- */
+  function tidy(s){
+    if(!s) return null;
+    if(!s.people) s.people = [];
+    if(!s.photos) s.photos = [];
+    if(!s.notes)  s.notes  = [];
+    return s;
+  }
+
   function load(code){
     try{
       var raw = localStorage.getItem(PREFIX + code);
-      return raw ? JSON.parse(raw) : null;
+      return raw ? tidy(JSON.parse(raw)) : null;
     }catch(e){ return null; }
   }
 
@@ -464,6 +527,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
       people: [],
       photos: [],
       question: null,
+      notes: [],
       invited: false,
       born: Date.now()
     };
@@ -618,6 +682,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     renderPeople();
     renderPhotos();
     renderQuestion();
+    renderButler();
   }
 
   function openGame(){
@@ -794,7 +859,187 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
     }catch(e){}
   }
 
+  /* ---------- дворецкий (слой A: заготовленные ответы, заметки на устройстве) ---------- */
+  var KINDS = ['замечание', 'вопрос', 'идея', 'пожелание'];
+
+  var KIND_WORDS = {
+    'замечание': ['не работа', 'не открыв', 'не груз', 'не загруж', 'не сохран', 'не видно', 'ошибк', 'слома', 'зависа', 'глюч', 'вылета', 'пропал', 'неудобн', 'мешает', 'криво', 'баг'],
+    'вопрос': ['почему', 'зачем', 'можно ли', 'что будет', 'как сдела', 'как мне', 'куда ', 'кто увид'],
+    'идея': ['идея', 'предлагаю', 'а если', 'было бы здорово', 'можно сделать', 'придумал'],
+    'пожелание': ['хочу', 'хотел', 'хотелось', 'нужно', 'надо', 'добавь', 'сделайте', 'не хватает', 'пусть', 'прошу']
+  };
+
+  var KIND_REPLY = {
+    'замечание': [
+      'Принял как замечание — это про то, что мешает. Такие заметки хранитель разбирает первыми.',
+      'Записал: здесь что-то работает не так, как ждёшь. Пометил отдельно, чтобы не потерялось.'
+    ],
+    'вопрос': [
+      'Это вопрос — сохранил его отдельно. Ответ придёт от людей, которые ведут круг, а не от меня.',
+      'Вопрос принят. Придумывать ответ не буду — передам тем, кто знает точно.'
+    ],
+    'идея': [
+      'Хорошая идея — сохранил её целиком, вашими словами.',
+      'Записал как идею. Из таких заметок и складывается следующая версия круга.'
+    ],
+    'пожелание': [
+      'Записал как пожелание. Хранитель круга увидит его в общей сводке.',
+      'Принял пожелание и положил в список для хранителя — оно останется вашими словами.'
+    ]
+  };
+
+  function classify(text){
+    var t = ' ' + String(text).toLowerCase().replace(/ё/g, 'е') + ' ';
+    for(var k=0;k<KINDS.length;k++){
+      var words = KIND_WORDS[KINDS[k]];
+      for(var i=0;i<words.length;i++){
+        if(t.indexOf(words[i].replace(/ё/g, 'е')) !== -1) return KINDS[k];
+      }
+    }
+    return text.indexOf('?') !== -1 ? 'вопрос' : 'пожелание';
+  }
+
+  function noteWord(n){
+    var a = n % 10, b = n % 100;
+    if(a === 1 && b !== 11) return 'заметка';
+    if(a >= 2 && a <= 4 && (b < 12 || b > 14)) return 'заметки';
+    return 'заметок';
+  }
+
+  function members(){
+    if(state.people.length) return state.people;
+    return [{ id: 'guest', name: 'Гость круга', role: '' }];
+  }
+
+  function renderButlerWho(){
+    var sel = $('bWho'), prev = sel.value;
+    var list = members(), html = '';
+    for(var i=0;i<list.length;i++){
+      html += '<option value="' + esc(list[i].id) + '">' + esc(list[i].name) +
+              (list[i].role ? ' — ' + esc(list[i].role) : '') + '</option>';
+    }
+    sel.innerHTML = html;
+    if(prev) sel.value = prev;
+    if(!sel.value) sel.value = list[0].id;
+  }
+
+  function renderThread(){
+    var notes = state.notes || [], html = '';
+    if(!notes.length){
+      html = '<li class="msg msg--but"><small>Дворецкий</small>Я здесь, чтобы собрать пожелания и замечания всех, кто в круге. Напишите своими словами: чего не хватает и что стоит поправить.</li>';
+    }
+    var from = Math.max(0, notes.length - 12);
+    for(var i=from;i<notes.length;i++){
+      var n = notes[i];
+      html += '<li class="msg msg--me"><small>' + esc(n.who) + '</small>' + esc(n.text) + '</li>' +
+              '<li class="msg msg--but"><small>Дворецкий · ' + esc(n.kind) + '</small>' + esc(n.reply) + '</li>';
+    }
+    var box = $('bThread');
+    box.innerHTML = html;
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function renderNotes(){
+    var notes = state.notes || [];
+    var counts = {}, tags = '', html = '';
+    for(var i=0;i<notes.length;i++) counts[notes[i].kind] = (counts[notes[i].kind] || 0) + 1;
+    for(var k=0;k<KINDS.length;k++){
+      if(counts[KINDS[k]]) tags += '<span class="chip on">' + esc(KINDS[k]) + ' · ' + counts[KINDS[k]] + '</span>';
+    }
+    if(!tags) tags = '<span class="chip">Пока ни одной заметки</span>';
+    $('bTags').innerHTML = tags;
+
+    for(var j=notes.length-1;j>=0;j--){
+      var n = notes[j], d = new Date(n.at);
+      var stamp = ('0'+d.getDate()).slice(-2) + '.' + ('0'+(d.getMonth()+1)).slice(-2);
+      html += '<li><b>' + esc(n.who) + '</b> · ' + esc(n.kind) + '<br>' + esc(n.text) +
+              '<small>' + stamp + '</small></li>';
+    }
+    $('bList').innerHTML = html;
+    $('bCnt').textContent = notes.length + ' ' + noteWord(notes.length);
+  }
+
+  function renderButler(){
+    renderButlerWho();
+    renderThread();
+    renderNotes();
+  }
+
+  function summaryText(){
+    var notes = state.notes || [];
+    var lines = ['Сводка дворецкого · круг «' + state.name + '» · код ' + state.code, ''];
+    if(!notes.length){
+      lines.push('Пока ни одной заметки.');
+    }else{
+      for(var i=0;i<notes.length;i++){
+        lines.push((i+1) + '. [' + notes[i].kind + '] ' + notes[i].who + ': ' + notes[i].text);
+      }
+    }
+    return lines.join('\n');
+  }
+
+  function sendNote(){
+    var text = $('bText').value.trim();
+    if(!text){
+      toast('Напишите пару слов дворецкому');
+      $('bText').focus();
+      return;
+    }
+    var sel = $('bWho');
+    var opt = sel.options[sel.selectedIndex];
+    var who = opt ? opt.textContent.split(' — ')[0] : 'Гость круга';
+    var kind = classify(text);
+    var bank = KIND_REPLY[kind];
+    var reply = 'Спасибо, ' + who + '. ' + bank[state.notes.length % bank.length];
+
+    state.notes.push({
+      id: uid(),
+      memberId: sel.value || 'guest',
+      who: who,
+      text: text,
+      kind: kind,
+      reply: reply,
+      at: Date.now()
+    });
+
+    if(save()){
+      $('bText').value = '';
+      buzz('ok');
+      renderButler();
+    }else{
+      state.notes.pop();
+      renderButler();
+    }
+  }
+
+  function clearNotes(){
+    if(!state.notes || !state.notes.length){
+      toast('Заметок пока нет');
+      return;
+    }
+    function go(){
+      state.notes = [];
+      save();
+      renderButler();
+      toast('Заметки убраны');
+    }
+    if(tg && tg.showConfirm){
+      try{
+        tg.showConfirm('Убрать все заметки дворецкого?', function(ok){ if(ok) go(); });
+        return;
+      }catch(e){}
+    }
+    if(window.confirm('Убрать все заметки дворецкого?')) go();
+  }
+
   /* ---------- события ---------- */
+  $('bSend').addEventListener('click', sendNote);
+  $('bCopy').addEventListener('click', function(){ copyText(summaryText(), 'Сводка скопирована'); });
+  $('bClear').addEventListener('click', clearNotes);
+  $('bText').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && (e.metaKey || e.ctrlKey)) sendNote();
+  });
+
   $('createBtn').addEventListener('click', createCircle);
   $('joinBtn').addEventListener('click', joinCircle);
   $('addP').addEventListener('click', addPerson);
