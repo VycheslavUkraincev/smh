@@ -1189,6 +1189,21 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
 .inv-next{margin:11px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:12px;
   background:var(--soft);font-size:12px;line-height:1.55;color:var(--ink)}
 .inv-next b{font-weight:600}
+/* ---------- F · шаг после снимка, путь второго человека, запись в ленту ---------- */
+.ph-next{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:9px;padding:8px 10px;
+  border:1px dashed var(--line);border-radius:11px;background:var(--soft)}
+.ph-next span{flex:1 1 140px;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.ph-next .btn{flex:0 0 auto;font-size:11.5px;padding:7px 10px}
+.inv-join{margin:11px 0 0;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;
+  font-size:12px;line-height:1.55;color:var(--muted)}
+.inv-join b{font-weight:600;color:var(--ink)}
+.jr-add{margin-top:12px}
+.jr-add .btn{font-size:12px;padding:9px 13px}
+.jr-note{margin:8px 0 0;font-size:11px;line-height:1.5;color:var(--muted)}
+.qs-back{margin:9px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+  background:var(--soft);font-size:12px;line-height:1.55;color:var(--ink)}
+.qs-back b{font-weight:600}
+.qs-back .btn{margin-top:9px;font-size:11.5px;padding:7px 11px}
 </style>
 </head>
 <body>
@@ -1380,7 +1395,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         <p class="tree-hint" id="tableHint">Свободное место за столом — это приглашение: нажмите на него, чтобы позвать человека.</p>
       </div>
 
-      <div class="card card--road hide" id="roadCard" data-brand-apply="09-road">
+      <div class="card card--road hide" id="roadCard" data-brand-apply="09-road · F-sync">
         <div class="card-head">
           <h2>Дорога</h2>
           <span class="cnt" id="roadCnt">0 из 5</span>
@@ -1510,6 +1525,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           </div>
           <p class="inv-keep">Мы храним истории — и ничего не досочиняем за вашу семью.</p>
           <p class="inv-next hide" id="invNext" data-brand-apply="E-invite-next">Скопировано. Дальше одно движение: отправьте это <b>одному</b> родному — тому, кто точно откроет. Круг начинается с одного человека, а не с рассылки. Код остаётся тем же — мы его не меняем.</p>
+          <p class="inv-join hide" id="invJoin" data-brand-apply="F-join-path"></p>
           <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
         </div>
 
@@ -1529,6 +1545,10 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           <div class="qs-row" data-brand-apply="D-keeper-later">
             <button class="btn btn--quiet hide" id="qsLater" type="button">Ответить позже</button>
             <span class="qs-later" id="qsLaterNote"></span>
+          </div>
+          <div class="qs-back hide" id="qsBack" data-brand-apply="F-evening-return">
+            <span id="qsBackTxt"></span>
+            <button class="btn btn--quiet" id="qsBackClear" type="button">Уже поговорили</button>
           </div>
           <p class="note" id="qsNote">Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.</p>
         </div>
@@ -1576,6 +1596,10 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           </div>
           <p class="card-sub">Тихая лента вечера: подписи к снимкам и слова, сказанные дворецкому. Здесь только то, что уже лежит на этом устройстве — ни одной строки мы не написали за вас и ни одна никуда не ушла.</p>
           <ul class="journal" id="jrList"></ul>
+          <div class="jr-add" data-brand-apply="F-journal-write">
+            <button class="btn btn--quiet" id="jrAdd" type="button">Добавить заметку</button>
+            <p class="jr-note">Строка появится здесь сразу после того, как вы её сохраните, и останется на этом устройстве.</p>
+          </div>
         </div>
 
         <div class="card card--next">
@@ -1704,6 +1728,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       later: null,
       notes: [],
       wish: [],
+      pskip: [],
       firstMem: null,
       invited: false,
       born: Date.now()
@@ -1875,6 +1900,17 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         ? '<span class="badge badge--fam"><span class="mark mark--ok"></span>названы семьёй</span>'
         : '<span class="badge badge--hyp"><span class="mark mark--hyp"></span>ещё не названы</span>';
 
+      /* F · один следующий шаг на этой карточке — или ни одного */
+      var nxt = photoNext(f, who.length);
+      var nxtHtml = nxt
+        ? '<div class="ph-next" data-brand-apply="F-photo-next">' +
+            '<span>' + esc(nxt.s) + '</span>' +
+            '<button class="btn btn--quiet" type="button" data-pnext="' + esc(f.id) + '" ' +
+              'data-pgo="' + esc(nxt.go) + '">' + esc(nxt.b) + '</button>' +
+            '<button class="btn btn--quiet" type="button" data-pskip="' + esc(f.id) + '">Не сейчас</button>' +
+          '</div>'
+        : '';
+
       html += '<figure class="shot" style="margin:0">' +
                 '<img src="' + f.src + '" alt="Семейная фотография из круга">' +
                 '<figcaption class="shot-b">' +
@@ -1893,12 +1929,63 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
                   '<small class="cap-has">' +
                     (f.cap ? 'Подпись сохранена на этом устройстве'
                           : 'Подпись пишете вы — мы не придумываем ни слова и не угадываем лиц') + '</small>' +
+                  nxtHtml +
                   '<button class="shot-x" type="button" data-rm="' + esc(f.id) + '">Убрать снимок</button>' +
                 '</figcaption>' +
               '</figure>';
     }
     $('fList').innerHTML = html;
     $('fCnt').textContent = state.photos.length;
+  }
+
+  /* ---------- F · один шаг после снимка ----------
+     На карточке живёт ровно одна тихая подсказка: пока нет подписи —
+     вписать год и место своими словами, а когда подпись уже есть, но никто
+     не отмечен — назвать тех, кого человек узнал сам. Имена берутся только
+     из списка круга, лиц мы не разбираем. Подсказку можно убрать, и ни одно
+     дело недели от неё не отмечается. */
+  function photoSkipped(id){
+    var s = (state && state.pskip) || [];
+    return s.indexOf(id) !== -1;
+  }
+
+  function photoNext(f, tagCount){
+    if(!f || photoSkipped(f.id)) return null;
+    if(!(f.cap && f.cap.trim())){
+      return { s: 'Год и место помните только вы — впишите их своими словами.',
+               b: 'Год и место', go: 'cap' };
+    }
+    if(!tagCount && state.people.length){
+      return { s: 'Кто в кадре? Отметьте тех, кого узнали сами — из имён круга.',
+               b: 'Кто в кадре?', go: 'who' };
+    }
+    return null;
+  }
+
+  function photoNextGo(id, go){
+    var box = $('fList');
+    if(!box) return;
+    buzz('tap');
+    if(go === 'cap'){
+      var inp = box.querySelector('[data-cap="' + id + '"]');
+      if(inp){ try{ inp.focus(); }catch(e){} }
+      return;
+    }
+    var chip = box.querySelector('[data-tag="' + id + '"]');
+    if(chip){ try{ chip.focus(); }catch(e){} }
+    else lightCard('.card--people', $('pName'));
+  }
+
+  function photoNextSkip(id){
+    if(!state) return;
+    if(!state.pskip) state.pskip = [];
+    if(state.pskip.indexOf(id) === -1) state.pskip.push(id);
+    if(save()){
+      buzz('tap');
+      renderPhotos();
+    }else{
+      state.pskip.pop();
+    }
   }
 
   function renderQuestion(){
@@ -1926,6 +2013,41 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       lnote.innerHTML = (state.later && state.later.q)
         ? 'Отложено: <b>' + esc(state.later.q) + '</b> — вопрос дождётся вас на этом устройстве.'
         : (state.question ? 'Можно не сегодня: вопрос подождёт столько, сколько нужно.' : '');
+    }
+    renderEveningReturn();
+  }
+
+  /* ---------- F · тихое возвращение к отложенному вопросу ----------
+     Если «Ответить позже» стояло ещё до того, как страницу открыли снова,
+     лампа один раз спокойно напоминает: вопрос ждёт. Ничего не отмечается
+     и ничего не празднуется; строка уходит, когда человек выбрал другой
+     вопрос или сказал, что разговор уже был. Вечер мы за семью не засчитываем. */
+  var laterBack = false;
+
+  function seedEveningReturn(){
+    laterBack = !!(state && state.later && state.later.q);
+  }
+
+  function renderEveningReturn(){
+    var box = $('qsBack'), txt = $('qsBackTxt');
+    if(!box) return;
+    var on = !!(laterBack && state && state.later && state.later.q &&
+                (!state.question || state.question === state.later.q));
+    box.classList.toggle('hide', !on);
+    if(!on || !txt) return;
+    txt.innerHTML = '<b>Вопрос ждёт с прошлого раза:</b> ' + esc(state.later.q) +
+      '. Он никуда не делся и ничего за вас не отметил — спросите, когда будет вечер.';
+  }
+
+  function clearEveningReturn(){
+    if(!state) return;
+    laterBack = false;
+    state.later = null;
+    if(save()){
+      buzz('tap');
+      renderQuestion();
+      renderRibbon();
+      toast('Хорошо — напоминание убрано, вечер остаётся вашим');
     }
   }
 
@@ -2117,7 +2239,9 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     return [
       { t:'Детство', s:'первый снимок', done: state.photos.length > 0,
         act: function(){ lightCard('.card--photos'); } },
-      { t:'Школа', s:'имя на снимке', done: tagged(),
+      /* F · дорога и тихая неделя считают подписанный снимок одинаково:
+         отмеченный родной или строка, написанная рукой человека. */
+      { t:'Школа', s:'имя или подпись на снимке', done: tagged() || captioned(),
         act: function(){ lightCard('.card--photos'); } },
       { t:'Свадьба', s:'выбранный вопрос на вечер', done: !!state.question,
         act: function(){ lightCard('.card--ask'); } },
@@ -2493,6 +2617,26 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(el) el.classList.toggle('hide', !(state && state.invited));
   }
 
+  /* ---------- F · что увидит второй человек ----------
+     Одна спокойная строка про первое открытие приглашённого: тот же круг
+     и тот же код, но своя пустая рамка — потому что снимки и имена пока
+     живут на том устройстве, где их добавили. Мы не говорим «они уже внутри»,
+     никого не сажаем на место и код не перевыпускаем. */
+  function renderJoinPath(){
+    var el = $('invJoin');
+    if(!el) return;
+    var w = state ? wishList() : [];
+    var on = !!(state && (state.invited || w.length));
+    el.classList.toggle('hide', !on);
+    if(!on) return;
+    var who = w.length ? ('«' + esc(w[0]) + '»') : 'тот, кого вы позвали';
+    el.innerHTML = '<b>Что увидит ' + who + ' при первом открытии:</b> ту же пустую рамку, ' +
+      'что видели вы, — и своё первое фото положит в неё сам. Имя круга и код останутся ' +
+      'теми же, а ваши снимки и подписи пока остаются на этом устройстве: общая копилка ' +
+      'появится, когда у круга будет сервер. Пока человек не открыл ссылку, место на ветви ' +
+      'остаётся свободным — мы его никем не занимаем.';
+  }
+
   function byId(id){
     for(var i=0;i<state.people.length;i++){
       if(state.people[i].id === id) return state.people[i];
@@ -2519,6 +2663,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     renderButler();
     renderJournal();
     renderInviteNext();
+    renderJoinPath();
     renderRibbon();
   }
 
@@ -2526,6 +2671,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     $('setup').classList.add('hide');
     $('game').classList.remove('hide');
     seedFirstMemory();
+    seedEveningReturn();
     renderAll();
     mainButton(true);
   }
@@ -2878,7 +3024,8 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(save()){
       $('bText').value = '';
       buzz('ok');
-      renderButler();
+      /* F · сказанное слово сразу видно в «Заметках круга» */
+      renderAll();
     }else{
       state.notes.pop();
       renderButler();
@@ -2893,7 +3040,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     function go(){
       state.notes = [];
       save();
-      renderButler();
+      renderAll();
       toast('Заметки убраны');
     }
     if(tg && tg.showConfirm){
@@ -3091,6 +3238,28 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     e.preventDefault();
     jrGo(b);
   });
+
+  /* F · шаг после снимка: подсказка ведёт в поле или к именам,
+     «Не сейчас» убирает её с этой карточки и ничего не отмечает */
+  $('fList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-pnext]');
+    if(b && state){
+      photoNextGo(b.getAttribute('data-pnext'), b.getAttribute('data-pgo'));
+      return;
+    }
+    var s = e.target.closest('[data-pskip]');
+    if(s && state) photoNextSkip(s.getAttribute('data-pskip'));
+  });
+
+  /* F · «Добавить заметку» ведёт в живое поле дворецкого — само ничего не пишет */
+  $('jrAdd').addEventListener('click', function(){
+    if(!state) return;
+    buzz('tap');
+    lightCard('.card--butler', $('bText'));
+  });
+
+  /* F · отложенный вопрос: напомнили один раз и убрали по слову человека */
+  $('qsBackClear').addEventListener('click', clearEveningReturn);
 
   /* E · подписать свободное место */
   $('seatWishAdd').addEventListener('click', addWish);
