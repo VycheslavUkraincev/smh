@@ -1088,6 +1088,74 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   .table-map{width:min(100%, 300px)}
 }
 
+/* ============================================================
+   ФАЗА D · продуктовая склейка
+   Одна лента «сегодня», одно приглашение на все свободные места,
+   у каждой папки настоящий следующий шаг и готовая фраза для чата
+   с живым кодом круга. Средства прежние: градиент, полоса, SVG.
+   Ни одной картинки фоном, ни одного дорисованного лица.
+   ============================================================ */
+
+/* ---------- D · «Сегодня в круге»: одна тихая строка ---------- */
+.ribbon{
+  display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  margin:0 0 14px;padding:10px 13px;
+  border:1px solid var(--border);border-radius:999px;background:var(--tile);
+  transition:border-color .25s ease,transform .12s ease;cursor:pointer;
+}
+.ribbon:hover{border-color:var(--seat)}
+.ribbon:active{transform:translateY(1px)}
+.rb-mark{
+  flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:var(--accent);
+  animation:rb-wait 5.2s ease-in-out infinite;
+}
+@keyframes rb-wait{0%,100%{opacity:.4}50%{opacity:.95}}
+.rb-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.rb-lab{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.rb-txt{font-size:13px;font-weight:500;line-height:1.3;color:var(--ink);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rb-go{
+  flex:0 0 auto;font-size:11.5px;font-weight:500;line-height:1;color:var(--accent-deep);
+  background:var(--pill);border-radius:999px;padding:7px 11px;
+}
+
+/* ---------- D · первый шаг: что будет после первой памяти ---------- */
+.empty-after{margin:13px auto 0;max-width:40ch;font-size:12px;line-height:1.55;color:var(--ink-2)}
+.empty-after b{font-weight:500;color:var(--accent-deep)}
+
+/* ---------- D · у каждой папки один настоящий следующий шаг ---------- */
+.folder .fd-go{
+  margin-top:7px;font-size:11px;font-weight:500;line-height:1;color:var(--accent-deep);
+  background:var(--pill);border-radius:999px;padding:6px 10px;
+}
+.folder.is-empty .fd-go{
+  color:var(--ink-2);background:transparent;border:1px dashed var(--line);padding:5px 9px;
+}
+
+/* ---------- D · вопрос на вечер: «ответить позже» ---------- */
+.qs-row{
+  position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;
+  gap:10px;margin:11px 0 0;
+}
+.qs-row .btn{padding:8px 13px;font-size:12.5px}
+.qs-later{font-size:11.5px;line-height:1.5;color:var(--muted)}
+.qs-later b{font-weight:500;color:var(--accent-deep)}
+
+/* ---------- D · набор для чата: готовая фраза с живым кодом ---------- */
+.inv-kit{
+  margin:12px 0 0;padding:12px 13px;
+  border:1px solid var(--border);border-radius:12px;background:var(--tile);
+}
+.inv-kit-lab{
+  display:block;margin:0 0 8px;font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);
+}
+.inv-text{
+  margin:0;font-size:12.5px;line-height:1.6;color:var(--ink-2);
+  white-space:pre-line;word-break:break-word;
+}
+.inv-kit .btn{margin-top:11px;padding:8px 13px;font-size:12.5px}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -1196,6 +1264,19 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       <p class="card-sub" style="margin:0" id="circleLede">Круг собирается по шагу за раз. Ничего не надо делать за один вечер.</p>
     </div>
 
+    <!-- D · «Сегодня в круге»: одна незакрытая настоящая вещь. Лента ничего
+         не считает и ничего не отмечает — только показывает и ведёт туда,
+         где это делается руками. Когда на сегодня не осталось ничего
+         настоящего, ленты нет вовсе. -->
+    <button class="ribbon hide" id="ribbon" type="button" data-brand-apply="D-today-ribbon">
+      <span class="rb-mark" aria-hidden="true"></span>
+      <span class="rb-t">
+        <span class="rb-lab">Сегодня в круге</span>
+        <span class="rb-txt" id="ribbonTxt">—</span>
+      </span>
+      <span class="rb-go" id="ribbonGo">Открыть</span>
+    </button>
+
     <!-- дом круга: пока памяти нет — одна пустая рамка (макет 03); как только
          появилась — карта рода со свободными местами (макет 01). Рядом тихая
          неделя из трёх дел (макет 02). -->
@@ -1222,6 +1303,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           </button>
           <button class="btn btn--quiet" id="emptyPhoto" type="button">Добавить первое фото</button>
         </div>
+        <p class="empty-after" data-brand-apply="D-first-step">Что будет дальше: как только в круге появится первое — снимок, имя или слово дворецкому, — пустая рамка уступит место <b>карте рода</b>, и семь мест на ветвях станут вашими.</p>
         <p class="empty-code">Код круга <code id="emptyCode">—</code></p>
         <p class="empty-note">Ничего не появится само: мы не дорисовываем лица и не угадываем имена. Рамка останется пустой ровно до тех пор, пока в неё не положит что-то человек.</p>
       </div>
@@ -1335,7 +1417,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         <div class="card card--shelf" data-brand-apply="05-shelf">
           <div class="card-head"><h2>Полка архива</h2></div>
           <p class="card-sub">Четыре папки — и в них ровно то, что действительно лежит на этом устройстве. Пустая папка остаётся пустой: в архив мы не кладём выдуманное.</p>
-          <div class="shelf" id="shelfList"></div>
+          <div class="shelf" id="shelfList" data-brand-apply="D-shelf-steps"></div>
           <div class="shelf-plank" aria-hidden="true"></div>
         </div>
 
@@ -1379,6 +1461,11 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
             </button>
             <button class="btn btn--quiet" id="shareBtn" type="button">Отправить в чат</button>
           </div>
+          <div class="inv-kit" data-brand-apply="D-invite-kit">
+            <span class="inv-kit-lab">Готовое сообщение в семейный чат</span>
+            <p class="inv-text" id="inviteText">—</p>
+            <button class="btn btn--quiet" id="copyTextBtn" type="button">Скопировать сообщение</button>
+          </div>
           <p class="inv-keep">Мы храним истории — и ничего не досочиняем за вашу семью.</p>
           <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
         </div>
@@ -1396,6 +1483,10 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           <p class="card-sub">Необязательный шаг, самый ценный. Выберите один вопрос и задайте его старшим вслух.</p>
           <div class="chips" id="qsList"></div>
           <p class="qs-pick" id="qsPick"></p>
+          <div class="qs-row" data-brand-apply="D-keeper-later">
+            <button class="btn btn--quiet hide" id="qsLater" type="button">Ответить позже</button>
+            <span class="qs-later" id="qsLaterNote"></span>
+          </div>
           <p class="note" id="qsNote">Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.</p>
         </div>
 
@@ -1557,6 +1648,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       people: [],
       photos: [],
       question: null,
+      later: null,
       notes: [],
       invited: false,
       born: Date.now()
@@ -1740,6 +1832,17 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         ? 'Вопрос на этот вечер: <b>' + esc(state.question) + '</b>'
         : 'Вопрос ещё не выбран — лампа горит, вечер ждёт.';
     }
+
+    /* D · «Ответить позже» — это напоминание для себя на этом устройстве,
+       и ничего больше: ни одно дело недели и ни одна станция дороги от
+       него не загорается. Свет по-прежнему даёт только сделанное. */
+    var later = $('qsLater'), lnote = $('qsLaterNote');
+    if(later) later.classList.toggle('hide', !state.question);
+    if(lnote){
+      lnote.innerHTML = (state.later && state.later.q)
+        ? 'Отложено: <b>' + esc(state.later.q) + '</b> — вопрос дождётся вас на этом устройстве.'
+        : (state.question ? 'Можно не сегодня: вопрос подождёт столько, сколько нужно.' : '');
+    }
   }
 
   /* ---------- дом круга: пустая рамка → карта рода ----------
@@ -1874,19 +1977,22 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
      строка, а нажатие ведёт туда, где это можно наполнить по-настоящему.
      Выдуманных бумаг в архиве не появляется. */
   function shelfFolders(){
-    var notes = (state.notes && state.notes.length) || 0;
     return [
       { t: 'Фото', n: state.photos.length,
         s: state.photos.length ? 'снимков на этом устройстве' : 'пока ни одного снимка',
-        act: function(){ lightCard('.card--photos'); } },
-      { t: 'Письма', n: notes,
-        s: notes ? 'слов, оставленных дворецкому' : 'ещё ни одного слова',
+        go: state.photos.length ? 'Добавить ещё' : 'Добавить снимок',
+        act: function(){ openPhotoPicker(); } },
+      { t: 'Письма', n: null,
+        s: 'писем мы в этой версии не храним — ни одного',
+        go: 'Заметка дворецкому',
         act: function(){ lightCard('.card--butler', $('bText')); } },
       { t: 'Голос', n: null,
         s: state.question ? 'вопрос выбран, запись — на экране «Разговор»' : 'запись голоса живёт на экране «Разговор»',
+        go: state.question ? 'Открыть вопрос' : 'Выбрать вопрос',
         act: function(){ lightCard('.card--ask'); } },
       { t: 'Документы', n: null,
         s: 'в этой версии мы их ещё не храним',
+        go: 'Скоро — когда появится сервер',
         act: function(){ lightCard('.card--next'); } }
     ];
   }
@@ -1899,6 +2005,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
                 '<span class="fd-n">' + (f.n === null ? '—' : f.n) + '</span>' +
                 '<b>' + esc(f.t) + '</b>' +
                 '<small>' + esc(f.s) + '</small>' +
+                '<span class="fd-go">' + esc(f.go) + '</span>' +
               '</button>';
     }
     $('shelfList').innerHTML = html;
@@ -1959,6 +2066,82 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     el.classList.add('wk-lit');
     setTimeout(function(){ el.classList.remove('wk-lit'); }, 1700);
     if(focusEl) setTimeout(function(){ try{ focusEl.focus(); }catch(e){} }, 450);
+  }
+
+  /* ---------- D · одно приглашение на все свободные места ----------
+     Свободный кружок на ветви, пустой стул за столом, свободная строка
+     в «Родных» и кнопка под пустой рамкой ведут в одно и то же место:
+     в карточку приглашения, где лежит настоящий код круга и кнопка
+     «Скопировать». Ничего не уходит само, и ни одного человека мы
+     в круг не дописываем. */
+  function openInvite(){
+    buzz('tap');
+    lightCard('.card--invite', $('copyCodeBtn'));
+  }
+
+  /* Первое фото добавляется по-настоящему: тот же выбор файла, что и в
+     карточке снимков. Клик остаётся внутри жеста человека — иначе
+     браузер не откроет галерею. */
+  function openPhotoPicker(){
+    lightCard('.card--photos');
+    var f = $('file');
+    if(f){ try{ f.click(); }catch(e){} }
+  }
+
+  /* Готовая фраза для семейного чата: живое имя круга, живой код и та же
+     честная ссылка. Про перенос между устройствами сказано прямо. */
+  function inviteMessage(){
+    return 'Мы собираем семейный архив «' + state.name + '».\n' +
+           'Код круга: ' + state.code + '\n' +
+           inviteUrl() + '\n\n' +
+           'Открой и добавь своё: фото, имя, дату, рассказ. Пока это демонстрация — снимки и заметки остаются на том устройстве, где их добавили; общая копилка появится, когда у круга будет сервер.';
+  }
+
+  /* ---------- D · «Сегодня в круге» ----------
+     Одна строка про одно незакрытое настоящее дело, в простом порядке:
+     пустая рамка, отложенный вопрос, тихая неделя, шаг семьи, ближайшая
+     станция дороги. Всё считается из того, что действительно лежит на
+     устройстве. Лента ничего не отмечает — только ведёт. Когда настоящих
+     дел на сегодня не осталось, её просто нет. */
+  function ribbonPick(){
+    if(!state) return null;
+    var i;
+    if(!circleFilled()){
+      return { t: 'Пустая рамка ждёт первое: снимок или имя', go: 'Начать',
+               act: function(){ lightCard('.card--empty'); } };
+    }
+    if(state.later && state.later.q){
+      return { t: 'Отложенный вопрос: ' + state.later.q, go: 'Открыть',
+               act: function(){ lightCard('.card--ask'); } };
+    }
+    var wk = weekTasks();
+    for(i=0;i<wk.length;i++){
+      if(!wk[i].done) return { t: 'Тихая неделя · ' + wk[i].t, go: wk[i].go, act: wk[i].act };
+    }
+    var qs = quests();
+    for(i=0;i<qs.length;i++){
+      if(!qs[i].done) return { t: 'Шаг семьи · ' + qs[i].t, go: 'Открыть',
+                               act: function(){ lightCard('.card--quest'); } };
+    }
+    var rd = roadStops();
+    for(i=0;i<rd.length;i++){
+      if(!rd[i].done) return { t: 'Станция «' + rd[i].t + '» ждёт: ' + rd[i].s,
+                               go: 'Открыть', act: rd[i].act };
+    }
+    return null;
+  }
+
+  var ribbonAct = null;
+
+  function renderRibbon(){
+    var el = $('ribbon');
+    if(!el) return;
+    var pick = ribbonPick();
+    ribbonAct = pick ? pick.act : null;
+    el.classList.toggle('hide', !pick);
+    if(!pick) return;
+    $('ribbonTxt').textContent = pick.t;
+    $('ribbonGo').textContent = pick.go;
   }
 
   /* ---------- 02 · тихая неделя ----------
@@ -2037,12 +2220,15 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     $('cName').textContent = state.name;
     $('cCode').textContent = 'Код круга · ' + state.code;
     $('inviteUrl').textContent = inviteUrl();
+    var itx = $('inviteText');
+    if(itx) itx.textContent = inviteMessage();
     renderQuests();
     renderPeople();
     renderPhotos();
     renderQuestion();
     renderHome();
     renderButler();
+    renderRibbon();
   }
 
   function openGame(){
@@ -2252,19 +2438,28 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   var KIND_REPLY = {
     'замечание': [
       'Принял как замечание — это про то, что мешает. Такие заметки хранитель разбирает первыми.',
-      'Записал: здесь что-то работает не так, как ждёшь. Пометил отдельно, чтобы не потерялось.'
+      'Записал: здесь что-то работает не так, как ждёшь. Пометил отдельно, чтобы не потерялось.',
+      'Понял. Оставляю вашими словами — так хранителю виднее, что именно чинить.',
+      'Спасибо, что сказали прямо. Замечание идёт в сводку первым, ничего не сглажено.',
+      'Отметил. Обещать срок не стану, но потеряться этому не дам.'
     ],
     'вопрос': [
       'Это вопрос — сохранил его отдельно. Ответ придёт от людей, которые ведут круг, а не от меня.',
-      'Вопрос принят. Придумывать ответ не буду — передам тем, кто знает точно.'
+      'Вопрос принят. Придумывать ответ не буду — передам тем, кто знает точно.',
+      'Записал целиком. Отвечать наугад не стану: пусть ответит тот, кто помнит.',
+      'Хороший вопрос. Он полежит в сводке, пока на него не ответит человек.'
     ],
     'идея': [
       'Хорошая идея — сохранил её целиком, вашими словами.',
-      'Записал как идею. Из таких заметок и складывается следующая версия круга.'
+      'Записал как идею. Из таких заметок и складывается следующая версия круга.',
+      'Идея принята. Ничего не сокращал — хранитель прочитает так, как вы сказали.',
+      'Отложил к остальным идеям. Соберётся несколько — будет видно, с чего начинать.'
     ],
     'пожелание': [
       'Записал как пожелание. Хранитель круга увидит его в общей сводке.',
-      'Принял пожелание и положил в список для хранителя — оно останется вашими словами.'
+      'Принял пожелание и положил в список для хранителя — оно останется вашими словами.',
+      'Понял, чего не хватает. Пожелание уже в сводке, рядом с остальными.',
+      'Пусть будет записано. Это ваша строка, и переписывать её я не буду.'
     ]
   };
 
@@ -2464,37 +2659,56 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   $('shareBtn').addEventListener('click', shareInvite);
 
   /* дом круга: пустая рамка, свободные кружки и тихая неделя */
-  $('emptyInvite').addEventListener('click', shareInvite);
-  $('emptyPhoto').addEventListener('click', function(){
-    lightCard('.card--photos');
-    var f = $('file');
-    if(f) f.click();
-  });
+  $('emptyInvite').addEventListener('click', openInvite);
+  $('emptyPhoto').addEventListener('click', openPhotoPicker);
   $('copyCodeBtn').addEventListener('click', function(){
     if(!state) return;
-    copyText(state.code, 'Код круга скопирован');
+    copyText(state.code, 'Код скопирован — отправьте родным');
+  });
+  $('copyTextBtn').addEventListener('click', function(){
+    if(!state) return;
+    markInvited();
+    copyText(inviteMessage(), 'Сообщение скопировано — отправьте родным');
   });
 
-  /* свободный кружок на ветви — то же приглашение, что и кнопка ниже */
+  /* лента «Сегодня в круге» только ведёт туда, где дело делается */
+  $('ribbon').addEventListener('click', function(){
+    if(ribbonAct){ buzz('tap'); ribbonAct(); }
+  });
+
+  /* «Ответить позже» — тихий флажок на этом устройстве. Он ничего не
+     засчитывает: неделя и дорога по-прежнему светятся только от дела. */
+  $('qsLater').addEventListener('click', function(){
+    if(!state || !state.question) return;
+    state.later = { q: state.question, at: Date.now() };
+    if(save()){
+      buzz('tap');
+      renderQuestion();
+      renderRibbon();
+      toast('Вопрос отложен — он дождётся вечера');
+    }
+  });
+
+  /* свободный кружок на ветви — тот же один пульт приглашения */
   $('treeWrap').addEventListener('click', function(e){
-    if(state && e.target.closest('[data-free]')) shareInvite();
+    if(state && e.target.closest('[data-free]')) openInvite();
   });
   $('treeWrap').addEventListener('keydown', function(e){
     if(e.key !== 'Enter' && e.key !== ' ') return;
     if(!state || !e.target.closest('[data-free]')) return;
     e.preventDefault();
-    shareInvite();
+    openInvite();
   });
 
-  /* свободное место за столом — то же приглашение */
+  /* свободное место за столом — он же */
   $('tableWrap').addEventListener('click', function(e){
-    if(state && e.target.closest('[data-free]')) shareInvite();
+    if(state && e.target.closest('[data-free]')) openInvite();
   });
   $('tableWrap').addEventListener('keydown', function(e){
     if(e.key !== 'Enter' && e.key !== ' ') return;
     if(!state || !e.target.closest('[data-free]')) return;
     e.preventDefault();
-    shareInvite();
+    openInvite();
   });
 
   /* папка на полке и станция на дороге ничего не отмечают:
@@ -2524,11 +2738,11 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(e.key !== 'Enter' && e.key !== ' ') return;
     if(!e.target.closest('[data-invite]')) return;
     e.preventDefault();
-    shareInvite();
+    openInvite();
   });
 
   $('pList').addEventListener('click', function(e){
-    if(e.target.closest('[data-invite]')){ shareInvite(); return; }
+    if(e.target.closest('[data-invite]')){ openInvite(); return; }
     var b = e.target.closest('[data-del]');
     if(!b) return;
     var id = b.getAttribute('data-del');
@@ -2560,9 +2774,11 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(!b) return;
     var q = QUESTIONS[parseInt(b.getAttribute('data-q'), 10)];
     state.question = (state.question === q) ? null : q;
+    if(state.later && state.later.q !== state.question) state.later = null;
     save();
     buzz('tap');
     renderQuestion();
+    renderRibbon();
     $('qsNote').textContent = state.question
       ? 'Вопрос выбран. Задайте его вслух и просто слушайте — запись голоса живёт в большом архиве, на экране «Разговор».'
       : 'Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.';
