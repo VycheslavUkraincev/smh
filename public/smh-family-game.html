@@ -605,6 +605,17 @@ body.tg-fs .top{
 .wide-cta::before{content:'\2922';font-size:17px;font-weight:400}
 .wide-cta.on{display:flex}
 .wide-cta:active{background:var(--accent-deep)}
+
+/* честная строка под кнопкой, когда Telegram отказал в полном экране:
+   молчание после нажатия читается как «сломано», а это не так. */
+.wide-note{
+  display:none;margin:-6px 0 14px;padding:10px 12px;
+  border-left:2px solid var(--accent);border-radius:0 10px 10px 0;
+  background:var(--soft);font-size:12.5px;line-height:1.55;color:var(--ink-2);
+}
+.wide-note.on{display:block}
+/* полного экрана не дали — забираем хотя бы всю ширину, которую клиент отдал */
+body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
 @keyframes wide-pulse{
   0%,100%{box-shadow:0 10px 26px -10px rgba(64,46,34,.55), 0 0 0 0 rgba(138,106,83,.34)}
   50%{box-shadow:0 10px 26px -10px rgba(64,46,34,.55), 0 0 0 11px rgba(138,106,83,0)}
@@ -1777,19 +1788,80 @@ body.tg-fs .top{
      равно ждёт жеста человека, а очередь отказов ничего не меняет. Главный
      путь — кнопка ниже. */
   var autoFsAsked = false;
+  var lastUserAsk = 0;
+  var fsWaitTimer = null;
+  var wideNote = null;
+
+  /* Версию спрашиваем только чтобы говорить правду заранее: полный экран
+     появился в Bot API 8.0. Кнопку из-за странной версии не прячем — если
+     сам вызов есть, пусть человек попробует. */
+  function fsVersionOk(){
+    if(!tg) return false;
+    try{
+      if(typeof tg.isVersionAtLeast === 'function') return !!tg.isVersionAtLeast('8.0');
+    }catch(e){}
+    return true;
+  }
+
+  function showWideNote(text){
+    if(!wideNote){
+      wideNote = document.createElement('p');
+      wideNote.className = 'wide-note';
+      var cta = ensureWideCta();
+      if(cta && cta.parentNode) cta.parentNode.insertBefore(wideNote, cta.nextSibling);
+      else document.body.appendChild(wideNote);
+    }
+    wideNote.textContent = text;
+    wideNote.classList.add('on');
+  }
+
+  function hideWideNote(){
+    if(wideNote) wideNote.classList.remove('on');
+  }
+
+  /* Telegram отказал. Кнопку оставляем на месте, окно держим развёрнутым и
+     говорим словами, что именно случилось; quiet — это молчаливая попытка при
+     запуске, о ней человеку сообщать не о чем. */
+  function wideDenied(quiet){
+    clearTimeout(fsWaitTimer);
+    document.body.classList.add('tg-wide-soft');
+    if(quiet) return;
+    var old = !fsVersionOk();
+    try{ toast(old ? 'Этот Telegram не умеет полный экран' : 'Telegram не открыл полный экран'); }catch(e){}
+    showWideNote(old
+      ? 'Полный экран умеет Telegram посвежее. Обновите приложение — и эта кнопка уберёт шапку. Пока окно развёрнуто на всю высоту, которую даёт клиент.'
+      : 'Telegram не отдал полный экран — его шапка осталась сверху. Окно уже развёрнуто во всю ширину и высоту, которую он позволяет. Можно нажать ещё раз или обновить Telegram до последней версии.');
+  }
+
   function openWide(byUser){
     if(!tg) return;
     try{ tg.ready(); }catch(e){}
     try{ tg.expand(); }catch(e){}
     try{ if(tg.disableVerticalSwipes) tg.disableVerticalSwipes(); }catch(e){}
     /* Полный экран — Bot API 8.0+, на телефоне тоже: шапку из-под системных
-       кнопок уводит body.tg-fs .top. */
-    try{
-      if(hasFullscreenApi() && !isFullscreenNow() && (byUser || !autoFsAsked)){
-        if(!byUser) autoFsAsked = true;
-        tg.requestFullscreen();
+       кнопок уводит body.tg-fs .top. Вызов стоит прямо здесь, в том же стеке,
+       что и касание: отложенный через setTimeout Telegram уже не засчитывает
+       как жест человека. Отказ больше не проглатывается молча. */
+    if(hasFullscreenApi() && !isFullscreenNow() && (byUser || !autoFsAsked)){
+      if(!byUser) autoFsAsked = true;
+      if(byUser && !fsVersionOk()){
+        wideDenied(false);
+      }else{
+        var asked = false;
+        try{ tg.requestFullscreen(); asked = true; }catch(e){}
+        if(byUser && !asked){
+          wideDenied(false);
+        }else if(byUser){
+          /* Событие fullscreenFailed приходит не в каждом клиенте, поэтому
+             через 700мс просто смотрим, изменилось ли что-нибудь. */
+          clearTimeout(fsWaitTimer);
+          fsWaitTimer = setTimeout(function(){
+            if(!isFullscreenNow()) wideDenied(false);
+            syncWideChip();
+          }, 700);
+        }
       }
-    }catch(e){}
+    }
     fitViewport();
     syncWideChip();
   }
@@ -1797,10 +1869,31 @@ body.tg-fs .top{
   /* Тот же вызов, но от руки человека: касание и есть тот жест, которого
      Telegram ждёт, чтобы пустить страницу в полный экран. */
   function openWideByUser(){
+    lastUserAsk = Date.now();
+    hideWideNote();
     try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }catch(e){}
     openWide(true);
     setTimeout(syncWideChip, 350);
     setTimeout(syncWideChip, 900);
+  }
+
+  /* Кнопка слушает click, pointerup и touchend сразу: в разных клиентах
+     Telegram до страницы доезжает не каждое из этих событий. Окно в 600мс не
+     даёт одному касанию сработать трижды. */
+  function bindTap(el, fn){
+    if(!el || el._tapBound) return el;
+    el._tapBound = true;
+    var last = 0;
+    function run(e){
+      var now = Date.now();
+      if(now - last < 600) return;
+      last = now;
+      fn(e);
+    }
+    el.addEventListener('click', run);
+    el.addEventListener('pointerup', run);
+    el.addEventListener('touchend', run);
+    return el;
   }
 
   /* Просьба открыть весь экран живёт в трёх местах сразу: кнопкой в самой
@@ -1818,7 +1911,7 @@ body.tg-fs .top{
     wideCta.id = 'wideOpenBtn';
     wideCta.className = 'wide-cta';
     wideCta.textContent = 'На весь экран';
-    wideCta.addEventListener('click', openWideByUser);
+    bindTap(wideCta, openWideByUser);
     var top = app.querySelector('.top');
     if(top && top.nextSibling) app.insertBefore(wideCta, top.nextSibling);
     else app.insertBefore(wideCta, app.firstChild);
@@ -1830,6 +1923,7 @@ body.tg-fs .top{
     if(!shouldOfferWide()){
       if(wideChip) wideChip.hidden = true;
       if(wideCta) wideCta.classList.remove('on');
+      hideWideNote();
       if(wideMainOn){ wideMainOn = false; applyMainButton(); }
       return;
     }
@@ -1838,7 +1932,7 @@ body.tg-fs .top{
       wideChip.type = 'button';
       wideChip.className = 'wide-chip';
       wideChip.textContent = 'На весь экран';
-      wideChip.addEventListener('click', openWideByUser);
+      bindTap(wideChip, openWideByUser);
       document.body.appendChild(wideChip);
     }
     wideChip.hidden = false;
@@ -1884,10 +1978,25 @@ body.tg-fs .top{
         syncWideChip();
         if(!retriedWide && !isWideOpen()){ retriedWide = true; setTimeout(openWide, 60); }
       }
-      function onFullscreenEvent(){ markFullscreen(); syncWideChip(); }
+      function onFullscreenEvent(){
+        markFullscreen();
+        if(isFullscreenNow()){
+          clearTimeout(fsWaitTimer);
+          hideWideNote();
+          document.body.classList.remove('tg-wide-soft');
+        }
+        syncWideChip();
+      }
+      /* Отказ — отдельное событие, и о нём говорим вслух, но только если
+         человек сам нажимал: молчаливую попытку при запуске обсуждать не с кем. */
+      function onFullscreenFailed(){
+        markFullscreen();
+        wideDenied(Date.now() - lastUserAsk > 3000);
+        syncWideChip();
+      }
       try{ tg.onEvent('viewportChanged', onViewportEvent); }catch(e){}
       try{ tg.onEvent('fullscreenChanged', onFullscreenEvent); }catch(e){}
-      try{ tg.onEvent('fullscreenFailed', onFullscreenEvent); }catch(e){}
+      try{ tg.onEvent('fullscreenFailed', onFullscreenFailed); }catch(e){}
       try{ tg.onEvent('safeAreaChanged', fitViewport); }catch(e){}
       try{ tg.onEvent('contentSafeAreaChanged', fitViewport); }catch(e){}
       window.addEventListener('resize', onViewportEvent);
