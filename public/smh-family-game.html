@@ -614,6 +614,18 @@ body.tg-fs .top{
   background:var(--soft);font-size:12.5px;line-height:1.55;color:var(--ink-2);
 }
 .wide-note.on{display:block}
+/* запасной путь, когда клиент отказал в полном экране на лету: открыть
+   мини-приложение заново прямой ссылкой, где режим задан ещё до запуска. */
+.wide-reopen{
+  display:none;width:100%;box-sizing:border-box;
+  align-items:center;justify-content:center;gap:8px;
+  font:inherit;font-size:14.5px;font-weight:600;line-height:1;
+  color:var(--accent-deep);background:transparent;
+  border:1px solid var(--border);border-radius:14px;padding:13px 16px;margin:0 0 14px;
+  cursor:pointer;
+}
+.wide-reopen.on{display:flex}
+.wide-reopen:active{background:var(--soft)}
 /* полного экрана не дали — забираем хотя бы всю ширину, которую клиент отдал */
 body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
 @keyframes wide-pulse{
@@ -1781,7 +1793,7 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
      На клиентах без такой возможности кнопка обещала бы несбыточное — там
      после expand() она просто не появляется. */
   function shouldOfferWide(){
-    return !!tg && hasFullscreenApi() && !isFullscreenNow();
+    return !!tg && hasFullscreenApi() && !fsUnsupported && !isFullscreenNow();
   }
 
   /* Сам по себе, без касания, полный экран просим один раз: Telegram всё
@@ -1791,6 +1803,13 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
   var lastUserAsk = 0;
   var fsWaitTimer = null;
   var wideNote = null;
+  var wideReopen = null;
+  /* Telegram сказал прямо, что не умеет полный экран на этом устройстве.
+     Дальше просить бессмысленно и нечестно — предложение убираем. */
+  var fsUnsupported = false;
+  var fsSpoken = false;
+  /* Короткое имя мини-приложения в прямой ссылке t.me/<бот>/<имя>. */
+  var APP_SHORT = 'family';
 
   /* Версию спрашиваем только чтобы говорить правду заранее: полный экран
      появился в Bot API 8.0. Кнопку из-за странной версии не прячем — если
@@ -1817,20 +1836,83 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
 
   function hideWideNote(){
     if(wideNote) wideNote.classList.remove('on');
+    if(wideReopen) wideReopen.classList.remove('on');
   }
 
-  /* Telegram отказал. Кнопку оставляем на месте, окно держим развёрнутым и
-     говорим словами, что именно случилось; quiet — это молчаливая попытка при
-     запуске, о ней человеку сообщать не о чем. */
-  function wideDenied(quiet){
+  /* Прямая ссылка умеет то, чего не смог вызов на лету: режим окна можно
+     задать до запуска. Кнопка появляется только после отказа и только там,
+     где повтор вообще имеет смысл. */
+  function ensureWideReopen(show){
+    if(!BOT_USERNAME) return null;
+    if(!wideReopen){
+      wideReopen = document.createElement('button');
+      wideReopen.type = 'button';
+      wideReopen.className = 'wide-reopen';
+      wideReopen.textContent = 'Открыть заново в полном экране';
+      bindTap(wideReopen, function(){
+        var link = 'https://t.me/' + BOT_USERNAME + '/' + APP_SHORT + '?mode=fullscreen';
+        try{
+          if(tg && tg.openTelegramLink){ tg.openTelegramLink(link); return; }
+        }catch(e){}
+        try{ window.open(link, '_blank'); }catch(e){}
+      });
+      var anchor = wideNote || ensureWideCta();
+      if(anchor && anchor.parentNode) anchor.parentNode.insertBefore(wideReopen, anchor.nextSibling);
+      else document.body.appendChild(wideReopen);
+    }
+    if(show) wideReopen.classList.add('on');
+    return wideReopen;
+  }
+
+  /* Первый отказ произносим окном Telegram — его человек точно увидит.
+     Дальше не надоедаем: короткая строка снизу и заметка под кнопкой. */
+  function tellDenied(short, full){
+    if(!fsSpoken){
+      fsSpoken = true;
+      try{
+        if(tg && typeof tg.showAlert === 'function'){ tg.showAlert(full); return; }
+      }catch(e){}
+    }
+    try{ toast(short); }catch(e){}
+  }
+
+  /* Telegram отказал, и причину он называет сам: UNSUPPORTED — устройство
+     или платформа полного экрана не умеют вовсе, ALREADY_FULLSCREEN — мы уже
+     там и никакого отказа не было. Кнопку оставляем только там, где повтор
+     имеет смысл; quiet — это молчаливая попытка при запуске, о ней человеку
+     сообщать не о чем. */
+  function wideDenied(quiet, code){
     clearTimeout(fsWaitTimer);
+    code = String(code || '').toUpperCase();
+
+    /* «Уже на весь экран» — это не отказ, а хорошая новость. */
+    if(code.indexOf('ALREADY') >= 0){
+      markFullscreen();
+      hideWideNote();
+      document.body.classList.remove('tg-wide-soft');
+      syncWideChip();
+      return;
+    }
+
     document.body.classList.add('tg-wide-soft');
+    var unsupported = code.indexOf('UNSUPPORT') >= 0 || !fsVersionOk();
+    if(unsupported){
+      fsUnsupported = true;
+      syncWideChip();
+    }
     if(quiet) return;
-    var old = !fsVersionOk();
-    try{ toast(old ? 'Этот Telegram не умеет полный экран' : 'Telegram не открыл полный экран'); }catch(e){}
-    showWideNote(old
-      ? 'Полный экран умеет Telegram посвежее. Обновите приложение — и эта кнопка уберёт шапку. Пока окно развёрнуто на всю высоту, которую даёт клиент.'
-      : 'Telegram не отдал полный экран — его шапка осталась сверху. Окно уже развёрнуто во всю ширину и высоту, которую он позволяет. Можно нажать ещё раз или обновить Telegram до последней версии.');
+
+    if(unsupported){
+      showWideNote('На этом клиенте полный экран недоступен: Telegram сообщил, что устройство или версия приложения его не поддерживают. Страница развёрнута на всю ширину и высоту, которые он отдаёт, — это всё, что здесь можно занять.');
+      tellDenied('Полный экран здесь недоступен',
+        'На этом клиенте полный экран недоступен — так ответил сам Telegram. Страница уже развёрнута настолько, насколько он позволяет.');
+      return;
+    }
+
+    showWideNote('Telegram не открыл полный экран — его шапка осталась сверху. Страница уже развёрнута на всю доступную ширину и высоту. Можно нажать ещё раз, а можно открыть игру заново кнопкой ниже: в прямой ссылке полный экран запрашивается до запуска, и это срабатывает там, где вызов на лету не проходит.');
+    tellDenied('Telegram не открыл полный экран',
+      'Telegram не открыл полный экран — его шапка осталась сверху. Можно нажать ещё раз или открыть игру заново: под кнопкой появилась ссылка, которая просит полный экран до запуска.');
+    ensureWideReopen(true);
   }
 
   function openWide(byUser){
@@ -1842,7 +1924,7 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
        кнопок уводит body.tg-fs .top. Вызов стоит прямо здесь, в том же стеке,
        что и касание: отложенный через setTimeout Telegram уже не засчитывает
        как жест человека. Отказ больше не проглатывается молча. */
-    if(hasFullscreenApi() && !isFullscreenNow() && (byUser || !autoFsAsked)){
+    if(hasFullscreenApi() && !fsUnsupported && !isFullscreenNow() && (byUser || !autoFsAsked)){
       if(!byUser) autoFsAsked = true;
       if(byUser && !fsVersionOk()){
         wideDenied(false);
@@ -1923,7 +2005,8 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
     if(!shouldOfferWide()){
       if(wideChip) wideChip.hidden = true;
       if(wideCta) wideCta.classList.remove('on');
-      hideWideNote();
+      /* Кнопки больше нет — но объяснение, почему её нет, должно остаться. */
+      if(!fsUnsupported) hideWideNote();
       if(wideMainOn){ wideMainOn = false; applyMainButton(); }
       return;
     }
@@ -1989,9 +2072,11 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
       }
       /* Отказ — отдельное событие, и о нём говорим вслух, но только если
          человек сам нажимал: молчаливую попытку при запуске обсуждать не с кем. */
-      function onFullscreenFailed(){
+      function onFullscreenFailed(e){
         markFullscreen();
-        wideDenied(Date.now() - lastUserAsk > 3000);
+        var code = '';
+        try{ code = (e && (e.error || e.reason || e.result)) || ''; }catch(err){}
+        wideDenied(Date.now() - lastUserAsk > 3000, code);
         syncWideChip();
       }
       try{ tg.onEvent('viewportChanged', onViewportEvent); }catch(e){}
