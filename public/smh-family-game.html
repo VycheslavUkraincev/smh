@@ -723,6 +723,98 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
   .frame-cap{margin-bottom:11px}
 }
 
+
+/* ============================================================
+   Фирменный слой II — макеты 01 / 03 / 10, собранные руками.
+   01: первый экран читается как карта рода — кружки на ветвях.
+   03: пустая рамка остаётся главной метафорой первого входа.
+   10: дерево, бумага и зелень рядом — комната, а не интерфейс.
+   Только градиенты, полосы и SVG: ни одной картинки фоном,
+   ни одного дорисованного лица.
+   ============================================================ */
+
+/* 10 — к тёплому свету добавлены слой дерева снизу и зелень слева */
+body::before{
+  background:
+    radial-gradient(88% 52% at 50% -6%, var(--glow), transparent 68%),
+    radial-gradient(40% 32% at -8% 6%, rgba(138,154,69,.07), transparent 70%),
+    radial-gradient(58% 42% at 106% 104%, rgba(154,111,68,.07), transparent 72%),
+    linear-gradient(0deg, rgba(122,83,48,.06), transparent 260px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1.5px, transparent 1.5px 78px);
+}
+body.is-dark::before{
+  background:
+    radial-gradient(88% 52% at 50% -6%, var(--glow), transparent 68%),
+    radial-gradient(40% 32% at -8% 6%, rgba(169,181,138,.05), transparent 70%),
+    radial-gradient(58% 42% at 106% 104%, rgba(216,172,121,.05), transparent 72%),
+    linear-gradient(0deg, rgba(216,172,121,.05), transparent 260px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1.5px, transparent 1.5px 78px);
+}
+
+/* 01 + 03 — карта рода внутри пустой рамки: шире значка и читается
+   как схема семьи, где свободные кружки ещё ждут своих людей */
+.crest{width:min(100%, 300px);height:auto;margin:0 auto 12px}
+.crest svg{width:100%;height:auto;display:block}
+.crest .branch--thin{stroke-width:1.3;opacity:.55}
+.crest .seat-dot{stroke-width:1.3}
+.crest .seat-dot--far{opacity:.72}
+.crest .seat-halo{fill:none;stroke:var(--accent);stroke-width:1.1;stroke-dasharray:2.5 4.5;opacity:.42}
+.crest .lit.d2{animation-delay:1.4s}
+
+/* 01 — три шага под деревом идут дорожкой, а не тремя таблетками */
+.steps-hint{position:relative;counter-reset:s;gap:7px}
+.steps-hint::before{
+  content:'';position:absolute;left:14%;right:14%;top:13px;height:1px;
+  background:linear-gradient(90deg, transparent, var(--seat) 16%, var(--seat) 84%, transparent);
+}
+.steps-hint span{
+  counter-increment:s;position:relative;z-index:1;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px 6px 7px;border:1px solid var(--border);background:var(--tile);
+}
+.steps-hint span::before{
+  content:counter(s);display:grid;place-items:center;
+  width:15px;height:15px;flex:0 0 15px;border-radius:50%;
+  font-size:9.5px;font-weight:600;line-height:1;
+  color:var(--card);background:var(--accent);
+}
+
+/* 01 — шаг на сегодня: одна карточка под деревом вместо табло с очками */
+.card--today{
+  border-color:var(--seat);
+  background-image:linear-gradient(180deg, rgba(232,222,209,.5), transparent 130px);
+}
+body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,132,.14), transparent 130px)}
+.card--today .card-head{margin-bottom:9px}
+.today-t{
+  margin:0;font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:22px;line-height:1.22;font-weight:600;letter-spacing:.2px;color:var(--ink);
+}
+.today-t.is-done{color:var(--accent-deep)}
+.today-s{margin:6px 0 0;font-size:13px;line-height:1.5;color:var(--muted)}
+
+/* 07 — вопрос на вечер стоит под тем же светом лампы */
+.card--ask{position:relative;overflow:hidden}
+.card--ask::before{
+  content:'';position:absolute;right:-44px;top:-72px;width:190px;height:156px;
+  pointer-events:none;background:radial-gradient(closest-side, var(--lamp), transparent 72%);
+}
+
+@media (min-width:720px){
+  .crest{width:min(100%, 340px)}
+  /* 05 — полка звучит как папки архива: вторая закладка рядом с первой */
+  .zone-rail > .card::before{
+    content:'';position:absolute;left:78px;top:-1px;width:30px;height:3px;
+    border-radius:0 0 3px 3px;background:var(--line);opacity:.5;
+  }
+}
+@media (min-width:920px){
+  .crest{width:min(100%, 380px)}
+}
+@media (orientation:landscape) and (max-height:470px){
+  .crest{width:min(100%, 230px);margin-bottom:9px}
+}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -755,31 +847,39 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
     </header>
 
     <div class="card card--hero">
-      <div class="crest" aria-hidden="true">
-        <svg viewBox="0 0 118 118">
-          <rect class="mat" x="3.5" y="3.5" width="111" height="111" rx="6"/>
-          <rect class="mat mat--in" x="11" y="11" width="96" height="96" rx="3"/>
+      <div class="crest" role="img" aria-label="Карта семейного круга: пустая рамка, дерево и кружки, которые ждут своих людей">
+        <svg viewBox="0 0 200 136" role="img">
+          <rect class="mat" x="3.5" y="3.5" width="193" height="129" rx="7"/>
+          <rect class="mat mat--in" x="11" y="11" width="178" height="114" rx="4"/>
           <path class="corner" d="M18 27.5V18h9.5"/>
-          <path class="corner" d="M100 27.5V18h-9.5"/>
-          <path class="corner" d="M18 90.5V100h9.5"/>
-          <path class="corner" d="M100 90.5V100h-9.5"/>
-          <path class="ground" d="M33 99h52"/>
-          <path class="root" d="M59 97c-5 0-8-1.4-11-4M59 97c5 0 8-1.4 11-4"/>
-          <path class="trunk" d="M59 99V44"/>
-          <path class="branch" d="M59 78c-5-4-10-8-14-14"/>
-          <path class="branch" d="M59 78c5-4 10-8 14-14"/>
-          <path class="branch" d="M59 66c-3-6-5-10-6-15"/>
-          <path class="branch" d="M59 66c3-6 5-10 6-15"/>
-          <path class="leaf-sh" d="M82 69c-6.4.6-10 4.2-10 9.4 5-.2 9.4-3.2 10-9.4z"/>
-          <path class="leaf-rib" d="M80.6 70.4c-4 1.7-6.6 4.2-7.7 7.4"/>
-          <circle class="seat-dot lit" cx="59" cy="37" r="7"/>
-          <circle class="seat-dot" cx="51" cy="46" r="5.6"/>
-          <circle class="seat-dot lit" cx="67" cy="46" r="5.6"/>
-          <circle class="seat-dot" cx="42" cy="60" r="6.4"/>
-          <circle class="seat-dot" cx="76" cy="60" r="6.4"/>
+          <path class="corner" d="M182 27.5V18h-9.5"/>
+          <path class="corner" d="M18 108.5V118h9.5"/>
+          <path class="corner" d="M182 108.5V118h-9.5"/>
+          <path class="ground" d="M52 117h96"/>
+          <path class="root" d="M100 116c-6 0-10.5-1.6-14-4.8M100 116c6 0 10.5-1.6 14-4.8"/>
+          <path class="trunk" d="M100 117V58"/>
+          <path class="branch" d="M100 104C88 100 74 92 66 82"/>
+          <path class="branch" d="M100 104C112 100 126 92 134 82"/>
+          <path class="branch" d="M100 88C94 80 86 74 82 67"/>
+          <path class="branch" d="M100 88C106 80 114 74 118 67"/>
+          <path class="branch" d="M100 72V58"/>
+          <path class="branch branch--thin" d="M68 84C60 87 52 90 47 94"/>
+          <path class="branch branch--thin" d="M132 84C140 87 148 90 153 94"/>
+          <path class="leaf-sh" d="M143 36c-7.6.7-11.9 5-11.9 11.2 5.9-.2 11.2-3.8 11.9-11.2z"/>
+          <path class="leaf-rib" d="M141.3 37.7c-4.8 2-7.9 5-9.2 8.8"/>
+          <path class="leaf-sh" d="M57 36c7.6.7 11.9 5 11.9 11.2-5.9-.2-11.2-3.8-11.9-11.2z"/>
+          <path class="leaf-rib" d="M58.7 37.7c4.8 2 7.9 5 9.2 8.8"/>
+          <circle class="seat-halo" cx="100" cy="47" r="14.5"/>
+          <circle class="seat-dot lit" cx="100" cy="47" r="9"/>
+          <circle class="seat-dot lit d2" cx="82" cy="62" r="7.2"/>
+          <circle class="seat-dot" cx="118" cy="62" r="7.2"/>
+          <circle class="seat-dot" cx="64" cy="79" r="7.8"/>
+          <circle class="seat-dot" cx="136" cy="79" r="7.8"/>
+          <circle class="seat-dot seat-dot--far" cx="45" cy="94" r="6"/>
+          <circle class="seat-dot seat-dot--far" cx="155" cy="94" r="6"/>
         </svg>
       </div>
-      <p class="frame-cap">Рамка пока пуста, а кружки на ветвях ждут своих людей: имя появляется только тогда, когда его назвал человек.</p>
+      <p class="frame-cap">Рамка пока пуста, а кружки на ветвях ждут своих людей: первое место — ваше, остальные назовут те, кто помнит лучше. Имя появляется только тогда, когда его назвал человек.</p>
       <div class="field">
         <label for="circleName">Назовите круг так, как говорите дома</label>
         <input class="inp" id="circleName" type="text" maxlength="48" placeholder="Например: Наши Ковалёвы" autocomplete="off">
@@ -874,6 +974,15 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
       </div>
 
       <div class="zone-main">
+
+        <div class="card card--today">
+          <div class="card-head">
+            <h2>Шаг на сегодня</h2>
+            <span class="cnt" id="todayCnt">шаг 1 из 5</span>
+          </div>
+          <p class="today-t" id="todayT">Назвать круг</p>
+          <p class="today-s" id="todayS">Одно действие за вечер — этого достаточно.</p>
+        </div>
 
         <div class="card card--photos">
           <div class="card-head">
@@ -1136,6 +1245,26 @@ body.tg-wide-soft.in-tg .app{max-width:min(100%, 1180px)}
     if(lvEl){
       var LV = ['круг только начался','первые имена на ветвях','за столом уже не один','появился первый снимок','имена названы семьёй','круг собран'];
       lvEl.textContent = 'Ступень ' + Math.min(done + 1, qs.length) + ' · ' + (LV[done] || LV[LV.length - 1]);
+    }
+
+    /* Шаг на сегодня — первый невыполненный шаг доски, слово в слово.
+       Отдельной цели здесь нет: карточка просто поднимает наверх то,
+       что семья ещё не сделала, и молчит, когда сделано всё. */
+    var tT = $('todayT'), tS = $('todayS'), tC = $('todayCnt');
+    if(tT && tS && tC){
+      var nx = -1;
+      for(var n = 0; n < qs.length; n++){ if(!qs[n].done){ nx = n; break; } }
+      if(nx < 0){
+        tT.textContent = 'Все шаги пройдены';
+        tT.className = 'today-t is-done';
+        tS.textContent = 'Дальше круг растёт сам: каждый родной добавляет то, что помнит только он.';
+        tC.textContent = 'шаги пройдены';
+      }else{
+        tT.textContent = qs[nx].t;
+        tT.className = 'today-t';
+        tS.textContent = qs[nx].s + '. Одно действие за вечер — этого достаточно.';
+        tC.textContent = 'шаг ' + (nx + 1) + ' из ' + qs.length;
+      }
     }
     var pct = Math.round(done / qs.length * 100);
     drawRing(pct);
