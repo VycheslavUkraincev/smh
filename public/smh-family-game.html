@@ -1175,6 +1175,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
 .sw-row .btn{flex:0 0 auto;font-size:11.5px;padding:8px 11px}
 .sw-note{margin:8px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
 .tm-wish{font-style:italic}
+.tb-wish{font-style:italic}
 .journal{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
 .jr-it{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--tile);
   cursor:pointer;transition:border-color .18s ease,transform .18s ease}
@@ -1455,7 +1456,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
             <svg viewBox="0 0 24 24"><circle cx="11" cy="8" r="3.4"/><path d="M4.5 19.4c0-3.4 2.9-5.8 6.5-5.8 1.2 0 2.3.3 3.2.7M18 14.6v5.2M20.6 17.2h-5.2"/></svg>
             Добавить в круг
           </button>
-          <ul class="people" id="pList" style="margin-top:14px"></ul>
+          <ul class="people" id="pList" style="margin-top:14px" data-brand-apply="F-wait-name"></ul>
         </div>
 
       </div>
@@ -1866,10 +1867,19 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       : (state.people.length === 1
           ? 'пока в круге только вы — свободных мест: ' + freeAll
           : 'начните с того, кто первым приходит в голову');
+    /* F · подпись свободного места читается здесь так же, как на ветви и
+       за столом: тот же список, тот же порядок. Человеком место от слова
+       не становится, в счётчик не идёт и остаётся тем же приглашением. */
+    var wishP = wishList();
     for(var s=0;s<free;s++){
-      html += '<li class="seat-free" data-invite="1" role="button" tabindex="0" aria-label="Свободное место — позвать родных">' +
+      var wp = wishP[s] || '';
+      html += '<li class="seat-free" data-invite="1" role="button" tabindex="0" aria-label="' +
+                (wp ? 'Свободное место, здесь ждут: ' + escA(wp)
+                    : 'Свободное место — позвать родных') + '">' +
                 '<span class="who" aria-hidden="true">+</span>' +
-                '<span class="who-t"><b>Свободное место</b><small>' + hint + '</small></span>' +
+                '<span class="who-t"><b>' +
+                  (wp ? 'Ждём: ' + esc(wp) : 'Свободное место') + '</b><small>' +
+                  (wp ? 'место свободно · ' + hint : hint) + '</small></span>' +
               '</li>';
     }
 
@@ -2156,7 +2166,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       '<path class="tb-grain" d="M104 92c18-7 38-10 56-10s38 3 56 10"/>' +
       '<rect class="tb-card' + (hasShot ? ' is-filled' : '') + '" x="143" y="93" width="34" height="23" rx="3"/>';
 
-    var taken = 0;
+    var taken = 0, freeAt = 0, wishT = wishList();
     for(var i=0;i<TABLE_SEATS.length;i++){
       var s = TABLE_SEATS[i];
       var p = state.people[i] || null;
@@ -2169,11 +2179,16 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
                  '<text class="tb-l" x="' + s.x + '" y="' + ly + '">' + esc(shortName(p.name)) + '</text>' +
                '</g>';
       }else{
+        /* F · тот же ожидаемый человек, что и на свободном кружке ветви */
+        var wt = wishT[freeAt] || '';
+        freeAt++;
         svg += '<g class="tb-seat tb-free" data-free="' + i + '" role="button" tabindex="0" ' +
-                 'aria-label="Свободное место за столом — позвать родных">' +
+                 'aria-label="' + (wt ? 'Свободное место за столом, здесь ждут: ' + escA(wt)
+                                      : 'Свободное место за столом — позвать родных') + '">' +
                  '<circle class="tb-c" cx="' + s.x + '" cy="' + s.y + '" r="16"/>' +
                  '<text class="tb-i" x="' + s.x + '" y="' + (s.y + 5) + '">+</text>' +
-                 '<text class="tb-l" x="' + s.x + '" y="' + ly + '">Свободно</text>' +
+                 '<text class="tb-l' + (wt ? ' tb-wish' : '') + '" x="' + s.x + '" y="' + ly + '">' +
+                   esc(wt || 'Свободно') + '</text>' +
                '</g>';
       }
     }
