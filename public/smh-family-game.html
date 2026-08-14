@@ -468,9 +468,31 @@ body.is-dark .card--butler{background-image:linear-gradient(180deg, rgba(198,161
 body.is-dark .rule{background:linear-gradient(90deg, rgba(198,161,132,.13), transparent)}
 .toast{box-shadow:0 12px 30px -12px rgba(0,0,0,.55)}
 
+/* ---------- широкий экран: Telegram на компьютере, планшет, большое окно ----------
+   Телефон не трогаем: базовые 560px и первый экран остаются как есть. */
+body.in-tg{min-height:var(--tg-viewport-stable-height, 100dvh)}
+/* полноэкранный режим Telegram: увести шапку из-под системных кнопок */
+body.tg-fs .top{
+  padding-top:calc(13px + var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px));
+  padding-right:100px;
+}
+
 @media (min-width:720px){
-  .app{max-width:640px;padding-top:22px}
+  .app{max-width:740px;padding-top:22px}
   .shots{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:920px){
+  .app{max-width:min(980px, 100%);padding-top:26px}
+  .hero-head h1{font-size:38px}
+  .hero-head p{max-width:46ch}
+  .card--hero .field,.card--hero .btn--wide{max-width:420px}
+  .shots{grid-template-columns:repeat(4,1fr)}
+}
+@media (min-width:1080px){
+  #game{columns:2;column-gap:18px}
+  #game .card{break-inside:avoid;page-break-inside:avoid}
+  /* сноски под столом, а не хвостом одной колонки */
+  #game > .note,#game > .foot{column-span:all;break-inside:avoid}
 }
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -1432,15 +1454,57 @@ body.is-dark .rule{background:linear-gradient(90deg, rgba(198,161,132,.13), tran
       if(tg.setHeaderColor && tg.themeParams && tg.themeParams.bg_color){
         tg.setHeaderColor(tg.themeParams.bg_color);
       }
+      if(tg.setBackgroundColor && tg.themeParams && tg.themeParams.bg_color){
+        tg.setBackgroundColor(tg.themeParams.bg_color);
+      }
     }catch(e){}
+  }
+
+  /* ---------- занять весь доступный экран ----------
+     Каждый вызов в своём try: старые клиенты Telegram просто пропускают то,
+     чего не умеют, и страница продолжает работать. */
+  function markFullscreen(){
+    try{ document.body.classList.toggle('tg-fs', !!(tg && tg.isFullscreen)); }catch(e){}
+  }
+
+  function fitViewport(){
+    if(!tg) return;
+    try{
+      var h = tg.viewportStableHeight || tg.viewportHeight;
+      if(h) document.documentElement.style.setProperty('--tg-viewport-stable-height', h + 'px');
+    }catch(e){}
+    markFullscreen();
+  }
+
+  function openWide(){
+    if(!tg) return;
+    try{ tg.expand(); }catch(e){}
+    try{ if(tg.disableVerticalSwipes) tg.disableVerticalSwipes(); }catch(e){}
+    /* Полный экран — Bot API 8.0+. На узком телефоне хватает expand():
+       там полноэкранный режим только заводит шапку под кнопки Telegram. */
+    try{
+      var wide = Math.max(window.innerWidth || 0, screen && screen.width || 0) >= 700;
+      if(wide && tg.isVersionAtLeast && tg.isVersionAtLeast('8.0') &&
+         typeof tg.requestFullscreen === 'function' && !tg.isFullscreen){
+        tg.requestFullscreen();
+      }
+    }catch(e){}
+    fitViewport();
   }
 
   if(tg){
     try{
       tg.ready();
-      tg.expand();
+      document.body.classList.add('in-tg');
+      openWide();
       paintTheme();
       tg.onEvent('themeChanged', paintTheme);
+      try{ tg.onEvent('viewportChanged', fitViewport); }catch(e){}
+      try{ tg.onEvent('fullscreenChanged', markFullscreen); }catch(e){}
+      try{ tg.onEvent('fullscreenFailed', markFullscreen); }catch(e){}
+      try{ tg.onEvent('safeAreaChanged', fitViewport); }catch(e){}
+      try{ tg.onEvent('contentSafeAreaChanged', fitViewport); }catch(e){}
+      window.addEventListener('resize', fitViewport);
     }catch(e){}
   }
 
