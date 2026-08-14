@@ -468,14 +468,27 @@ body.is-dark .card--butler{background-image:linear-gradient(180deg, rgba(198,161
 body.is-dark .rule{background:linear-gradient(90deg, rgba(198,161,132,.13), transparent)}
 .toast{box-shadow:0 12px 30px -12px rgba(0,0,0,.55)}
 
-/* ---------- широкий экран: Telegram на компьютере, планшет, большое окно ----------
-   Телефон не трогаем: базовые 560px и первый экран остаются как есть. */
+/* ---------- широкий экран: Telegram на телефоне, планшете, компьютере ----------
+   В мини-приложении колонка занимает всю ширину окна: 560px там читались
+   узкой полоской. В обычном браузере ограничения остаются прежними. */
 body.in-tg{min-height:var(--tg-viewport-stable-height, 100dvh)}
+body.in-tg .app{max-width:min(100%, 980px)}
 /* полноэкранный режим Telegram: увести шапку из-под системных кнопок */
 body.tg-fs .top{
   padding-top:calc(13px + var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px));
   padding-right:100px;
 }
+/* тихая подсказка, если клиент всё-таки оставил половину экрана */
+.wide-chip{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(12px + env(safe-area-inset-bottom));
+  font-size:12.5px;line-height:1;color:var(--muted);
+  background:var(--pill);border:1px solid var(--border);
+  border-radius:999px;padding:7px 14px;z-index:70;
+  box-shadow:0 6px 18px -12px rgba(0,0,0,.45);
+}
+.wide-chip[hidden]{display:none}
+.wide-chip:active{background:var(--active);color:var(--ink)}
 
 @media (min-width:720px){
   .app{max-width:740px;padding-top:22px}
@@ -1476,20 +1489,54 @@ body.tg-fs .top{
     markFullscreen();
   }
 
+  /* Развернулись ли мы на самом деле. У старых клиентов свойств нет —
+     тогда считаем, что всё в порядке, и ничем не мешаем. */
+  function isWideOpen(){
+    if(!tg) return true;
+    try{
+      if(tg.isFullscreen) return true;
+      if(typeof tg.isExpanded === 'boolean') return !!tg.isExpanded;
+      var vh = tg.viewportHeight || 0, sh = (window.screen && screen.height) || 0;
+      if(vh && sh && vh < sh * 0.7) return false;
+    }catch(e){ return true; }
+    return true;
+  }
+
   function openWide(){
     if(!tg) return;
+    try{ tg.ready(); }catch(e){}
     try{ tg.expand(); }catch(e){}
     try{ if(tg.disableVerticalSwipes) tg.disableVerticalSwipes(); }catch(e){}
-    /* Полный экран — Bot API 8.0+. На узком телефоне хватает expand():
-       там полноэкранный режим только заводит шапку под кнопки Telegram. */
+    /* Полный экран — Bot API 8.0+, на телефоне тоже: шапку из-под системных
+       кнопок уводит body.tg-fs .top. */
     try{
-      var wide = Math.max(window.innerWidth || 0, screen && screen.width || 0) >= 700;
-      if(wide && tg.isVersionAtLeast && tg.isVersionAtLeast('8.0') &&
+      if(tg.isVersionAtLeast && tg.isVersionAtLeast('8.0') &&
          typeof tg.requestFullscreen === 'function' && !tg.isFullscreen){
         tg.requestFullscreen();
       }
     }catch(e){}
     fitViewport();
+    syncWideChip();
+  }
+
+  /* Тихая подсказка на случай, когда клиент открыл половину экрана:
+     касание пользователя разворачивает окно там, где авто-вызов не сработал. */
+  var wideChip = null;
+  function syncWideChip(){
+    if(!tg) return;
+    if(isWideOpen()){
+      if(wideChip) wideChip.hidden = true;
+      return;
+    }
+    if(!wideChip){
+      wideChip = document.createElement('button');
+      wideChip.type = 'button';
+      wideChip.className = 'wide-chip';
+      wideChip.textContent = 'На весь экран';
+      wideChip.addEventListener('click', openWide);
+      document.body.appendChild(wideChip);
+    }
+    wideChip.hidden = false;
   }
 
   if(tg){
@@ -1497,14 +1544,24 @@ body.tg-fs .top{
       tg.ready();
       document.body.classList.add('in-tg');
       openWide();
+      /* Telegram часто пропускает первый вызов, пока окно ещё едет вверх. */
+      [0, 120, 400, 1000].forEach(function(ms){ setTimeout(openWide, ms); });
+      setTimeout(syncWideChip, 1200);
       paintTheme();
       tg.onEvent('themeChanged', paintTheme);
-      try{ tg.onEvent('viewportChanged', fitViewport); }catch(e){}
-      try{ tg.onEvent('fullscreenChanged', markFullscreen); }catch(e){}
-      try{ tg.onEvent('fullscreenFailed', markFullscreen); }catch(e){}
+      var retriedWide = false;
+      function onViewportEvent(){
+        fitViewport();
+        syncWideChip();
+        if(!retriedWide && !isWideOpen()){ retriedWide = true; setTimeout(openWide, 60); }
+      }
+      function onFullscreenEvent(){ markFullscreen(); syncWideChip(); }
+      try{ tg.onEvent('viewportChanged', onViewportEvent); }catch(e){}
+      try{ tg.onEvent('fullscreenChanged', onFullscreenEvent); }catch(e){}
+      try{ tg.onEvent('fullscreenFailed', onFullscreenEvent); }catch(e){}
       try{ tg.onEvent('safeAreaChanged', fitViewport); }catch(e){}
       try{ tg.onEvent('contentSafeAreaChanged', fitViewport); }catch(e){}
-      window.addEventListener('resize', fitViewport);
+      window.addEventListener('resize', onViewportEvent);
     }catch(e){}
   }
 
