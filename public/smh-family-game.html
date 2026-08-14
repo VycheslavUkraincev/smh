@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Семейный круг — SaveMyHistory</title>
+<meta name="description" content="Семейный круг SaveMyHistory: собрать родных вместе и по одному шагу сохранить фотографии, имена и рассказы семьи.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+/* SaveMyHistory — семейный круг (Telegram Mini App)
+   Палитра и ритм унаследованы от smh-cabinet-mock.html. Не уводить в сторону. */
+:root{
+  --page:#F7F4EF;
+  --card:#FFFFFF;
+  --soft:#FBF8F4;
+  --active:#EDE3D6;
+  --pill:#E8DED1;
+  --border:#E9E2DA;
+  --divider:#E4DDD4;
+  --line:#C9B9A8;
+  --ink:#2F241F;
+  --ink-2:#6F655F;
+  --muted:#93867B;
+  --accent:#8A6A53;
+  --accent-deep:#6D5543;
+  --shadow:0 1px 2px rgba(64,46,34,.04), 0 8px 24px rgba(64,46,34,.05);
+  --radius:14px;
+}
+body.is-dark{
+  --page:#1E1917;
+  --card:#272120;
+  --soft:#2C2523;
+  --active:#3A302A;
+  --pill:#3A302A;
+  --border:#3A322E;
+  --divider:#352E2A;
+  --line:#6B5B4E;
+  --ink:#F0E9E1;
+  --ink-2:#C3B7AC;
+  --muted:#9C8F84;
+  --accent:#B08D71;
+  --accent-deep:#C6A184;
+  --shadow:0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.22);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--tg-theme-bg-color, var(--page));
+  color:var(--tg-theme-text-color, var(--ink));
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  padding:0 0 env(safe-area-inset-bottom, 0px);
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
+.serif{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--card);padding:10px 16px;border-radius:8px;z-index:100}
+.skip:focus{left:12px;top:12px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.app{
+  max-width:560px;margin:0 auto;
+  padding:14px 16px calc(34px + env(safe-area-inset-bottom));
+}
+
+/* ---------- шапка ---------- */
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.top .brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;line-height:1.1;letter-spacing:.2px;color:var(--ink)}
+.top .to-cab{margin-left:auto;font-size:12.5px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:5px 12px}
+
+.head{margin:0 0 16px}
+.head .crumb{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 7px}
+.head h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,7vw,32px);line-height:1.14;margin:0 0 8px;font-weight:600;letter-spacing:.2px}
+.head p{margin:0;font-size:14.5px;color:var(--ink-2)}
+
+/* ---------- карточки ---------- */
+.card{
+  background:var(--tg-theme-secondary-bg-color, var(--card));
+  border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:17px 17px 19px;margin:0 0 14px;
+}
+.card-head{display:flex;align-items:baseline;gap:12px;margin-bottom:13px}
+.card-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:600;margin:0;letter-spacing:.2px}
+.card-head .cnt{margin-left:auto;font-size:11.5px;color:var(--accent-deep);background:var(--pill);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.card-sub{margin:-7px 0 14px;font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ---------- поля ---------- */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:11px}
+.field label{font-size:12.5px;color:var(--muted)}
+.inp{
+  width:100%;height:46px;border:1px solid var(--border);
+  background:var(--tg-theme-bg-color, var(--soft));
+  border-radius:11px;padding:0 14px;font-size:16px;color:var(--ink);
+}
+.inp::placeholder{color:var(--muted)}
+.inp:focus{outline:none;border-color:var(--line);box-shadow:0 0 0 3px rgba(138,106,83,.10)}
+select.inp{appearance:none;-webkit-appearance:none;padding-right:36px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 21px,calc(100% - 14px) 21px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.row2{display:grid;grid-template-columns:1fr 132px;gap:9px}
+
+/* ---------- кнопки ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 20px;border-radius:11px;font-size:15px;font-weight:500;
+  transition:background .2s ease,border-color .2s ease,opacity .2s ease;
+}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.btn--primary{background:var(--tg-theme-button-color, var(--accent));color:var(--tg-theme-button-text-color, #fff)}
+.btn--primary:active{background:var(--accent-deep)}
+.btn--quiet{border:1px solid var(--border);color:var(--ink-2);background:transparent}
+.btn--quiet:active{border-color:var(--line);color:var(--ink)}
+.btn--wide{width:100%}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn-row{display:flex;flex-wrap:wrap;gap:9px}
+
+/* ---------- знаки достоверности ---------- */
+.mark{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;flex:0 0 6px}
+.mark--ok{background:var(--accent);opacity:.9}
+.mark--hyp{border:1px dashed var(--line);background:transparent}
+.badge{display:inline-flex;align-items:center;font-size:11px;line-height:1;padding:5px 9px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.badge--fam{background:var(--pill);color:var(--accent-deep)}
+.badge--hyp{background:transparent;color:var(--muted);border:1px dashed var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:5px 16px;margin:14px 0 0;padding-top:11px;border-top:1px solid var(--divider);font-size:11px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center}
+
+/* ---------- круг ---------- */
+.circle-line{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.circle-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;line-height:1.15;font-weight:600;margin:0;min-width:0;overflow-wrap:anywhere}
+.code{font-size:11.5px;color:var(--muted);letter-spacing:.08em;margin:3px 0 0}
+.ring{margin-left:auto;flex:0 0 58px;width:58px;height:58px;position:relative}
+.ring svg{width:58px;height:58px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:4}
+.ring .bg{stroke:var(--divider)}
+.ring .fg{stroke:var(--accent);stroke-linecap:round;transition:stroke-dasharray .6s cubic-bezier(.2,.7,.3,1)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;font-weight:600}
+
+/* ---------- люди ---------- */
+.people{list-style:none;margin:0;padding:0}
+.people li{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid var(--divider)}
+.people li:first-child{border-top:0;padding-top:2px}
+.who{width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:var(--pill);color:var(--accent-deep);display:grid;place-items:center;font-size:13px;font-weight:600}
+.who-t{min-width:0;flex:1}
+.who-t b{display:block;font-size:14.5px;font-weight:500;overflow-wrap:anywhere}
+.who-t small{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+.x{flex:0 0 auto;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--muted)}
+.x:active{background:var(--active);color:var(--ink)}
+.x svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round}
+
+/* ---------- фото ---------- */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:4px}
+.shot{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--soft)}
+.shot img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.shot-b{padding:9px 10px 10px}
+.shot-b b{display:block;font-size:12.5px;font-weight:500;overflow-wrap:anywhere}
+.shot-b small{display:block;font-size:11px;color:var(--muted);margin-top:2px;line-height:1.45}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{font-size:11.5px;padding:5px 10px;border-radius:999px;border:1px dashed var(--line);color:var(--muted);background:transparent;line-height:1}
+.chip.on{border:1px solid transparent;background:var(--pill);color:var(--accent-deep);font-weight:500}
+.shot-x{margin-top:8px;font-size:11.5px;color:var(--muted)}
+.drop{
+  border:1px dashed var(--line);border-radius:12px;padding:22px 16px;text-align:center;
+  color:var(--ink-2);background:var(--soft);display:block;width:100%;
+}
+.drop svg{width:26px;height:26px;stroke:var(--accent);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;margin:0 auto 9px}
+.drop b{display:block;font-size:14.5px;font-weight:500}
+.drop small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+
+/* ---------- квесты ---------- */
+.quests{list-style:none;margin:0;padding:0}
+.quests li{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-top:1px solid var(--divider)}
+.quests li:first-child{border-top:0;padding-top:2px}
+.tick{flex:0 0 21px;width:21px;height:21px;border-radius:50%;border:1px dashed var(--line);margin-top:1px;display:grid;place-items:center}
+.tick svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.quests li.done .tick{background:var(--accent);border:1px solid var(--accent)}
+.quests li.done .tick svg{opacity:1}
+.quests li.done .q-t b{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.q-t{min-width:0;flex:1}
+.q-t b{display:block;font-size:14px;font-weight:500}
+.q-t small{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45}
+
+/* ---------- пригласить ---------- */
+.link-box{
+  display:flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:11px;
+  background:var(--soft);padding:11px 13px;margin-bottom:11px;
+}
+.link-box code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+
+/* ---------- сноски ---------- */
+.rule{margin:13px 0 0;padding:12px 14px;border-left:2px solid var(--accent);background:var(--soft);border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2)}
+.note{margin:12px 2px 0;font-size:11.5px;color:var(--muted);line-height:1.55}
+.foot{margin-top:6px;text-align:center}
+.foot a{font-size:13px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:2px}
+
+.toast{
+  position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,14px);
+  background:var(--ink);color:var(--page);font-size:13px;padding:10px 18px;border-radius:999px;
+  opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:60;max-width:90vw;text-align:center;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+.hide{display:none!important}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<div class="app" id="main">
+
+  <div class="top">
+    <span class="brand serif">SaveMyHistory</span>
+    <a class="to-cab" href="/smh-cabinet-mock.html">Архив</a>
+  </div>
+
+  <!-- ============ шаг 0: круга ещё нет ============ -->
+  <section id="setup">
+    <header class="head">
+      <p class="crumb">Семейный круг</p>
+      <h1>Соберём родных в одном месте</h1>
+      <p>Один человек редко помнит всю семью. Вместе — помните. Круг — это общее место, куда каждый приносит своё: фото, имя, дату, рассказ.</p>
+    </header>
+
+    <div class="card">
+      <div class="card-head"><h2>Начать круг</h2></div>
+      <p class="card-sub">Назовите его так, как говорите дома: «Наши Ковалёвы», «Дом на Полевой», «Бабушкин альбом».</p>
+      <div class="field">
+        <label for="circleName">Имя семейного круга</label>
+        <input class="inp" id="circleName" type="text" maxlength="48" placeholder="Например: Наши Ковалёвы" autocomplete="off">
+      </div>
+      <button class="btn btn--primary btn--wide" id="createBtn" type="button">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M12 8.4v7.2M8.4 12h7.2"/></svg>
+        Создать круг
+      </button>
+      <p class="note">Всё, что вы добавите в этой версии, остаётся на этом устройстве и никуда не отправляется. Это демонстрация самого ритуала, а не хранилище архива.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Меня позвали</h2></div>
+      <p class="card-sub">Если родные прислали код круга — введите его здесь.</p>
+      <div class="row2">
+        <input class="inp" id="joinCode" type="text" maxlength="12" placeholder="Код круга" autocomplete="off" spellcheck="false">
+        <button class="btn btn--quiet" id="joinBtn" type="button">Открыть</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ игра ============ -->
+  <section id="game" class="hide">
+
+    <div class="card">
+      <div class="circle-line">
+        <div style="min-width:0">
+          <h1 class="circle-name serif" id="cName">Семейный круг</h1>
+          <p class="code" id="cCode">КОД</p>
+        </div>
+        <div class="ring" aria-hidden="true">
+          <svg viewBox="0 0 58 58">
+            <circle class="bg" cx="29" cy="29" r="25"/>
+            <circle class="fg" id="ringFg" cx="29" cy="29" r="25" stroke-dasharray="0 157"/>
+          </svg>
+          <b id="ringTxt">0%</b>
+        </div>
+      </div>
+      <p class="card-sub" style="margin:0" id="circleLede">Круг собирается по шагу за раз. Ничего не надо делать за один вечер.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Шаги семьи</h2>
+        <span class="cnt" id="qCnt">0 из 5</span>
+      </div>
+      <ul class="quests" id="qList"></ul>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Родные</h2>
+        <span class="cnt" id="pCnt">0</span>
+      </div>
+      <p class="card-sub">Сначала те, кого вы назовёте без запинки. Остальных добавят те, кто помнит лучше вас.</p>
+      <div class="field">
+        <label for="pName">Имя</label>
+        <input class="inp" id="pName" type="text" maxlength="40" placeholder="Например: Ольга Николаевна" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="pRole">Кто это для вас</label>
+        <select class="inp" id="pRole">
+          <option>бабушка</option>
+          <option>дедушка</option>
+          <option>мама</option>
+          <option>папа</option>
+          <option>сестра</option>
+          <option>брат</option>
+          <option>тётя</option>
+          <option>дядя</option>
+          <option>дочь</option>
+          <option>сын</option>
+          <option>я</option>
+          <option>другой родственник</option>
+        </select>
+      </div>
+      <button class="btn btn--primary btn--wide" id="addP" type="button">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="8" r="3.4"/><path d="M4.5 19.4c0-3.4 2.9-5.8 6.5-5.8 1.2 0 2.3.3 3.2.7M18 14.6v5.2M20.6 17.2h-5.2"/></svg>
+        Добавить в круг
+      </button>
+      <ul class="people" id="pList" style="margin-top:14px"></ul>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Фотографии</h2>
+        <span class="cnt" id="fCnt">0</span>
+      </div>
+      <p class="card-sub">Один снимок — уже начало. После загрузки отметьте, кто на нём — имена становятся фактом только от человека, не от машины.</p>
+      <label class="drop" for="file">
+        <svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="13.6" rx="2.2"/><circle cx="8.6" cy="10.2" r="1.5"/><path d="M4.4 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>
+        <b>Добавить фотографию</b>
+        <small>Можно снять старый снимок прямо со стола или выбрать из галереи</small>
+      </label>
+      <input id="file" class="vh" type="file" accept="image/*">
+      <div class="shots" id="fList" style="margin-top:12px"></div>
+      <p class="legend">
+        <span><span class="mark mark--ok"></span>подтверждено семьёй</span>
+        <span><span class="mark mark--hyp"></span>ещё никто не назван</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Позвать родных</h2></div>
+      <p class="card-sub">Отправьте эту ссылку в семейный чат. Она откроет тот же круг и те же шаги.</p>
+      <div class="link-box">
+        <code id="inviteUrl">—</code>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn--primary" id="copyBtn" type="button">
+          <svg viewBox="0 0 24 24"><rect x="8.6" y="8.6" width="11.8" height="11.8" rx="2.2"/><path d="M15.4 5.4H5.8a2.2 2.2 0 0 0-2.2 2.2v9.6"/></svg>
+          Скопировать ссылку
+        </button>
+        <button class="btn btn--quiet" id="shareBtn" type="button">Отправить в чат</button>
+      </div>
+      <p class="rule">Честно об этой версии: круг живёт в памяти вашего устройства. Ссылка откроет родным те же шаги и то же имя круга, но ваши фото и имена на их телефон пока не переедут — общая копилка на сервере будет следующим шагом.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Вопрос на вечер</h2></div>
+      <p class="card-sub">Необязательный шаг, самый ценный. Выберите один вопрос и задайте его старшим вслух.</p>
+      <div class="chips" id="qsList"></div>
+      <p class="note" id="qsNote">Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Что дальше</h2></div>
+      <p class="card-sub" style="margin-bottom:13px">Когда круг собран, его место — в архиве, где у каждого имени и даты видно, откуда мы это знаем.</p>
+      <div class="btn-row">
+        <a class="btn btn--quiet" href="/smh-cabinet-mock.html">Посмотреть архив</a>
+        <a class="btn btn--quiet" href="/smh-cabinet-razgovor.html">Экран «Разговор»</a>
+      </div>
+      <div class="btn-row" style="margin-top:9px">
+        <a class="btn btn--primary btn--wide" href="/waitlist.html">Узнать первым</a>
+      </div>
+      <button class="btn btn--quiet btn--wide" id="resetBtn" type="button" style="margin-top:14px">Начать другой круг</button>
+    </div>
+
+    <p class="note">Демо-хранение на устройстве: имена, фото и отметки хранятся только в памяти этого браузера и не уходят на сервер. Если очистить данные браузера, круг исчезнет. Мы ничего не дорисовываем на ваших снимках и не угадываем лица: имя появляется только тогда, когда его назвал человек.</p>
+
+    <p class="foot"><a href="/smh-cabinet-privatnost.html">Кто что видит в архиве</a></p>
+
+  </section>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  'use strict';
+
+  var PREFIX = 'smh_fg_v1_';
+  var LAST   = 'smh_fg_last';
+  var ALPHA  = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var MAXPX  = 1024;
+  var MAXSHOTS = 12;
+
+  var QUESTIONS = [
+    'Кто здесь рядом с вами?',
+    'Чей это дом за спиной?',
+    'Кто не попал в кадр?',
+    'Что было сразу после этого дня?',
+    'Что вы хотите, чтобы внуки об этом знали?'
+  ];
+
+  var tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+  var state = null;
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  function esc(s){
+    var d = document.createElement('div');
+    d.textContent = String(s == null ? '' : s);
+    return d.innerHTML;
+  }
+
+  function toast(msg){
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('on');
+    clearTimeout(t._h);
+    t._h = setTimeout(function(){ t.classList.remove('on'); }, 2400);
+  }
+
+  function buzz(kind){
+    try{
+      if(tg && tg.HapticFeedback){
+        if(kind === 'ok') tg.HapticFeedback.notificationOccurred('success');
+        else tg.HapticFeedback.impactOccurred('light');
+      }
+    }catch(e){}
+  }
+
+  function newCode(){
+    var s = '';
+    for(var i=0;i<6;i++) s += ALPHA.charAt(Math.floor(Math.random()*ALPHA.length));
+    return s;
+  }
+
+  function uid(){
+    return Date.now().toString(36) + Math.floor(Math.random()*1e6).toString(36);
+  }
+
+  /* ---------- хранение (демо, только это устройство) ---------- */
+  function load(code){
+    try{
+      var raw = localStorage.getItem(PREFIX + code);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+
+  function save(){
+    if(!state) return true;
+    try{
+      localStorage.setItem(PREFIX + state.code, JSON.stringify(state));
+      localStorage.setItem(LAST, state.code);
+      return true;
+    }catch(e){
+      toast('На устройстве закончилось место для демо-хранения');
+      return false;
+    }
+  }
+
+  function blank(code, name){
+    return {
+      code: code,
+      name: name || 'Семейный круг',
+      people: [],
+      photos: [],
+      question: null,
+      invited: false,
+      born: Date.now()
+    };
+  }
+
+  /* ---------- квесты ---------- */
+  function tagged(){
+    for(var i=0;i<state.photos.length;i++){
+      if(state.photos[i].who && state.photos[i].who.length) return true;
+    }
+    return false;
+  }
+
+  function quests(){
+    return [
+      { done: true,
+        t: 'Назвать круг',
+        s: 'У семьи появилось общее место' },
+      { done: state.people.length >= 2,
+        t: 'Добавить двух родных',
+        s: state.people.length >= 2 ? 'В кругу уже ' + state.people.length : 'Сейчас ' + state.people.length + ' из 2' },
+      { done: state.photos.length >= 1,
+        t: 'Загрузить фотографию',
+        s: state.photos.length ? 'Снимков в кругу: ' + state.photos.length : 'Хватит одного снимка' },
+      { done: tagged(),
+        t: 'Отметить, кто на фото',
+        s: 'Имя становится фактом только от человека' },
+      { done: !!state.invited,
+        t: 'Позвать родных',
+        s: 'Отправить ссылку в семейный чат' }
+    ];
+  }
+
+  /* ---------- отрисовка ---------- */
+  function drawRing(pct){
+    var C = 2 * Math.PI * 25;
+    var on = C * pct / 100;
+    $('ringFg').setAttribute('stroke-dasharray', on.toFixed(1) + ' ' + (C - on).toFixed(1));
+    $('ringTxt').textContent = pct + '%';
+  }
+
+  function renderQuests(){
+    var qs = quests();
+    var done = 0, html = '';
+    for(var i=0;i<qs.length;i++){
+      if(qs[i].done) done++;
+      html += '<li class="' + (qs[i].done ? 'done' : '') + '">' +
+                '<span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.6l4.4 4.4L19 7.4"/></svg></span>' +
+                '<span class="q-t"><b>' + esc(qs[i].t) + '</b><small>' + esc(qs[i].s) + '</small></span>' +
+              '</li>';
+    }
+    $('qList').innerHTML = html;
+    $('qCnt').textContent = done + ' из ' + qs.length;
+    drawRing(Math.round(done / qs.length * 100));
+
+    var lede = $('circleLede');
+    if(done === qs.length){
+      lede.textContent = 'Круг собран. Дальше он растёт сам — каждый родной добавляет то, что помнит только он.';
+    }else{
+      lede.textContent = 'Круг собирается по шагу за раз. Ничего не надо делать за один вечер.';
+    }
+  }
+
+  function initials(name){
+    var p = String(name).trim().split(' ');
+    var s = (p[0] ? p[0].charAt(0) : '') + (p[1] ? p[1].charAt(0) : '');
+    return s.toUpperCase();
+  }
+
+  function renderPeople(){
+    var html = '';
+    if(!state.people.length){
+      html = '<li style="border-top:0"><span class="who-t"><small>Пока никого. Начните с того, кто первым приходит в голову.</small></span></li>';
+    }
+    for(var i=0;i<state.people.length;i++){
+      var p = state.people[i];
+      html += '<li>' +
+                '<span class="who">' + esc(initials(p.name)) + '</span>' +
+                '<span class="who-t"><b>' + esc(p.name) + '</b><small>' + esc(p.role) + '</small></span>' +
+                '<button class="x" type="button" data-del="' + esc(p.id) + '" aria-label="Убрать из круга">' +
+                  '<svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>' +
+                '</button>' +
+              '</li>';
+    }
+    $('pList').innerHTML = html;
+    $('pCnt').textContent = state.people.length;
+  }
+
+  function renderPhotos(){
+    var html = '';
+    for(var i=0;i<state.photos.length;i++){
+      var f = state.photos[i];
+      var who = f.who || [];
+      var chips = '';
+      for(var j=0;j<state.people.length;j++){
+        var p = state.people[j];
+        var on = who.indexOf(p.id) !== -1;
+        chips += '<button class="chip ' + (on ? 'on' : '') + '" type="button" data-tag="' + esc(f.id) + '" data-who="' + esc(p.id) + '">' + esc(p.name) + '</button>';
+      }
+      if(!state.people.length){
+        chips = '<span class="chip">Сначала добавьте родных</span>';
+      }
+      var names = [];
+      for(var k=0;k<who.length;k++){
+        var m = byId(who[k]);
+        if(m) names.push(m.name);
+      }
+      var badge = names.length
+        ? '<span class="badge badge--fam"><span class="mark mark--ok"></span>названы семьёй</span>'
+        : '<span class="badge badge--hyp"><span class="mark mark--hyp"></span>ещё не названы</span>';
+
+      html += '<figure class="shot" style="margin:0">' +
+                '<img src="' + f.src + '" alt="Семейная фотография из круга">' +
+                '<figcaption class="shot-b">' +
+                  badge +
+                  '<b style="margin-top:7px">' + (names.length ? esc(names.join(', ')) : 'Кто здесь?') + '</b>' +
+                  '<small>' + esc(f.date) + '</small>' +
+                  '<div class="chips">' + chips + '</div>' +
+                  '<button class="shot-x" type="button" data-rm="' + esc(f.id) + '">Убрать снимок</button>' +
+                '</figcaption>' +
+              '</figure>';
+    }
+    $('fList').innerHTML = html;
+    $('fCnt').textContent = state.photos.length;
+  }
+
+  function renderQuestion(){
+    var html = '';
+    for(var i=0;i<QUESTIONS.length;i++){
+      var on = state.question === QUESTIONS[i];
+      html += '<button class="chip ' + (on ? 'on' : '') + '" type="button" data-q="' + i + '">' + esc(QUESTIONS[i]) + '</button>';
+    }
+    $('qsList').innerHTML = html;
+  }
+
+  function byId(id){
+    for(var i=0;i<state.people.length;i++){
+      if(state.people[i].id === id) return state.people[i];
+    }
+    return null;
+  }
+
+  function inviteUrl(){
+    return location.origin + location.pathname + '?circle=' + state.code;
+  }
+
+  function renderAll(){
+    $('cName').textContent = state.name;
+    $('cCode').textContent = 'Код круга · ' + state.code;
+    $('inviteUrl').textContent = inviteUrl();
+    renderQuests();
+    renderPeople();
+    renderPhotos();
+    renderQuestion();
+  }
+
+  function openGame(){
+    $('setup').classList.add('hide');
+    $('game').classList.remove('hide');
+    renderAll();
+    mainButton(true);
+  }
+
+  /* ---------- действия ---------- */
+  function createCircle(){
+    var name = $('circleName').value.trim();
+    if(!name){
+      toast('Дайте кругу имя');
+      $('circleName').focus();
+      return;
+    }
+    var pre = new URLSearchParams(location.search).get('circle');
+    state = blank(pre ? pre.toUpperCase().slice(0,12) : newCode(), name);
+
+    var me = tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.first_name : '';
+    if(me) state.people.push({ id: uid(), name: me, role: 'я' });
+
+    save();
+    buzz('ok');
+    openGame();
+  }
+
+  function joinCircle(){
+    var code = $('joinCode').value.trim().toUpperCase();
+    if(!code){ $('joinCode').focus(); return; }
+    var found = load(code);
+    if(found){
+      state = found;
+      save();
+      openGame();
+      toast('Круг открыт');
+    }else{
+      toast('На этом устройстве такого круга ещё нет');
+    }
+  }
+
+  function addPerson(){
+    var name = $('pName').value.trim();
+    if(!name){
+      toast('Напишите имя');
+      $('pName').focus();
+      return;
+    }
+    state.people.push({ id: uid(), name: name, role: $('pRole').value });
+    if(save()){
+      $('pName').value = '';
+      buzz('ok');
+      renderAll();
+    }
+  }
+
+  function shrink(file, cb){
+    var reader = new FileReader();
+    reader.onload = function(ev){
+      var img = new Image();
+      img.onload = function(){
+        var w = img.width, h = img.height, scale = Math.min(1, MAXPX / Math.max(w, h));
+        var cv = document.createElement('canvas');
+        cv.width  = Math.max(1, Math.round(w * scale));
+        cv.height = Math.max(1, Math.round(h * scale));
+        var cx = cv.getContext('2d');
+        cx.drawImage(img, 0, 0, cv.width, cv.height);
+        try{
+          cb(cv.toDataURL('image/jpeg', 0.72));
+        }catch(e){
+          cb(ev.target.result);
+        }
+      };
+      img.onerror = function(){ cb(null); };
+      img.src = ev.target.result;
+    };
+    reader.onerror = function(){ cb(null); };
+    reader.readAsDataURL(file);
+  }
+
+  function addPhoto(file){
+    if(state.photos.length >= MAXSHOTS){
+      toast('В демо-круг помещается до ' + MAXSHOTS + ' снимков');
+      return;
+    }
+    toast('Готовим снимок…');
+    shrink(file, function(src){
+      if(!src){ toast('Этот файл не открылся как фотография'); return; }
+      var d = new Date();
+      var stamp = ('0'+d.getDate()).slice(-2) + '.' + ('0'+(d.getMonth()+1)).slice(-2) + '.' + d.getFullYear();
+      state.photos.unshift({ id: uid(), src: src, who: [], date: 'Добавлено ' + stamp });
+      if(save()){
+        buzz('ok');
+        renderAll();
+      }else{
+        state.photos.shift();
+        renderAll();
+      }
+    });
+  }
+
+  function toggleTag(photoId, whoId){
+    for(var i=0;i<state.photos.length;i++){
+      if(state.photos[i].id === photoId){
+        var who = state.photos[i].who || [];
+        var at = who.indexOf(whoId);
+        if(at === -1) who.push(whoId); else who.splice(at, 1);
+        state.photos[i].who = who;
+        break;
+      }
+    }
+    if(save()){
+      buzz('tap');
+      renderAll();
+    }
+  }
+
+  function copyText(text, okMsg){
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try{ ok = document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+      toast(ok ? okMsg : 'Ссылка на экране — скопируйте её вручную');
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast(okMsg); }, fallback);
+    }else{
+      fallback();
+    }
+  }
+
+  function markInvited(){
+    if(!state.invited){
+      state.invited = true;
+      save();
+      renderAll();
+    }
+  }
+
+  function shareInvite(){
+    var url = inviteUrl();
+    var text = 'Собираем семейный архив: «' + state.name + '». Заходи и добавь своё — фото, имя, рассказ.';
+    markInvited();
+    buzz('ok');
+    if(tg && tg.openTelegramLink){
+      tg.openTelegramLink('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text));
+      return;
+    }
+    if(navigator.share){
+      navigator.share({ title: state.name, text: text, url: url }).catch(function(){});
+      return;
+    }
+    copyText(url + ' — ' + text, 'Ссылка скопирована');
+  }
+
+  function mainButton(on){
+    if(!tg || !tg.MainButton) return;
+    try{
+      if(on){
+        tg.MainButton.setText('Позвать родных');
+        tg.MainButton.onClick(shareInvite);
+        tg.MainButton.show();
+      }else{
+        tg.MainButton.hide();
+      }
+    }catch(e){}
+  }
+
+  /* ---------- события ---------- */
+  $('createBtn').addEventListener('click', createCircle);
+  $('joinBtn').addEventListener('click', joinCircle);
+  $('addP').addEventListener('click', addPerson);
+
+  $('circleName').addEventListener('keydown', function(e){ if(e.key === 'Enter') createCircle(); });
+  $('joinCode').addEventListener('keydown', function(e){ if(e.key === 'Enter') joinCircle(); });
+  $('pName').addEventListener('keydown', function(e){ if(e.key === 'Enter') addPerson(); });
+
+  $('file').addEventListener('change', function(e){
+    var f = e.target.files && e.target.files[0];
+    if(f) addPhoto(f);
+    e.target.value = '';
+  });
+
+  $('copyBtn').addEventListener('click', function(){
+    markInvited();
+    copyText(inviteUrl(), 'Ссылка скопирована');
+  });
+  $('shareBtn').addEventListener('click', shareInvite);
+
+  $('pList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-del]');
+    if(!b) return;
+    var id = b.getAttribute('data-del');
+    state.people = state.people.filter(function(p){ return p.id !== id; });
+    for(var i=0;i<state.photos.length;i++){
+      state.photos[i].who = (state.photos[i].who || []).filter(function(w){ return w !== id; });
+    }
+    save();
+    renderAll();
+  });
+
+  $('fList').addEventListener('click', function(e){
+    var chip = e.target.closest('[data-tag]');
+    if(chip){
+      toggleTag(chip.getAttribute('data-tag'), chip.getAttribute('data-who'));
+      return;
+    }
+    var rm = e.target.closest('[data-rm]');
+    if(rm){
+      var id = rm.getAttribute('data-rm');
+      state.photos = state.photos.filter(function(f){ return f.id !== id; });
+      save();
+      renderAll();
+    }
+  });
+
+  $('qsList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-q]');
+    if(!b) return;
+    var q = QUESTIONS[parseInt(b.getAttribute('data-q'), 10)];
+    state.question = (state.question === q) ? null : q;
+    save();
+    buzz('tap');
+    renderQuestion();
+    $('qsNote').textContent = state.question
+      ? 'Вопрос выбран. Задайте его вслух и просто слушайте — запись голоса живёт в большом архиве, на экране «Разговор».'
+      : 'Запись голоса живёт в большом архиве, на экране «Разговор». Здесь мы только выбираем вопрос — чтобы было с чего начать разговор.';
+  });
+
+  $('resetBtn').addEventListener('click', function(){
+    state = null;
+    try{ localStorage.removeItem(LAST); }catch(e){}
+    $('game').classList.add('hide');
+    $('setup').classList.remove('hide');
+    $('circleName').value = '';
+    mainButton(false);
+    toast('Прежний круг остался на устройстве — его откроет его код');
+  });
+
+  /* ---------- Telegram ---------- */
+  function paintTheme(){
+    if(!tg) return;
+    try{
+      if(tg.colorScheme === 'dark') document.body.classList.add('is-dark');
+      else document.body.classList.remove('is-dark');
+      if(tg.setHeaderColor && tg.themeParams && tg.themeParams.bg_color){
+        tg.setHeaderColor(tg.themeParams.bg_color);
+      }
+    }catch(e){}
+  }
+
+  if(tg){
+    try{
+      tg.ready();
+      tg.expand();
+      paintTheme();
+      tg.onEvent('themeChanged', paintTheme);
+    }catch(e){}
+  }
+
+  /* ---------- старт ---------- */
+  (function boot(){
+    var wanted = new URLSearchParams(location.search).get('circle');
+    if(wanted) wanted = wanted.toUpperCase().slice(0, 12);
+    var code = wanted || (function(){ try{ return localStorage.getItem(LAST); }catch(e){ return null; } })();
+
+    if(code){
+      var found = load(code);
+      if(found){
+        state = found;
+        openGame();
+        return;
+      }
+    }
+    if(wanted){
+      $('joinCode').value = wanted;
+      $('circleName').focus();
+      toast('Круг ' + wanted + ' пока пуст на этом устройстве — назовите его и начните свою часть');
+    }
+  })();
+
+})();
+</script>
+</body>
+</html>
