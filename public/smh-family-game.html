@@ -815,6 +815,156 @@ body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,
   .crest{width:min(100%, 230px);margin-bottom:9px}
 }
 
+/* ============================================================
+   Слой продолжения — дом круга (макеты 03 · 01 · 02).
+   03: на первом входе одна большая пустая рамка — «здесь будет
+       ваша память» — и мягкое приглашение позвать родных.
+   01: как только память появилась, дом становится картой рода,
+       где свободный кружок — приглашение, а не пустота.
+   02: тихая неделя из трёх дел, и каждое отмечено только тем,
+       что семья действительно сделала.
+   Средства прежние: градиент, полоса, SVG. Ни одной картинки
+   фоном, ни одного дорисованного лица.
+   ============================================================ */
+.home{display:grid;gap:14px;margin:0 0 16px}
+
+/* ---------- 03 · пустая рамка первого входа ---------- */
+.card--empty{position:relative;overflow:hidden;text-align:center;padding:20px 17px 22px}
+.card--empty::before{
+  content:'';position:absolute;left:50%;top:-140px;width:360px;height:260px;
+  transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(closest-side, var(--glow), transparent 74%);
+}
+.frame-big{position:relative;width:min(100%, 340px);margin:0 auto 14px}
+.frame-big svg{width:100%;height:auto;display:block}
+.frame-big .fb-mat{fill:var(--tile);stroke:var(--line);stroke-width:1.2;opacity:.85}
+.frame-big .fb-in{fill:none;opacity:.4}
+.frame-big .fb-void{
+  fill:none;stroke:var(--seat);stroke-width:1.2;stroke-dasharray:4 6;
+  animation:frame-wait 5.5s ease-in-out infinite;
+}
+@keyframes frame-wait{0%,100%{opacity:.5}50%{opacity:.95}}
+.frame-big .fb-corner{fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:.5}
+.empty-t{
+  margin:0;font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(23px,6.2vw,28px);line-height:1.18;font-weight:600;letter-spacing:.2px;
+}
+.empty-s{margin:9px auto 0;max-width:36ch;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
+.empty-cta{justify-content:center;margin-top:15px}
+.empty-code{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
+  margin:15px auto 0;font-size:12px;color:var(--muted);
+}
+.empty-code code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;letter-spacing:.1em;
+  color:var(--accent-deep);background:var(--pill);border-radius:999px;padding:5px 11px;
+}
+.empty-note{margin:13px auto 0;max-width:42ch;font-size:11.5px;line-height:1.55;color:var(--muted)}
+
+/* ---------- 01 · карта рода ---------- */
+.card--tree{position:relative;overflow:hidden}
+.tree-map{width:min(100%, 420px);margin:2px auto 0}
+.tree-map svg{width:100%;height:auto;display:block;overflow:visible}
+.tree-map .tm-ground{fill:none;stroke:var(--line);stroke-width:1.1;stroke-linecap:round;stroke-dasharray:3 6;opacity:.65}
+.tree-map .tm-trunk{fill:none;stroke:var(--bark);stroke-width:4.2;stroke-linecap:round;opacity:.85}
+.tree-map .tm-root{fill:none;stroke:var(--bark);stroke-width:1.5;stroke-linecap:round;opacity:.5}
+.tree-map .tm-branch{fill:none;stroke:var(--bark);stroke-width:2.1;stroke-linecap:round;opacity:.72}
+.tree-map .tm-thin{stroke-width:1.4;opacity:.55}
+.tree-map .tm-leaf{fill:var(--leaf);opacity:.6}
+.tree-map .tm-ring{fill:none;stroke:var(--accent);stroke-width:1.1;stroke-dasharray:2.5 4.5;opacity:.4}
+.tree-map .tm-c{fill:var(--card);stroke:var(--line);stroke-width:1.3}
+.tree-map .tm-i{fill:var(--accent-deep);font-size:11px;font-weight:600;text-anchor:middle}
+.tree-map .tm-l{fill:var(--muted);font-size:9px;text-anchor:middle}
+.tree-map .tm-taken .tm-c{fill:var(--pill);stroke:var(--seat);animation:tm-breathe 4.2s ease-in-out infinite}
+.tree-map .tm-taken .tm-l{fill:var(--ink-2)}
+.tree-map .tm-seat:nth-of-type(2n) .tm-c{animation-delay:1.4s}
+@keyframes tm-breathe{0%,100%{opacity:.62}50%{opacity:1}}
+.tree-map .tm-free{cursor:pointer}
+.tree-map .tm-free .tm-c{fill:transparent;stroke:var(--seat);stroke-dasharray:3 4}
+.tree-map .tm-free .tm-i{fill:var(--seat);font-weight:400;font-size:14px}
+.tree-map .tm-free:hover .tm-c,.tree-map .tm-free:focus .tm-c{stroke:var(--accent);stroke-dasharray:none}
+.tree-map .tm-free:hover .tm-l,.tree-map .tm-free:focus .tm-l{fill:var(--accent-deep)}
+.tree-map .tm-free:focus{outline:none}
+.tree-map .tm-free:focus-visible .tm-c{stroke:var(--accent);stroke-width:2.2}
+.tree-hint{margin:12px 2px 0;font-size:11.5px;line-height:1.55;color:var(--muted);text-align:center}
+
+/* ---------- 02 · тихая неделя ---------- */
+.card--week{background-image:linear-gradient(180deg, rgba(232,222,209,.4), transparent 140px)}
+body.is-dark .card--week{background-image:linear-gradient(180deg, rgba(198,161,132,.12), transparent 140px)}
+.week-bar{height:7px;border-radius:999px;background:var(--divider);overflow:hidden;margin:0 0 13px}
+.week-bar span{
+  display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg, var(--leaf), var(--leaf-gold) 60%, var(--accent));
+  transition:width .7s cubic-bezier(.2,.7,.3,1);
+}
+.week-cards{display:grid;gap:10px}
+.week-card{
+  display:flex;flex-direction:column;align-items:flex-start;gap:7px;text-align:left;width:100%;
+  border:1px solid var(--border);border-radius:14px;background:var(--tile);
+  padding:13px 14px;transition:border-color .25s ease,background .25s ease,transform .12s ease;
+}
+.week-card:hover{border-color:var(--seat)}
+.week-card:active{transform:translateY(1px)}
+.wk-top{display:flex;align-items:center;gap:9px;width:100%}
+.wk-dot{
+  flex:0 0 20px;width:20px;height:20px;border-radius:50%;
+  border:1px dashed var(--line);display:grid;place-items:center;
+}
+.wk-dot svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.week-card b{font-size:14.5px;font-weight:500;line-height:1.25}
+.week-card small{font-size:12px;line-height:1.5;color:var(--muted)}
+.week-card .wk-go{
+  margin-top:2px;font-size:12px;font-weight:500;line-height:1;color:var(--accent-deep);
+  background:var(--pill);border-radius:999px;padding:7px 12px;
+}
+.week-card.is-done{border-color:var(--seat);background:linear-gradient(180deg, rgba(232,222,209,.5), rgba(232,222,209,.14))}
+body.is-dark .week-card.is-done{background:linear-gradient(180deg, rgba(198,161,132,.15), rgba(198,161,132,.05))}
+.week-card.is-done b{color:var(--accent-deep)}
+.week-card.is-done .wk-dot{border:1px solid var(--accent);background:var(--accent)}
+.week-card.is-done .wk-dot svg{opacity:1}
+
+/* ---------- код круга: то, что говорят вслух ---------- */
+.code-box{
+  display:flex;align-items:center;flex-wrap:wrap;gap:9px;
+  margin:0 0 11px;padding:11px 13px;
+  border:1px dashed var(--seat);border-radius:12px;background:var(--tile);
+}
+.code-lab{font-size:12px;color:var(--muted)}
+.code-val{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;font-weight:600;
+  letter-spacing:.14em;color:var(--accent-deep);
+}
+.code-box .btn{margin-left:auto;padding:8px 13px;font-size:12.5px}
+
+/* свободное место за столом — то же приглашение, что и кружок на ветви */
+.people li.seat-free{cursor:pointer;transition:border-color .25s ease,background .25s ease}
+.people li.seat-free:hover,.people li.seat-free:focus-visible{border-color:var(--accent);background:var(--tile)}
+.people li.seat-free:hover .who,.people li.seat-free:focus-visible .who{border-color:var(--accent);color:var(--accent-deep)}
+.people li.seat-free:focus{outline:none}
+
+/* карточка недели ведёт к своему месту на странице — и это место
+   отзывается, чтобы переход не выглядел как случайный скачок */
+@keyframes wk-lit{
+  0%{box-shadow:0 0 0 0 rgba(154,111,68,.34), var(--lift)}
+  70%{box-shadow:0 0 0 12px rgba(154,111,68,0), var(--lift)}
+  100%{box-shadow:var(--lift)}
+}
+.wk-lit{animation:wk-lit 1.7s cubic-bezier(.2,.7,.3,1) 1}
+
+@media (min-width:720px){
+  .home{grid-template-columns:minmax(0,1.62fr) minmax(256px,1fr);align-items:start}
+  .card--empty,.card--tree{grid-column:1}
+  .card--week{grid-column:2}
+  .tree-map{width:min(100%, 460px)}
+}
+@media (min-width:920px){
+  .home{gap:16px;grid-template-columns:minmax(0,1.7fr) minmax(276px,1fr)}
+}
+@media (orientation:landscape) and (max-height:470px){
+  .frame-big{width:min(100%, 240px);margin-bottom:10px}
+  .tree-map{width:min(100%, 300px)}
+}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -923,6 +1073,58 @@ body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,
       <p class="card-sub" style="margin:0" id="circleLede">Круг собирается по шагу за раз. Ничего не надо делать за один вечер.</p>
     </div>
 
+    <!-- дом круга: пока памяти нет — одна пустая рамка (макет 03); как только
+         появилась — карта рода со свободными местами (макет 01). Рядом тихая
+         неделя из трёх дел (макет 02). -->
+    <div class="home" id="home" data-brand-apply="03-empty-frame · 01-tree-map · 02-week">
+
+      <div class="card card--empty" id="emptyFrame">
+        <div class="frame-big" role="img" aria-label="Пустая рамка: здесь будет первая память круга">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect class="fb-mat" x="4" y="4" width="292" height="192" rx="10"/>
+            <rect class="fb-mat fb-in" x="16" y="16" width="268" height="168" rx="6"/>
+            <rect class="fb-void" x="32" y="32" width="236" height="136" rx="4"/>
+            <path class="fb-corner" d="M44 58V44h14"/>
+            <path class="fb-corner" d="M256 58V44h-14"/>
+            <path class="fb-corner" d="M44 142v14h14"/>
+            <path class="fb-corner" d="M256 142v14h-14"/>
+          </svg>
+        </div>
+        <h2 class="empty-t serif">Здесь будет ваша память</h2>
+        <p class="empty-s">Пустая рамка ждёт первое: снимок прямо со стола, имя, которое вы помните без запинки, или рассказ, записанный чужой рукой. Начать может любой в круге.</p>
+        <div class="btn-row empty-cta">
+          <button class="btn btn--primary" id="emptyInvite" type="button">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="8" r="3.4"/><path d="M4.5 19.4c0-3.4 2.9-5.8 6.5-5.8 1.2 0 2.3.3 3.2.7M18 14.6v5.2M20.6 17.2h-5.2"/></svg>
+            Позвать родных
+          </button>
+          <button class="btn btn--quiet" id="emptyPhoto" type="button">Добавить первое фото</button>
+        </div>
+        <p class="empty-code">Код круга <code id="emptyCode">—</code></p>
+        <p class="empty-note">Ничего не появится само: мы не дорисовываем лица и не угадываем имена. Рамка останется пустой ровно до тех пор, пока в неё не положит что-то человек.</p>
+      </div>
+
+      <div class="card card--tree hide" id="treeMap">
+        <div class="card-head">
+          <h2>Карта рода</h2>
+          <span class="cnt" id="treeCnt">0 из 7</span>
+        </div>
+        <p class="card-sub">Кружки на ветвях — места круга. В занятых стоят инициалы имени, которое назвал человек; свободные ждут своих людей.</p>
+        <div class="tree-map" id="treeWrap"></div>
+        <p class="tree-hint" id="treeHint">Свободное место — это приглашение: нажмите на него, чтобы позвать человека в круг.</p>
+      </div>
+
+      <div class="card card--week" id="weekStrip">
+        <div class="card-head">
+          <h2>Тихая неделя</h2>
+          <span class="cnt" id="weekCnt">0 из 3</span>
+        </div>
+        <div class="week-bar" aria-hidden="true"><span id="weekBarFg"></span></div>
+        <p class="card-sub">Три спокойных дела на неделю. Ни одно не обязательно — и ни одно не отметится само.</p>
+        <div class="week-cards" id="weekList"></div>
+      </div>
+
+    </div>
+
     <!-- широкий экран: слева живая часть круга, справа полка с шагами и местами -->
     <div class="game-grid">
 
@@ -1006,6 +1208,11 @@ body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,
         <div class="card card--invite">
           <div class="card-head"><h2>Позвать родных</h2></div>
           <p class="card-sub">Отправьте эту ссылку в семейный чат. Она откроет тот же круг и те же шаги.</p>
+          <div class="code-box">
+            <span class="code-lab">Код круга</span>
+            <b class="code-val" id="inviteCode">—</b>
+            <button class="btn btn--quiet" id="copyCodeBtn" type="button">Скопировать код</button>
+          </div>
           <div class="link-box">
             <code id="inviteUrl">—</code>
           </div>
@@ -1304,7 +1511,7 @@ body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,
       ? 'ждёт своего человека'
       : 'начните с того, кто первым приходит в голову';
     for(var s=0;s<free;s++){
-      html += '<li class="seat-free">' +
+      html += '<li class="seat-free" data-invite="1" role="button" tabindex="0" aria-label="Свободное место — позвать родных">' +
                 '<span class="who" aria-hidden="true">+</span>' +
                 '<span class="who-t"><b>Свободное место</b><small>' + hint + '</small></span>' +
               '</li>';
@@ -1361,6 +1568,146 @@ body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,
     $('qsList').innerHTML = html;
   }
 
+  /* ---------- дом круга: пустая рамка → карта рода ----------
+     Пока в круге нет ни снимка, ни заметки, ни второго имени, первым
+     стоит одна большая пустая рамка (макет 03): она говорит, чего здесь
+     ждут, и не притворяется, будто память уже собрана. Как только семья
+     принесла первое, дом становится картой рода (макет 01). */
+  function circleFilled(){
+    var named = state.people.length - (state.owner ? 1 : 0);
+    return state.photos.length > 0 || (state.notes && state.notes.length > 0) || named > 0;
+  }
+
+  /* Семь мест на ветвях: в занятых стоят инициалы имени, которое назвал
+     человек, свободные остаются приглашением. Лиц не рисуем. */
+  var SEATS = [
+    { x:160, y:64,  r:21 },
+    { x:108, y:104, r:17 },
+    { x:212, y:104, r:17 },
+    { x:70,  y:148, r:16 },
+    { x:250, y:148, r:16 },
+    { x:42,  y:186, r:13 },
+    { x:278, y:186, r:13 }
+  ];
+
+  function shortName(name){
+    var s = String(name).trim().split(' ')[0] || String(name).trim();
+    return s.length > 11 ? s.slice(0, 10) + '…' : s;
+  }
+
+  function renderTree(){
+    var wrap = $('treeWrap');
+    if(!wrap) return;
+    var svg = '<svg viewBox="0 0 320 214" role="img" aria-label="Карта рода: занятые и свободные места круга">' +
+      '<path class="tm-ground" d="M56 200h208"/>' +
+      '<path class="tm-root" d="M160 199c-7 0-12-1.8-16-5.6M160 199c7 0 12-1.8 16-5.6"/>' +
+      '<path class="tm-trunk" d="M160 200V88"/>' +
+      '<path class="tm-branch" d="M160 124C142 120 124 114 112 104"/>' +
+      '<path class="tm-branch" d="M160 124C178 120 196 114 208 104"/>' +
+      '<path class="tm-branch" d="M160 162C130 160 96 155 76 150"/>' +
+      '<path class="tm-branch" d="M160 162C190 160 224 155 244 150"/>' +
+      '<path class="tm-branch tm-thin" d="M82 152C66 160 52 172 46 181"/>' +
+      '<path class="tm-branch tm-thin" d="M238 152C254 160 268 172 274 181"/>' +
+      '<path class="tm-leaf" d="M214 56c-8 .7-12.5 5.2-12.5 11.8 6.2-.2 11.8-4 12.5-11.8z"/>' +
+      '<path class="tm-leaf" d="M106 56c8 .7 12.5 5.2 12.5 11.8-6.2-.2-11.8-4-12.5-11.8z"/>' +
+      '<circle class="tm-ring" cx="160" cy="64" r="29"/>';
+
+    var taken = 0;
+    for(var i=0;i<SEATS.length;i++){
+      var s = SEATS[i];
+      var p = state.people[i] || null;
+      var ly = s.y + s.r + 12;
+      if(p){
+        taken++;
+        svg += '<g class="tm-seat tm-taken">' +
+                 '<circle class="tm-c" cx="' + s.x + '" cy="' + s.y + '" r="' + s.r + '"/>' +
+                 '<text class="tm-i" x="' + s.x + '" y="' + (s.y + 4) + '">' + esc(initials(p.name)) + '</text>' +
+                 '<text class="tm-l" x="' + s.x + '" y="' + ly + '">' + esc(shortName(p.name)) + '</text>' +
+               '</g>';
+      }else{
+        svg += '<g class="tm-seat tm-free" data-free="' + i + '" role="button" tabindex="0" ' +
+                 'aria-label="Свободное место — позвать родных">' +
+                 '<circle class="tm-c" cx="' + s.x + '" cy="' + s.y + '" r="' + s.r + '"/>' +
+                 '<text class="tm-i" x="' + s.x + '" y="' + (s.y + 5) + '">+</text>' +
+                 '<text class="tm-l" x="' + s.x + '" y="' + ly + '">Свободно</text>' +
+               '</g>';
+      }
+    }
+    wrap.innerHTML = svg + '</svg>';
+    $('treeCnt').textContent = taken + ' из ' + SEATS.length;
+    $('treeHint').textContent = taken >= SEATS.length
+      ? 'Все семь мест заняты. Дальше круг растёт вширь: каждый добавляет тех, кого помнит только он.'
+      : 'Свободное место — это приглашение: нажмите на кружок, чтобы позвать человека в круг.';
+  }
+
+  /* Карточка недели ведёт к тому месту страницы, где дело и делается.
+     Само по себе ничто не отмечается: подсветка — это только дорога. */
+  function lightCard(sel, focusEl){
+    var el = document.querySelector(sel);
+    if(!el) return;
+    try{ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    catch(e){ el.scrollIntoView(); }
+    el.classList.remove('wk-lit');
+    void el.offsetWidth;
+    el.classList.add('wk-lit');
+    setTimeout(function(){ el.classList.remove('wk-lit'); }, 1700);
+    if(focusEl) setTimeout(function(){ try{ focusEl.focus(); }catch(e){} }, 450);
+  }
+
+  /* ---------- 02 · тихая неделя ----------
+     Три дела, и каждое считается сделанным только по следу настоящего
+     действия: выбранный вопрос, подписанный снимок, заметка дворецкому.
+     Ничего не начисляется сверх того, что семья сделала сама. */
+  function weekTasks(){
+    var hasNotes = !!(state.notes && state.notes.length);
+    return [
+      { done: !!state.question,
+        t: 'Голос бабушки',
+        s: state.question ? 'Вопрос выбран: ' + state.question : 'Выберите вопрос на вечер и задайте его старшим вслух.',
+        go: state.question ? 'Открыть вопрос' : 'Выбрать вопрос',
+        act: function(){ lightCard('.card--ask'); } },
+      { done: tagged(),
+        t: 'Подписать фото',
+        s: state.photos.length ? 'Отметьте на снимке тех, кого узнали.' : 'Сначала один снимок — имена придут после.',
+        go: state.photos.length ? 'Отметить людей' : 'Добавить фото',
+        act: function(){ lightCard('.card--photos'); } },
+      { done: hasNotes,
+        t: 'Спросить про год',
+        s: hasNotes ? 'Заметок у дворецкого: ' + state.notes.length : 'Спросите, какой это был год, и запишите ответ дворецкому.',
+        go: 'Записать',
+        act: function(){ lightCard('.card--butler', $('bText')); } }
+    ];
+  }
+
+  function renderWeek(){
+    var list = weekTasks(), done = 0, html = '';
+    for(var i=0;i<list.length;i++){
+      if(list[i].done) done++;
+      html += '<button class="week-card ' + (list[i].done ? 'is-done' : '') + '" type="button" data-week="' + i + '">' +
+                '<span class="wk-top">' +
+                  '<span class="wk-dot"><svg viewBox="0 0 24 24"><path d="M5 12.6l4.4 4.4L19 7.4"/></svg></span>' +
+                  '<b>' + esc(list[i].t) + '</b>' +
+                '</span>' +
+                '<small>' + esc(list[i].s) + '</small>' +
+                '<span class="wk-go">' + esc(list[i].go) + '</span>' +
+              '</button>';
+    }
+    $('weekList').innerHTML = html;
+    $('weekCnt').textContent = done + ' из ' + list.length;
+    var bar = $('weekBarFg');
+    if(bar) bar.style.width = Math.round(done / list.length * 100) + '%';
+  }
+
+  function renderHome(){
+    var filled = circleFilled();
+    $('emptyFrame').classList.toggle('hide', filled);
+    $('treeMap').classList.toggle('hide', !filled);
+    $('emptyCode').textContent = state.code;
+    $('inviteCode').textContent = state.code;
+    if(filled) renderTree();
+    renderWeek();
+  }
+
   function byId(id){
     for(var i=0;i<state.people.length;i++){
       if(state.people[i].id === id) return state.people[i];
@@ -1380,6 +1727,7 @@ body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,
     renderPeople();
     renderPhotos();
     renderQuestion();
+    renderHome();
     renderButler();
   }
 
@@ -1801,7 +2149,45 @@ body.is-dark .card--today{background-image:linear-gradient(180deg, rgba(198,161,
   });
   $('shareBtn').addEventListener('click', shareInvite);
 
+  /* дом круга: пустая рамка, свободные кружки и тихая неделя */
+  $('emptyInvite').addEventListener('click', shareInvite);
+  $('emptyPhoto').addEventListener('click', function(){
+    lightCard('.card--photos');
+    var f = $('file');
+    if(f) f.click();
+  });
+  $('copyCodeBtn').addEventListener('click', function(){
+    if(!state) return;
+    copyText(state.code, 'Код круга скопирован');
+  });
+
+  /* свободный кружок на ветви — то же приглашение, что и кнопка ниже */
+  $('treeWrap').addEventListener('click', function(e){
+    if(state && e.target.closest('[data-free]')) shareInvite();
+  });
+  $('treeWrap').addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    if(!state || !e.target.closest('[data-free]')) return;
+    e.preventDefault();
+    shareInvite();
+  });
+
+  $('weekList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-week]');
+    if(!b || !state) return;
+    var task = weekTasks()[parseInt(b.getAttribute('data-week'), 10)];
+    if(task && task.act){ buzz('tap'); task.act(); }
+  });
+
+  $('pList').addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    if(!e.target.closest('[data-invite]')) return;
+    e.preventDefault();
+    shareInvite();
+  });
+
   $('pList').addEventListener('click', function(e){
+    if(e.target.closest('[data-invite]')){ shareInvite(); return; }
     var b = e.target.closest('[data-del]');
     if(!b) return;
     var id = b.getAttribute('data-del');
