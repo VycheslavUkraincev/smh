@@ -1215,7 +1215,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   <div class="top">
     <span class="brand serif">SaveMyHistory</span>
     <span class="tg-auth" id="tgAuth" hidden></span>
-    <a class="to-cab" href="/smh-cabinet-mock.html">Архив</a>
+    <a class="to-cab" href="/smh-cabinet-mock.html" data-cab="/smh-cabinet-mock.html">Архив</a>
   </div>
 
   <div class="auth-bar" id="authBar" hidden>
@@ -1607,8 +1607,8 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           <div class="card-head"><h2>Что дальше</h2></div>
           <p class="card-sub" style="margin-bottom:13px">Когда круг собран, его место — в архиве, где у каждого имени и даты видно, откуда мы это знаем.</p>
           <div class="btn-row">
-            <a class="btn btn--quiet" href="/smh-cabinet-mock.html">Посмотреть архив</a>
-            <a class="btn btn--quiet" href="/smh-cabinet-razgovor.html">Экран «Разговор»</a>
+            <a class="btn btn--quiet" href="/smh-cabinet-mock.html" data-cab="/smh-cabinet-mock.html">Посмотреть архив</a>
+            <a class="btn btn--quiet" href="/smh-cabinet-razgovor.html" data-cab="/smh-cabinet-razgovor.html">Экран «Разговор»</a>
           </div>
           <div class="btn-row" style="margin-top:9px">
             <a class="btn btn--primary btn--wide" href="/waitlist.html">Узнать первым</a>
@@ -1622,7 +1622,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
 
     <p class="note">Демо-хранение на устройстве: имена, фото и отметки хранятся только в памяти этого браузера и не уходят на сервер. Если очистить данные браузера, круг исчезнет. Мы ничего не дорисовываем на ваших снимках и не угадываем лица: имя появляется только тогда, когда его назвал человек.</p>
 
-    <p class="foot"><a href="/smh-cabinet-privatnost.html">Кто что видит в архиве</a></p>
+    <p class="foot"><a href="/smh-cabinet-privatnost.html" data-cab="/smh-cabinet-privatnost.html">Кто что видит в архиве</a></p>
 
   </section>
 
@@ -2663,6 +2663,17 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     return location.origin + location.pathname + '?circle=' + state.code;
   }
 
+  /* G1 . дверь в архив несёт тот же код круга, что и приглашение — никогда новый. */
+  function syncCabLinks(){
+    var code = (state && state.code) ? state.code : '';
+    var links = document.querySelectorAll('[data-cab]');
+    for(var i=0;i<links.length;i++){
+      var base = links[i].getAttribute('data-cab');
+      if(!base) continue;
+      links[i].setAttribute('href', code ? (base + '?c=' + encodeURIComponent(code)) : base);
+    }
+  }
+
   function renderAll(){
     markFirstMemory();
     $('cName').textContent = state.name;
@@ -2680,6 +2691,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     renderInviteNext();
     renderJoinPath();
     renderRibbon();
+    syncCabLinks();
   }
 
   function openGame(){

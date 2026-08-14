@@ -291,6 +291,59 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .foot-cta:hover{background:var(--accent-deep);transform:translateY(-1px)}
 .note{margin:14px 2px 0;font-size:11.5px;color:var(--muted)}
 
+/* ---------- живой шов: этот круг на этом устройстве ---------- */
+.seam{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px 24px;
+  margin-bottom:14px;
+}
+.seam-head{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.seam-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;font-weight:600;margin:0 0 5px;letter-spacing:.2px}
+.seam-sub{margin:0;font-size:13.5px;color:var(--ink-2);max-width:62ch}
+.seam-code{display:inline-block;margin-top:9px;background:var(--pill);color:var(--accent-deep);font-size:12.5px;letter-spacing:.06em;padding:5px 12px;border-radius:999px}
+.seam-door{margin-left:auto;text-align:right}
+.seam-back{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:10px 20px;border-radius:10px;font-size:14px;font-weight:500;transition:background .2s ease, transform .2s ease}
+.seam-back:hover{background:var(--accent-deep);transform:translateY(-1px)}
+.seam-back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.seam-back2{display:block;margin-top:8px;font-size:12.5px;color:var(--accent)}
+.seam-back2:hover{text-decoration:underline;text-underline-offset:3px}
+.seam-nums{display:flex;flex-wrap:wrap;gap:12px 30px;margin:0 0 15px;padding-top:14px;border-top:1px solid var(--divider)}
+.seam-num b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;line-height:1.1}
+.seam-num span{font-size:12.5px;color:var(--muted)}
+.seam-people{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 15px}
+.seam-p{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:999px;padding:4px 14px 4px 4px;background:var(--page)}
+.seam-i{width:26px;height:26px;border-radius:50%;background:var(--beige);color:var(--accent-deep);display:grid;place-items:center;font-size:11.5px;font-weight:600}
+.seam-p b{font-size:13px;font-weight:600}
+.seam-p small{font-size:12px;color:var(--muted)}
+.seam-shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:12px;margin:0 0 15px}
+.seam-shot{margin:0}
+.seam-shot img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
+.seam-shot small{display:block;margin-top:6px;font-size:12px;color:var(--ink-2);line-height:1.35}
+.seam-words{margin:0 0 15px;padding:0;list-style:none}
+.seam-w{padding:10px 0;border-top:1px solid var(--divider)}
+.seam-w:first-child{border-top:0;padding-top:0}
+.seam-w b{font-size:13px}
+.seam-w p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+.seam-empty{border:1px dashed var(--line);border-radius:12px;padding:20px 22px;background:var(--page);margin-bottom:15px}
+.seam-empty h3{margin:0 0 7px;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:600}
+.seam-empty p{margin:0 0 14px;font-size:13.5px;color:var(--ink-2);max-width:60ch}
+.seam-cta{display:inline-block;background:var(--accent);color:#fff;padding:10px 20px;border-radius:10px;font-size:14px;font-weight:500}
+.seam-cta:hover{background:var(--accent-deep)}
+.seam-note{margin:0;font-size:11.5px;color:var(--muted);max-width:74ch}
+.demo-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 16px}
+.demo-toggle{border:1px solid var(--border);background:var(--card);border-radius:10px;padding:9px 18px;font-size:13.5px;color:var(--ink-2);box-shadow:var(--shadow);transition:color .18s ease, border-color .18s ease}
+.demo-toggle:hover{color:var(--ink);border-color:var(--line)}
+.demo-hint{font-size:12px;color:var(--muted)}
+.demo-flag{margin:0 0 16px;padding:11px 16px;border:1px dashed var(--line);border-radius:10px;font-size:12.5px;color:var(--ink-2);background:var(--page)}
+body:not(.demo-on) [data-demo]{display:none!important}
+@media (max-width:640px){
+  .seam{padding:18px 18px}
+  .seam-door{margin-left:0;text-align:left}
+}
+
 /* truth marks */
 .mark{display:inline-block;width:6px;height:6px;border-radius:50%;vertical-align:middle;margin-right:4px}
 .mark--ok{background:var(--accent);opacity:.9}
@@ -411,8 +464,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
           <svg viewBox="0 0 24 24"><path d="M18 8.6a6 6 0 1 0-12 0c0 6-2.2 7.4-2.2 7.4h16.4S18 14.6 18 8.6z"/><path d="M13.7 19.4a2 2 0 0 1-3.4 0"/></svg>
         </button>
         <button class="user" type="button">
-          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy">
-          <span>Алина</span>
+          <img src="/assets/cabinet-mock/av-user.jpg" alt="" width="30" height="30" loading="lazy" data-demo>
+          <span id="userName">Гость</span>
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
         </button>
       </div>
@@ -433,7 +486,30 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       </div>
     </section>
 
-    <section class="stats rv" aria-label="Архив в цифрах">
+    <section class="seam" id="seam" aria-labelledby="seamTitle">
+      <div class="seam-head">
+        <div>
+          <h2 class="serif" id="seamTitle">Ваш круг</h2>
+          <p class="seam-sub" id="seamSub"></p>
+          <span class="seam-code" id="seamCode" hidden></span>
+        </div>
+        <div class="seam-door">
+          <a class="seam-back" id="seamBack" href="/smh-family-game.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>Вернуться в вечер</a>
+          <a class="seam-back2" id="seamBackTg" href="https://t.me/SaveFamilyHistorybot/family">Открыть «Вечер» в Telegram</a>
+        </div>
+      </div>
+      <div id="seamBody"></div>
+      <p class="seam-note" id="seamNote"></p>
+    </section>
+
+    <div class="demo-bar">
+      <button class="demo-toggle" id="demoBtn" type="button" aria-pressed="false">Показать пример архива</button>
+      <span class="demo-hint">Пример чужой семьи спрятан, чтобы не выдавать себя за ваш архив</span>
+    </div>
+
+    <p class="demo-flag" id="demoFlag" data-demo>Ниже — пример архива семьи Ивановых. Это не ваши данные и не ваш круг.</p>
+
+    <section class="stats rv" data-demo aria-label="Архив в цифрах">
       <div class="stat">
         <svg viewBox="0 0 24 24"><circle cx="9" cy="8.6" r="3"/><path d="M3.6 19c0-3.1 2.4-5.2 5.4-5.2s5.4 2.1 5.4 5.2"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.6 19c0-2.4-.9-4.1-2.4-5"/></svg>
         <div><div class="stat-num">126</div><div class="stat-label">Человек</div></div>
@@ -456,7 +532,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       </div>
     </section>
 
-    <div class="grid-2">
+    <div class="grid-2" data-demo>
       <section class="card rv" id="stories">
         <div class="card-head">
           <h2>Недавние истории</h2>
@@ -518,7 +594,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       </section>
     </div>
 
-    <section class="card rv" id="events" style="margin-bottom:16px">
+    <section class="card rv" id="events" data-demo style="margin-bottom:16px">
       <div class="card-head">
         <h2>Важные события</h2>
         <a class="card-link" href="/waitlist.html">Смотреть все</a>
@@ -539,7 +615,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       </p>
     </section>
 
-    <section class="card rv" id="albums" style="margin-bottom:16px">
+    <section class="card rv" id="albums" data-demo style="margin-bottom:16px">
       <div class="card-head">
         <h2>Фотоальбомы</h2>
         <a class="card-link" href="/waitlist.html">Смотреть все</a>
@@ -568,7 +644,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       </div>
     </section>
 
-    <div class="grid-2">
+    <div class="grid-2" data-demo>
       <section class="card rv" id="relations">
         <div class="card-head">
           <h2>Родственные связи</h2>
@@ -622,10 +698,208 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
       <a class="foot-cta" href="/waitlist.html">Узнать первым</a>
     </section>
 
-    <p class="note">Демонстрационный макет интерфейса. Имена, даты и цифры — пример. Точка рядом с датой значит «подтверждено семьёй», пунктир — гипотезу: это ещё никто из родных не подтвердил.</p>
+    <p class="note" data-demo>Демонстрационный макет интерфейса. Имена, даты и цифры — пример. Точка рядом с датой значит «подтверждено семьёй», пунктир — гипотезу: это ещё никто из родных не подтвердил.</p>
 
   </main>
 </div>
+<script>
+/* G2-G4 . шов «Вечер — Дом»: здесь показан тот же круг, что в игре, если он есть
+   в памяти этого же браузера. Если круг пуст или его здесь нет — так и сказано.
+   Ничего не дорисовано: ни лиц, ни имён, ни подтверждений. */
+(function(){
+  var PREFIX = 'smh_fg_v1_';
+  var LAST   = 'smh_fg_last';
+  var GAME   = '/smh-family-game.html';
+
+  function $(id){ return document.getElementById(id); }
+
+  function esc(s){
+    var d = document.createElement('div');
+    d.textContent = String(s == null ? '' : s);
+    return d.innerHTML;
+  }
+
+  function ls(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+
+  function param(n){
+    try{
+      var m = new RegExp('[?&]' + n + '=([^&#]*)').exec(location.search);
+      return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+    }catch(e){ return ''; }
+  }
+
+  function cleanCode(v){
+    v = String(v || '').trim().toUpperCase();
+    return /^[A-Z0-9]{4,12}$/.test(v) ? v : '';
+  }
+
+  function load(code){
+    if(!code) return null;
+    try{
+      var raw = ls(PREFIX + code);
+      if(!raw) return null;
+      var s = JSON.parse(raw);
+      if(!s || typeof s !== 'object') return null;
+      if(!s.people) s.people = [];
+      if(!s.photos) s.photos = [];
+      if(!s.notes)  s.notes  = [];
+      return s;
+    }catch(e){ return null; }
+  }
+
+  var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
+  var st    = load(code);
+  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length));
+  var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
+
+  function initials(name){
+    var parts = String(name || '').trim().split(/\s+/), s = '';
+    for(var i=0;i<parts.length && s.length<2;i++){ if(parts[i]) s += parts[i].charAt(0).toUpperCase(); }
+    return s || '·';
+  }
+
+  function word(n, one, few, many){
+    var a = Math.abs(n) % 100, b = a % 10;
+    if(a > 10 && a < 20) return many;
+    if(b > 1 && b < 5) return few;
+    if(b === 1) return one;
+    return many;
+  }
+
+  function numsHtml(){
+    var caps = 0, i;
+    for(i=0;i<st.photos.length;i++){
+      if(st.photos[i].cap && String(st.photos[i].cap).trim()) caps++;
+    }
+    var rows = [
+      [st.people.length, word(st.people.length, 'человек', 'человека', 'человек')],
+      [st.photos.length, word(st.photos.length, 'снимок', 'снимка', 'снимков')],
+      [caps,             word(caps, 'подпись', 'подписи', 'подписей')],
+      [st.notes.length,  word(st.notes.length, 'запись', 'записи', 'записей')]
+    ];
+    var h = '<div class="seam-nums">';
+    for(i=0;i<rows.length;i++){
+      h += '<div class="seam-num"><b>' + rows[i][0] + '</b><span>' + rows[i][1] + '</span></div>';
+    }
+    return h + '</div>';
+  }
+
+  function peopleHtml(){
+    if(!st.people.length) return '';
+    var h = '<div class="seam-people">';
+    for(var i=0;i<st.people.length;i++){
+      var p = st.people[i];
+      if(!p || !p.name) continue;
+      h += '<span class="seam-p"><span class="seam-i" aria-hidden="true">' + esc(initials(p.name)) + '</span>' +
+           '<b>' + esc(p.name) + '</b>' + (p.role ? '<small>' + esc(p.role) + '</small>' : '') + '</span>';
+    }
+    return h + '</div>';
+  }
+
+  function shotsHtml(){
+    if(!st.photos.length) return '';
+    var h = '<div class="seam-shots">', n = Math.min(st.photos.length, 6);
+    for(var i=0;i<n;i++){
+      var f = st.photos[i];
+      if(!f || !f.src) continue;
+      h += '<figure class="seam-shot"><img src="' + esc(f.src) + '" alt="Снимок из вашего круга">' +
+           (f.cap && String(f.cap).trim() ? '<small>' + esc(f.cap) + '</small>' : '') + '</figure>';
+    }
+    return h + '</div>';
+  }
+
+  function wordsHtml(){
+    if(!st.notes.length) return '';
+    var list = st.notes.slice().sort(function(a, b){ return (b.at || 0) - (a.at || 0); }).slice(0, 4);
+    var h = '<ul class="seam-words">';
+    for(var i=0;i<list.length;i++){
+      h += '<li class="seam-w"><b>' + esc(list[i].who || 'Круг') + '</b><p>' + esc(list[i].text || '') + '</p></li>';
+    }
+    return h + '</ul>';
+  }
+
+  function emptyHtml(){
+    var t, p;
+    if(code && !st){
+      t = 'Этого круга здесь нет';
+      p = 'Круг ' + esc(code) + ' живёт в памяти того окна, где его завели. Откройте «Вечер» там же и вернитесь сюда — чужой архив вместо вашего мы показывать не станем.';
+    }else if(code){
+      t = 'Здесь пока пусто';
+      p = 'Круг заведён, но в нём ещё нет ни снимка, ни имени, ни сказанного слова. Первое появится в «Вечере» — и тут же окажется здесь.';
+    }else{
+      t = 'Архив пока пуст';
+      p = 'Дом наполняется из «Вечера»: снимок, подпись, имя за столом. В этом браузере ещё нет ни одного круга.';
+    }
+    return '<div class="seam-empty"><h3>' + t + '</h3><p>' + p + '</p>' +
+           '<a class="seam-cta" href="' + back + '">Вернуться в вечер</a></div>';
+  }
+
+  function render(){
+    var title, sub;
+    if(lived){
+      title = st.name || 'Ваш круг';
+      sub = 'Всё, что семья принесла в «Вечере». Только имена, снимки и слова, которые здесь набрал человек.';
+    }else if(code && st){
+      title = st.name || 'Ваш круг';
+      sub = 'Круг есть, памяти в нём пока нет.';
+    }else if(code){
+      title = 'Круг ' + code;
+      sub = 'Мы не видим его в этом окне.';
+    }else{
+      title = 'Ваш архив';
+      sub = 'Круга на этом устройстве пока нет.';
+    }
+
+    $('seamTitle').textContent = title;
+    $('seamSub').textContent = sub;
+
+    var codeEl = $('seamCode');
+    if(code){ codeEl.textContent = 'Код круга · ' + code; codeEl.hidden = false; }
+    else { codeEl.hidden = true; }
+
+    $('seamBack').setAttribute('href', back);
+    $('seamBody').innerHTML = lived ? (numsHtml() + peopleHtml() + shotsHtml() + wordsHtml()) : emptyHtml();
+    $('seamNote').textContent = 'Круг хранится только в этом браузере, на этом устройстве — это не синхронизация. В другом браузере или на другом телефоне архив будет пуст, пока у круга нет сервера. Подтверждение ставит второй человек, а не это устройство, поэтому здесь их пока нет.';
+
+    var who = '';
+    if(lived){
+      for(var i=0;i<st.people.length;i++){
+        if(st.people[i].role === 'я'){ who = st.people[i].name; break; }
+      }
+      if(!who && st.people.length) who = st.people[0].name;
+    }
+    var uname = $('userName');
+    if(uname) uname.textContent = who || 'Гость';
+
+    if(code){
+      var links = document.querySelectorAll('a[href^="/smh-cabinet-"]');
+      for(var j=0;j<links.length;j++){
+        var href = links[j].getAttribute('href');
+        if(href && href.indexOf('?') === -1){
+          links[j].setAttribute('href', href + '?c=' + encodeURIComponent(code));
+        }
+      }
+    }
+  }
+
+  /* G4 . пример чужого архива — только по просьбе, и никогда сам по себе. */
+  function bindDemo(){
+    var btn = $('demoBtn');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      var on = document.body.classList.toggle('demo-on');
+      btn.textContent = on ? 'Скрыть пример архива' : 'Показать пример архива';
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if(!on) return;
+      var rv = document.querySelectorAll('[data-demo] .rv, [data-demo].rv');
+      for(var i=0;i<rv.length;i++) rv[i].classList.add('in');
+    });
+  }
+
+  try{ render(); }catch(e){}
+  bindDemo();
+})();
+</script>
 <script>
 (function(){
   var els = document.querySelectorAll('.rv');
