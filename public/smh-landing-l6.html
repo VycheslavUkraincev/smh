@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l6" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
+<html lang="ru" data-smh-landing="l6" data-smh-landing-photos="20260814" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -101,6 +101,19 @@ footer a{color:inherit}
 .qa dd{color:var(--soft);font-size:clamp(15.5px,1.45vw,17.5px);max-width:64ch;margin:8px 0 0;padding-bottom:clamp(20px,3vh,30px);border-bottom:1px solid var(--line)}
 
 @media (max-width:900px){.rrows div{grid-template-columns:1fr;gap:4px}}
+/* SMH_LANDING_PHOTOS 20260814 · photographic planes · 0E reuse of hashed assets · invent_eyes=N */
+.smhph{padding:clamp(30px,5vh,58px) 0}
+.smhph figure{margin:0;position:relative;overflow:hidden;border-radius:2px;background:#d9d6cf}
+.smhph img{display:block;width:100%;object-fit:cover;filter:saturate(.78) brightness(.94) contrast(1.03);transform:scale(1.03);transition:transform 1.6s var(--ease),filter 1.6s var(--ease)}
+.smhph figure:hover img{transform:scale(1.07);filter:saturate(.86) brightness(1) contrast(1.02)}
+.smhph figure::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(20,20,18,.3),rgba(20,20,18,0) 54%)}
+.smhph .one img{height:clamp(230px,48vh,470px)}
+.smhph .duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.5vw,18px)}
+.smhph .duo img{height:clamp(200px,36vh,370px)}
+.smhph .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.2vw,15px)}
+.smhph .tri img{height:clamp(140px,24vh,250px)}
+.smhph .cap{margin-top:13px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#5d666c}
+@media (max-width:820px){.smhph .tri{grid-template-columns:1fr 1fr}.smhph .duo{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -222,6 +235,16 @@ footer a{color:inherit}
     </section>
 </main>
 
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="duo">
+      <figure><img src="/assets/facade-lab/2026-08-11-album-spread-empty.jpg" alt="Раскрытый семейный альбом на столе" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+      <figure><img src="/assets/virtuoso-v1/paper-dust-b8ae8346.jpg" alt="Зерно и пыль на старой фотобумаге" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Опись · разворот и бумага</p>
+  </div>
+</section>
+
 <section class="plates">
   <div class="wrap reveal">
     <div class="plates-grid">
@@ -230,11 +253,20 @@ footer a{color:inherit}
         <figcaption>Лист 1 · как принесли</figcaption>
       </figure>
       <figure>
-        <img src="/assets/catcheye-smh-story/hero_after-fd504d0be3b3.jpg" alt="Тот же снимок после работы с бумагой" width="1200" height="800" loading="lazy">
-        <figcaption>Лист 2 · тот же снимок</figcaption>
+        <img src="/assets/catcheye-o9-temnaya-komnata/g4-before-c5a91ab2af67.jpg" alt="Другой снимок из того же архива" width="1200" height="800" loading="lazy">
+        <figcaption>Лист 2 · другой снимок того же дела</figcaption>
       </figure>
     </div>
-    <p class="note">Два листа одного дела. Мы не считаем проценты улучшения и не обещаем чуда: люди на снимке остаются теми же, кем были.</p>
+    <p class="note">Два разных листа одной описи — не «до и после». Мы не считаем проценты улучшения и не обещаем чуда: люди на снимке остаются теми же, кем были.</p>
+  </div>
+</section>
+
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="one">
+      <figure><img src="/assets/catcheye-m02-attic/bg-e3a1061452ca.jpg" alt="Чердачный свет над коробками с бумагами" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Где архив лежал до описи</p>
   </div>
 </section>
 
@@ -263,6 +295,15 @@ footer a{color:inherit}
   </div>
 </section>
 
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="one">
+      <figure><img src="/assets/forest-trunk-7/05-lineage-grain.jpg" alt="Годовые кольца на срезе" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Кольца · как годы записывают себя без слов</p>
+  </div>
+</section>
+
 <section class="epigraph">
   <div class="wrap">
     <blockquote class="reveal">Архив — это не то, что лежит в коробке. Это то, что кто-то ещё может объяснить.</blockquote>
@@ -282,6 +323,15 @@ footer a{color:inherit}
       <div class="reveal"><b>Сейчас</b><span>Приём и кабинет открыты; выдача готовых работ на паузе, и мы говорим об этом до, а не после.</span></div>
       <div class="reveal"><b>Ваше право</b><span>Загруженное видно только вам; одно письмо — и дело закрывается вместе со всеми файлами.</span></div>
     </div>
+  </div>
+</section>
+
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="one">
+      <figure><img src="/assets/gen_pocketwatch.jpg" alt="Карманные часы на ткани" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Вещь из той же коробки</p>
   </div>
 </section>
 

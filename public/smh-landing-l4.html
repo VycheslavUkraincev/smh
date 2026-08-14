@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l4" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
+<html lang="ru" data-smh-landing="l4" data-smh-landing-photos="20260814" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -108,6 +108,19 @@ footer a{color:inherit}
   .check{grid-template-columns:1fr;gap:6px}
   .now div{grid-template-columns:1fr;gap:4px}
 }
+/* SMH_LANDING_PHOTOS 20260814 · photographic planes · 0E reuse of hashed assets · invent_eyes=N */
+.smhph{padding:clamp(30px,5vh,58px) 0}
+.smhph figure{margin:0;position:relative;overflow:hidden;border-radius:2px;background:#d9d6cf}
+.smhph img{display:block;width:100%;object-fit:cover;filter:saturate(.78) brightness(.94) contrast(1.03);transform:scale(1.03);transition:transform 1.6s var(--ease),filter 1.6s var(--ease)}
+.smhph figure:hover img{transform:scale(1.07);filter:saturate(.86) brightness(1) contrast(1.02)}
+.smhph figure::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(20,20,18,.3),rgba(20,20,18,0) 54%)}
+.smhph .one img{height:clamp(230px,48vh,470px)}
+.smhph .duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.5vw,18px)}
+.smhph .duo img{height:clamp(200px,36vh,370px)}
+.smhph .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.2vw,15px)}
+.smhph .tri img{height:clamp(140px,24vh,250px)}
+.smhph .cap{margin-top:13px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#6c7076}
+@media (max-width:820px){.smhph .tri{grid-template-columns:1fr 1fr}.smhph .duo{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -170,10 +183,10 @@ footer a{color:inherit}
 <section class="pair">
   <div class="wrap reveal">
     <div class="pair-grid">
-      <figure><img src="/assets/catcheye-smh-story/hero_before-a6a12814fb31.jpg" alt="Семейный групповой снимок до работы" width="1200" height="800" loading="lazy"></figure>
-      <figure><img src="/assets/catcheye-smh-story/hero_after-fd504d0be3b3.jpg" alt="Тот же снимок после бережной работы с бумагой" width="1200" height="800" loading="lazy"></figure>
+      <figure><img src="/assets/catcheye-smh-story/hero_before-a6a12814fb31.jpg" alt="Семейный групповой снимок из архива" width="1200" height="800" loading="lazy"></figure>
+      <figure><img src="/assets/virtuoso-synth/gaze-before-75616329.jpg" alt="Крупный план взгляда на другом архивном снимке" width="1200" height="800" loading="lazy"></figure>
     </div>
-    <p class="cap">Оба кадра показаны в чёрно-белом и без обещаний в процентах. Это один и тот же снимок и одни и те же лица — меняется только состояние бумаги.</p>
+    <p class="cap">Два разных кадра из архива, а не «до и после» одной работы. Показываем, в каком состоянии приходит бумага и как на ней держится взгляд.</p>
   </div>
 </section>
 
@@ -191,6 +204,16 @@ footer a{color:inherit}
         <p>Мы считаем такой ответ провалом работы, даже если картинка выглядит безупречно.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="duo">
+      <figure><img src="/assets/virtuoso-synth/lamp-desk-hero-62f80a99.jpg" alt="Настольная лампа над разложенными снимками" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+      <figure><img src="/assets/virtuoso-v1/paper-dust-b8ae8346.jpg" alt="Зерно и пыль на старой фотобумаге" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Свет и зерно · с чего начинается сверка</p>
   </div>
 </section>
 
@@ -231,6 +254,15 @@ footer a{color:inherit}
   </div>
 </section>
 
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="one">
+      <figure><img src="/assets/virtuoso-synth/hands-before-7f0a0cc5.jpg" alt="Две руки на старом снимке" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Руки · их узнают не хуже, чем лицо</p>
+  </div>
+</section>
+
 <section class="axiom">
   <div class="wrap">
     <blockquote class="reveal">Мягкий взгляд — это не недоделанная работа. Это граница, на которой мы остановились нарочно.</blockquote>
@@ -252,6 +284,16 @@ footer a{color:inherit}
         <p>Честное «здесь не выйдет» стоит больше, чем убедительная выдумка.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="duo">
+      <figure><img src="/assets/catcheye-m03-darkroom/bg-ad267c120959.jpg" alt="Тёмная комната, где лежат снимки" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+      <figure><img src="/assets/catcheye-o6-rassvet/g1-before-35bb3a61b52f.jpg" alt="Архивный кадр в рассветном свете" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Тёмная комната и рассвет · два конца одной ночи</p>
   </div>
 </section>
 

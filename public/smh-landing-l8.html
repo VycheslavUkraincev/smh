@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l8" data-smh-landing-wave="20260813" data-smh-landing-scroll="horizontal">
+<html lang="ru" data-smh-landing="l8" data-smh-landing-wave="20260813" data-smh-landing-scroll="horizontal" data-smh-landing-photos="20260814">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Лента · SaveMyHistory</title>
 <meta name="description" content="SaveMyHistory — бережное восстановление семейных фотографий. Снимки лежат в ряд, как жизнь: листайте вправо.">
 <!-- SMH_LANDING_HORIZONTAL_SCROLL wave 20260813 · axis L8 Лента · true horizontal track (wheel-mapped + native overflow + drag) · assets reused · invent_eyes=N · COLD_PATH_B soft waitlist -->
+<!-- SMH_LANDING_PHOTOS_SCROLL_FIX 20260814 · 10 stations · momentum wheel/drag, snap retired · 0E asset reuse · invent_eyes=N -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
@@ -24,21 +25,24 @@ img{display:block}
 a{color:inherit}
 
 /* ---------- the strip ---------- */
+/* no CSS scroll-snap: momentum is driven in JS so the strip never fights the hand */
 #track{position:fixed;inset:0;display:flex;align-items:stretch;overflow-x:auto;overflow-y:hidden;
-  scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none;
+  scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:auto;overscroll-behavior-x:contain;
   cursor:grab;touch-action:pan-x pinch-zoom;-webkit-overflow-scrolling:touch}
 #track::-webkit-scrollbar{display:none}
-#track.dragging{cursor:grabbing;scroll-snap-type:none}
+#track:focus{outline:none}
+#track.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
+#track.dragging a{pointer-events:none}
 
 .panel{position:relative;flex:0 0 auto;height:100svh;display:flex;align-items:center;
-  padding:clamp(28px,5vh,64px) clamp(26px,4.4vw,86px) clamp(112px,15vh,148px);scroll-snap-align:center}
+  padding:clamp(28px,5vh,64px) clamp(26px,4.4vw,86px) clamp(112px,15vh,148px)}
 /* one continuous desk edge running through every station */
 .panel::after{content:"";position:absolute;left:0;right:0;top:var(--deskline);border-top:1px solid var(--line);pointer-events:none}
 
 .p-open{flex-basis:100vw;width:100vw;align-items:flex-end}
-.p-photo{flex-basis:min(80vw,1080px);width:min(80vw,1080px)}
-.p-text{flex-basis:min(62vw,700px);width:min(62vw,700px)}
-.p-close{flex-basis:min(88vw,1000px);width:min(88vw,1000px)}
+.p-photo{flex-basis:min(74vw,1000px);width:min(74vw,1000px)}
+.p-text{flex-basis:min(56vw,660px);width:min(56vw,660px)}
+.p-close{flex-basis:min(86vw,980px);width:min(86vw,980px)}
 
 /* ---------- photographic planes ---------- */
 .plane{position:absolute;inset:0;overflow:hidden;z-index:-2}
@@ -84,10 +88,12 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
 /* ---------- quiet chrome ---------- */
 .chrome{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;align-items:center;justify-content:space-between;
   gap:18px;padding:clamp(14px,2.4vh,22px) clamp(20px,4vw,54px);
-  background:linear-gradient(to top,rgba(11,12,16,.92),rgba(11,12,16,0))}
+  background:linear-gradient(to top,rgba(11,12,16,.94),rgba(11,12,16,0))}
 .chrome .mark{font-family:'Instrument Serif',serif;font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:rgba(236,230,217,.72);text-decoration:none;white-space:nowrap}
-.scrub{position:relative;flex:1 1 auto;max-width:420px;height:1px;background:rgba(236,230,217,.16)}
-.scrub i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--brass);transition:width .12s linear}
+.gauge{flex:1 1 auto;display:flex;align-items:center;gap:14px;max-width:520px}
+.scrub{position:relative;flex:1 1 auto;height:1px;background:rgba(236,230,217,.16);cursor:pointer}
+.scrub i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--brass)}
+.count{font-size:12px;letter-spacing:.2em;color:rgba(236,230,217,.45);white-space:nowrap;font-variant-numeric:tabular-nums}
 .chrome .go{font-size:13.5px;letter-spacing:.04em;color:var(--brass);text-decoration:none;border-bottom:1px solid rgba(185,138,75,.5);padding-bottom:2px;white-space:nowrap}
 
 .hint{position:fixed;right:clamp(20px,4vw,54px);bottom:clamp(74px,11vh,104px);z-index:5;
@@ -104,14 +110,14 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
   .panel{padding:clamp(24px,4vh,40px) 22px clamp(120px,17vh,150px)}
   .caption{left:22px}
   .chrome{gap:12px;padding:12px 18px}
-  .scrub{max-width:none}
+  .gauge{max-width:none}
+  .count{display:none}
   .chrome .mark{font-size:13px;letter-spacing:.2em}
   .hint{right:18px;bottom:82px;font-size:11px;letter-spacing:.18em}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
-  #track{scroll-behavior:auto}
 }
 </style>
 </head>
@@ -137,7 +143,7 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
   </section>
 
   <section class="panel p-photo">
-    <div class="plane"><img src="/assets/facade-lab/2026-08-11-album-spread-empty.jpg" alt="Раскрытый семейный альбом на столе" loading="lazy"></div>
+    <div class="plane"><img src="/assets/facade-lab/2026-08-11-album-spread-empty.jpg" alt="Раскрытый семейный альбом на столе" loading="lazy" decoding="async"></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="body">
       <span class="num reveal">02 · Стол</span>
@@ -148,7 +154,7 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
   </section>
 
   <section class="panel p-photo">
-    <div class="plane"><img src="/assets/virtuoso-v1/paper-dust-b8ae8346.jpg" alt="Зерно и пыль на старой фотобумаге крупным планом" loading="lazy"></div>
+    <div class="plane"><img src="/assets/virtuoso-v1/paper-dust-b8ae8346.jpg" alt="Зерно и пыль на старой фотобумаге крупным планом" loading="lazy" decoding="async"></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="body">
       <span class="num reveal">03 · Правило</span>
@@ -166,30 +172,66 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
     </div>
   </section>
 
-  <section class="panel p-text">
-    <div class="body">
-      <span class="num reveal">05 · Время</span>
-      <h2 class="reveal">Обычно — к утру</h2>
-      <p class="line reveal">На аккуратную работу уходит ночь, иногда до двух суток. Это не «за две минуты»: за две минуты бережно не бывает.</p>
-    </div>
-  </section>
-
   <section class="panel p-photo">
-    <div class="plane"><img src="/assets/catcheye-m05-pismo/hero-before-2bff4a865021.jpg" alt="Старое письмо, написанное от руки" loading="lazy"></div>
+    <div class="plane"><img src="/assets/catcheye-m05-pismo/hero-before-2bff4a865021.jpg" alt="Старое письмо, написанное от руки" loading="lazy" decoding="async"></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="body">
-      <span class="num reveal">06 · Письмо</span>
+      <span class="num reveal">05 · Письмо</span>
       <h2 class="reveal">Иногда в конверте лежит не фотография</h2>
       <p class="line reveal">Открытка, письмо, страница из дневника. С ними обращаемся так же: сохраняем почерк и не переписываем слов.</p>
     </div>
     <p class="caption">Почерк остаётся почерком</p>
   </section>
 
-  <section class="panel p-close">
-    <div class="plane"><img src="/assets/virtuoso-synth/oak-roots-91fd6a1e.jpg" alt="Корни старого дуба" loading="lazy"></div>
+  <section class="panel p-photo">
+    <div class="plane"><img src="/assets/catcheye-m03-darkroom/bg-ad267c120959.jpg" alt="Тёмная комната, где лежат снимки" loading="lazy" decoding="async"></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="body">
-      <span class="num reveal">07 · Конец ленты</span>
+      <span class="num reveal">06 · Ночь</span>
+      <h2 class="reveal">Один снимок за раз, потом пауза</h2>
+      <p class="line reveal">Мы не разбираем весь ящик сразу. Так глаз не замыливается и рука не начинает делать «как обычно».</p>
+    </div>
+    <p class="caption">Комната, где снимок ждёт своей ночи</p>
+  </section>
+
+  <section class="panel p-photo">
+    <div class="plane"><img src="/assets/catcheye-m02-attic/bg-e3a1061452ca.jpg" alt="Чердачный свет над коробками с бумагами" loading="lazy" decoding="async"></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="body">
+      <span class="num reveal">07 · Чердак</span>
+      <h2 class="reveal">Сначала коробку задвинули, потом забыли</h2>
+      <p class="line reveal">Почти каждый архив приезжает к нам с чердака или с антресолей. Пыль и сухой воздух — ещё не самое страшное, что случается с бумагой.</p>
+    </div>
+    <p class="caption">Где архив лежал до описи</p>
+  </section>
+
+  <section class="panel p-photo">
+    <div class="plane"><img src="/assets/virtuoso-synth/hands-before-7f0a0cc5.jpg" alt="Две руки на старом снимке" loading="lazy" decoding="async"></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="body">
+      <span class="num reveal">08 · Руки</span>
+      <h2 class="reveal">Руки узнают не хуже, чем лицо</h2>
+      <p class="line reveal">Поэтому мы смотрим не только на глаза: складка рукава, кольцо, то, как лежит ладонь — всё это тоже человек.</p>
+    </div>
+    <p class="caption">Архивный кадр · без обработки</p>
+  </section>
+
+  <section class="panel p-photo">
+    <div class="plane"><img src="/assets/catcheye-o6-rassvet/g1-before-35bb3a61b52f.jpg" alt="Архивный кадр в рассветном свете" loading="lazy" decoding="async"></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="body">
+      <span class="num reveal">09 · К утру</span>
+      <h2 class="reveal">На аккуратную работу уходит ночь</h2>
+      <p class="line reveal">Иногда до двух суток, а сложный снимок остаётся и дольше. Утром вас ждёт не фокус, а описание: что удалось вернуть бумаге и что мы трогать не стали.</p>
+    </div>
+    <p class="caption">Свет меняется — снимок остаётся собой</p>
+  </section>
+
+  <section class="panel p-close">
+    <div class="plane"><img src="/assets/virtuoso-synth/oak-roots-91fd6a1e.jpg" alt="Корни старого дуба" loading="lazy" decoding="async"></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="body">
+      <span class="num reveal">10 · Конец ленты</span>
       <h2 class="reveal">Положите первый снимок в ряд</h2>
       <p class="line reveal">Напишем, когда откроем выдачу. Без рассылок и обратного отсчёта — одно письмо по делу.</p>
       <div class="actions reveal">
@@ -203,7 +245,10 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
 
 <div class="chrome">
   <a class="mark" href="/waitlist.html">SaveMyHistory</a>
-  <div class="scrub" aria-hidden="true"><i id="scrub"></i></div>
+  <div class="gauge">
+    <div class="scrub" id="scrubbar" role="presentation"><i id="scrub"></i></div>
+    <span class="count" id="count">01 / 10</span>
+  </div>
   <a class="go" href="/waitlist.html">лист ожидания</a>
 </div>
 
@@ -213,75 +258,144 @@ p.line{margin-top:18px;max-width:46ch;color:var(--ash);font-size:clamp(14.5px,1.
 (function(){
   var track=document.getElementById('track'),
       scrub=document.getElementById('scrub'),
+      scrubbar=document.getElementById('scrubbar'),
+      count=document.getElementById('count'),
       hint=document.getElementById('hint'),
-      panels=[].slice.call(track.querySelectorAll('.panel')),
-      planes=[].slice.call(track.querySelectorAll('.plane img')),
-      touched=false, queued=false;
+      panels=[].slice.call(track.querySelectorAll('.panel'));
 
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var maxLeft=0, target=0, anim=0, dragging=false, touched=false, queued=false;
+
+  function measure(){ maxLeft=Math.max(0,track.scrollWidth-track.clientWidth); }
+  function clamp(v){ return v<0?0:(v>maxLeft?maxLeft:v); }
   function nudged(){ if(!touched){ touched=true; hint.classList.add('gone'); } }
 
-  /* vertical wheel / trackpad drives the horizontal track; native horizontal deltas pass through */
+  /* ---- paint: progress, counter, parallax -- always read the real scrollLeft ---- */
+  function paint(){
+    queued=false;
+    var left=track.scrollLeft, mid=left+track.clientWidth/2, near=1, nd=Infinity;
+    scrub.style.width=(maxLeft>0?(left/maxLeft)*100:0).toFixed(2)+'%';
+    for(var i=0;i<panels.length;i++){
+      var p=panels[i], c=p.offsetLeft+p.offsetWidth/2, d=c-mid;
+      if(Math.abs(d)<nd){ nd=Math.abs(d); near=i+1; }
+      var img=p.querySelector('.plane img');
+      if(img){
+        var k=Math.max(-1,Math.min(1,d/track.clientWidth));
+        img.style.setProperty('--px',(k*54).toFixed(1)+'px');
+      }
+    }
+    count.textContent=(near<10?'0':'')+near+' / '+panels.length;
+  }
+  function schedule(){ if(!queued){ queued=true; requestAnimationFrame(paint); } }
+
+  /* ---- momentum: we only drive scrollLeft when the gesture asked us to ---- */
+  function loop(){
+    var cur=track.scrollLeft, d=target-cur;
+    if(Math.abs(d)<0.5){ track.scrollLeft=target; anim=0; return; }
+    track.scrollLeft=cur+d*0.18;
+    anim=requestAnimationFrame(loop);
+  }
+  function drive(to){ target=clamp(to); if(!anim) anim=requestAnimationFrame(loop); }
+  function halt(){ if(anim){ cancelAnimationFrame(anim); anim=0; } target=track.scrollLeft; }
+
+  /* ---- wheel / trackpad: vertical delta becomes horizontal travel ----
+     one comfortable flick lands around half a viewport; deltas accumulate
+     into target so a fast series of notches keeps building speed. */
   track.addEventListener('wheel', function(e){
     if(e.ctrlKey) return;
-    var dy=e.deltaY, dx=e.deltaX;
-    if(Math.abs(dy)<=Math.abs(dx)) { nudged(); return; }
-    if(e.deltaMode===1) dy*=16; else if(e.deltaMode===2) dy*=track.clientWidth;
+    var unit=e.deltaMode===1?16:(e.deltaMode===2?track.clientWidth:1);
+    var dy=e.deltaY*unit, dx=e.deltaX*unit;
+    var raw=Math.abs(dx)>Math.abs(dy)?dx:dy;
+    if(!raw) return;
     e.preventDefault();
-    track.scrollLeft+=dy*1.15;
+    if(reduce){ track.scrollLeft=clamp(track.scrollLeft+raw); nudged(); return; }
+    if(!anim) target=track.scrollLeft;
+    drive(target+raw*1.9);
     nudged();
   }, {passive:false});
 
-  /* pointer drag along the strip */
-  var dragging=false, startX=0, startLeft=0;
+  /* ---- drag anywhere on the strip (mouse / pen); touch stays native ---- */
+  var startX=0, startLeft=0, lastX=0, lastT=0, vel=0, moved=0;
   track.addEventListener('pointerdown', function(e){
-    if(e.pointerType==='touch' || e.target.closest('a')) return;
-    dragging=true; startX=e.clientX; startLeft=track.scrollLeft;
-    track.classList.add('dragging'); track.setPointerCapture(e.pointerId);
+    if(e.pointerType==='touch') return;
+    if(e.target.closest('a')) return;
+    dragging=true; moved=0; vel=0;
+    startX=lastX=e.clientX; lastT=e.timeStamp||Date.now(); startLeft=track.scrollLeft;
+    halt();
+    track.classList.add('dragging');
+    try{ track.setPointerCapture(e.pointerId); }catch(_){}
   });
   track.addEventListener('pointermove', function(e){
     if(!dragging) return;
-    track.scrollLeft=startLeft-(e.clientX-startX); nudged();
+    var x=e.clientX, t=e.timeStamp||Date.now(), dt=t-lastT;
+    if(dt>0) vel=(lastX-x)/dt;
+    lastX=x; lastT=t;
+    var dx=x-startX;
+    if(Math.abs(dx)>moved) moved=Math.abs(dx);
+    track.scrollLeft=clamp(startLeft-dx);
+    nudged();
   });
-  ['pointerup','pointercancel'].forEach(function(t){
-    track.addEventListener(t, function(){ dragging=false; track.classList.remove('dragging'); });
-  });
+  function endDrag(){
+    if(!dragging) return;
+    dragging=false;
+    track.classList.remove('dragging');
+    target=track.scrollLeft;
+    if(!reduce && Math.abs(vel)>0.15) drive(track.scrollLeft+vel*190);
+  }
+  ['pointerup','pointercancel','pointerleave'].forEach(function(t){ track.addEventListener(t,endDrag); });
+  /* a real drag must not fire the link underneath the cursor */
+  track.addEventListener('click', function(e){
+    if(moved>6){ e.preventDefault(); e.stopPropagation(); moved=0; }
+  }, true);
 
-  /* keyboard */
-  track.addEventListener('keydown', function(e){
-    var step=track.clientWidth*.8, k=e.key;
-    if(k==='ArrowRight'||k==='PageDown'){ track.scrollBy({left:step,behavior:'smooth'}); }
-    else if(k==='ArrowLeft'||k==='PageUp'){ track.scrollBy({left:-step,behavior:'smooth'}); }
-    else if(k==='Home'){ track.scrollTo({left:0,behavior:'smooth'}); }
-    else if(k==='End'){ track.scrollTo({left:track.scrollWidth,behavior:'smooth'}); }
+  /* ---- touch: native sideways swipe, we only keep our state in sync ---- */
+  track.addEventListener('touchstart', function(){ halt(); nudged(); }, {passive:true});
+
+  /* ---- keyboard: land on station centres ---- */
+  function centreOf(p){ return clamp(p.offsetLeft+p.offsetWidth/2-track.clientWidth/2); }
+  function step(dir){
+    var mid=track.scrollLeft+track.clientWidth/2, pick=null;
+    for(var i=0;i<panels.length;i++){
+      var c=panels[i].offsetLeft+panels[i].offsetWidth/2;
+      if(dir>0){ if(c>mid+12){ pick=panels[i]; break; } }
+      else if(c<mid-12){ pick=panels[i]; }
+    }
+    halt();
+    drive(pick?centreOf(pick):(dir>0?maxLeft:0));
+  }
+  addEventListener('keydown', function(e){
+    var k=e.key, t=e.target;
+    if(t && (t.tagName==='INPUT'||t.tagName==='TEXTAREA')) return;
+    if(k==='ArrowRight'||k==='PageDown') step(1);
+    else if(k==='ArrowLeft'||k==='PageUp') step(-1);
+    else if(k==='Home'){ halt(); drive(0); }
+    else if(k==='End'){ halt(); drive(maxLeft); }
     else return;
     e.preventDefault(); nudged();
   });
 
-  track.addEventListener('touchstart', nudged, {passive:true});
+  /* ---- scrub bar is also a handle ---- */
+  scrubbar.addEventListener('pointerdown', function(e){
+    var r=scrubbar.getBoundingClientRect();
+    halt(); drive(((e.clientX-r.left)/r.width)*maxLeft); nudged();
+  });
 
-  /* parallax along the strip + progress scrub */
-  function frame(){
-    var max=track.scrollWidth-track.clientWidth, left=track.scrollLeft, mid=left+track.clientWidth/2;
-    scrub.style.width=(max>0?(left/max)*100:0).toFixed(2)+'%';
-    planes.forEach(function(img){
-      var p=img.closest('.panel'),
-          c=p.offsetLeft+p.offsetWidth/2,
-          d=Math.max(-1,Math.min(1,(c-mid)/track.clientWidth));
-      img.style.setProperty('--px',(d*54).toFixed(1)+'px');
-    });
-    queued=false;
-  }
-  track.addEventListener('scroll', function(){ if(!queued){ queued=true; requestAnimationFrame(frame); } }, {passive:true});
-  addEventListener('resize', frame);
+  /* ---- keep target honest whenever the browser scrolls us (touch, a11y) ---- */
+  track.addEventListener('scroll', function(){
+    if(!anim && !dragging) target=track.scrollLeft;
+    schedule();
+  }, {passive:true});
 
-  /* station fade-in as it enters the strip viewport */
+  addEventListener('resize', function(){ measure(); halt(); schedule(); });
+
+  /* ---- station fade-in as it enters the strip viewport ---- */
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
   },{root:track,threshold:.2});
   panels.forEach(function(p){ io.observe(p); });
 
-  frame();
-  setTimeout(function(){ if(!touched) hint.classList.remove('gone'); }, 0);
+  measure(); paint();
+  addEventListener('load', function(){ measure(); schedule(); });
   setTimeout(function(){ hint.classList.add('gone'); }, 14000);
 })();
 </script>

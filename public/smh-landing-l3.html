@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-smh-landing="l3" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
+<html lang="ru" data-smh-landing="l3" data-smh-landing-photos="20260814" data-smh-landing-wave="20260813" data-smh-landing-lengthen="20260813">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -119,6 +119,19 @@ footer a{color:inherit}
   .step{grid-template-columns:1fr;gap:6px}
   .plainly div{grid-template-columns:1fr;gap:4px}
 }
+/* SMH_LANDING_PHOTOS 20260814 · photographic planes · 0E reuse of hashed assets · invent_eyes=N */
+.smhph{padding:clamp(30px,5vh,58px) 0}
+.smhph figure{margin:0;position:relative;overflow:hidden;border-radius:2px;background:#d9d6cf}
+.smhph img{display:block;width:100%;object-fit:cover;filter:saturate(.78) brightness(.94) contrast(1.03);transform:scale(1.03);transition:transform 1.6s var(--ease),filter 1.6s var(--ease)}
+.smhph figure:hover img{transform:scale(1.07);filter:saturate(.86) brightness(1) contrast(1.02)}
+.smhph figure::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(20,20,18,.3),rgba(20,20,18,0) 54%)}
+.smhph .one img{height:clamp(230px,48vh,470px)}
+.smhph .duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.5vw,18px)}
+.smhph .duo img{height:clamp(200px,36vh,370px)}
+.smhph .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.2vw,15px)}
+.smhph .tri img{height:clamp(140px,24vh,250px)}
+.smhph .cap{margin-top:13px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#6f6757}
+@media (max-width:820px){.smhph .tri{grid-template-columns:1fr 1fr}.smhph .duo{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -187,6 +200,16 @@ footer a{color:inherit}
   </div>
 </section>
 
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="duo">
+      <figure><img src="/assets/virtuoso-v1/paper-dust-b8ae8346.jpg" alt="Зерно и пыль на старой фотобумаге" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+      <figure><img src="/assets/facade-lab/2026-08-11-album-spread-empty.jpg" alt="Раскрытый семейный альбом на столе" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Бумага · разворот · то, что приносят</p>
+  </div>
+</section>
+
 <section class="leaf">
   <div class="wrap">
     <div class="lmark reveal">Лист II · Как мы работаем</div>
@@ -224,6 +247,15 @@ footer a{color:inherit}
   </div>
 </section>
 
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="one">
+      <figure><img src="/assets/catcheye-m03-darkroom/bg-ad267c120959.jpg" alt="Тёмная комната, где лежат снимки" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Комната, где письма ждут своей ночи</p>
+  </div>
+</section>
+
 <section class="seal-say">
   <div class="wrap">
     <blockquote class="reveal">Подпишите сегодня хотя бы один снимок. Это займёт минуту и спасёт целое имя.</blockquote>
@@ -245,6 +277,17 @@ footer a{color:inherit}
         <p>Если снимок разрушен слишком сильно, мы так и скажем. Красивая подделка хуже честного «нет».</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="smhph reveal">
+  <div class="wrap">
+    <div class="tri">
+      <figure><img src="/assets/catcheye-m02-attic/bg-e3a1061452ca.jpg" alt="Чердачный свет над коробками с бумагами" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+      <figure><img src="/assets/gen_keeper_fire.jpg" alt="Огонь в очаге, который кто-то держит" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+      <figure><img src="/assets/gen_pocketwatch.jpg" alt="Карманные часы на ткани" width="1600" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Чердак · огонь · часы — вещи из тех же коробок</p>
   </div>
 </section>
 
