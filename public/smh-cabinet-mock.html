@@ -743,13 +743,19 @@ body:not(.demo-on) [data-demo]{display:none!important}
       if(!s.people) s.people = [];
       if(!s.photos) s.photos = [];
       if(!s.notes)  s.notes  = [];
+      /* F3 . три ящика полки из того же круга: письма, записи о бумагах и
+         голос, записанный словами. Аудиофайлов и сканов здесь нет. */
+      if(!s.letters)   s.letters   = [];
+      if(!s.documents) s.documents = [];
+      if(!s.voices)    s.voices    = [];
       return s;
     }catch(e){ return null; }
   }
 
   var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
   var st    = load(code);
-  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length));
+  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length ||
+                        st.letters.length || st.documents.length || st.voices.length));
   var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
 
   function initials(name){
@@ -777,6 +783,17 @@ body:not(.demo-on) [data-demo]{display:none!important}
       [caps,             word(caps, 'подпись', 'подписи', 'подписей')],
       [st.notes.length,  word(st.notes.length, 'запись', 'записи', 'записей')]
     ];
+    /* F3 . цифры ящиков берутся только из длины своих списков и больше
+       ниоткуда. Пока все три пусты, полку цифрами не занимаем — про пустое
+       честно сказано ниже словами. */
+    var nl = (st.letters || []).length,
+        nd = (st.documents || []).length,
+        nv = (st.voices || []).length;
+    if(nl + nd + nv > 0){
+      rows.push([nl, word(nl, 'письмо', 'письма', 'писем')]);
+      rows.push([nd, word(nd, 'документ', 'документа', 'документов')]);
+      rows.push([nv, word(nv, 'голос', 'голоса', 'голосов')]);
+    }
     var h = '<div class="seam-nums">';
     for(i=0;i<rows.length;i++){
       h += '<div class="seam-num"><b>' + rows[i][0] + '</b><span>' + rows[i][1] + '</span></div>';
@@ -818,6 +835,54 @@ body:not(.demo-on) [data-demo]{display:none!important}
     return h + '</ul>';
   }
 
+  function cut(s, n){
+    s = String(s == null ? '' : s).trim().replace(/\s+/g, ' ');
+    return s.length > n ? (s.slice(0, n - 1) + '…') : s;
+  }
+
+  /* F3 . письма, записи о бумагах и голос, записанный словами: то же, что
+     лежит в трёх ящиках полки в вечере, и ровно теми словами, которыми это
+     набрал человек. Ни скана, ни аудиофайла за этим нет, и пример чужой
+     семьи сюда не попадает ни при каких условиях. */
+  function paperRows(){
+    var out = [], i;
+    var lts = st.letters || [], dcs = st.documents || [], vcs = st.voices || [];
+    for(i = lts.length - 1; i >= 0 && out.length < 4; i--){
+      var l = lts[i];
+      if(!l || !l.text) continue;
+      out.push({ lab: 'Письмо · ' + (l.title ? cut(l.title, 60) : 'без заголовка'),
+                 txt: cut(l.text, 200) });
+    }
+    for(i = dcs.length - 1; i >= 0 && out.length < 8; i--){
+      var d = dcs[i];
+      if(!d || !d.what) continue;
+      out.push({ lab: 'Документ · ' + cut(d.what, 60),
+                 txt: (d.year ? cut(d.year, 20) + ' — ' : '') +
+                      (d.where ? 'лежит: ' + cut(d.where, 80) + ' · ' : '') +
+                      'записано словами, файла здесь нет' });
+    }
+    for(i = vcs.length - 1; i >= 0 && out.length < 12; i--){
+      var v = vcs[i];
+      if(!v || !v.text) continue;
+      out.push({ lab: 'Голос · ' + (v.who ? cut(v.who, 60) : 'имя не названо'),
+                 txt: (v.when ? cut(v.when, 40) + ' — ' : '') + cut(v.text, 200) +
+                      ' · записано словами, аудиофайла нет' });
+    }
+    return out;
+  }
+
+  function papersHtml(){
+    var rows = paperRows(), h = '', i;
+    if(!rows.length){
+      return '<p class="seam-note" style="margin-bottom:15px">Письма, документы и голос в этом круге пока пусты. Эти три ящика полки наполняются в вечере — своими словами, без сканов и без аудио; ни одного примера мы сюда не положим.</p>';
+    }
+    h = '<ul class="seam-words">';
+    for(i = 0; i < rows.length; i++){
+      h += '<li class="seam-w"><b>' + esc(rows[i].lab) + '</b><p>' + esc(rows[i].txt) + '</p></li>';
+    }
+    return h + '</ul>';
+  }
+
   function emptyHtml(){
     var t, p;
     if(code && !st){
@@ -838,7 +903,7 @@ body:not(.demo-on) [data-demo]{display:none!important}
     var title, sub;
     if(lived){
       title = st.name || 'Ваш круг';
-      sub = 'Всё, что семья принесла в «Вечере». Только имена, снимки и слова, которые здесь набрал человек.';
+      sub = 'Всё, что семья принесла в «Вечере»: имена, снимки, сказанные слова, письма, записи о бумагах и голос, записанный словами. Только то, что здесь набрал человек.';
     }else if(code && st){
       title = st.name || 'Ваш круг';
       sub = 'Круг есть, памяти в нём пока нет.';
@@ -858,7 +923,9 @@ body:not(.demo-on) [data-demo]{display:none!important}
     else { codeEl.hidden = true; }
 
     $('seamBack').setAttribute('href', back);
-    $('seamBody').innerHTML = lived ? (numsHtml() + peopleHtml() + shotsHtml() + wordsHtml()) : emptyHtml();
+    $('seamBody').innerHTML = lived
+      ? (numsHtml() + peopleHtml() + shotsHtml() + wordsHtml() + papersHtml())
+      : emptyHtml();
     $('seamNote').textContent = 'Круг хранится только в этом браузере, на этом устройстве — это не синхронизация. В другом браузере или на другом телефоне архив будет пуст, пока у круга нет сервера. Подтверждение ставит второй человек, а не это устройство, поэтому здесь их пока нет.';
 
     var who = '';

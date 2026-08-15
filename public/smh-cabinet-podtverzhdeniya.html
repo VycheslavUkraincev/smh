@@ -422,6 +422,8 @@ body:not(.demo-on) [data-demo]{display:none!important}
       /* F2 . письма и записи о документах из того же круга */
       if(!s.letters)   s.letters   = [];
       if(!s.documents) s.documents = [];
+      /* F3 . голос, записанный словами в вечере */
+      if(!s.voices)    s.voices    = [];
       return s;
     }catch(e){ return null; }
   }
@@ -499,6 +501,20 @@ body:not(.demo-on) [data-demo]{display:none!important}
     return out;
   }
 
+  /* F3 · голос из вечера: слова человека о том, что было сказано вслух.
+     Аудиофайла нет, расшифровки нет, подтверждением это не становится. */
+  function voiceRows(st, limit){
+    var out = [], vs = st.voices || [], i;
+    for(i=0;i<vs.length && out.length<limit;i++){
+      var v = vs[i];
+      if(!v || !v.text) continue;
+      out.push({ lab: 'Голос · ' + (v.who ? cut(v.who, 60) : 'имя не названо'),
+                 txt: (v.when ? cut(v.when, 40) + ' — ' : '') + cut(v.text, 180) +
+                      ' · записано словами, аудиофайла здесь нет' });
+    }
+    return out;
+  }
+
   function nameById(st, id){
     for(var i=0;i<st.people.length;i++){
       if(st.people[i].id === id) return st.people[i].name || '';
@@ -530,7 +546,7 @@ body:not(.demo-on) [data-demo]{display:none!important}
   var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
   var st    = load(code);
   var lived = !!(st && (st.people.length || st.photos.length || st.notes.length ||
-                        st.letters.length || st.documents.length));
+                        st.letters.length || st.documents.length || st.voices.length));
   var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
 
   /* то, что именно этот экран может честно показать из круга */
@@ -545,14 +561,15 @@ body:not(.demo-on) [data-demo]{display:none!important}
     var pl = peopleHtml(st), cl = capList(st, 4);
     /* F2 · письма и записи о документах встают в ту же очередь открытых
        вопросов — и ни одно из них не становится подтверждённым. */
-    var lr = letterRows(st, 3), dr = docRows(st, 3);
+    var lr = letterRows(st, 3), dr = docRows(st, 3), vr = voiceRows(st, 3);
     var waiting = st.people.length + caps(st) +
-                  (st.letters || []).length + (st.documents || []).length;
-    if(pl || cl.length || lr.length || dr.length){
+                  (st.letters || []).length + (st.documents || []).length +
+                  (st.voices || []).length;
+    if(pl || cl.length || lr.length || dr.length || vr.length){
       h += '<p class="cr-line">Вот что уже набрано в круге и ждёт второго голоса — ' +
            waiting + ':</p>';
       if(pl) h += pl;
-      if(cl.length || lr.length || dr.length){
+      if(cl.length || lr.length || dr.length || vr.length){
         h += '<ul class="cr-words">';
         for(i=0;i<cl.length;i++){
           h += '<li class="cr-w"><b>Подпись к снимку</b><p>' + esc(cl[i]) + '</p></li>';
@@ -562,6 +579,11 @@ body:not(.demo-on) [data-demo]{display:none!important}
         }
         for(i=0;i<dr.length;i++){
           h += '<li class="cr-w"><b>' + esc(dr[i].lab) + '</b><p>' + esc(dr[i].txt) + '</p></li>';
+        }
+        /* F3 · записанный словами голос встаёт в ту же очередь открытых
+           вопросов и подтверждённым не становится: счётчик выше остаётся нулём. */
+        for(i=0;i<vr.length;i++){
+          h += '<li class="cr-w"><b>' + esc(vr[i].lab) + '</b><p>' + esc(vr[i].txt) + '</p></li>';
         }
         h += '</ul>';
       }

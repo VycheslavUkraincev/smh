@@ -409,6 +409,10 @@ body:not(.demo-on) [data-demo]{display:none!important}
       if(!s.people) s.people = [];
       if(!s.photos) s.photos = [];
       if(!s.notes)  s.notes  = [];
+      /* F3 . письма, записи о бумагах и голос словами — из того же круга */
+      if(!s.letters)   s.letters   = [];
+      if(!s.documents) s.documents = [];
+      if(!s.voices)    s.voices    = [];
       return s;
     }catch(e){ return null; }
   }
@@ -469,6 +473,55 @@ body:not(.demo-on) [data-demo]{display:none!important}
     return out;
   }
 
+  function cut(s, n){
+    s = String(s == null ? '' : s).trim().replace(/\s+/g, ' ');
+    return s.length > n ? (s.slice(0, n - 1) + '…') : s;
+  }
+
+  /* F3 . письмо, бумага и голос — такие же предметы памяти, как снимок.
+     Карточка показывает их теми же словами, которыми их набрал человек:
+     ни года, ни города, ни лица мы к ним не дорисовываем, скана и
+     аудиофайла за ними нет. */
+  function artRows(st){
+    var out = [], i;
+    var lts = st.letters || [], dcs = st.documents || [], vcs = st.voices || [];
+    for(i = lts.length - 1; i >= 0 && out.length < 4; i--){
+      var l = lts[i];
+      if(!l || !l.text) continue;
+      out.push({ lab: 'Письмо · ' + (l.title ? cut(l.title, 60) : 'без заголовка'),
+                 txt: cut(l.text, 220) });
+    }
+    for(i = dcs.length - 1; i >= 0 && out.length < 8; i--){
+      var d = dcs[i];
+      if(!d || !d.what) continue;
+      out.push({ lab: 'Документ · ' + cut(d.what, 60),
+                 txt: (d.year ? cut(d.year, 20) + ' — ' : '') +
+                      (d.where ? 'лежит: ' + cut(d.where, 80) + ' · ' : '') +
+                      'записано словами, файла здесь нет' });
+    }
+    for(i = vcs.length - 1; i >= 0 && out.length < 12; i--){
+      var v = vcs[i];
+      if(!v || !v.text) continue;
+      out.push({ lab: 'Голос · ' + (v.who ? cut(v.who, 60) : 'имя не названо'),
+                 txt: (v.when ? cut(v.when, 40) + ' — ' : '') + cut(v.text, 220) +
+                      ' · записано словами, аудиофайла нет' });
+    }
+    return out;
+  }
+
+  function artsHtml(st){
+    var rows = artRows(st), h = '', i;
+    if(!rows.length){
+      return '<p class="cr-line">Писем, записей о бумагах и голоса, записанного словами, в этом круге пока нет. Они приходят из вечера — и ни одного примера мы сюда не положим.</p>';
+    }
+    h  = '<p class="cr-line">Рядом со снимками лежит то, что семья записала словами. Скана и аудиофайла за этим нет: сама бумага остаётся у вас дома, а голос здесь — это слова того, кто слушал.</p>';
+    h += '<ul class="cr-words">';
+    for(i = 0; i < rows.length; i++){
+      h += '<li class="cr-w"><b>' + esc(rows[i].lab) + '</b><p>' + esc(rows[i].txt) + '</p></li>';
+    }
+    return h + '</ul>';
+  }
+
   function peopleHtml(st){
     var h = '<div class="cr-people">', any = false;
     for(var i=0;i<st.people.length;i++){
@@ -483,15 +536,26 @@ body:not(.demo-on) [data-demo]{display:none!important}
 
   var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
   var st    = load(code);
-  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length));
+  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length ||
+                        st.letters.length || st.documents.length || st.voices.length));
   var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
 
   /* то, что именно этот экран может честно показать из круга */
   function body(){
     var h = '', i;
-    h += nums([[st.photos.length, word(st.photos.length, 'снимок', 'снимка', 'снимков')],
-               [caps(st), word(caps(st), 'подпись', 'подписи', 'подписей')],
-               [st.people.length, word(st.people.length, 'имя', 'имени', 'имён')]]);
+    var nrows = [[st.photos.length, word(st.photos.length, 'снимок', 'снимка', 'снимков')],
+                 [caps(st), word(caps(st), 'подпись', 'подписи', 'подписей')],
+                 [st.people.length, word(st.people.length, 'имя', 'имени', 'имён')]];
+    /* F3 . цифры писем, бумаг и голоса — только длина своих списков */
+    var nl = (st.letters || []).length,
+        nd = (st.documents || []).length,
+        nv = (st.voices || []).length;
+    if(nl + nd + nv > 0){
+      nrows.push([nl, word(nl, 'письмо', 'письма', 'писем')]);
+      nrows.push([nd, word(nd, 'документ', 'документа', 'документов')]);
+      nrows.push([nv, word(nv, 'голос', 'голоса', 'голосов')]);
+    }
+    h += nums(nrows);
     if(st.photos.length){
       h += '<div class="cr-shots">';
       var n = Math.min(st.photos.length, 8);
@@ -511,8 +575,11 @@ body:not(.demo-on) [data-demo]{display:none!important}
       h += '</div>';
       h += '<p class="cr-line">Год, место и событие стоят здесь теми словами, которые набрал человек. Пустое поле остаётся пустым: ни дату, ни город, ни имя мы не додумываем.</p>';
     }else{
-      h += '<p class="cr-line">В круге ещё нет ни одного снимка, поэтому карточке нечего показать. Первый снимок приносят в вечере.</p>';
+      h += '<p class="cr-line">В круге ещё нет ни одного снимка. Первый снимок приносят в вечере.</p>';
     }
+    /* F3 . письма, бумаги и голос словами стоят на карточке рядом со
+       снимками: это та же память круга, набранная руками человека. */
+    h += artsHtml(st);
     return h;
   }
 
@@ -536,7 +603,7 @@ body:not(.demo-on) [data-demo]{display:none!important}
     var title, sub;
     if(lived){
       title = st.name || 'Ваш круг';
-      sub = 'Снимки и подписи из вашего круга — ровно теми словами, которыми их подписал человек.';
+      sub = 'Снимки, подписи, письма, бумаги и голос из вашего круга — ровно теми словами, которыми их набрал человек.';
     }else if(st){
       title = st.name || 'Ваш круг';
       sub = 'Круг есть, памяти в нём пока нет.';
@@ -556,7 +623,7 @@ body:not(.demo-on) [data-demo]{display:none!important}
     else { c.hidden = true; }
 
     $('crBody').innerHTML = lived ? body() : emptyHtml();
-    $('crNote').textContent = 'Круг хранится только в этом браузере, на этом устройстве — это не синхронизация. Ни год, ни место, ни имя мы не додумываем: пустое поле остаётся пустым.';
+    $('crNote').textContent = 'Круг хранится только в этом браузере, на этом устройстве — это не синхронизация. Ни год, ни место, ни имя мы не додумываем: пустое поле остаётся пустым. Скан документа и запись голоса здесь не хранятся — бумага остаётся у вас, а голос записан словами того, кто слушал.';
 
     var who = '';
     if(lived){

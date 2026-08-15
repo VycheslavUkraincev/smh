@@ -379,6 +379,10 @@ body:not(.demo-on) [data-demo]{display:none!important}
       if(!s.people) s.people = [];
       if(!s.photos) s.photos = [];
       if(!s.notes)  s.notes  = [];
+      /* F3 . голосовые свидетельства и бумаги из того же круга */
+      if(!s.voices)    s.voices    = [];
+      if(!s.letters)   s.letters   = [];
+      if(!s.documents) s.documents = [];
       return s;
     }catch(e){ return null; }
   }
@@ -451,18 +455,37 @@ body:not(.demo-on) [data-demo]{display:none!important}
     return any ? (h + '</div>') : '';
   }
 
+  /* F3 · голосовое свидетельство — это то, что человек услышал и записал
+     словами в вечере. Аудиофайла за этим нет и расшифровки тоже: ничего
+     не записывалось на микрофон, и плеера, которого не существует, мы здесь не рисуем. */
+  function voiceRows(st, limit){
+    var out = [], vs = st.voices || [], i;
+    for(i = vs.length - 1; i >= 0 && out.length < limit; i--){
+      var v = vs[i];
+      if(!v || !v.text) continue;
+      out.push({ who:  v.who  ? String(v.who)  : 'Голос круга',
+                 when: v.when ? String(v.when) : '',
+                 txt:  String(v.text) });
+    }
+    return out;
+  }
+
   var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
   var st    = load(code);
-  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length));
+  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length ||
+                        st.voices.length || st.letters.length || st.documents.length));
   var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
 
   /* то, что именно этот экран может честно показать из круга */
   function body(){
     var h = '', i;
+    var vn = (st.voices || []).length;
     h += nums([[st.notes.length, word(st.notes.length, 'запись', 'записи', 'записей')],
+               [vn, word(vn, 'голос', 'голоса', 'голосов')],
                [st.people.length, word(st.people.length, 'человек', 'человека', 'человек')]]);
     if(st.notes.length){
       var list = st.notes.slice().sort(function(a, b){ return (b.at || 0) - (a.at || 0); }).slice(0, 6);
+      h += '<p class="cr-line">Сказано дворецкому в вечере:</p>';
       h += '<ul class="cr-words">';
       for(i=0;i<list.length;i++){
         h += '<li class="cr-w"><b>' + esc(list[i].who || 'Кто-то в круге') + '</b><p>' + esc(list[i].text || '') + '</p></li>';
@@ -471,9 +494,23 @@ body:not(.demo-on) [data-demo]{display:none!important}
     }else{
       h += '<p class="cr-line">В этом круге пока ничего не сказано дворецкому. Первое слово говорят в вечере — и оно появится здесь тем же текстом.</p>';
     }
+    /* F3 · голоса круга: чей голос и что им было сказано — словами человека */
+    var vr = voiceRows(st, 6);
+    if(vr.length){
+      h += '<p class="cr-line">Записано с голоса — теми словами, которые набрал человек:</p>';
+      h += '<ul class="cr-words">';
+      for(i=0;i<vr.length;i++){
+        h += '<li class="cr-w"><b>' + esc(vr[i].who) + (vr[i].when ? ' · ' + esc(vr[i].when) : '') + '</b>' +
+             '<p>' + esc(vr[i].txt) + '</p></li>';
+      }
+      h += '</ul>';
+      if(vn > vr.length) h += '<p class="cr-line">И ещё ' + (vn - vr.length) + ' — в вечере, в карточке «Голоса круга».</p>';
+    }else{
+      h += '<p class="cr-line">Голосов в круге пока не записано. В вечере можно записать словами, чей это голос и что им было сказано — и запись окажется здесь. Пустое место мы ничем не заполняем.</p>';
+    }
     if(st.question) h += '<p class="cr-line">Вопрос вечера сейчас: «' + esc(st.question) + '».</p>';
     if(st.later && st.later.q) h += '<p class="cr-line">Отложенный вопрос ждёт на этом устройстве: «' + esc(st.later.q) + '».</p>';
-    h += '<p class="cr-line">Голоса здесь нет: в вечере слова набирают руками, и набранный текст мы не выдаём за запись. Ни одной расшифровки и ни одной минуты аудио в этом круге не хранится.</p>';
+    h += '<p class="cr-line">Аудиофайла здесь нет ни одного — ни у слов дворецкому, ни у голосов круга. В вечере слова набирают руками, и набранный текст мы не выдаём за запись: микрофон в этой версии не включается, расшифровок мы не делаем и ни одной минуты аудио в этом круге не хранится.</p>';
     return h;
   }
 

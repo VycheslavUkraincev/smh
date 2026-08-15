@@ -1670,6 +1670,35 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
           <p class="rule">Честно об этой версии: письмо и запись о документе лежат в памяти этого устройства, рядом с фото и именами. Скан или PDF мы не принимаем — сказать «документ загружен», когда его здесь нет, было бы враньём. И написанное остаётся словами одного человека, пока под ними не распишется второй: подтверждение ставит он, а не эта страница.</p>
         </div>
 
+        <div class="card card--voice" data-brand-apply="F3-voice">
+          <div class="card-head">
+            <h2>Голос</h2>
+            <span class="cnt" id="vcCnt">пока пусто</span>
+          </div>
+          <p class="card-sub">Третий ящик полки. Аудио в этой версии мы не записываем и не принимаем — ни файлом, ни через микрофон. Остаётся то, что человек сказал вслух, записанное словами того, кто слушал.</p>
+
+          <div class="pp-box" data-brand-apply="F3-voice-claim">
+            <h3>Что было сказано вслух</h3>
+            <p class="pp-h">Запишите своими словами то, что услышали от старших — за столом, по телефону, в дороге. Имя говорившего и время можно не указывать.</p>
+            <div class="field">
+              <label for="vcWho">Кто говорил — если хочется назвать</label>
+              <input class="inp" id="vcWho" maxlength="60" placeholder="Например: бабушка Аня">
+            </div>
+            <div class="field">
+              <label for="vcWhen">Когда это было — если помните</label>
+              <input class="inp" id="vcWhen" maxlength="40" placeholder="Прошлым летом или 1978">
+            </div>
+            <div class="field">
+              <label for="vcText">Что было сказано</label>
+              <textarea class="ta" id="vcText" maxlength="2000" placeholder="Она сказала, что дом стоял у самой реки…"></textarea>
+            </div>
+            <button class="btn btn--primary btn--wide" id="vcSave" type="button">Записать словами</button>
+            <ul class="pp-list" id="vcList"></ul>
+          </div>
+
+          <p class="rule">Честно об этой версии: запись аудио мы не принимаем и не делаем вид, что приняли — микрофона здесь нет, файл загрузить некуда, расшифровки мы не делаем. Это ваши слова о том, что вы услышали, и они лежат в памяти этого устройства рядом с фото, письмами и именами. Пока под ними не распишется второй живой человек, это остаётся словами одного.</p>
+        </div>
+
         <div class="card card--next">
           <div class="card-head"><h2>Что дальше</h2></div>
           <p class="card-sub" style="margin-bottom:13px">Когда круг собран, его место — в архиве, где у каждого имени и даты видно, откуда мы это знаем.</p>
@@ -1766,6 +1795,8 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     /* F2 . письма и записи о документах — такие же настоящие списки круга */
     if(!s.letters)   s.letters   = [];
     if(!s.documents) s.documents = [];
+    /* F3 . голос круга: словами, без аудиофайла и без расшифровки */
+    if(!s.voices)    s.voices    = [];
     return s;
   }
 
@@ -1801,6 +1832,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       wish: [],
       letters: [],
       documents: [],
+      voices: [],
       pskip: [],
       firstMem: null,
       invited: false,
@@ -2143,7 +2175,8 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     /* F2 . письмо и запись о документе — тоже настоящая память круга:
        рамка не может звать себя пустой, когда в ней уже лежат слова. */
     var papers = ((state.letters && state.letters.length) || 0) +
-                 ((state.documents && state.documents.length) || 0);
+                 ((state.documents && state.documents.length) || 0) +
+                 ((state.voices && state.voices.length) || 0);
     return state.photos.length > 0 || (state.notes && state.notes.length > 0) ||
            named > 0 || papers > 0;
   }
@@ -2295,10 +2328,12 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         s: letters().length ? 'написано в этом круге, на этом устройстве' : 'пока ни одного письма',
         go: letters().length ? 'Написать ещё' : 'Написать письмо',
         act: function(){ lightCard('.card--papers', $('ltText')); } },
-      { t: 'Голос', n: null,
-        s: state.question ? 'вопрос выбран, запись — на экране «Разговор»' : 'запись голоса живёт на экране «Разговор»',
-        go: state.question ? 'Открыть вопрос' : 'Выбрать вопрос',
-        act: function(){ lightCard('.card--ask'); } },
+      /* F3 . цифра берётся только из длины voices[] и больше ниоткуда:
+         аудио мы не принимаем, поэтому пустое остаётся пустым. */
+      { t: 'Голос', n: voices().length,
+        s: voices().length ? 'записано словами — аудиофайлов здесь нет' : 'пока ни одной записи голоса',
+        go: voices().length ? 'Записать ещё' : 'Записать голос',
+        act: function(){ lightCard('.card--voice', $('vcText')); } },
       /* F2 . записи о документах: словами, без файла и без вранья про загрузку */
       { t: 'Документы', n: docs().length,
         s: docs().length ? 'записано словами — сами бумаги остаются у вас' : 'пока ни одной записи о документе',
@@ -2635,6 +2670,13 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
                           : 'записано словами, файл остаётся у вас',
                  go: 'papers' });
     }
+    /* F3 . голос ложится в ту же ленту — словами человека, без аудио */
+    var vcs = state.voices || [];
+    for(i=0;i<vcs.length;i++){
+      if(!vcs[i] || !vcs[i].text) continue;
+      out.push({ at: vcs[i].at || 0, who: vcs[i].who || 'Сказано вслух', kind: 'голос',
+                 text: snippet(vcs[i].text, 160), go: 'voice' });
+    }
     out.sort(function(a, b){ return b.at - a.at; });
     return out;
   }
@@ -2671,6 +2713,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     var g = el.getAttribute('data-jr');
     if(g === 'photo') lightCard('.card--photos');
     else if(g === 'papers') lightCard('.card--papers');
+    else if(g === 'voice') lightCard('.card--voice', $('vcText'));
     else lightCard('.card--butler', $('bText'));
   }
 
@@ -2689,6 +2732,12 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     return (state && state.documents && state.documents.length) ? state.documents : [];
   }
 
+  /* F3 . голос: только то, что человек записал словами после разговора.
+     Микрофона здесь нет, файла здесь нет, расшифровки здесь нет. */
+  function voices(){
+    return (state && state.voices && state.voices.length) ? state.voices : [];
+  }
+
   function letterWord(n){
     var a = n % 10, b = n % 100;
     if(a === 1 && b !== 11) return 'письмо';
@@ -2703,6 +2752,13 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     return 'документов';
   }
 
+  function voiceWord(n){
+    var a = n % 10, b = n % 100;
+    if(a === 1 && b !== 11) return 'запись';
+    if(a >= 2 && a <= 4 && (b < 12 || b > 14)) return 'записи';
+    return 'записей';
+  }
+
   function snippet(s, n){
     s = String(s == null ? '' : s).trim().replace(/\s+/g, ' ');
     return s.length > n ? (s.slice(0, n - 1) + '…') : s;
@@ -2713,6 +2769,10 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(d.year)  bits.push(String(d.year));
     if(d.where) bits.push(String(d.where));
     return bits.join(' · ');
+  }
+
+  function voiceLine(v){
+    return v && v.when ? String(v.when) : '';
   }
 
   function tstamp(at){
@@ -2792,6 +2852,47 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     }
   }
 
+  /* ---------- F3 · голос ----------
+     Единственная честная форма голоса без сервера и без микрофона: то,
+     что человек услышал и записал своими словами. Аудиофайл мы не берём
+     и не делаем вид, что взяли; расшифровки здесь тоже нет. Имя и время
+     можно не называть, слова — обязательны, иначе записывать нечего. */
+  function addVoice(){
+    if(!state) return;
+    var wEl = $('vcWho'), nEl = $('vcWhen'), tEl = $('vcText');
+    if(!tEl) return;
+    var text = tEl.value.trim().slice(0, 2000);
+    var who  = wEl ? wEl.value.trim().replace(/\s+/g, ' ').slice(0, 60) : '';
+    var when = nEl ? nEl.value.trim().replace(/\s+/g, ' ').slice(0, 40) : '';
+    if(!text){
+      toast('Напишите словами, что было сказано — имя можно не указывать');
+      tEl.focus();
+      return;
+    }
+    if(!state.voices) state.voices = [];
+    state.voices.push({ id: uid(), who: who, when: when, text: text, at: Date.now() });
+    if(save()){
+      tEl.value = '';
+      if(wEl) wEl.value = '';
+      if(nEl) nEl.value = '';
+      buzz('ok');
+      renderAll();
+      toast('Записали словами — аудио мы не сохраняли');
+    }else{
+      state.voices.pop();
+    }
+  }
+
+  function removeVoice(id){
+    if(!state || !state.voices) return;
+    state.voices = state.voices.filter(function(v){ return v.id !== id; });
+    if(save()){
+      buzz('tap');
+      renderAll();
+      toast('Запись голоса убрана');
+    }
+  }
+
   /* ---------- F2 · открытые вопросы ----------
      Собраны только из настоящей работы этого устройства: имена, которые
      вписал человек, подписи под снимками, письма и записи о документах.
@@ -2818,6 +2919,13 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     var dcs = docs();
     for(i=0;i<dcs.length;i++){
       if(dcs[i].what) out.push({ k: 'документ', t: dcs[i].what });
+    }
+    /* F3 . записанный словами голос тоже ждёт второго человека и
+       подтверждением не становится ни при каких условиях. */
+    var vcs = voices();
+    for(i=0;i<vcs.length;i++){
+      if(!vcs[i].text) continue;
+      out.push({ k: 'голос', t: vcs[i].who ? (vcs[i].who + ' — ' + snippet(vcs[i].text, 44)) : snippet(vcs[i].text, 60) });
     }
     return out;
   }
@@ -2875,11 +2983,37 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         }
         if(oq.length > 4) rows += '<li>и ещё ' + (oq.length - 4) + '</li>';
         w.innerHTML = '<b>Ждёт второго голоса: ' + oq.length + '</b>' +
-          '<p>Это не подтверждения, а открытые вопросы. Под именами, подписями, письмами и записями о документах пока стоит один человек. Расписаться под ними может только второй живой человек — сами мы ни одной галочки не поставим.</p>' +
+          '<p>Это не подтверждения, а открытые вопросы. Под именами, подписями, письмами, записями о документах и записанным словами голосом пока стоит один человек. Расписаться под ними может только второй живой человек — сами мы ни одной галочки не поставим.</p>' +
           '<ul>' + rows + '</ul>' +
           '<p><a href="/smh-cabinet-podtverzhdeniya.html" data-cab="/smh-cabinet-podtverzhdeniya.html">Открыть «Подтверждения» в архиве</a></p>';
       }
     }
+  }
+
+  /* F3 · список голоса: только то, что набрал человек. Пустое остаётся
+     пустым: ни одной примерной цитаты и ни одной выдуманной расшифровки. */
+  function renderVoice(){
+    var vcs = voices(), html, i;
+
+    var w = $('vcList');
+    if(w){
+      html = vcs.length ? '' :
+        '<li class="pp-empty">Пока пусто. Здесь появится то, что вы запишете словами после разговора. Ни одной чужой цитаты мы сюда не положим.</li>';
+      for(i = vcs.length - 1; i >= 0; i--){
+        var v = vcs[i], line = voiceLine(v);
+        html += '<li class="pp-it">' +
+                  '<button class="pp-rm" type="button" data-vcrm="' + escA(v.id) + '" aria-label="Убрать запись голоса">×</button>' +
+                  '<b>' + esc(v.who || 'Имя не названо') + '</b>' +
+                  '<p>' + esc(v.text) + '</p>' +
+                  '<small>' + (line ? esc(line) + ' · ' : '') + 'записано словами, аудиофайла нет' +
+                    (v.at ? ' · ' + esc(tstamp(v.at)) : '') + '</small>' +
+                '</li>';
+      }
+      w.innerHTML = html;
+    }
+
+    var c = $('vcCnt');
+    if(c) c.textContent = vcs.length ? (vcs.length + ' ' + voiceWord(vcs.length)) : 'пока пусто';
   }
 
   /* ---------- E · подписать свободное место ----------
@@ -3002,6 +3136,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     renderButler();
     renderJournal();
     renderPapers();
+    renderVoice();
     renderInviteNext();
     renderJoinPath();
     renderRibbon();
@@ -3616,6 +3751,19 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   $('dcList').addEventListener('click', function(e){
     var b = e.target.closest('[data-dcrm]');
     if(b && state) removeDoc(b.getAttribute('data-dcrm'));
+  });
+
+  /* F3 · голос записывается словами человека — микрофона здесь нет */
+  $('vcSave').addEventListener('click', addVoice);
+  $('vcText').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && (e.metaKey || e.ctrlKey)) addVoice();
+  });
+  $('vcWho').addEventListener('keydown', function(e){ if(e.key === 'Enter') addVoice(); });
+  $('vcWhen').addEventListener('keydown', function(e){ if(e.key === 'Enter') addVoice(); });
+
+  $('vcList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-vcrm]');
+    if(b && state) removeVoice(b.getAttribute('data-vcrm'));
   });
 
   /* F · отложенный вопрос: напомнили один раз и убрали по слову человека */
