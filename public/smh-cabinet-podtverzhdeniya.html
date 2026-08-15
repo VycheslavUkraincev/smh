@@ -419,6 +419,9 @@ body:not(.demo-on) [data-demo]{display:none!important}
       if(!s.people) s.people = [];
       if(!s.photos) s.photos = [];
       if(!s.notes)  s.notes  = [];
+      /* F2 . письма и записи о документах из того же круга */
+      if(!s.letters)   s.letters   = [];
+      if(!s.documents) s.documents = [];
       return s;
     }catch(e){ return null; }
   }
@@ -463,6 +466,39 @@ body:not(.demo-on) [data-demo]{display:none!important}
     return out;
   }
 
+  function cut(s, n){
+    s = String(s == null ? '' : s).trim().replace(/\s+/g, ' ');
+    return s.length > n ? (s.slice(0, n - 1) + '\u2026') : s;
+  }
+
+  /* F2 · та же настоящая работа круга, только бумажная: письмо, написанное
+     человеком в вечере, и запись о бумаге, которая лежит у семьи дома.
+     Ни то, ни другое подтверждением не становится и файлом здесь не притворяется. */
+  function letterRows(st, limit){
+    var out = [], ls = st.letters || [], i;
+    for(i=0;i<ls.length && out.length<limit;i++){
+      var l = ls[i];
+      if(!l || !l.text) continue;
+      out.push({ lab: l.title ? ('Письмо · ' + l.title) : 'Письмо в круг', txt: cut(l.text, 180) });
+    }
+    return out;
+  }
+
+  function docRows(st, limit){
+    var out = [], ds = st.documents || [], i;
+    for(i=0;i<ds.length && out.length<limit;i++){
+      var d = ds[i];
+      if(!d || !d.what) continue;
+      var bits = [];
+      if(d.year)  bits.push(String(d.year));
+      if(d.where) bits.push(String(d.where));
+      out.push({ lab: 'Документ · ' + cut(d.what, 80),
+                 txt: (bits.length ? bits.join(' \u00b7 ') + ' — ' : '') +
+                      'записано словами, самой бумаги здесь нет' });
+    }
+    return out;
+  }
+
   function nameById(st, id){
     for(var i=0;i<st.people.length;i++){
       if(st.people[i].id === id) return st.people[i].name || '';
@@ -493,7 +529,8 @@ body:not(.demo-on) [data-demo]{display:none!important}
 
   var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
   var st    = load(code);
-  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length));
+  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length ||
+                        st.letters.length || st.documents.length));
   var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
 
   /* то, что именно этот экран может честно показать из круга */
@@ -506,13 +543,25 @@ body:not(.demo-on) [data-demo]{display:none!important}
          '<p>Подтверждение ставит второй человек, а не это устройство. В этом круге пока только слова одного человека: второго голоса под ними никто не оставил, поэтому очередь честно пуста и ни одной галочки мы сюда не поставим.</p>' +
          '<a class="cr-cta" href="' + back + '">Позвать родных в вечере</a></div>';
     var pl = peopleHtml(st), cl = capList(st, 4);
-    if(pl || cl.length){
-      h += '<p class="cr-line">Вот что уже набрано в круге и ждёт второго голоса:</p>';
+    /* F2 · письма и записи о документах встают в ту же очередь открытых
+       вопросов — и ни одно из них не становится подтверждённым. */
+    var lr = letterRows(st, 3), dr = docRows(st, 3);
+    var waiting = st.people.length + caps(st) +
+                  (st.letters || []).length + (st.documents || []).length;
+    if(pl || cl.length || lr.length || dr.length){
+      h += '<p class="cr-line">Вот что уже набрано в круге и ждёт второго голоса — ' +
+           waiting + ':</p>';
       if(pl) h += pl;
-      if(cl.length){
+      if(cl.length || lr.length || dr.length){
         h += '<ul class="cr-words">';
         for(i=0;i<cl.length;i++){
           h += '<li class="cr-w"><b>Подпись к снимку</b><p>' + esc(cl[i]) + '</p></li>';
+        }
+        for(i=0;i<lr.length;i++){
+          h += '<li class="cr-w"><b>' + esc(lr[i].lab) + '</b><p>' + esc(lr[i].txt) + '</p></li>';
+        }
+        for(i=0;i<dr.length;i++){
+          h += '<li class="cr-w"><b>' + esc(dr[i].lab) + '</b><p>' + esc(dr[i].txt) + '</p></li>';
         }
         h += '</ul>';
       }
@@ -527,7 +576,7 @@ body:not(.demo-on) [data-demo]{display:none!important}
       p = 'Круг ' + esc(code) + ' живёт в памяти того окна, где его завели. Откройте «Вечер» там же и вернитесь сюда: чужую семью вместо вашей мы сюда не поставим.';
     }else if(code){
       t = 'Здесь пока пусто';
-      p = 'Круг заведён, и подтверждать пока нечего: в нём нет ни имени, ни подписи, под которыми мог бы расписаться второй человек.';
+      p = 'Круг заведён, и подтверждать пока нечего: в нём нет ни имени, ни подписи, ни письма, ни записи о документе, под которыми мог бы расписаться второй человек.';
     }else{
       t = 'Экран наполняется из вечера';
       p = 'Подтверждение ставит второй человек, которого зовут в вечере. В этом браузере ещё нет ни одного круга.';

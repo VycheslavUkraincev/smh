@@ -1201,6 +1201,27 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
 .jr-add{margin-top:12px}
 .jr-add .btn{font-size:12px;padding:9px 13px}
 .jr-note{margin:8px 0 0;font-size:11px;line-height:1.5;color:var(--muted)}
+
+/* F2 . письма и документы: настоящий ящик, а не витрина */
+.pp-box{margin-top:14px;padding:13px 14px;border:1px solid var(--border);border-radius:13px;background:var(--tile)}
+.pp-box + .pp-box{margin-top:12px}
+.pp-box h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:600;margin:0 0 4px;letter-spacing:.2px}
+.pp-h{margin:0 0 11px;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.pp-list{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.pp-it{position:relative;padding:10px 36px 10px 12px;border:1px solid var(--border);border-radius:12px}
+.pp-it b{display:block;font-size:12.5px;font-weight:500}
+.pp-it p{margin:4px 0 0;font-size:12.5px;line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere;white-space:pre-wrap}
+.pp-it small{display:block;font-size:10.5px;color:var(--muted);margin-top:5px}
+.pp-rm{position:absolute;top:8px;right:8px;width:23px;height:23px;padding:0;border:1px solid var(--border);
+  border-radius:50%;background:transparent;color:var(--muted);font-size:13px;line-height:1;cursor:pointer}
+.pp-rm:hover{border-color:var(--line);color:var(--ink-2)}
+.pp-empty{padding:11px 12px;border:1px dashed var(--line);border-radius:12px;font-size:12px;line-height:1.5;color:var(--muted)}
+.pp-wait{margin-top:14px;padding:12px 13px;border:1px dashed var(--line);border-radius:12px}
+.pp-wait b{display:block;font-size:12.5px;font-weight:600}
+.pp-wait p{margin:6px 0 0;font-size:12px;line-height:1.55;color:var(--ink-2)}
+.pp-wait ul{list-style:none;margin:9px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}
+.pp-wait li{font-size:11.5px;line-height:1.5;color:var(--muted)}
+.pp-wait a{color:var(--accent)}
 .qs-back{margin:9px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:12px;
   background:var(--soft);font-size:12px;line-height:1.55;color:var(--ink)}
 .qs-back b{font-weight:600}
@@ -1595,12 +1616,58 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
             <h2>Заметки круга</h2>
             <span class="cnt" id="jrCnt">пока пусто</span>
           </div>
-          <p class="card-sub">Тихая лента вечера: подписи к снимкам и слова, сказанные дворецкому. Здесь только то, что уже лежит на этом устройстве — ни одной строки мы не написали за вас и ни одна никуда не ушла.</p>
+          <p class="card-sub">Тихая лента вечера: подписи к снимкам, слова, сказанные дворецкому, письма и записи о документах. Здесь только то, что уже лежит на этом устройстве — ни одной строки мы не написали за вас и ни одна никуда не ушла.</p>
           <ul class="journal" id="jrList"></ul>
           <div class="jr-add" data-brand-apply="F-journal-write">
             <button class="btn btn--quiet" id="jrAdd" type="button">Добавить заметку</button>
             <p class="jr-note">Строка появится здесь сразу после того, как вы её сохраните, и останется на этом устройстве.</p>
           </div>
+        </div>
+
+        <div class="card card--papers" data-brand-apply="F2-papers">
+          <div class="card-head">
+            <h2>Письма и документы</h2>
+            <span class="cnt" id="ppCnt">пока пусто</span>
+          </div>
+          <p class="card-sub">Два ящика полки, которые до сих пор стояли пустыми. Письмо — это ваши слова, набранные здесь. Документ — честная запись о бумаге, которая лежит у вас дома: файл мы в этой версии не принимаем и не делаем вид, что приняли.</p>
+
+          <div class="pp-box" data-brand-apply="F2-letter-write">
+            <h3>Письмо в круг</h3>
+            <p class="pp-h">Перепишите старое письмо своими руками или напишите своё — тому, кто откроет этот архив после вас. Заголовок можно не писать.</p>
+            <div class="field">
+              <label for="ltTitle">Заголовок — если хочется</label>
+              <input class="inp" id="ltTitle" maxlength="60" placeholder="Например: письмо деда с фронта">
+            </div>
+            <div class="field">
+              <label for="ltText">Текст письма</label>
+              <textarea class="ta" id="ltText" maxlength="2000" placeholder="Здравствуй, дорогая моя…"></textarea>
+            </div>
+            <button class="btn btn--primary btn--wide" id="ltSave" type="button">Положить письмо в архив</button>
+            <ul class="pp-list" id="ltList"></ul>
+          </div>
+
+          <div class="pp-box" data-brand-apply="F2-doc-claim">
+            <h3>Документ — что это и где он</h3>
+            <p class="pp-h">Файл сюда пока не загружается. Мы записываем словами, какая бумага есть у семьи и где она лежит, чтобы её не потеряли — сама бумага остаётся у вас.</p>
+            <div class="field">
+              <label for="dcWhat">Что это за документ</label>
+              <input class="inp" id="dcWhat" maxlength="80" placeholder="Например: свидетельство о рождении бабушки">
+            </div>
+            <div class="field">
+              <label for="dcYear">Год — если известен</label>
+              <input class="inp" id="dcYear" maxlength="12" placeholder="1948">
+            </div>
+            <div class="field">
+              <label for="dcWhere">Где он лежит</label>
+              <input class="inp" id="dcWhere" maxlength="60" placeholder="В синей папке у мамы">
+            </div>
+            <button class="btn btn--quiet btn--wide" id="dcSave" type="button">Записать документ</button>
+            <ul class="pp-list" id="dcList"></ul>
+          </div>
+
+          <div class="pp-wait hide" id="ppWait" data-brand-apply="F2-open-questions"></div>
+
+          <p class="rule">Честно об этой версии: письмо и запись о документе лежат в памяти этого устройства, рядом с фото и именами. Скан или PDF мы не принимаем — сказать «документ загружен», когда его здесь нет, было бы враньём. И написанное остаётся словами одного человека, пока под ними не распишется второй: подтверждение ставит он, а не эта страница.</p>
         </div>
 
         <div class="card card--next">
@@ -1696,6 +1763,9 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(!s.photos) s.photos = [];
     if(!s.notes)  s.notes  = [];
     if(!s.wish)   s.wish   = [];
+    /* F2 . письма и записи о документах — такие же настоящие списки круга */
+    if(!s.letters)   s.letters   = [];
+    if(!s.documents) s.documents = [];
     return s;
   }
 
@@ -1729,6 +1799,8 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       later: null,
       notes: [],
       wish: [],
+      letters: [],
+      documents: [],
       pskip: [],
       firstMem: null,
       invited: false,
@@ -2068,7 +2140,12 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
      принесла первое, дом становится картой рода (макет 01). */
   function circleFilled(){
     var named = state.people.length - (state.owner ? 1 : 0);
-    return state.photos.length > 0 || (state.notes && state.notes.length > 0) || named > 0;
+    /* F2 . письмо и запись о документе — тоже настоящая память круга:
+       рамка не может звать себя пустой, когда в ней уже лежат слова. */
+    var papers = ((state.letters && state.letters.length) || 0) +
+                 ((state.documents && state.documents.length) || 0);
+    return state.photos.length > 0 || (state.notes && state.notes.length > 0) ||
+           named > 0 || papers > 0;
   }
 
   /* Семь мест на ветвях: в занятых стоят инициалы имени, которое назвал
@@ -2213,18 +2290,20 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         s: state.photos.length ? 'снимков на этом устройстве' : 'пока ни одного снимка',
         go: state.photos.length ? 'Добавить ещё' : 'Добавить снимок',
         act: function(){ openPhotoPicker(); } },
-      { t: 'Письма', n: null,
-        s: 'писем мы в этой версии не храним — ни одного',
-        go: 'Заметка дворецкому',
-        act: function(){ lightCard('.card--butler', $('bText')); } },
+      /* F2 . цифра берётся из настоящего списка писем этого круга */
+      { t: 'Письма', n: letters().length,
+        s: letters().length ? 'написано в этом круге, на этом устройстве' : 'пока ни одного письма',
+        go: letters().length ? 'Написать ещё' : 'Написать письмо',
+        act: function(){ lightCard('.card--papers', $('ltText')); } },
       { t: 'Голос', n: null,
         s: state.question ? 'вопрос выбран, запись — на экране «Разговор»' : 'запись голоса живёт на экране «Разговор»',
         go: state.question ? 'Открыть вопрос' : 'Выбрать вопрос',
         act: function(){ lightCard('.card--ask'); } },
-      { t: 'Документы', n: null,
-        s: 'в этой версии мы их ещё не храним',
-        go: 'Скоро — когда появится сервер',
-        act: function(){ lightCard('.card--next'); } }
+      /* F2 . записи о документах: словами, без файла и без вранья про загрузку */
+      { t: 'Документы', n: docs().length,
+        s: docs().length ? 'записано словами — сами бумаги остаются у вас' : 'пока ни одной записи о документе',
+        go: docs().length ? 'Записать ещё' : 'Записать документ',
+        act: function(){ lightCard('.card--papers', $('dcWhat')); } }
     ];
   }
 
@@ -2360,6 +2439,14 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     for(i=0;i<rd.length;i++){
       if(!rd[i].done) return { t: 'Станция «' + rd[i].t + '» ждёт: ' + rd[i].s,
                                go: 'Открыть', act: rd[i].act };
+    }
+    /* F2 . когда настоящих дел не осталось, остаётся одно честное: то, что
+       набрано в круге, ждёт второго живого голоса. Подтвердить это может
+       только человек, поэтому лента ведёт к приглашению и ничего не ставит. */
+    var oq = openQuestions();
+    if(oq.length){
+      return { t: 'Ждёт второго голоса: ' + oq.length + ' — подтвердит только человек',
+               go: 'Позвать', act: openInvite };
     }
     return null;
   }
@@ -2532,6 +2619,22 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
                    text: f.cap, go: 'photo' });
       }
     }
+    /* F2 . письмо и запись о документе ложатся в ту же ленту вечера */
+    var lts = state.letters || [];
+    for(i=0;i<lts.length;i++){
+      if(!lts[i] || !lts[i].text) continue;
+      out.push({ at: lts[i].at || 0, who: lts[i].title || 'Письмо в круг', kind: 'письмо',
+                 text: snippet(lts[i].text, 160), go: 'papers' });
+    }
+    var dcs = state.documents || [];
+    for(i=0;i<dcs.length;i++){
+      if(!dcs[i] || !dcs[i].what) continue;
+      var dl = docLine(dcs[i]);
+      out.push({ at: dcs[i].at || 0, who: dcs[i].what, kind: 'документ',
+                 text: dl ? (dl + ' · записано словами, файл остаётся у вас')
+                          : 'записано словами, файл остаётся у вас',
+                 go: 'papers' });
+    }
     out.sort(function(a, b){ return b.at - a.at; });
     return out;
   }
@@ -2565,8 +2668,218 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   function jrGo(el){
     if(!el || !state) return;
     buzz('tap');
-    if(el.getAttribute('data-jr') === 'photo') lightCard('.card--photos');
+    var g = el.getAttribute('data-jr');
+    if(g === 'photo') lightCard('.card--photos');
+    else if(g === 'papers') lightCard('.card--papers');
     else lightCard('.card--butler', $('bText'));
+  }
+
+  /* ---------- F2 · письма и документы ----------
+     Два ящика полки, которые до сих пор были витриной. Письмо — настоящие
+     слова человека, набранные здесь и оставшиеся в памяти этого устройства
+     рядом с фото и именами. Документ — честная запись о бумаге, которая
+     лежит у семьи дома: файл мы не принимаем и не притворяемся, что приняли.
+     Счётчики берутся только из этих двух списков, пустое остаётся пустым,
+     и ни одного примера мы сюда не кладём. */
+  function letters(){
+    return (state && state.letters && state.letters.length) ? state.letters : [];
+  }
+
+  function docs(){
+    return (state && state.documents && state.documents.length) ? state.documents : [];
+  }
+
+  function letterWord(n){
+    var a = n % 10, b = n % 100;
+    if(a === 1 && b !== 11) return 'письмо';
+    if(a >= 2 && a <= 4 && (b < 12 || b > 14)) return 'письма';
+    return 'писем';
+  }
+
+  function docWord(n){
+    var a = n % 10, b = n % 100;
+    if(a === 1 && b !== 11) return 'документ';
+    if(a >= 2 && a <= 4 && (b < 12 || b > 14)) return 'документа';
+    return 'документов';
+  }
+
+  function snippet(s, n){
+    s = String(s == null ? '' : s).trim().replace(/\s+/g, ' ');
+    return s.length > n ? (s.slice(0, n - 1) + '…') : s;
+  }
+
+  function docLine(d){
+    var bits = [];
+    if(d.year)  bits.push(String(d.year));
+    if(d.where) bits.push(String(d.where));
+    return bits.join(' · ');
+  }
+
+  function tstamp(at){
+    if(!at) return '';
+    var d = new Date(at);
+    return ('0'+d.getDate()).slice(-2) + '.' + ('0'+(d.getMonth()+1)).slice(-2) + ' · ' +
+           ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+  }
+
+  function addLetter(){
+    if(!state) return;
+    var tEl = $('ltTitle'), bEl = $('ltText');
+    if(!bEl) return;
+    var text  = bEl.value.trim().slice(0, 2000);
+    var title = tEl ? tEl.value.trim().replace(/\s+/g, ' ').slice(0, 60) : '';
+    if(!text){
+      toast('Напишите текст письма — заголовок можно оставить пустым');
+      bEl.focus();
+      return;
+    }
+    if(!state.letters) state.letters = [];
+    state.letters.push({ id: uid(), title: title, text: text, at: Date.now() });
+    if(save()){
+      bEl.value = '';
+      if(tEl) tEl.value = '';
+      buzz('ok');
+      renderAll();
+      toast('Письмо легло в архив — оно осталось на этом устройстве');
+    }else{
+      state.letters.pop();
+    }
+  }
+
+  function removeLetter(id){
+    if(!state || !state.letters) return;
+    state.letters = state.letters.filter(function(l){ return l.id !== id; });
+    if(save()){
+      buzz('tap');
+      renderAll();
+      toast('Письмо убрано');
+    }
+  }
+
+  function addDoc(){
+    if(!state) return;
+    var wEl = $('dcWhat'), yEl = $('dcYear'), pEl = $('dcWhere');
+    if(!wEl) return;
+    var what  = wEl.value.trim().replace(/\s+/g, ' ').slice(0, 80);
+    var year  = yEl ? yEl.value.trim().replace(/\s+/g, ' ').slice(0, 12) : '';
+    var where = pEl ? pEl.value.trim().replace(/\s+/g, ' ').slice(0, 60) : '';
+    if(!what){
+      toast('Напишите, что это за документ');
+      wEl.focus();
+      return;
+    }
+    if(!state.documents) state.documents = [];
+    state.documents.push({ id: uid(), what: what, year: year, where: where, at: Date.now() });
+    if(save()){
+      wEl.value = '';
+      if(yEl) yEl.value = '';
+      if(pEl) pEl.value = '';
+      buzz('ok');
+      renderAll();
+      toast('Записали словами — сама бумага остаётся у вас');
+    }else{
+      state.documents.pop();
+    }
+  }
+
+  function removeDoc(id){
+    if(!state || !state.documents) return;
+    state.documents = state.documents.filter(function(d){ return d.id !== id; });
+    if(save()){
+      buzz('tap');
+      renderAll();
+      toast('Запись о документе убрана');
+    }
+  }
+
+  /* ---------- F2 · открытые вопросы ----------
+     Собраны только из настоящей работы этого устройства: имена, которые
+     вписал человек, подписи под снимками, письма и записи о документах.
+     Подтверждениями они не становятся и шкалу доверия за «Столом» не
+     трогают: расписаться может только второй живой человек. Мы лишь
+     честно называем, под чем второго голоса пока нет. */
+  function openQuestions(){
+    if(!state) return [];
+    var out = [], i;
+    for(i=0;i<state.people.length;i++){
+      var p = state.people[i];
+      if(!p || !p.name || p.role === 'я') continue;
+      out.push({ k: 'имя', t: p.name + (p.role ? ' — ' + p.role : '') });
+    }
+    for(i=0;i<state.photos.length;i++){
+      var f = state.photos[i];
+      if(f.cap && f.cap.trim()) out.push({ k: 'подпись', t: f.cap.trim() });
+    }
+    var lts = letters();
+    for(i=0;i<lts.length;i++){
+      if(!lts[i].text) continue;
+      out.push({ k: 'письмо', t: lts[i].title || snippet(lts[i].text, 60) });
+    }
+    var dcs = docs();
+    for(i=0;i<dcs.length;i++){
+      if(dcs[i].what) out.push({ k: 'документ', t: dcs[i].what });
+    }
+    return out;
+  }
+
+  function renderPapers(){
+    var lts = letters(), dcs = docs(), html, i;
+
+    var lw = $('ltList');
+    if(lw){
+      html = lts.length ? '' :
+        '<li class="pp-empty">Пока пусто. Письмо появится здесь тогда, когда вы его напишете — ни одного примера мы сюда не положим.</li>';
+      for(i = lts.length - 1; i >= 0; i--){
+        var l = lts[i];
+        html += '<li class="pp-it">' +
+                  '<button class="pp-rm" type="button" data-ltrm="' + escA(l.id) + '" aria-label="Убрать письмо">×</button>' +
+                  '<b>' + esc(l.title || 'Письмо без заголовка') + '</b>' +
+                  '<p>' + esc(l.text) + '</p>' +
+                  (l.at ? '<small>' + esc(tstamp(l.at)) + ' · на этом устройстве</small>' : '') +
+                '</li>';
+      }
+      lw.innerHTML = html;
+    }
+
+    var dw = $('dcList');
+    if(dw){
+      html = dcs.length ? '' :
+        '<li class="pp-empty">Пока пусто. Запишите первую бумагу словами — что это и где она лежит. Файл мы не просим и не храним.</li>';
+      for(i = dcs.length - 1; i >= 0; i--){
+        var d = dcs[i], line = docLine(d);
+        html += '<li class="pp-it">' +
+                  '<button class="pp-rm" type="button" data-dcrm="' + escA(d.id) + '" aria-label="Убрать запись">×</button>' +
+                  '<b>' + esc(d.what) + '</b>' +
+                  '<p>' + (line ? esc(line) + ' · ' : '') + 'записано словами, файла здесь нет</p>' +
+                  (d.at ? '<small>' + esc(tstamp(d.at)) + ' · на этом устройстве</small>' : '') +
+                '</li>';
+      }
+      dw.innerHTML = html;
+    }
+
+    var c = $('ppCnt');
+    if(c){
+      c.textContent = (!lts.length && !dcs.length)
+        ? 'пока пусто'
+        : (lts.length + ' ' + letterWord(lts.length) + ' · ' + dcs.length + ' ' + docWord(dcs.length));
+    }
+
+    var w = $('ppWait');
+    if(w){
+      var oq = openQuestions();
+      w.classList.toggle('hide', !oq.length);
+      if(oq.length){
+        var rows = '';
+        for(i=0;i<oq.length && i<4;i++){
+          rows += '<li>' + esc(oq[i].k) + ' · ' + esc(snippet(oq[i].t, 64)) + '</li>';
+        }
+        if(oq.length > 4) rows += '<li>и ещё ' + (oq.length - 4) + '</li>';
+        w.innerHTML = '<b>Ждёт второго голоса: ' + oq.length + '</b>' +
+          '<p>Это не подтверждения, а открытые вопросы. Под именами, подписями, письмами и записями о документах пока стоит один человек. Расписаться под ними может только второй живой человек — сами мы ни одной галочки не поставим.</p>' +
+          '<ul>' + rows + '</ul>' +
+          '<p><a href="/smh-cabinet-podtverzhdeniya.html" data-cab="/smh-cabinet-podtverzhdeniya.html">Открыть «Подтверждения» в архиве</a></p>';
+      }
+    }
   }
 
   /* ---------- E · подписать свободное место ----------
@@ -2688,6 +3001,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     renderHome();
     renderButler();
     renderJournal();
+    renderPapers();
     renderInviteNext();
     renderJoinPath();
     renderRibbon();
@@ -3283,6 +3597,25 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(!state) return;
     buzz('tap');
     lightCard('.card--butler', $('bText'));
+  });
+
+  /* F2 · письмо и документ пишутся рукой человека и остаются на устройстве */
+  $('ltSave').addEventListener('click', addLetter);
+  $('dcSave').addEventListener('click', addDoc);
+  $('ltText').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && (e.metaKey || e.ctrlKey)) addLetter();
+  });
+  $('dcWhat').addEventListener('keydown', function(e){ if(e.key === 'Enter') addDoc(); });
+  $('dcYear').addEventListener('keydown', function(e){ if(e.key === 'Enter') addDoc(); });
+  $('dcWhere').addEventListener('keydown', function(e){ if(e.key === 'Enter') addDoc(); });
+
+  $('ltList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-ltrm]');
+    if(b && state) removeLetter(b.getAttribute('data-ltrm'));
+  });
+  $('dcList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-dcrm]');
+    if(b && state) removeDoc(b.getAttribute('data-dcrm'));
   });
 
   /* F · отложенный вопрос: напомнили один раз и убрали по слову человека */
