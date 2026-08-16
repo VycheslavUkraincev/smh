@@ -410,6 +410,10 @@ body:not(.demo-on) [data-demo]{display:none!important}
       if(!s.people) s.people = [];
       if(!s.photos) s.photos = [];
       if(!s.notes)  s.notes  = [];
+      /* F7 · письма, записи о бумагах и голос словами — из того же круга */
+      if(!s.letters)   s.letters   = [];
+      if(!s.documents) s.documents = [];
+      if(!s.voices)    s.voices    = [];
       return s;
     }catch(e){ return null; }
   }
@@ -470,6 +474,52 @@ body:not(.demo-on) [data-demo]{display:none!important}
     return out;
   }
 
+  function cut(s, n){
+    s = String(s == null ? '' : s).trim().replace(/\s+/g, ' ');
+    return s.length > n ? (s.slice(0, n - 1) + '…') : s;
+  }
+
+  /* F7 · кроме имён в круге лежат письма, записи о бумагах и голос,
+     записанный словами. На экране о приватности мы называем только то,
+     чем человек сам их озаглавил: сам текст остаётся в вечере, скана
+     документа и аудиозаписи здесь нет вовсе. */
+  function artRows(st){
+    var out = [], i;
+    var lts = st.letters || [], dcs = st.documents || [], vcs = st.voices || [];
+    for(i = lts.length - 1; i >= 0 && out.length < 3; i--){
+      var l = lts[i];
+      if(!l || !l.text) continue;
+      out.push({ lab: 'Письмо · ' + (l.title ? cut(l.title, 60) : 'без заголовка'),
+                 txt: 'Набрано словами в вечере и лежит в памяти этого браузера. Сам текст письма мы на этом экране не раскрываем.' });
+    }
+    for(i = dcs.length - 1; i >= 0 && out.length < 6; i--){
+      var d = dcs[i];
+      if(!d || !d.what) continue;
+      out.push({ lab: 'Документ · ' + cut(d.what, 60),
+                 txt: 'Запись словами о бумаге, которая лежит у вас дома. Скана документа здесь нет и мы его не просили.' });
+    }
+    for(i = vcs.length - 1; i >= 0 && out.length < 9; i--){
+      var v = vcs[i];
+      if(!v || !v.text) continue;
+      out.push({ lab: 'Голос · ' + (v.who ? cut(v.who, 60) : 'имя не названо'),
+                 txt: 'Слова того, кто слушал. Аудиозаписи здесь нет, микрофон мы не включали.' });
+    }
+    return out;
+  }
+
+  function artsHtml(st){
+    var rows = artRows(st), h = '', i;
+    if(!rows.length){
+      return '<p class="cr-line">Писем, записей о бумагах и голоса, записанного словами, в этом круге пока нет — значит, и хранить о них нечего.</p>';
+    }
+    h  = '<p class="cr-line">Кроме имён в памяти этого браузера лежит то, что семья записала словами. Скана документа и аудиозаписи здесь нет: бумага остаётся у вас дома, а голос — это слова того, кто слушал. Всё это уходит вместе с этим браузером, если очистить его память.</p>';
+    h += '<ul class="cr-words">';
+    for(i = 0; i < rows.length; i++){
+      h += '<li class="cr-w"><b>' + esc(rows[i].lab) + '</b><p>' + esc(rows[i].txt) + '</p></li>';
+    }
+    return h + '</ul>';
+  }
+
   function peopleHtml(st){
     var h = '<div class="cr-people">', any = false;
     for(var i=0;i<st.people.length;i++){
@@ -484,13 +534,25 @@ body:not(.demo-on) [data-demo]{display:none!important}
 
   var code  = cleanCode(param('c')) || cleanCode(param('circle')) || cleanCode(ls(LAST) || '');
   var st    = load(code);
-  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length));
+  var lived = !!(st && (st.people.length || st.photos.length || st.notes.length ||
+                        st.letters.length || st.documents.length || st.voices.length));
+  var arts  = !!(st && (st.letters.length || st.documents.length || st.voices.length));
   var back  = code ? (GAME + '?circle=' + encodeURIComponent(code)) : GAME;
 
   /* то, что именно этот экран может честно показать из круга */
   function body(){
     var h = '', i;
-    h += nums([[st.people.length, word(st.people.length, 'человек', 'человека', 'человек')]]);
+    var nrows = [[st.people.length, word(st.people.length, 'человек', 'человека', 'человек')]];
+    /* F7 · цифры писем, бумаг и голоса — только длина своих списков */
+    var nl = (st.letters || []).length,
+        nd = (st.documents || []).length,
+        nv = (st.voices || []).length;
+    if(nl + nd + nv > 0){
+      nrows.push([nl, word(nl, 'письмо', 'письма', 'писем')]);
+      nrows.push([nd, word(nd, 'документ', 'документа', 'документов')]);
+      nrows.push([nv, word(nv, 'голос', 'голоса', 'голосов')]);
+    }
+    h += nums(nrows);
     if(st.people.length){
       h += '<ul class="cr-words">';
       for(i=0;i<st.people.length;i++){
@@ -506,6 +568,8 @@ body:not(.demo-on) [data-demo]{display:none!important}
     }else{
       h += '<p class="cr-line">В круге пока никого нет, поэтому и раздавать права некому. Первое имя вписывают в вечере.</p>';
     }
+    /* F7 · что ещё лежит в этом круге на этом устройстве */
+    h += artsHtml(st);
     h += '<p class="cr-line">«Бабушка» или «дядя» — это то, кем человек приходится вам, а не уровень доступа. Таблица ниже описывает роли будущего сервиса: пока круг живёт в этом браузере, доступ есть у того, у кого в руках это устройство.</p>';
     return h;
   }
@@ -530,7 +594,9 @@ body:not(.demo-on) [data-demo]{display:none!important}
     var title, sub;
     if(lived){
       title = st.name || 'Ваш круг';
-      sub = 'Люди круга и то, кем они вам приходятся. Только имена, набранные человеком.';
+      sub = arts
+        ? 'Люди круга и то, что лежит рядом с ними в памяти этого браузера. Только слова, набранные человеком.'
+        : 'Люди круга и то, кем они вам приходятся. Только имена, набранные человеком.';
     }else if(st){
       title = st.name || 'Ваш круг';
       sub = 'Круг есть, памяти в нём пока нет.';
@@ -550,7 +616,8 @@ body:not(.demo-on) [data-demo]{display:none!important}
     else { c.hidden = true; }
 
     $('crBody').innerHTML = lived ? body() : emptyHtml();
-    $('crNote').textContent = 'Круг хранится только в этом браузере, на этом устройстве — это не синхронизация. Пока у круга нет сервера, роли — это слова из вечера, а не права доступа.';
+    $('crNote').textContent = 'Круг хранится только в этом браузере, на этом устройстве — это не синхронизация. Пока у круга нет сервера, роли — это слова из вечера, а не права доступа.'
+      + (arts ? ' Письма, записи о бумагах и голос лежат там же и уйдут вместе с памятью этого браузера: скана документа и аудиозаписи у нас нет вовсе.' : '');
 
     var who = '';
     if(lived){
