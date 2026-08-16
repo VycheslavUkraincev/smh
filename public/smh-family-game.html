@@ -1358,6 +1358,127 @@ body.is-dark .card--week,body.is-dark .card--road,body.is-dark .card--table{box-
   .card--empty::after{top:38px;width:280px;height:210px}
   .zone-rail > .card{box-shadow:none}
 }
+
+/* ============================================================
+   RAISE 13 · вечер ниже первого экрана — та же комната
+   Продолжение raise12: подача, и только подача. Ни строки
+   поведения, ни нового обещания, ни одного выдуманного имени.
+   Бумага, свет и тонкие линии — CSS и SVG, без картинок и лиц.
+   ============================================================ */
+
+/* — первый вход приходит так же мягко, как вечер — */
+@keyframes smh-setup{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+#setup:not(.hide){animation:smh-setup .55s ease both}
+
+/* — «создать круг» стоит на той же пергаментной полке, что и имя круга — */
+.card--hero{
+  padding-bottom:22px;
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.46), transparent 210px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 64px);
+}
+body.is-dark .card--hero{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.12), transparent 210px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 64px);
+}
+.card--hero::after{
+  content:'';position:absolute;left:0;right:0;top:0;height:2px;pointer-events:none;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent);opacity:.28;
+}
+.frame-cap{max-width:33ch;line-height:1.55}
+
+/* — «меня позвали» — вторая дверь той же комнаты, а не холодная анкета — */
+.card--join{
+  position:relative;overflow:hidden;
+  background-image:linear-gradient(180deg, var(--rail), transparent 180px);
+  box-shadow:0 1px 1px rgba(64,46,34,.04), 0 8px 22px -16px rgba(64,46,34,.26);
+}
+body.is-dark .card--join{box-shadow:0 1px 1px rgba(0,0,0,.22), 0 8px 22px -16px rgba(0,0,0,.5)}
+.card--join .card-head h2{font-size:19px}
+.card--join .card-sub{color:var(--ink-2)}
+
+/* — набор приглашения отступает под имя круга: тише, но так же в один тап — */
+.card--invite .card-head h2{font-size:19px}
+.inv-kit{
+  border-color:var(--divider);background-color:transparent;
+  background-image:linear-gradient(180deg, var(--rail), transparent 150px);
+}
+.inv-kit-lab{font-size:9.5px;letter-spacing:.1em}
+.inv-kit + .inv-kit{margin-top:12px}
+.code-box{
+  border-color:var(--seat);
+  background-image:linear-gradient(180deg, rgba(228,177,67,.09), transparent 120%);
+}
+.inv-keep{font-size:11.5px}
+
+/* — дерево с живыми именами читается как карта; свободное место всё так же зовёт — */
+.card--tree{
+  padding-bottom:20px;
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.4), transparent 170px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+body.is-dark .card--tree{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.12), transparent 170px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+.card--tree .card-head h2{font-size:19px}
+.tree-map{margin-top:6px}
+.tree-map .tm-taken .tm-c{filter:drop-shadow(0 0 5px rgba(228,177,67,.32))}
+.tree-map .tm-free .tm-c{stroke-dasharray:3.5 4.5}
+.tree-map .tm-free:hover .tm-c,.tree-map .tm-free:focus .tm-c{stroke-width:1.7}
+.tree-hint{max-width:36ch;margin-left:auto;margin-right:auto}
+
+/* — дворецкий на той же бумаге; слова его прежние — */
+.card--butler{
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.42), transparent 150px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+body.is-dark .card--butler{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.13), transparent 150px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+.card--butler .card-head h2{font-size:19px}
+.but-ava{box-shadow:inset 0 0 0 1px rgba(255,255,255,.4), 0 0 0 3px rgba(154,111,68,.07)}
+.card--butler .sum{margin-top:18px;border-top-color:var(--line)}
+.card--butler .sum h3{font-size:18px}
+
+/* — остальной вечер держит один голос: тише героя, одна бумага — */
+.card--today .card-head h2,.card--shelf .card-head h2,.card--photos .card-head h2,
+.card--ask .card-head h2,.card--journal .card-head h2,.card--papers .card-head h2,
+.card--voice .card-head h2,.card--next .card-head h2,.card--quest .card-head h2,
+.card--people .card-head h2{font-size:19px}
+.card--invite,.card--butler,.card--ask,.card--shelf,.card--photos,
+.card--journal,.card--papers,.card--voice,.card--next,.card--tree{
+  box-shadow:0 1px 1px rgba(64,46,34,.04), 0 8px 22px -16px rgba(64,46,34,.26);
+}
+body.is-dark .card--invite,body.is-dark .card--butler,body.is-dark .card--ask,
+body.is-dark .card--shelf,body.is-dark .card--photos,body.is-dark .card--journal,
+body.is-dark .card--papers,body.is-dark .card--voice,body.is-dark .card--next,
+body.is-dark .card--tree{
+  box-shadow:0 1px 1px rgba(0,0,0,.22), 0 8px 22px -16px rgba(0,0,0,.5);
+}
+.card--week,.card--road{
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.4), transparent 140px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+body.is-dark .card--week,body.is-dark .card--road{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.12), transparent 140px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+
+/* — та же комната от 720px, только просторнее — */
+@media (min-width:720px){
+  .card--hero{padding-bottom:26px}
+  .card--tree{padding-bottom:24px}
+  .tree-hint{max-width:40ch}
+}
 </style>
 </head>
 <body>
