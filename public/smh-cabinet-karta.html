@@ -95,6 +95,148 @@
 .cr-demo-hint{font-size:12px;color:var(--muted)}
 .cr-demo-flag{margin:0 0 14px;font-size:12.5px;color:var(--muted);border-left:2px solid var(--line);padding-left:11px}
 body:not(.demo-on) [data-demo]{display:none!important}
+
+/* ============================================================
+   raise14 - вечер входит в кабинет.
+   Тот же дом, что и «Вечер»: тёплый купол лампы над комнатой,
+   берёзовая бумага на главных карточках, тише иерархия заголовков,
+   дверь обратно - дверь, а не служебная ссылка.
+   Только CSS и SVG: ни фотографии, ни лица, ни одного придуманного
+   слова, имени или числа. Шкала доверия, ноль подтверждений,
+   счётчики и пример за кнопкой - не тронуты.
+   ============================================================ */
+:root{
+  --page:#F6F1E6;
+  --side:#F4EEE1;
+  --card:#FDFAF4;
+  --border:#E7DAC5;
+  --divider:#E5D8C4;
+  --line:#C6B295;
+  --pill:#EEE1CB;
+  --active:#EADCC6;
+  --lamp:rgba(242,200,75,.17);
+  --birch:rgba(154,111,68,.055);
+  --bark:#5A3A28;
+  --seat:rgba(154,111,68,.32);
+  --gold:rgba(228,177,67,.55);
+  --hair:rgba(154,111,68,.20);
+  --paper:linear-gradient(180deg,rgba(253,250,244,.97),rgba(249,243,233,.97));
+  --lift:0 1px 1px rgba(64,46,34,.05), 0 12px 30px -14px rgba(64,46,34,.28);
+  --shadow:0 1px 2px rgba(64,46,34,.04), 0 8px 22px -12px rgba(64,46,34,.16);
+}
+
+/* купол лампы над всей комнатой - один тихий план, как в вечере */
+body{position:relative}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(62% 44% at 50% -8%, var(--lamp), transparent 72%),
+    radial-gradient(96% 62% at 50% 106%, rgba(154,111,68,.055), transparent 76%);
+  animation:smh-canopy14 19s ease-in-out infinite;
+}
+@keyframes smh-canopy14{0%,100%{opacity:.84}50%{opacity:1}}
+.shell{position:relative;z-index:1}
+
+/* бумага и берёзовое волокно на главных карточках */
+.card,.panel,.foot,.seam,.cr,.seam-door-row,.stats{
+  background:
+    var(--paper),
+    repeating-linear-gradient(90deg,var(--birch) 0 1px,transparent 1px 58px);
+  border-color:var(--hair);
+  box-shadow:var(--lift);
+}
+
+/* светящийся шов по верхней кромке карточки круга */
+.seam,.cr{position:relative}
+.seam::before,.cr::before{
+  content:"";position:absolute;left:16px;right:16px;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+/* заголовок экрана - пергаментная плашка, а не строка дашборда */
+.page-head{
+  position:relative;isolation:isolate;overflow:hidden;
+  margin:0 0 18px;padding:24px 26px 22px;
+  border:1px solid var(--hair);border-radius:18px;
+  background:
+    var(--paper),
+    repeating-linear-gradient(90deg,var(--birch) 0 1px,transparent 1px 64px);
+  box-shadow:var(--lift);
+}
+.page-head::before{
+  content:"";position:absolute;left:18px;right:18px;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.crumb{font-size:11.5px;letter-spacing:.1em;opacity:.9;margin:0 0 9px}
+.page-head h1{font-size:clamp(28px,3.1vw,36px);font-weight:500;letter-spacing:.3px;margin:0 0 9px}
+.page-head .lede{max-width:62ch}
+
+/* веточка коры и листьев, уходящая за угол - как на имени круга в вечере */
+.page-head::after,.seam::after{
+  content:"";position:absolute;right:-6px;bottom:-14px;
+  width:158px;height:112px;z-index:-1;pointer-events:none;opacity:.46;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20158%20112%27%3E%3Cpath%20d%3D%27M4%20108C36%2096%2062%2078%2082%2052%2096%2033%20112%2020%20152%206%27%20fill%3D%27none%27%20stroke%3D%27%235A3A28%27%20stroke-width%3D%271.8%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.46%27%2F%3E%3Cpath%20d%3D%27M38%2086c-12-3-20-11-22-22%2012-2%2023%204%2027%2014%27%20fill%3D%27%238A9A45%27%20opacity%3D%27.38%27%2F%3E%3Cpath%20d%3D%27M60%2066c-8-9-9-20-3-29%2010%206%2014%2017%2010%2027%27%20fill%3D%27%238A9A45%27%20opacity%3D%27.40%27%2F%3E%3Cpath%20d%3D%27M88%2044c-2-12%203-22%2013-27%205%2010%203%2021-5%2028%27%20fill%3D%27%238A9A45%27%20opacity%3D%27.34%27%2F%3E%3Cpath%20d%3D%27M114%2026c3-11%2012-18%2023-19%200%2011-7%2020-17%2023%27%20fill%3D%27%23E4B143%27%20opacity%3D%27.38%27%2F%3E%3Ccircle%20cx%3D%27128%27%20cy%3D%2714%27%20r%3D%272.2%27%20fill%3D%27%23E4B143%27%20opacity%3D%27.5%27%2F%3E%3C%2Fsvg%3E") no-repeat right bottom/contain;
+}
+.seam{isolation:isolate}
+
+/* второстепенное - тише: волоски вместо рамок, мельче тени */
+.sib{background:transparent;border-color:var(--hair);box-shadow:none}
+.sib.is-here{background:var(--active);border-color:var(--seat)}
+.card-head h2,.panel-head h2{font-weight:500;letter-spacing:.3px}
+.card-head h2{font-size:19.5px}
+.legend,.note{opacity:.94}
+.sidebar{background:linear-gradient(180deg,#F5EFE2,#F2EBDD);border-right-color:var(--hair)}
+.brand{color:#3A2A20}
+.search input{background:rgba(253,250,244,.92);border-color:var(--hair)}
+.demo-toggle,.cr-demo-btn{border-color:var(--seat);box-shadow:none}
+
+/* пустое остаётся пустым - но на тёплой бумаге, а не в холодной рамке */
+.cr-empty,.seam-empty{
+  background:linear-gradient(180deg,rgba(252,247,238,.92),rgba(246,239,227,.92));
+  border-color:var(--seat);
+}
+.cr-empty h3,.seam-empty h3{font-weight:500;font-size:20px}
+.cr-code{
+  background:rgba(250,244,231,.92);border:1px dashed var(--seat);color:var(--accent-deep);
+  box-shadow:0 0 14px rgba(228,177,67,.16);
+}
+
+/* дверь обратно в вечер - дверь того же дома */
+.seam-door-row{padding:17px 19px;margin:20px 0 0}
+.seam-back{
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#F7EDD9,#EFE2CA);
+  color:#4A3524;
+  border:1px solid var(--seat);
+  border-radius:12px;
+  padding:12px 22px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65), 0 10px 22px -16px rgba(64,46,34,.55);
+}
+.seam-back::before{
+  content:"";position:absolute;left:12px;right:12px;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(228,177,67,.9),transparent);
+}
+.seam-back:hover{background:linear-gradient(180deg,#FBF3E3,#F3E8D3);border-color:var(--line);transform:translateY(-1px)}
+.seam-back svg{opacity:.75}
+.seam-back2{color:var(--accent-deep);opacity:.88}
+
+/* вторая тихая моция: комната появляется, а не выпрыгивает */
+@keyframes smh-room14{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.main{animation:smh-room14 .78s cubic-bezier(.2,.7,.3,1) both}
+
+@media (max-width:640px){
+  .page-head{padding:19px 18px 18px;border-radius:16px}
+  .page-head::after,.seam::after{width:118px;height:84px;opacity:.4}
+}
+@media (prefers-reduced-motion:reduce){
+  body::before{animation:none!important}
+  .main{animation:none!important;opacity:1!important;transform:none!important}
+}
+
+/* raise14 · Карта: догадка остаётся догадкой, но на тёплой бумаге */
+.guess{background:linear-gradient(180deg,rgba(252,247,238,.92),rgba(246,239,227,.92))}
+.guess h3{font-weight:500}
+.clash-side b{font-weight:500;letter-spacing:.3px}
 </style>
 </head>
 <body>
