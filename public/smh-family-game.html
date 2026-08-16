@@ -1248,6 +1248,116 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   background:var(--soft);font-size:12px;line-height:1.55;color:var(--ink)}
 .qs-back b{font-weight:600}
 .qs-back .btn{margin-top:9px;font-size:11.5px;padding:7px 11px}
+
+/* ============================================================
+   RAISE 12 · вечер читается как одна композиция
+   Только подача. Ни одной строки поведения, ни одного нового
+   обещания. Всё нарисовано CSS и SVG: ни картинок, ни лиц.
+   ============================================================ */
+
+/* — свод над столом: тёплый купол, который едва дышит — */
+.app{position:relative}
+@keyframes smh-canopy{
+  0%,100%{transform:translateX(-50%) translateY(0);opacity:.82}
+  50%{transform:translateX(-50%) translateY(12px);opacity:1}
+}
+.app::before{
+  content:'';position:fixed;left:50%;top:0;z-index:-1;pointer-events:none;
+  width:min(150vw,1320px);height:min(76vh,600px);transform:translateX(-50%);
+  background:
+    radial-gradient(56% 58% at 50% 0%, var(--lamp), transparent 72%),
+    radial-gradient(36% 42% at 50% 8%, rgba(228,177,67,.06), transparent 70%);
+  animation:smh-canopy 19s ease-in-out infinite;
+}
+
+/* — марка держит вечер, а не висит сбоку — */
+.top .brand{font-size:23px;letter-spacing:.3px}
+.top::after{
+  content:'';position:absolute;left:16px;right:16px;bottom:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.hero-head .crumb{letter-spacing:.14em}
+.hero-head h1{letter-spacing:.1px}
+
+/* — мягкий приход вечера — */
+@keyframes smh-shell{from{opacity:0}to{opacity:1}}
+#game:not(.hide){animation:smh-shell .5s ease both}
+
+/* — имя круга как заголовок вечера, а не подпись — */
+.card--circle{
+  padding:22px 19px 20px;
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.5), transparent 190px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 64px);
+}
+body.is-dark .card--circle{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.13), transparent 190px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 64px);
+}
+.card--circle::after{
+  content:'';position:absolute;left:0;right:0;top:0;height:2px;pointer-events:none;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent);opacity:.34;
+}
+.circle-line{align-items:flex-start;gap:14px}
+.circle-name{font-size:clamp(29px,8.2vw,38px);line-height:1.08;letter-spacing:.1px}
+.card--circle .code{
+  margin-top:9px;padding:5px 12px;font-size:11px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;
+  color:var(--accent-deep);background:var(--tile);border-color:var(--seat);
+}
+.card--circle .level{margin-top:9px;font-size:12.5px}
+.card--circle > *{position:relative;z-index:1}
+
+/* веточка на краю полки: кора и лист, больше ничего */
+.circle-sprig{position:absolute;right:-8px;bottom:-16px;width:132px;height:96px;pointer-events:none;opacity:.5;z-index:0}
+.circle-sprig svg{width:100%;height:100%;display:block}
+.circle-sprig .cs-branch{fill:none;stroke:var(--bark);stroke-width:1.7;stroke-linecap:round;opacity:.5}
+.circle-sprig .cs-leaf{fill:var(--leaf);opacity:.42}
+.circle-sprig .cs-leaf--gold{fill:var(--leaf-gold);opacity:.4}
+
+/* — пустая рамка остаётся сердцем вечера — */
+.card--empty{padding:26px 18px 26px}
+@keyframes smh-frame-glow{0%,100%{opacity:.5;transform:translateX(-50%) scale(1)}50%{opacity:.92;transform:translateX(-50%) scale(1.04)}}
+.card--empty::after{
+  content:'';position:absolute;left:50%;top:30px;width:230px;height:180px;z-index:0;
+  transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(closest-side, var(--glow), transparent 72%);
+  animation:smh-frame-glow 7.5s ease-in-out infinite;
+}
+.card--empty > *{position:relative;z-index:1}
+.frame-big{width:min(100%,360px)}
+.empty-t{font-size:clamp(23px,6.4vw,29px);line-height:1.18}
+.empty-s{font-size:14px;max-width:34ch}
+
+/* — гость входит в ту же комнату, а не в предупреждение — */
+.card--guestfirst{
+  position:relative;overflow:hidden;border-color:var(--seat);
+  background-color:var(--tg-theme-secondary-bg-color, var(--card));
+  background-image:linear-gradient(180deg, rgba(228,177,67,.10), transparent 150px);
+}
+body.is-dark .card--guestfirst{background-image:linear-gradient(180deg, rgba(228,177,67,.07), transparent 150px)}
+.card--guestfirst::after{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;pointer-events:none;
+  background:linear-gradient(180deg, var(--leaf-gold), var(--accent));opacity:.5;
+}
+
+/* — второстепенное звучит тише, чтобы рамку было слышно — */
+.card-sub{font-size:12.5px}
+.card-head .cnt{background:transparent;border:1px solid var(--border);color:var(--muted);box-shadow:none;font-size:11px}
+.card--week .card-head h2,.card--road .card-head h2,.card--table .card-head h2{font-size:19px}
+.card--week,.card--road,.card--table{box-shadow:0 1px 1px rgba(64,46,34,.04), 0 8px 22px -16px rgba(64,46,34,.26)}
+body.is-dark .card--week,body.is-dark .card--road,body.is-dark .card--table{box-shadow:0 1px 1px rgba(0,0,0,.22), 0 8px 22px -16px rgba(0,0,0,.5)}
+
+/* — комната от 720px: те же две зоны, только просторнее — */
+@media (min-width:720px){
+  .card--circle{padding:26px 24px 24px}
+  .circle-name{font-size:clamp(32px,3.4vw,42px)}
+  .circle-sprig{width:170px;height:122px;opacity:.44}
+  .card--empty{padding:34px 24px 32px}
+  .card--empty::after{top:38px;width:280px;height:210px}
+  .zone-rail > .card{box-shadow:none}
+}
 </style>
 </head>
 <body>
@@ -1344,6 +1454,16 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   <section id="game" class="hide">
 
     <div class="card card--circle">
+      <span class="circle-sprig" aria-hidden="true">
+        <svg viewBox="0 0 132 96" role="presentation" focusable="false">
+          <path class="cs-branch" d="M126 92C104 88 84 78 68 62 56 50 46 38 34 30"/>
+          <path class="cs-branch" d="M92 74C86 64 78 56 68 50"/>
+          <path class="cs-branch" d="M108 84C106 72 101 62 94 54"/>
+          <path class="cs-leaf" d="M68 50c-9 .8-14 5.9-14 13.2 7-.2 13.2-4.5 14-13.2z"/>
+          <path class="cs-leaf" d="M94 54c-9 .8-14 5.9-14 13.2 7-.2 13.2-4.5 14-13.2z"/>
+          <path class="cs-leaf cs-leaf--gold" d="M34 30c8 .7 12.4 5.2 12.4 11.7-6.2-.2-11.7-4-12.4-11.7z"/>
+        </svg>
+      </span>
       <div class="circle-line">
         <div style="min-width:0">
           <h1 class="circle-name serif" id="cName">Семейный круг</h1>
