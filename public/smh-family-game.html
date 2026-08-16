@@ -374,6 +374,16 @@ body.is-dark .auth-bar{background-image:linear-gradient(180deg, rgba(198,161,132
 .card--join.card--guest{border-style:solid;border-color:var(--accent);background-color:var(--soft)}
 .join-guest{margin:-4px 0 12px;font-size:12.5px;line-height:1.55;color:var(--accent-deep)}
 .join-field{margin-top:12px}
+/* F6 · первый вечер приглашённого: та же тихая карточка, без праздника и без чужих лиц */
+.card--guestfirst{border-color:var(--accent);background-color:var(--soft)}
+.gf-step{margin-top:12px}
+.gf-lab{display:block;margin-bottom:6px;font-size:12.5px;color:var(--ink-2)}
+.gf-note{margin:8px 0 0;font-size:11.5px;line-height:1.55;color:var(--muted)}
+.gf-done{margin:10px 0 0;padding:10px 13px;border:1px solid var(--border);border-radius:12px;
+  font-size:12.5px;line-height:1.55;color:var(--ink-2)}
+.gf-done b{font-weight:600;color:var(--ink)}
+.gf-cta{margin-top:12px}
+.gf-honest{margin:12px 0 0;font-size:11.5px;line-height:1.6;color:var(--muted)}
 
 /* ---------- круг: имя, код, кольцо ---------- */
 .card--circle{position:relative;overflow:hidden}
@@ -1369,6 +1379,28 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
          неделя из трёх дел (макет 02). -->
     <div class="home" id="home" data-brand-apply="03-empty-frame · 01-tree-map · 02-week">
 
+      <!-- F6 · первый вечер приглашённого. На этом телефоне круг пуст: людей,
+           снимков и писем пригласившего здесь нет и взяться им неоткуда, поэтому
+           карточка предлагает ровно один настоящий шаг на своём устройстве. -->
+      <div class="card card--guestfirst hide" id="guestFirst" data-brand-apply="F6-guest-first">
+        <div class="card-head"><h2>Вы вошли по приглашению</h2></div>
+        <p class="card-sub">Круг открыт на этом телефоне под тем же кодом. Своя часть начинается здесь — с одного шага.</p>
+        <div class="gf-step" id="gfSeat">
+          <label class="gf-lab" for="guestName">Как вас зовут в этом круге</label>
+          <div class="sw-row">
+            <input class="inp" id="guestName" type="text" maxlength="32" placeholder="Например: Миша" autocomplete="off">
+            <button class="btn btn--primary" id="guestSeat" type="button">Занять своё место</button>
+          </div>
+          <p class="gf-note">Это место — ваше, и имя на нём пишете вы. Остальных мы за вас не вписываем: их назовут те, кто помнит.</p>
+        </div>
+        <p class="gf-done hide" id="gfSeatDone"></p>
+        <div class="btn-row gf-cta">
+          <button class="btn btn--quiet" id="guestPhoto" type="button">Положить первое фото</button>
+          <button class="btn btn--quiet" id="guestWord" type="button">Записать первое слово</button>
+        </div>
+        <p class="gf-honest">Архив здесь пока ваш: снимки и имена того, кто вас позвал, остаются на его телефоне — перенести их нам нечем, и делать вид, будто они уже здесь, мы не станем. Общая копилка появится, когда у круга будет сервер. Код круга <code id="gfCode">—</code> остаётся тем же, новый не выдаём.</p>
+      </div>
+
       <div class="card card--empty" id="emptyFrame">
         <div class="frame-big" role="img" aria-label="Пустая рамка: здесь будет первая память круга">
           <svg viewBox="0 0 300 200" aria-hidden="true">
@@ -1871,6 +1903,10 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       pskip: [],
       firstMem: null,
       invited: false,
+      /* F6 . отметка о входе по приглашению живёт только на этом устройстве
+         и ничего не утверждает о круге пригласившего. */
+      joined: null,
+      guest: false,
       born: Date.now()
     };
   }
@@ -2505,6 +2541,15 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   function ribbonPick(){
     if(!state) return null;
     var i;
+    /* F6 . у приглашённого первый вечер свой: сначала своё место и своё
+       первое, а не общий совет хозяину круга. */
+    if(guestFirst()){
+      return selfSeat()
+        ? { t: 'Ваш первый вечер: положите первое фото или слово', go: 'Открыть',
+            act: function(){ lightCard('.card--guestfirst'); } }
+        : { t: 'Вас позвали — займите своё место в круге', go: 'Занять',
+            act: function(){ lightCard('.card--guestfirst', $('guestName')); } };
+    }
     if(!circleFilled()){
       return { t: 'Пустая рамка ждёт первое: снимок или имя', go: 'Начать',
                act: function(){ lightCard('.card--empty'); } };
@@ -2617,6 +2662,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     renderWeek();
     renderShelf();
     renderFirstMem(filled);
+    renderGuestFirst();
     renderWish();
   }
 
@@ -3151,6 +3197,75 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       'остаётся свободным — мы его никем не занимаем.';
   }
 
+  /* ---------- F6 · первый вечер приглашённого ----------
+     Гость вошёл по коду, и на этом телефоне круг пуст: ни людей, ни снимков
+     пригласившего здесь нет и взяться им неоткуда. Поэтому первый вечер —
+     это ровно один честный шаг на своём устройстве: занять своё место
+     именем, которое человек назвал сам, положить первое фото или сказать
+     первое слово дворецкому. Ничего не переносим, ничем не синхронизируем,
+     код не перевыпускаем. Как только в круге появилось настоящее, карточка
+     уходит и при следующем открытии не возвращается. */
+  function selfSeat(){
+    if(!state || !state.people) return null;
+    for(var i=0;i<state.people.length;i++){
+      if(state.people[i].role === 'я') return state.people[i];
+    }
+    return null;
+  }
+
+  function guestFirst(){
+    return !!(state && state.joined && !circleFilled());
+  }
+
+  function renderGuestFirst(){
+    var el = $('guestFirst');
+    if(!el) return;
+    var on = guestFirst();
+    el.classList.toggle('hide', !on);
+    if(!on) return;
+    var seat = selfSeat();
+    var code = $('gfCode');
+    if(code) code.textContent = state.code;
+    var step = $('gfSeat');
+    if(step) step.classList.toggle('hide', !!seat);
+    var done = $('gfSeatDone');
+    if(done){
+      done.classList.toggle('hide', !seat);
+      if(seat){
+        done.innerHTML = '<b>Ваше место в круге занято: ' + esc(seat.name) + '.</b> ' +
+          'Дальше круг растёт только от того, что принесёте вы: снимок, слово, письмо.';
+      }
+    }
+    var nm = $('guestName');
+    if(nm && !seat && !nm.value && me) nm.value = authName();
+  }
+
+  function seatSelf(){
+    if(!state) return;
+    if(selfSeat()){ toast('Ваше место в этом круге уже занято'); return; }
+    var el = $('guestName');
+    var t = el ? el.value.trim().replace(/\s+/g, ' ').slice(0, 32) : '';
+    if(!t && me) t = authName();
+    if(!t){
+      toast('Впишите, как вас зовут — имя за вас мы не придумаем');
+      if(el) el.focus();
+      return;
+    }
+    state.people.push({ id: uid(), name: t, role: 'я' });
+    /* F6 . место этого устройства не идёт в счёт названных родных — ни с
+       Telegram, ни без него: иначе первый вечер гостя закрывался бы его
+       собственным именем, будто память уже собрана. */
+    if(!state.owner){
+      state.owner = me ? { id: me.id, name: t, via: me.via || '' }
+                       : { id: null, name: t, via: 'device' };
+    }
+    if(!save()) return;
+    if(el) el.value = '';
+    buzz('ok');
+    renderAll();
+    toast('Ваше место в круге занято — имя вписали вы');
+  }
+
   function byId(id){
     for(var i=0;i<state.people.length;i++){
       if(state.people[i].id === id) return state.people[i];
@@ -3269,6 +3384,15 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
 
     state = blank(code, name);
     state.joined = Date.now();
+    state.guest = true;
+    /* F6 . если Telegram уже назвал человека за этим телефоном, сажаем на
+       своё место только его — ровно как на пути создания круга. Людей
+       пригласившего у нас нет, и придумывать их мы не будем. */
+    var mine = me ? authName() : '';
+    if(mine){
+      state.people.push({ id: uid(), name: mine, role: 'я' });
+      state.owner = { id: me.id, name: mine, via: me.via || '' };
+    }
     if(!save()) return;
     buzz('ok');
     openGame();
@@ -3663,6 +3787,12 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   /* дом круга: пустая рамка, свободные кружки и тихая неделя */
   $('emptyInvite').addEventListener('click', openInvite);
   $('emptyPhoto').addEventListener('click', openPhotoPicker);
+
+  /* F6 . первый вечер приглашённого — только настоящие кнопки этого устройства */
+  $('guestSeat').addEventListener('click', seatSelf);
+  $('guestPhoto').addEventListener('click', openPhotoPicker);
+  $('guestWord').addEventListener('click', function(){ lightCard('.card--butler', $('bText')); });
+  $('guestName').addEventListener('keydown', function(e){ if(e.key === 'Enter') seatSelf(); });
   $('copyCodeBtn').addEventListener('click', function(){
     if(!state) return;
     markInvited();
