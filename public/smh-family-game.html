@@ -1155,6 +1155,15 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
   white-space:pre-line;word-break:break-word;
 }
 .inv-kit .btn{margin-top:11px;padding:8px 13px;font-size:12.5px}
+.inv-kit + .inv-kit{margin-top:10px}
+.inv-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:9px}
+.inv-row code{
+  flex:1 1 170px;min-width:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11.5px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.inv-row .btn{flex:0 0 auto;margin-top:0;font-size:11.5px;padding:7px 10px}
+.inv-same{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--muted)}
+.inv-same b{font-weight:600;color:var(--ink)}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 /* ---------- E · первая память, подписи, заметки круга ---------- */
@@ -1524,7 +1533,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
             <span class="inv-leaf" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="inv-blade" d="M19 3.6c-8.2.5-12.8 4.6-12.8 11 0 1 .1 1.9.4 2.7C13 16.2 19 12 19 3.6z"/><path class="inv-stem" d="M5.4 20.4c1.5-2.9 3.7-5.3 6.5-7.1"/></svg></span>
             <h2>Позвать родных</h2>
           </div>
-          <p class="card-sub">Отправьте эту ссылку в семейный чат. Она откроет тот же круг и те же шаги.</p>
+          <p class="card-sub">Ниже готовые сообщения: имя круга и код уже вписаны, дописывать нечего. Скопируйте и отправьте в семейный чат.</p>
           <div class="code-box">
             <span class="code-lab">Код круга</span>
             <b class="code-val" id="inviteCode">—</b>
@@ -1541,9 +1550,26 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
             <button class="btn btn--quiet" id="shareBtn" type="button">Отправить в чат</button>
           </div>
           <div class="inv-kit" data-brand-apply="D-invite-kit">
-            <span class="inv-kit-lab">Готовое сообщение в семейный чат</span>
+            <span class="inv-kit-lab">Короткое сообщение в семейный чат</span>
             <p class="inv-text" id="inviteText">—</p>
             <button class="btn btn--quiet" id="copyTextBtn" type="button">Скопировать сообщение</button>
+          </div>
+          <div class="inv-kit" data-brand-apply="D-invite-kit-long">
+            <span class="inv-kit-lab">Если хочется объяснить подробнее</span>
+            <p class="inv-text" id="inviteTextLong">—</p>
+            <button class="btn btn--quiet" id="copyTextLongBtn" type="button">Скопировать длинное</button>
+          </div>
+          <div class="inv-kit" data-brand-apply="D-invite-links">
+            <span class="inv-kit-lab">Отдельно, если нужна только ссылка</span>
+            <div class="inv-row">
+              <code id="inviteApp">—</code>
+              <button class="btn btn--quiet" id="copyAppBtn" type="button">Копировать Telegram</button>
+            </div>
+            <div class="inv-row">
+              <code id="inviteSite">—</code>
+              <button class="btn btn--quiet" id="copySiteBtn" type="button">Копировать сайт</button>
+            </div>
+            <p class="inv-same">Обе ведут в один и тот же круг с кодом <b id="inviteCode2">—</b>. Новый код мы не выпускаем.</p>
           </div>
           <p class="inv-keep">Мы храним истории — и ничего не досочиняем за вашу семью.</p>
           <p class="inv-next hide" id="invNext" data-brand-apply="E-invite-next">Скопировано. Дальше одно движение: отправьте это <b>одному</b> родному — тому, кто точно откроет. Круг начинается с одного человека, а не с рассылки. Код остаётся тем же — мы его не меняем.</p>
@@ -2437,11 +2463,28 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
 
   /* Готовая фраза для семейного чата: живое имя круга, живой код и та же
      честная ссылка. Про перенос между устройствами сказано прямо. */
+  function appLink(){
+    var bot = BOT_USERNAME || 'SaveFamilyHistorybot';
+    var short = (typeof APP_SHORT === 'string' && APP_SHORT) ? APP_SHORT : 'family';
+    return 'https://t.me/' + bot + '/' + short;
+  }
+
   function inviteMessage(){
     return 'Мы собираем семейный архив «' + state.name + '».\n' +
            'Код круга: ' + state.code + '\n' +
-           inviteUrl() + '\n\n' +
-           'Открой и добавь своё: фото, имя, дату, рассказ. Пока это демонстрация — снимки и заметки остаются на том устройстве, где их добавили; общая копилка появится, когда у круга будет сервер.';
+           appLink() + '\n\n' +
+           'Открой и добавь своё: фото, имя, дату, рассказ. Всё, что ты добавишь, остаётся в памяти твоего телефона и само никуда не уходит — общая копилка появится, когда у круга будет сервер.';
+  }
+
+  /* Длинный вариант — для тех, кому нужно объяснить, зачем это и что именно
+     приносить. Те же живые имя и код, та же правда про устройство. */
+  function inviteMessageLong(){
+    return 'Мы собираем семейный архив «' + state.name + '» — тихо, по одному вечеру.\n\n' +
+           'Код круга: ' + state.code + '\n' +
+           'В Telegram: ' + appLink() + '\n' +
+           'В браузере: ' + inviteUrl() + '\n\n' +
+           'Что принести: старое фото, имя того, кто на снимке, год или место, короткий рассказ, письмо, запись о документе, который лежит дома.\n\n' +
+           'Честно про эту версию: то, что каждый добавляет, остаётся в памяти его собственного устройства. На чужой телефон снимки и заметки пока не переезжают — общая копилка появится, когда у круга будет сервер. Имена и даты становятся фактом только от человека: за семью здесь никто ничего не досочиняет.';
   }
 
   /* ---------- D · «Сегодня в круге» ----------
@@ -3128,6 +3171,14 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     $('inviteUrl').textContent = inviteUrl();
     var itx = $('inviteText');
     if(itx) itx.textContent = inviteMessage();
+    var itl = $('inviteTextLong');
+    if(itl) itl.textContent = inviteMessageLong();
+    var iap = $('inviteApp');
+    if(iap) iap.textContent = appLink();
+    var ist = $('inviteSite');
+    if(ist) ist.textContent = inviteUrl();
+    var ic2 = $('inviteCode2');
+    if(ic2) ic2.textContent = state.code;
     renderQuests();
     renderPeople();
     renderPhotos();
@@ -3585,6 +3636,21 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     if(!state) return;
     markInvited();
     copyText(inviteMessage(), 'Сообщение скопировано — отправьте родным');
+  });
+  $('copyTextLongBtn').addEventListener('click', function(){
+    if(!state) return;
+    markInvited();
+    copyText(inviteMessageLong(), 'Длинное сообщение скопировано');
+  });
+  $('copyAppBtn').addEventListener('click', function(){
+    if(!state) return;
+    markInvited();
+    copyText(appLink(), 'Ссылка на Telegram скопирована');
+  });
+  $('copySiteBtn').addEventListener('click', function(){
+    if(!state) return;
+    markInvited();
+    copyText(inviteUrl(), 'Ссылка на сайт скопирована');
   });
 
   /* лента «Сегодня в круге» только ведёт туда, где дело делается */

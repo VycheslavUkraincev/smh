@@ -210,7 +210,7 @@ body:not(.demo-on) [data-demo]{display:none!important}
         </li>
       </ul>
       <div class="btn-row" style="margin-top:16px">
-        <a class="btn btn--primary" href="/waitlist.html">Позвать родных</a>
+        <a class="btn btn--primary" id="roleInvite" href="/smh-family-game.html">Позвать родных</a>
         <a class="btn btn--quiet" href="/smh-cabinet-podtverzhdeniya.html">Очередь подтверждений</a>
       </div>
     </section>
@@ -349,6 +349,12 @@ body:not(.demo-on) [data-demo]{display:none!important}
 
   var chip = document.getElementById('seamCode');
   if(chip && code){ chip.textContent = 'Код круга · ' + code; chip.hidden = false; }
+
+  /* «Позвать родных» ведёт туда, где лежит настоящий код этого же круга
+     и готовые сообщения — в вечер, а не в общий список ожидания.
+     Нового кода здесь не появляется ни при каком исходе. */
+  var callKin = document.getElementById('roleInvite');
+  if(callKin) callKin.setAttribute('href', back);
 
   if(!code) return;
 
