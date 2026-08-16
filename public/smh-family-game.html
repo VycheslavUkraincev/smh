@@ -371,6 +371,9 @@ body.is-dark .auth-bar{background-image:linear-gradient(180deg, rgba(198,161,132
   background:var(--pill);border-radius:999px;padding:6px 11px;
 }
 .card--join{background-image:none;background-color:transparent;box-shadow:none;border-style:dashed;border-color:var(--seat)}
+.card--join.card--guest{border-style:solid;border-color:var(--accent);background-color:var(--soft)}
+.join-guest{margin:-4px 0 12px;font-size:12.5px;line-height:1.55;color:var(--accent-deep)}
+.join-field{margin-top:12px}
 
 /* ---------- круг: имя, код, кольцо ---------- */
 .card--circle{position:relative;overflow:hidden}
@@ -1308,16 +1311,22 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         Создать круг
       </button>
       <p class="steps-hint"><span>назвать круг</span><span>позвать родных</span><span>первое фото</span></p>
-      <p class="note">Круг — общее место, куда каждый приносит своё: фото, имя, дату, рассказ. Всё, что вы добавите в этой версии, остаётся на этом устройстве и никуда не отправляется. Это демонстрация самого ритуала, а не хранилище архива.</p>
+      <p class="note">Круг — общее место, куда каждый приносит своё: фото, имя, дату, рассказ. Всё, что вы добавите в этой версии, остаётся в памяти этого телефона и никуда не уходит само. Общая копилка появится, когда у круга будет свой сервер.</p>
     </div>
 
     <div class="card card--join">
       <div class="card-head"><h2>Меня позвали</h2></div>
       <p class="card-sub">Если родные прислали код круга — введите его здесь.</p>
+      <p class="join-guest hide" id="joinGuest"></p>
       <div class="row2">
         <input class="inp" id="joinCode" type="text" maxlength="12" placeholder="Код круга" autocomplete="off" spellcheck="false">
         <button class="btn btn--quiet" id="joinBtn" type="button">Открыть</button>
       </div>
+      <div class="field join-field">
+        <label for="joinName">Как этот круг зовут у вас дома</label>
+        <input class="inp" id="joinName" type="text" maxlength="48" placeholder="Например: Наши Ковалёвы" autocomplete="off">
+      </div>
+      <p class="note">Код останется тем же — новый мы не выдаём. Если на этом телефоне круга ещё нет, он откроется пустым: то, что добавите вы, лежит здесь, пока у круга нет общей копилки.</p>
     </div>
   </section>
 
@@ -1811,7 +1820,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     return Date.now().toString(36) + Math.floor(Math.random()*1e6).toString(36);
   }
 
-  /* ---------- хранение (демо, только это устройство) ---------- */
+  /* ---------- хранение (только это устройство) ---------- */
   function tidy(s){
     if(!s) return null;
     if(!s.people) s.people = [];
@@ -1841,7 +1850,7 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
       if(me) localStorage.setItem(LAST + '_tg' + me.id, state.code);
       return true;
     }catch(e){
-      toast('На устройстве закончилось место для демо-хранения');
+      toast('На этом устройстве закончилось место — круг не сохранился');
       return false;
     }
   }
@@ -3225,18 +3234,45 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
     openGame();
   }
 
+  /* F5 . родственника позвали — он входит под тем же кодом.
+     Если этого круга на телефоне ещё нет, мы открываем его пустым под
+     тем же самым кодом: новый код не выдаём никогда, людей, мест и
+     снимков приглашающего не придумываем, и о пустоте говорим прямо. */
   function joinCircle(){
-    var code = $('joinCode').value.trim().toUpperCase();
+    var code = $('joinCode').value.trim().toUpperCase().slice(0, 12);
     if(!code){ $('joinCode').focus(); return; }
+    if(code.length < 4){
+      toast('Код круга — от 4 до 12 знаков');
+      $('joinCode').focus();
+      return;
+    }
+
     var found = load(code);
     if(found){
       state = found;
       save();
+      buzz('ok');
       openGame();
       toast('Круг открыт');
-    }else{
-      toast('На этом устройстве такого круга ещё нет');
+      return;
     }
+
+    var nameEl = $('joinName');
+    var name = nameEl ? nameEl.value.trim() : '';
+    if(!name) name = $('circleName').value.trim();
+    if(!name){
+      toast('Как этот круг зовут у вас дома? Впишите имя — и откроем его здесь');
+      if(nameEl) nameEl.focus();
+      else $('circleName').focus();
+      return;
+    }
+
+    state = blank(code, name);
+    state.joined = Date.now();
+    if(!save()) return;
+    buzz('ok');
+    openGame();
+    toast('Круг «' + code + '» открыт на этом устройстве — пока пустой. То, что добавите вы, остаётся здесь, пока нет общей копилки.');
   }
 
   function addPerson(){
@@ -4344,10 +4380,20 @@ body.is-dark .card--road{background-image:linear-gradient(180deg, rgba(198,161,1
         return;
       }
     }
+    /* F5 . пришли по ссылке ?circle=CODE и круга здесь ещё нет:
+       первым делом показываем «Меня позвали», а не создание нового круга. */
     if(wanted){
       $('joinCode').value = wanted;
-      $('circleName').focus();
-      toast('Круг ' + wanted + ' пока пуст на этом устройстве — назовите его и начните свою часть');
+      var jg = $('joinGuest');
+      if(jg){
+        jg.textContent = 'Вас позвали в круг ' + wanted + '. Код остаётся тем же — ' +
+          'новый не выдаём. На этом телефоне его архив пока пуст: своя часть начнётся здесь.';
+        jg.classList.remove('hide');
+      }
+      var jc = document.querySelector('.card--join');
+      if(jc) jc.classList.add('card--guest');
+      lightCard('.card--join', $('joinName'));
+      toast('Вас позвали в круг ' + wanted + ' — на этом устройстве он пока пуст');
     }
   })();
 
