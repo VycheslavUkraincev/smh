@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>SaveMyHistory · Штаб</title>
+<style>
+:root{
+  --paper:#f4efe4;
+  --paper-2:#efe8da;
+  --card:#faf6ee;
+  --ink:#2b2620;
+  --ink-2:#5c5347;
+  --ink-3:#8a8073;
+  --line:#ddd3c1;
+  --line-2:#cbbfa8;
+  --gold:#b3893f;
+  --gold-soft:rgba(179,137,63,.28);
+  --green:#4f7a4a;
+  --amber:#a8762a;
+  --blue:#4a6b86;
+  --grey:#8a8073;
+  --red:#9c4f45;
+  --r:12px;
+  --shadow:0 1px 2px rgba(43,38,32,.05),0 6px 18px rgba(43,38,32,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(1200px 480px at 50% -220px,rgba(179,137,63,.10),transparent 70%),
+    repeating-linear-gradient(90deg,rgba(43,38,32,.016) 0 1px,transparent 1px 3px);
+  color:var(--ink);
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+  padding:0 0 64px;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+
+header.top{padding:26px 0 14px}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h1{
+  font:600 26px/1.15 Cormorant Garamond,Georgia,"Times New Roman",serif;
+  letter-spacing:.01em;margin:0;
+}
+.brand .dot{color:var(--gold)}
+.purpose{margin:8px 0 0;color:var(--ink-2);font-size:14px;max-width:62ch}
+.meta{margin:6px 0 0;color:var(--ink-3);font-size:12.5px}
+
+.seam{height:1px;background:linear-gradient(90deg,transparent,var(--gold-soft) 18%,var(--gold-soft) 82%,transparent);margin:18px 0}
+
+section{margin:18px 0}
+h2{font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+   text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3);margin:0 0 10px}
+
+/* launch strip */
+.launch{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.lcard{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:12px 13px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  text-align:left;font:inherit;color:inherit;cursor:pointer;
+}
+.lcard::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)}
+.lcard:hover{border-color:var(--line-2)}
+.lcard[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold-soft),var(--shadow)}
+.lcard .lname{font-weight:600;font-size:14px;margin-bottom:6px}
+.lcard .lnums{font-size:12.5px;color:var(--ink-2)}
+.lcard .lnums b{color:var(--ink);font-weight:600}
+.bar{height:4px;border-radius:3px;background:var(--paper-2);margin-top:9px;overflow:hidden}
+.bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#d9b877);border-radius:3px}
+
+/* filters */
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  border:1px solid var(--line);background:transparent;color:var(--ink-2);
+  border-radius:999px;padding:6px 12px;font:500 13px/1 inherit;cursor:pointer;
+}
+.chip:hover{border-color:var(--line-2);color:var(--ink)}
+.chip[aria-pressed="true"]{border-color:var(--gold);color:var(--ink);box-shadow:inset 0 0 0 1px var(--gold-soft);background:rgba(179,137,63,.06)}
+.chiprow{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:8px}
+.chiprow .lbl{font-size:12px;color:var(--ink-3);min-width:64px;text-transform:uppercase;letter-spacing:.07em}
+.searchbox{
+  flex:1 1 180px;min-width:150px;border:1px solid var(--line);background:var(--card);
+  border-radius:999px;padding:6px 13px;font:inherit;font-size:13px;color:var(--ink);
+}
+.searchbox:focus{outline:none;border-color:var(--gold)}
+
+/* counts */
+.counts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{font-size:12.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--card)}
+.pill b{color:var(--ink)}
+
+/* tasks */
+.tracklist{margin-top:6px}
+.trackblk{margin:16px 0 0}
+.trackhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:0 2px 7px}
+.trackhead .tt{font:600 16px/1.2 Cormorant Garamond,Georgia,serif;letter-spacing:.01em}
+.trackhead .tb{font-size:12.5px;color:var(--ink-3)}
+.rows{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:auto auto 1fr auto;gap:10px;align-items:start;
+  padding:11px 13px;border-top:1px solid var(--line)}
+.row:first-child{border-top:none}
+.row.dim{opacity:.62}
+.st{
+  font-size:11.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
+  border:1px solid currentColor;border-radius:999px;padding:3px 9px;line-height:1.25;
+}
+.st.done{color:var(--green)}
+.st.in_progress{color:var(--blue)}
+.st.waiting_roman{color:var(--amber)}
+.st.waiting_go{color:var(--gold)}
+.st.blocked{color:var(--red)}
+.st.backlog{color:var(--grey)}
+.ow{font-size:11.5px;font-weight:600;white-space:nowrap;border-radius:999px;padding:3px 9px;line-height:1.25;border:1px solid transparent}
+.ow.roman{background:rgba(168,118,42,.13);color:#8a6122;border-color:rgba(168,118,42,.28)}
+.ow.q{background:rgba(74,107,134,.13);color:#3d5b74;border-color:rgba(74,107,134,.28)}
+.ow.both{background:rgba(79,122,74,.13);color:#3f6539;border-color:rgba(79,122,74,.28)}
+.tx .ti{font-size:14.5px;line-height:1.38}
+.tx .tn{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+.tx .tid{font-size:11px;color:var(--ink-3);letter-spacing:.05em;margin-right:6px;font-variant-numeric:tabular-nums}
+.p1{box-shadow:inset 3px 0 0 var(--gold-soft)}
+.act{display:flex;gap:6px;align-items:center}
+.mark{
+  border:1px solid var(--line);background:transparent;color:var(--ink-3);
+  border-radius:8px;width:28px;height:28px;font-size:14px;line-height:1;cursor:pointer;
+}
+.mark:hover{border-color:var(--gold);color:var(--gold)}
+.mark[aria-pressed="true"]{border-color:var(--gold);color:var(--gold);background:rgba(179,137,63,.08)}
+.edited{font-size:10.5px;color:var(--gold);white-space:nowrap;margin-top:4px;display:block}
+
+/* notes / links */
+.note{
+  background:var(--card);border:1px solid var(--line);border-left:2px solid var(--gold-soft);
+  border-radius:var(--r);padding:12px 14px;color:var(--ink-2);font-size:13px;box-shadow:var(--shadow);
+}
+.note b{color:var(--ink)}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{
+  display:inline-block;text-decoration:none;color:var(--ink-2);font-size:13px;
+  border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--card);
+}
+.links a:hover{border-color:var(--gold);color:var(--ink)}
+.locks{display:flex;flex-wrap:wrap;gap:7px}
+.lock{font-size:12px;color:var(--ink-2);border:1px dashed var(--line-2);border-radius:8px;padding:5px 10px;background:transparent}
+.empty{padding:22px 14px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{margin-top:26px;color:var(--ink-3);font-size:12px;text-align:center}
+.btn-reset{border:1px solid var(--line);background:transparent;color:var(--ink-3);border-radius:999px;padding:5px 11px;font:500 12.5px/1 inherit;cursor:pointer}
+.btn-reset:hover{border-color:var(--gold);color:var(--ink)}
+
+@media (max-width:720px){
+  .launch{grid-template-columns:repeat(2,1fr)}
+  .row{grid-template-columns:1fr;gap:6px}
+  .row .act{justify-content:flex-start}
+  .chiprow .lbl{min-width:100%}
+  h1{font-size:23px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="brand">
+    <h1>SaveMyHistory <span class="dot">·</span> Штаб</h1>
+  </div>
+  <p class="purpose">Рабочая доска Романа и Q: весь список работ по проекту, кто за что отвечает и что стоит между нами и запуском - лендинг, телеграм-боты, оплата.</p>
+  <p class="meta" id="meta">Обновлено вручную · внутренняя страница, не для поиска</p>
+</header>
+
+<div class="seam"></div>
+
+<section>
+  <h2>Фокус запуска</h2>
+  <div class="launch" id="launch"></div>
+</section>
+
+<section>
+  <h2>Фильтры</h2>
+  <div class="chiprow">
+    <span class="lbl">Быстро</span>
+    <div class="chips" id="quick"></div>
+  </div>
+  <div class="chiprow">
+    <span class="lbl">Направление</span>
+    <div class="chips" id="ftrack"></div>
+  </div>
+  <div class="chiprow">
+    <span class="lbl">Кто</span>
+    <div class="chips" id="fowner"></div>
+  </div>
+  <div class="chiprow">
+    <span class="lbl">Статус</span>
+    <div class="chips" id="fstatus"></div>
+  </div>
+  <div class="chiprow">
+    <span class="lbl">Поиск</span>
+    <input class="searchbox" id="q" type="search" placeholder="слово из задачи или заметки" autocomplete="off">
+    <button class="btn-reset" id="reset" type="button">Сбросить</button>
+  </div>
+  <div class="counts" id="counts"></div>
+</section>
+
+<section class="tracklist" id="list"></section>
+
+<section>
+  <h2>Замки, которые держим</h2>
+  <div class="locks" id="locks"></div>
+</section>
+
+<section>
+  <h2>Живые ссылки</h2>
+  <div class="links">
+    <a href="https://savemyhistory.tech/smh-family-game.html" target="_blank" rel="noopener">Семейная игра</a>
+    <a href="https://savemyhistory.tech/smh-album.html" target="_blank" rel="noopener">Альбом</a>
+    <a href="https://savemyhistory.tech/smh-cabinet-mock.html" target="_blank" rel="noopener">Кабинет (макет)</a>
+    <a href="https://savemyhistory.tech/facade-lab.html" target="_blank" rel="noopener">Витрина лендингов</a>
+    <a href="https://t.me/SaveFamilyHistorybot/family" target="_blank" rel="noopener">@SaveFamilyHistorybot</a>
+    <a href="https://t.me/SMHRestoreBot" target="_blank" rel="noopener">@SMHRestoreBot</a>
+  </div>
+</section>
+
+<section>
+  <div class="note">
+    <b>Честно про правки здесь.</b> Галочка на задаче меняет её только на этом устройстве - это ваша личная пометка в браузере, она никуда не уходит и её не видит второй человек. Канон живёт в файле проекта, его обновляет Q. Если что-то сдвинулось по-настоящему - скажите Q, и я перепишу доску.
+    <span style="display:block;margin-top:8px"><button class="btn-reset" id="clearLocal" type="button">Убрать мои пометки на этом устройстве</button> <span id="localCount" style="font-size:12px;color:var(--ink-3)"></span></span>
+  </div>
+</section>
+
+<footer>Внутренняя доска SaveMyHistory · страница закрыта от поиска</footer>
+
+</div>
+
+<script id="smh-ops-data" type="application/json">{
+  "version": 1,
+  "updated": "2026-08-17",
+  "product": "SaveMyHistory",
+  "domain": "https://savemyhistory.tech",
+  "owners": {
+    "roman": {
+      "label": "Роман",
+      "role": "решения, доступ, вкус, деньги, хост"
+    },
+    "q": {
+      "label": "Q",
+      "role": "сборка, код, тексты, прогоны, доставка"
+    },
+    "both": {
+      "label": "Вместе",
+      "role": "нужны оба"
+    }
+  },
+  "statuses": {
+    "done": "Готово",
+    "in_progress": "В работе",
+    "waiting_roman": "Ждёт Романа",
+    "waiting_go": "Ждёт точный GO",
+    "blocked": "Блок",
+    "backlog": "Бэклог"
+  },
+  "launch_focus": [
+    "landing",
+    "tg_family",
+    "tg_restore",
+    "payment"
+  ],
+  "locks": [
+    "STOP_ALL_RESTORES без точного GO",
+    "PRIORITY_API_FIRST",
+    "NO_RENT / Path A HOLD",
+    "invent_eyes=N",
+    "index/waitlist/cabinet redeem не трогать без GO",
+    "токены ботов только в файлах секретов"
+  ],
+  "tracks": [
+    {
+      "id": "launch",
+      "title": "Запуск сервиса",
+      "blurb": "Собрать продаваемый контур: дверь сайта, боты, оплата, честная доставка."
+    },
+    {
+      "id": "landing",
+      "title": "Лендинги и сайт",
+      "blurb": "L14–L24 siblings, facade-lab, waitlist. Главную не трогаем без GO."
+    },
+    {
+      "id": "tg_family",
+      "title": "Telegram Family Mini App",
+      "blurb": "@SaveFamilyHistorybot /family + smh-family-game.html"
+    },
+    {
+      "id": "tg_restore",
+      "title": "Telegram Restore Bot",
+      "blurb": "@SMHRestoreBot MVP-B: фото → AFTER + GATE-3"
+    },
+    {
+      "id": "cabinet",
+      "title": "Кабинет и продукт",
+      "blurb": "Кабинет, 5 экранов, Альбом, честный seam с вечером"
+    },
+    {
+      "id": "api_restore",
+      "title": "API-реставрация",
+      "blurb": "fal recipe, canary, damage, cost model. STOP без точного GO."
+    },
+    {
+      "id": "payment",
+      "title": "Оплата",
+      "blurb": "Stripe / биллинг продукта. Пока NOT_CLAIMED — новый трек запуска."
+    },
+    {
+      "id": "cold_path",
+      "title": "Тихая волна / cold-path",
+      "blurb": "Инвайты, redeem, квоты. Dry Roman-OK, soft-wave не EXECUTED."
+    },
+    {
+      "id": "gpu",
+      "title": "GPU Path A",
+      "blurb": "HOLD / NO_RENT до bake-off GO."
+    },
+    {
+      "id": "ops",
+      "title": "Операционка и бэкап",
+      "blurb": "Dropbox AppPause, host timer, GitHub key, locks."
+    },
+    {
+      "id": "partners",
+      "title": "Партнёры и исследование",
+      "blurb": "Конкуренты 28, ADVANTAGE_UNION, GPU research brief."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "L1",
+      "track": "launch",
+      "title": "Выбрать главную дверь лендинга (L14–L24, фаворит L17)",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 1,
+      "note": "Без вкуса index не подменяем."
+    },
+    {
+      "id": "L2",
+      "track": "launch",
+      "title": "Подключить оплату (Stripe) под продукт SMH",
+      "owner": "both",
+      "status": "backlog",
+      "priority": 1,
+      "note": "Portal Energy ≠ биллинг SMH. Нужен аккаунт + SKU + checkout."
+    },
+    {
+      "id": "L3",
+      "track": "launch",
+      "title": "Свести launch-контур: waitlist → код → кабинет/альбом → бот",
+      "owner": "q",
+      "status": "in_progress",
+      "priority": 1,
+      "note": "Части уже LIVE; не хватает оплаты и sellable quality gate."
+    },
+    {
+      "id": "L4",
+      "track": "launch",
+      "title": "Цена и SKU: что продаём первым (restore pack / album / family)",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 2,
+      "note": "После canary/damage продукт ещё NOT_SELLABLE на recipe-level."
+    },
+    {
+      "id": "LD1",
+      "track": "landing",
+      "title": "L1–L8 siblings LIVE",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": "tip 17550cf + L8 clip fix"
+    },
+    {
+      "id": "LD2",
+      "track": "landing",
+      "title": "L9–L13 inspiration LIVE",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": ""
+    },
+    {
+      "id": "LD3",
+      "track": "landing",
+      "title": "L14–L18 craft + LIVE",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "tip 1c25337; L18 trunk 7f7eb14"
+    },
+    {
+      "id": "LD4",
+      "track": "landing",
+      "title": "L19–L24 six siblings LIVE + EFFECTS_BAR",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "L17 etalon effects"
+    },
+    {
+      "id": "LD5",
+      "track": "landing",
+      "title": "Door A · Лампа / facade-lab intensive",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": "reeye STOP tip e61fefa"
+    },
+    {
+      "id": "LD6",
+      "track": "landing",
+      "title": "Taste pick главной двери → (опц.) LIVE index",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 1,
+      "note": "Exact GO нужен для замены index"
+    },
+    {
+      "id": "LD7",
+      "track": "landing",
+      "title": "Реальные соцссылки (не выдумывать)",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 3,
+      "note": "Сейчас только t.me/maximprods + IG save.my.history"
+    },
+    {
+      "id": "TF1",
+      "track": "tg_family",
+      "title": "Family game MVP + butler Layer A LIVE",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "https://savemyhistory.tech/smh-family-game.html"
+    },
+    {
+      "id": "TF2",
+      "track": "tg_family",
+      "title": "BotFather @SaveFamilyHistorybot + Mini App family",
+      "owner": "both",
+      "status": "done",
+      "priority": 2,
+      "note": "t.me/SaveFamilyHistorybot/family"
+    },
+    {
+      "id": "TF3",
+      "track": "tg_family",
+      "title": "Raises 8–18 sanctuary / lived / invite / guest",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "APP_PAUSE_POINT; raise19 не выдумывать"
+    },
+    {
+      "id": "TF4",
+      "track": "tg_family",
+      "title": "Позвать 1–2 родных в настоящий круг",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 1,
+      "note": "Единственная живая проверка продукта"
+    },
+    {
+      "id": "TF5",
+      "track": "tg_family",
+      "title": "Phone 8-check ощущение",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 2,
+      "note": "Вечер→полка→Архив→экран→назад"
+    },
+    {
+      "id": "TF6",
+      "track": "tg_family",
+      "title": "Layer B sync / LLM butler / real voice",
+      "owner": "q",
+      "status": "backlog",
+      "priority": 4,
+      "note": "NOT_CLAIMED; нужен сервер"
+    },
+    {
+      "id": "TR1",
+      "track": "tg_restore",
+      "title": "Plan + skeleton MVP-B (0E)",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "smoke 82→209"
+    },
+    {
+      "id": "TR2",
+      "track": "tg_restore",
+      "title": "@SMHRestoreBot создать + token file-only",
+      "owner": "both",
+      "status": "done",
+      "priority": 2,
+      "note": "id 8662848232"
+    },
+    {
+      "id": "TR3",
+      "track": "tg_restore",
+      "title": "Live MVP-B ≤5 фото / 40E",
+      "owner": "q",
+      "status": "done",
+      "priority": 1,
+      "note": "spend 12/40; 60C7 taste OK"
+    },
+    {
+      "id": "TR4",
+      "track": "tg_restore",
+      "title": "GATE-3: approve honesty + Start flush + long-poll + ensure",
+      "owner": "q",
+      "status": "done",
+      "priority": 1,
+      "note": "gate 1/3; worker pid was 19666"
+    },
+    {
+      "id": "TR5",
+      "track": "tg_restore",
+      "title": "Host-таймер ensure (crontab/systemd)",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 2,
+      "note": "HOST_TIMER.md готов; из песочницы нельзя"
+    },
+    {
+      "id": "TR6",
+      "track": "tg_restore",
+      "title": "Новый живой прогон (точная фраза + потолок)",
+      "owner": "roman",
+      "status": "waiting_go",
+      "priority": 2,
+      "note": "Пример: да, TG restore bot MVP-B живой прогон, до N фото, потолок XE"
+    },
+    {
+      "id": "TR7",
+      "track": "tg_restore",
+      "title": "Открыть intake для реальных юзеров (LIVE_CALLS)",
+      "owner": "both",
+      "status": "waiting_go",
+      "priority": 1,
+      "note": "Сейчас intake закрыт специально"
+    },
+    {
+      "id": "C1",
+      "track": "cabinet",
+      "title": "Cabinet mock + soft weave + 5 screens + nav",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": ""
+    },
+    {
+      "id": "C2",
+      "track": "cabinet",
+      "title": "Honest seam cabinet↔game + lived chrome",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "raise12–18 closed"
+    },
+    {
+      "id": "C3",
+      "track": "cabinet",
+      "title": "Album FREE UI + door from cabinet",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "smh-album.html tip c86ad36 / door 8a6fb9e"
+    },
+    {
+      "id": "C4",
+      "track": "cabinet",
+      "title": "5 продуктовых решений кабинета",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 2,
+      "note": "taste card"
+    },
+    {
+      "id": "C5",
+      "track": "cabinet",
+      "title": "Album → реальный restore pipeline",
+      "owner": "q",
+      "status": "waiting_go",
+      "priority": 2,
+      "note": "UI есть; fal только по GO"
+    },
+    {
+      "id": "A1",
+      "track": "api_restore",
+      "title": "API cost plan 1000 фото",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "~$180–250/1000 working"
+    },
+    {
+      "id": "A2",
+      "track": "api_restore",
+      "title": "Paid canary 3 / ceil 24E",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "14E; WEAK damage; FACE/COLOR PASS"
+    },
+    {
+      "id": "A3",
+      "track": "api_restore",
+      "title": "Damage probe 5 / ceil 100E",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "B PASS flux2_max-first"
+    },
+    {
+      "id": "A4",
+      "track": "api_restore",
+      "title": "Устойчивый damage PASS rate → sellable recipe",
+      "owner": "q",
+      "status": "in_progress",
+      "priority": 1,
+      "note": "Сейчас NOT_SELLABLE recipe-level"
+    },
+    {
+      "id": "A5",
+      "track": "api_restore",
+      "title": "Дальнейшие canary/damage (точный GO)",
+      "owner": "roman",
+      "status": "waiting_go",
+      "priority": 3,
+      "note": ""
+    },
+    {
+      "id": "P1",
+      "track": "payment",
+      "title": "Исследовать Stripe/оплату под SMH (карта, webhook, SKU)",
+      "owner": "q",
+      "status": "backlog",
+      "priority": 1,
+      "note": "Ещё не начинали как продукт"
+    },
+    {
+      "id": "P2",
+      "track": "payment",
+      "title": "Создать/дать доступ Stripe (или аналог)",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 1,
+      "note": "Нужен аккаунт мерчанта"
+    },
+    {
+      "id": "P3",
+      "track": "payment",
+      "title": "Checkout на сайте / в боте после оплаты → слот restore",
+      "owner": "q",
+      "status": "backlog",
+      "priority": 1,
+      "note": "Зависит от P1–P2 и sellable recipe"
+    },
+    {
+      "id": "P4",
+      "track": "payment",
+      "title": "Честные лимиты и квоты (dual-gate i18n)",
+      "owner": "q",
+      "status": "waiting_roman",
+      "priority": 2,
+      "note": "Отчёт READY; ship только после «да»"
+    },
+    {
+      "id": "CP1",
+      "track": "cold_path",
+      "title": "Wave-1 pack + 100 invites minted",
+      "owner": "q",
+      "status": "done",
+      "priority": 2,
+      "note": "NO remint"
+    },
+    {
+      "id": "CP2",
+      "track": "cold_path",
+      "title": "Redeem e2e dry SMH-R7IBCF",
+      "owner": "both",
+      "status": "done",
+      "priority": 2,
+      "note": "Roman OK; code UNBURNED preferred"
+    },
+    {
+      "id": "CP3",
+      "track": "cold_path",
+      "title": "Soft-wave EXECUTE (точный GO)",
+      "owner": "roman",
+      "status": "waiting_go",
+      "priority": 2,
+      "note": "EXECUTED=N"
+    },
+    {
+      "id": "G1",
+      "track": "gpu",
+      "title": "GPU research brief для коллег",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": ""
+    },
+    {
+      "id": "G2",
+      "track": "gpu",
+      "title": "Path A bake-off ≤$1.50 (точный GO)",
+      "owner": "roman",
+      "status": "waiting_go",
+      "priority": 4,
+      "note": "HOLD / NO_RENT"
+    },
+    {
+      "id": "O1",
+      "track": "ops",
+      "title": "AppPause Dropbox backup",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": "~1.1GB / 461 files"
+    },
+    {
+      "id": "O2",
+      "track": "ops",
+      "title": "Отозвать старый GitHub write token",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 1,
+      "note": "origin уже tokenless"
+    },
+    {
+      "id": "O3",
+      "track": "ops",
+      "title": "HOST_TIMER ensure на машине",
+      "owner": "roman",
+      "status": "waiting_roman",
+      "priority": 2,
+      "note": "рецепт готов"
+    },
+    {
+      "id": "O4",
+      "track": "ops",
+      "title": "Страница-планировщик SMH Ops Board на домене",
+      "owner": "q",
+      "status": "in_progress",
+      "priority": 1,
+      "note": "этот заход"
+    },
+    {
+      "id": "PR1",
+      "track": "partners",
+      "title": "Competitors 18+10 + ADVANTAGE_UNION",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": ""
+    },
+    {
+      "id": "PR2",
+      "track": "partners",
+      "title": "Partner vault / evening stack 70–86",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": ""
+    },
+    {
+      "id": "PR3",
+      "track": "partners",
+      "title": "Promo V1/V2",
+      "owner": "q",
+      "status": "done",
+      "priority": 3,
+      "note": "V1 40E / V2 raise 0E"
+    }
+  ]
+}</script>
+<script>
+(function(){
+  "use strict";
+  var DATA = null;
+  try { DATA = JSON.parse(document.getElementById('smh-ops-data').textContent); } catch(e){ DATA = null; }
+  if(!DATA){ document.getElementById('list').innerHTML = '<div class="empty">Данные доски не загрузились.</div>'; return; }
+
+  var LS = 'smh_ops_v1';
+  var local = {};
+  try { local = JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch(e){ local = {}; }
+  function saveLocal(){ try { localStorage.setItem(LS, JSON.stringify(local)); } catch(e){} }
+
+  var STATUS_ORDER = ['in_progress','waiting_roman','waiting_go','blocked','backlog','done'];
+  var LAUNCH_LABEL = { landing:'Лендинг', tg_family:'Family-бот', tg_restore:'Restore-бот', payment:'Оплата' };
+
+  var filters = { track:'all', owner:'all', status:'all', q:'' };
+
+  function effStatus(t){ return (local[t.id] && local[t.id].status) ? local[t.id].status : t.status; }
+  function isOpen(t){ return effStatus(t) !== 'done'; }
+  function statusLabel(s){ return (DATA.statuses && DATA.statuses[s]) || s; }
+  function ownerLabel(o){ return (DATA.owners && DATA.owners[o] && DATA.owners[o].label) || o; }
+  function trackTitle(id){ for(var i=0;i<DATA.tracks.length;i++){ if(DATA.tracks[i].id===id) return DATA.tracks[i].title; } return id; }
+
+  function el(tag, cls, text){ var n=document.createElement(tag); if(cls) n.className=cls; if(text!=null) n.textContent=text; return n; }
+
+  /* ---- launch strip ---- */
+  function renderLaunch(){
+    var host = document.getElementById('launch'); host.innerHTML='';
+    (DATA.launch_focus||[]).forEach(function(tr){
+      var list = DATA.tasks.filter(function(t){ return t.track===tr; });
+      var done = list.filter(function(t){ return !isOpen(t); }).length;
+      var open = list.length - done;
+      var b = el('button','lcard'); b.type='button';
+      b.setAttribute('aria-pressed', filters.track===tr ? 'true':'false');
+      b.appendChild(el('div','lname', LAUNCH_LABEL[tr] || trackTitle(tr)));
+      var nums = el('div','lnums');
+      nums.innerHTML = 'открыто <b>'+open+'</b> · готово <b>'+done+'</b>';
+      b.appendChild(nums);
+      var bar = el('div','bar'); var fill = document.createElement('i');
+      fill.style.width = list.length ? Math.round(done/list.length*100)+'%' : '0%';
+      bar.appendChild(fill); b.appendChild(bar);
+      b.addEventListener('click', function(){
+        filters.track = (filters.track===tr) ? 'all' : tr;
+        filters.status = 'all'; filters.owner = 'all';
+        renderAll();
+      });
+      host.appendChild(b);
+    });
+  }
+
+  /* ---- chips ---- */
+  function chip(label, active, onclick){
+    var b = el('button','chip',label); b.type='button';
+    b.setAttribute('aria-pressed', active ? 'true':'false');
+    b.addEventListener('click', onclick);
+    return b;
+  }
+
+  var QUICK = [
+    { key:'all',   label:'Все',            apply:function(){ filters={track:'all',owner:'all',status:'all',q:filters.q}; },
+      test:function(){ return filters.track==='all'&&filters.owner==='all'&&filters.status==='all'; } },
+    { key:'launch',label:'Запуск',         apply:function(){ filters.track='launch'; filters.owner='all'; filters.status='all'; },
+      test:function(){ return filters.track==='launch'; } },
+    { key:'wr',    label:'Я жду Романа',   apply:function(){ filters.status='waiting_roman'; filters.track='all'; filters.owner='all'; },
+      test:function(){ return filters.status==='waiting_roman'; } },
+    { key:'go',    label:'Ждёт точный GO', apply:function(){ filters.status='waiting_go'; filters.track='all'; filters.owner='all'; },
+      test:function(){ return filters.status==='waiting_go'; } },
+    { key:'q',     label:'Мои (Q)',        apply:function(){ filters.owner='q'; filters.track='all'; filters.status='all'; },
+      test:function(){ return filters.owner==='q'; } },
+    { key:'done',  label:'Готово',         apply:function(){ filters.status='done'; filters.track='all'; filters.owner='all'; },
+      test:function(){ return filters.status==='done'; } }
+  ];
+
+  function renderChips(){
+    var qh = document.getElementById('quick'); qh.innerHTML='';
+    QUICK.forEach(function(item){
+      qh.appendChild(chip(item.label, item.test(), function(){ item.apply(); renderAll(); }));
+    });
+
+    var th = document.getElementById('ftrack'); th.innerHTML='';
+    th.appendChild(chip('Все', filters.track==='all', function(){ filters.track='all'; renderAll(); }));
+    DATA.tracks.forEach(function(tr){
+      var n = DATA.tasks.filter(function(t){ return t.track===tr.id; }).length;
+      th.appendChild(chip(tr.title+' · '+n, filters.track===tr.id, function(){ filters.track=tr.id; renderAll(); }));
+    });
+
+    var oh = document.getElementById('fowner'); oh.innerHTML='';
+    oh.appendChild(chip('Все', filters.owner==='all', function(){ filters.owner='all'; renderAll(); }));
+    ['roman','q','both'].forEach(function(o){
+      var n = DATA.tasks.filter(function(t){ return t.owner===o; }).length;
+      oh.appendChild(chip(ownerLabel(o)+' · '+n, filters.owner===o, function(){ filters.owner=o; renderAll(); }));
+    });
+
+    var sh = document.getElementById('fstatus'); sh.innerHTML='';
+    sh.appendChild(chip('Все', filters.status==='all', function(){ filters.status='all'; renderAll(); }));
+    STATUS_ORDER.forEach(function(s){
+      var n = DATA.tasks.filter(function(t){ return effStatus(t)===s; }).length;
+      if(!n) return;
+      sh.appendChild(chip(statusLabel(s)+' · '+n, filters.status===s, function(){ filters.status=s; renderAll(); }));
+    });
+  }
+
+  /* ---- counts ---- */
+  function renderCounts(){
+    var host = document.getElementById('counts'); host.innerHTML='';
+    var total = DATA.tasks.length;
+    var p = el('span','pill'); p.innerHTML = 'Всего <b>'+total+'</b>'; host.appendChild(p);
+    STATUS_ORDER.forEach(function(s){
+      var n = DATA.tasks.filter(function(t){ return effStatus(t)===s; }).length;
+      if(!n) return;
+      var q = el('span','pill'); q.innerHTML = statusLabel(s)+' <b>'+n+'</b>'; host.appendChild(q);
+    });
+  }
+
+  /* ---- list ---- */
+  function match(t){
+    if(filters.track!=='all' && t.track!==filters.track) return false;
+    if(filters.owner!=='all' && t.owner!==filters.owner) return false;
+    if(filters.status!=='all' && effStatus(t)!==filters.status) return false;
+    if(filters.q){
+      var hay = (t.id+' '+t.title+' '+(t.note||'')+' '+trackTitle(t.track)).toLowerCase();
+      if(hay.indexOf(filters.q.toLowerCase())<0) return false;
+    }
+    return true;
+  }
+
+  function renderRow(t){
+    var st = effStatus(t);
+    var row = el('div','row'+(st==='done'?' dim':'')+(t.priority===1?' p1':''));
+
+    row.appendChild(el('span','st '+st, statusLabel(st)));
+    row.appendChild(el('span','ow '+t.owner, ownerLabel(t.owner)));
+
+    var tx = el('div','tx');
+    var ti = el('div','ti');
+    var idn = el('span','tid', t.id);
+    ti.appendChild(idn);
+    ti.appendChild(document.createTextNode(t.title));
+    tx.appendChild(ti);
+    var noteBits = [];
+    if(t.note) noteBits.push(t.note);
+    noteBits.push(trackTitle(t.track));
+    tx.appendChild(el('div','tn', noteBits.join(' · ')));
+    if(local[t.id] && local[t.id].status){
+      tx.appendChild(el('span','edited','моя пометка на этом устройстве · в файле проекта: '+statusLabel(t.status)));
+    }
+    row.appendChild(tx);
+
+    var act = el('div','act');
+    var mk = el('button','mark','✓'); mk.type='button';
+    mk.title = 'Отметить готово только на этом устройстве';
+    mk.setAttribute('aria-pressed', (local[t.id] && local[t.id].status==='done') ? 'true':'false');
+    mk.addEventListener('click', function(){
+      if(local[t.id] && local[t.id].status==='done'){ delete local[t.id]; }
+      else { local[t.id] = { status:'done' }; }
+      saveLocal(); renderAll();
+    });
+    act.appendChild(mk);
+    row.appendChild(act);
+    return row;
+  }
+
+  function renderList(){
+    var host = document.getElementById('list'); host.innerHTML='';
+    var shown = DATA.tasks.filter(match);
+    if(!shown.length){
+      var e = el('div','rows'); e.appendChild(el('div','empty','Под эти фильтры ничего не попало.'));
+      host.appendChild(e); return;
+    }
+    DATA.tracks.forEach(function(tr){
+      var list = shown.filter(function(t){ return t.track===tr.id; });
+      if(!list.length) return;
+      list.sort(function(a,b){
+        var sa = STATUS_ORDER.indexOf(effStatus(a)), sb = STATUS_ORDER.indexOf(effStatus(b));
+        if(sa!==sb) return sa-sb;
+        if((a.priority||9)!==(b.priority||9)) return (a.priority||9)-(b.priority||9);
+        return a.id.localeCompare(b.id);
+      });
+      var blk = el('div','trackblk');
+      var head = el('div','trackhead');
+      head.appendChild(el('span','tt', tr.title));
+      var openN = list.filter(isOpen).length;
+      head.appendChild(el('span','tb', tr.blurb));
+      head.appendChild(el('span','tb','· открыто '+openN+' из '+list.length));
+      blk.appendChild(head);
+      var rows = el('div','rows');
+      list.forEach(function(t){ rows.appendChild(renderRow(t)); });
+      blk.appendChild(rows);
+      host.appendChild(blk);
+    });
+  }
+
+  function renderLocks(){
+    var host = document.getElementById('locks'); host.innerHTML='';
+    (DATA.locks||[]).forEach(function(l){ host.appendChild(el('span','lock', l)); });
+  }
+
+  function renderLocalCount(){
+    var n = Object.keys(local).length;
+    document.getElementById('localCount').textContent = n ? ('сейчас пометок: '+n) : 'пометок пока нет';
+  }
+
+  function renderMeta(){
+    var m = document.getElementById('meta');
+    m.textContent = 'Данные доски от ' + (DATA.updated||'') + ' · ' + DATA.tasks.length + ' задач · внутренняя страница, не для поиска';
+  }
+
+  function renderAll(){
+    renderLaunch(); renderChips(); renderCounts(); renderList(); renderLocalCount();
+  }
+
+  document.getElementById('q').addEventListener('input', function(e){ filters.q = e.target.value.trim(); renderList(); });
+  document.getElementById('reset').addEventListener('click', function(){
+    filters = { track:'all', owner:'all', status:'all', q:'' };
+    document.getElementById('q').value=''; renderAll();
+  });
+  document.getElementById('clearLocal').addEventListener('click', function(){
+    local = {}; saveLocal(); renderAll();
+  });
+
+  renderMeta(); renderLocks(); renderAll();
+
+  /* Sibling JSON is the same bytes as the embedded copy; refresh silently if it is newer. */
+  if (location.protocol === 'http:' || location.protocol === 'https:') {
+    fetch('smh-ops-data.json', { cache:'no-store' }).then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        if(j && j.tasks && j.updated && j.updated !== DATA.updated){ DATA = j; renderMeta(); renderLocks(); renderAll(); }
+      }).catch(function(){});
+  }
+})();
+</script>
+</body>
+</html>
