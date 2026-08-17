@@ -1718,6 +1718,106 @@ body.is-lived .card--road .road-stops:empty{background:transparent}
   body.is-lived .card--next,body.is-lived .card--quest,
   body.is-lived .card--ask{animation:none!important}
 }
+
+/* ============================================================
+   RAISE 18 · хром обжитого вечера
+   Только подача. Ни одного нового слова, ни одной новой цифры,
+   ни одного дорисованного лица: сообщения тостов, тексты карточек
+   и разметка остаются прежними до байта.
+   Тост становится бумагой для всех - он приходит и в пустой круг,
+   и второго продукта из него делать нельзя. Всё остальное висит на
+   том же единственном маркере is-lived, который raise15 включает
+   по настоящему содержимому этого устройства: пустой круг получает
+   ровно прежний пустой вечер.
+   ============================================================ */
+
+/* — тост: не системная плашка поверх комнаты, а записка на той же
+     бумаге. #toast, класс .on и 2400 мс в скрипте не тронуты — */
+.toast{
+  background-color:var(--tile);
+  background-image:repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+  color:var(--ink);
+  border:1px solid var(--seat);
+  border-radius:10px;
+  padding:11px 17px;
+  transform:translate(-50%,10px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.22),
+             0 10px 26px -16px rgba(64,46,34,.45);
+}
+body.is-dark .toast{
+  background-color:var(--soft);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.16),
+             0 10px 26px -16px rgba(0,0,0,.6);
+}
+
+/* — рамка первого входа отступает, когда в круге уже лежит настоящее:
+     она перестаёт быть сердцем вечера и не спорит с живыми снимками.
+     Слова, кнопки и код в ней прежние, сама она никуда не девается — */
+body.is-lived .card--empty{padding:20px 17px 20px}
+body.is-lived .card--empty::before{opacity:.45}
+body.is-lived .card--empty::after{
+  animation:none;opacity:.3;top:24px;width:180px;height:140px;
+}
+body.is-lived .frame-big{width:min(100%,244px);margin-bottom:11px}
+body.is-lived .frame-big .fb-void{animation:none;opacity:.45}
+body.is-lived .frame-big .fb-corner{opacity:.34}
+body.is-lived .empty-t{font-size:clamp(19px,4.9vw,22px);font-weight:500}
+body.is-lived .empty-s{font-size:13px;color:var(--muted)}
+
+/* — карта рода читается центром комнаты: та же пергаментная бумага и
+     тот же зажжённый шов, что у имени круга. Зажигается только занятое
+     место, свободное остаётся пунктирным приглашением — */
+body.is-lived .card--tree{
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.46), transparent 190px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.26),
+             0 1px 1px rgba(64,46,34,.04), 0 10px 26px -18px rgba(64,46,34,.28);
+}
+body.is-dark.is-lived .card--tree{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.15), transparent 190px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.18),
+             0 1px 1px rgba(0,0,0,.22), 0 10px 26px -18px rgba(0,0,0,.5);
+}
+body.is-lived .card--tree .card-head h2{font-weight:500}
+body.is-lived .tree-map .tm-trunk{opacity:.9}
+body.is-lived .tree-map .tm-branch{opacity:.78}
+body.is-lived .tree-map .tm-ring{stroke:var(--leaf-gold);opacity:.34}
+body.is-lived .tree-map .tm-taken .tm-c{filter:drop-shadow(0 0 6px rgba(228,177,67,.38))}
+body.is-lived .tree-map .tm-free .tm-c{filter:none}
+
+/* — имя круга садится на шаг глубже в ту же бумагу; шрифт, размер,
+     код и веточка на краю полки не трогаются — */
+body.is-lived .card--circle{
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.58), transparent 200px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 64px);
+}
+body.is-dark.is-lived .card--circle{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.16), transparent 200px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 64px);
+}
+body.is-lived .card--circle::after{opacity:.42}
+
+/* — шкала шагов и метки перестают быть приборной панелью: волосяные
+     линии вместо залитых плашек. Заполнение шкалы остаётся ровно тем,
+     что семья действительно прошла - ни одного лишнего деления — */
+body.is-lived .qbar{height:7px;background:var(--rail);box-shadow:inset 0 0 0 1px var(--divider)}
+body.is-lived .qbar::after{opacity:.5}
+body.is-lived .chip{border-color:var(--divider)}
+body.is-lived .chip.on{background:transparent;color:var(--accent-deep);box-shadow:inset 0 0 0 1px var(--seat)}
+
+/* — движения не прибавилось: тост приходит прежним переходом, а
+     ожидание рамки под is-lived гасится совсем. Глобальное правило
+     этой страницы гасит остальное с !important — */
+@media (prefers-reduced-motion:reduce){
+  body.is-lived .card--empty::after,
+  body.is-lived .frame-big .fb-void{animation:none!important}
+  .toast{transition:none!important}
+}
 </style>
 </head>
 <body>
