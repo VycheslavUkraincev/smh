@@ -120,9 +120,12 @@
       "track": "launch",
       "title": "Свести launch-контур: waitlist → код → кабинет/альбом → бот",
       "owner": "q",
-      "status": "in_progress",
+      "status": "done",
       "priority": 1,
-      "note": "Части уже LIVE; не хватает оплаты и sellable quality gate."
+      "note": "Контур сведён и LIVE: smh-launch.html — waitlist → код → кабинет → альбом → вечер → бот, каждый узел LIVE/PARTIAL/BLOCKED с причиной. Закрыто честно: оплата NOT_CLAIMED, рецепт NOT_SELLABLE, intake бота закрыт.",
+      "links": [
+        "/smh-launch.html"
+      ]
     },
     {
       "id": "L4",
@@ -131,7 +134,7 @@
       "owner": "roman",
       "status": "waiting_roman",
       "priority": 2,
-      "note": "Пересчёт READY: $0.18-0.25/фото, варианты A/B/C на smh-price.html (+ пол на smh-pay). Ждём выбор Романа: A, B, C или свои числа/валюта.",
+      "note": "Пересчёт READY: $0.18-0.25/фото, варианты A/B/C на smh-price.html LIVE (tip 49750c8, + пол на smh-pay). Ждём выбор Романа: A, B, C или свои числа/валюта.",
       "links": [
         "/smh-price.html",
         "/smh-pay.html"
@@ -412,9 +415,13 @@
       "track": "payment",
       "title": "Исследовать Stripe/оплату под SMH (карта, webhook, SKU)",
       "owner": "q",
-      "status": "in_progress",
+      "status": "done",
       "priority": 1,
-      "note": "Исследование 17.08: Stripe/MoR/UA + пол цены. SKU-вилка на smh-price.html. Выбор провайдера и цены за Романом."
+      "note": "Исследование 17.08 закрыто: Stripe/MoR/UA, пол цены от себестоимости $0.18-0.25/фото, вилка SKU на smh-price.html. Выбор провайдера и цены за Романом (P2/L4).",
+      "links": [
+        "/smh-price.html",
+        "/smh-pay.html"
+      ]
     },
     {
       "id": "P2",
@@ -520,9 +527,12 @@
       "track": "ops",
       "title": "Страница-планировщик SMH Ops Board на домене",
       "owner": "q",
-      "status": "in_progress",
+      "status": "done",
       "priority": 1,
-      "note": "этот заход"
+      "note": "Штаб LIVE на домене: smh-ops.html + data twin (tip 3b0e11c).",
+      "links": [
+        "/smh-ops.html"
+      ]
     },
     {
       "id": "PR1",
