@@ -1479,6 +1479,123 @@ body.is-dark .card--week,body.is-dark .card--road{
   .card--tree{padding-bottom:24px}
   .tree-hint{max-width:40ch}
 }
+/* ============================================================
+   RAISE 15 . прожитый вечер = та же комната, что и пустой
+   Когда в круге уже лежит настоящее (снимки, родные, письма,
+   записи о документах, голос, записанный словами, заметки) -
+   низ вечера перестаёт быть стопкой равных коробок и становится
+   продолжением святилища сверху. Всё нарисовано CSS и SVG:
+   ни одной картинки-подложки, ни одного лица, ни одной строки,
+   написанной за семью. Настоящее показывается как есть, пустое
+   остаётся пустым и тёплым, счётчики не трогаются вовсе.
+   ============================================================ */
+
+/* — одно спокойное движение: обжитая карточка приходит мягко — */
+@keyframes smh-lived{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+/* — в карточке уже лежит настоящее: та же семейная бумага и тот же
+     зажжённый шов, что у имени круга наверху — */
+.card--photos.is-lived,.card--people.is-lived,.card--journal.is-lived,
+.card--papers.is-lived,.card--voice.is-lived,.card--shelf.is-lived{
+  position:relative;
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.36), transparent 150px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.28),
+             0 1px 1px rgba(64,46,34,.04), 0 8px 22px -16px rgba(64,46,34,.26);
+  animation:smh-lived .55s ease both;
+}
+body.is-dark .card--photos.is-lived,body.is-dark .card--people.is-lived,
+body.is-dark .card--journal.is-lived,body.is-dark .card--papers.is-lived,
+body.is-dark .card--voice.is-lived,body.is-dark .card--shelf.is-lived{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.12), transparent 150px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.20),
+             0 1px 1px rgba(0,0,0,.22), 0 8px 22px -16px rgba(0,0,0,.5);
+}
+
+/* — снимок семьи лежит в паспарту, а не в плитке интерфейса.
+     Показываем ровно то, что человек загрузил сам — */
+.card--photos.is-lived .shot{
+  border-color:var(--seat);background:var(--tile);
+  box-shadow:0 1px 1px rgba(64,46,34,.04), 0 10px 24px -18px rgba(64,46,34,.34);
+}
+body.is-dark .card--photos.is-lived .shot{
+  box-shadow:0 1px 1px rgba(0,0,0,.22), 0 10px 24px -18px rgba(0,0,0,.55);
+}
+.card--photos.is-lived .shot img{padding:7px 7px 0;border-radius:12px}
+.card--photos.is-lived .shot-b{padding:10px 11px 11px}
+.card--photos.is-lived .shot-b b{font-weight:500}
+.card--photos.is-lived .badge{border-radius:4px;font-size:10.5px;letter-spacing:.02em}
+.card--photos.is-lived .badge--fam{
+  background:transparent;border:1px solid var(--seat);color:var(--accent-deep)}
+.card--photos.is-lived .cap-said{border-left-color:rgba(228,177,67,.5)}
+.card--photos.is-lived .legend{border-top-color:var(--divider)}
+
+/* — родные: имя, которое человек назвал, получает тёплое кольцо;
+     свободное место остаётся тем же приглашением — */
+.card--people.is-lived .who{
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.4), 0 0 0 3px rgba(228,177,67,.10)}
+.card--people.is-lived .who-t b{font-weight:500}
+.card--people.is-lived li.seat-free .who{box-shadow:none}
+
+/* — лента вечера: строки на бумаге с тихим золотым краем — */
+.card--journal.is-lived .jr-it{
+  background-image:linear-gradient(180deg, var(--rail), transparent 72px);
+  border-left:2px solid rgba(228,177,67,.34)}
+.card--journal.is-lived .jr-k{font-size:9.5px;letter-spacing:.09em}
+.card--journal.is-lived .jr-it b{font-weight:500}
+.card--journal.is-lived .jr-t{color:var(--ink)}
+
+/* — письма, документы и голос: ящик с бумагой, заголовок письма
+     набран той же гарнитурой, что имя круга — */
+.card--papers.is-lived .pp-box,.card--voice.is-lived .pp-box{
+  background-image:linear-gradient(180deg, var(--rail), transparent 120px)}
+.card--papers.is-lived .pp-it,.card--voice.is-lived .pp-it{
+  background:var(--tile);box-shadow:inset 2px 0 0 rgba(228,177,67,.32)}
+.card--papers.is-lived .pp-it b,.card--voice.is-lived .pp-it b{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:15.5px;font-weight:600;letter-spacing:.2px}
+.card--papers.is-lived .pp-it p,.card--voice.is-lived .pp-it p{color:var(--ink)}
+.card--papers.is-lived .pp-rm,.card--voice.is-lived .pp-rm{border-color:var(--divider)}
+.card--papers.is-lived .pp-wait{border-color:var(--seat)}
+
+/* — пустой ящик рядом с полным остаётся пустым: только тёплая бумага
+     под той же пунктирной рамкой, ни одного примера — */
+.card--papers.is-lived .pp-empty,.card--voice.is-lived .pp-empty,
+.card--journal.is-lived .jr-empty{background:var(--rail)}
+
+/* — полка: папка, в которой что-то лежит, светится краем;
+     пустая папка остаётся пунктирной и пустой — */
+.card--shelf.is-lived .folder:not(.is-empty){
+  border-color:var(--seat);
+  background-image:linear-gradient(180deg, var(--rail), transparent 62px)}
+
+/* — когда круг обжит, соседние карточки берут ту же бумагу,
+     чтобы вечер читался одной комнатой, а не стопкой коробок — */
+body.is-lived .card--today,body.is-lived .card--next,body.is-lived .card--quest{
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.30), transparent 130px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+body.is-dark.is-lived .card--today,body.is-dark.is-lived .card--next,
+body.is-dark.is-lived .card--quest{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.10), transparent 130px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .card--photos.is-lived,.card--people.is-lived,.card--journal.is-lived,
+  .card--papers.is-lived,.card--voice.is-lived,.card--shelf.is-lived{animation:none!important}
+}
+
+/* — та же обжитая комната от 720px: две зоны без изменений — */
+@media (min-width:720px){
+  .card--photos.is-lived .shot img{padding:7px 7px 0}
+  .card--papers.is-lived .pp-it b,.card--voice.is-lived .pp-it b{font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -3529,6 +3646,36 @@ body.is-dark .card--week,body.is-dark .card--road{
     }
   }
 
+  /* ---------- RAISE 15 . пометка обжитого ----------
+     Ни одного нового слова, ни одной новой цифры и ни одной новой
+     записи: только класс там, где в круге уже лежит настоящее.
+     Считается по тем же спискам, что и счётчики выше - снимки, родные,
+     письма, записи о документах, записанный словами голос и лента.
+     Пусто остаётся пустым: класса нет, и подача не меняется. */
+  function livedMark(sel, on){
+    var el = document.querySelector(sel);
+    if(el) el.classList.toggle('is-lived', !!on);
+  }
+
+  function renderLived(){
+    if(!state) return;
+    var ph = (state.photos && state.photos.length) || 0;
+    var pe = (state.people && state.people.length) || 0;
+    var lt = letters().length;
+    var dc = docs().length;
+    var vc = voices().length;
+    var jr = journalItems().length;
+    livedMark('.card--photos', ph);
+    livedMark('.card--people', pe);
+    livedMark('.card--journal', jr);
+    livedMark('.card--papers', lt || dc);
+    livedMark('.card--voice', vc);
+    livedMark('.card--shelf', ph || pe || lt || dc || vc);
+    try{
+      document.body.classList.toggle('is-lived', !!(ph || pe || lt || dc || vc || jr));
+    }catch(e){}
+  }
+
   function renderAll(){
     markFirstMemory();
     $('cName').textContent = state.name;
@@ -3556,6 +3703,7 @@ body.is-dark .card--week,body.is-dark .card--road{
     renderInviteNext();
     renderJoinPath();
     renderRibbon();
+    renderLived();
     syncCabLinks();
   }
 
