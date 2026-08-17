@@ -131,7 +131,7 @@
       "owner": "roman",
       "status": "waiting_roman",
       "priority": 2,
-      "note": "После canary/damage продукт ещё NOT_SELLABLE на recipe-level."
+      "note": "Пересчёт READY: себестоимость $0.18-0.25/фото, три варианта A/B/C на smh-pay.html. Ждём выбор Романа: A, B, C или свои цифры + валюта. Продавать рано: на recipe-level продукт ещё NOT_SELLABLE."
     },
     {
       "id": "LD1",
@@ -410,7 +410,7 @@
       "owner": "q",
       "status": "in_progress",
       "priority": 1,
-      "note": "Исследование 17.08: Stripe/MoR/UA + набросок SKU. План на smh-pay.html. Выбор провайдера за Романом"
+      "note": "Исследование 17.08 сделано: Stripe/MoR/UA + пол цены и три варианта SKU на smh-pay.html. Выбор провайдера и цены за Романом"
     },
     {
       "id": "P2",
