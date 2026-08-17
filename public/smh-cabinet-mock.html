@@ -556,6 +556,82 @@ body::before{
 .stat + .stat::before{background:var(--hair)}
 .foot h2{font-weight:500;letter-spacing:.3px}
 .demo-flag{border-color:var(--seat)}
+
+/* ============================================================
+   raise16 - обжитый круг в кабинете: та же комната, что и пустой.
+   Когда в круге уже лежит настоящее - имена, снимки, сказанные слова,
+   письма, записи о бумагах и голос, записанный словами, - карточка
+   круга перестаёт быть панелью инструмента и продолжает святилище
+   вечера: семейная бумага, берёзовое волокно, зажжённый шов по верхней
+   кромке, паспарту вокруг снимка семьи и бумажный ящик под письмами.
+   Всё нарисовано CSS: ни подложки, ни лица, ни одной строки, написанной
+   за семью. Пустое рядом с полным остаётся пустым, настоящий ноль
+   остаётся нулём и остаётся тихим, пример чужой семьи сюда не попадает.
+   ============================================================ */
+@keyframes smh-lived16{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* в круге уже лежит настоящее: семейная бумага и зажжённый шов */
+.seam.is-lived{
+  background-image:
+    linear-gradient(180deg,rgba(244,231,208,.50),rgba(253,250,244,0) 170px),
+    var(--paper),
+    repeating-linear-gradient(90deg,var(--birch) 0 1px,transparent 1px 58px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.26), var(--lift);
+}
+.seam.is-lived::before{
+  background:linear-gradient(90deg,transparent,rgba(228,177,67,.90),transparent);
+}
+.seam.is-lived #seamBody{animation:smh-lived16 .55s cubic-bezier(.2,.7,.3,1) both}
+
+/* цифры: светится только то, что в круге действительно есть.
+   Настоящий ноль остаётся нулём - его не прячут и не зажигают. */
+.seam.is-lived .seam-nums{border-top-color:var(--hair)}
+.seam.is-lived .seam-num:not(.is-zero) b{color:var(--bark)}
+.seam.is-lived .seam-num:not(.is-zero) span{color:var(--ink-2)}
+.seam.is-lived .seam-num.is-zero b{color:var(--muted);font-weight:500}
+
+/* имя, которое назвал человек, получает тёплое кольцо */
+.seam.is-lived .seam-p{background:rgba(250,244,231,.72);border-color:var(--seat)}
+.seam.is-lived .seam-p b{font-weight:500}
+.seam.is-lived .seam-i{box-shadow:0 0 0 3px rgba(228,177,67,.12)}
+
+/* снимок семьи лежит в паспарту, а не в плитке интерфейса:
+   тёплая рамка, бумажное поле, мягкая тень. Показываем ровно то,
+   что человек загрузил сам, и подпись ровно теми словами, что набрал. */
+.seam.is-lived .seam-shot{
+  background:rgba(253,250,244,.96);
+  border:1px solid var(--seat);
+  border-radius:12px;
+  padding:8px 8px 11px;
+  box-shadow:0 1px 1px rgba(64,46,34,.04), 0 10px 24px -18px rgba(64,46,34,.34);
+}
+.seam.is-lived .seam-shot img{border-radius:8px;border-color:var(--hair)}
+.seam.is-lived .seam-shot small{margin-top:8px;padding:0 2px;color:var(--ink)}
+
+/* письма, бумаги и голос лежат в ящике: бумага и тихий золотой край,
+   заголовок письма набран той же гарнитурой, что имя круга */
+.seam.is-lived .seam-w{
+  padding-left:11px;
+  border-top-color:var(--hair);
+  background-image:linear-gradient(180deg,rgba(250,244,231,.62),transparent 76px);
+  box-shadow:inset 2px 0 0 rgba(228,177,67,.30);
+}
+.seam.is-lived .seam-w p{color:var(--ink)}
+.seam.is-lived .seam-w.is-paper b{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:16px;font-weight:600;letter-spacing:.2px;
+}
+
+/* пустое рядом с полным остаётся пустым: та же тёплая бумага под той же
+   пунктирной рамкой - ни примера, ни лица, ни выдуманной подписи */
+.seam.is-lived .seam-empty{box-shadow:none}
+
+@media (max-width:640px){
+  .seam.is-lived .seam-shot{padding:7px 7px 10px}
+}
+@media (prefers-reduced-motion:reduce){
+  .seam.is-lived #seamBody{animation:none!important}
+}
 </style>
 </head>
 <body>
@@ -1113,7 +1189,38 @@ body::before{
     });
   }
 
+  /* ---------- raise16 . пометка обжитого ----------
+     Ни одного нового слова, ни одной новой цифры и ни одной новой записи:
+     только класс там, где в круге уже лежит настоящее. Считается по тем же
+     спискам, что и счётчики выше. Пусто остаётся пустым: класса нет, и
+     подача не меняется. Настоящий ноль помечается как ноль, чтобы его
+     не зажигали, - и остаётся на экране нулём. */
+  function livedMark16(){
+    var box = document.getElementById('seam');
+    if(!box) return;
+    box.classList.toggle('is-lived', !!lived);
+    if(!lived) return;
+    var i, b, t;
+    var nums = box.querySelectorAll('.seam-num');
+    for(i=0;i<nums.length;i++){
+      b = nums[i].querySelector('b');
+      if(b && String(b.textContent).replace(/\s+/g, '') === '0') nums[i].classList.add('is-zero');
+    }
+    var ws = box.querySelectorAll('.seam-w');
+    for(i=0;i<ws.length;i++){
+      b = ws[i].querySelector('b');
+      if(!b) continue;
+      t = String(b.textContent);
+      if(t.indexOf('Письмо') === 0 ||
+         t.indexOf('Документ') === 0 ||
+         t.indexOf('Голос') === 0){
+        ws[i].classList.add('is-paper');
+      }
+    }
+  }
+
   try{ render(); }catch(e){}
+  try{ livedMark16(); }catch(e){}
   bindDemo();
 })();
 </script>
