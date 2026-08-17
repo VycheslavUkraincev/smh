@@ -654,6 +654,7 @@ body::before{
       <a class="nav-item" href="#relations"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6.5" r="2.4"/><circle cx="18" cy="17.5" r="2.4"/><path d="M8.2 10.9l7.6-3.3M8.2 13.1l7.6 3.3"/></svg>Связи</a>
       <div class="nav-sep"></div>
       <div class="nav-label">Работа с памятью</div>
+      <a class="nav-item" href="/smh-album.html"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.2"/><circle cx="8.6" cy="10" r="1.5"/><path d="M4.5 17l4.6-4.4 3.4 3.2 2.6-2.3 4.4 3.9"/></svg>Альбом</a>
       <a class="nav-item" href="/smh-cabinet-stol.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="6.2" width="17.2" height="11" rx="1.8"/><path d="M3.4 17.2v2.4M20.6 17.2v2.4M7.6 10h8.8M7.6 13.4h5.4"/></svg>Стол</a>
       <a class="nav-item" href="/smh-cabinet-karta.html"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.2"/><circle cx="9" cy="10.4" r="2.2"/><path d="M5.6 16.6c.5-1.9 1.8-2.9 3.4-2.9s2.9 1 3.4 2.9M15 9.4h3.6M15 12.6h3.6"/></svg>Карточка памяти</a>
       <a class="nav-item" href="/smh-cabinet-razgovor.html"><svg viewBox="0 0 24 24"><path d="M4 12.8v-1.6M8 15.6V8.4M12 18.4V5.6M16 15.6V8.4M20 12.8v-1.6"/></svg>Голоса</a>
@@ -1165,7 +1166,7 @@ body::before{
     if(uname) uname.textContent = who || 'Гость';
 
     if(code){
-      var links = document.querySelectorAll('a[href^="/smh-cabinet-"]');
+      var links = document.querySelectorAll('a[href^="/smh-cabinet-"], a[href^="/smh-album"]');
       for(var j=0;j<links.length;j++){
         var href = links[j].getAttribute('href');
         if(href && href.indexOf('?') === -1){
