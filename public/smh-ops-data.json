@@ -397,9 +397,13 @@
       "track": "api_restore",
       "title": "Устойчивый damage PASS rate → sellable recipe",
       "owner": "q",
-      "status": "in_progress",
+      "status": "waiting_go",
       "priority": 1,
-      "note": "Сейчас NOT_SELLABLE recipe-level"
+      "note": "Evidence сведён и LIVE: smh-quality.html — три прогона (canary 3, damage probe 5, живой MVP-B), 18 выдач, 36E. Damage PASS 4/10 = 0.40, лица 17/18, глаза 0 придуманных, цвет 5/5, вкусовой гейт Романа 0.25 (1 из 4). Рецепт-кандидат: flux2_max-first с оригинала. Остаётся NOT_SELLABLE: нужен устойчивый PASS на новом наборе и вкусовой гейт выше. Дальше — только по точной фразе с потолком.",
+      "links": [
+        "/smh-quality.html",
+        "/smh-launch.html"
+      ]
     },
     {
       "id": "A5",

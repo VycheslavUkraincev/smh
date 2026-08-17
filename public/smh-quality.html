@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>SaveMyHistory · Качество до первой продажи</title>
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#efe8da; --card:#faf6ee;
+  --ink:#2b2620; --ink-2:#5c5347; --ink-3:#8a8073;
+  --line:#ddd3c1; --line-2:#cbbfa8;
+  --gold:#b3893f; --gold-soft:rgba(179,137,63,.28);
+  --green:#4f7a4a; --amber:#a8762a; --blue:#4a6b86; --grey:#8a8073; --red:#9c4f45;
+  --r:12px; --shadow:0 1px 2px rgba(43,38,32,.05),0 6px 18px rgba(43,38,32,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(1200px 480px at 50% -220px,rgba(179,137,63,.10),transparent 70%),
+    repeating-linear-gradient(90deg,rgba(43,38,32,.016) 0 1px,transparent 1px 3px);
+  color:var(--ink);
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+  padding:0 0 64px;
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+h1{font:600 28px/1.15 Cormorant Garamond,Georgia,"Times New Roman",serif;letter-spacing:-.02em;margin:0 0 8px}
+h2{font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+   text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3);margin:0 0 10px}
+.small{color:var(--ink-3);font-size:12.5px}
+.links a{color:var(--blue)}
+.seam{height:1px;background:linear-gradient(90deg,transparent,var(--gold-soft) 18%,var(--gold-soft) 82%,transparent);margin:18px 0}
+section{margin:22px 0}
+code{font-size:12.5px;background:rgba(43,38,32,.05);border-radius:5px;padding:1px 5px}
+
+.st{font-size:11.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
+  border:1px solid currentColor;border-radius:999px;padding:3px 9px;line-height:1.25;display:inline-block}
+.st.pass{color:var(--green)}
+.st.weak,.st.wait{color:var(--amber)}
+.st.fail{color:var(--red)}
+.st.note{color:var(--grey)}
+
+.tally{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.tally .pill{font-size:12.5px;border:1px solid var(--line-2);border-radius:999px;padding:4px 11px;background:var(--card);color:var(--ink-2)}
+.tally .pill b{font-variant-numeric:tabular-nums}
+
+.verdict{border:1px solid var(--red);background:linear-gradient(180deg,#fbf1ef,#f6e9e6);
+  border-radius:var(--r);padding:15px 16px}
+.verdict h2{color:var(--red);margin:0 0 6px}
+.verdict strong{font-size:20px;letter-spacing:.01em}
+.verdict p{margin:8px 0 0;color:var(--ink-2)}
+
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;font-size:13.5px}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;
+  background:var(--paper-2);vertical-align:bottom}
+tbody th{font-weight:600;color:var(--ink)}
+tbody th .sub{display:block;font-weight:400;color:var(--ink-3);font-size:12px}
+tr:last-child th,tr:last-child td{border-bottom:none}
+td.g{font-weight:600;font-size:12.5px;white-space:nowrap}
+td.g.pass{color:var(--green)}
+td.g.weak{color:var(--amber)}
+td.g.none{color:var(--ink-3);font-weight:400}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:720px){.nums{grid-template-columns:repeat(4,1fr)}}
+.num{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px;box-shadow:var(--shadow)}
+.num b{display:block;font:600 22px/1.1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-variant-numeric:tabular-nums;margin:0 0 3px}
+.num.good b{color:var(--green)}
+.num.bad b{color:var(--red)}
+.num.mid b{color:var(--amber)}
+.num span{color:var(--ink-3);font-size:12.5px}
+
+.run{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;box-shadow:var(--shadow)}
+.run + .run{margin-top:10px}
+.run .head,.gate .head{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;justify-content:space-between}
+.run h3,.gate h3{margin:0;font:600 16px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.why{margin:7px 0 0;color:var(--ink-3);font-size:13px}
+.kv{margin:9px 0 0}
+.kv > div{display:grid;grid-template-columns:1fr;gap:1px;padding:5px 0;border-top:1px solid var(--line)}
+@media(min-width:560px){.kv > div{grid-template-columns:132px 1fr;gap:10px}}
+.kv dt{color:var(--ink-3);font-size:12.5px}
+.kv dd{margin:0;color:var(--ink-2);font-size:13.5px}
+
+.gates{list-style:none;margin:0;padding:0}
+.gate{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--line-2);
+  border-radius:var(--r);padding:13px 15px;box-shadow:var(--shadow)}
+.gate + .gate{margin-top:10px}
+.gate.pass{border-left-color:var(--green)}
+.gate.fail{border-left-color:var(--red)}
+.gate.wait{border-left-color:var(--amber)}
+.gate.note{border-left-color:var(--line-2)}
+.tag{font-size:11.5px;color:var(--ink-3);border:1px solid var(--line-2);border-radius:999px;padding:1px 7px;white-space:nowrap}
+.tag.rec{color:var(--green);border-color:var(--green)}
+
+.grid2{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:720px){.grid2{grid-template-columns:1fr 1fr}}
+.block{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow)}
+.block h3{margin:0 0 5px;font:600 15px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.block p{margin:6px 0 0;color:var(--ink-2);font-size:13.5px}
+.block ul{margin:6px 0 0;padding-left:18px;color:var(--ink-2);font-size:13.5px}
+.block li{margin:3px 0}
+
+.ask{border:1px solid var(--gold-soft);background:linear-gradient(180deg,#fbf6ea,#f3ead6);padding:14px 16px;border-radius:var(--r)}
+.ask p{margin:8px 0 0}
+ul.gaps{margin:0;padding-left:18px;color:var(--ink-2);font-size:13.5px}
+ul.gaps li{margin:5px 0}
+footer{margin-top:26px;color:var(--ink-3);font-size:12.5px}
+footer a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<header class="wrap" style="padding-top:28px;padding-bottom:8px">
+  <p class="small" style="margin:0 0 6px">Внутренняя сводка · не витрина · не checkout</p>
+  <h1>Качество до первой продажи</h1>
+  <p style="margin:0;color:var(--ink-2);max-width:46em">Что три платных прогона реально показали про реставрацию: сколько фотографий вытянули, сколько нет, и что должно совпасть, прежде чем за это можно брать деньги.</p>
+  <div class="tally">
+    <span class="pill"><b>3</b> прогона</span>
+    <span class="pill"><b>4</b> фотографии</span>
+    <span class="pill"><b>18</b> вызовов · 36.0E</span>
+    <span class="pill">damage PASS <b>4/10</b></span>
+  </div>
+  <p class="links small" style="margin:12px 0 0"><a href="/smh-launch.html">Контур запуска</a> · <a href="/smh-ops.html">Штаб</a> · <a href="/smh-price.html">Цены</a> · <a href="/smh-pay.html">Оплата</a></p>
+</header>
+
+<main class="wrap">
+
+<div class="seam"></div>
+
+<section>
+  <div class="verdict">
+    <h2>Вердикт на 2026-08-17</h2>
+    <strong>NOT_SELLABLE</strong>
+    <p>Формула известна, качество ещё не продаваемо. Рецепт, который работает лучше всех остальных, уже найден — но он вытягивает <b>4 фотографии из 10</b>, а платит человек за каждую. Продавать это сегодня нельзя, и страница не притворяется, что можно.</p>
+    <p class="small">Оплата NOT_CLAIMED · intake бота закрыт · LIVE_CALLS = off · в этой задаче не потрачено ни одного E и не сделано ни одного вызова fal.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Цифры целиком</h2>
+  <div class="nums">
+    <div class="num bad"><b>40%</b><span>damage PASS · 4 из 10 оценок</span></div>
+    <div class="num good"><b>94%</b><span>лица FACE_PASS · 17 из 18</span></div>
+    <div class="num good"><b>0</b><span>придуманных глаз на 18 выдачах</span></div>
+    <div class="num bad"><b>25%</b><span>вкусовой гейт · 1 из 4</span></div>
+  </div>
+  <p class="small" style="margin-top:10px">Согласие вкуса Романа с моей оценкой damage — 0/4. Единственный APPROVE стоял на WEAK, все три PASS отклонены.</p>
+</section>
+
+<section>
+  <h2>Что вытянуло, а что нет</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th scope="col">Фото</th><th scope="col">Canary 3 / потолок 24E</th><th scope="col">Damage probe 5 / потолок 100E</th><th scope="col">TG restore bot MVP-B · живой прогон</th><th scope="col">Держит PASS везде</th></tr></thead>
+    <tbody><tr><th scope="row"><b>A</b> · two_women_studio<span class="sub">порча: heavy</span></th><td class="g weak">WEAK</td><td class="g weak">WEAK</td><td class="g weak">WEAK</td><td class="g weak">нет</td></tr><tr><th scope="row"><b>B</b> · mother_baby_knit<span class="sub">порча: moderate</span></th><td class="g weak">WEAK</td><td class="g pass">PASS</td><td class="g pass">PASS</td><td class="g weak">нет</td></tr><tr><th scope="row"><b>C</b> · children_dining<span class="sub">порча: light-moderate</span></th><td class="g weak">WEAK</td><td class="g weak">WEAK</td><td class="g pass">PASS</td><td class="g weak">нет</td></tr><tr><th scope="row"><b>D</b> · family_portrait_knit<span class="sub">порча: light</span></th><td class="g none">—</td><td class="g none">—</td><td class="g pass">PASS</td><td class="g pass">да</td></tr></tbody>
+  </table>
+  </div>
+  <p class="small" style="margin-top:10px">Оценка уровня фотографии по повреждениям носителя: PASS — порча убрана, WEAK — убрана частично. Прочерк — фотографию в этом прогоне не смотрели. Только <b>1 из 4</b> держит PASS во всех прогонах, где её видели.</p>
+</section>
+
+<section>
+  <h2>Прогоны</h2>
+  
+    <div class="run">
+      <div class="head"><h3>Canary 3 / потолок 24E</h3><span class="st weak">damage PASS 0/3</span></div>
+      <p class="why">Damage WEAK на 3/3, ни одного PASS. Лица и цвет держатся. Узкое место — повреждения носителя.</p>
+      <dl class="kv">
+        <div><dt>Рецепт</dt><dd>kontext_max-first (authentic) → flux2_max только как 1 redo при FACE_FAIL → Banana Pro цвет при PASS/WEAK</dd></div>
+        <div><dt>Вызовы</dt><dd>7 · 14.0E из потолка 24.0E</dd></div>
+        <div><dt>Фраза GO</dt><dd><code>да, canary до 3 фото, потолок 24E</code></dd></div>
+        <div><dt>Источник</dt><dd>SMH_PAID_CANARY_3_CEIL24_GO_RESULT.txt</dd></div>
+      </dl>
+    </div>
+    <div class="run">
+      <div class="head"><h3>Damage probe 5 / потолок 100E</h3><span class="st weak">damage PASS 1/3</span></div>
+      <p class="why">flux2_max-first с оригинала бьёт kontext-first на 3/3 при той же цене. PASS 1/3 — щель сузилась, но не закрылась.</p>
+      <dl class="kv">
+        <div><dt>Рецепт</dt><dd>flux2_max-first прямо с ОРИГИНАЛА (damage_first prompt) · без цвета</dd></div>
+        <div><dt>Вызовы</dt><dd>5 · 10.0E из потолка 100.0E</dd></div>
+        <div><dt>Фраза GO</dt><dd><code>да, damage probe до 5 вызовов, потолок 100E</code></dd></div>
+        <div><dt>Источник</dt><dd>SMH_DAMAGE_PROBE_5_CEIL100_GO_RESULT.txt</dd></div>
+      </dl>
+    </div>
+    <div class="run">
+      <div class="head"><h3>TG restore bot MVP-B · живой прогон</h3><span class="st weak">damage PASS 3/4</span></div>
+      <p class="why">Рецепт прошёл end-to-end. Но вкус Романа и оценка damage разошлись: одобрен единственный WEAK, все три PASS отклонены.</p>
+      <dl class="kv">
+        <div><dt>Рецепт</dt><dd>flux2_max damage → parent-eye → Banana Pro цвет только если want_color=Y и damage в PASS/WEAK → GATE-3 admin_hold</dd></div>
+        <div><dt>Вызовы</dt><dd>6 · 12.0E из потолка 40.0E</dd></div>
+        <div><dt>Фраза GO</dt><dd><code>TG restore bot MVP-B живой прогон, до 5 фото, потолок 40E</code></dd></div>
+        <div><dt>Источник</dt><dd>SMH_TG_RESTORE_BOT_MVP_B_LIVE_RESULT.txt</dd></div>
+      </dl>
+    </div>
+</section>
+
+<div class="seam"></div>
+
+<section>
+  <h2>Рецепт по состоянию на сегодня</h2>
+  <div class="block">
+    <h3>flux2_max (fal-ai/flux-2-max/edit) ПЕРВЫМ, damage_first prompt, прямо с ОРИГИНАЛА</h3>
+    <p>Цвет: Banana Pro (fal-ai/nano-banana-pro/edit) только если пользователь просил цвет И damage в PASS/WEAK</p>
+    <p>Preprocess: NONE (CodeFormer не тестировался — неисследованный рычаг) · Замки: FACE_LOCK · EYE_GAZE_LOCK · BW_LOCK · GRAIN_LOCK · Redo: максимум 1 при FACE_FAIL · Баны: pd_02 · 6fe4644f</p>
+    <p class="small">Статус: лучший известный путь, не эталон.</p>
+  </div>
+  <div class="grid2" style="margin-top:10px">
+    <div class="block">
+      <h3>Тупик, который уже проверен</h3>
+      <p>второй проход тем же моделью по уже восстановленному AFTER — почти нулевая отдача за 2E</p>
+    </div>
+    <div class="block">
+      <h3>Цена подхода</h3>
+      <p>damage-first стабильно даёт лёгкое сглаживание кожи и просадку зерна — главный кандидат сорваться в FACE_FAIL на портрете крупным планом</p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:10px">Себестоимость API в рабочем коридоре <b>$0.18–0.25 за фотографию</b> (источник: ROMAN_SMH_API_LAUNCH_PLAN_1000_20260817.md). Не учтено: хранение, CDN, поддержка, ручной QA, повтор после FAIL. Portal Energy в этом чате ≠ биллинг SaveMyHistory. 2E за вызов — паттерн каталога image-class, не построчный инвойс.</p>
+</section>
+
+<div class="seam"></div>
+
+<section>
+  <h2>Гейт продажи · что должно совпасть</h2>
+  <div class="tally" style="margin:0 0 12px">
+    <span class="pill"><b>3</b> держит</span>
+    <span class="pill"><b>4</b> не держит</span>
+    <span class="pill"><b>2</b> ждёт Романа</span>
+  </div>
+  <ul class="gates">
+    <li class="gate fail">
+      <div class="head"><h3>Damage PASS на новом наборе</h3><span class="st fail">НЕ ДЕРЖИТ</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>≥ 0.80 (8 из 10) на 10+ ранее не виденных фото со следами порчи <span class="tag">порог — предложение</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>4/10 = 0.4</b></dd></div>
+      </dl>
+      <p class="why">Порог — моё предложение, не решение. Сейчас каждое третье-второе фото не вытягивает, а платит человек за каждое.</p>
+    </li>
+    <li class="gate fail">
+      <div class="head"><h3>Повторяемость PASS на одном фото</h3><span class="st fail">НЕ ДЕРЖИТ</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>одно и то же фото даёт PASS в двух независимых прогонах <span class="tag">порог — предложение</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>1 из 4 фото держат PASS во всех прогонах, где их смотрели</b></dd></div>
+      </dl>
+      <p class="why">C получил WEAK в canary и probe, но PASS в живом прогоне. Это разброс оценщика, а не рост качества.</p>
+    </li>
+    <li class="gate pass">
+      <div class="head"><h3>Лица: FACE_PASS</h3><span class="st pass">ДЕРЖИТ</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>100% на выдаче (redo при FACE_FAIL допустим, отдача — нет) <span class="tag">замер</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>17/18 = 0.94</b></dd></div>
+      </dl>
+      <p class="why">Единственный FACE_FAIL был на attempt-1 kontext_max и закрыт одним redo; наружу не пошёл.</p>
+    </li>
+    <li class="gate pass">
+      <div class="head"><h3>Глаза: invent_eyes = 0</h3><span class="st pass">ДЕРЖИТ</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>строго 0, включая закрытые и опущенные взгляды <span class="tag">замер</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>0 придуманных глаз на 18 проверенных выдачах</b></dd></div>
+      </dl>
+      <p class="why">Худший случай (закрытые глаза взрослой женщины, дети без зрительного контакта) держался во всех трёх прогонах.</p>
+    </li>
+    <li class="gate pass">
+      <div class="head"><h3>Цвет: COLOR_PASS</h3><span class="st pass">ДЕРЖИТ</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>≥ 0.90 при запросе цвета <span class="tag">замер</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>5/5 = 1.0</b></dd></div>
+      </dl>
+      <p class="why">Цвет — самая спокойная стадия. Но он ни разу не проверялся поверх damage-PASS базы.</p>
+    </li>
+    <li class="gate fail">
+      <div class="head"><h3>Вкусовой гейт (Роман / родительский глаз)</h3><span class="st fail">НЕ ДЕРЖИТ</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>approve_rate ≥ 0.80 на выборке 10+ <span class="tag">порог — предложение</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>0.25 на выборке 4</b></dd></div>
+      </dl>
+      <p class="why">0.25 — это трое из четырёх в брак. И согласие с моей оценкой damage 0/4: моя шкала пока не предсказывает вкус Романа.</p>
+    </li>
+    <li class="gate fail">
+      <div class="head"><h3>Слепая переоценка на полном разрешении</h3><span class="st fail">НЕ ДЕРЖИТ</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>второе мнение вслепую, не зная, какая картинка новая <span class="tag">порог — предложение</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>не делалось ни разу</b></dd></div>
+      </dl>
+      <p class="why">Все оценки — один глаз по уменьшенной копии. Единственный PASS в probe — n=1 во всех смыслах.</p>
+    </li>
+    <li class="gate wait">
+      <div class="head"><h3>Мерчант</h3><span class="st wait">ЖДЁТ РОМАНА</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>аккаунт открыт, деньги физически есть чем принять <span class="tag">внешний блок</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>NOT_CLAIMED (P2, ждёт Романа)</b></dd></div>
+      </dl>
+      <p class="why">Внешний блок. Не выдумываю готовность: аккаунта нет, checkout нигде не подключён.</p>
+    </li>
+    <li class="gate wait">
+      <div class="head"><h3>SKU и цена</h3><span class="st wait">ЖДЁТ РОМАНА</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>выбран один вариант: A, B или C (или свои числа и валюта) <span class="tag">внешний блок</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>не выбран (L4, ждёт Романа, smh-price.html LIVE)</b></dd></div>
+      </dl>
+      <p class="why">Пол цены посчитан ($0.18–0.25/фото), но что именно продаём первым — решение Романа.</p>
+    </li>
+    <li class="gate note">
+      <div class="head"><h3>Биллинг: Portal Energy ≠ продукт</h3><span class="st note">ПАМЯТКА</span></div>
+      <dl class="kv">
+        <div><dt>Порог</dt><dd>помнить всегда <span class="tag">памятка</span></dd></div>
+        <div><dt>Сейчас</dt><dd><b>E тратится в Портале, клиент SaveMyHistory ничего не платил и платить нечем</b></dd></div>
+      </dl>
+      <p class="why">36E этих прогонов — расход Портала, а не выручка и не себестоимость в валюте продукта.</p>
+    </li></ul>
+  <p class="small" style="margin-top:10px">Пороги помечены как предложение там, где это предложение. Планку продажи ставит Роман, а не я.</p>
+</section>
+
+<div class="seam"></div>
+
+<section>
+  <h2>Что держит продажу</h2>
+  <div class="grid2">
+    <div class="block">
+      <h3>Моя часть · качество</h3>
+      <ul><li>Damage PASS на новом наборе</li><li>Повторяемость PASS на одном фото</li><li>Вкусовой гейт (Роман / родительский глаз)</li><li>Слепая переоценка на полном разрешении</li></ul>
+      <p class="small">Это закрывается прогонами и оценкой — но каждый платный прогон требует точной фразы с потолком.</p>
+    </div>
+    <div class="block">
+      <h3>Часть Романа · внешнее</h3>
+      <ul><li>Мерчант</li><li>SKU и цена</li></ul>
+      <p class="small">Ни то, ни другое не начато и не выдумано готовым: мерчанта нет, SKU не выбран. Даже идеальное качество не продать без них.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Следующие шаги · точные фразы</h2>
+  <p class="small" style="margin:0 0 10px">Ничего из этого не запущено. Это список того, что можно сказать — я жду точную фразу и не начинаю без неё.</p>
+  <div class="grid2">
+    <div class="block">
+      <h3><code>да, damage probe до 10 фото, потолок 40E</code> <span class="tag rec">рекомендую</span></h3>
+      <p>Широкая выборка на новых фото по flux2-first. Единственный способ узнать настоящий PASS rate.</p>
+      <p class="small">Расход: ≤ 40E</p>
+    </div>
+    <div class="block">
+      <h3><code>да, слепая переоценка, 0E</code> <span class="tag rec">рекомендую</span></h3>
+      <p>Пересмотр уже существующих AFTER на полном разрешении вслепую. Без fal, бесплатно.</p>
+      <p class="small">Расход: 0E</p>
+    </div>
+    <div class="block">
+      <h3><code>да, цвет поверх damage-PASS, потолок 8E</code></h3>
+      <p>Проверить, держится ли COLOR_PASS поверх базы, прошедшей damage.</p>
+      <p class="small">Расход: ≤ 8E</p>
+    </div>
+    <div class="block">
+      <h3><code>A / B / C на smh-price.html + мерчант</code> <span class="tag rec">рекомендую</span></h3>
+      <p>Снимает два внешних блока. Без этого качество можно догнать, а продать всё равно нечем.</p>
+      <p class="small">Расход: 0E</p>
+    </div></div>
+</section>
+
+<div class="seam"></div>
+
+<section>
+  <h2>Где эта сводка слаба</h2>
+  <div class="block">
+    <ul class="gaps"><li>Все оценки — один глаз (parent-eye) по уменьшенным копиям, без слепого контроля и без второго мнения.</li><li>Выборка — 4 фотографии, и три из них переиспользованы между прогонами. Это сигнал, а не измеренный процент.</li><li>Фото C получило WEAK дважды и PASS один раз. Разброс оценщика внутри evidence, и он не спрятан.</li><li>2E за вызов — паттерн каталога, не построчный инвойс Портала. 36E — оценка, не квитанция.</li><li>Пороги в таблице — моё предложение. Решение о том, где проходит планка продажи, за Романом.</li><li>CodeFormer / preprocess не тестировался ни разу. Возможно, именно он закрывает фото A.</li><li>Ни одно живое фото от настоящего пользователя через бота не проходило: интейк был локальными файлами.</li></ul>
+  </div>
+</section>
+
+<section>
+  <div class="ask">
+    <strong>Одним абзацем</strong>
+    <p>Формула найдена: flux2_max первым, прямо с оригинала, damage-first. Лица держатся, глаза не выдумываются, цвет спокоен. Не держится главное — сама порча уходит меньше чем на половине снимков, а твой вкус совпал с моей оценкой ноль раз из четырёх. Пока не будет широкой выборки и совпадения по вкусу, первая продажа была бы обещанием, которое я не могу выполнить.</p>
+  </div>
+</section>
+
+<footer class="wrap" style="padding:0">
+  <div class="seam"></div>
+  <p class="small">Источник цифр: SMH_SELLABLE_GATE_A4_EVIDENCE.json · собрано 2026-08-17T19:06Z · пункт доски A4 · страница внутренняя, noindex · ничего не продаёт и не списывает</p>
+  <p class="small links"><a href="/smh-launch.html">Контур запуска</a> · <a href="/smh-ops.html">Штаб</a> · <a href="/smh-price.html">Цены</a> · <a href="/smh-pay.html">Оплата</a></p>
+</footer>
+
+</main>
+</body>
+</html>
