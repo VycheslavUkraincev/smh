@@ -1596,6 +1596,128 @@ body.is-dark.is-lived .card--quest{
   .card--photos.is-lived .shot img{padding:7px 7px 0}
   .card--papers.is-lived .pp-it b,.card--voice.is-lived .pp-it b{font-size:16px}
 }
+
+/* ============================================================
+   RAISE 17 . обжитый вечер ниже архива - та же комната
+   Продолжение raise15: когда в круге уже лежит настоящее, тепло
+   получали снимки, родные, лента, письма, документы, голос и полка,
+   а неделя, дорога, стол, дворецкий и набор приглашения оставались
+   инструментом. Комната ломалась ровно под архивом. Здесь тот же
+   единственный маркер is-lived - второго флага не заводим - берут
+   и вторые карточки: та же семейная бумага, та же берёста, тот же
+   зажжённый шов, только тише, чем у имени круга и у содержимого.
+   Только CSS, только подача. Ни одной строки поведения, ни одного
+   выдуманного имени, числа, даты или слова за семью. Пустое рядом
+   с полным остаётся пустым: подсвечено лишь то, что человек
+   действительно сделал сам.
+   ============================================================ */
+
+/* — вторые карточки обжитого вечера: бумага круга и зажжённый шов,
+     на ступень тише, чем карточки с настоящим содержимым — */
+body.is-lived .card--today,body.is-lived .card--week,body.is-lived .card--road,
+body.is-lived .card--table,body.is-lived .card--butler,body.is-lived .card--invite,
+body.is-lived .card--next,body.is-lived .card--quest,body.is-lived .card--ask{
+  position:relative;
+  background-image:
+    linear-gradient(180deg, rgba(232,222,209,.30), transparent 130px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.20),
+             0 1px 1px rgba(64,46,34,.04), 0 8px 22px -16px rgba(64,46,34,.26);
+  animation:smh-lived .6s ease both;
+}
+body.is-dark.is-lived .card--today,body.is-dark.is-lived .card--week,
+body.is-dark.is-lived .card--road,body.is-dark.is-lived .card--table,
+body.is-dark.is-lived .card--butler,body.is-dark.is-lived .card--invite,
+body.is-dark.is-lived .card--next,body.is-dark.is-lived .card--quest,
+body.is-dark.is-lived .card--ask{
+  background-image:
+    linear-gradient(180deg, rgba(198,161,132,.10), transparent 130px),
+    repeating-linear-gradient(90deg, var(--birch) 0 1px, transparent 1px 58px);
+  box-shadow:inset 0 1px 0 rgba(228,177,67,.15),
+             0 1px 1px rgba(0,0,0,.22), 0 8px 22px -16px rgba(0,0,0,.5);
+}
+
+/* — тихая иерархия: заголовки вторых карточек не спорят с именем круга — */
+body.is-lived .card--today .card-head h2,body.is-lived .card--week .card-head h2,
+body.is-lived .card--road .card-head h2,body.is-lived .card--table .card-head h2,
+body.is-lived .card--butler .card-head h2,body.is-lived .card--invite .card-head h2,
+body.is-lived .card--next .card-head h2,body.is-lived .card--quest .card-head h2,
+body.is-lived .card--ask .card-head h2{font-weight:500}
+
+/* — тихая неделя: бумага вместо панели, отмеченное дело получает
+     золотой край, а не залитую плитку. Ни одна галочка не ставится
+     оформлением: светится только то, что отмечено по-настоящему — */
+body.is-lived .week-card{
+  background-image:linear-gradient(180deg, var(--rail), transparent 72px);
+  border-color:var(--divider);
+}
+body.is-lived .week-card b{font-weight:500}
+body.is-lived .week-card.is-done{
+  background:var(--tile);border-color:var(--seat);
+  box-shadow:inset 2px 0 0 rgba(228,177,67,.32);
+}
+body.is-dark.is-lived .week-card.is-done{
+  background:var(--tile);box-shadow:inset 2px 0 0 rgba(228,177,67,.26);
+}
+
+/* — дорога: зажжённая станция светит тише, погасшая остаётся
+     погасшей и пунктирной — прогресс не дорисовывается — */
+body.is-lived .road-stop b{font-weight:500}
+body.is-lived .road-stop.is-lit .rd-dot{box-shadow:0 0 0 3px rgba(228,177,67,.12)}
+
+/* — стол: занятое место ложится на бумагу, а не в залитую плитку;
+     свободное место остаётся тем же пунктирным приглашением — */
+body.is-lived .table-map .tb-top{fill:var(--tile)}
+body.is-lived .table-map .tb-grain{opacity:.26}
+body.is-lived .table-map .tb-taken .tb-c{fill:var(--tile);stroke:var(--seat)}
+body.is-lived .table-map .tb-card.is-filled{fill:var(--rail);stroke:var(--seat)}
+
+/* — шаги семьи: сделанный шаг подчёркнут краем, «готово» становится
+     тонкой линией вместо таблоидной пилюли. Текст не меняется — */
+body.is-lived .quests li.done{
+  background:var(--tile);border-color:var(--seat);
+  box-shadow:inset 2px 0 0 rgba(228,177,67,.32);
+}
+body.is-dark.is-lived .quests li.done{
+  background:var(--tile);box-shadow:inset 2px 0 0 rgba(228,177,67,.26);
+}
+body.is-lived .quests li.done::after{
+  background:transparent;border:1px solid var(--seat);padding:4px 8px;
+}
+body.is-lived .q-t b{font-weight:500}
+
+/* — вопрос на вечер: выбранный вопрос ложится на ту же бумагу — */
+body.is-lived .card--ask .chip{border-color:var(--divider)}
+body.is-lived .card--ask .chip.on{background:var(--rail);box-shadow:inset 0 0 0 1px var(--seat)}
+
+/* — дворецкий: та же бумага и тёплое кольцо у аватара.
+     Его слова не трогаем ни одной буквой — честность прежняя — */
+body.is-lived .but-ava{
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.4), 0 0 0 3px rgba(228,177,67,.12);
+}
+body.is-lived .card--butler .sum{border-top-color:var(--divider)}
+body.is-lived .card--butler .chips .chip{border-color:var(--divider)}
+body.is-lived .card--butler .notes li{border-top-color:var(--divider)}
+
+/* — набор приглашения остаётся тише имени круга и получает тот же
+     тонкий золотой край. Кнопки и пути «в один тап» не тронуты — */
+body.is-lived .inv-kit{box-shadow:inset 0 1px 0 rgba(228,177,67,.16)}
+body.is-lived .inv-kit-lab{color:var(--muted)}
+
+/* — пустое рядом с обжитым остаётся пустым: только тёплая бумага
+     под прежней пунктирной рамкой. Ни примера недели, ни выдуманной
+     станции, ни подсказанного шага — */
+body.is-lived .card--week .week-cards:empty,
+body.is-lived .card--road .road-stops:empty{background:transparent}
+
+/* — одно спокойное движение (мягкий подъём вторых карточек) гаснет,
+     если человек попросил меньше движения — */
+@media (prefers-reduced-motion:reduce){
+  body.is-lived .card--today,body.is-lived .card--week,body.is-lived .card--road,
+  body.is-lived .card--table,body.is-lived .card--butler,body.is-lived .card--invite,
+  body.is-lived .card--next,body.is-lived .card--quest,
+  body.is-lived .card--ask{animation:none!important}
+}
 </style>
 </head>
 <body>
