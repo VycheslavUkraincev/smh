@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>SaveMyHistory · Оплата (подготовка)</title>
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#efe8da; --card:#faf6ee;
+  --ink:#2b2620; --ink-2:#5c5347; --ink-3:#8a8073;
+  --line:#ddd3c1; --line-2:#cbbfa8;
+  --gold:#b3893f; --gold-soft:rgba(179,137,63,.28);
+  --green:#4f7a4a; --amber:#a8762a; --blue:#4a6b86; --grey:#8a8073; --red:#9c4f45;
+  --r:12px; --shadow:0 1px 2px rgba(43,38,32,.05),0 6px 18px rgba(43,38,32,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(1200px 480px at 50% -220px,rgba(179,137,63,.10),transparent 70%),
+    repeating-linear-gradient(90deg,rgba(43,38,32,.016) 0 1px,transparent 1px 3px);
+  color:var(--ink);
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+  padding:0 0 64px;
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.top{padding:26px 0 14px}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h1{font:600 26px/1.15 Cormorant Garamond,Georgia,"Times New Roman",serif;letter-spacing:.01em;margin:0}
+.brand .dot{color:var(--gold)}
+.purpose{margin:8px 0 0;color:var(--ink-2);font-size:14px;max-width:62ch}
+.meta{margin:6px 0 0;color:var(--ink-3);font-size:12.5px}
+.seam{height:1px;background:linear-gradient(90deg,transparent,var(--gold-soft) 18%,var(--gold-soft) 82%,transparent);margin:18px 0}
+section{margin:22px 0}
+h2{font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+   text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3);margin:0 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 15px;box-shadow:var(--shadow)}
+.card + .card{margin-top:10px}
+.card h3{margin:0 0 6px;font:600 15.5px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.card p{margin:6px 0 0;color:var(--ink-2);font-size:14px}
+.card p.small{font-size:13px;color:var(--ink-3)}
+
+.notice{
+  background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);
+  padding:15px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.notice::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)}
+.notice b{font-size:15.5px}
+.notice p{margin:7px 0 0;color:var(--ink-2);font-size:14px}
+
+.st{font-size:11.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
+  border:1px solid currentColor;border-radius:999px;padding:3px 9px;line-height:1.25;display:inline-block}
+.st.done{color:var(--green)}
+.st.in_progress{color:var(--blue)}
+.st.waiting_roman{color:var(--amber)}
+.st.backlog{color:var(--grey)}
+.tag{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 9px;line-height:1.25;display:inline-block;border:1px solid transparent}
+.tag.roman{background:rgba(168,118,42,.13);color:#8a6122;border-color:rgba(168,118,42,.28)}
+.tag.q{background:rgba(74,107,134,.13);color:#3d5b74;border-color:rgba(74,107,134,.28)}
+.tag.warn{background:rgba(156,79,69,.11);color:#8d463d;border-color:rgba(156,79,69,.26)}
+
+ol.check{margin:0;padding-left:0;list-style:none;counter-reset:c}
+ol.check li{counter-increment:c;position:relative;padding:10px 0 10px 34px;border-top:1px solid var(--line);font-size:14.5px}
+ol.check li:first-child{border-top:none}
+ol.check li::before{
+  content:counter(c);position:absolute;left:0;top:10px;
+  width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);
+  color:var(--ink-3);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;
+}
+ol.check li span{display:block;color:var(--ink-3);font-size:13px;margin-top:3px}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+th,td{text-align:left;padding:8px 9px;border-top:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;border-top:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.bad{color:#8d463d;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:720px){.grid.three{grid-template-columns:repeat(3,1fr)}}
+.sku{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow)}
+.sku .n{font:600 17px/1.2 Cormorant Garamond,Georgia,serif}
+.sku .price{margin-top:7px;font-size:13px;color:var(--ink-3);border-top:1px dashed var(--line-2);padding-top:7px}
+.sku .cogs{font-size:12.5px;color:var(--ink-2);margin-top:5px;font-variant-numeric:tabular-nums}
+
+footer{margin-top:26px;color:var(--ink-3);font-size:12.5px}
+footer a{color:var(--ink-2)}
+a.back{color:var(--ink-2);font-size:13.5px;text-decoration:none;border-bottom:1px solid var(--gold-soft)}
+a.back:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="brand">
+    <h1>Оплата<span class="dot">.</span></h1>
+    <span class="st backlog">внутренняя страница</span>
+  </div>
+  <p class="purpose">План платёжного трека SaveMyHistory: что делает Роман один раз, что делает Q после этого, и почему цену надо пересчитать до первой продажи.</p>
+  <p class="meta">17 августа 2026 · <a class="back" href="smh-ops.html">← Штаб</a></p>
+</header>
+
+<div class="notice">
+  <b>Оплата не подключена.</b>
+  <p>Нет аккаунта продавца, нет ключей, нет кассы. С этой страницы нельзя заплатить и здесь нет ни одной кнопки, которая берёт деньги. Это черновик для двоих, а не витрина.</p>
+</div>
+
+<div class="seam"></div>
+
+<section>
+  <h2>Главное за этот заход</h2>
+  <div class="card">
+    <h3>Старые цены пакетов ниже себестоимости <span class="tag warn">проверено счётом</span></h3>
+    <p>Они считались из расчёта $0.003 за фото. Сегодняшний коридор по API даёт $0.18-0.25 за фото, это в 60-83 раза больше. Каждая продажа по старому прайсу уводила бы в минус.</p>
+    <table>
+      <tr><th>Пакет</th><th>Цена</th><th>Себестоимость сейчас</th><th>Итог</th></tr>
+      <tr><td>Старт, 40 фото</td><td class="num">$2.99</td><td class="num">$7.20-10.00</td><td class="bad">−$4 … −$7</td></tr>
+      <tr><td>Альбом, 100 фото</td><td class="num">$4.99</td><td class="num">$18.00-25.00</td><td class="bad">−$13 … −$20</td></tr>
+      <tr><td>Семейный, 250 фото</td><td class="num">$9.99</td><td class="num">$45.00-62.50</td><td class="bad">−$35 … −$52</td></tr>
+    </table>
+    <p class="small">Стартовые 4 бесплатных кредита теперь стоят $0.72-1.00 на человека, а не полтора цента. Ничего не переписано: цена за Романом (задача L4).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Что делает Роман — один раз <span class="tag roman">Роман</span></h2>
+  <div class="card">
+    <ol class="check">
+      <li>Страна продавца
+        <span>Не где ты сейчас, а где можешь подтвердить адрес и счёт. От этого зависит всё остальное.</span></li>
+      <li>Кто продавец
+        <span>Физлицо, ФОП или компания.</span></li>
+      <li>Счёт для выплат
+        <span>В той же юрисдикции, что и продавец.</span></li>
+      <li>Описание бизнеса и адрес сайта
+        <span>savemyhistory.tech уже есть, это плюс при проверке.</span></li>
+      <li>Публичные условия и возвраты
+        <span>Провайдеры это смотрят. Тексты напишет Q, от Романа нужен только срок возврата.</span></li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Ключи — только файлом</h3>
+    <p>Когда аккаунт появится, секретный ключ и подпись вебхука кладутся файлом в секреты, как уже сделано с токеном бота. Ни одного ключа сообщением или скриншотом. Начать можно с тестовых ключей — ими нельзя списать ни одного реального доллара.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Где открывать — три варианта</h2>
+  <div class="card">
+    <h3>1. Stripe <span class="tag q">по умолчанию, если доступен</span></h3>
+    <p>Самая предсказуемая техника и самая дешёвая сборка со стороны Q: готовая страница оплаты, карты и чеки из коробки.</p>
+    <p class="small">Честное незнание: сторонние статьи утверждают, что для Украины Stripe аккаунты не открывает. На самом сайте Stripe это подтвердить не удалось, поэтому здесь это не записано как факт. Проверяется за две минуты в списке стран при регистрации.</p>
+  </div>
+  <div class="card">
+    <h3>2. Lemon Squeezy или Paddle</h3>
+    <p>Продавец по записи: юридически семье продаёт не Роман, а они, а выручку перечисляют. Большой плюс: они берут на себя НДС и налоги с продаж по странам — ту бумажную работу, которую Stripe с нас не снимает.</p>
+    <p class="small">Минус: комиссия выше и меньше контроля. Конкретные проценты здесь сознательно не написаны: в обзорах они расходятся, один из источников этим летом исправлял свои же цифры. Реальная ставка видна только в своём кабинете.</p>
+  </div>
+  <div class="card">
+    <h3>3. Украинские — WayForPay, Fondy, LiqPay</h3>
+    <p>Если первые покупатели будут украинцы и платить будут в гривне, это может оказаться проще всего остального.</p>
+    <p class="small">Глубоко этот путь в этот заход не изучался. Назван, чтобы не выглядело, будто вариантов только два.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Набросок SKU — форма, не цена</h2>
+  <div class="grid three">
+    <div class="sku">
+      <div class="n">Одно фото</div>
+      <div class="cogs">себестоимость $0.18-0.25</div>
+      <div class="price">цена не назначена</div>
+    </div>
+    <div class="sku">
+      <div class="n">Три фото</div>
+      <div class="cogs">себестоимость $0.54-0.75</div>
+      <div class="price">цена не назначена</div>
+    </div>
+    <div class="sku">
+      <div class="n">Десять фото</div>
+      <div class="cogs">себестоимость $1.80-2.50</div>
+      <div class="price">цена не назначена</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:10px">
+    <p>У любого провайдера есть фиксированная плата за каждую транзакцию. На дешёвом заказе она съедает неприличную долю, поэтому «одно фото» за маленькие деньги может выйти в минус даже при идеальной работе. Возможно, его честнее дарить, а не продавать.</p>
+    <p class="small">Открытые вопросы к Роману: продаём фотографии или готовый альбом целиком · в какой валюте показываем цену первой · остаются ли четыре бесплатных фото новичку.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Как это будет работать <span class="tag q">Q</span></h2>
+  <div class="card">
+    <p>Человек жмёт кнопку, платит на странице провайдера, провайдер стучится к нам и говорит «оплачено», и только после этого начисляются фото. Самое важное — начислить ровно один раз: провайдер может постучаться дважды, и семья не должна получить ни двойной счёт, ни ноль.</p>
+    <p>Два места для кнопки: кабинет на сайте и бот реставрации. Начать дешевле с бота — он единственный, кто уже реально возвращает человеку готовое фото.</p>
+    <p class="small">Почти всю сборку можно сделать и проверить до того, как появится аккаунт: у провайдеров есть тестовый режим с поддельными картами.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Задачи на доске</h2>
+  <div class="card">
+    <table>
+      <tr><th>№</th><th>Задача</th><th>Статус</th></tr>
+      <tr><td class="num">P1</td><td>Исследовать оплату под SMH</td><td><span class="st in_progress">В работе</span></td></tr>
+      <tr><td class="num">P2</td><td>Аккаунт продавца (Stripe или аналог)</td><td><span class="st waiting_roman">Ждёт Романа</span></td></tr>
+      <tr><td class="num">P3</td><td>Checkout → слот restore</td><td><span class="st backlog">Бэклог</span></td></tr>
+      <tr><td class="num">P4</td><td>Честные лимиты и квоты</td><td><span class="st waiting_roman">Ждёт Романа</span></td></tr>
+      <tr><td class="num">L4</td><td>Цена и первый SKU</td><td><span class="st waiting_roman">Ждёт Романа</span></td></tr>
+    </table>
+    <p class="small">P1 сдвинулась в «в работе», а не в «готово»: исследование сделано, но выбор провайдера ещё не сделан, а это решение Романа.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Две разные кассы</h2>
+  <div class="card">
+    <p>Энергия Portal — это то, что тратится, когда ассистент работает на Романа. Деньги, которые семья платит за восстановленную фотографию — совсем другая касса, другой провайдер и другой аккаунт, которого пока нет. Одно никогда не оплачивает другое.</p>
+  </div>
+</section>
+
+<div class="seam"></div>
+<footer>
+  <p>Внутренняя страница проекта: noindex, без аналитики, без сетевых запросов. Здесь нет кассы и не будет, пока оплата не подключена по-настоящему.</p>
+  <p><a class="back" href="smh-ops.html">← Штаб</a></p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -408,9 +408,9 @@
       "track": "payment",
       "title": "Исследовать Stripe/оплату под SMH (карта, webhook, SKU)",
       "owner": "q",
-      "status": "backlog",
+      "status": "in_progress",
       "priority": 1,
-      "note": "Ещё не начинали как продукт"
+      "note": "Исследование 17.08: Stripe/MoR/UA + набросок SKU. План на smh-pay.html. Выбор провайдера за Романом"
     },
     {
       "id": "P2",
