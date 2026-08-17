@@ -131,7 +131,11 @@
       "owner": "roman",
       "status": "waiting_roman",
       "priority": 2,
-      "note": "Пересчёт READY: себестоимость $0.18-0.25/фото, три варианта A/B/C на smh-pay.html. Ждём выбор Романа: A, B, C или свои цифры + валюта. Продавать рано: на recipe-level продукт ещё NOT_SELLABLE."
+      "note": "Пересчёт READY: $0.18-0.25/фото, варианты A/B/C на smh-price.html (+ пол на smh-pay). Ждём выбор Романа: A, B, C или свои числа/валюта.",
+      "links": [
+        "/smh-price.html",
+        "/smh-pay.html"
+      ]
     },
     {
       "id": "LD1",
@@ -410,7 +414,7 @@
       "owner": "q",
       "status": "in_progress",
       "priority": 1,
-      "note": "Исследование 17.08 сделано: Stripe/MoR/UA + пол цены и три варианта SKU на smh-pay.html. Выбор провайдера и цены за Романом"
+      "note": "Исследование 17.08: Stripe/MoR/UA + пол цены. SKU-вилка на smh-price.html. Выбор провайдера и цены за Романом."
     },
     {
       "id": "P2",
