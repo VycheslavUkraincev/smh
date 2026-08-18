@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-17",
+  "updated": "2026-08-18",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -399,10 +399,11 @@
       "owner": "q",
       "status": "waiting_go",
       "priority": 1,
-      "note": "Evidence сведён и LIVE: smh-quality.html — три прогона (canary 3, damage probe 5, живой MVP-B), 18 выдач, 36E. Damage PASS 4/10 = 0.40, лица 17/18, глаза 0 придуманных, цвет 5/5, вкусовой гейт Романа 0.25 (1 из 4). Рецепт-кандидат: flux2_max-first с оригинала. Остаётся NOT_SELLABLE: нужен устойчивый PASS на новом наборе и вкусовой гейт выше. Дальше — только по точной фразе с потолком.",
+      "note": "Evidence сведён и LIVE: smh-quality.html — три прогона (canary 3, damage probe 5, живой MVP-B), 18 выдач, 36E. Damage PASS 4/10 = 0.40, лица 17/18, глаза 0 придуманных, цвет 5/5, вкусовой гейт Романа 0.25 (1 из 4). Рецепт-кандидат: flux2_max-first с оригинала. Остаётся NOT_SELLABLE: нужен устойчивый PASS на новом наборе и вкусовой гейт выше. Дальше — только по точной фразе с потолком. Слепая переоценка на полном разрешении (0E) идёт 18.08, результата ещё нет.",
       "links": [
         "/smh-quality.html",
-        "/smh-launch.html"
+        "/smh-launch.html",
+        "/smh-desk.html"
       ]
     },
     {
@@ -533,9 +534,10 @@
       "owner": "q",
       "status": "done",
       "priority": 1,
-      "note": "Штаб LIVE на домене: smh-ops.html + data twin (tip 3b0e11c).",
+      "note": "Штаб LIVE на домене: smh-ops.html + data twin. Рядом стол задач smh-desk.html — те же статусы, развернутые как «на Q» и «на Романе», с точными фразами GO.",
       "links": [
-        "/smh-ops.html"
+        "/smh-ops.html",
+        "/smh-desk.html"
       ]
     },
     {
@@ -565,5 +567,6 @@
       "priority": 3,
       "note": "V1 40E / V2 raise 0E"
     }
-  ]
+  ],
+  "desk": "/smh-desk.html"
 }

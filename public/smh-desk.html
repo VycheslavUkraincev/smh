@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>SaveMyHistory · Стол задач</title>
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#efe8da; --card:#faf6ee;
+  --ink:#2b2620; --ink-2:#5c5347; --ink-3:#8a8073;
+  --line:#ddd3c1; --line-2:#cbbfa8;
+  --gold:#b3893f; --gold-soft:rgba(179,137,63,.28);
+  --green:#4f7a4a; --amber:#a8762a; --blue:#4a6b86; --grey:#8a8073; --red:#9c4f45;
+  --r:12px; --shadow:0 1px 2px rgba(43,38,32,.05),0 6px 18px rgba(43,38,32,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(1200px 480px at 50% -220px,rgba(179,137,63,.10),transparent 70%),
+    repeating-linear-gradient(90deg,rgba(43,38,32,.016) 0 1px,transparent 1px 3px);
+  color:var(--ink);
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+  padding:0 0 64px;
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+h1{font:600 28px/1.15 Cormorant Garamond,Georgia,"Times New Roman",serif;letter-spacing:-.02em;margin:0 0 8px}
+h2{font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+   text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3);margin:0 0 10px}
+.small{color:var(--ink-3);font-size:12.5px}
+.links a{color:var(--blue)}
+.seam{height:1px;background:linear-gradient(90deg,transparent,var(--gold-soft) 18%,var(--gold-soft) 82%,transparent);margin:18px 0}
+section{margin:22px 0}
+.lede{color:var(--ink-2);max-width:46em;margin:0}
+
+.st{font-size:11.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
+  border:1px solid currentColor;border-radius:999px;padding:3px 9px;line-height:1.25;display:inline-block}
+.st.live{color:var(--green)}
+.st.idle{color:var(--amber)}
+.st.blocked{color:var(--red)}
+.tag{font-size:11.5px;color:var(--ink-3);border:1px solid var(--line-2);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.tid{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;letter-spacing:.03em}
+
+.tally{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.tally .pill{font-size:12.5px;border:1px solid var(--line-2);border-radius:999px;padding:4px 11px;background:var(--card);color:var(--ink-2)}
+.tally .pill b{font-variant-numeric:tabular-nums}
+
+.chain{list-style:none;margin:0;padding:0;position:relative}
+.chain > li{position:relative;padding:0 0 12px 30px}
+.chain > li::before{content:"";position:absolute;left:9px;top:20px;bottom:-2px;width:1px;background:var(--line-2)}
+.chain > li:last-child::before{display:none}
+.chain > li > .dot{position:absolute;left:3px;top:15px;width:13px;height:13px;border-radius:50%;
+  border:1px solid var(--gold);background:rgba(179,137,63,.18)}
+.node{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;box-shadow:var(--shadow)}
+.node + .node{margin-top:10px}
+.node .head{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.node .step{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:12.5px;font-weight:600}
+.node h3{margin:0;font:600 16px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.node p{margin:7px 0 0;color:var(--ink-2);font-size:14px}
+.node p.why{color:var(--ink-3);font-size:13px}
+.node p.cost{color:var(--ink-3);font-size:12.5px}
+.node p.ask-line{color:var(--ink);font-size:14.5px}
+.node .go{margin-top:9px;font-size:13.5px}
+.node .go a{color:var(--blue)}
+.phrase{font-size:13px;color:var(--ink-3)}
+.phrase code{font-size:12.5px;color:var(--ink-2);background:rgba(179,137,63,.10);
+  border:1px solid var(--gold-soft);border-radius:6px;padding:2px 7px}
+
+.grid2{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:720px){.grid2{grid-template-columns:1fr 1fr}}
+.block{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow)}
+.block h3{margin:0 0 5px;font:600 15px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.block p{margin:6px 0 0;color:var(--ink-2);font-size:13.5px}
+.block .go{margin-top:8px;font-size:13px}
+.block .go a{color:var(--blue)}
+
+.ask{border:1px solid var(--gold-soft);background:linear-gradient(180deg,#fbf6ea,#f3ead6);padding:14px 16px;border-radius:var(--r)}
+.ask p{margin:8px 0 0}
+footer{margin-top:26px;color:var(--ink-3);font-size:12.5px}
+footer a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<header class="wrap" style="padding-top:28px;padding-bottom:8px">
+  <p class="small" style="margin:0 0 6px">Внутренний стол · не витрина · не checkout</p>
+  <h1>SaveMyHistory · Стол задач</h1>
+  <p class="lede">Одна страница на двоих. Слева от черты — то, что я делаю сам, без твоего слова и без денег. Справа — то, что можешь сдвинуть только ты: решение, вкус, доступ или руки. Каждый пункт назван честно, включая те, где я стою и жду.</p>
+  <div class="tally">
+    <span class="pill"><b>4</b> на мне сейчас</span>
+    <span class="pill"><b>16</b> на тебе</span>
+    <span class="pill"><b>5</b> у меня заблокировано</span>
+    <span class="pill"><b>28</b> закрыто всего</span>
+  </div>
+  <p class="links small" style="margin:12px 0 0"><a href="/smh-ops.html">Штаб</a> · <a href="/smh-launch.html">Контур запуска</a> · <a href="/smh-quality.html">Качество</a> · <a href="/smh-pay.html">Оплата</a> · <a href="/smh-price.html">Цены</a></p>
+</header>
+
+<main class="wrap">
+
+<div class="seam"></div>
+
+<section>
+  <h2>На мне · 4 без единого «да»</h2>
+  <p class="small" style="margin:0 0 10px">Ничего из этого не тратит денег, не делает новых реставраций и не открывает дверей наружу.</p>
+      <div class="node">
+        <div class="head"><h3>Слепая переоценка качества</h3><span class="st idle">идёт сейчас</span><span class="tid">A4</span></div>
+        <p>Пересматриваю вслепую уже существующие AFTER на полном разрешении: сначала ставлю оценку, потом сверяю со старой. Это единственный способ понять, был ли damage PASS 4/10 настоящим измерением или усталостью глаза.</p>
+        <p class="why">Идёт прямо сейчас, результата ещё нет. Цифры на странице качества останутся прежними, пока переоценка не закроется своим пакетом.</p>
+        <p class="cost">0E · без fal · ни одной новой реставрации</p>
+      </div>
+      <div class="node">
+        <div class="head"><h3>Этот стол</h3><span class="st live">готово</span></div>
+        <p>Страница, которую ты читаешь: всё, что на мне, и всё, что на тебе, в одном месте и с честными пометками, кто чем заблокирован.</p>
+        <p class="why">Обновляется из того же файла статусов, что и штаб, — руками цифры не пишу.</p>
+        <p class="cost">0E</p>
+      </div>
+      <div class="node">
+        <div class="head"><h3>Пакеты и канон</h3><span class="st live">постоянно</span></div>
+        <p>Держу evidence-файл качества, пакеты прогонов и партнёрский свод в актуальном виде, чтобы любую цифру можно было поднять до источника.</p>
+        <p class="why">Это архив и порядок, а не прогресс продукта.</p>
+        <p class="cost">0E</p>
+      </div>
+      <div class="node">
+        <div class="head"><h3>Операционная гигиена</h3><span class="st live">постоянно</span></div>
+        <p>Сверяю данные штаба с копией внутри страницы, проверяю, что все соседние страницы живы и локальная версия совпадает с доменом, обновляю пин задач.</p>
+        <p class="why">Главную, waitlist, redeem и кабинет не трогаю — это стоит на замке.</p>
+        <p class="cost">0E</p>
+      </div>
+</section>
+
+<section>
+  <h2>На мне, но стоит · 5</h2>
+  <p class="small" style="margin:0 0 10px">Код с моей стороны готов или почти готов. Это не медленность, а честный замок.</p>
+  <div class="grid2">
+      <div class="block">
+        <h3>Альбом на живой pipeline <span class="tid">C5</span></h3>
+        <p>Код готов принять, но любой настоящий вызов API — только по точной фразе. И до устойчивого качества это продавать нечестно.</p>
+      </div>
+      <div class="block">
+        <h3>Checkout и оплата <span class="tid">P3 · L2</span></h3>
+        <p>Некуда вести деньги: мерчанта нет. Пока нет аккаунта, любой checkout — это кнопка в пустоту.</p>
+      </div>
+      <div class="block">
+        <h3>Открыть приём фото у бота <span class="tid">TR7</span></h3>
+        <p>Intake закрыт намеренно. Пустить людей на рецепт, который держит PASS в четырёх случаях из десяти, — это раздать разочарование.</p>
+      </div>
+      <div class="block">
+        <h3>Вшить квоты в продукт <span class="tid">P4</span></h3>
+        <p>Отчёт по честным лимитам готов целиком, ждёт одного «да».</p>
+      </div>
+      <div class="block">
+        <h3>Layer B: синк, живой голос <span class="tid">TF6</span></h3>
+        <p>Нужен сервер, которого нет. Не начинаю, чтобы не строить в воздухе.</p>
+      </div>
+  </div>
+</section>
+
+<div class="seam"></div>
+
+<section>
+  <h2>На тебе · 16 просьб</h2>
+  <p class="small" style="margin:0 0 10px">По одной просьбе на пункт. Где нужна точная фраза — она напечатана целиком; формулировку можно менять, требование фразы остаётся.</p>
+  <ol class="chain">
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">01</span><h3>Цена и SKU</h3>
+          <span class="tag">Деньги</span><span class="tid">L4</span></div>
+        <p class="ask-line">Выбери A, B или C на странице цен — или назови свои числа. И валюту.</p>
+        <p class="why">Пересчёт готов: себестоимость $0.18–0.25 за фото, старые пакеты из CREDIT_FLOW уходят ниже неё. Без твоего выбора не из чего собирать первый товар.</p>
+        
+        <p class="go"><a href="/smh-price.html">Цены (черновик) →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">02</span><h3>Мерчант</h3>
+          <span class="tag">Деньги</span><span class="tid">P2</span></div>
+        <p class="ask-line">Скажи, где открываешь счёт — Stripe или аналог, и на какое лицо.</p>
+        <p class="why">Это единственная дверь, которую я не могу открыть за тебя ничем. Пока её нет, оплата остаётся NOT_CLAIMED, а checkout не имеет смысла.</p>
+        
+        <p class="go"><a href="/smh-pay.html">Оплата (план) →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">03</span><h3>Главная дверь</h3>
+          <span class="tag">Вкус</span><span class="tid">L1 · LD6</span></div>
+        <p class="ask-line">Назови одну страницу из L14–L24, которая ощущается как главная.</p>
+        <p class="why">Одиннадцать вариантов живут на домене и ждут вкуса. Мой фаворит — L17, но это мнение, а не решение. Подмена главной — отдельная точная фраза.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, ставим L17 главной</code></p>
+        <p class="go"><a href="/smh-landing-l17.html">L17 · святилище →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">04</span><h3>Позвать родных</h3>
+          <span class="tag">Продукт</span><span class="tid">TF4</span></div>
+        <p class="ask-line">Позови одного-двух родных в настоящий семейный круг.</p>
+        <p class="why">Самая дешёвая и самая честная проверка продукта из всех, что у нас есть. Ни один мой прогон не заменит живого человека, который не знает, куда нажимать.</p>
+        
+        <p class="go"><a href="/smh-family-game.html">Семейный вечер →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">05</span><h3>Проверка телефоном</h3>
+          <span class="tag">Продукт</span><span class="tid">TF5</span></div>
+        <p class="ask-line">Пройди на телефоне восемь шагов: вечер → полка → Архив → экран → назад.</p>
+        <p class="why">Ищу не баги, а место, где рука спотыкается. Скажи словами, где стало неловко.</p>
+        
+        <p class="go"><a href="/smh-family-game.html">Семейный вечер →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">06</span><h3>Пять решений по кабинету</h3>
+          <span class="tag">Продукт</span><span class="tid">C4</span></div>
+        <p class="ask-line">Ответь на пять продуктовых вопросов из карточки вкуса.</p>
+        <p class="why">Кабинет живой как макет, но пять развилок в нём я закрыл своим вкусом временно. Твои ответы превращают макет в продукт.</p>
+        
+        <p class="go"><a href="/smh-cabinet-mock.html">Кабинет (макет) →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">07</span><h3>Широкая проверка damage</h3>
+          <span class="tag">Качество</span><span class="tid">A5</span></div>
+        <p class="ask-line">Дай точную фразу на прогон по новым фото — или скажи ждать.</p>
+        <p class="why">Сейчас PASS 4 из 10, и это на четырёх фотографиях. Настоящий процент узнаётся только на новом наборе. Это единственный платный шаг, который я рекомендую сегодня.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, damage probe до 10 фото, потолок 40E</code></p>
+        <p class="go"><a href="/smh-quality.html">Качество (evidence) →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">08</span><h3>Живой прогон бота</h3>
+          <span class="tag">Качество</span><span class="tid">TR6</span></div>
+        <p class="ask-line">Если хочешь ещё один живой прогон — точная фраза с числом фото и потолком.</p>
+        <p class="why">Бот работает, GATE-3 закрыт. Просто без фразы с потолком я не трачу ни одной единицы.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, TG restore bot MVP-B живой прогон, до N фото, потолок XE</code></p>
+        
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">09</span><h3>Открыть приём у бота</h3>
+          <span class="tag">Запуск</span><span class="tid">TR7</span></div>
+        <p class="ask-line">Скажи, открываем ли intake для настоящих людей — и с каким потолком.</p>
+        <p class="why">Моя рекомендация: не открывать, пока damage не станет устойчивым. Открыть можно за минуту, вернуть первое впечатление — нельзя.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, открываем intake, LIVE_CALLS on, потолок XE</code></p>
+        <p class="go"><a href="/smh-launch.html">Контур запуска →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">10</span><h3>Тихая волна</h3>
+          <span class="tag">Запуск</span><span class="tid">CP3</span></div>
+        <p class="ask-line">Скажи, рассылаем ли первую волну приглашений и сколько.</p>
+        <p class="why">Сто кодов выпущены, redeem проверен сквозняком, ты сам его подтвердил. Волна не разослана: EXECUTED = N. Повторно коды не выпускаю.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, тихая волна, N приглашений</code></p>
+        
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">11</span><h3>Альбом на живой pipeline</h3>
+          <span class="tag">Запуск</span><span class="tid">C5</span></div>
+        <p class="ask-line">Когда качество устроит — одна фраза, и альбом перестаёт быть витриной.</p>
+        <p class="why">Интерфейс альбома готов и намеренно ни к чему не подключён. Честнее держать его пустым, чем показывать реставрацию, за которую стыдно.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, альбом на живой pipeline</code></p>
+        <p class="go"><a href="/smh-album.html">Альбом →</a></p>
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">12</span><h3>Честные квоты</h3>
+          <span class="tag">Запуск</span><span class="tid">P4</span></div>
+        <p class="ask-line">Одно «да» — и лимиты dual-gate уезжают в продукт.</p>
+        <p class="why">Отчёт готов давно и лежит без движения. Сам не ставлю: это видимое правило для человека, а не внутренняя настройка.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, ставим квоты в продукт</code></p>
+        
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">13</span><h3>Таймер на машине</h3>
+          <span class="tag">Хост</span><span class="tid">TR5 · O3</span></div>
+        <p class="ask-line">Поставь ensure-таймер на своей машине — рецепт готов, займёт минуту.</p>
+        <p class="why">Из песочницы я до твоего хоста не дотягиваюсь физически. Без таймера воркер бота не переживает перезагрузку.</p>
+        
+        
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">14</span><h3>Старый GitHub-токен</h3>
+          <span class="tag">Хост</span><span class="tid">O2</span></div>
+        <p class="ask-line">Отзови старый write-токен в настройках GitHub.</p>
+        <p class="why">Пуш давно идёт без него, origin чистый. Токен просто продолжает существовать, и это единственная его функция.</p>
+        
+        
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">15</span><h3>Настоящие соцссылки</h3>
+          <span class="tag">Хост</span><span class="tid">LD7</span></div>
+        <p class="ask-line">Дай реальные адреса — YouTube, VK, X, Facebook, если они есть.</p>
+        <p class="why">В подвале страниц сейчас только Telegram и Instagram. Остальные я не придумываю: выдуманная ссылка в подвале хуже пустого места.</p>
+        
+        
+      </div>
+    </li>
+    <li>
+      <span class="dot"></span>
+      <div class="node">
+        <div class="head"><span class="step">16</span><h3>GPU bake-off</h3>
+          <span class="tag">Хост</span><span class="tid">G2</span></div>
+        <p class="ask-line">Если хочешь померить свой GPU-путь — точная фраза с потолком.</p>
+        <p class="why">Стоит на NO_RENT и никуда не убегает. Пока API-путь дешевле и честнее, трогать не предлагаю.</p>
+        <p class="phrase">Точная фраза (пример): <code>да, bake-off Path A, потолок $1.50</code></p>
+        
+      </div>
+    </li>
+  </ol>
+</section>
+
+<div class="seam"></div>
+
+<section>
+  <h2>Закрыто в этот заход</h2>
+  <div class="grid2">
+      <div class="block">
+        <h3>Контур запуска сведён <span class="tid">L3</span></h3>
+        <p>Восемь узлов от waitlist до бота, каждый с честной пометкой LIVE / PARTIAL / BLOCKED и причиной.</p>
+        <p class="go"><a href="/smh-launch.html">Контур запуска →</a></p>
+      </div>
+      <div class="block">
+        <h3>Штаб на домене <span class="tid">O4</span></h3>
+        <p>Пятьдесят задач по трекам, владелец и статус у каждой. Этот стол — его вторая половина.</p>
+        <p class="go"><a href="/smh-ops.html">Штаб →</a></p>
+      </div>
+      <div class="block">
+        <h3>Исследование оплаты закрыто <span class="tid">P1</span></h3>
+        <p>Stripe / MoR / Украина, пол цены от себестоимости, вилка SKU. Дальше нужен уже не поиск, а твой выбор.</p>
+        <p class="go"><a href="/smh-pay.html">Оплата (план) →</a></p>
+      </div>
+      <div class="block">
+        <h3>Пересчёт цены готов <span class="tid">L4</span></h3>
+        <p>Три варианта A / B / C посчитаны от реальной себестоимости и ждут выбора — это ask №1 выше, а не закрытый пункт.</p>
+        <p class="go"><a href="/smh-price.html">Цены (черновик) →</a></p>
+      </div>
+      <div class="block">
+        <h3>Гейт продаваемости на домене <span class="tid">A4</span></h3>
+        <p>18 выдач, 4 фотографии, 36E. Вердикт NOT_SELLABLE напечатан, а не смягчён: damage PASS 0.40, вкусовой гейт 1 из 4.</p>
+        <p class="go"><a href="/smh-quality.html">Качество (evidence) →</a></p>
+      </div>
+      <div class="block">
+        <h3>Партнёрский свод <span class="tid">PR2</span></h3>
+        <p>Вечерний стек и партнёрские материалы собраны в один читаемый вид в хранилище.</p>
+        
+      </div>
+  </div>
+</section>
+
+<section>
+  <div class="ask">
+    <strong>Если выбрать одно</strong>
+    <p>Из шестнадцати просьб по-настоящему держат запуск две: цена и мерчант. Всё остальное можно двигать после них. Если сегодня есть силы на один ответ — пусть это будет A, B или C на странице цен.</p>
+  </div>
+</section>
+
+<footer class="wrap" style="padding:0">
+  <div class="seam"></div>
+  <p class="small">Источник статусов: smh-ops-data.json · страница внутренняя, noindex · ничего не продаёт и не списывает · оплата NOT_CLAIMED · рецепт NOT_SELLABLE · обновлено 2026-08-18</p>
+  <p class="small links"><a href="/smh-ops.html">Штаб</a> · <a href="/smh-launch.html">Контур запуска</a> · <a href="/smh-quality.html">Качество</a> · <a href="/smh-pay.html">Оплата</a> · <a href="/smh-price.html">Цены</a></p>
+</footer>
+
+</main>
+</body>
+</html>
