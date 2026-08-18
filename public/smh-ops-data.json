@@ -399,7 +399,7 @@
       "owner": "q",
       "status": "waiting_go",
       "priority": 1,
-      "note": "Evidence + blind regrade READY: smh-quality.html. Blind 18 AFTER: damage agree 7/13 (0.538), blind_pass 1 vs prior_pass 4; faces agree 17/18; invent_eyes FIND 2 on live A; overall agree 0.833. VERDICT still NOT_SELLABLE. spend_E=0.",
+      "note": "Evidence + blind regrade + разбор глаз READY: smh-quality.html. Blind 18 AFTER: damage agree 7/13 (0.538), blind_pass 1 vs prior_pass 4; faces 17/18; overall 0.833. Разбор 60C7/A от 2026-08-18 (чтение, 0E, без fal): invent_eyes NOT CONFIRMED — взгляд, веки и геометрия совпадают с источником; подтверждена дорисовка — блик на 4 глазах и уплотнённый край радужки, на цвете сверху назначенный цвет радужки. Порог «строго 0» не взят. VERDICT still NOT_SELLABLE. spend_E=0.",
       "links": [
         "/smh-quality.html",
         "/smh-launch.html",
