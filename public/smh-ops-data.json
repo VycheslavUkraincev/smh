@@ -399,7 +399,7 @@
       "owner": "q",
       "status": "waiting_go",
       "priority": 1,
-      "note": "Evidence сведён и LIVE: smh-quality.html — три прогона (canary 3, damage probe 5, живой MVP-B), 18 выдач, 36E. Damage PASS 4/10 = 0.40, лица 17/18, глаза 0 придуманных, цвет 5/5, вкусовой гейт Романа 0.25 (1 из 4). Рецепт-кандидат: flux2_max-first с оригинала. Остаётся NOT_SELLABLE: нужен устойчивый PASS на новом наборе и вкусовой гейт выше. Дальше — только по точной фразе с потолком. Слепая переоценка на полном разрешении (0E) идёт 18.08, результата ещё нет.",
+      "note": "Evidence + blind regrade READY: smh-quality.html. Blind 18 AFTER: damage agree 7/13 (0.538), blind_pass 1 vs prior_pass 4; faces agree 17/18; invent_eyes FIND 2 on live A; overall agree 0.833. VERDICT still NOT_SELLABLE. spend_E=0.",
       "links": [
         "/smh-quality.html",
         "/smh-launch.html",
