@@ -413,7 +413,11 @@
       "owner": "roman",
       "status": "waiting_go",
       "priority": 3,
-      "note": ""
+      "note": "Готов к запуску, не запущен. Точная фраза: «да, damage probe до 10 фото, потолок 40E». План: 10 незнакомых фото, flux2_max-first, потолок 40E жёсткий, invent_eyes=N, повтор одного фото дважды на устойчивость. Ранбук: SMH_DAMAGE_PROBE_10_CEIL40_RUNBOOK.md. Энергия открыта — это не GO.",
+      "links": [
+        "/smh-quality.html",
+        "/smh-desk.html"
+      ]
     },
     {
       "id": "P1",
