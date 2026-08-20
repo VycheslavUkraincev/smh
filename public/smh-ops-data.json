@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-20T11:21Z",
+  "updated": "2026-08-20T11:42Z",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -399,7 +399,7 @@
       "owner": "q",
       "status": "waiting_go",
       "priority": 1,
-      "note": "Гейт продаваемости НЕ взят. После damage-10 (FACE 2/10, eyes_overdrawn 10/10) и face-preserve: R1 FACE 5/10 → R2 FACE 8/10, seam 10→3, ECC mean_cc=0.913 — IMPROVED_PROOF, не sellable. Глаза структурно N внутри маски; слабые P01 (задний ряд) и P10 (ручная коробка). Следующий платный слой — A7 inpaint вне лица (схема готова) только по точной фразе; или деньги L4/P2 параллельно. Остаток 18E не трогать без нового GO. NOT_SELLABLE держан.",
+      "note": "Гейт продаваемости НЕ взят. После damage-10 (FACE 2/10, eyes_overdrawn 10/10) и face-preserve: R1 FACE 5/10 → R2 FACE 8/10, seam 10→3, ECC mean_cc=0.913 — IMPROVED_PROOF, не sellable. Глаза структурно · R3 seam schema READY 20.08 (docs); execute waiting Roman GO. NOT_SELLABLE.",
       "links": [
         "/smh-quality.html",
         "/smh-launch.html",
@@ -455,7 +455,7 @@
       "owner": "both",
       "status": "waiting_go",
       "priority": 2,
-      "note": "A8 работа ЗАКРЫТА 20.08 11:20 (task smh_a8_pixel_eye_r2). Vision-глаз AUTH_BLOCKED (401 invalid_organization, 2 попытки, дальше не жёг) — вместо него локальный пиксельный замер 10/10, spend_E=0. Личность чистая и теперь измерена: ядро лица = оригинальные пиксели 10/10 (MAD 0.28-1.26 к BEFORE), invent_eyes=N 10/10, глаза не дорисованы 10/10 (вклад AI в глаза 0.0%). Блокер назван точно: шов. seam_risk средний 8.5/10, потолок 10.0 на 5/10 (P10 перепад яркости 72.7, P01 38.1); FACE пиксель PASS 1/10 против структурных 7/10. P01/P10/P06 возвращают крап внутрь лица. NOT_SELLABLE держится, A4 не двигается. NO fal · остаток 18E не тронут. R3-доводка шва = 0E без генерации, худшие P10/P01/P02/P03/P05. Ждёт вкус Романа или GO на R3. Паки: SMH_A8_PIXEL_EYE_R2_*.",
+      "note": "A8 измерения ЗАКРЫТЫ 20.08 (pixel-eye + fold tip a3ca1b3 на quality/desk). Vision AUTH_BLOCKED; локально: ORIGINAL 10/10 · invent_eyes N 10/10 · FACE pixel PASS 1/10 · seam mean 8.5. R3 schema READY (docs only, 0E): SMH_A8_R3_SEAM_SCHEMA_FREE_20260820.md. Execute needs exact `да, R3 шов локально, 0E, без fal`. A4 не сдвинут. NOT_SELLABLE.",
       "links": [
         "/smh-quality.html",
         "/smh-desk.html",
