@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-20T12:40Z",
+  "updated": "2026-08-20T15:20Z",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -399,7 +399,7 @@
       "owner": "q",
       "status": "waiting_go",
       "priority": 1,
-      "note": "Гейт продаваемости НЕ взят. После damage-10 (FACE 2/10, eyes_overdrawn 10/10) и face-preserve: R1 FACE 5/10 → R2 FACE 8/10, seam 10→3, ECC mean_cc=0.913 — IMPROVED_PROOF, не sellable. Держим NOT_SELLABLE: глаза структурно + шов A8 (seam mean 8.5) — названный блок. R3 seam schema READY 20.08 (docs, tip `5114c55`); execute ждёт точный GO Романа. NOT_SELLABLE.",
+      "note": "Гейт продаваемости НЕ взят. После damage-10 (FACE 2/10, eyes_overdrawn 10/10) и face-preserve: R1 FACE 5/10 → R2 FACE 8/10, seam 10→3, ECC mean_cc=0.913 — IMPROVED_PROOF, не sellable. Держим NOT_SELLABLE: глаза структурно + шов A8 (seam mean 8.5) — названный блок. R3 seam schema READY 20.08 (docs, tip `5114c55`); execute ждёт точный GO Романа. NOT_SELLABLE. Гибрид A7 20.08 — ещё один IMPROVED_PROOF на 3 фото, гейт не взят: узкий inpaint по абсолютной чистоте не обойдён, глазами не смотрели. A4 остаётся waiting_go, NOT_SELLABLE.",
       "links": [
         "/smh-quality.html",
         "/smh-launch.html",
@@ -441,7 +441,7 @@
       "owner": "q",
       "status": "done",
       "priority": 2,
-      "note": "ДОКУМЕНТЫ ЗАКРЫТЫ 20.08 (FREE, 0E, fal=0). Схема: SMH_A7_INPAINT_SCHEMA_FREE_20260820.md. Контракт: generative fill только ВНЕ лица; face ROI запрещён; invent_eyes=N · EYES_OVERDRAW_LOCK · NO catchlight invent · HARD BAN pd_02/6fe4644f. Кандидаты endpoint: fal-ai FLUX Fill Pro (mask_url) и Ideogram V3 Edit (mask_url) — оба ранее SKIP без harness; проверка уважения маски = needs probe GO. Живой прогон НЕ начат. Каноническая фраза: «да, inpaint вне лица до 3 фото, потолок 8E». Остаток 18E ≠ разрешение. Композит R2 уже IMPROVED_PROOF; inpaint — следующий платный слой только по фразе.",
+      "note": "ДОКУМЕНТЫ ЗАКРЫТЫ 20.08 (FREE, 0E, fal=0). Схема: SMH_A7_INPAINT_SCHEMA_FREE_20260820.md. Контракт: generative fill только ВНЕ лица; face ROI запрещён; invent_eyes=N · EYES_OVERDRAW_LOCK · NO catchlight invent · HARD BAN pd_02/6fe4644f. Кандидаты endpoint: fal-ai FLUX Fill Pro (mask_url) и Ideogram V3 Edit (mask_url) — оба ранее SKIP без harness; проверка уважения маски = needs probe GO. Живой прогон НЕ начат. Каноническая фраза: «да, inpaint вне лица до 3 фото, потолок 8E». Остаток 18E ≠ разрешение. Композит R2 уже IMPROVED_PROOF; inpaint — следующий платный слой только по фразе. ГИБРИД 20.08 (FREE, 0E, fal=0): узкая маска → ремонт бумаги → вклейка лица из R2 → зерно. P01/P02/P10: грязь в маске ниже R2 3/3, лицо = скан (corr к R2 0.987-0.998), зерно ~1.0; узкий по абсолютной грязи не обойдён 0/3, P10 остаток 14% и шов хуже базы. Vision 401 — глазами никто не смотрел. VERDICT IMPROVED_PROOF, NOT_SELLABLE держится. Пакеты RESULT+ROMAN+GRADES+VERIFY · workdir damage_hybrid_20260820/. Остаток 18E не тронут.",
       "links": [
         "/smh-quality.html",
         "/smh-ops.html",
@@ -455,7 +455,7 @@
       "owner": "both",
       "status": "waiting_go",
       "priority": 2,
-      "note": "A8 измерения ЗАКРЫТЫ 20.08 (pixel-eye + fold tip a3ca1b3 на quality/desk). Vision AUTH_BLOCKED; локально: ORIGINAL 10/10 · invent_eyes N 10/10 · FACE pixel PASS 1/10 · seam mean 8.5. R3 seam schema READY — tip `5114c55`, docs only, 0E: SMH_A8_R3_SEAM_SCHEMA_FREE_20260820.md. Execute needs exact `да, R3 шов локально, 0E, без fal` — «продолжай» ≠ GO. A4 не сдвинут. NOT_SELLABLE. Остаток 18E не тронут, fal=0.",
+      "note": "A8 измерения ЗАКРЫТЫ 20.08 (pixel-eye + fold tip a3ca1b3 на quality/desk). Vision AUTH_BLOCKED; локально: ORIGINAL 10/10 · invent_eyes N 10/10 · FACE pixel PASS 1/10 · seam mean 8.5. R3 seam schema READY — tip `5114c55`, docs only, 0E: SMH_A8_R3_SEAM_SCHEMA_FREE_20260820.md. Execute needs exact `да, R3 шов локально, 0E, без fal` — «продолжай» ≠ GO. A4 не сдвинут. NOT_SELLABLE. Остаток 18E не тронут, fal=0. Гибрид A7 20.08 сведён в quality/desk (0E): шов лица лучше базы на P01/P02, хуже на P10 — R3 по-прежнему ждёт точной фразы.",
       "links": [
         "/smh-quality.html",
         "/smh-desk.html",
