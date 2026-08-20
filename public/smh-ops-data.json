@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-20T11:17Z",
+  "updated": "2026-08-20T11:21Z",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -453,9 +453,9 @@
       "track": "api_restore",
       "title": "Оценка композита (R1+R2) + пересдача гейта продаваемости",
       "owner": "both",
-      "status": "in_progress",
+      "status": "waiting_go",
       "priority": 2,
-      "note": "IN_FLIGHT 20.08: pixel-eye R2 composites (task smh_a8_pixel_eye_r2). Structural R2: FACE 8/10 · ECC 10/10 · IMPROVED_PROOF. Vision may 401 → structural+image grades. NO fal · leftover 18E untouched · NOT_SELLABLE held. После пака: решить A4 или ждать вкус/inpaint GO.",
+      "note": "A8 работа ЗАКРЫТА 20.08 11:20 (task smh_a8_pixel_eye_r2). Vision-глаз AUTH_BLOCKED (401 invalid_organization, 2 попытки, дальше не жёг) — вместо него локальный пиксельный замер 10/10, spend_E=0. Личность чистая и теперь измерена: ядро лица = оригинальные пиксели 10/10 (MAD 0.28-1.26 к BEFORE), invent_eyes=N 10/10, глаза не дорисованы 10/10 (вклад AI в глаза 0.0%). Блокер назван точно: шов. seam_risk средний 8.5/10, потолок 10.0 на 5/10 (P10 перепад яркости 72.7, P01 38.1); FACE пиксель PASS 1/10 против структурных 7/10. P01/P10/P06 возвращают крап внутрь лица. NOT_SELLABLE держится, A4 не двигается. NO fal · остаток 18E не тронут. R3-доводка шва = 0E без генерации, худшие P10/P01/P02/P03/P05. Ждёт вкус Романа или GO на R3. Паки: SMH_A8_PIXEL_EYE_R2_*.",
       "links": [
         "/smh-quality.html",
         "/smh-desk.html",
@@ -634,7 +634,7 @@
     "waiting_roman": 12,
     "backlog": 3,
     "done": 32,
-    "waiting_go": 6,
-    "in_progress": 1
+    "waiting_go": 7,
+    "in_progress": 0
   }
 }
