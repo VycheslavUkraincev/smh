@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-20T15:52:00Z",
+  "updated": "2026-08-20T16:08Z",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -134,7 +134,7 @@
       "owner": "roman",
       "status": "waiting_roman",
       "priority": 2,
-      "note": "ТОП-1 деньги. tip money 3b75270 LIVE. A/B/C на smh-price.html или свои числа+валюта. Себестоимость $0.18–0.25/фото. Оплата НЕ live. | ТОП-1. После R2+A7 (20.08) качество FREE закрыто: композит FACE 8/10 + схема inpaint на диске. Жду слово Романа по цене/SKU: A / B / C на smh-price.html (tip 49750c8) или свои числа и валюту. Себестоимость API $0.18–0.25/фото — старые CREDIT_FLOW убыточны. Оплата НЕ подключена; это предложение, не живой SKU. Живой inpaint только по точной фразе `да, inpaint вне лица до 3 фото, потолок 8E` — «продолжай» ≠ GO. Остаток 18E не разрешение на fal.",
+      "note": "После P4 (0318c9c). ТОП-1 деньги. tip money 3b75270 + price 49750c8 LIVE. A/B/C на smh-price.html или свои числа+валюта. Себестоимость $0.18–0.25/фото. Оплата НЕ подключена. Страницы не выкатываем без выбора Roman.",
       "links": [
         "/smh-price.html",
         "/smh-pay.html"
@@ -496,7 +496,7 @@
       "owner": "roman",
       "status": "waiting_roman",
       "priority": 1,
-      "note": "ТОП-2 merchant. Stripe или UA-аналог. Без аккаунта P3/L2 стоят. Карта: smh-pay.html + ROMAN_SMH_PAYMENT_STRIPE_PREP. | ТОП-2. После R2+A7 качество FREE на паузе у Романа. Нужен аккаунт мерчанта — Stripe или работающий для Украины аналог. Пока его нет, P3 и L2 стоят, любой checkout — кнопка в пустоту. Карта подготовки: ROMAN_SMH_PAYMENT_STRIPE_PREP_FREE_20260817.md · smh-pay.html. Portal Energy ≠ биллинг SMH. Не утверждать оплату подключённой."
+      "note": "После P4. ТОП-2 merchant. Stripe или UA-аналог. Без аккаунта P3/L2 стоят. Карта: smh-pay.html + ROMAN payment prep. Не invent checkout."
     },
     {
       "id": "P3",
@@ -514,7 +514,7 @@
       "owner": "q",
       "status": "done",
       "priority": 2,
-      "note": "SHIPPED 2026-08-20 tip pending: FIX-1 i18n (unknown locale→ru) + FIX-2 upload/create согласованы по живым заказам (used_quota больше не жёсткий блокер). DRY SMH-R7IBCF не тронут. remint=N · fal=0."
+      "note": "SHIPPED_LIVE 2026-08-20 tip 0318c9c: FIX-1 i18n (unknown locale→ru) + FIX-2 upload/create согласованы по живым non-failed заказам. DRY SMH-R7IBCF не тронут. remint=N · fal=0 · spend_E=0."
     },
     {
       "id": "CP1",
