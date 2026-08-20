@@ -433,7 +433,11 @@ async def upload_url(request: Request, authorization: str = Header(None)):
     if not (redeemed or free_quota > 0):
         raise HTTPException(403, "invite_required")
     if free_quota > 0 and used_quota >= free_quota:
-        raise HTTPException(402, "free_limit_reached")
+        rows = await db("GET", "restorations",
+                        params={"user_id": f"eq.{user['id']}",
+                                "status": "neq.failed", "select": "id"})
+        if len(rows or []) >= free_quota:
+            raise HTTPException(402, "free_limit_reached")
     body = await request.json()
     ext = (body.get("ext") or "jpg").lower().lstrip(".")
     if ext not in {"jpg", "jpeg", "png", "tiff", "webp", "heic"}:
@@ -625,8 +629,7 @@ async def create_restoration(request: Request, authorization: str = Header(None)
     redeemed = profile.get("redeemed_code")
     if not (redeemed or free_quota > 0):
         raise HTTPException(403, "invite_required")
-    if free_quota > 0 and used_quota >= free_quota:
-        raise HTTPException(402, "free_limit_reached")
+    # P4 ship: used_quota alone no longer hard-blocks here — live non-failed rows below do.
     existing = await db("GET", "restorations",
                         params={"user_id": f"eq.{user['id']}", "status": "neq.failed", "select": "id"})
     used = len(existing or [])

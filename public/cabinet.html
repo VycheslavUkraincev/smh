@@ -487,7 +487,7 @@ async function start(){
   bind();
   let l='ru';try{l=localStorage.getItem('smh_lang')||(navigator.language||'').slice(0,2);}catch(e){}
   if(l==='uk')l='ua';
-  if(!I18N[l])l='en'; applyLang(l);
+  if(!I18N[l])l=(/^en/i.test(navigator.language||'')?'en':'ru'); applyLang(l);
   // Ловим возврат от Google: токен прилетает в #access_token=...
   const wantContinue = location.hash==='#continue' || /(?:^|[&#])continue(?:&|$)/.test(location.hash||'');
   if(location.hash && location.hash.indexOf('access_token')>-1){
