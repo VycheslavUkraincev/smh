@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-20T11:42Z",
+  "updated": "2026-08-20T12:04Z",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -514,7 +514,7 @@
       "owner": "q",
       "status": "waiting_roman",
       "priority": 2,
-      "note": "Dual-gate i18n отчёт READY. Ship только после явного «да». | Отчёт по честным лимитам и квотам (dual-gate i18n) READY целиком. Ship только после явного «да» — сам не выкачу."
+      "note": "Paste-ready 20.08: FIX-1 i18n (unknown locale→ru) + FIX-2 согласовать замки A/B (только ослабляет; за упавшее фото квота не сгорает). Ship ТОЛЬКО после явного «да». Отчёт 17.08 READY. DRY SMH-R7IBCF не трогать. | Dual-gate i18n отчёт READY. Ship только после явного «да». | Отчёт по честным лимитам и квотам (dual-gate i18n) READY целиком. Ship только после явного «да» — сам не выкачу."
     },
     {
       "id": "CP1",
