@@ -315,6 +315,16 @@ footer a{color:var(--ink-2)}
         <div><dt>Источник</dt><dd>SMH_DAMAGE_PROBE_10_CEIL40_RESULT.txt · GRADES.json</dd></div>
       </dl>
     </div>
+    <div class="run">
+      <div class="head"><h3>Face-preserve композит · круг 2 (FREE)</h3><span class="st weak">FACE PASS 8/10 · IMPROVED_PROOF</span></div>
+      <p class="why">Бесплатный тюнинг масок + ECC-выравнивание поверх круга 1. Три плохие маски починены, FAIL ушёл, шов упал с 10/10 до 3/10. Это лучшеe доказательство пути, не проход гейта продаваемости.</p>
+      <dl class="kv">
+        <div><dt>FACE</dt><dd>PASS 8/10 · WEAK 2/10 (P01, P10) · FAIL 0/10 (было 5 / 4 / 1)</dd></div>
+        <div><dt>Align</dt><dd>ECC euclidean face ROI · 10/10 · mean_cc 0.913 · MAD↑ 10/10</dd></div>
+        <div><dt>Locks</dt><dd>eyes_overdrawn N · invent_eyes N структурно 10/10 · spend 0E · leftover 18E</dd></div>
+        <div><dt>Вердикт</dt><dd>NOT_SELLABLE · IMPROVED_PROOF · packs RESULT+ROMAN+GRADES · A9 done</dd></div>
+      </dl>
+    </div>
 </section>
 
 <div class="seam"></div>
@@ -456,14 +466,14 @@ footer a{color:var(--ink-2)}
   <p class="small" style="margin:0 0 10px">Ничего из этого не запущено. Это список того, что можно сказать — я жду точную фразу и не начинаю без неё.</p>
   <div class="grid2">
     <div class="block">
-      <h3><code>да, face-preserve композит на 3 фото, потолок 8E</code> <span class="tag rec">рекомендую</span></h3>
-      <p>Фон и бумагу берём из damage-выдачи, лицо возвращаем из оригинала мягкой маской, блики только исходные. Бьёт ровно в те две оси, которые валят гейт, и не трогает то, что уже работает. План: SMH_RECIPE_PIVOT_FACE_MASK_FREE_20260819.md</p>
-      <p class="small">Расход: ≤ 8E · часть работы (сборка маски и композита) вообще без fal</p>
+      <h3><code>ещё</code> · мелкий FREE-тюнинг масок</h3>
+      <p>Композит круг 2 уже сделан FREE (FACE 8/10, ECC). Дальнейший тюнинг — только по слову «ещё»; отдача уже падает. План: SMH_RECIPE_PIVOT_FACE_MASK_FREE_20260819.md · R2 packs.</p>
+      <p class="small">Расход: 0E · без fal</p>
     </div>
     <div class="block">
-      <h3><code>да, маска лица inpaint на 3 фото, потолок 8E</code></h3>
-      <p>Не пускать модель в лицо совсем: чинить только повреждённые области вне лица. Проще композита, но не спасёт кадры, где порча лежит прямо на лице.</p>
-      <p class="small">Расход: ≤ 8E</p>
+      <h3><code>да, inpaint вне лица до 3 фото, потолок 8E</code> <span class="tag rec">рекомендую</span></h3>
+      <p>Схема A7 уже на диске (документы FREE). Живой прогон: fill только вне лица; face ROI запрещён; invent_eyes=N · EYES_OVERDRAW_LOCK. Кандидаты mask_url — Fill Pro / Ideogram V3 Edit (нужна проверка уважения маски).</p>
+      <p class="small">Расход: ≤ 8E · остаток 18E сам по себе не GO · SMH_A7_INPAINT_SCHEMA_FREE_20260820.md</p>
     </div>
     <div class="block">
       <h3><code>да, CodeFormer preprocess на фото A, потолок 10E</code></h3>

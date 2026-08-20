@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-20",
+  "updated": "2026-08-20T10:28Z",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -399,7 +399,7 @@
       "owner": "q",
       "status": "waiting_go",
       "priority": 1,
-      "note": "Гейт продаваемости не взят — но теперь по широкому замеру, а не по выборке из четырёх. Damage probe 10 / потолок 40E закрыта 19.08: 22E из 40, выдач 10/10, damage PASS 7/10, WEAK 2/10, FAIL 1/10, FACE PASS 2/10, invent_eyes 0/10, eyes_overdrawn 10/10, AFTER≈BEFORE 0/10, BW breach P05. S1 damage 3/5 и FACE 1/5; S2 damage 4/5 и FACE 1/5. Тяжёлые и лёгкие дают damage PASS 3/3, средние 1/4. Диагноз сменился и это главное: грязь снимается сильно, ломается ИДЕНТИЧНОСТЬ — лицо перерисовывается вместо починки, глазам добавляются блики и уплотняется радужка, дорисовываются вещи (ожерелье P01, шорты P02, ремень и сабля P10). Поэтому следующий шаг — не повтор flux2_max в одиночку, а смена рецепта: план в SMH_RECIPE_PIVOT_FACE_MASK_FREE_20260819.md (face-preserve композит / маска лица), fal только по новой точной фразе. Предыстория остаётся в силе: blind 18 AFTER — damage agree 7/13 (0.538), blind_pass 1 против prior_pass 4, faces 17/18, overall 0.833; разбор 60C7/A от 18.08 — invent_eyes NOT CONFIRMED, дорисовка подтверждена. VERDICT still NOT_SELLABLE. В этом заходе spend_E=0. Обновление 20.08: путь к рецепту сменился на композит, не на повтор flux2_max. Первый бесплатный круг композита идёт прямо сейчас (A6, 0E, без fal) на тех же десяти парах BEFORE/AFTER, которые уже лежат на диске. Пока его выдачи не оценены, A4 остаётся waiting_go и NOT_SELLABLE=Y — остаток 18E от прошлого потолка разрешением не считается, любой новый платный вызов только по новой точной фразе с потолком.",
+      "note": "Гейт продаваемости НЕ взят. После damage-10 (FACE 2/10, eyes_overdrawn 10/10) и face-preserve: R1 FACE 5/10 → R2 FACE 8/10, seam 10→3, ECC mean_cc=0.913 — IMPROVED_PROOF, не sellable. Глаза структурно N внутри маски; слабые P01 (задний ряд) и P10 (ручная коробка). Следующий платный слой — A7 inpaint вне лица (схема готова) только по точной фразе; или деньги L4/P2 параллельно. Остаток 18E не трогать без нового GO. NOT_SELLABLE держан.",
       "links": [
         "/smh-quality.html",
         "/smh-launch.html",
@@ -439,22 +439,37 @@
       "track": "api_restore",
       "title": "Схема inpaint-маски (только документы, FREE)",
       "owner": "q",
-      "status": "backlog",
-      "priority": 3,
-      "note": "Второй путь из плана пивота, лежит и ждёт. Пока это только схема и документы за 0E: модель вообще не пускается в лицо, чинятся только повреждённые области вне его. Живьём не начинаю: нужно либо слово «inpaint» от Романа на бесплатную проработку схемы вперёд A6, либо новая точная фраза с потолком на платный прогон — ориентир не больше 3 фото и не больше 8E. Остаток 18E от закрытого потолка разрешением не считается.",
+      "status": "done",
+      "priority": 2,
+      "note": "ДОКУМЕНТЫ ЗАКРЫТЫ 20.08 (FREE, 0E, fal=0). Схема: SMH_A7_INPAINT_SCHEMA_FREE_20260820.md. Контракт: generative fill только ВНЕ лица; face ROI запрещён; invent_eyes=N · EYES_OVERDRAW_LOCK · NO catchlight invent · HARD BAN pd_02/6fe4644f. Кандидаты endpoint: fal-ai FLUX Fill Pro (mask_url) и Ideogram V3 Edit (mask_url) — оба ранее SKIP без harness; проверка уважения маски = needs probe GO. Живой прогон НЕ начат. Каноническая фраза: «да, inpaint вне лица до 3 фото, потолок 8E». Остаток 18E ≠ разрешение. Композит R2 уже IMPROVED_PROOF; inpaint — следующий платный слой только по фразе.",
       "links": [
         "/smh-quality.html",
-        "/smh-ops.html"
+        "/smh-ops.html",
+        "/smh-desk.html"
       ]
     },
     {
       "id": "A8",
       "track": "api_restore",
-      "title": "Оценка композита круга 1 + пересдача гейта продаваемости",
+      "title": "Оценка композита (R1+R2) + пересдача гейта продаваемости",
       "owner": "both",
       "status": "waiting_go",
       "priority": 2,
-      "note": "A6 outs landed. Next: pixel-eye when vision auth works, or Roman taste on composites; then decide if A4 can move. Still exact GO for any new fal. Structural pass is NOT sellable gate.",
+      "note": "R2 structural ready 20.08: FACE 8/10 · ECC 10/10 · IMPROVED_PROOF. Ждём pixel-eye (vision auth) или вкус Романа по композитам r2d; потом решение по A4. Структурный PASS ≠ sellable gate. Любой новый fal — только точная фраза.",
+      "links": [
+        "/smh-quality.html",
+        "/smh-desk.html",
+        "/smh-ops.html"
+      ]
+    },
+    {
+      "id": "A9",
+      "track": "api_restore",
+      "title": "Face-preserve композит, круг 2 (FREE)",
+      "owner": "q",
+      "status": "done",
+      "priority": 1,
+      "note": "ЗАКРЫТА 20.08. Круг 2: маски + ECC-выравнивание, 0E, fal=0. FACE PASS 8/10 (было 5), WEAK 2/10 (P01/P10), FAIL 0/10. seam_risk 3/10 (было 10). ECC euclidean на face ROI 10/10, mean_cc=0.913, MAD↑ 10/10. Маски: P05 0.508→0.218, P10 0.005→0.045, P09 0.386→0.050 (1 лицо), P06 6/6, P01 8 лиц. eyes_overdrawn N / invent_eyes N структурно 10/10. IMPROVED_PROOF, NOT_SELLABLE держан. Остаток 18E не тронут. Пакеты RESULT+ROMAN+GRADES + workdir damage_composite_20260820_r2/.",
       "links": [
         "/smh-quality.html",
         "/smh-desk.html",
