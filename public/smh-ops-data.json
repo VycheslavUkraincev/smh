@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-20T10:50Z",
+  "updated": "2026-08-20T11:05Z",
   "product": "SaveMyHistory",
   "domain": "https://savemyhistory.tech",
   "owners": {
@@ -300,7 +300,7 @@
       "owner": "roman",
       "status": "waiting_roman",
       "priority": 2,
-      "note": "ТОП-4 из твоего списка (вместе с O3). HOST_TIMER.md готов целиком; из песочницы таймер поставить нельзя — нужен один запуск на твоей машине, иначе ensure бота не переживает перезагрузку."
+      "note": "ТОП-4. Paste-ready 20.08: две строки crontab (или systemd examples). HOST_TIMER.md + host_ensure.example.cron на диске. Песочница без crontab/systemd. ensure=0E, LIVE_CALLS не включает. Soft-wave tip 41a7276 LIVE; CP3 waiting_go. Жду «таймер стоит» или другой fork."
     },
     {
       "id": "TR6",
@@ -586,7 +586,7 @@
       "owner": "roman",
       "status": "waiting_roman",
       "priority": 2,
-      "note": "ТОП-4 из твоего списка (вместе с TR5). Рецепт готов, ставится только на хосте."
+      "note": "ТОП-4 с TR5. Тот же paste-ready блок 20.08. Только хост. OpenClaw agentTurn ensure запрещён (1E/тик)."
     },
     {
       "id": "O4",
