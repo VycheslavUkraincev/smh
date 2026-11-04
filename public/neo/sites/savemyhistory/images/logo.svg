@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" role="img" aria-label="SaveMyHistory">
+  <!-- Mark: stylized family tree, charcoal with one gold node -->
+  <g stroke="#222222" stroke-width="10" stroke-linecap="round" fill="none">
+    <line x1="80" y1="140" x2="80" y2="74"/>
+    <line x1="80" y1="100" x2="42" y2="64"/>
+    <line x1="80" y1="100" x2="118" y2="64"/>
+    <line x1="80" y1="74" x2="56" y2="44"/>
+    <line x1="80" y1="74" x2="104" y2="44"/>
+  </g>
+  <circle cx="80" cy="30" r="17" fill="#c9a227"/>
+  <circle cx="42" cy="52" r="13" fill="#222222"/>
+  <circle cx="118" cy="52" r="13" fill="#222222"/>
+  <circle cx="56" cy="32" r="11" fill="#222222"/>
+  <circle cx="104" cy="32" r="11" fill="#222222"/>
+  <!-- Wordmark -->
+  <text x="150" y="98" font-family="Georgia, 'Times New Roman', serif" font-size="58" fill="#222222" letter-spacing="0.5">SaveMyHistory</text>
+</svg>
